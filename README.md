@@ -1,1 +1,1 @@
-# hidemaru-net
+# 秀丸.net のサイト構築用のデータ
