@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ヘッダー ファイル">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="秀丸本体のexeの関数やバージョン">
+      <UniqueIdentifier>{1b7b3027-9a42-4a17-9218-a75e72813a9b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Perlの変数の「取得・設定」へのフック関数定義">
+      <UniqueIdentifier>{af71975d-4189-4dd2-9946-82080011a392}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="秀丸マクロとのAPI Interface">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="ActivePerlのPerlEzのコネクト部分">
+      <UniqueIdentifier>{1a5149ff-76cf-4c03-897b-914ec2004cb3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="秀丸デバッグモニター表示用">
+      <UniqueIdentifier>{ff66611e-f9ca-4580-ad4b-235ef951bada}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="文字列の相互変換 cp932⇔utf16⇔utf8">
+      <UniqueIdentifier>{9d86c5ca-f444-4e9e-8040-17f4c7ac8a37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="このhmPerl.dll自身の情報">
+      <UniqueIdentifier>{7e28a5f3-28cb-4c17-abdf-27bbeff65b5e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="convert_string.cpp">
+      <Filter>文字列の相互変換 cp932⇔utf16⇔utf8</Filter>
+    </ClCompile>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>このhmPerl.dll自身の情報</Filter>
+    </ClCompile>
+    <ClCompile Include="self_dll_info.cpp">
+      <Filter>このhmPerl.dll自身の情報</Filter>
+    </ClCompile>
+    <ClCompile Include="hidemaruexe_expot.cpp">
+      <Filter>秀丸本体のexeの関数やバージョン</Filter>
+    </ClCompile>
+    <ClCompile Include="dllfunc_interface.cpp">
+      <Filter>秀丸マクロとのAPI Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="perlez_engine.cpp">
+      <Filter>ActivePerlのPerlEzのコネクト部分</Filter>
+    </ClCompile>
+    <ClCompile Include="perlez_magical_scalar.cpp">
+      <Filter>Perlの変数の「取得・設定」へのフック関数定義</Filter>
+    </ClCompile>
+    <ClCompile Include="dllfunc_interface_internal.cpp">
+      <Filter>秀丸マクロとのAPI Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="output_debugstream.cpp">
+      <Filter>秀丸デバッグモニター表示用</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="convert_string.h">
+      <Filter>文字列の相互変換 cp932⇔utf16⇔utf8</Filter>
+    </ClInclude>
+    <ClInclude Include="self_dll_info.h">
+      <Filter>このhmPerl.dll自身の情報</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="hidemaruexe_export.h">
+      <Filter>秀丸本体のexeの関数やバージョン</Filter>
+    </ClInclude>
+    <ClInclude Include="dllfunc_interface.h">
+      <Filter>秀丸マクロとのAPI Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="perlez_engine.h">
+      <Filter>ActivePerlのPerlEzのコネクト部分</Filter>
+    </ClInclude>
+    <ClInclude Include="perlez_magical_scalar.h">
+      <Filter>Perlの変数の「取得・設定」へのフック関数定義</Filter>
+    </ClInclude>
+    <ClInclude Include="dllfunc_interface_internal.h">
+      <Filter>秀丸マクロとのAPI Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="output_debugstream.h">
+      <Filter>秀丸デバッグモニター表示用</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="hmPerl.rc">
+      <Filter>リソース ファイル</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="PerlEz.lib">
+      <Filter>このhmPerl.dll自身の情報</Filter>
+    </Library>
+  </ItemGroup>
+</Project>
