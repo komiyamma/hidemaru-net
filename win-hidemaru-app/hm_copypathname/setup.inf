@@ -66,5 +66,5 @@ MENUPATHCOPY="フルパスをコピー"
 ;CMDNAMECOPY="HmCopyPathName -n ""%1"""
 CMDPATHCOPY="HmCopyPathName ""%1"""
 SMWCUG="Software\Microsoft\Windows\CurrentVersion\Uninstall\HmCopyPathName"
-TITLE="HmCopyPathName ver1.01"
+TITLE="HmCopyPathName ver1.001"
 
