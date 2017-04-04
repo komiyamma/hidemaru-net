@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <Import Project="..\packages\MSBuildTasks.1.4.0.65\tools\MSBuild.Community.Tasks.Targets" Condition="Exists('..\packages\MSBuildTasks.1.4.0.65\tools\MSBuild.Community.Tasks.Targets')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{09AEBB35-719E-4E32-9836-F57D7D6F1607}</ProjectGuid>
+    <OutputType>Module</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Neo.IronLua</RootNamespace>
+    <AssemblyName>Neo.Lua</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <DocumentationFile>
+    </DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;UNSAFE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <DocumentationFile>
+    </DocumentationFile>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="hmLmStaticLib\hmLmDllPathResolver.cs" />
+    <Compile Include="Lua\Exceptions.cs" />
+    <Compile Include="hmLmStaticLib\hmLmHidemaru.cs" />
+    <Compile Include="hmLmStaticLib\hmLmStaticLib.cs" />
+    <Compile Include="Lua\printf.cs" />
+    <Compile Include="Lua\Lexer.cs" />
+    <Compile Include="Lua\Lua.Binder.cs" />
+    <Compile Include="Lua\Lua.cs" />
+    <Compile Include="Lua\Lua.Libraries.cs" />
+    <Compile Include="Lua\Lua.Runtime.cs" />
+    <Compile Include="Lua\LuaDebug.cs" />
+    <Compile Include="Lua\LuaEmit.cs" />
+    <Compile Include="Lua\LuaResult.cs" />
+    <Compile Include="Lua\LuaType.cs" />
+    <Compile Include="Lua\LuaFile.cs" />
+    <Compile Include="Lua\LuaGlobal.cs" />
+    <Compile Include="Lua\LuaChunk.cs" />
+    <Compile Include="Lua\LuaTable.cs" />
+    <Compile Include="Lua\Parser.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\AssemblyInfoGlobal.cs" />
+    <Compile Include="Lua\ResourceString.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Lua\Parser.Emit.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 および x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.4.5">
+      <Visible>False</Visible>
+      <ProductName>Windows インストーラー 4.5
+</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <Target Name="ZipLua" Condition=" '$(Configuration)' == 'Release' ">
+    <CreateItem Include="$(TargetDir)\Neo.Lua.*;$(TargetDir)\de\*">
+      <Output ItemName="ZipFile" TaskParameter="Include" />
+    </CreateItem>
+    <Zip Files="@(ZipFile)" WorkingDirectory="$(TargetDir)" ZipFileName="$(TargetDir)\NeoLua-$(Version).zip" />
+  </Target>
+  <Target Name="NuGet" Condition=" '$(Configuration)' == 'Release' ">
+    <Exec Command="c:\Projects\Bin\NuGet.exe pack NeoLua.nuspec -OutputDirectory $(TargetDir) -Version $(Version)" />
+    <Exec Command="c:\Projects\Bin\NuGet.exe push $(TargetDir)NeoLua.$(Version).nupkg" />
+  </Target>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.-->
+  <Target Name="BeforeBuild">
+    <ReadLinesFromFile File="Properties\AssemblyInfo.cs">
+      <Output TaskParameter="Lines" ItemName="AssemblyInfoContent" />
+    </ReadLinesFromFile>
+    <ReadLinesFromFile File="Properties\AssemblyInfoGlobal.cs">
+      <Output TaskParameter="Lines" ItemName="AssemblyInfoGlobalContent" />
+    </ReadLinesFromFile>
+    <PropertyGroup>
+      <AssemblyInfoLines>@(AssemblyInfoContent)</AssemblyInfoLines>
+      <AssemblyInfoGlobalLines>@(AssemblyInfoGlobalContent)</AssemblyInfoGlobalLines>
+    </PropertyGroup>
+    <PropertyGroup>
+      <Pattern2>\[assembly: AssemblyConfiguration\(.(\w*)</Pattern2>
+      <AssemblyConfig>$([System.Text.RegularExpressions.Regex]::Match($(AssemblyInfoLines), $(Pattern2)))</AssemblyConfig>
+      <VersionAdd>$(AssemblyConfig.Remove(0, 34))</VersionAdd>
+    </PropertyGroup>
+    <PropertyGroup>
+      <Pattern1>\[assembly: AssemblyFileVersion\(.(\d+)\.(\d+)\.(\d+)</Pattern1>
+      <AssemblyVersionLine>$([System.Text.RegularExpressions.Regex]::Match($(AssemblyInfoGlobalLines), $(Pattern1)))</AssemblyVersionLine>
+      <Version Condition="'$(VersionAdd)' != ''">$(AssemblyVersionLine.Remove(0, 32))-$(VersionAdd)</Version>
+      <Version Condition="'$(VersionAdd)' == ''">$(AssemblyVersionLine.Remove(0, 32))</Version>
+    </PropertyGroup>
+    <Message Text="Version: $(Version)" />
+  </Target>
+  <Target Name="AfterBuild" DependsOnTargets="ZipLua;NuGet">
+  </Target>
+</Project>
