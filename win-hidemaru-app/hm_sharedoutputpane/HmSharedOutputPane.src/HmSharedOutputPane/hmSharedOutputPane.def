@@ -1,0 +1,9 @@
+LIBRARY HmSharedOutputPane
+
+SECTIONS
+    HM_SHARED_OUTPUT_PANE_SEG READ WRITE SHARED
+
+EXPORTS
+	SetSharedMessage
+	SetHidemaruHandle
+	SetWithClearTime
