@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="リソース">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+    <Filter Include="文字列・コード変換">
+      <UniqueIdentifier>{15939ca1-3a27-48aa-ad23-0ac98fdcfab9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="文字列・正規表現・鬼車">
+      <UniqueIdentifier>{2fb3cd1e-6888-4a8e-9d81-81feb4b04677}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="文字列・コード判定">
+      <UniqueIdentifier>{eaa520c0-66e5-4713-8d50-a8ccc275988e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="文字列・正規表現・鬼車\サードライブラリ">
+      <UniqueIdentifier>{307e7368-be6c-4279-8919-db0f9f5ee158}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="フォーム">
+      <UniqueIdentifier>{fc4996d2-92a5-4c79-bf01-6fe592ef76ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="プロセス判定">
+      <UniqueIdentifier>{5414161a-7764-4026-b27e-4a4552c95b22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DbgMonitorの制御コア部">
+      <UniqueIdentifier>{526daa42-4d6f-4679-a6be-88130bbc5cab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="コンポーネント-受信ボタン">
+      <UniqueIdentifier>{9717ce51-b9d9-49d5-830d-eb89b3757261}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="コンポーネント-クリアボタン">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="コンポーネント-絞り込み">
+      <UniqueIdentifier>{ab279704-b98c-4200-8d68-bacc645b8022}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="コンポーネント-ログ表示部">
+      <UniqueIdentifier>{f129aa56-505b-4e71-8187-001d2fd77c74}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ClearButton.cpp">
+      <Filter>コンポーネント-クリアボタン</Filter>
+    </ClCompile>
+    <ClCompile Include="UTF8_to SJIS.cpp">
+      <Filter>文字列・コード変換</Filter>
+    </ClCompile>
+    <ClCompile Include="UTF16_to_SJIS.cpp">
+      <Filter>文字列・コード変換</Filter>
+    </ClCompile>
+    <ClCompile Include="OnigRegex.cpp">
+      <Filter>文字列・正規表現・鬼車</Filter>
+    </ClCompile>
+    <ClCompile Include="NMH.cpp">
+      <Filter>文字列・コード判定</Filter>
+    </ClCompile>
+    <ClCompile Include="HmDebugMonitorForm.cpp">
+      <Filter>フォーム</Filter>
+    </ClCompile>
+    <ClCompile Include="GetProcess.cpp">
+      <Filter>プロセス判定</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugMonitor.cpp">
+      <Filter>DbgMonitorの制御コア部</Filter>
+    </ClCompile>
+    <ClCompile Include="RecieveButton.cpp">
+      <Filter>コンポーネント-受信ボタン</Filter>
+    </ClCompile>
+    <ClCompile Include="TextBox.cpp">
+      <Filter>コンポーネント-絞り込み</Filter>
+    </ClCompile>
+    <ClCompile Include="TextLabel.cpp">
+      <Filter>コンポーネント-絞り込み</Filter>
+    </ClCompile>
+    <ClCompile Include="RegexBox.cpp">
+      <Filter>コンポーネント-ログ表示部</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="resource.h">
+      <Filter>リソース</Filter>
+    </ClInclude>
+    <ClInclude Include="UTF16_to_SJIS.h">
+      <Filter>文字列・コード変換</Filter>
+    </ClInclude>
+    <ClInclude Include="UTF8_to_SJIS.h">
+      <Filter>文字列・コード変換</Filter>
+    </ClInclude>
+    <ClInclude Include="oniguruma\onigconfig.h">
+      <Filter>文字列・正規表現・鬼車\サードライブラリ</Filter>
+    </ClInclude>
+    <ClInclude Include="oniguruma\oniggnu.h">
+      <Filter>文字列・正規表現・鬼車\サードライブラリ</Filter>
+    </ClInclude>
+    <ClInclude Include="oniguruma\onigposix.h">
+      <Filter>文字列・正規表現・鬼車\サードライブラリ</Filter>
+    </ClInclude>
+    <ClInclude Include="oniguruma\oniguruma.h">
+      <Filter>文字列・正規表現・鬼車\サードライブラリ</Filter>
+    </ClInclude>
+    <ClInclude Include="oniguruma\regenc.h">
+      <Filter>文字列・正規表現・鬼車\サードライブラリ</Filter>
+    </ClInclude>
+    <ClInclude Include="oniguruma\regint.h">
+      <Filter>文字列・正規表現・鬼車\サードライブラリ</Filter>
+    </ClInclude>
+    <ClInclude Include="oniguruma\regparse.h">
+      <Filter>文字列・正規表現・鬼車\サードライブラリ</Filter>
+    </ClInclude>
+    <ClInclude Include="oniguruma\st.h">
+      <Filter>文字列・正規表現・鬼車\サードライブラリ</Filter>
+    </ClInclude>
+    <ClInclude Include="OnigRegex.h">
+      <Filter>文字列・正規表現・鬼車</Filter>
+    </ClInclude>
+    <ClInclude Include="NMH.h">
+      <Filter>文字列・コード判定</Filter>
+    </ClInclude>
+    <ClInclude Include="HmDebugMonitorForm.h">
+      <Filter>フォーム</Filter>
+    </ClInclude>
+    <ClInclude Include="GetProcess.h">
+      <Filter>プロセス判定</Filter>
+    </ClInclude>
+    <ClInclude Include="ClearButton.h">
+      <Filter>コンポーネント-クリアボタン</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugMonitor.h">
+      <Filter>DbgMonitorの制御コア部</Filter>
+    </ClInclude>
+    <ClInclude Include="RecieveButton.h">
+      <Filter>コンポーネント-受信ボタン</Filter>
+    </ClInclude>
+    <ClInclude Include="TextBox.h">
+      <Filter>コンポーネント-絞り込み</Filter>
+    </ClInclude>
+    <ClInclude Include="TextLabel.h">
+      <Filter>コンポーネント-絞り込み</Filter>
+    </ClInclude>
+    <ClInclude Include="RegexBox.h">
+      <Filter>コンポーネント-ログ表示部</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="HmDebugMonitor.rc">
+      <Filter>リソース</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="oniguruma.lib">
+      <Filter>文字列・正規表現・鬼車\サードライブラリ</Filter>
+    </Library>
+  </ItemGroup>
+</Project>
