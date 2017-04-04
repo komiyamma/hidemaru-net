@@ -1,0 +1,210 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D2382D2C-6576-4D96-B6CD-057C4F6BED96}</ProjectGuid>
+    <OutputType>module</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Microsoft.ClearScript</RootNamespace>
+    <AssemblyName>hmJSStaticLib</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <OutputPath>..\bin\Debug\</OutputPath>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <ErrorReport>prompt</ErrorReport>
+    <DebugType>full</DebugType>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <OutputPath>..\bin\Release\</OutputPath>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <ErrorReport>prompt</ErrorReport>
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="Exists('$(SolutionDir)ClearScript.snk')">
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>$(SolutionDir)ClearScript.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CustomMarshalers" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="hmJSStaticLib\hmJSConsole.cs" />
+    <Compile Include="hmJSStaticLib\hmJSDllPathResolver.cs" />
+    <Compile Include="hmJSStaticLib\hmJSHidemaru.cs" />
+    <Compile Include="hmJSStaticLib\hmJSStaticLib.cs" />
+    <Compile Include="JS\CanonicalRefTable.cs" />
+    <Compile Include="JS\ContinuationCallback.cs" />
+    <Compile Include="JS\ImmutableValueAttribute.cs" />
+    <Compile Include="JS\HostItemCollateral.cs" />
+    <Compile Include="JS\HostItemFlags.cs" />
+    <Compile Include="JS\HostTargetMemberData.cs" />
+    <Compile Include="JS\HostTargetFlags.cs" />
+    <Compile Include="JS\IScriptableObject.cs" />
+    <Compile Include="JS\BindSignature.cs" />
+    <Compile Include="JS\IScriptEngineException.cs" />
+    <Compile Include="JS\DefaultScriptUsageAttribute.cs" />
+    <Compile Include="JS\JavaScript\IArrayBuffer.cs" />
+    <Compile Include="JS\JavaScript\IArrayBufferView.cs" />
+    <Compile Include="JS\JavaScript\IDataView.cs" />
+    <Compile Include="JS\JavaScript\ITypedArray.cs" />
+    <Compile Include="JS\NoDefaultScriptAccessAttribute.cs" />
+    <Compile Include="JS\NoScriptAccessAttribute.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AssemblyInfo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="JS\ScriptAccess.cs" />
+    <Compile Include="JS\ScriptEngineException.cs" />
+    <Compile Include="JS\ScriptInterruptedException.cs" />
+    <Compile Include="JS\ScriptMemberFlags.cs" />
+    <Compile Include="JS\ScriptMethod.cs" />
+    <Compile Include="JS\ScriptMemberAttribute.cs" />
+    <Compile Include="JS\ScriptUsageAttribute.cs" />
+    <Compile Include="JS\Util\AssemblyHelpers.cs" />
+    <Compile Include="JS\Util\Collateral.cs" />
+    <Compile Include="JS\Util\COMDispatchHelpers.cs" />
+    <Compile Include="JS\Util\CoTaskMemBlock.cs" />
+    <Compile Include="JS\Util\DisposedFlag.cs" />
+    <Compile Include="JS\HostList.cs" />
+    <Compile Include="JS\Util\INativeCallback.cs" />
+    <Compile Include="JS\Util\IHostInvokeContext.cs" />
+    <Compile Include="JS\Util\NativeCallbackTimer.cs" />
+    <Compile Include="JS\Util\NativeMethods.cs" />
+    <Compile Include="JS\Util\COMDispatch.cs" />
+    <Compile Include="JS\Util\IScriptMarshalWrapper.cs" />
+    <Compile Include="JS\Util\MemberHelpers.cs" />
+    <Compile Include="JS\Util\MemberMap.cs" />
+    <Compile Include="JS\Util\Scope.cs" />
+    <Compile Include="JS\Util\SocketHelpers.cs" />
+    <Compile Include="JS\Util\SpecialDispIDs.cs" />
+    <Compile Include="JS\Util\UnmanagedMemoryHelpers.cs" />
+    <Compile Include="JS\Util\VTablePatcher.cs" />
+    <Compile Include="JS\Windows\IHostWindow.cs" />
+    <Compile Include="JS\Windows\WindowsScriptEngineFlags.cs" />
+    <Compile Include="JS\Util\IDynamic.cs" />
+    <Compile Include="JS\Util\SpecialMemberNames.cs" />
+    <Compile Include="JS\Util\SpecialParamNames.cs" />
+    <Compile Include="JS\Windows\WindowsScriptItem.cs" />
+    <Compile Include="JS\HostIndexedProperty.cs" />
+    <Compile Include="JS\HostMethod.cs" />
+    <Compile Include="JS\ScriptEngine.cs" />
+    <Compile Include="JS\Windows\ActiveXWrappers.cs" />
+    <Compile Include="JS\DelegateFactory.cs" />
+    <Compile Include="JS\DelegateFactory.Generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DelegateFactory.tt</DependentUpon>
+    </Compile>
+    <Compile Include="JS\HostTypeCollection.cs" />
+    <Compile Include="JS\Util\ArrayHelpers.cs" />
+    <Compile Include="JS\Util\AssemblyTable.cs" />
+    <Compile Include="JS\Util\DynamicHelpers.cs" />
+    <Compile Include="JS\Util\EnumerableHelpers.cs" />
+    <Compile Include="JS\Util\InvokeHelpers.cs" />
+    <Compile Include="JS\ByRefArg.cs" />
+    <Compile Include="JS\ExtensionMethods.cs" />
+    <Compile Include="JS\HostFunctions.cs" />
+    <Compile Include="JS\HostEvent.cs" />
+    <Compile Include="JS\HostItem.InvokeMethod.cs" />
+    <Compile Include="JS\HostObject.cs" />
+    <Compile Include="JS\HostTarget.cs" />
+    <Compile Include="JS\Windows\ActiveXDebugging.cs" />
+    <Compile Include="JS\Windows\ActiveXScripting.cs" />
+    <Compile Include="JS\HostItem.cs" />
+    <Compile Include="JS\HostVariable.cs" />
+    <Compile Include="JS\Windows\JScriptEngine.cs" />
+    <None Include="JS\Exports\CallbackManager.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CallbackManager.h</LastGenOutput>
+    </None>
+    <None Include="Properties\AssemblyInfo.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AssemblyInfo.cs</LastGenOutput>
+    </None>
+    <Compile Include="JS\PropertyBag.cs" />
+    <Compile Include="JS\Windows\WindowsScriptEngine.cs" />
+    <Compile Include="JS\Windows\WindowsScriptEngine.Debug.cs" />
+    <Compile Include="JS\ScriptItem.cs" />
+    <Compile Include="JS\Windows\WindowsScriptEngine.Site.cs" />
+    <Compile Include="JS\HostType.cs" />
+    <Compile Include="JS\Util\MiscHelpers.cs" />
+    <Compile Include="JS\Util\Nonexistent.cs" />
+    <Compile Include="JS\Util\ObjectHelpers.cs" />
+    <Compile Include="JS\Util\RawCOMHelpers.cs" />
+    <Compile Include="JS\Util\TypeHelpers.cs" />
+    <Compile Include="JS\Undefined.cs" />
+    <Compile Include="JS\Util\UniqueNameManager.cs" />
+    <Compile Include="JS\VoidResult.cs" />
+    <Compile Include="JS\Util\ConcurrentWeakSet.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="JS\DelegateFactory.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>DelegateFactory.Generated.cs</LastGenOutput>
+    </None>
+    <None Include="JS\Exports\VersionSymbols.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>VersionSymbols.h</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="JS\Exports\CallbackManager.h">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CallbackManager.tt</DependentUpon>
+    </Content>
+    <Content Include="JS\Exports\VersionSymbols.h">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>VersionSymbols.tt</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
