@@ -1,0 +1,22 @@
+#dll = loaddll( currentmacrodirectory + @"\HmCustomLivePreview.dll" );
+if (!#dll) {
+	message("NO");
+	endmacro;
+}
+
+#_ = dllfuncw( #dll, "DoString", R"JSCRIPT(
+
+function OnCustomTranslateHTML(filename, rawtext) {
+	
+	var htmltext = rawtext;
+	htmltext = htmltext.replace( /</g, "&lt;");
+	htmltext = htmltext.replace( />/g, "&gt;");
+	htmltext = htmltext.replace( /\n/g, "<br>");
+
+	return htmltext;
+}
+
+)JSCRIPT"
+);
+
+#_ = dllfuncw( #dll, "Show", hidemaruhandle(0) );
