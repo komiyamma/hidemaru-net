@@ -1,0 +1,13 @@
+
+if (filename != "") {
+    $filename = filename + ":3"; // メッセージ、もしくは ファイルのフルパス、もしくはタグジャンプの形
+    $interval = str(7000);       // バルーン表示のミリ秒
+
+    // 実行するコマンド PathQuoteSpaces
+    $cmd = "\"" + currentmacrodirectory + "\\HmBaloonToast.exe" + "\"" + " "+ 
+                       "\"" + $filename + "\"" + " " + 
+                       $interval;
+
+    run $cmd;
+
+}
