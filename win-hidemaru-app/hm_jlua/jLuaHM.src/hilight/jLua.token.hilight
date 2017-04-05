@@ -1,0 +1,43 @@
+51,--[^"']+$
+51,--[^"']*["'][^"']+["'][^"']*$
+243,--.+$
+241,(".*?[^\\]"|'.*?[^\\]'|\[\[.+?\]\])
+
+49,(and|break|do|else|elseif|end|false|for|function|if|in|local|nil|not|or|repeat|return|then|true|until|while|continue)
+115,(else if|elsif|elif|=~|&&|\|\|)
+
+113,(_G|_VERSION|_ENV)
+177,(__index|__newindex|__usedindex|__gc|__mode|__len|__eq|__add|__sub|__mul|__div|__mod|__pow|__unm|__lt|__le|__concat|__call|__iter|__bor|__band|__bxor|__shl|__shr|__bnot|__idiv|__add_eq|__sub_eq|__mul_eq|__div_eq|__mod_eq|__pow_eq|__metatable|__tostring)
+499,"(nil|boolean|userdata|number|string|table|function|thread|proto|upval)"
+
+113,(xpcall|tostring|print|unpack|require|getfenv|setmetatable|next|assert|rawlen|tonumber|rawequal|collectgarbage|load|module|rawset|debug|pcall|coroutine|newproxy|dprint|pairs|ipairs|select|_G|gcinfo|rawget|loadstring|type|dofile|getmetatable|setfenv|error|loadfile)
+
+113,(string|string\.(match|gmatch|upper|gsub|format|lower|sub|pack|gfind|find|getencoding|char|dump|packsize|reverse|byte|unpack|rep|len))
+113,(math|math\.(log|tointeger|ldexp|rad|cosh|random|frexp|tanh|floor|mininteger|max|sqrt|modf|huge|mod|ult|atan|tan|cos|maxinteger|pi|log10|acos|type|abs|deg|sinh|asin|min|randomseed|fmod|ceil|round|atan2|pow|sin|exp))
+113,(table|table\.(pack|move|insert|getn|foreachi|maxn|foreach|concat|unpack|sort|setn|remove|empty))
+113,(io|io\.(write|lines|read|type|input|flush|stdout|output|close|stdin|stderr|tmpfile|popen|open))
+113,(coroutine|coroutine\.(resume|yield|wrap|status|running|create))
+113,(os|os\.(clock|date|difftime|execute|exit|getenv|remove|rename|setlocale|time|tmpname))
+113,(package|package\.(preload|loadlib|loaded|loaders|cpath|config|path|seeall))
+113,(bit32|bit32\.(band|extract|bor|bnot|arshift|rshift|rrotate|replace|lshift|lrotate|btest|bxor))
+113,(utf8|utf8\.(char|charpattern|codepoint|codes|len|offset|encode))
+113,(lfs|lfs\.(link|lock_dir|rmdir|unlock|attributes|symlinkattribute|currentdir|lock|chdir|dir|setmode|mkdir|touch))
+113,(cp932|cp932\.(sub|codepoint|char|offset|upper|len|codes|reverse|lower|encode))
+179,(debug|debug\.(getupvalue|debug|sethook|getmetatable|gethook|setmetatable|setlocal|traceback|setfenv|getinfo|setupvalue|getlocal|getregistry|getfenv))
+177,(f|fi|fo|fin|fout|fh|file|f[a-zA-Z0-9_]+|[a-zA-Z0-9_]*stream):(write|setvbuf|seek|read|lines|flush|close)
+
+307,self
+
+
+
+/<HilightMulti>
+/0022,00000002,00,00,00000002,"--[[",00000002,"]]"
+
+
+
+/<TreeWord>
+/0001,0002,0000,00000000,00011153,"^[^ \\-\\t]+\\s*=\\s*","変数"
+/0001,0002,0000,00000000,00013153,"(^function\\s+.+?\\()|(^\\s*[^\\- /\\t]+\\s*=\\s*function)","グローバル関数"
+/0001,0002,0000,00000000,00013153,"^if\\s","トップレベル if "
+/0001,0002,0000,00000000,00012113,"^local [^ \\-\\t]+\\s*=\\s*",""
+/0002,0002,0000,00000000,00011153,"(\\s*[^\\- /\\t]+function\\s+.+?\\()|(\\s__index\\s=)","多分メソッド"
