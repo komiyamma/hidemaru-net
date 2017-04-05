@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="文字列の相互変換 cp932⇔utf16⇔utf8">
+      <UniqueIdentifier>{328af8d8-0779-4280-821d-e869b0e5725e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="秀丸本体のexeの関数やバージョン">
+      <UniqueIdentifier>{d42137c6-cf49-4e52-b4d4-59f80047f695}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="本体">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="hmPy.cpp">
+      <Filter>本体</Filter>
+    </ClCompile>
+    <ClCompile Include="string_converter.cpp">
+      <Filter>文字列の相互変換 cp932⇔utf16⇔utf8</Filter>
+    </ClCompile>
+    <ClCompile Include="hidemaruexe_export.cpp">
+      <Filter>秀丸本体のexeの関数やバージョン</Filter>
+    </ClCompile>
+    <ClCompile Include="DllResolver.cpp">
+      <Filter>本体</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="hmPyStatlcLib.h">
+      <Filter>本体</Filter>
+    </ClInclude>
+    <ClInclude Include="string_converter.h">
+      <Filter>文字列の相互変換 cp932⇔utf16⇔utf8</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>リソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="hidemaruexe_export.h">
+      <Filter>秀丸本体のexeの関数やバージョン</Filter>
+    </ClInclude>
+    <ClInclude Include="hmPy.h">
+      <Filter>本体</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="resource.rc">
+      <Filter>リソース ファイル</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
