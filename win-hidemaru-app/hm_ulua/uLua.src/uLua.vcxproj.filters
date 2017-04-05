@@ -1,0 +1,236 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="luaソース">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="luaヘッダ">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+    <Filter Include="拡張ソース">
+      <UniqueIdentifier>{fe6e2e0b-2dfb-4279-90b6-22ab5d95e5d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="拡張ヘッダ">
+      <UniqueIdentifier>{fee13501-caed-4dda-a708-466d00a5ffad}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="lapi.c">
+      <Filter>luaソース</Filter>
+    </ClCompile>
+    <ClCompile Include="lauxlib.c">
+      <Filter>luaソース</Filter>
+    </ClCompile>
+    <ClCompile Include="lbaselib.c">
+      <Filter>luaソース</Filter>
+    </ClCompile>
+    <ClCompile Include="lbitlib.c">
+      <Filter>luaソース</Filter>
+    </ClCompile>
+    <ClCompile Include="lcode.c">
+      <Filter>luaソース</Filter>
+    </ClCompile>
+    <ClCompile Include="lcorolib.c">
+      <Filter>luaソース</Filter>
+    </ClCompile>
+    <ClCompile Include="lctype.c">
+      <Filter>luaソース</Filter>
+    </ClCompile>
+    <ClCompile Include="ldblib.c">
+      <Filter>luaソース</Filter>
+    </ClCompile>
+    <ClCompile Include="ldebug.c">
+      <Filter>luaソース</Filter>
+    </ClCompile>
+    <ClCompile Include="ldo.c">
+      <Filter>luaソース</Filter>
+    </ClCompile>
+    <ClCompile Include="ldump.c">
+      <Filter>luaソース</Filter>
+    </ClCompile>
+    <ClCompile Include="lfs.c">
+      <Filter>luaソース</Filter>
+    </ClCompile>
+    <ClCompile Include="lfunc.c">
+      <Filter>luaソース</Filter>
+    </ClCompile>
+    <ClCompile Include="lgc.c">
+      <Filter>luaソース</Filter>
+    </ClCompile>
+    <ClCompile Include="liolib.c">
+      <Filter>luaソース</Filter>
+    </ClCompile>
+    <ClCompile Include="llex.c">
+      <Filter>luaソース</Filter>
+    </ClCompile>
+    <ClCompile Include="lmathlib.c">
+      <Filter>luaソース</Filter>
+    </ClCompile>
+    <ClCompile Include="lmem.c">
+      <Filter>luaソース</Filter>
+    </ClCompile>
+    <ClCompile Include="loadlib.c">
+      <Filter>luaソース</Filter>
+    </ClCompile>
+    <ClCompile Include="lobject.c">
+      <Filter>luaソース</Filter>
+    </ClCompile>
+    <ClCompile Include="lopcodes.c">
+      <Filter>luaソース</Filter>
+    </ClCompile>
+    <ClCompile Include="loslib.c">
+      <Filter>luaソース</Filter>
+    </ClCompile>
+    <ClCompile Include="lparser.c">
+      <Filter>luaソース</Filter>
+    </ClCompile>
+    <ClCompile Include="lstate.c">
+      <Filter>luaソース</Filter>
+    </ClCompile>
+    <ClCompile Include="lstring.c">
+      <Filter>luaソース</Filter>
+    </ClCompile>
+    <ClCompile Include="lstrlib.c">
+      <Filter>luaソース</Filter>
+    </ClCompile>
+    <ClCompile Include="ltable.c">
+      <Filter>luaソース</Filter>
+    </ClCompile>
+    <ClCompile Include="ltablib.c">
+      <Filter>luaソース</Filter>
+    </ClCompile>
+    <ClCompile Include="ltm.c">
+      <Filter>luaソース</Filter>
+    </ClCompile>
+    <ClCompile Include="lundump.c">
+      <Filter>luaソース</Filter>
+    </ClCompile>
+    <ClCompile Include="lutf8lib.c">
+      <Filter>luaソース</Filter>
+    </ClCompile>
+    <ClCompile Include="lvm.c">
+      <Filter>luaソース</Filter>
+    </ClCompile>
+    <ClCompile Include="lzio.c">
+      <Filter>luaソース</Filter>
+    </ClCompile>
+    <ClCompile Include="bin2c.c">
+      <Filter>拡張ソース</Filter>
+    </ClCompile>
+    <ClCompile Include="glue.c">
+      <Filter>拡張ソース</Filter>
+    </ClCompile>
+    <ClCompile Include="lua.c">
+      <Filter>拡張ソース</Filter>
+    </ClCompile>
+    <ClCompile Include="luac.c">
+      <Filter>拡張ソース</Filter>
+    </ClCompile>
+    <ClCompile Include="srlua.c">
+      <Filter>拡張ソース</Filter>
+    </ClCompile>
+    <ClCompile Include="linit.c">
+      <Filter>拡張ソース</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="lapi.h">
+      <Filter>luaヘッダ</Filter>
+    </ClInclude>
+    <ClInclude Include="lauxlib.h">
+      <Filter>luaヘッダ</Filter>
+    </ClInclude>
+    <ClInclude Include="lcode.h">
+      <Filter>luaヘッダ</Filter>
+    </ClInclude>
+    <ClInclude Include="lctype.h">
+      <Filter>luaヘッダ</Filter>
+    </ClInclude>
+    <ClInclude Include="ldebug.h">
+      <Filter>luaヘッダ</Filter>
+    </ClInclude>
+    <ClInclude Include="ldo.h">
+      <Filter>luaヘッダ</Filter>
+    </ClInclude>
+    <ClInclude Include="lfunc.h">
+      <Filter>luaヘッダ</Filter>
+    </ClInclude>
+    <ClInclude Include="lgc.h">
+      <Filter>luaヘッダ</Filter>
+    </ClInclude>
+    <ClInclude Include="llex.h">
+      <Filter>luaヘッダ</Filter>
+    </ClInclude>
+    <ClInclude Include="llimits.h">
+      <Filter>luaヘッダ</Filter>
+    </ClInclude>
+    <ClInclude Include="lmem.h">
+      <Filter>luaヘッダ</Filter>
+    </ClInclude>
+    <ClInclude Include="lobject.h">
+      <Filter>luaヘッダ</Filter>
+    </ClInclude>
+    <ClInclude Include="lopcodes.h">
+      <Filter>luaヘッダ</Filter>
+    </ClInclude>
+    <ClInclude Include="lparser.h">
+      <Filter>luaヘッダ</Filter>
+    </ClInclude>
+    <ClInclude Include="lprefix.h">
+      <Filter>luaヘッダ</Filter>
+    </ClInclude>
+    <ClInclude Include="lstate.h">
+      <Filter>luaヘッダ</Filter>
+    </ClInclude>
+    <ClInclude Include="lstring.h">
+      <Filter>luaヘッダ</Filter>
+    </ClInclude>
+    <ClInclude Include="ltable.h">
+      <Filter>luaヘッダ</Filter>
+    </ClInclude>
+    <ClInclude Include="ltm.h">
+      <Filter>luaヘッダ</Filter>
+    </ClInclude>
+    <ClInclude Include="lua.h">
+      <Filter>luaヘッダ</Filter>
+    </ClInclude>
+    <ClInclude Include="lua.hpp">
+      <Filter>luaヘッダ</Filter>
+    </ClInclude>
+    <ClInclude Include="luaconf.h">
+      <Filter>luaヘッダ</Filter>
+    </ClInclude>
+    <ClInclude Include="lundump.h">
+      <Filter>luaヘッダ</Filter>
+    </ClInclude>
+    <ClInclude Include="lvm.h">
+      <Filter>luaヘッダ</Filter>
+    </ClInclude>
+    <ClInclude Include="lzio.h">
+      <Filter>luaヘッダ</Filter>
+    </ClInclude>
+    <ClInclude Include="resource1.h">
+      <Filter>luaヘッダ</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>リソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="glue.h">
+      <Filter>拡張ヘッダ</Filter>
+    </ClInclude>
+    <ClInclude Include="lualib.h">
+      <Filter>拡張ヘッダ</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="uLua.rc">
+      <Filter>リソース ファイル</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

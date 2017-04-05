@@ -1,0 +1,42 @@
+51,--[^"']+$
+51,--[^"']*["'][^"']+["'][^"']*$
+243,--.+$
+241,(".*?[^\\]"|'.*?[^\\]'|\[\[.+?\]\])
+
+49,(and|break|do|else|elseif|end|false|for|function|if|in|local|nil|not|or|repeat|return|then|true|until|while)
+115,(else if|elsif|elif|!=|=~|&&|\|\|)
+
+113,(_G|_VERSION|_ENV)
+177,(__index|__newindex|__gc|__mode|__len|__eq|__add|__sub|__mul|__mod|__pow|__div|__idiv|__band|__bor|__bxor|__shl|__shr|__unm|__bnot|__lt|__le|__concat|__call|__metatable|__tostring)
+499,"(userdata|no value|nil|boolean|number|string|table|function|thread)"
+
+113,(rawget|tonumber|rawlen|xpcall|type|tostring|loadfile|pairs|load|pcall|require|arg|next|rawset|select|setmetatable|ipairs|rawequal|getmetatable|print|error|collectgarbage|assert|dofile)
+
+113,(string|string\.(format|byte|gmatch|char|pack|dump|len|gsub|upper|unpack|packsize|lower|sub|match|find|reverse|rep))
+113,(math|math\.(ceil|modf|mininteger|tan|atan|sinh|deg|rad|floor|cos|maxinteger|exp|ult|acos|atan2|abs|asin|sin|pi|log10|tointeger|randomseed|sqrt|cosh|log|ldexp|fmod|frexp|pow|tanh|huge|type|random|max|min))
+113,(table|table\.(sort|move|remove|concat|unpack|pack|insert))
+113,(io|io\.(write|lines|read|type|input|flush|stdout|output|close|stdin|stderr|tmpfile|popen|open))
+113,(coroutine|coroutine\.(resume|yield|isyieldable|wrap|status|running|create))
+113,(os|os\.(clock|date|difftime|execute|exit|getenv|remove|rename|setlocale|time|tmpname))
+113,(package|package\.(config|searchers|searchpath|cpath|loaded|loadlib|path|preload|seeall|loaders))
+113,(bit32|bit32\.(arshift|extract|rshift|btest|replace|bnot|bor|band|lrotate|rrotate|lshift|bxor))
+113,(utf8|utf8\.(char|charpattern|codepoint|codes|len|offset))
+113,(lfs|lfs\.(link|lock_dir|rmdir|unlock|attributes|symlinkattribute|currentdir|lock|chdir|dir|setmode|mkdir|touch))
+179,(debug|debug\.(getfenv|getmetatable|getregistry|getuservalue|setfenv|setmetatable|debug|gethook|getinfo|getlocal|getupvalue|sethook|setlocal|setupvalue|traceback))
+177,(f|fi|fo|fin|fout|fh|file|f[a-zA-Z0-9_]+|[a-zA-Z0-9_]*stream):(write|setvbuf|seek|read|lines|flush|close)
+
+307,self
+
+
+
+/<HilightMulti>
+/0022,00000002,00,00,00000002,"--[[",00000002,"]]"
+
+
+
+/<TreeWord>
+/0001,0002,0000,00000000,00011153,"^[^ \\-\\t]+\\s*=\\s*","変数"
+/0001,0002,0000,00000000,00013153,"(^function\\s+.+?\\()|(^\\s*[^\\- /\\t]+\\s*=\\s*function)","グローバル関数"
+/0001,0002,0000,00000000,00013153,"^if\\s","トップレベル if "
+/0001,0002,0000,00000000,00012113,"^local [^ \\-\\t]+\\s*=\\s*",""
+/0002,0002,0000,00000000,00011153,"(\\s*[^\\- /\\t]+function\\s+.+?\\()|(\\s__index\\s=)","多分メソッド"
