@@ -1,0 +1,21 @@
+1. If the ClearScript solution is open in Visual Studio, close it.
+
+2. Generate a cryptographic key pair in your ClearScript root directory:
+
+// 厳密著名が必要なため。
+      C:\ClearScript> sn -k ClearScript.snk
+
+// V8の取得とコンパイル(この前にGitのツールは入れておくこと)
+次に、Visual Studio コンソールで、
+V8Update.cmd revision Latest candidate 5.4.500.45
+みたいにする。最後のバージョンは、「Nuget」で、「ClearScript.V8」で配布されているバージョンと合わせる。(そこまでがパッチが対応されていると言える)
+
+// Visual Studio 2015で開いて…
+3. Open the ClearScript solution in Visual Studio.
+
+// T4のテンプレートを全て変換というやつ
+4. Click "Build" -> "Transform All T4 Templates".　← これ重要。トップメニューのビルドの中にある。タイプスクリプトを使って変換することが可能。
+
+// ソリューションレベルでビルド
+5. Rebuild the solution.
+
