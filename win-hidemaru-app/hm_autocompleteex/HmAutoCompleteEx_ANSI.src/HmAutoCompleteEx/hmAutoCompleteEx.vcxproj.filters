@@ -1,0 +1,266 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="⑤ プログラムメモリー">
+      <UniqueIdentifier>{d616bb03-ad3f-4242-85db-749a98341de0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="⑨ デバッグ表示">
+      <UniqueIdentifier>{5299aa54-7250-45a6-a82c-88c431db5c3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="④ ファイル読込関連">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="② 入力補完関連のコールバックなど">
+      <UniqueIdentifier>{08f3033d-f848-4974-b89d-e953724b3a14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="★ 自分で編集してね">
+      <UniqueIdentifier>{bf680ea0-7cd3-4c80-add6-fcd0237efac0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="① DLLMAIN">
+      <UniqueIdentifier>{e8ec2cf3-70c7-4e95-8c15-8e7ab4091783}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="③ アウトライナ">
+      <UniqueIdentifier>{18e6fd67-3c1c-46c6-8f8e-9691f23b8433}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="⑥ 関数フックの具体的な登録">
+      <UniqueIdentifier>{58de9ba1-ee3f-47a7-a6ed-f011bef2d084}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="⑦ 関数のフック汎用">
+      <UniqueIdentifier>{a933672e-92eb-4f3a-8d70-210392921506}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="⑧ 鬼車">
+      <UniqueIdentifier>{16f4a6de-4bda-4090-a580-0cb2310a5da9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="⑧ 鬼車\鬼車ライブラリSJISカスタム">
+      <UniqueIdentifier>{a81d7dbc-23ce-4d93-86c4-4ecf4791aed8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="⑧ 鬼車\鬼車InterFace">
+      <UniqueIdentifier>{c0f7e114-d7d9-4537-b0b2-984f7329cdcb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="⑩ リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="② DLL登録関連">
+      <UniqueIdentifier>{eec517f3-0759-4450-bd0b-ce83a03d3ecb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="⑧ 鬼車\鬼車VS2013用コンパイル済lib">
+      <UniqueIdentifier>{28c963f2-3b6b-459c-a3ab-431f9a6828ad}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="assemblerjumper.cpp">
+      <Filter>④ ファイル読込関連</Filter>
+    </ClCompile>
+    <ClCompile Include="OnigRegex.cpp">
+      <Filter>⑧ 鬼車\鬼車InterFace</Filter>
+    </ClCompile>
+    <ClCompile Include="autocompletehelptips.cpp">
+      <Filter>★ 自分で編集してね</Filter>
+    </ClCompile>
+    <ClCompile Include="oniguruma\ascii.c">
+      <Filter>⑧ 鬼車\鬼車ライブラリSJISカスタム</Filter>
+    </ClCompile>
+    <ClCompile Include="oniguruma\big5.c">
+      <Filter>⑧ 鬼車\鬼車ライブラリSJISカスタム</Filter>
+    </ClCompile>
+    <ClCompile Include="oniguruma\cp1251.c">
+      <Filter>⑧ 鬼車\鬼車ライブラリSJISカスタム</Filter>
+    </ClCompile>
+    <ClCompile Include="oniguruma\euc_jp.c">
+      <Filter>⑧ 鬼車\鬼車ライブラリSJISカスタム</Filter>
+    </ClCompile>
+    <ClCompile Include="oniguruma\euc_kr.c">
+      <Filter>⑧ 鬼車\鬼車ライブラリSJISカスタム</Filter>
+    </ClCompile>
+    <ClCompile Include="oniguruma\euc_tw.c">
+      <Filter>⑧ 鬼車\鬼車ライブラリSJISカスタム</Filter>
+    </ClCompile>
+    <ClCompile Include="oniguruma\gb18030.c">
+      <Filter>⑧ 鬼車\鬼車ライブラリSJISカスタム</Filter>
+    </ClCompile>
+    <ClCompile Include="oniguruma\iso8859_1.c">
+      <Filter>⑧ 鬼車\鬼車ライブラリSJISカスタム</Filter>
+    </ClCompile>
+    <ClCompile Include="oniguruma\iso8859_2.c">
+      <Filter>⑧ 鬼車\鬼車ライブラリSJISカスタム</Filter>
+    </ClCompile>
+    <ClCompile Include="oniguruma\iso8859_3.c">
+      <Filter>⑧ 鬼車\鬼車ライブラリSJISカスタム</Filter>
+    </ClCompile>
+    <ClCompile Include="oniguruma\iso8859_4.c">
+      <Filter>⑧ 鬼車\鬼車ライブラリSJISカスタム</Filter>
+    </ClCompile>
+    <ClCompile Include="oniguruma\iso8859_5.c">
+      <Filter>⑧ 鬼車\鬼車ライブラリSJISカスタム</Filter>
+    </ClCompile>
+    <ClCompile Include="oniguruma\iso8859_6.c">
+      <Filter>⑧ 鬼車\鬼車ライブラリSJISカスタム</Filter>
+    </ClCompile>
+    <ClCompile Include="oniguruma\iso8859_7.c">
+      <Filter>⑧ 鬼車\鬼車ライブラリSJISカスタム</Filter>
+    </ClCompile>
+    <ClCompile Include="oniguruma\iso8859_8.c">
+      <Filter>⑧ 鬼車\鬼車ライブラリSJISカスタム</Filter>
+    </ClCompile>
+    <ClCompile Include="oniguruma\iso8859_9.c">
+      <Filter>⑧ 鬼車\鬼車ライブラリSJISカスタム</Filter>
+    </ClCompile>
+    <ClCompile Include="oniguruma\iso8859_10.c">
+      <Filter>⑧ 鬼車\鬼車ライブラリSJISカスタム</Filter>
+    </ClCompile>
+    <ClCompile Include="oniguruma\iso8859_11.c">
+      <Filter>⑧ 鬼車\鬼車ライブラリSJISカスタム</Filter>
+    </ClCompile>
+    <ClCompile Include="oniguruma\iso8859_13.c">
+      <Filter>⑧ 鬼車\鬼車ライブラリSJISカスタム</Filter>
+    </ClCompile>
+    <ClCompile Include="oniguruma\iso8859_14.c">
+      <Filter>⑧ 鬼車\鬼車ライブラリSJISカスタム</Filter>
+    </ClCompile>
+    <ClCompile Include="oniguruma\iso8859_15.c">
+      <Filter>⑧ 鬼車\鬼車ライブラリSJISカスタム</Filter>
+    </ClCompile>
+    <ClCompile Include="oniguruma\iso8859_16.c">
+      <Filter>⑧ 鬼車\鬼車ライブラリSJISカスタム</Filter>
+    </ClCompile>
+    <ClCompile Include="oniguruma\koi8.c">
+      <Filter>⑧ 鬼車\鬼車ライブラリSJISカスタム</Filter>
+    </ClCompile>
+    <ClCompile Include="oniguruma\koi8_r.c">
+      <Filter>⑧ 鬼車\鬼車ライブラリSJISカスタム</Filter>
+    </ClCompile>
+    <ClCompile Include="oniguruma\regcomp.c">
+      <Filter>⑧ 鬼車\鬼車ライブラリSJISカスタム</Filter>
+    </ClCompile>
+    <ClCompile Include="oniguruma\regenc.c">
+      <Filter>⑧ 鬼車\鬼車ライブラリSJISカスタム</Filter>
+    </ClCompile>
+    <ClCompile Include="oniguruma\regerror.c">
+      <Filter>⑧ 鬼車\鬼車ライブラリSJISカスタム</Filter>
+    </ClCompile>
+    <ClCompile Include="oniguruma\regexec.c">
+      <Filter>⑧ 鬼車\鬼車ライブラリSJISカスタム</Filter>
+    </ClCompile>
+    <ClCompile Include="oniguruma\regext.c">
+      <Filter>⑧ 鬼車\鬼車ライブラリSJISカスタム</Filter>
+    </ClCompile>
+    <ClCompile Include="oniguruma\reggnu.c">
+      <Filter>⑧ 鬼車\鬼車ライブラリSJISカスタム</Filter>
+    </ClCompile>
+    <ClCompile Include="oniguruma\regparse.c">
+      <Filter>⑧ 鬼車\鬼車ライブラリSJISカスタム</Filter>
+    </ClCompile>
+    <ClCompile Include="oniguruma\regposerr.c">
+      <Filter>⑧ 鬼車\鬼車ライブラリSJISカスタム</Filter>
+    </ClCompile>
+    <ClCompile Include="oniguruma\regposix.c">
+      <Filter>⑧ 鬼車\鬼車ライブラリSJISカスタム</Filter>
+    </ClCompile>
+    <ClCompile Include="oniguruma\regsyntax.c">
+      <Filter>⑧ 鬼車\鬼車ライブラリSJISカスタム</Filter>
+    </ClCompile>
+    <ClCompile Include="oniguruma\regtrav.c">
+      <Filter>⑧ 鬼車\鬼車ライブラリSJISカスタム</Filter>
+    </ClCompile>
+    <ClCompile Include="oniguruma\regversion.c">
+      <Filter>⑧ 鬼車\鬼車ライブラリSJISカスタム</Filter>
+    </ClCompile>
+    <ClCompile Include="oniguruma\sjis.c">
+      <Filter>⑧ 鬼車\鬼車ライブラリSJISカスタム</Filter>
+    </ClCompile>
+    <ClCompile Include="oniguruma\st.c">
+      <Filter>⑧ 鬼車\鬼車ライブラリSJISカスタム</Filter>
+    </ClCompile>
+    <ClCompile Include="oniguruma\unicode.c">
+      <Filter>⑧ 鬼車\鬼車ライブラリSJISカスタム</Filter>
+    </ClCompile>
+    <ClCompile Include="oniguruma\utf8.c">
+      <Filter>⑧ 鬼車\鬼車ライブラリSJISカスタム</Filter>
+    </ClCompile>
+    <ClCompile Include="oniguruma\utf16_be.c">
+      <Filter>⑧ 鬼車\鬼車ライブラリSJISカスタム</Filter>
+    </ClCompile>
+    <ClCompile Include="oniguruma\utf16_le.c">
+      <Filter>⑧ 鬼車\鬼車ライブラリSJISカスタム</Filter>
+    </ClCompile>
+    <ClCompile Include="oniguruma\utf32_be.c">
+      <Filter>⑧ 鬼車\鬼車ライブラリSJISカスタム</Filter>
+    </ClCompile>
+    <ClCompile Include="oniguruma\utf32_le.c">
+      <Filter>⑧ 鬼車\鬼車ライブラリSJISカスタム</Filter>
+    </ClCompile>
+    <ClCompile Include="programmemory.cpp">
+      <Filter>⑤ プログラムメモリー</Filter>
+    </ClCompile>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>① DLLMAIN</Filter>
+    </ClCompile>
+    <ClCompile Include="outlinerwindow.cpp">
+      <Filter>③ アウトライナ</Filter>
+    </ClCompile>
+    <ClCompile Include="outputdebugstream.cpp">
+      <Filter>⑨ デバッグ表示</Filter>
+    </ClCompile>
+    <ClCompile Include="hookwin32api.cpp">
+      <Filter>⑦ 関数のフック汎用</Filter>
+    </ClCompile>
+    <ClCompile Include="hookwin32api_funcs.cpp">
+      <Filter>⑥ 関数フックの具体的な登録</Filter>
+    </ClCompile>
+    <ClCompile Include="autocompletewindow.cpp">
+      <Filter>② 入力補完関連のコールバックなど</Filter>
+    </ClCompile>
+    <ClCompile Include="bindcustomdll.cpp">
+      <Filter>② DLL登録関連</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="OnigRegex.h">
+      <Filter>⑧ 鬼車\鬼車InterFace</Filter>
+    </ClInclude>
+    <ClInclude Include="programmemory.h">
+      <Filter>⑤ プログラムメモリー</Filter>
+    </ClInclude>
+    <ClInclude Include="outlinerwindow.h">
+      <Filter>③ アウトライナ</Filter>
+    </ClInclude>
+    <ClInclude Include="outputdebugstream.h">
+      <Filter>⑨ デバッグ表示</Filter>
+    </ClInclude>
+    <ClInclude Include="autocomletehelptips.h">
+      <Filter>★ 自分で編集してね</Filter>
+    </ClInclude>
+    <ClInclude Include="hookwin32api.h">
+      <Filter>⑦ 関数のフック汎用</Filter>
+    </ClInclude>
+    <ClInclude Include="assemblerjumper.h">
+      <Filter>④ ファイル読込関連</Filter>
+    </ClInclude>
+    <ClInclude Include="autocompletewindow.h">
+      <Filter>② 入力補完関連のコールバックなど</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>⑩ リソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="bindcustomdll.h">
+      <Filter>② DLL登録関連</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="dllmain.def">
+      <Filter>① DLLMAIN</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="HmAutoCompleteEx.rc">
+      <Filter>⑩ リソース ファイル</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="oniguruma\oniguruma.lib">
+      <Filter>⑧ 鬼車\鬼車VS2013用コンパイル済lib</Filter>
+    </Library>
+  </ItemGroup>
+</Project>
