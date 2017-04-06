@@ -1,6 +1,6 @@
-■hmV8のライセンス
+笆hmV8縺ｮ繝ｩ繧､繧ｻ繝ｳ繧ｹ
 
-	Copyright (C) 2016-2017 天翔記.jp
+	Copyright (C) 2016-2017 VSCode.life
 
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
 	See the License for the specific language governing permissions and
 	limitations under the License.
 
-■Atacheライセンス原文
+笆Atache繝ｩ繧､繧ｻ繝ｳ繧ｹ蜴滓枚
 	Apache License
 	Version 2.0, January 2004
 	http://www.apache.org/licenses/ 
@@ -74,7 +74,7 @@
 
 
 
-■ClearScriptのライセンス
+笆ClearScript縺ｮ繝ｩ繧､繧ｻ繝ｳ繧ｹ
 
 From https://clearscript.codeplex.com/license
 
@@ -114,7 +114,7 @@ A "contributor" is any person that distributes its contribution under this licen
 
 
 
-■V8のライセンス、および、その周辺のライセンスについて
+笆V8縺ｮ繝ｩ繧､繧ｻ繝ｳ繧ｹ縲√♀繧医�ｳ縲√◎縺ｮ蜻ｨ霎ｺ縺ｮ繝ｩ繧､繧ｻ繝ｳ繧ｹ縺ｫ縺､縺�縺ｦ
 
 https://code.google.com/p/v8/source/browse/trunk/LICENSE.v8
 
