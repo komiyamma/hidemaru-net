@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 14
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClearScript", "ClearScript\ClearScript.csproj", "{D2382D2C-6576-4D96-B6CD-057C4F6BED96}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClearScriptTest", "ClearScriptTest\ClearScriptTest.csproj", "{EDC7144E-FDA9-4CC7-B2CD-B5EBFD610A7D}"
