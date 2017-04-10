@@ -1,4 +1,3 @@
-use Regex::PreSuf;
 
 my $HIDE_LINE_CHAR_LIMIT = 240;
 
@@ -53,7 +52,16 @@ sub PrintRegex {
 	print($reCurr, "\n");
 }
 
+
+
+
+
 #-----------------------------------------------------------------------------
+# à»â∫ÇÕÅARegex::PresufÇÃì‡óeÇªÇÃÇ‹Ç‹
+# Copyright (C) Jarkko Hietaniemi
+# http://search.cpan.org/~jhi/Regex-PreSuf-1.17/PreSuf.pm
+#-----------------------------------------------------------------------------
+
 sub debug {
     if (@_) {
 	$DEBUG = shift;
