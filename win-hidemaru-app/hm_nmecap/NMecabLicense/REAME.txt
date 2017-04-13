@@ -1,0 +1,10 @@
+フォルダツリーとその説明
+
+├─bin
+│  ├─LibNMeCab.dll　:NMeCab本体.NET2.0版
+│  ├─WindowsFormsSample.exe　:GUIから簡単に形態素解析を試せるサンプルアプリ
+│  ├─35	:NMeCab本体.NET3.5版(拡張メソッドを含む)
+│  └─40MMF	:NMeCab本体.NET4.0版(MMFを使用、かつ拡張メソッドを含む)
+├─dic
+│  └─ipadic	:IPA辞書バイナリ
+└─src	:ソースコード
