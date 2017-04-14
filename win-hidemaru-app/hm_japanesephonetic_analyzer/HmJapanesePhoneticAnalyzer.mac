@@ -49,21 +49,21 @@ class YokoRubyDataBuffer extends IDataBuffer {
 // GetAddRubyFormatをoverride
 class HtmlRubyDataBuffer extends IDataBuffer {
 
-	HtmlEncode(src) {
+    HtmlEncode(src) {
 
-		// HTMLのまず文字などをエンコードするためのクラスのメソッドを確保
-		if (!this._htmlencorder) {
-			var weblib = host.lib("System.Web");
-			this._htmlencoder = weblib.System.Web.HttpUtility.HtmlEncode;
-		}
+        // HTMLのまず文字などをエンコードするためのクラスのメソッドを確保
+        if (!this._htmlencorder) {
+            var weblib = host.lib("System.Web");
+            this._htmlencoder = weblib.System.Web.HttpUtility.HtmlEncode;
+        }
 
-		let html = this._htmlencoder(src);
-		html = html.replace(/\r\n/g, "\r")
-				   .replace(/\n/g, "\r")
-				   .replace(/\r/g, "<br>\r\n")
-		           .replace(/  /g, " &nbsp;")
-		return html;
-	}
+        let html = this._htmlencoder(src);
+        html = html.replace(/\r\n/g, "\r")
+                   .replace(/\n/g, "\r")
+                   .replace(/\r/g, "<br>\r\n")
+                   .replace(/  /g, " &nbsp;")
+        return html;
+    }
     AddTextOnly(src) {
         this._all_text += this.HtmlEncode(src);
     }
@@ -115,7 +115,7 @@ function Main() {
     // なので、普通に日本語書いていれば、このくらいの記号で分離すればよいだろう
     let split_list = [];
 
-	// 次に上げる条件で文字列を区切っていく。あまり長い文字列は JapanesePhoneticAnalyze が対象出来ないので。
+    // 次に上げる条件で文字列を区切っていく。あまり長い文字列は JapanesePhoneticAnalyze が対象出来ないので。
     let breakPointRegexp = /(.+?)([\s、。（）「」＜＞\<\>\|\+\-\(\)\[\]\.\,\!\?\'\"]+|$)/g;
     while ((match_array = breakPointRegexp.exec(target_text)) != null) {
 
@@ -180,7 +180,7 @@ function AssignToHidemaruVarable() {
     // ルビを持っているバッファがあるのであれば、出すべき 
     buffers.forEach( (buffer) => { if (buffer.IsContainsRuby()) is_buf_contains_ruby = true; } );
 
-	// 全バッファーにルビは含まれていない。アウトプット枠に情報を出すだけで終わり
+    // 全バッファーにルビは含まれていない。アウトプット枠に情報を出すだけで終わり
     if (!is_buf_contains_ruby) {
         OutputPane("ルビ振りに対象となる文字列はありません");
         return;
@@ -206,13 +206,13 @@ freedll(#JS);
 // ルビ振りデータが存在するのであれば
 if (#is_buf_contains_ruby) {
 
-	// 新規ファイル作成
+    // 新規ファイル作成
     newfile;
-	// 横にルビを振る方
+    // 横にルビを振る方
     insert $buf_text_with_rubied;
 
-	// 新規ファイル作成
+    // 新規ファイル作成
     newfile;
-	// HTMLタグを付ける方
+    // HTMLタグを付ける方
     insert $buf_html_with_rubied;
 }
