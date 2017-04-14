@@ -44,11 +44,31 @@ class YokoRubyDataBuffer extends IDataBuffer {
     }
 }
 
+
 // HTMLでルビを振る用のバッファークラス
 // GetAddRubyFormatをoverride
 class HtmlRubyDataBuffer extends IDataBuffer {
+
+	HtmlEncode(src) {
+
+		// HTMLのまず文字などをエンコードするためのクラスのメソッドを確保
+		if (!this._htmlencorder) {
+			var weblib = host.lib("System.Web");
+			this._htmlencoder = weblib.System.Web.HttpUtility.HtmlEncode;
+		}
+
+		let html = this._htmlencoder(src);
+		html = html.replace(/\r\n/g, "\r")
+				   .replace(/\n/g, "\r")
+				   .replace(/\r/g, "<br>\r\n")
+		           .replace(/  /g, " &nbsp;")
+		return html;
+	}
+    AddTextOnly(src) {
+        this._all_text += this.HtmlEncode(src);
+    }
     GetAddRubyFormat(src, ruby) {
-        return '<ruby><rb>' + src + '</rb><rp>(</rp><rt>' + ruby + '</rt><rp>)</rp></ruby>';
+        return '<ruby><rb>' + this.HtmlEncode(src) + '</rb><rp>(</rp><rt>' + ruby + '</rt><rp>)</rp></ruby>';
     }
 }
 
@@ -94,7 +114,9 @@ function Main() {
     // あまり長々とした文章を一気に変換することが出来ない(Windows APIの都合)
     // なので、普通に日本語書いていれば、このくらいの記号で分離すればよいだろう
     let split_list = [];
-    let breakPointRegexp = /(.+?)([\s、。（）「」＜＞\<\>\|\+\-\(\)\[\]\.\,\!\?\'\"]|$)/g;
+
+	// 次に上げる条件で文字列を区切っていく。あまり長い文字列は JapanesePhoneticAnalyze が対象出来ないので。
+    let breakPointRegexp = /(.+?)([\s、。（）「」＜＞\<\>\|\+\-\(\)\[\]\.\,\!\?\'\"]+|$)/g;
     while ((match_array = breakPointRegexp.exec(target_text)) != null) {
 
         // 通常の内容は、APIで分析する必要があるもの
@@ -113,10 +135,12 @@ function Main() {
 
         // APIで分析する必要があるのであれば…
         if (split_list[i].need_analyze) {
+
             // 分析する。結果は「List<Windows.Globalization.JapanesePhoneme>」と同様のプロパティを持つもの。
             // 但し、DisplayTextは変換後全角データではなく、変換前のデータ、IsPhraseStartは「DisplayText」に漢字が含まれているかどうかのフラグ
             // というように少し意味を変えている。
             let record_list = divider.GetJapanesePhoneticAnalyzeDataList(target_text);
+
             // 結果をバッファーへと足しこみ
             AddToBufferJapanesePhoneticAnalyzeData(record_list);
 

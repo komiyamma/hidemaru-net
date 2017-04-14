@@ -16,7 +16,7 @@ public class HmJapanesePhoneticAnalyzer
         this.m_text = text;
         japanesePhoneticAnalyzeDataList.Clear();
 
-        var list = Windows.Globalization.JapanesePhoneticAnalyzer.GetWords(text, true);
+        var list = Windows.Globalization.JapanesePhoneticAnalyzer.GetWords(text, false); // ２番目のmonorubyをtrueにすると、全て１文字ずつルビを打ってしまう。
         foreach (var data in list)
         {
             var japanesePhoneticAnalyzeData = new JapanesePhoneticAnalyzeData();

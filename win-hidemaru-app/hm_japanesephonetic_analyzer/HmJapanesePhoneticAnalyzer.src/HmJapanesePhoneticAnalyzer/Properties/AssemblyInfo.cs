@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // アセンブリに関する一般情報は以下の属性セットをとおして制御されます。
 // アセンブリに関連付けられている情報を変更するには、
 // これらの属性値を変更してください。
-[assembly: AssemblyTitle("HmJapanesePhoneticAnalyzer for Win8.1以上 ANYCPU")]
+[assembly: AssemblyTitle("HmJapanesePhoneticAnalyzer for Win8.1以上 ANYCPU 版")]
 [assembly: AssemblyDescription("秀丸マクロ用・分かち書きやルビ 振り用のライブラリ")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("HmJapanesePhoneticAnalyzer for Win8.1以上 ANYCPU")]
+[assembly: AssemblyProduct("HmJapanesePhoneticAnalyzer for Win8.1以上 ANYCPU 版")]
 [assembly: AssemblyCopyright("Copyright © 2017 VSCode.life")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
