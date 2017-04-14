@@ -21,6 +21,23 @@ class IDataBuffer {
     GetAllText() {
         return this._all_text;
     }
+
+    AppendJapanesePhoneticAnalyzeData(record_list) {
+
+        // 分かち書きされた各々のレコードやルビに対して…
+        for(let record of record_list) {
+
+            // 漢字に対するルビである
+            if (record.IsPhraseStart) {
+                // 各バッファーは自身のルビ振りのフォーマット変形を利用しながら、文字列を連結
+                this.AddTextWithRuby(record.DisplayText, record.YomiText);
+            } else {
+                // 各バッファーは普通に文字列を連結
+                this.AddTextOnly(record.DisplayText);
+            }
+        }
+    }
+
     AddTextOnly(src) {
         this._all_text += src;
     }
@@ -116,7 +133,7 @@ function Main() {
     let split_list = [];
 
     // 次に上げる条件で文字列を区切っていく。あまり長い文字列は JapanesePhoneticAnalyze が対象出来ないので。
-    let breakPointRegexp = /(.+?)([\s、。（）「」＜＞\<\>\|\+\-\(\)\[\]\.\,\!\?\'\"]+|$)/g;
+    let breakPointRegexp = /(.+?)([\s、／。・…？！（）【】『』「」＜＞\<\>\|\+\-\(\)\[\]\.\,\!\?\'\"]+|$)/g;
     while ((match_array = breakPointRegexp.exec(target_text)) != null) {
 
         // 通常の内容は、APIで分析する必要があるもの
@@ -142,7 +159,10 @@ function Main() {
             let record_list = divider.GetJapanesePhoneticAnalyzeDataList(target_text);
 
             // 結果をバッファーへと足しこみ
-            AddToBufferJapanesePhoneticAnalyzeData(record_list);
+            buffers.forEach(
+                (buffer) => buffer.AppendJapanesePhoneticAnalyzeData(record_list)
+            );
+            
 
         // 分析する必要が無いのであれば、こちらもバッファーへと単純足しこみ
         } else {
@@ -155,22 +175,6 @@ function Main() {
     AssignToHidemaruVarable();
 }
 
-// 変換対象の文字列取得の定義。
-function AddToBufferJapanesePhoneticAnalyzeData(record_list) {
-
-    // 分かち書きされた各々のレコードやルビに対して…
-    for(let record of record_list) {
-
-        // 漢字に対するルビである
-        if (record.IsPhraseStart) {
-            // 各バッファーは自身のルビ振りのフォーマット変形を利用しながら、文字列を連結
-            buffers.forEach( (buffer) => buffer.AddTextWithRuby(record.DisplayText, record.YomiText) );
-        } else {
-            // 各バッファーは普通に文字列を連結
-            buffers.forEach( (buffer) => buffer.AddTextOnly(record.DisplayText) );
-        }
-    }
-}
 
 function AssignToHidemaruVarable() {
 
@@ -182,7 +186,7 @@ function AssignToHidemaruVarable() {
 
     // 全バッファーにルビは含まれていない。アウトプット枠に情報を出すだけで終わり
     if (!is_buf_contains_ruby) {
-        OutputPane("ルビ振りに対象となる文字列はありません");
+        OutputPane("ルビ振りの対象となる文字列はありません");
         return;
     }
 
