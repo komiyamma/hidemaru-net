@@ -66,13 +66,14 @@ class YokoRubyDataBuffer extends IDataBuffer {
 // GetAddRubyFormatをoverride
 class HtmlRubyDataBuffer extends IDataBuffer {
 
-    HtmlEncode(src) {
+    constructor() {
+        super();
 
-        // HTMLのまず文字などをエンコードするためのクラスのメソッドを確保
-        if (!this._htmlencorder) {
-            var weblib = host.lib("System.Web");
-            this._htmlencoder = weblib.System.Web.HttpUtility.HtmlEncode;
-        }
+        var weblib = host.lib("System.Web");
+        this._htmlencoder = weblib.System.Web.HttpUtility.HtmlEncode;
+    }
+
+    HtmlEncode(src) {
 
         let html = this._htmlencoder(src);
         html = html.replace(/\r\n/g, "\r")
