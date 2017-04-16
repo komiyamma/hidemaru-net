@@ -69,7 +69,7 @@ class HtmlRubyDataBuffer extends IDataBuffer {
     constructor() {
         super();
 
-        var weblib = host.lib("System.Web");
+        let weblib = host.lib("System.Web");
         this._htmlencoder = weblib.System.Web.HttpUtility.HtmlEncode;
     }
 
