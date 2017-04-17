@@ -233,7 +233,7 @@ public partial class hmV8DynamicLib
                 // ②:空のDestory関数
                 String expression = @"
                 function R(text){
-                    return text.toString().split(""\n"").slice(1,-1).join(""\n"");
+                    return text.toString().match(/\/\*([\s\S]*)\*\//)[1].toString();
                 }
 
                 hm.Macro.Var = new Proxy(()=>{}, {

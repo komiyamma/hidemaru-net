@@ -211,7 +211,7 @@ public partial class hmJSDynamicLib
                 // ヒアドキュメント用の関数 R(text)
                 String expression = @"
                 function R(text){
-                    return text.toString().split(""\n"").slice(1,-1).join(""\n"");
+                    return text.toString().match(/\/\*([\s\S]*)\*\//)[1].toString();
                 }
                 ";
                 engine.Execute(expression);
