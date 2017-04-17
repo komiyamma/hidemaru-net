@@ -1,12 +1,8 @@
+declare var clr: any;
+
 declare class host {
 	static lib(libname: string): any;
 	static lib(libns: any, libname: string): any;
-}
-
-declare var clr: any;
-
-declare class HmJapanesePhoneticAnalyzer {
-	public GetJapanesePhoneticAnalyzeDataList(target_text: string): IJapanesePhonetic[];
 }
 
 declare namespace hm {
@@ -24,6 +20,10 @@ declare interface IJapanesePhonetic {
 	DisplayText: string;
 	IsPhraseStart: boolean;
 	YomiText: string;
-
 }
+
+declare class HmJapanesePhoneticAnalyzer {
+	public GetJapanesePhoneticAnalyzeDataList(target_text: string): IJapanesePhonetic[];
+}
+
 
