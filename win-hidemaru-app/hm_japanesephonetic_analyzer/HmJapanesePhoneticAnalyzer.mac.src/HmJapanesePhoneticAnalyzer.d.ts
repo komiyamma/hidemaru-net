@@ -23,7 +23,7 @@ declare interface IJapanesePhonetic {
 }
 
 declare class HmJapanesePhoneticAnalyzer {
-	public GetJapanesePhoneticAnalyzeDataList(target_text: string): IJapanesePhonetic[];
+	public GetJapanesePhoneticAnalyzeDataList(target_data: string): IJapanesePhonetic[];
 }
 
 
