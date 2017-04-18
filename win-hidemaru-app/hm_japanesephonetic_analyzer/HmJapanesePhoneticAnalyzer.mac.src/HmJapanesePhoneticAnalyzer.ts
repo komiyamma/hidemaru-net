@@ -8,8 +8,8 @@ host.lib( clr, "HmJapanesePhoneticAnalyzer");
 
 // バッファー用の基本インターフェイス
 class IDataBuffer {
-	protected _all_text: string;
-	protected _buffer_contains_ruby: boolean;
+    protected _all_text: string;
+    protected _buffer_contains_ruby: boolean;
     constructor() {
         this._all_text = "";
         this._buffer_contains_ruby = false;
@@ -65,7 +65,7 @@ class YokoRubyDataBuffer extends IDataBuffer {
  * GetAddRubyFormatをoverride
  */
 class HtmlRubyDataBuffer extends IDataBuffer {
-	protected _htmlencoder: ((src: string)=>string);
+    protected _htmlencoder: ((src: string)=>string);
     constructor() {
         super();
 
@@ -108,12 +108,12 @@ function GetTargetText(): string {
 function OutputPane(text: string): void {
     hm.Macro.Var["$OutputPaneMessageText"] = text;
     hm.Macro.Eval( f => {
-	/*
+    /*
         #HMOP = loaddll(hidemarudir + @"\HmOutputPane.dll");
         #r = dllfunc(#HMOP, "Output", hidemaruhandle(0), $OutputPaneMessageText + "\r\n");
         freedll( #HMOP );
     */
-	} );
+    } );
 }
 
 // メイン処理
@@ -125,24 +125,24 @@ function Main(): void {
     // 無ければさすがに窓を出して警告。終わり
     if (target_text.length === 0) {
         hm.Macro.Eval( f => {
-		/*
+        /*
             message("文字列が選択されていません。");
         */
-		} );
+        } );
         return;
     }
 
     // あまり長々とした文章を一気に変換することが出来ない(Windows APIの都合)
     // なので、普通に日本語書いていれば、このくらいの記号で分離すればよいだろう
-	interface ISplitData {
-		data_text: string;
-		need_analyze:boolean;
-	}
+    interface ISplitData {
+        data_text: string;
+        need_analyze:boolean;
+    }
     let split_list: ISplitData[] = [];
 
     // 次に上げる条件で文字列を区切っていく。あまり長い文字列は JapanesePhoneticAnalyze が対処出来ないので。
     let breakPointRegexp: RegExp = /(.+?)([\s、／。・…？！（）【】『』「」＜＞\<\>\|\+\-\(\)\[\]\.\,\!\?\'\"]+|$)/g;
-	let match_array: RegExpExecArray = null;
+    let match_array: RegExpExecArray = null;
     while ((match_array = breakPointRegexp.exec(target_text)) != null) {
 
         // 通常の内容は、APIで分析する必要があるもの
