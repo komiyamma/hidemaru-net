@@ -183,7 +183,7 @@ function Main(): void {
 }
 
 
-function AssignToHidemaruVarable() {
+function AssignToHidemaruVarable(): void {
 
     // で、結局最終的に秀丸の新ページとして出力するべきなの？
     let is_buf_contains_ruby:boolean = false;
