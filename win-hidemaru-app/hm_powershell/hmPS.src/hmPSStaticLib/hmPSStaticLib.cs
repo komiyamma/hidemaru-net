@@ -90,10 +90,15 @@ public partial class hmPSDynamicLib
 {
     static hmPSDynamicLib()
     {
-        StringBuilder exe_full_path = new StringBuilder(260);
-        // GetModuleFileName(IntPtr.Zero, exe_full_path, (ulong)exe_full_path.Capacity);
-        // strExecuteFullpath = exe_full_path.ToString();
-        strExecuteFullpath = @"C:\usr\hideamru\hidemaru.exe";
+        try
+        {
+            StringBuilder exe_full_path = new StringBuilder(260);
+            GetModuleFileName(IntPtr.Zero, exe_full_path, (ulong)exe_full_path.Capacity);
+            strExecuteFullpath = exe_full_path.ToString();
+        } catch(Exception e)
+        {
+            System.Diagnostics.Trace.WriteLine(e.Message);
+        }
     }
 
     static String strExecuteFullpath;
@@ -149,10 +154,7 @@ public partial class hmPSDynamicLib
 
     private static DllPathResolver dpr;
 
-    public class Hidemaru2
-    {
-        public get
-    }
+
 
     //----------------------------------------------------------------------------------------------
     public static IntPtr CreateScope()
@@ -168,11 +170,11 @@ public partial class hmPSDynamicLib
                 // open it
                 runspace.Open();
 
-                // hm = new Hidemaru();
-                // runspace.SessionStateProxy.SetVariable("hm", hm);
-                // runspace.SessionStateProxy.SetVariable("AssemblyPath", new List<String>() );
+                hm = new Hidemaru();
+                runspace.SessionStateProxy.SetVariable("hm", hm);
+                runspace.SessionStateProxy.SetVariable("AssemblyPath", new List<String>() );
 
-                // dpr = new DllPathResolver();
+                dpr = new DllPathResolver();
 
                 return (IntPtr)1;
             }

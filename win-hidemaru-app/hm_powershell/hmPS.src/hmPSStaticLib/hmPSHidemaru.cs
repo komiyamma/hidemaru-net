@@ -53,8 +53,10 @@ public partial class hmPSDynamicLib
     {
         public Hidemaru()
         {
+            System.Diagnostics.Trace.WriteLine(strExecuteFullpath);
             System.Diagnostics.FileVersionInfo vi = System.Diagnostics.FileVersionInfo.GetVersionInfo(strExecuteFullpath);
             _ver = 100 * vi.FileMajorPart + 10 * vi.FileMinorPart + 1 * vi.FileBuildPart + 0.01 * vi.FilePrivatePart;
+            SetUnManagedDll();
         }
 
         public class ErrorMsg
@@ -115,7 +117,8 @@ public partial class hmPSDynamicLib
         static void SetUnManagedDll()
         {
             // OutputDebugStream(version.ToString());
-            if (version >= 866) {
+            if (version >= 866)
+            {
 
                 // 初めての代入のみ
                 if (hmExeHandle == null)
@@ -148,399 +151,392 @@ public partial class hmPSDynamicLib
             public int lineno { get { return m_lineno; } }
         }
 
+        /*
         public class Edit
         {
             static Edit()
             {
                 SetUnManagedDll();
             }
-            /// <summary>
-            ///  CursorPos
-            /// </summary>
-            public static HmCursurPos CursorPos
+        */
+        /// <summary>
+        ///  CursorPos
+        /// </summary>
+        public static HmCursurPos CursorPos
+        {
+            get
             {
-                get
-                {
-                    return GetCursorPos();
-                }
+                return GetCursorPos();
             }
-
-            // columnやlinenoはエディタ的な座標である。
-            private static HmCursurPos GetCursorPos()
-            {
-                if (version < 866)
-                {
-                    OutputDebugStream(ErrorMsg.MethodNeed866);
-                    return new HmCursurPos(1, 0);
-                }
-
-                int column = -1;
-                int lineno = -1;
-                pGetCursorPosUnicode(ref lineno, ref column);
-                HmCursurPos p = new HmCursurPos(lineno, column);
-                return p;
-            }
-
-            /// <summary>
-            /// TotalText
-            /// </summary>
-            public static String TotalText
-            {
-                get
-                {
-                    return GetTotalText();
-                }
-                set
-                {
-                    SetTotalText(value);
-                }
-            }
-
-            // 途中でエラーが出るかもしれないので、相応しいUnlockやFreeが出来るように内部管理用
-            private enum HGlobalStatus { None, Lock, Unlock, Free };
-
-            // 現在の秀丸の編集中のテキスト全て。元が何の文字コードでも関係なく秀丸がwchar_tのユニコードで返してくれるので、
-            // String^型に入れておけば良い。
-            private static String GetTotalText()
-            {
-                if (version < 866)
-                {
-                    OutputDebugStream(ErrorMsg.MethodNeed866);
-                    return "";
-                }
-
-                String curstr = "";
-                IntPtr hGlobal = pGetTotalTextUnicode();
-                HGlobalStatus hgs = HGlobalStatus.None;
-                if (hGlobal != null)
-                {
-                    try
-                    {
-                        IntPtr ret = GlobalLock(hGlobal);
-                        hgs = HGlobalStatus.Lock;
-                        curstr = Marshal.PtrToStringUni(ret);
-                        GlobalUnlock(hGlobal);
-                        hgs = HGlobalStatus.Unlock;
-                        GlobalFree(hGlobal);
-                        hgs = HGlobalStatus.Free;
-                    }
-                    catch (Exception e)
-                    {
-                        OutputDebugStream(e.Message);
-                    }
-                    finally
-                    {
-                        switch (hgs)
-                        {
-                            // ロックだけ成功した
-                            case HGlobalStatus.Lock:
-                                {
-                                    GlobalUnlock(hGlobal);
-                                    GlobalFree(hGlobal);
-                                    break;
-                                }
-                            // アンロックまで成功した
-                            case HGlobalStatus.Unlock:
-                                {
-                                    GlobalFree(hGlobal);
-                                    break;
-                                }
-                            // フリーまで成功した
-                            case HGlobalStatus.Free:
-                                {
-                                    break;
-                                }
-                        }
-                    }
-                }
-                return curstr;
-            }
-
-            private static void SetTotalText(String value)
-            {
-                if (version < 866)
-                {
-                    OutputDebugStream(ErrorMsg.MethodNeed866);
-                    return;
-                }
-
-                int dll = iDllBindHandle;
-
-                if (dll == 0)
-                {
-                    throw new NullReferenceException(ErrorMsg.NoDllBindHandle866);
-                }
-
-                SetTmpVar(value);
-                String cmd = ModifyFuncCallByDllType(
-                    "begingroupundo;\n" +
-                    "selectall;\n" +
-                    "insert dllfuncstrw( {0} \"PopStrVar\" );\n" +
-                    "endgroupundo;\n"
-                );
-                Macro._Eval(cmd);
-                SetTmpVar(null);
-            }
-
-            /// <summary>
-            ///  SelecetdText
-            /// </summary>
-            public static String SelectedText
-            {
-                get
-                {
-                    return GetSelectedText();
-                }
-                set
-                {
-                    SetSelectedText(value);
-                }
-
-            }
-
-            // 現在の秀丸の選択中のテキスト。元が何の文字コードでも関係なく秀丸がwchar_tのユニコードで返してくれるので、
-            // String^型に入れておけば良い。
-            private static String GetSelectedText()
-            {
-                if (version < 866)
-                {
-                    OutputDebugStream(ErrorMsg.MethodNeed866);
-                    return "";
-                }
-
-                String curstr = "";
-                IntPtr hGlobal = pGetSelectedTextUnicode();
-                HGlobalStatus hgs = HGlobalStatus.None;
-                if (hGlobal != null)
-                {
-                    try
-                    {
-                        IntPtr ret = GlobalLock(hGlobal);
-                        hgs = HGlobalStatus.Lock;
-                        curstr = Marshal.PtrToStringUni(ret);
-                        GlobalUnlock(hGlobal);
-                        hgs = HGlobalStatus.Unlock;
-                        GlobalFree(hGlobal);
-                        hgs = HGlobalStatus.Free;
-                    }
-                    catch (Exception e)
-                    {
-                        OutputDebugStream(e.Message);
-                    }
-                    finally
-                    {
-                        switch (hgs)
-                        {
-                            // ロックだけ成功した
-                            case HGlobalStatus.Lock:
-                                {
-                                    GlobalUnlock(hGlobal);
-                                    GlobalFree(hGlobal);
-                                    break;
-                                }
-                            // アンロックまで成功した
-                            case HGlobalStatus.Unlock:
-                                {
-                                    GlobalFree(hGlobal);
-                                    break;
-                                }
-                            // フリーまで成功した
-                            case HGlobalStatus.Free:
-                                {
-                                    break;
-                                }
-                        }
-                    }
-                }
-
-                if (curstr == null)
-                {
-                    curstr = "";
-                }
-                return curstr;
-            }
-
-            private static void SetSelectedText(String value)
-            {
-                if (version < 866)
-                {
-                    OutputDebugStream(ErrorMsg.MethodNeed866);
-                    return;
-                }
-
-                int dll = iDllBindHandle;
-
-                if (dll == 0)
-                {
-                    throw new NullReferenceException(ErrorMsg.NoDllBindHandle866);
-                }
-
-                SetTmpVar(value);
-                String invocate = ModifyFuncCallByDllType("{0}");
-                String cmd =
-                    "if (selecting) {\n" +
-                    "insert dllfuncstrw( " + invocate + " \"PopStrVar\" );\n" +
-                    "}\n";
-                Macro._Eval(cmd);
-                SetTmpVar(null);
-            }
-
-
-            /// <summary>
-            /// LineText
-            /// </summary>
-            public static String LineText
-            {
-                get
-                {
-                    return GetLineText();
-                }
-                set
-                {
-                    SetLineText(value);
-                }
-            }
-
-            // 現在の秀丸の編集中のテキストで、カーソルがある行だけのテキスト。
-            // 元が何の文字コードでも関係なく秀丸がwchar_tのユニコードで返してくれるので、
-            // String^型に入れておけば良い。
-            private static String GetLineText()
-            {
-                if (version < 866)
-                {
-                    OutputDebugStream(ErrorMsg.MethodNeed866);
-                    return "";
-                }
-
-                HmCursurPos p = GetCursorPos();
-
-                String curstr = "";
-                IntPtr hGlobal = pGetLineTextUnicode(p.lineno);
-                HGlobalStatus hgs = HGlobalStatus.None;
-                if (hGlobal != null)
-                {
-                    try
-                    {
-                        IntPtr ret = GlobalLock(hGlobal);
-                        hgs = HGlobalStatus.Lock;
-                        curstr = Marshal.PtrToStringUni(ret);
-                        GlobalUnlock(hGlobal);
-                        hgs = HGlobalStatus.Unlock;
-                        GlobalFree(hGlobal);
-                        hgs = HGlobalStatus.Free;
-                    }
-                    catch (Exception e)
-                    {
-                        OutputDebugStream(e.Message);
-                    }
-                    finally
-                    {
-                        switch (hgs)
-                        {
-                            // ロックだけ成功した
-                            case HGlobalStatus.Lock:
-                                {
-                                    GlobalUnlock(hGlobal);
-                                    GlobalFree(hGlobal);
-                                    break;
-                                }
-                            // アンロックまで成功した
-                            case HGlobalStatus.Unlock:
-                                {
-                                    GlobalFree(hGlobal);
-                                    break;
-                                }
-                            // フリーまで成功した
-                            case HGlobalStatus.Free:
-                                {
-                                    break;
-                                }
-                        }
-                    }
-                }
-                return curstr;
-            }
-
-            private static void SetLineText(String value)
-            {
-                if (version < 866)
-                {
-                    OutputDebugStream(ErrorMsg.MethodNeed866);
-                    return;
-                }
-
-                int dll = iDllBindHandle;
-
-                if (dll == 0)
-                {
-                    throw new NullReferenceException(ErrorMsg.NoDllBindHandle866);
-                }
-
-                SetTmpVar(value);
-                var pos = GetCursorPos();
-                String cmd = ModifyFuncCallByDllType(
-                    "begingroupundo;\n" +
-                    "selectline;\n" +
-                    "insert dllfuncstrw( {0} \"PopStrVar\" );\n" +
-                    "moveto2 " + pos.column + ", " + pos.lineno + ";\n" +
-                    "endgroupundo;\n"
-                );
-                Macro._Eval(cmd);
-                SetTmpVar(null);
-            }
-
         }
 
-
-
-        public class Macro
+        // columnやlinenoはエディタ的な座標である。
+        private static HmCursurPos GetCursorPos()
         {
-            static Macro()
+            if (version < 866)
             {
-                SetUnManagedDll();
-
+                OutputDebugStream(ErrorMsg.MethodNeed866);
+                return new HmCursurPos(1, 0);
             }
 
-            // マクロ文字列の実行。複数行を一気に実行可能
-            internal static int _Eval(String cmd)
-            {
-                if (version < 866)
-                {
-                    OutputDebugStream(ErrorMsg.MethodNeed866);
-                    return 0;
-                }
+            int column = -1;
+            int lineno = -1;
+            pGetCursorPosUnicode(ref lineno, ref column);
+            HmCursurPos p = new HmCursurPos(lineno, column);
+            return p;
+        }
 
-                int ret = 0;
+        /// <summary>
+        /// TotalText
+        /// </summary>
+        public static String TotalText
+        {
+            get
+            {
+                return GetTotalText();
+            }
+            set
+            {
+                SetTotalText(value);
+            }
+        }
+
+        // 途中でエラーが出るかもしれないので、相応しいUnlockやFreeが出来るように内部管理用
+        private enum HGlobalStatus { None, Lock, Unlock, Free };
+
+        // 現在の秀丸の編集中のテキスト全て。元が何の文字コードでも関係なく秀丸がwchar_tのユニコードで返してくれるので、
+        // String^型に入れておけば良い。
+        private static String GetTotalText()
+        {
+            if (version < 866)
+            {
+                OutputDebugStream(ErrorMsg.MethodNeed866);
+                return "";
+            }
+
+            String curstr = "";
+            IntPtr hGlobal = pGetTotalTextUnicode();
+            HGlobalStatus hgs = HGlobalStatus.None;
+            if (hGlobal != null)
+            {
                 try
                 {
-                    ret = pEvalMacro(cmd);
+                    IntPtr ret = GlobalLock(hGlobal);
+                    hgs = HGlobalStatus.Lock;
+                    curstr = Marshal.PtrToStringUni(ret);
+                    GlobalUnlock(hGlobal);
+                    hgs = HGlobalStatus.Unlock;
+                    GlobalFree(hGlobal);
+                    hgs = HGlobalStatus.Free;
                 }
                 catch (Exception e)
                 {
                     OutputDebugStream(e.Message);
                 }
-                return ret;
-            }
-
-            // マクロ文字列の実行。複数行を一気に実行可能。
-            // 文字列なら、そのまま、ぞれ以外なら、「engine.Script.R」の関数でヒアドキュメント化する。
-            // function R(text){ で検索
-            public static int Eval(Object here_document)
-            {
-
-                if (version < 866)
+                finally
                 {
-                    OutputDebugStream(ErrorMsg.MethodNeed866);
-                    return 0;
+                    switch (hgs)
+                    {
+                        // ロックだけ成功した
+                        case HGlobalStatus.Lock:
+                            {
+                                GlobalUnlock(hGlobal);
+                                GlobalFree(hGlobal);
+                                break;
+                            }
+                        // アンロックまで成功した
+                        case HGlobalStatus.Unlock:
+                            {
+                                GlobalFree(hGlobal);
+                                break;
+                            }
+                        // フリーまで成功した
+                        case HGlobalStatus.Free:
+                            {
+                                break;
+                            }
+                    }
                 }
+            }
+            return curstr;
+        }
 
-                return _Eval((String)here_document);
+        private static void SetTotalText(String value)
+        {
+            if (version < 866)
+            {
+                OutputDebugStream(ErrorMsg.MethodNeed866);
+                return;
             }
 
-            // マクロ文字列の実行。複数行を一気に実行可能
-            public static Object Var(String var_name, Object value = null) {
-                // 読み取りであれば…
-                if (value == null) {
+            int dll = iDllBindHandle;
+
+            if (dll == 0)
+            {
+                throw new NullReferenceException(ErrorMsg.NoDllBindHandle866);
+            }
+
+            SetTmpVar(value);
+            String cmd = ModifyFuncCallByDllType(
+                "begingroupundo;\n" +
+                "selectall;\n" +
+                "insert dllfuncstrw( {0} \"PopStrVar\" );\n" +
+                "endgroupundo;\n"
+            );
+            Eval(cmd);
+            SetTmpVar(null);
+        }
+
+        /// <summary>
+        ///  SelecetdText
+        /// </summary>
+        public static String SelectedText
+        {
+            get
+            {
+                return GetSelectedText();
+            }
+            set
+            {
+                SetSelectedText(value);
+            }
+
+        }
+
+        // 現在の秀丸の選択中のテキスト。元が何の文字コードでも関係なく秀丸がwchar_tのユニコードで返してくれるので、
+        // String^型に入れておけば良い。
+        private static String GetSelectedText()
+        {
+            if (version < 866)
+            {
+                OutputDebugStream(ErrorMsg.MethodNeed866);
+                return "";
+            }
+
+            String curstr = "";
+            IntPtr hGlobal = pGetSelectedTextUnicode();
+            HGlobalStatus hgs = HGlobalStatus.None;
+            if (hGlobal != null)
+            {
+                try
+                {
+                    IntPtr ret = GlobalLock(hGlobal);
+                    hgs = HGlobalStatus.Lock;
+                    curstr = Marshal.PtrToStringUni(ret);
+                    GlobalUnlock(hGlobal);
+                    hgs = HGlobalStatus.Unlock;
+                    GlobalFree(hGlobal);
+                    hgs = HGlobalStatus.Free;
+                }
+                catch (Exception e)
+                {
+                    OutputDebugStream(e.Message);
+                }
+                finally
+                {
+                    switch (hgs)
+                    {
+                        // ロックだけ成功した
+                        case HGlobalStatus.Lock:
+                            {
+                                GlobalUnlock(hGlobal);
+                                GlobalFree(hGlobal);
+                                break;
+                            }
+                        // アンロックまで成功した
+                        case HGlobalStatus.Unlock:
+                            {
+                                GlobalFree(hGlobal);
+                                break;
+                            }
+                        // フリーまで成功した
+                        case HGlobalStatus.Free:
+                            {
+                                break;
+                            }
+                    }
+                }
+            }
+
+            if (curstr == null)
+            {
+                curstr = "";
+            }
+            return curstr;
+        }
+
+        private static void SetSelectedText(String value)
+        {
+            if (version < 866)
+            {
+                OutputDebugStream(ErrorMsg.MethodNeed866);
+                return;
+            }
+
+            int dll = iDllBindHandle;
+
+            if (dll == 0)
+            {
+                throw new NullReferenceException(ErrorMsg.NoDllBindHandle866);
+            }
+
+            SetTmpVar(value);
+            String invocate = ModifyFuncCallByDllType("{0}");
+            String cmd =
+                "if (selecting) {\n" +
+                "insert dllfuncstrw( " + invocate + " \"PopStrVar\" );\n" +
+                "}\n";
+            Eval(cmd);
+            SetTmpVar(null);
+        }
+
+
+        /// <summary>
+        /// LineText
+        /// </summary>
+        public static String LineText
+        {
+            get
+            {
+                return GetLineText();
+            }
+            set
+            {
+                SetLineText(value);
+            }
+        }
+
+        // 現在の秀丸の編集中のテキストで、カーソルがある行だけのテキスト。
+        // 元が何の文字コードでも関係なく秀丸がwchar_tのユニコードで返してくれるので、
+        // String^型に入れておけば良い。
+        private static String GetLineText()
+        {
+            if (version < 866)
+            {
+                OutputDebugStream(ErrorMsg.MethodNeed866);
+                return "";
+            }
+
+            HmCursurPos p = GetCursorPos();
+
+            String curstr = "";
+            IntPtr hGlobal = pGetLineTextUnicode(p.lineno);
+            HGlobalStatus hgs = HGlobalStatus.None;
+            if (hGlobal != null)
+            {
+                try
+                {
+                    IntPtr ret = GlobalLock(hGlobal);
+                    hgs = HGlobalStatus.Lock;
+                    curstr = Marshal.PtrToStringUni(ret);
+                    GlobalUnlock(hGlobal);
+                    hgs = HGlobalStatus.Unlock;
+                    GlobalFree(hGlobal);
+                    hgs = HGlobalStatus.Free;
+                }
+                catch (Exception e)
+                {
+                    OutputDebugStream(e.Message);
+                }
+                finally
+                {
+                    switch (hgs)
+                    {
+                        // ロックだけ成功した
+                        case HGlobalStatus.Lock:
+                            {
+                                GlobalUnlock(hGlobal);
+                                GlobalFree(hGlobal);
+                                break;
+                            }
+                        // アンロックまで成功した
+                        case HGlobalStatus.Unlock:
+                            {
+                                GlobalFree(hGlobal);
+                                break;
+                            }
+                        // フリーまで成功した
+                        case HGlobalStatus.Free:
+                            {
+                                break;
+                            }
+                    }
+                }
+            }
+            return curstr;
+        }
+
+        private static void SetLineText(String value)
+        {
+            if (version < 866)
+            {
+                OutputDebugStream(ErrorMsg.MethodNeed866);
+                return;
+            }
+
+            int dll = iDllBindHandle;
+
+            if (dll == 0)
+            {
+                throw new NullReferenceException(ErrorMsg.NoDllBindHandle866);
+            }
+
+            SetTmpVar(value);
+            var pos = GetCursorPos();
+            String cmd = ModifyFuncCallByDllType(
+                "begingroupundo;\n" +
+                "selectline;\n" +
+                "insert dllfuncstrw( {0} \"PopStrVar\" );\n" +
+                "moveto2 " + pos.column + ", " + pos.lineno + ";\n" +
+                "endgroupundo;\n"
+            );
+            Eval(cmd);
+            SetTmpVar(null);
+        }
+
+        // }
+
+
+        /*
+        public class Macro
+        {
+            static Macro()
+            {
+                SetUnManagedDll();
+            }
+            */
+
+        // マクロ文字列の実行。複数行を一気に実行可能
+        public static int Eval(String cmd)
+        {
+            if (version < 866)
+            {
+                OutputDebugStream(ErrorMsg.MethodNeed866);
+                return 0;
+            }
+
+            int ret = 0;
+            try
+            {
+                ret = pEvalMacro(cmd);
+            }
+            catch (Exception e)
+            {
+                OutputDebugStream(e.Message);
+            }
+            return ret;
+        }
+
+
+        // マクロ文字列の実行。複数行を一気に実行可能
+        public static TMacroVar Var = new TMacroVar();
+        public class TMacroVar
+        {
+            public TMacroVar() { }
+            public Object this[String var_name]
+            {
+                get
+                {
                     if (version < 866)
                     {
                         OutputDebugStream(ErrorMsg.MethodNeed866);
@@ -560,7 +556,7 @@ public partial class hmPSDynamicLib
                         "##_tmp_dll_id_ret = dllfuncw( " + invocate + " \"SetTmpVar\", " + var_name + ");\n" +
                         "##_tmp_dll_id_ret = 0;\n";
 
-                    _Eval(cmd);
+                    Eval(cmd);
 
                     if (tmpVar == null)
                     {
@@ -584,16 +580,17 @@ public partial class hmPSDynamicLib
                     {
                         return (String)ret + ""; // 確実に複製を
                     }
+                }
 
-                // 書き込みであれば…
-                } else {
+                set
+                {
                     // 設定先の変数が数値型
                     if (var_name.StartsWith("#"))
                     {
                         if (version < 866)
                         {
                             OutputDebugStream(ErrorMsg.MethodNeed866);
-                            return null;
+                            return;
                         }
 
                         int dll = iDllBindHandle;
@@ -679,10 +676,8 @@ public partial class hmPSDynamicLib
                         String invocate = ModifyFuncCallByDllType("{0}");
                         String cmd = "" +
                             var_name + " = dllfuncw( " + invocate + " \"PopNumVar\" );\n";
-                        _Eval(cmd);
+                        Eval(cmd);
                         SetTmpVar(null);
-
-                        return result;
                     }
 
                     else // if (var_name.StartsWith("$")
@@ -690,7 +685,7 @@ public partial class hmPSDynamicLib
                         if (version < 866)
                         {
                             OutputDebugStream(ErrorMsg.MethodNeed866);
-                            return null;
+                            return;
                         }
 
                         int dll = iDllBindHandle;
@@ -705,14 +700,12 @@ public partial class hmPSDynamicLib
                         String invocate = ModifyFuncCallByDllType("{0}");
                         String cmd = "" +
                             var_name + " = dllfuncstrw( " + invocate + " \"PopStrVar\" );\n";
-                        _Eval(cmd);
+                        Eval(cmd);
                         SetTmpVar(null);
-
-                        return result;
                     }
                 }
-
             }
+            //    }
         }
     }
 }
