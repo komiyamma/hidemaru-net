@@ -8,27 +8,18 @@ public partial class HmCustomLivePreviewDynamicLib
     {
         public DllPathResolver()
         {
-            dic.Clear();
             AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
         }
 
         ~DllPathResolver()
         {
             AppDomain.CurrentDomain.AssemblyResolve -= CurrentDomain_AssemblyResolve;
-            dic.Clear();
         }
-
-        static Dictionary<String, Assembly> dic = new Dictionary<String, Assembly>();
 
         private static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
         {
             try
             {
-                if (dic.ContainsKey(args.Name))
-                {
-                    return dic[args.Name];
-                }
-
                 var requestingAssembly = args.RequestingAssembly;
                 var requestedAssembly = new AssemblyName(args.Name);
 
@@ -38,8 +29,7 @@ public partial class HmCustomLivePreviewDynamicLib
                 var targetfullpath = currentmacrodirectory + @"\" + requestedAssembly.Name + ".dll";
                 if (System.IO.File.Exists(targetfullpath))
                 {
-                    dic[args.Name] = Assembly.LoadFile(targetfullpath);
-                    return dic[args.Name];
+                    return Assembly.LoadFile(targetfullpath);
                 }
 
                 // ②そのようなフルパスが指定されている場合(フルパスを指定した書き方)
@@ -50,8 +40,7 @@ public partial class HmCustomLivePreviewDynamicLib
                     var normalizedfullpath = System.IO.Path.GetFullPath(targetfullpath);
                     var targetdirectory = System.IO.Path.GetDirectoryName(normalizedfullpath);
 
-                    dic[args.Name] = Assembly.LoadFile(targetfullpath);
-                    return dic[args.Name];
+                    return Assembly.LoadFile(targetfullpath);
                 }
 
                 // ③パスが特別に登録されている
@@ -64,17 +53,15 @@ public partial class HmCustomLivePreviewDynamicLib
                         targetfullpath = dir + @"\" + requestedAssembly.Name + ".dll";
                         if (System.IO.File.Exists(targetfullpath))
                         {
-                            dic[args.Name] = Assembly.LoadFile(targetfullpath);
-                            return dic[args.Name];
+                            return Assembly.LoadFile(targetfullpath);
                         }
                     }
                 }
             }
-            catch
+            catch(Exception)
             {
             }
 
-            dic[args.Name] = null;
             return null;
         }
     }

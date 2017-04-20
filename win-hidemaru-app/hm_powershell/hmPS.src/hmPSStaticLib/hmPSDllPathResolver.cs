@@ -8,27 +8,18 @@ public partial class hmPSDynamicLib
     {
         public DllPathResolver()
         {
-            dic.Clear();
             AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
         }
 
         ~DllPathResolver()
         {
             AppDomain.CurrentDomain.AssemblyResolve -= CurrentDomain_AssemblyResolve;
-            dic.Clear();
         }
-
-        static Dictionary<String, Assembly> dic = new Dictionary<String, Assembly>();
 
         private static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
         {
             try
             {
-                if (dic.ContainsKey(args.Name))
-                {
-                    return dic[args.Name];
-                }
-
                 var requestingAssembly = args.RequestingAssembly;
                 var requestedAssembly = new AssemblyName(args.Name);
 
@@ -38,8 +29,8 @@ public partial class hmPSDynamicLib
                 var targetfullpath = currentmacrodirectory + @"\" + requestedAssembly.Name + ".dll";
                 if (System.IO.File.Exists(targetfullpath))
                 {
-                    dic[args.Name] = Assembly.LoadFile(targetfullpath);
-                    return dic[args.Name];
+                    System.Diagnostics.Trace.Write("①");
+                    return Assembly.LoadFile(targetfullpath);
                 }
 
                 // ②そのようなフルパスが指定されている場合(フルパスを指定した書き方)
@@ -50,8 +41,8 @@ public partial class hmPSDynamicLib
                     var normalizedfullpath = System.IO.Path.GetFullPath(targetfullpath);
                     var targetdirectory = System.IO.Path.GetDirectoryName(normalizedfullpath);
 
-                    dic[args.Name] = Assembly.LoadFile(targetfullpath);
-                    return dic[args.Name];
+                    System.Diagnostics.Trace.Write("②");
+                    return Assembly.LoadFile(targetfullpath);
                 }
 
                 // ③パスが特別に登録されている
@@ -64,8 +55,8 @@ public partial class hmPSDynamicLib
                         targetfullpath = dir + @"\" + requestedAssembly.Name + ".dll";
                         if (System.IO.File.Exists(targetfullpath))
                         {
-                            dic[args.Name] = Assembly.LoadFile(targetfullpath);
-                            return dic[args.Name];
+                            System.Diagnostics.Trace.Write("③");
+                            return Assembly.LoadFile(targetfullpath);
                         }
                     }
                 }
@@ -74,7 +65,7 @@ public partial class hmPSDynamicLib
             {
             }
 
-            dic[args.Name] = null;
+            System.Diagnostics.Trace.Write("④");
             return null;
         }
     }
