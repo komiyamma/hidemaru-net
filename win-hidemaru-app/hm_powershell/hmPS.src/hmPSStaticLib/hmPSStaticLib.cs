@@ -170,10 +170,10 @@ public partial class hmPSDynamicLib
                 // open it
                 runspace.Open();
 
+
                 hm = new Hidemaru();
                 runspace.SessionStateProxy.SetVariable("hm", hm);
-                runspace.SessionStateProxy.SetVariable("AssemblyPath", new List<String>() );
-
+                runspace.SessionStateProxy.SetVariable("AssemblyPath", new List<String>());
                 dpr = new DllPathResolver();
 
                 return (IntPtr)1;

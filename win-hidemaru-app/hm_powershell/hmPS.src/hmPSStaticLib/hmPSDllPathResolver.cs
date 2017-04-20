@@ -20,16 +20,21 @@ public partial class hmPSDynamicLib
         {
             try
             {
+                // PowerShellの参照については、タッチしない
+                if (args.Name.Contains("System.Management.Automation"))
+                {
+                    return null;
+                }
+
                 var requestingAssembly = args.RequestingAssembly;
                 var requestedAssembly = new AssemblyName(args.Name);
 
                 // ①カレントディレクトリの.dllのファイル名部分だけを指定している場合(.NETの既存ライブラリと同じ書き方。
                 // もしくは、C#のusingで読み込めなかった場合もこれに該当する
-                String currentmacrodirectory = (String)Hidemaru.Var["currentmacrodirectory"];
+                String currentmacrodirectory = (String)Hidemaru.TMacro.Var["currentmacrodirectory"];
                 var targetfullpath = currentmacrodirectory + @"\" + requestedAssembly.Name + ".dll";
                 if (System.IO.File.Exists(targetfullpath))
                 {
-                    System.Diagnostics.Trace.Write("①");
                     return Assembly.LoadFile(targetfullpath);
                 }
 
@@ -41,7 +46,6 @@ public partial class hmPSDynamicLib
                     var normalizedfullpath = System.IO.Path.GetFullPath(targetfullpath);
                     var targetdirectory = System.IO.Path.GetDirectoryName(normalizedfullpath);
 
-                    System.Diagnostics.Trace.Write("②");
                     return Assembly.LoadFile(targetfullpath);
                 }
 
@@ -61,11 +65,10 @@ public partial class hmPSDynamicLib
                     }
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
             }
 
-            System.Diagnostics.Trace.Write("④");
             return null;
         }
     }
