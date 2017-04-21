@@ -59,7 +59,6 @@ public partial class hmPSDynamicLib
                         targetfullpath = dir + @"\" + requestedAssembly.Name + ".dll";
                         if (System.IO.File.Exists(targetfullpath))
                         {
-                            System.Diagnostics.Trace.Write("③");
                             return Assembly.LoadFile(targetfullpath);
                         }
                     }

@@ -176,6 +176,9 @@ public partial class hmPSDynamicLib
                 runspace.SessionStateProxy.SetVariable("AssemblyPath", new List<String>());
                 dpr = new DllPathResolver();
 
+                // ダミー関数の定義
+                DoString("function DestroyScope() {}");
+
                 return (IntPtr)1;
             }
             catch (Exception e)
@@ -363,12 +366,10 @@ public partial class hmPSDynamicLib
             // FreeLibrary直前の関数の呼び出し。
             try
             {
-                /*
-                if (runspace.SessionStateProxy.GetVariable("DestroyScope") != null)
-                {
-                    DoString("DestroyScope", "DestroyScope");
-                }
-                */
+                //if (runspace.SessionStateProxy.GetVariable("DestroyScope") != null)
+                //{
+                DoString("DestroyScope", "DestroyScope");
+                //}
             }
             catch (Exception)
             {
