@@ -26,4 +26,4 @@ extern BOOL OnHidemaruListBoxAddCompletePrev(HWND hListBox, UINT uMsg, WPARAM wP
 extern BOOL OnHidemaruListBoxAddCompletePost(HWND hListBox, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 // GŠÛ‚ªÅ‰‚Ìƒ[ƒh‚É‘Î‚µ‚Ä“Á•Ê‚É‘«‚µ‚Ş‚â‚Â
-#define AUTOCOMPLETE_HIDEMARU_ESPECIAL_ADD_WORD_REGEX _T("  \\(.+?=.+?\\)")
+#define AUTOCOMPLETE_HIDEMARU_ESPECIAL_ADD_WORD_REGEX _T("\\s+\\(.+?=.+?\\)")

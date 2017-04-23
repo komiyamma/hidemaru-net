@@ -36,8 +36,10 @@ TCHAR *GetCurrentFileName() {
 }
 
 intptr_t SetHidemaruHandle(HWND pWndHidemaru, TCHAR *szCurFileName) {
-	OutputDebugStream(_T("■変わった瞬間のファイル名%s\n"), szCurFileName);
 	hWndHidemaru = pWndHidemaru;
+	HookWin32apiFuncs();
+
+	OutputDebugStream(_T("■変わった瞬間のファイル名%s\n"), szCurFileName);
 
 	// 2番目のパラメータとしてファイル名が来てるなら、代入する。8.66以前用
 	if (szCurFileName) {

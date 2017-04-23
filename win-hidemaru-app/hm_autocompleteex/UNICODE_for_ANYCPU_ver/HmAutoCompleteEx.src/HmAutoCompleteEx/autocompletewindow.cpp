@@ -89,15 +89,15 @@ BOOL OnHidemaruListBoxAddCompletePost(HWND hListBox, UINT uMsg, WPARAM wParam, L
 	LRESULT len = ((PFNSENDMESSAGEA)pfnPrevSendMessageW)(hListBox, LB_GETCOUNT, 0, 0);
 	TCHAR sz[4096] = _T(""); // 秀丸の一行の最大文字数
 	((PFNSENDMESSAGEA)pfnPrevSendMessageW)(hListBox, LB_GETTEXT, 0, (LPARAM)sz);
-	OutputDebugString(_T("最初の要素"));
-	OutputDebugString(sz);
+	OutputDebugStream(_T("最初の要素"));
+	OutputDebugStream(sz);
 
 	// 一番最初の要素に秀丸が勝手に修飾を付けてしまうのでカット開始
 	tcmatch m;
 	tregex re(AUTOCOMPLETE_HIDEMARU_ESPECIAL_ADD_WORD_REGEX);
 	tstring result = regex_replace(sz, re, _T(""));
 	_tcscpy(sz, result.data());
-	OutputDebugString(_T("マッチ1\n■"));
+	OutputDebugStream(_T("マッチ1\n■"));
 	OutputDebugStream(_T("結果発表:%s"), result.data());
 	((PFNSENDMESSAGEA)pfnPrevSendMessageW)(hListBox, LB_DELETESTRING, 0, 0);
 	((PFNSENDMESSAGEA)pfnPrevSendMessageW)(hListBox, LB_INSERTSTRING, 0, (LPARAM)sz);
@@ -106,12 +106,11 @@ BOOL OnHidemaruListBoxAddCompletePost(HWND hListBox, UINT uMsg, WPARAM wParam, L
 	vector<tstring> original_list;
 	for (int i = 0; i < len; i++) {
 		((PFNSENDMESSAGEA)pfnPrevSendMessageW)(hListBox, LB_GETTEXT, i, (LPARAM)sz);
-		OutputDebugString(sz);
+		OutputDebugStream(sz);
 		original_list.push_back(tstring(sz));
 	}
 
 	auto addition_list = AutoCompleteHelpTip::OnQueryListBoxCustomAdded(hListBox, original_list);
-	addition_list.push_back(_T("テスト"));
 	std::reverse(addition_list.begin(), addition_list.end());
 	// ここ回転数多いので、コピーすくなく
 	for (tstring& curnew : addition_list) {

@@ -329,7 +329,6 @@ PROC pfnPrevCreateWindowExW = NULL; // １つ前のSendMessage関数。
 
 int Lock_CreateWindowExW = FALSE;
 
-// 元のSendMessageAと全く同じ形
 HWND WINAPI Hook_CreateWindowExW(DWORD dwExStyle,      // 拡張ウィンドウスタイル
 	LPCTSTR lpClassName,  // 登録されているクラス名
 	LPCTSTR lpWindowName, // ウィンドウ名

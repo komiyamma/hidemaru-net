@@ -11,9 +11,6 @@
     <Filter Include="② 入力補完関連のコールバックなど">
       <UniqueIdentifier>{08f3033d-f848-4974-b89d-e953724b3a14}</UniqueIdentifier>
     </Filter>
-    <Filter Include="★ 自分で編集してね">
-      <UniqueIdentifier>{bf680ea0-7cd3-4c80-add6-fcd0237efac0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="① DLLMAIN">
       <UniqueIdentifier>{e8ec2cf3-70c7-4e95-8c15-8e7ab4091783}</UniqueIdentifier>
     </Filter>
@@ -36,10 +33,13 @@
     <Filter Include="⑤hidemaruexe_export">
       <UniqueIdentifier>{bf47ced7-7fd8-41c9-9945-da59a12d35a0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="⑪ 自動補完関係の最もIF付近">
+      <UniqueIdentifier>{bf680ea0-7cd3-4c80-add6-fcd0237efac0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="autocompletehelptips.cpp">
-      <Filter>★ 自分で編集してね</Filter>
+      <Filter>⑪ 自動補完関係の最もIF付近</Filter>
     </ClCompile>
     <ClCompile Include="dllmain.cpp">
       <Filter>① DLLMAIN</Filter>
@@ -74,7 +74,7 @@
       <Filter>⑨ デバッグ表示</Filter>
     </ClInclude>
     <ClInclude Include="autocomletehelptips.h">
-      <Filter>★ 自分で編集してね</Filter>
+      <Filter>⑪ 自動補完関係の最もIF付近</Filter>
     </ClInclude>
     <ClInclude Include="hookwin32api.h">
       <Filter>⑦ 関数のフック汎用</Filter>
