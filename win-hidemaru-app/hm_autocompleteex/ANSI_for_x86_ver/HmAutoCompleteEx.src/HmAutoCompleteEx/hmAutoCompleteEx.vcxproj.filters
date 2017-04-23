@@ -212,9 +212,6 @@
     <ClCompile Include="autocompletewindow.cpp">
       <Filter>② 入力補完関連のコールバックなど</Filter>
     </ClCompile>
-    <ClCompile Include="bindcustomdll.cpp">
-      <Filter>② DLL登録関連</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="OnigRegex.h">
@@ -243,9 +240,6 @@
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>⑩ リソース ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="bindcustomdll.h">
-      <Filter>② DLL登録関連</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

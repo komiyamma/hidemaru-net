@@ -73,7 +73,7 @@
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <CompileAsManaged>false</CompileAsManaged>
       <StructMemberAlignment>1Byte</StructMemberAlignment>
-      <AdditionalOptions>/Zp1 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/Zp1 /MP %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -87,7 +87,6 @@
     <ClCompile Include="assemblerjumper.cpp" />
     <ClCompile Include="autocompletehelptips.cpp" />
     <ClCompile Include="autocompletewindow.cpp" />
-    <ClCompile Include="bindcustomdll.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="hookwin32api.cpp" />
     <ClCompile Include="hookwin32api_funcs.cpp" />
@@ -278,7 +277,6 @@
     <ClInclude Include="assemblerjumper.h" />
     <ClInclude Include="autocomletehelptips.h" />
     <ClInclude Include="autocompletewindow.h" />
-    <ClInclude Include="bindcustomdll.h" />
     <ClInclude Include="hookwin32api.h" />
     <ClInclude Include="OnigRegex.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>

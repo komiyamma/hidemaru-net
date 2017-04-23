@@ -33,7 +33,7 @@ BOOL OnHidemaruListBoxAppear(HWND hWnd, WPARAM wparam) {
 	OutputDebugStream("リストボックスの出現");
 
 	// 自動補完時のヘルプチップの準備
-	AutoCompleteHelpTip::OnCreate(hWnd, szCurrentFileOnCallSetHidemaruHandle);
+	AutoCompleteHelpTip::OnCreate(hWnd, GetCurrentFileName());
 
 
 	return 0;
@@ -101,7 +101,7 @@ BOOL OnHidemaruListBoxAddComplete(HWND hListBox, UINT uMsg, WPARAM wParam, LPARA
 		original_list.push_back(string(sz));
 	}
 
-	auto addition_list = AutoCompleteHelpTip::OnQueryListBoxCustomAdded(hListBox, original_list, szCurrentFileOnCallSetHidemaruHandle);
+	auto addition_list = AutoCompleteHelpTip::OnQueryListBoxCustomAdded(hListBox, original_list, GetCurrentFileName());
 	std::reverse(addition_list.begin(), addition_list.end());
 
 	// ここ回転数多いので、コピーすくなく

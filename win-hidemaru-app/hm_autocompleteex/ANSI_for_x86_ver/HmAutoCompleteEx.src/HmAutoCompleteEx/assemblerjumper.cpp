@@ -55,51 +55,6 @@ static int iEAXOfHidemaruTitleAdd = 0;
 
 void OnCallBackedOfHidemaruTitleAdd() {
 	OutputDebugStream("■タイトル更新");
-	strcpy(szCurrentFileOnCallSetHidemaruHandle, ""); // 最初にもらったタイトルはここを通過した時点で消滅
-
-	if (iEAXOfHidemaruTitleAdd) {
-		OutputDebugStream("★★%s", (char *)iEAXOfHidemaruTitleAdd);
-		char *pFileName = (char *)iEAXOfHidemaruTitleAdd;
-
-		// 相対パスを絶対パスへ
-		char szAbsolutePath[MAX_PATH * 2] = "";
-		if (PathIsRelative(pFileName)) {
-			OutputDebugStream("★★%sは相対パス、絶対パス化を試みる\n", pFileName);
-			DWORD dwRet = GetFullPathName(
-				pFileName,
-				sizeof(szAbsolutePath),
-				szAbsolutePath,
-				NULL);
-			OutputDebugStream("★★絶対パスは%s\n", szAbsolutePath);
-			pFileName = szAbsolutePath;
-		}
-
-		// 存在する。
-		if (PathFileExists(pFileName)) {
-			strcpy(szCurrentFileOnCallSetHidemaruHandle, pFileName);
-		}
-
-		// 存在しない。「何か余計な文字が付いている」
-		else {
-			OutputDebugStream("★★%sは存在しません、正規化を試みる\n", pFileName);
-
-			Matches m;
-			if (OnigMatch(pFileName, "^(.+) \\([^\\)]+?\\)$", &m)) {
-				OutputDebugStream("★★正規化の結果は%s\n", m[1]);
-
-				// これがファイルとして存在するなら、これにしておく。
-				if (PathFileExists(m[1].data())) {
-					strcpy(szCurrentFileOnCallSetHidemaruHandle, m[1].data());
-				}
-			}
-		}
-	}
-	else {
-		OutputDebugStream("ぬるぽ\n");
-	}
-
-	PathRemoveBlanks(szCurrentFileOnCallSetHidemaruHandle); // 先頭と末尾の空白除去
-	OutputDebugStream("最終結果は%sです\n", szCurrentFileOnCallSetHidemaruHandle);
 }
 
 int iCallFuncOfHidemaruTitleAdd = 0;
@@ -143,20 +98,38 @@ extern int ProgramMemoryDstBaseOfData;
 extern char szHidemaru[MAX_PATH*2];
 
 char szCurrentFileOnCallSetHidemaruHandle[MAX_PATH * 2] = ""; // 秀丸のSetHidemaruHandleが呼ばれた時に最初にスロットに入るファイル名。途中でファイル名が変わることがあるので、あくまでもなかった場合用途
+extern HWND hWndHidemaru;
+#define WM_HIDEMARUINFO (WM_USER + 181)
+
+#define HIDEMARUINFO_GETTABWIDTH 0
+#define HIDEMARUINFO_GETSTARTCOLUMN 1
+#define HIDEMARUINFO_GETSPACETAB 2
+#define HIDEMARUINFO_GETMANUALTAB 3
+#define HIDEMARUINFO_GETFILEFULLPATH 4
+
 char *GetCurrentFileName() {
-	return szCurrentFileOnCallSetHidemaruHandle;
+	if (hWndHidemaru) {
+		// 現在の秀丸ウィンドウのファイル名を得る。
+		LRESULT cwch = SendMessage(hWndHidemaru, WM_HIDEMARUINFO, HIDEMARUINFO_GETFILEFULLPATH, (LPARAM)szCurrentFileOnCallSetHidemaruHandle);
+		return szCurrentFileOnCallSetHidemaruHandle;
+	}
+	else {
+		return "";
+	}
 }
 
 char szHidemaruAdditionTitle[] = " - 秀丸";
 
 byte pRefOfByteArrayOfHidemaruTitileAdd[] = { 0x68, 0x00, 0x00, 0x00, 0x00, 0x50, 0xE8 };
 
-extern "C" __declspec(dllexport) int SetHidemaruHandle(int pWndHidemaru, char *szCurFileName) {
+HWND hWndHidemaru = NULL;
+
+extern "C" __declspec(dllexport) int SetHidemaruHandle(HWND pWndHidemaru, char *szCurFileName) {
 	OutputDebugStream("■変わった瞬間のファイル名%s\n", szCurFileName);
 	strcpy(szCurrentFileOnCallSetHidemaruHandle, szCurFileName);
 	HookWin32apiFuncs();
 
-	pWndHidemaru = (int)GetForegroundWindow();
+	hWndHidemaru = pWndHidemaru = GetForegroundWindow();
 	char sz[100];
 	GetClassName((HWND)pWndHidemaru, sz, sizeof(sz));
 	OutputDebugStream("渡されたウィンドウ%x, 名前%s\n\n", pWndHidemaru, sz);
