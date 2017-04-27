@@ -21,6 +21,10 @@ internal class UnManagedDll : IDisposable
     public UnManagedDll(string lpFileName)
     {
         moduleHandle = LoadLibrary(lpFileName);
+        if (moduleHandle == IntPtr.Zero)
+        {
+            System.Diagnostics.Trace.WriteLine("モジュールが読めない");
+        }
     }
 
     public IntPtr ModuleHandle

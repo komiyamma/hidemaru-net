@@ -11,6 +11,7 @@ using namespace std;
 using namespace System;
 
 
+
 // 上の手動のBindDllHandleを自動で行う。秀丸8.66以上
 // １回だけ実行すれば良いわけではない。dllが読み込まれている間にもdll値が変わってしまうかもしれないため。(将来の実装では)
 // よって、DoStringとDoFileの時を契機に更新する。

@@ -26,6 +26,9 @@
     <ClCompile Include="hidemaruexe_export.cpp">
       <Filter>秀丸本体のexeの関数やバージョン</Filter>
     </ClCompile>
+    <ClCompile Include="hmRbDllPathResolver.cpp">
+      <Filter>本体</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="hmRbStatlcLib.h">
