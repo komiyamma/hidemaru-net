@@ -1,26 +1,51 @@
 #include <shlwapi.h>
+#include <vector>
 
 #include "perlez_engine.h"
 #include "self_dll_info.h"
 #include "convert_string.h"
 #include "output_debugstream.h"
 
-#include <vector>
 
 using namespace std;
 
 #pragma comment(lib, "shlwapi.lib")
 
+extern vector<wstring> wstring_split(const std::wstring& s, const std::wstring& delim); // 文字列を指定文字で分割
+
+
 // staticの初期化
 HMODULE CPerlEzEngine::hPerlEzDll = NULL;
 PERLEZHANDLE CPerlEzEngine::engine = NULL;
+
 
 CPerlEzEngine::CPerlEzEngine() {
 
 	//-------------------------------------------------------------------------
 	// ActivePerlなんだからPathが通っているよね？ という前提の仕組みです >> PerlEz
 	//-------------------------------------------------------------------------
-	hPerlEzDll = LoadLibrary(L"PERLEZ.DLL");
+	const TCHAR szLibName[] = _T("PerlEz.DLL");
+	hPerlEzDll = LoadLibrary(szLibName);
+	if (!hPerlEzDll) {
+		// ちょっと探してみる
+
+		// 環境変数のパスを取得
+		TCHAR szEnvPATH[4096] = { 0 };
+		GetEnvironmentVariable(_T("PATH"), szEnvPATH, _countof(szEnvPATH));
+
+		// 「;」で割る
+		vector<wstring> path_list = wstring_split(szEnvPATH, _T(";"));
+
+		// 先頭から…
+		for (wstring path : path_list) {
+			auto full_path = path + _T("\\") + szLibName;
+			// PerlEz.dllを見つけたら
+			if ( PathFileExists( full_path.c_str() ) ) {
+				// フルパス状態でロード
+				hPerlEzDll = LoadLibrary(full_path.c_str());
+			}
+		}
+	}
 	if (hPerlEzDll) {
 
 		//-------------------------------------------------------------------------
