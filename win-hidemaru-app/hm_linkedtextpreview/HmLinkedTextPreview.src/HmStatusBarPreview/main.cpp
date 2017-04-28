@@ -51,7 +51,8 @@ bool IsHidemaruActive() {
 	char name[256] = "";
 	GetClassNameA(hWnd, name, _countof(name));
 
-	return strcmp(name, "Hidemaru32Class") == 0;
+	// デスクトップ版かもしくは、ストアアプリ版
+	return strcmp(name, "Hidemaru32Class") == 0 || strcmp(name, "Hidemaru32Class_Appx") == 0;
 }
 
 

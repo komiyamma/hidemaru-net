@@ -62,7 +62,7 @@ class HidemaruWindowInfo
             StringBuilder csb = new StringBuilder(256);
             Win32.GetClassName(wnd, csb, csb.Capacity);
             string classname = csb.ToString();
-            if (classname == "Hidemaru32Class")
+            if (classname == "Hidemaru32Class" || classname == "Hidemaru32Class_Appx")
             {
                 return true;
             }
@@ -76,7 +76,7 @@ class HidemaruWindowInfo
             Win32.GetClassName(p.MainWindowHandle, csb, csb.Capacity);
             string classname = csb.ToString();
 
-            if (classname == "Hidemaru32Class")
+            if (classname == "Hidemaru32Class" || classname == "Hidemaru32Class_Appx")
             {
                 Win32.EnumChildWindows(p.MainWindowHandle, _fChildProc, default(IntPtr));
             }
