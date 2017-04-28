@@ -53,8 +53,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,0,2,1
- PRODUCTVERSION 1,0,2,1
+ FILEVERSION 1,1,0,1
+ PRODUCTVERSION 1,1,0,1
  FILEFLAGSMASK 0x17L
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -70,12 +70,12 @@ BEGIN
         BLOCK "041104b0"
         BEGIN
             VALUE "FileDescription", "秀丸エディタ・デバッグ出力モニター"
-            VALUE "FileVersion", "1.0.2.1"
+            VALUE "FileVersion", "1.1.0.1"
             VALUE "InternalName", "HmDebugMonitor"
             VALUE "LegalCopyright", "Copyright (C) 2016-2017 VSCode.life"
             VALUE "OriginalFilename", "HmDebugMonitor.exe"
             VALUE "ProductName", "秀丸エディタ・デバッグ出力モニター"
-            VALUE "ProductVersion", "1.0.2.1"
+            VALUE "ProductVersion", "1.1.0.1"
         END
     END
     BLOCK "VarFileInfo"

@@ -41,6 +41,7 @@ using namespace std;
 
 // 以下ターゲットのクラス名か、プロセスネーム(の一部)のどちらかわかってればなんとかなる。
 #define TARGET_CLASS_WND "Hidemaru32Class"
+#define TARGET_CLASS_APP_WND "Hidemaru32Class_Appx"
 
 
 HMODULE hModuleHMJRE = NULL;
@@ -173,6 +174,11 @@ void InitDebugMonitor(HWND hEdit) {
 static bool IsTargetProcessIsHidemaruToolTipsWindow(const DWORD dwPID)	// プロセスID
 {
 	HWND hWnd = FindWindow(TARGET_CLASS_WND, NULL);
+
+	// 無かったらストアアプリ版も
+	if (!hWnd)  { hWnd = FindWindow(TARGET_CLASS_APP_WND, NULL); }
+
+	// 両方無い
 	if (!hWnd) {
 		return false;
 	}
