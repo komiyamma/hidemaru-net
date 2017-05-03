@@ -1,18 +1,19 @@
 declare var clr: any;
 
-declare class host {
-    static lib(libname: string): any;
-    static lib(libns: any, libname: string): any;
+declare namespace host {
+    function lib(libname: string): any;
+    function lib(libns: any, libname: string): any;
 }
 
+type States = (f: any)=>void;
 declare namespace hm {
-    class Macro {
-        public static Eval(expression: string);
-        public static Var: Map<string, string|number|boolean>;
+    namespace Macro {
+        function Eval(expression:States | string );
+        let Var: Map<string, any>;
     }
-    class Edit {
-        static TotalText: string;
-        static SelectedText: string;
+    namespace Edit {
+        let TotalText: string;
+        let SelectedText: string;
     }
 }
 
