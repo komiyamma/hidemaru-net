@@ -1,33 +1,42 @@
 //------------------------------------------------------------------------------------------------
 #include <windows.h>
 #include "string_converter.h"
+#include "resource.h"
 
 using namespace System;
 using namespace System::Reflection;
 static Assembly^ CurrentDomain_AssemblyResolve(Object^ sender, ResolveEventArgs^ args) {
+
 	try
 	{
 		auto requestingAssembly = args->RequestingAssembly;
 		auto requestedAssembly = gcnew AssemblyName(args->Name);
 
-		// IronPython.dllが求められており、なおかつ、Public Key Tokenがちゃんと設定されている。
-		if (requestedAssembly->Name->ToUpper() == "IRONPYTHON" && requestedAssembly->GetPublicKeyToken()->ToString() != String::Empty ) {
-			System::Diagnostics::Trace::WriteLine(args->Name);
-			wchar_t message[256] = L"";
+		if (requestedAssembly->GetPublicKeyToken()->ToString() != String::Empty) {
+			// IronPython.dllが求められており、なおかつ、Public Key Tokenがちゃんと設定されている。
+			auto targetName = requestedAssembly->Name->ToUpper();
 
-			wsprintf
-			(
-				message,
-				L"http://IronPython.net/" L"から、\n"
-				L"IronPython %d.%d.%dを「.msiインストーラーを使って」インストールしてください。\n"
-				L"(※注意 : バージョンは正確に、「%d.%d.%d」の必要性があります)",
-				requestedAssembly->Version->Major, requestedAssembly->Version->Minor, requestedAssembly->Version->Build,
-				requestedAssembly->Version->Major, requestedAssembly->Version->Minor, requestedAssembly->Version->Build
-			);
+			if (targetName == "IRONPYTHON" || targetName == "IRONPYTHON.MODULES" || targetName == "MICROSOFT.DYNAMIC" || targetName == "MICROSOFT.SCRIPTING" || targetName == "MICROSOFT.SCRIPTING.METADATA") {
+				System::Diagnostics::Trace::WriteLine(args->Name);
 
-			MessageBox(NULL, message, L"IronPython.dllが見つからない!!", MB_ICONERROR);
-		}
-		else {
+
+				wchar_t message[256] = L"";
+				
+				wsprintf
+					(
+					message,
+					L"http://IronPython.net/" L"から、\n"
+					L"対象のIronPython をインストールしてください。\n"
+					L"「.msiインストーラー」版を利用してください。\n"
+					L"%s",
+					IRONPYTHON_VERSION
+					);
+
+				MessageBox(NULL, message, L"IronPython.dllが見つからない!!", MB_ICONERROR);
+			}
+			else {
+				System::Diagnostics::Trace::WriteLine(args->Name);
+			}
 
 		}
 	}

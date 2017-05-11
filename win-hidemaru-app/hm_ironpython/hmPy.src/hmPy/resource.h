@@ -4,6 +4,8 @@
 
 // 新しいオブジェクトの次の既定値
 // 
+#define IRONPYTHON_VERSION  L"IronPython 2.7.7用 (要 : 厳密なバージョン一致)"
+
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        101
@@ -12,3 +14,5 @@
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif
+
+
