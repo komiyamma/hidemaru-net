@@ -22,6 +22,7 @@ declare namespace hm {
  */
 declare interface INameValueCollection {
     Add: (name: string, value: string)=> void;
+    Item: Map<string, any>; // 厳密には当然異なるがまぁ…
     Clear: ()=> void;
 }
 
@@ -30,6 +31,7 @@ declare interface INameValueCollection {
  */
 declare interface IHttpUtility {
     HtmlEncode: ((src: string)=>string);
+    HtmlDecode: ((src: string)=>string);
     UrlEncode: ((src: string)=>string);
 }
 
@@ -41,6 +43,9 @@ declare interface IWebHeaderCollection {
 
 }
 
+/**
+ * System.Net.WebClientの自動補完のための宣言代用
+ */
 declare interface IWebClient {
     Headers: IWebHeaderCollection;
     UploadValues: (url: string, data: INameValueCollection)=> any;

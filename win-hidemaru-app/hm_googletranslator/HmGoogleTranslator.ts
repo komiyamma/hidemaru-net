@@ -1,23 +1,5 @@
 ///<reference path="hmv8.d.ts"/>
 
-/**
- * 秀丸用のアウトプットパネル。簡易
- */
-class OutputPane {
-    // 秀丸のアウトプット枠への文字列出力
-    static print(message: string): void {
-        // tslint:disable-next-line:no-string-literal
-        hm.Macro.Var["$OutputPaneMessageText"] = message;
-        hm.Macro.Eval(f => {
-            /*
-                #HMOP = loaddll(hidemarudir + @"\HmOutputPane.dll");
-                #r = dllfunc(#HMOP, "Output", hidemaruhandle(0), $OutputPaneMessageText + "\r\n");
-                freedll( #HMOP );
-            */
-        });
-    }
-}
-
 type TranslatorLanguageType = undefined | "en" | "ja";
 
 type QueryMethodType = "POST" | "GET";
@@ -32,10 +14,16 @@ abstract class ITranslatorLanguageParams {
 }
 
 /**
+ * 翻訳戦略インターフェイスのコンストラクタ専用インターフェイス
+ * ファクトリ系を作る際にはTypeScriptでは分ける必要がある。
+ */
+interface ITranslatorAlgorithmStrategyConstructor {
+    new (targetLanguages: ITranslatorLanguageParams);
+}
+/**
  * 翻訳戦略のインターフェイス
  */
 interface ITranslatorAlgorithmStrategy {
-    InitializeQueryParams: () => void;
     FilterResultText: (html: string) => string;
     QueryParams: INameValueCollection;
     Url: string;
@@ -66,8 +54,9 @@ abstract class ITranslatorAlgorithm implements ITranslatorAlgorithmStrategy {
         this.HttpUtility = webclr.System.Web.HttpUtility;
 
         this.queryParams = new clr.System.Collections.Specialized.NameValueCollection();
-
         this.targetLanguages = targetLanguages;
+
+        this.InitializeQueryParams();
     }
 
     get Url(): string {
@@ -87,7 +76,7 @@ abstract class ITranslatorAlgorithm implements ITranslatorAlgorithmStrategy {
      * どのような文字列フォーマットで結果を足しこんでいくか。
      */
     set DstText(value: string) {
-        hm.Edit.SelectedText = `${this.SrcText}\n（${value}）\n`;
+        hm.Edit.SelectedText = `${this.SrcText}\n${value}\n`;
     }
 
     get Method(): QueryMethodType {
@@ -97,7 +86,7 @@ abstract class ITranslatorAlgorithm implements ITranslatorAlgorithmStrategy {
     /**
      * そのサイトへと要求するクエリーパラメータ
      */
-    InitializeQueryParams(): void {
+    protected InitializeQueryParams(): void {
         throw "NotImplementsException";
     }
 
@@ -111,23 +100,26 @@ abstract class ITranslatorAlgorithm implements ITranslatorAlgorithmStrategy {
  */
 class GoogleTranslatorAlgorithmStrategy extends ITranslatorAlgorithm {
 
-    InitializeQueryParams(): void {
-
-        // 翻訳対象の元テキスト。自動でUTF-8にURLエンコードされる。
+    protected InitializeQueryParams(): void {
+        // 翻訳対象の元テキスト。
         this.queryParams.Add("text", this.SrcText);
 
         // 何語から何語へ翻訳するのか
         this.queryParams.Add("langpair", `${this.targetLanguages.src}|${this.targetLanguages.dst}`);
 
         // 結果ページで使用される言語
-        this.queryParams.Add("hl", this.targetLanguages.dst);
+        // (翻訳内容とは無関係で、GUIインターフェイスの言語。日本語で良い)
+        this.queryParams.Add("hl", "ja");
 
         // 入力文字列の文字コード
         this.queryParams.Add("ie", "UTF8");
+
+        // 結果文字列の文字コード
+        this.queryParams.Add("oe", "UTF8");
     }
 
     get Method(): QueryMethodType {
-        return "POST";
+        return "GET";
     }
 
     get Url(): string {
@@ -139,35 +131,45 @@ class GoogleTranslatorAlgorithmStrategy extends ITranslatorAlgorithm {
      * @param html
      */
     FilterResultText(html: string): string {
-        // id=result_boxあたりのタグ内のInnerTextに含まれる
-        let resultAroundTextRegexp: RegExp = /<span id=result_box .+?<\/span>/;
 
-        // 結果のHTMLページ全体から、翻訳結果周辺をまずは抽出
+        // id=result_boxあたりのタグ内のInnerTextが翻訳語の文字列。
+        // 本格的にやるならHTML Agility Packで、対象のidタグのInnerTextを求めるのが良いが
+        // 大仰である。正規表現で対象してしまって良いだろう。
+        // 複数行考慮
+        let resultAroundTextRegexp: RegExp = /<span id=result_box [\s\S]+?<\/span><\/span>/;
+
+        // 結果のHTMLページ全体から、翻訳結果周辺をまずは抽出。
         let resultAroundResultArray: RegExpExecArray | null = resultAroundTextRegexp.exec(html);
 
         // 存在する
         if (resultAroundResultArray) {
+            // hm.Edit.TotalText = resultAroundResultArray[0];
             // 得た「周辺テキスト」にたいして…
             let regexpResultText: string = resultAroundResultArray[0];
+            // hm.Edit.TotalText = regexpResultText;
+            // さらにタグを全部除去。複数行考慮
+            regexpResultText = regexpResultText.replace(/<("[^"]*"|'[^']*'|[^'">])*>/g, "");
 
-            // さらにタグを全部除去
-            let removeTagRegexp: RegExp = new RegExp("</?[^>]+>", "g");
-            regexpResultText = regexpResultText.replace(removeTagRegexp, "");
+            // 結果文字列がHTMLエンコードされてるのでHTMLデコードする。
+            // (ただし元々がHTMLエンコードした状態の文字列と区別が付かないという不正確さがある)
+            regexpResultText = this.HttpUtility.HtmlDecode(regexpResultText);
 
             return regexpResultText;
+
+        } else {
+            return "";
         }
-        return "";
     }
 }
 
 
 /**
  * メイン処理的な翻訳全体の大流アルゴリズム
- * strategyに特定の翻訳アルゴリズムを放り込む
+ * 「Web翻訳とは何か」といった共通観念的処理が記載されている。
  */
 class ContextTranslator {
-    strategy: ITranslatorAlgorithmStrategy;
-    webclient: IWebClient;
+    private strategy: ITranslatorAlgorithmStrategy;
+    private webclient: IWebClient;
 
     /**
      * @param strategy : 特定の翻訳戦略アルゴリズムを受け取る
@@ -178,23 +180,21 @@ class ContextTranslator {
     }
 
     /**
-     * 大流れとしての翻訳。
+     * 大流としての翻訳。
      * WebClientを使って、strategyの各種パラメータを使ってクエリーをWebへと投げる。
      * 返ってきた値を、stragetyのフィルター方法に従って最終系にする。
      */
     Translate(): void {
         // 戦略アルゴリズムが持つクエリーパラメータ
-        let queryParams: INameValueCollection = this.strategy.QueryParams;
-
         // クエリを発行した結果の受信データ全体。型はcli::array<Byte>^ だが、面倒くさいのでanyで
-        let resData: any = this.GetRequestQueryData(queryParams);
+        let resData: any = this.GetRequestQueryData();
         if (!resData) {
             return;
         }
 
         // 結果のデータの塊はUTF8のテキストとみなして変換
         let resText: string = clr.System.Text.Encoding.UTF8.GetString(resData);
-
+        // hm.Edit.TotalText = resText;
         // 結果のテキストを、戦略アルゴリズムが持つ「結果フィルターメソッド」にかける
         let dstText: string = this.strategy.FilterResultText(resText);
 
@@ -202,7 +202,13 @@ class ContextTranslator {
         this.strategy.DstText = dstText;
     }
 
-    private GetRequestQueryData(queryParams: INameValueCollection): any {
+    private GetRequestQueryData(): any {
+        let queryParams =  this.strategy.QueryParams;
+        if (!this.strategy.SrcText) {
+            PrintOutputPane("翻訳対象が存在していません。\r\n(対象テキストを選択してない等)\r\n");
+            return;
+        }
+
         // 戦略のクエリー手段(GET/POST)
         let method: QueryMethodType = this.strategy.Method;
 
@@ -213,7 +219,6 @@ class ContextTranslator {
                 return this.webclient.UploadValues(this.strategy.Url, queryParams);
             }
             case "GET": {
-                this.webclient.Headers.Add("User-Agent", "Mozilla/5.0 (Windows NT 6.3; WOW64; Trident/7.0; rv:11.0) like Gecko");
                 this.webclient.QueryString = queryParams;
                 return this.webclient.DownloadData(this.strategy.Url);
             }
@@ -221,16 +226,35 @@ class ContextTranslator {
     }
 }
 
+/**
+ * 秀丸用のアウトプットパネル。簡易
+ */
+function PrintOutputPane(message: string): void {
+    // tslint:disable-next-line:no-string-literal
+    hm.Macro.Var["$OutputPaneMessageText"] = message;
+    hm.Macro.Eval(f => {
+        /*
+            #HMOP = loaddll(hidemarudir + @"\HmOutputPane.dll");
+            #r = dllfunc(#HMOP, "Output", hidemaruhandle(0), $OutputPaneMessageText + "\r\n");
+            freedll( #HMOP );
+        */
+    });
+}
+
+// 特定の翻訳戦略アルゴリズムや、言語指定パラメータを引数にする。
+function Main(ctor: ITranslatorAlgorithmStrategyConstructor, langParams: ITranslatorLanguageParams) {
+
+    // 特定の翻訳戦略アルゴリズムインスタンスを構築
+    // ちょっとファクトリっぽい
+    let strategy: ITranslatorAlgorithmStrategy = new ctor(langParams);
+
+    // 個別戦略にとらわれない翻訳トランスレーター大流処理インスタンス
+    let translator: ContextTranslator = new ContextTranslator(strategy);
+
+    // 翻訳
+    translator.Translate();
+}
+
 // 何語から何語なのか
 let langParams: ITranslatorLanguageParams = { src: "en", dst: "ja" };
-
-// 言語指定パラメータを引数にしつつ、特定の翻訳戦略アルゴリズムインスタンスを構築
-// ここはファクトリにした方がいいけど…まぁ翻訳サイトでまともなクオリティのものは少ないので
-// 直書きでもいいでしょう。
-let strategy: GoogleTranslatorAlgorithmStrategy = new GoogleTranslatorAlgorithmStrategy(langParams);
-
-// 個別戦略にとらわれない翻訳トランスレーター大流処理インスタンス
-let translator: ContextTranslator = new ContextTranslator(strategy);
-
-// 翻訳
-translator.Translate();
+Main(GoogleTranslatorAlgorithmStrategy, langParams);
