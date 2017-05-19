@@ -5,7 +5,7 @@ type TranslatorLanguageType = undefined | "en" | "ja";
 type QueryMethodType = "POST" | "GET";
 
 /**
- * 翻訳対象のFromとTo。i
+ * 翻訳対象のFromとTo。
  */
 interface ITranslatorLanguageParams {
     src: TranslatorLanguageType;
