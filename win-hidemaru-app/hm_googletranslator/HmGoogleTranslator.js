@@ -105,8 +105,8 @@ class ContextTranslator {
      * @param strategy : 特定の翻訳戦略アルゴリズムを受け取る
      */
     constructor(strategy) {
-        this.webclient = new clr.System.Net.WebClient();
         this.strategy = strategy;
+        this.webclient = new clr.System.Net.WebClient();
     }
     /**
      * 大流としての翻訳。
@@ -114,9 +114,15 @@ class ContextTranslator {
      * 返ってきた値を、stragetyのフィルター方法に従って最終系にする。
      */
     Translate() {
+        // 翻訳元のデータがないってのはさすがにダメすぎでしょう。
+        if (!this.strategy.SrcText) {
+            PrintOutputPane("翻訳対象が存在していません。\r\n(対象テキストを選択してない等)\r\n");
+            return;
+        }
         // クエリを発行した結果の受信データ全体。型はcli::array<Byte>^ だが、面倒くさいのでanyで
         let resData = this.GetRequestQueryData();
         if (!resData) {
+            PrintOutputPane("翻訳結果をWebへとリクエストしましたが、失敗しました。\r\n");
             return;
         }
         // 結果のデータの塊はUTF8のテキストとみなして変換
@@ -128,11 +134,6 @@ class ContextTranslator {
         this.strategy.DstText = dstText;
     }
     GetRequestQueryData() {
-        // 翻訳元のデータがないってのはさすがにダメすぎでしょう。
-        if (!this.strategy.SrcText) {
-            PrintOutputPane("翻訳対象が存在していません。\r\n(対象テキストを選択してない等)\r\n");
-            return;
-        }
         // 戦略アルゴリズムが持つクエリーパラメータ
         let queryParams = this.strategy.QueryParams;
         // 戦略のクエリー手段(GET/POST)
