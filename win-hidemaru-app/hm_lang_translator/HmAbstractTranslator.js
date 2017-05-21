@@ -72,13 +72,13 @@ class ContextTranslator {
         // 翻訳元のデータがないってのはさすがにダメすぎでしょう。
         if (!this.strategy.SrcText) {
             PrintOutputPane("翻訳対象が存在していません。\r\n(対象テキストを選択してない等)\r\n");
-            return;
+            return "";
         }
         // クエリを発行した結果の受信データ全体。型はcli::array<Byte>^ だが、面倒くさいのでanyで
         let resData = this.GetRequestQueryData();
         if (!resData) {
             PrintOutputPane("翻訳結果をWebへとリクエストしましたが、失敗しました。\r\n");
-            return;
+            return "";
         }
         // 結果のデータの塊はUTF8のテキストとみなして変換
         let resText = clr.System.Text.Encoding.UTF8.GetString(resData);
