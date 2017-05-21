@@ -13,20 +13,20 @@ class GoogleTranslatorQueryStrategy extends AbstractTranslatorQueryStrategy {
 
     protected InitializeQueryParams(): void {
         // 翻訳対象の元テキスト。
-        this.queryParams.Add("text", this.SrcText);
+        this.QueryParams.Add("text", this.SrcText);
 
         // 何語から何語へ翻訳するのか
-        this.queryParams.Add("langpair", `${this.targetLanguages.src}|${this.targetLanguages.dst}`);
+        this.QueryParams.Add("langpair", `${this.TargetLanguages.src}|${this.TargetLanguages.dst}`);
 
         // 結果ページで使用される言語
         // (翻訳内容とは無関係で、GUIインターフェイスの言語。日本語で良い)
-        this.queryParams.Add("hl", "ja");
+        this.QueryParams.Add("hl", "ja");
 
         // 入力文字列の文字コード
-        this.queryParams.Add("ie", "UTF8");
+        this.QueryParams.Add("ie", "UTF8");
 
         // 結果文字列の文字コード
-        this.queryParams.Add("oe", "UTF8");
+        this.QueryParams.Add("oe", "UTF8");
     }
 
     get Method(): QueryMethodType {

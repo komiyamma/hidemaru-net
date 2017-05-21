@@ -42,13 +42,16 @@ interface ITranslatorQueryStrategy {
 abstract class AbstractTranslatorQueryStrategy implements ITranslatorQueryStrategy {
 
     // クエリーする際のkeyとvalueの組み合わせ
-    protected queryParams: INameValueCollection;
+    protected m_queryParams: INameValueCollection;
     get QueryParams(): INameValueCollection {
-        return this.queryParams;
+        return this.m_queryParams;
     }
 
     // 翻訳対象の言語のsrcとdst
-    protected targetLanguages: ITranslatorLanguageParams;
+    protected m_targetLanguages: ITranslatorLanguageParams;
+    get TargetLanguages(): ITranslatorLanguageParams {
+        return this.m_targetLanguages;
+    }
 
     // .NETのHttpUtilityは何かとつかうだろうからショートカット用意
     protected HttpUtility: IHttpUtility;
@@ -57,8 +60,8 @@ abstract class AbstractTranslatorQueryStrategy implements ITranslatorQueryStrate
         let webclr: any = host.lib("System.Web");
         this.HttpUtility = webclr.System.Web.HttpUtility;
 
-        this.queryParams = new clr.System.Collections.Specialized.NameValueCollection();
-        this.targetLanguages = targetLanguages;
+        this.m_queryParams = new clr.System.Collections.Specialized.NameValueCollection();
+        this.m_targetLanguages = targetLanguages;
 
         this.InitializeQueryParams();
     }

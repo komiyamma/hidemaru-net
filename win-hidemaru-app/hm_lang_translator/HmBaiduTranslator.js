@@ -1,17 +1,21 @@
 ///<reference path="HmV8.d.ts"/>
 ///<reference path="HmAbstractTranslator.ts"/>
 /**
+ * HmBaiduTranslator v1.01
+ * Copyright (C) @ 2017 VSCode.life
+ */
+/**
  * Baidu用に導出されたクラス
  */
 class BaiduTranslatorQueryStrategy extends AbstractTranslatorQueryStrategy {
     InitializeQueryParams() {
         // http://fanyi.baidu.com/v2transapi?query=apple&from=en&to=jp
         // 翻訳対象の元テキスト。
-        this.queryParams.Add("query", this.SrcText);
+        this.QueryParams.Add("query", this.SrcText);
         // 翻訳元の言語
-        this.queryParams.Add("from", this.targetLanguages.src);
+        this.QueryParams.Add("from", this.TargetLanguages.src);
         // 翻訳先の言語
-        this.queryParams.Add("to", this.targetLanguages.dst);
+        this.QueryParams.Add("to", this.TargetLanguages.dst);
     }
     get Method() {
         return "GET";

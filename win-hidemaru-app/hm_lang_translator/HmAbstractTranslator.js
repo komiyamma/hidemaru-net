@@ -4,13 +4,16 @@
  */
 class AbstractTranslatorQueryStrategy {
     get QueryParams() {
-        return this.queryParams;
+        return this.m_queryParams;
+    }
+    get TargetLanguages() {
+        return this.m_targetLanguages;
     }
     constructor(targetLanguages) {
         let webclr = host.lib("System.Web");
         this.HttpUtility = webclr.System.Web.HttpUtility;
-        this.queryParams = new clr.System.Collections.Specialized.NameValueCollection();
-        this.targetLanguages = targetLanguages;
+        this.m_queryParams = new clr.System.Collections.Specialized.NameValueCollection();
+        this.m_targetLanguages = targetLanguages;
         this.InitializeQueryParams();
     }
     get Url() {
