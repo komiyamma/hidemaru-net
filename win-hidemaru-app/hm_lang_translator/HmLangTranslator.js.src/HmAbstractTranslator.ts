@@ -1,6 +1,11 @@
 ///<reference path="HmV8.d.ts"/>
 
-type TranslatorLanguageType = undefined | "en" | "ja";
+/**
+ * HmAbstractTranslator v1.01
+ * Copyright (C) @ 2017 VSCode.life
+ */
+
+type TranslatorLanguageType = undefined | "auto" | "en" | "ja"; // 実際にはこれらに縛られない。
 
 type QueryMethodType = "POST" | "GET";
 

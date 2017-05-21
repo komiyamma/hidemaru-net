@@ -1,5 +1,9 @@
 ///<reference path="HmV8.d.ts"/>
 ///<reference path="HmAbstractTranslator.ts"/>
+/**
+ * HmGoogleTranslator v1.01
+ * Copyright (C) @ 2017 VSCode.life
+ */
 
 
 /**
