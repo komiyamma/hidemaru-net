@@ -71,7 +71,7 @@ class ContextTranslator {
      * WebClientを使って、strategyの各種パラメータを使ってクエリーをWebへと投げる。
      * 返ってきた値を、stragetyのフィルター方法に従って最終系にする。
      */
-    GetTranslateResult() {
+    GetTranslatedText() {
         // 翻訳元のデータがないってのはさすがにダメすぎでしょう。
         if (!this.strategy.SrcText) {
             PrintOutputPane("翻訳対象が存在していません。\r\n(対象テキストを選択してない等)\r\n");
@@ -115,7 +115,7 @@ class ContextTranslator {
         // 個別戦略にとらわれない翻訳トランスレーター大流処理インスタンス
         let translator = new ContextTranslator(strategy);
         // 翻訳結果を取得し、反映
-        let result = translator.GetTranslateResult();
+        let result = translator.GetTranslatedText();
         strategy.DstText = result;
         return result;
     }

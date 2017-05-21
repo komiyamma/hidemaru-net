@@ -10,7 +10,6 @@
  */
 class BaiduTranslatorQueryStrategy extends AbstractTranslatorQueryStrategy {
 
-    protected query :string;
     protected InitializeQueryParams(): void {
         // http://fanyi.baidu.com/v2transapi?query=apple&from=en&to=jp
 
