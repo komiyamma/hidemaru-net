@@ -1,6 +1,0 @@
-﻿#JS = loaddll( hidemarudir + @"\hmV8.dll" );
-
-#_ = dllfuncw( #JS, "DoFile", currentmacrodirectory + @"\HmGoogleTranslator.js");
-
-
-freedll( #JS );
