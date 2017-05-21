@@ -30,7 +30,6 @@ class BaiduTranslatorQueryStrategy extends AbstractTranslatorQueryStrategy {
         }
         else {
             return res.trans_result.data[0].dst;
-            console.log(res.trans_result.data[0].dst);
         }
     }
 }
