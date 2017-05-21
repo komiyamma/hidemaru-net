@@ -2,7 +2,7 @@
 /**
  * ストラテジーっぽい翻訳アルゴリズムの抽象クラス。
  */
-class ITranslatorAlgorithm {
+class AbstractTranslatorQueryStrategy {
     get QueryParams() {
         return this.queryParams;
     }

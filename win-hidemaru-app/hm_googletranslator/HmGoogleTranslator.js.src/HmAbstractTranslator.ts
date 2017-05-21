@@ -16,13 +16,13 @@ interface ITranslatorLanguageParams {
  * 翻訳戦略インターフェイスのコンストラクタ専用インターフェイス
  * ファクトリ系を作る際にはTypeScriptでは分ける必要がある。
  */
-interface ITranslatorAlgorithmStrategyConstructor {
+interface ITranslatorQueryStrategyConstructor {
     new (targetLanguages: ITranslatorLanguageParams);
 }
 /**
  * 翻訳戦略のインターフェイス
  */
-interface ITranslatorAlgorithmStrategy {
+interface ITranslatorQueryStrategy {
     FilterResultText: (html: string) => string;
     QueryParams: INameValueCollection;
     Url: string;
@@ -34,7 +34,7 @@ interface ITranslatorAlgorithmStrategy {
 /**
  * ストラテジーっぽい翻訳アルゴリズムの抽象クラス。
  */
-abstract class ITranslatorAlgorithm implements ITranslatorAlgorithmStrategy {
+abstract class AbstractTranslatorQueryStrategy implements ITranslatorQueryStrategy {
 
     // クエリーする際のkeyとvalueの組み合わせ
     protected queryParams: INameValueCollection;
@@ -107,13 +107,13 @@ abstract class ITranslatorAlgorithm implements ITranslatorAlgorithmStrategy {
  * 「Web翻訳とは何か」といった共通観念的処理が記載されている。
  */
 class ContextTranslator {
-    protected strategy: ITranslatorAlgorithmStrategy;
+    protected strategy: ITranslatorQueryStrategy;
     protected webclient: IWebClient;
 
     /**
      * @param strategy : 特定の翻訳戦略アルゴリズムを受け取る
      */
-    protected constructor(strategy: ITranslatorAlgorithmStrategy) {
+    protected constructor(strategy: ITranslatorQueryStrategy) {
         this.strategy = strategy;
         this.webclient = new clr.System.Net.WebClient();
     }
@@ -168,11 +168,11 @@ class ContextTranslator {
     }
 
     // 特定の翻訳戦略アルゴリズムや、言語指定パラメータを引数にする。
-    static Translate(ctor: ITranslatorAlgorithmStrategyConstructor, langParams: ITranslatorLanguageParams): string {
+    static Translate(ctor: ITranslatorQueryStrategyConstructor, langParams: ITranslatorLanguageParams): string {
 
         // 特定の翻訳戦略アルゴリズムインスタンスを構築
         // ちょっとファクトリっぽい
-        let strategy: ITranslatorAlgorithmStrategy = new ctor(langParams);
+        let strategy: ITranslatorQueryStrategy = new ctor(langParams);
 
         // 個別戦略にとらわれない翻訳トランスレーター大流処理インスタンス
         let translator: ContextTranslator = new ContextTranslator(strategy);

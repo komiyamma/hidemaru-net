@@ -3,7 +3,7 @@
 /**
  * Google用に導出されたクラス
  */
-class GoogleTranslatorAlgorithmStrategy extends ITranslatorAlgorithm {
+class GoogleTranslatorQueryStrategy extends AbstractTranslatorQueryStrategy {
     InitializeQueryParams() {
         // 翻訳対象の元テキスト。
         this.queryParams.Add("text", this.SrcText);
@@ -56,4 +56,4 @@ class GoogleTranslatorAlgorithmStrategy extends ITranslatorAlgorithm {
 }
 // 何語から何語なのか
 // let langParams: ITranslatorLanguageParams = { src: "en", dst: "ja" };
-// let result_words: string = ContextTranslator.Translate(GoogleTranslatorAlgorithmStrategy, langParams); 
+// let result_words: string = ContextTranslator.Translate(GoogleTranslatorQueryStrategy, langParams); 
