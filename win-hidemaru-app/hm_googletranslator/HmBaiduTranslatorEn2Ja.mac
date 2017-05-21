@@ -1,10 +1,10 @@
 ﻿#JS = loaddll( hidemarudir + @"\hmV8.dll" );
 
 #_ = dllfuncw( #JS, "DoFile", currentmacrodirectory + @"\HmAbstractTranslator.js");
-#_ = dllfuncw( #JS, "DoFile", currentmacrodirectory + @"\HmGoogleTranslator.js");
+#_ = dllfuncw( #JS, "DoFile", currentmacrodirectory + @"\HmBaiduTranslator.js");
 #_ = dllfuncw( #JS, "DoString", R"JS(
 
-    let result_words = ContextTranslator.Translate(GoogleTranslatorQueryStrategy, { src: "en", dst: "ja" });
+    let result_words = ContextTranslator.Translate(BaiduTranslatorQueryStrategy, { src: "en", dst: "jp" });
 
 )JS"
 );

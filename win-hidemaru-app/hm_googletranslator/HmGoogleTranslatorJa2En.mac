@@ -4,7 +4,7 @@
 #_ = dllfuncw( #JS, "DoFile", currentmacrodirectory + @"\HmGoogleTranslator.js");
 #_ = dllfuncw( #JS, "DoString", R"JS(
 
-    let result_words = ContextTranslator.Translate(GoogleTranslatorAlgorithmStrategy, { src: "ja", dst: "en" });
+    let result_words = ContextTranslator.Translate(GoogleTranslatorQueryStrategy, { src: "ja", dst: "en" });
 
 )JS"
 );

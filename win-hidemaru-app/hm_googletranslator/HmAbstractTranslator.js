@@ -85,7 +85,6 @@ class ContextTranslator {
         // hm.Edit.TotalText = resText;
         // 結果のテキストを、戦略アルゴリズムが持つ「結果フィルターメソッド」にかける
         let dstText = this.strategy.FilterResultText(resText);
-        // 翻訳後のテキストを該当の戦略アルゴリズムのDstTextとして設定。
         return dstText;
     }
     GetRequestQueryData() {
