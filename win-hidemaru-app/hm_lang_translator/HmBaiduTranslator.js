@@ -10,15 +10,18 @@
 class BaiduTranslatorQueryStrategy extends AbstractTranslatorQueryStrategy {
     InitializeQueryParams() {
         // http://fanyi.baidu.com/v2transapi?query=apple&from=en&to=jp
+        // Baiduのクエリ上での改行は\r(=0xA)である必要がある。
+        let srcText = this.SrcText;
+        srcText = srcText.replace(/\r?\n/, "\r");
         // 翻訳対象の元テキスト。
-        this.QueryParams.Add("query", this.SrcText);
+        this.QueryParams.Add("query", srcText);
         // 翻訳元の言語
         this.QueryParams.Add("from", this.TargetLanguages.src);
         // 翻訳先の言語
         this.QueryParams.Add("to", this.TargetLanguages.dst);
     }
     get Method() {
-        return "GET";
+        return "POST"; // GETでもPOSTでも両方動作する。
     }
     get Url() {
         return "http://fanyi.baidu.com/v2transapi";

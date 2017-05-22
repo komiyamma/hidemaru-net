@@ -126,11 +126,9 @@ class ContextTranslator {
 function PrintOutputPane(message) {
     // tslint:disable-next-line:no-string-literal
     hm.Macro.Var["$OutputPaneMessageText"] = message;
-    hm.Macro.Eval(f => {
-        /*
+    hm.Macro.Eval(f => { /*
             #HMOP = loaddll(hidemarudir + @"\HmOutputPane.dll");
             #r = dllfunc(#HMOP, "Output", hidemaruhandle(0), $OutputPaneMessageText + "\r\n");
             freedll( #HMOP );
-        */
-    });
+        */ });
 }

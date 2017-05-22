@@ -30,7 +30,7 @@ class GoogleTranslatorQueryStrategy extends AbstractTranslatorQueryStrategy {
     }
 
     get Method(): QueryMethodType {
-        return "GET";
+        return "GET"; // GETは動作するがPOSTはGoogle側が受け付けなくなった？
     }
 
     get Url(): string {

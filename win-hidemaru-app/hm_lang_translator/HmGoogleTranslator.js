@@ -22,7 +22,7 @@ class GoogleTranslatorQueryStrategy extends AbstractTranslatorQueryStrategy {
         this.QueryParams.Add("oe", "UTF8");
     }
     get Method() {
-        return "GET";
+        return "GET"; // GETは動作するがPOSTはGoogle側が受け付けなくなった？
     }
     get Url() {
         return "http://translate.google.com/translate_t";
