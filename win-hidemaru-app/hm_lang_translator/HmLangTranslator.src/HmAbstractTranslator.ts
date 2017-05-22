@@ -28,7 +28,7 @@ interface ITranslatorQueryStrategyConstructor {
  * 翻訳戦略のインターフェイス
  */
 interface ITranslatorQueryStrategy {
-    FilterResultText: (html: string) => string;
+    FilterResultText: (result_page: string) => string;
     QueryParams: INameValueCollection;
     Url: string;
     Method: QueryMethodType;
