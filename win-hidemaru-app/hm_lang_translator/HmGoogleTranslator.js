@@ -42,10 +42,8 @@ class GoogleTranslatorQueryStrategy extends AbstractTranslatorQueryStrategy {
         let resultAroundResultArray = resultAroundTextRegexp.exec(result_page);
         // 存在する
         if (resultAroundResultArray) {
-            // hm.Edit.TotalText = resultAroundResultArray[0];
             // 得た「周辺テキスト」にたいして…
             let regexpResultText = resultAroundResultArray[0];
-            // hm.Edit.TotalText = regexpResultText;
             // さらにタグを全部除去。複数行考慮
             regexpResultText = regexpResultText.replace(/<("[^"]*"|'[^']*'|[^'">])*>/g, "");
             // 結果文字列がHTMLエンコードされてるのでHTMLデコードする。

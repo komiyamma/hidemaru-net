@@ -1,4 +1,6 @@
-■HmAbstractTranslator, HmGoogleTranslator, HmBaiduTranslatorのライセンス
+■HmAbstractTranslator.js, HmGoogleTranslator.js, HmBaiduTranslator.js,
+  HmAbstractTranslator.ts, HmGoogleTranslator.ts, HmBaiduTranslator.ts,
+  HmV8.d.ts, 以上７つのファイルのライセンス
 
 	MITランセンスとなります。
 
@@ -23,3 +25,7 @@
 	THE SOFTWARE.
 
 
+■各種の拡張子が「.mac」のファイルのライセンス
+
+	パブリックドメインとなります。
+	自由に利用・改変・再配布してください。
