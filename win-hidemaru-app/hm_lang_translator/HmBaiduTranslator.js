@@ -1,4 +1,4 @@
-///<reference path="HmV8.d.ts"/>
+﻿///<reference path="HmV8.d.ts"/>
 ///<reference path="HmAbstractTranslator.ts"/>
 /**
  * HmBaiduTranslator v1.01
@@ -12,7 +12,7 @@ class BaiduTranslatorQueryStrategy extends AbstractTranslatorQueryStrategy {
         // http://fanyi.baidu.com/v2transapi?query=apple&from=en&to=jp
         // Baiduのクエリ上での改行は\r(=0xA)である必要がある。
         let srcText = this.SrcText;
-        srcText = srcText.replace(/\r?\n/, "\r");
+        srcText = srcText.replace(/\r?\n/g, "\r");
         // 翻訳対象の元テキスト。
         this.QueryParams.Add("query", srcText);
         // 翻訳元の言語

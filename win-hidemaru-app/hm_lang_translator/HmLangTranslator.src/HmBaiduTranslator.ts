@@ -15,7 +15,7 @@ class BaiduTranslatorQueryStrategy extends AbstractTranslatorQueryStrategy {
 
         // Baiduのクエリ上での改行は\r(=0xA)である必要がある。
         let srcText: string = this.SrcText;
-        srcText = srcText.replace(/\r?\n/, "\r");
+        srcText = srcText.replace(/\r?\n/g, "\r");
 
         // 翻訳対象の元テキスト。
         this.QueryParams.Add("query", srcText);
