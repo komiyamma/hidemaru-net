@@ -48,7 +48,7 @@ class GoogleTranslatorQueryStrategy extends AbstractTranslatorQueryStrategy {
         // 本格的にやるなら「HtmlAgilityPack」で、対象のidタグのInnerTextを求めるのが良いが大仰である。
         // 正規表現で対処してしまって良いだろう。
         // 複数行考慮
-        let resultAroundTextRegexp: RegExp = /<span id=result_box [\s\S]+?<\/span>(<\/span|.+?<\/div>)>/;
+        let resultAroundTextRegexp: RegExp = /<span id=result_box [\s\S]+?<\/span><\/(span|div)>/;
 
         // 結果のHTMLページ全体から、翻訳結果周辺をまずは抽出。
         let resultAroundResultArray: RegExpExecArray | null = resultAroundTextRegexp.exec(result_page);

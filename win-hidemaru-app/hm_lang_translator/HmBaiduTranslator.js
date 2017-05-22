@@ -1,4 +1,4 @@
-﻿///<reference path="HmV8.d.ts"/>
+///<reference path="HmV8.d.ts"/>
 ///<reference path="HmAbstractTranslator.ts"/>
 /**
  * HmBaiduTranslator v1.01
