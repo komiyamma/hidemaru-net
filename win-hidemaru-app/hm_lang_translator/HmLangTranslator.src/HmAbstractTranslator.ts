@@ -147,7 +147,7 @@ class ContextTranslator {
 
         // 結果のデータの塊はUTF8のテキストとみなして変換
         let resText: string = clr.System.Text.Encoding.UTF8.GetString(resData);
-        // hm.Edit.TotalText = resText;
+
         // 結果のテキストを、戦略アルゴリズムが持つ「結果フィルターメソッド」にかける
         let dstText: string = this.strategy.FilterResultText(resText);
 
