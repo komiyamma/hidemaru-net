@@ -1,8 +1,8 @@
 ///<reference path="HmV8.d.ts"/>
 ///<reference path="HmAbstractTranslator.ts"/>
 /**
- * HmBaiduTranslator v1.01
- * Copyright (C) @ 2017 VSCode.life
+ * HmBaiduTranslator v1.02
+ * Copyright (C) 2017 VSCode.life
  */
 /**
  * Baidu用に導出されたクラス

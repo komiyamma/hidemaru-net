@@ -1,8 +1,8 @@
 ///<reference path="HmV8.d.ts"/>
 ///<reference path="HmAbstractTranslator.ts"/>
 /**
- * HmGoogleTranslator v1.01
- * Copyright (C) @ 2017 VSCode.life
+ * HmGoogleTranslator v1.02
+ * Copyright (C) 2017 VSCode.life
  */
 /**
  * Google用に導出されたクラス
@@ -11,8 +11,12 @@ class GoogleTranslatorQueryStrategy extends AbstractTranslatorQueryStrategy {
     InitializeQueryParams() {
         // 翻訳対象の元テキスト。
         this.QueryParams.Add("text", this.SrcText);
-        // 何語から何語へ翻訳するのか
-        this.QueryParams.Add("langpair", `${this.TargetLanguages.src}|${this.TargetLanguages.dst}`);
+        // これが必要。これがあれば、答えのテキストだけで返ってくる。
+        this.QueryParams.Add("client", "j");
+        // 何語から(source language)
+        this.QueryParams.Add("sl", this.TargetLanguages.src);
+        // 何語へ(target language)
+        this.QueryParams.Add("tl", this.TargetLanguages.dst);
         // 結果ページで使用される言語
         // (翻訳内容とは無関係で、GUIインターフェイスの言語。日本語で良い)
         this.QueryParams.Add("hl", "ja");
@@ -25,35 +29,33 @@ class GoogleTranslatorQueryStrategy extends AbstractTranslatorQueryStrategy {
         return "GET"; // GETは動作するがPOSTはGoogle側が受け付けなくなった？
     }
     get Url() {
-        return "http://translate.google.com/translate_t";
+        return "http://translate.google.com/translate_a/t";
     }
     /**
-     * 結果のページから対象の部分を抽出するどろ臭い部分
-     * Googleの場合は、HTML。
+     * 結果のページはJavaScriptの文字列フォーマット、もしくはJavaScriptの配列によって格納されてる。
      * @param result_page
      */
     FilterResultText(result_page) {
-        // id=result_boxあたりのタグ内のInnerTextが翻訳語の文字列。
-        // 本格的にやるなら「HtmlAgilityPack」で、対象のidタグのInnerTextを求めるのが良いが大仰である。
-        // 正規表現で対処してしまって良いだろう。
-        // 複数行考慮
-        let resultAroundTextRegexp = /<span id=result_box [\s\S]+?<\/span><\/(span|div)>/;
-        // 結果のHTMLページ全体から、翻訳結果周辺をまずは抽出。
-        let resultAroundResultArray = resultAroundTextRegexp.exec(result_page);
-        // 存在する
-        if (resultAroundResultArray) {
-            // 得た「周辺テキスト」にたいして…
-            let regexpResultText = resultAroundResultArray[0];
-            // さらにタグを全部除去。複数行考慮
-            regexpResultText = regexpResultText.replace(/<("[^"]*"|'[^']*'|[^'">])*>/g, "");
-            // 結果文字列がHTMLエンコードされてるのでHTMLデコードする。
-            // (ただし元々がHTMLエンコードした状態の文字列だと区別が付かないという不正確さがある)
-            regexpResultText = this.HttpUtility.HtmlDecode(regexpResultText);
-            return regexpResultText;
+        // result_pageは翻訳結果であり、JSONっぽいテキストで２系統のフォーマットがある。
+        // "りんご"
+        // という形かもしくは
+        // ["りんご", "en"]
+        // という形。
+        // 下の方は、翻訳元の言語をautoで自動判断させた際、Google翻訳が何語と判断したのかが入る。
+        let page_text = result_page;
+        // 具体的に示されている時には、jsonの体をしていないので、[ ] でjson的な形にしてしまう。
+        if (!result_page.startsWith("[")) {
+            page_text = "[" + page_text + "]";
         }
-        else {
-            return "";
+        // フォーマットが本当に合っているのか裏付けが薄いのでtry...catchしておく。
+        try {
+            let res = JSON.parse(page_text);
+            return res[0];
         }
+        catch (err) {
+            PrintOutputPane(err);
+        }
+        return "";
     }
 }
 // 何語から何語なのか

@@ -1,8 +1,8 @@
 ///<reference path="HmV8.d.ts"/>
 ///<reference path="HmAbstractTranslator.ts"/>
 /**
- * HmBaiduTranslator v1.01
- * Copyright (C) @ 2017 VSCode.life
+ * HmBaiduTranslator v1.02
+ * Copyright (C) 2017 VSCode.life
  */
 
 /**
@@ -21,10 +21,10 @@ class BaiduTranslatorQueryStrategy extends AbstractTranslatorQueryStrategy {
         this.QueryParams.Add("query", srcText);
 
         // 翻訳元の言語
-        this.QueryParams.Add("from", this.TargetLanguages.src);
+        this.QueryParams.Add("from", <string>this.TargetLanguages.src);
 
         // 翻訳先の言語
-        this.QueryParams.Add("to", this.TargetLanguages.dst);
+        this.QueryParams.Add("to", <string>this.TargetLanguages.dst);
     }
 
     get Method(): QueryMethodType {

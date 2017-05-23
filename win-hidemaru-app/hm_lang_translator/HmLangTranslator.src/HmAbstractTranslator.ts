@@ -1,8 +1,8 @@
 ///<reference path="HmV8.d.ts"/>
 
 /**
- * HmAbstractTranslator v1.01
- * Copyright (C) @ 2017 VSCode.life
+ * HmAbstractTranslator v1.02
+ * Copyright (C) 2017 VSCode.life
  */
 
 type TranslatorLanguageType = undefined | "auto" | "en" | "ja"; // 実際にはこれらに縛られない。
