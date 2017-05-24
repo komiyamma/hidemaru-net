@@ -29,11 +29,9 @@ class IterableRensoRuigoElementList {
         let resultExecArray;
         // １つずつ抽出して、IRensoRuigoElement型にして IRensoRuigoElement配列へと足し込み
         while (resultExecArray = resultTextRegexp.exec(joinedRensoWordText)) {
-            if (resultExecArray) {
-                // この形にして格納しておく。
-                let element = { word: resultExecArray[2], href: resultExecArray[1] };
-                resultStructArray.push(element);
-            }
+            // この形にして格納しておく。
+            let element = { word: resultExecArray[2], href: resultExecArray[1] };
+            resultStructArray.push(element);
         }
         return resultStructArray;
     }
@@ -56,22 +54,10 @@ class IterableRensoRuigoElementList {
      * @param resultStructArray
      */
     ConvertStructArrayToFormattedString(resultStructArray) {
-        // 結果はアルファベットも含め「全部全角」なので、リスト文字列の中で一番長い文字数を求める。
-        let lenArray = resultStructArray.map(o => o.word.length);
-        let maxLen = Math.max(...lenArray);
-        // resultArrayを１つの文字列へ
         let formattedString = "";
         for (var element of resultStructArray) {
-            // 以下、「左に単語」「右にリンク」への整形
-            // 左の単語部分の空白調整が不細工で「うぐぐ…」。
-            // 残り幅 = 最大幅 - 現在の単語の幅
-            let restSpaceCnt = (maxLen - element.word.length) * 2;
-            // 半角の(と)の数を調査して、その分は半角なので、足しておく。それ以外の半角文字は出てこないと思われる。
-            let halfSizeCharCnt = (element.word.match(/[\(\)]/g) || []).length;
-            restSpaceCnt = restSpaceCnt + halfSizeCharCnt;
-            // 残り幅分の空白を現在の単語の最後に追加しておく。
-            let formatDst = element.word + " ".repeat(restSpaceCnt);
-            formattedString += `${formatDst} : ${element.href}\r\n`;
+            // formattedString += `${element.word} : ${element.href}\r\n`;
+            formattedString += `${element.word}\r\n`;
         }
         return formattedString;
     }

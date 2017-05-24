@@ -1,8 +1,8 @@
-¡HmAbstractTranslator.js, HmGoogleTranslator.js, HmBaiduTranslator.js,
-  HmAbstractTranslator.ts, HmGoogleTranslator.ts, HmBaiduTranslator.ts,
-  HmV8.d.ts, ˆÈã‚V‚Â‚Ìƒtƒ@ƒCƒ‹‚Ìƒ‰ƒCƒZƒ“ƒX
+â– HmAbstractTranslator.js, HmGoogleTranslator.js, HmBaiduTranslator.js, HmRensoRuigoTranslator.js,
+  HmAbstractTranslator.ts, HmGoogleTranslator.ts, HmBaiduTranslator.ts, HmRensoRuigoTranslator.ts,
+  HmV8.d.ts, ä»¥ä¸Šï¼™ã¤ã®ãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒ©ã‚¤ã‚»ãƒ³ã‚¹
 
-	MITƒ‰ƒ“ƒZƒ“ƒX‚Æ‚È‚è‚Ü‚·B
+	MITãƒ©ãƒ³ã‚»ãƒ³ã‚¹ã¨ãªã‚Šã¾ã™ã€‚
 
 	Copyright (C) 2017 VSCode.life
 
@@ -25,7 +25,7 @@
 	THE SOFTWARE.
 
 
-¡Šeí‚ÌŠg’£q‚ªu.macv‚Ìƒtƒ@ƒCƒ‹‚Ìƒ‰ƒCƒZƒ“ƒX
+â– å„ç¨®ã®æ‹¡å¼µå­ãŒã€Œ.macã€ã®ãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒ©ã‚¤ã‚»ãƒ³ã‚¹
 
-	ƒpƒuƒŠƒbƒNƒhƒƒCƒ“‚Æ‚È‚è‚Ü‚·B
-	©—R‚É—˜—pE‰ü•ÏEÄ”z•z‚µ‚Ä‚­‚¾‚³‚¢B
+	ãƒ‘ãƒ–ãƒªãƒƒã‚¯ãƒ‰ãƒ¡ã‚¤ãƒ³ã¨ãªã‚Šã¾ã™ã€‚
+	è‡ªç”±ã«åˆ©ç”¨ãƒ»æ”¹å¤‰ãƒ»å†é…å¸ƒã—ã¦ãã ã•ã„ã€‚

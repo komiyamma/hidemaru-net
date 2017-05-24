@@ -23,7 +23,7 @@ class IterableRensoRuigoElementList {
      */
     protected ConvertStringToStructArray(result_page: string): IRensoRuigoElement[] {
         // 途中の改行は面倒くさいので除去
-        let simgleResultPage: string  = result_page.replace(/[\r\n]/, "");
+        let simgleResultPage: string = result_page.replace(/[\r\n]/, "");
 
         // word_t_fieldのタグ内が答えのリスト一覧
         let resultAroundTextRegexp: RegExp = /<div class="word_t_field">([\s\S]+?)<\/div>/;
@@ -36,17 +36,15 @@ class IterableRensoRuigoElementList {
 
         let joinedRensoWordText: string = resultAroundExecArray[0];
 
-        let resultStructArray:IRensoRuigoElement[] = [];
+        let resultStructArray: IRensoRuigoElement[] = [];
         // 結果パターンの繰り返し
         let resultTextRegexp: RegExp = /　・　<a href="([\s\S]+?)">([\s\S]+?)<\/a>/g;
         let resultExecArray: RegExpExecArray | null;
         // １つずつ抽出して、IRensoRuigoElement型にして IRensoRuigoElement配列へと足し込み
-        while(resultExecArray = resultTextRegexp.exec(joinedRensoWordText)) {
-            if (resultExecArray) {
-                // この形にして格納しておく。
-                let element: IRensoRuigoElement = {word:resultExecArray[2], href:resultExecArray[1]};
-                resultStructArray.push( element );
-            }
+        while (resultExecArray = resultTextRegexp.exec(joinedRensoWordText)) {
+            // この形にして格納しておく。
+            let element: IRensoRuigoElement = { word: resultExecArray[2], href: resultExecArray[1] };
+            resultStructArray.push(element);
         }
 
         return resultStructArray;
@@ -55,8 +53,8 @@ class IterableRensoRuigoElementList {
     /**
      * イテレータ。
      */
-    * [Symbol.iterator](): IterableIterator<IRensoRuigoElement> {
-        for (let i: number = 0; i<this.m_resultStructArray.length; i++) {
+    *[Symbol.iterator](): IterableIterator<IRensoRuigoElement> {
+        for (let i: number = 0; i < this.m_resultStructArray.length; i++) {
             yield this.m_resultStructArray[i];
         }
     }
@@ -73,26 +71,10 @@ class IterableRensoRuigoElementList {
      * @param resultStructArray 
      */
     protected ConvertStructArrayToFormattedString(resultStructArray: IRensoRuigoElement[]): string {
-        // 結果はアルファベットも含め「全部全角」なので、リスト文字列の中で一番長い文字数を求める。
-        let lenArray: number[] = resultStructArray.map( o => o.word.length );
-        let maxLen: number = Math.max(...lenArray);
-
-        // resultArrayを１つの文字列へ
         let formattedString: string = "";
         for (var element of resultStructArray) {
-
-            // 以下、「左に単語」「右にリンク」への整形
-            // 左の単語部分の空白調整が不細工で「うぐぐ…」。
-
-            // 残り幅 = 最大幅 - 現在の単語の幅
-            let restSpaceCnt:number = (maxLen - element.word.length) * 2;
-            // 半角の(と)の数を調査して、その分は半角なので、足しておく。それ以外の半角文字は出てこないと思われる。
-            let halfSizeCharCnt: number = ( element.word.match(/[\(\)]/g) || [] ).length;
-            restSpaceCnt = restSpaceCnt + halfSizeCharCnt;
-            // 残り幅分の空白を現在の単語の最後に追加しておく。
-            let formatDst: string = element.word + " ".repeat(restSpaceCnt);
-
-            formattedString += `${formatDst} : ${element.href}\r\n`;
+            // formattedString += `${element.word} : ${element.href}\r\n`;
+            formattedString += `${element.word}\r\n`;
         }
 
         return formattedString;
