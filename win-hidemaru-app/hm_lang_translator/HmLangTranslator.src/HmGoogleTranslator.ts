@@ -5,7 +5,6 @@
  * Copyright (C) 2017 VSCode.life
  */
 
-
 /**
  * Google用に導出されたクラス
  */
@@ -44,19 +43,18 @@ class GoogleTranslatorQueryStrategy extends AbstractTranslatorQueryStrategy {
     }
 
     /**
-     * 結果のページはJavaScriptの文字列フォーマット、もしくはJavaScriptの配列によって格納されてる。
-     * @param result_page
+     *  @param result_page: 結果のページはJavaScriptの文字列フォーマット、
+     *  もしくはJavaScriptの文字列の配列によって格納されてる。
+     *  "りんご"
+     *    という形かもしくは
+     *  ["りんご", "en"]
+     *    という形。
+     *  ２番めの要素には、翻訳元の言語をautoで自動判断させた際に、何語と自動判断されたのか、が入る。
      */
     FilterResultText(result_page: string): string {
 
-        // result_pageは翻訳結果であり、JSONっぽいテキストで２系統のフォーマットがある。
-        // "りんご"
-        // という形かもしくは
-        // ["りんご", "en"]
-        // という形。
-        // 下の方は、翻訳元の言語をautoで自動判断させた際、Google翻訳が何語と判断したのかが入る。
-
         let page_text: string = result_page;
+
         // 具体的に示されている時には、jsonの体をしていないので、[ ] でjson的な形にしてしまう。
         if (!result_page.startsWith("[")) {
             page_text = "[" + page_text + "]";
