@@ -214,9 +214,13 @@ if (#is_buf_contains_ruby) {
     newfile;
     // 横にルビを振る方
     insert $buf_text_with_rubied;
+    // いちいち「更新」が付くと閉じる時鬱陶しいので、更新状態はクリア
+    clearupdated;
 
     // 新規ファイル作成
     newfile;
     // HTMLタグを付ける方
     insert $buf_html_with_rubied;
+    // いちいち「更新」が付くと閉じる時鬱陶しいので、更新状態はクリア
+    clearupdated;
 }
