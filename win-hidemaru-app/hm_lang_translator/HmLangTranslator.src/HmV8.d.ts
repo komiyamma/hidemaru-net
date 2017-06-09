@@ -5,10 +5,10 @@ declare namespace host {
     function lib(libns: any, libname: string): any;
 }
 
-type States = (f: any)=>void;
+type HmMacroStates = (f: any)=>void;
 declare namespace hm {
     namespace Macro {
-        function Eval(expression:States | string );
+        function Eval(expression:HmMacroStates | string );
         let Var: Map<string, any>;
     }
     namespace Edit {
