@@ -85,6 +85,7 @@ public partial class hmRbDynamicLib
         [DllImport("kernel32.dll", SetLastError = true)]
         private static extern IntPtr GlobalFree(IntPtr hMem);
 
+        // この関数ダミー用として必要
         public void _(String expression)
         {
         }
