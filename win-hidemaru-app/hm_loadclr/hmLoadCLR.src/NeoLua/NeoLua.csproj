@@ -73,6 +73,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="hmLmStaticLib\hmLmDllPathResolver.cs" />
+    <Compile Include="hmLmStaticLib\hmLmHidemaruDelegate.cs" />
+    <Compile Include="hmLmStaticLib\hmLmHidemaruEdit.cs" />
+    <Compile Include="hmLmStaticLib\hmLmHidemaruMacro.cs" />
+    <Compile Include="hmLmStaticLib\UnManagedDll.cs" />
     <Compile Include="Lua\Exceptions.cs" />
     <Compile Include="hmLmStaticLib\hmLmHidemaru.cs" />
     <Compile Include="hmLmStaticLib\hmLmStaticLib.cs" />

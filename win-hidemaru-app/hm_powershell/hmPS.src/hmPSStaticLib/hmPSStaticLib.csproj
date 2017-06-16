@@ -43,6 +43,10 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="hmPSHidemaruDelegate.cs" />
+    <Compile Include="hmPSHidemaruEdit.cs" />
+    <Compile Include="hmPSHidemaruMacro.cs" />
+    <Compile Include="UnManagedDll.cs" />
     <Compile Include="hmPSDllPathResolver.cs" />
     <Compile Include="hmPSHidemaru.cs" />
     <Compile Include="hmPSStaticLib.cs" />

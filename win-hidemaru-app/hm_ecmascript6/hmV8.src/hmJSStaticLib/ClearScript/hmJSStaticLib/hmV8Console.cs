@@ -45,7 +45,7 @@ public partial class hmV8DynamicLib
 
         public static void warn(params Object[] expressions)
         {
-            Hidemaru.debuginfo(expressions);
+            Hidemaru.debuginfo(FormatObjects(expressions));
         }
 
         public static void assert()
