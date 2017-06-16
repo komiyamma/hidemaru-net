@@ -64,8 +64,13 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="hmJSStaticLib\ClearScriptExtension.cs" />
     <Compile Include="hmJSStaticLib\hmCustomLivePreviewConsole.cs" />
     <Compile Include="hmJSStaticLib\hmCustomLivePreviewDllPathResolver.cs" />
+    <Compile Include="hmJSStaticLib\UnManagedDll.cs" />
+    <Compile Include="hmJSStaticLib\hmCustomLivePreviewHidemaruDelegate.cs" />
+    <Compile Include="hmJSStaticLib\hmCustomLivePreviewHidemaruEdit.cs" />
+    <Compile Include="hmJSStaticLib\hmCustomLivePreviewHidemaruMacro.cs" />
     <Compile Include="hmJSStaticLib\hmCustomLivePreviewHidemaru.cs" />
     <Compile Include="hmJSStaticLib\hmCustomLivePreviewStaticLib.cs" />
     <Compile Include="JS\CanonicalRefTable.cs" />
