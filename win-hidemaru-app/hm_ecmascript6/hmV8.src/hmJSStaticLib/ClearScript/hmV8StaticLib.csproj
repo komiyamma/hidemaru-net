@@ -69,7 +69,11 @@
     <Compile Include="hmJSStaticLib\hmV8Console.cs" />
     <Compile Include="hmJSStaticLib\hmV8DllPathResolver.cs" />
     <Compile Include="hmJSStaticLib\hmV8Hidemaru.cs" />
+    <Compile Include="hmJSStaticLib\hmV8HidemaruDelegate.cs" />
+    <Compile Include="hmJSStaticLib\hmV8HidemaruEdit.cs" />
+    <Compile Include="hmJSStaticLib\hmV8HidemaruMacro.cs" />
     <Compile Include="hmJSStaticLib\hmV8StaticLib.cs" />
+    <Compile Include="hmJSStaticLib\UnManagedDll.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

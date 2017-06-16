@@ -63,9 +63,13 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="hmJSStaticLib\ClearScriptExtension.cs" />
     <Compile Include="hmJSStaticLib\hmJSConsole.cs" />
     <Compile Include="hmJSStaticLib\hmJSDllPathResolver.cs" />
     <Compile Include="hmJSStaticLib\hmJSHidemaru.cs" />
+    <Compile Include="hmJSStaticLib\hmJSHidemaruDelegate.cs" />
+    <Compile Include="hmJSStaticLib\hmJSHidemaruEdit.cs" />
+    <Compile Include="hmJSStaticLib\hmJSHidemaruMacro.cs" />
     <Compile Include="hmJSStaticLib\hmJSStaticLib.cs" />
     <Compile Include="JS\CanonicalRefTable.cs" />
     <Compile Include="JS\ContinuationCallback.cs" />
@@ -149,6 +153,7 @@
     <Compile Include="JS\HostItem.cs" />
     <Compile Include="JS\HostVariable.cs" />
     <Compile Include="JS\Windows\JScriptEngine.cs" />
+    <Compile Include="hmJSStaticLib\UnManagedDll.cs" />
     <None Include="JS\Exports\CallbackManager.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>CallbackManager.h</LastGenOutput>

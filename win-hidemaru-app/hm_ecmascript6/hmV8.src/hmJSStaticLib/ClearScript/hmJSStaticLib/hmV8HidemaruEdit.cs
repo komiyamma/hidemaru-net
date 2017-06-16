@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-
-
-
 // ★秀丸クラス
-public partial class hmPSDynamicLib
+public partial class hmV8DynamicLib
 {
     public partial class Hidemaru
     {
+
         // 座標型。Point型では、System.Drawingを読み込まないとダメなので負荷がある。また、x, yは秀丸に別値として存在するので、
         // あくまでも、マクロのcolumnとlinenoと一致しているという主張。なお、x, yはワープロ的な座標を拾ってくる。
         // columnやlinenoはエディタ的な座標である。
@@ -25,10 +23,9 @@ public partial class hmPSDynamicLib
             public int lineno { get { return m_lineno; } }
         }
 
-        public static TEdit Edit;
-        public class TEdit
+        public class Edit
         {
-            public TEdit()
+            static Edit()
             {
                 SetUnManagedDll();
             }
@@ -73,11 +70,10 @@ public partial class hmPSDynamicLib
 
                 return new HmCursurPos(-1, -1);
             }
-
             // columnやlinenoはエディタ的な座標である。
             private static HmCursurPos GetCursorPosFromMousePos()
             {
-                if (version < 873)
+                if (_ver < 873)
                 {
                     OutputDebugStream(ErrorMsg.MethodNeed873);
                     return new HmCursurPos(-1, -1);
@@ -194,7 +190,7 @@ public partial class hmPSDynamicLib
                     "insert dllfuncstrw( {0} \"PopStrVar\" );\n" +
                     "endgroupundo;\n"
                 );
-                TMacro.Eval(cmd);
+                Macro._Eval(cmd);
                 SetTmpVar(null);
             }
 
@@ -297,7 +293,7 @@ public partial class hmPSDynamicLib
                     "if (selecting) {\n" +
                     "insert dllfuncstrw( " + invocate + " \"PopStrVar\" );\n" +
                     "}\n";
-                TMacro.Eval(cmd);
+                Macro._Eval(cmd);
                 SetTmpVar(null);
             }
 
@@ -401,10 +397,9 @@ public partial class hmPSDynamicLib
                     "moveto2 " + pos.column + ", " + pos.lineno + ";\n" +
                     "endgroupundo;\n"
                 );
-                TMacro.Eval(cmd);
+                Macro._Eval(cmd);
                 SetTmpVar(null);
             }
-
         }
     }
 }

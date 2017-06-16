@@ -43,7 +43,7 @@ public partial class hmPyDynamicLib
             /// <summary>
             ///  [EXPORT] CursorPosFromMousePos
             /// </summary>
-            public HmCursurPos CursorPosFromMousePos
+            public static HmCursurPos CursorPosFromMousePos
             {
                 get
                 {
@@ -57,14 +57,19 @@ public partial class hmPyDynamicLib
                 if (version < 866)
                 {
                     OutputDebugStream(ErrorMsg.MethodNeed866);
-                    return new HmCursurPos(1, 0);
+                    return new HmCursurPos(-1, -1);
                 }
 
                 int column = -1;
                 int lineno = -1;
-                pGetCursorPosUnicode(ref lineno, ref column);
-                HmCursurPos p = new HmCursurPos(lineno, column);
-                return p;
+                int success = pGetCursorPosUnicode(ref lineno, ref column);
+                if (success > 0)
+                {
+                    HmCursurPos p = new HmCursurPos(lineno, column);
+                    return p;
+                }
+
+                return new HmCursurPos(-1, -1);
             }
 
             // columnやlinenoはエディタ的な座標である。
