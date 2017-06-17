@@ -1,17 +1,16 @@
 ///<reference path="HmV8.d.ts"/>
 ///<reference path="HmAbstractTranslator.ts"/>
 /**
- * HmRensoRuigoTranslator v1.02
+ * HmRensoTaigigoTranslator v1.02
  * Copyright (C) 2017 VSCode.life
  */
 
-interface IRensoRuigoElement {
-    word: string; // 連想類語
-    href: string; // その単語でさらに連想類語検索する際のURL
+interface IRensoTaigigoElement {
+    word: string; // 連想対義語
 }
 
-class IterableRensoRuigoElementList {
-    m_resultStructArray: IRensoRuigoElement[];
+class IterableRensoTaigigoElementList {
+    m_resultStructArray: IRensoTaigigoElement[];
 
     constructor(result_page: string) {
         this.m_resultStructArray = this.ConvertStringToStructArray(result_page);
@@ -21,12 +20,12 @@ class IterableRensoRuigoElementList {
      * づらずらと未フォーマットな文字列になっているので構造を把握しやすい配列へと格納する。
      * @param result_page 
      */
-    protected ConvertStringToStructArray(result_page: string): IRensoRuigoElement[] {
+    protected ConvertStringToStructArray(result_page: string): IRensoTaigigoElement[] {
         // 途中の改行は面倒くさいので除去
         let simgleResultPage: string = result_page.replace(/[\r\n]/, "");
 
         // word_t_fieldのタグ内が答えのリスト一覧
-        let resultAroundTextRegexp: RegExp = /<div class="word_t_field">([\s\S]+?)<\/div>/;
+        let resultAroundTextRegexp: RegExp = /<div class=Wtght>([\s\S]+?)<\/div><\/div>/;
         let resultAroundExecArray: RegExpExecArray | null = resultAroundTextRegexp.exec(simgleResultPage);
 
         // １つも無い
@@ -35,15 +34,20 @@ class IterableRensoRuigoElementList {
         }
 
         let joinedRensoWordText: string = resultAroundExecArray[0];
+        console.log(joinedRensoWordText);
 
-        let resultStructArray: IRensoRuigoElement[] = [];
+        let resultStructArray: IRensoTaigigoElement[] = [];
         // 結果パターンの繰り返し
-        let resultTextRegexp: RegExp = /　・　<a href="([\s\S]+?)">([\s\S]+?)<\/a>/g;
+        let resultTextRegexp: RegExp = /<td class=wtghtTW><span class=wtghtAntnm>(.+?)<\/span>[\s\S]+?<br class=clr>/g;
         let resultExecArray: RegExpExecArray | null;
-        // １つずつ抽出して、IRensoRuigoElement型にして IRensoRuigoElement配列へと足し込み
+        // １つずつ抽出して、IRensoTaigigoElement型にして IRensoTaigigoElement配列へと足し込み
         while (resultExecArray = resultTextRegexp.exec(joinedRensoWordText)) {
-            // この形にして格納しておく。
-            let element: IRensoRuigoElement = { word: resultExecArray[2], href: resultExecArray[1] };
+
+            let word = resultExecArray[1];
+            // さらにタグを全部除去。複数行考慮
+            word = word.replace(/<("[^"]*"|'[^']*'|[^'">])*>/g, "");
+
+            let element: IRensoTaigigoElement = { word: word };
             resultStructArray.push(element);
         }
 
@@ -53,7 +57,7 @@ class IterableRensoRuigoElementList {
     /**
      * イテレータ。
      */
-    *[Symbol.iterator](): IterableIterator<IRensoRuigoElement> {
+    *[Symbol.iterator](): IterableIterator<IRensoTaigigoElement> {
         for (let e of this.m_resultStructArray) {
             yield e;
         }
@@ -70,10 +74,9 @@ class IterableRensoRuigoElementList {
      * 内部的に綺麗に構造化して管理している内容を１つの整形された連結テキストにする。
      * @param resultStructArray 
      */
-    protected ConvertStructArrayToFormattedString(resultStructArray: IRensoRuigoElement[]): string {
+    protected ConvertStructArrayToFormattedString(resultStructArray: IRensoTaigigoElement[]): string {
         let formattedString: string = "";
         for (var element of resultStructArray) {
-            // formattedString += `${element.word} : ${element.href}\r\n`;
             formattedString += `${element.word}\r\n`;
         }
 
@@ -82,9 +85,9 @@ class IterableRensoRuigoElementList {
 }
 
 /**
- * 連想類語用に導出されたクラス
+ * 連想対義語用に導出されたクラス
  */
-class RensoRuigoTranslatorQueryStrategy extends AbstractTranslatorQueryStrategy {
+class RensoTaigigoTranslatorQueryStrategy extends AbstractTranslatorQueryStrategy {
 
     protected InitializeQueryParams(): void {
         // 何もしない
@@ -95,7 +98,7 @@ class RensoRuigoTranslatorQueryStrategy extends AbstractTranslatorQueryStrategy 
     }
 
     get Url(): string {
-        return "http://renso-ruigo.com/word/" + this.HttpUtility.HtmlEncode(this.SrcText);
+        return "http://thesaurus.weblio.jp/antonym/content/" + this.HttpUtility.HtmlEncode(this.SrcText);
     }
 
     /**
@@ -104,17 +107,17 @@ class RensoRuigoTranslatorQueryStrategy extends AbstractTranslatorQueryStrategy 
      * @param result_page
      */
     FilterResultText(result_page: string): string {
-        let rensoRuigoElementList: IterableRensoRuigoElementList = new IterableRensoRuigoElementList(result_page);
+        let rensoTaigigoElementList: IterableRensoTaigigoElementList = new IterableRensoTaigigoElementList(result_page);
         /*
-        for(let r: IRensoRuigoElement of rensoRuigoElementList) {
+        for(let r: IRensoTaigigoElement of rensoTaigigoElementList) {
             console.log(r);
         }
         */
-        return rensoRuigoElementList.formattedString();
+        return rensoTaigigoElementList.formattedString();
     }
 }
 
 
 // 何語から何語なのか
 // let langParams: ITranslatorLanguageParams = { src: "ja", dst: "ja" }; // 特に意味はない
-// let result_words: string = ContextTranslator.Translate(RensoRuigoTranslatorQueryStrategy, langParams);
+// let result_words: string = ContextTranslator.Translate(RensoTaigigoTranslatorQueryStrategy, langParams);
