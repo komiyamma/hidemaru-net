@@ -1,6 +1,6 @@
-■HmAbstractTranslator.js, HmGoogleTranslator.js, HmBaiduTranslator.js, HmRensoRuigoTranslator.js,
-  HmAbstractTranslator.ts, HmGoogleTranslator.ts, HmBaiduTranslator.ts, HmRensoRuigoTranslator.ts,
-  HmV8.d.ts, 以上９つのファイルのライセンス
+■HmAbstractTranslator.js, HmGoogleTranslator.js, HmBaiduTranslator.js, HmRensoRuigoTranslator.js, HmRensoTaigigoTranslator.js,
+  HmAbstractTranslator.ts, HmGoogleTranslator.ts, HmBaiduTranslator.ts, HmRensoRuigoTranslator.ts, HmRensoTaigigoTranslator.ts,
+  HmV8.d.ts, 以上11のファイルのライセンス
 
 	MITランセンスとなります。
 
