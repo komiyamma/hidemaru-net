@@ -1,3 +1,0 @@
-{"type": "request", "seq": 0, "command": "open", "arguments": {"file": "sample1.ts"}}
-{"type": "none", "seq": 0, "command": "close", "arguments": {"file": "sample1.ts"}}
-{"type": "response", "seq": 1, "command": "quickinfo", "arguments": {"file": "sample1.ts", "line":6, "offset":23}}
