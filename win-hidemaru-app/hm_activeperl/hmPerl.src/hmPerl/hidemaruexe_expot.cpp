@@ -13,6 +13,7 @@ CHidemaruExeExport::PFNGetTotalTextUnicode CHidemaruExeExport::Hidemaru_GetTotal
 CHidemaruExeExport::PFNGetSelectedTextUnicode CHidemaruExeExport::Hidemaru_GetSelectedTextUnicode = NULL;
 CHidemaruExeExport::PFNGetLineTextUnicode CHidemaruExeExport::Hidemaru_GetLineTextUnicode = NULL;
 CHidemaruExeExport::PFNGetCursorPosUnicode CHidemaruExeExport::Hidemaru_GetCursorPosUnicode = NULL;
+CHidemaruExeExport::PFNGetCursorPosUnicodeFromMousePos CHidemaruExeExport::Hidemaru_GetCursorPosUnicodeFromMousePos = NULL;
 CHidemaruExeExport::PFNEvalMacro CHidemaruExeExport::Hidemaru_EvalMacro = NULL;
 
 double CHidemaruExeExport::hm_version = 0;
@@ -66,6 +67,7 @@ BOOL CHidemaruExeExport::init() {
 		Hidemaru_GetSelectedTextUnicode = (PFNGetSelectedTextUnicode)GetProcAddress(hHideExeHandle, "Hidemaru_GetSelectedTextUnicode");
 		Hidemaru_GetLineTextUnicode = (PFNGetLineTextUnicode)GetProcAddress(hHideExeHandle, "Hidemaru_GetLineTextUnicode");
 		Hidemaru_GetCursorPosUnicode = (PFNGetCursorPosUnicode)GetProcAddress(hHideExeHandle, "Hidemaru_GetCursorPosUnicode");
+		Hidemaru_GetCursorPosUnicodeFromMousePos = (PFNGetCursorPosUnicodeFromMousePos)GetProcAddress(hHideExeHandle, "Hidemaru_GetCursorPosUnicodeFromMousePos");
 		Hidemaru_EvalMacro = (PFNEvalMacro)GetProcAddress(hHideExeHandle, "Hidemaru_EvalMacro");
 		return TRUE;
 	}
@@ -118,12 +120,30 @@ wstring CHidemaruExeExport::GetLineText(int lineno) {
 
 
 CHidemaruExeExport::HmCursurPos CHidemaruExeExport::GetCursorPos() {
-	int nLineNo = 0;
-	int nColumn = 0;
-	BOOL f = Hidemaru_GetCursorPosUnicode(&nLineNo, &nColumn);
+	int nLineNo = -1;
+	int nColumn = -1;
+	BOOL success = Hidemaru_GetCursorPosUnicode(&nLineNo, &nColumn);
+	if (!success) {
+		nLineNo = -1;
+		nColumn = -1;
+	}
 	HmCursurPos pos(nLineNo, nColumn);
 	return pos;
 }
+
+CHidemaruExeExport::HmCursurPos CHidemaruExeExport::GetCursorPosFromMousePos() {
+	int nLineNo = -1;
+	int nColumn = -1;
+
+	// 該当の関数が存在している時だけ値を更新(秀丸 8.73以上)
+	if (Hidemaru_GetCursorPosUnicodeFromMousePos) {
+		// このsuccessはnLineNoもしくは、nColumnのどちらか１つが失敗するとFalseを返してしまうので、返り値は使わない
+		BOOL _ = Hidemaru_GetCursorPosUnicodeFromMousePos(NULL, &nLineNo, &nColumn);
+	}
+	HmCursurPos pos(nLineNo, nColumn);
+	return pos;
+}
+
 
 BOOL CHidemaruExeExport::EvalMacro(wstring cmd) {
 	return Hidemaru_EvalMacro(cmd.data());

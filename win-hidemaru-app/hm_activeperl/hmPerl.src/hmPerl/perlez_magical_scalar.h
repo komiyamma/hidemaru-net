@@ -10,6 +10,7 @@
 #define szMagicalVarEditSelectedText "hm_Edit_SelectedText"
 #define szMagicalVarEditLineText     "hm_Edit_LineText"
 #define szMagicalVarEditCursorPos    "hm_Edit_CursorPos"
+#define szMagicalVarEditCursorPosFromMousePos    "hm_Edit_CursorPosFromMousePos"
 
 
 //========================================================================
@@ -60,6 +61,7 @@ private:
 				static string SelectedText();
 				static string LineText();
 				static string CursorPos();
+				static string CursorPosFromMousePos();
 			};
 			struct Set {
 				static BOOL TotalText(wstring utf16_value);

@@ -1,5 +1,5 @@
 ﻿#--------------------------------------------------------------
-# hmPerl 1.2.2.1用 カスタムファイル
+# hmPerl 1.2.3.1用 カスタムファイル
 #                 ActivePerl x86版 v5.10.0.1004 ～ v5.24.1.2402
 #--------------------------------------------------------------
 
@@ -57,6 +57,13 @@ sub Edit {
 			my ($lineno, $column) = $::hm_Edit_CursorPos =~ /^(.+?),(.+)$/;
 			return {'lineno'=>$lineno, 'column'=>$column };
 		}
+
+		sub CursorPosFromMousePos {
+		    my ($self) = @_;
+			my ($lineno, $column) = $::hm_Edit_CursorPosFromMousePos =~ /^(.+?),(.+)$/;
+			return {'lineno'=>$lineno, 'column'=>$column };
+		}
+
 	    #--------------------------------------------------------------
 
     #--------------------------------------------------------------

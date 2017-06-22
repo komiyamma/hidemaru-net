@@ -45,6 +45,9 @@ public:
 	using PFNGetCursorPosUnicode = BOOL(WINAPI *)(int* pnLineNo, int* pnColumn);
 	static PFNGetCursorPosUnicode Hidemaru_GetCursorPosUnicode;
 
+	using PFNGetCursorPosUnicodeFromMousePos = BOOL(WINAPI *)(POINT* ppt, int* pnLineNo, int* pnColumn);
+	static PFNGetCursorPosUnicodeFromMousePos Hidemaru_GetCursorPosUnicodeFromMousePos;
+
 	//-------------------------------------------------------------------------
 	// dllの中から秀丸マクロを実行する
 	using PFNEvalMacro = BOOL(WINAPI *)(const wchar_t* pwsz);
@@ -131,6 +134,13 @@ public:
 		}
 	};
 	static HmCursurPos GetCursorPos();
+
+
+	//-------------------------------------------------------------------------
+	// Hidemaru_GetCursorPosUnicodeFromMousePos関数のラップしたもの
+	// (秀丸8.73以上)
+	//-------------------------------------------------------------------------
+	static HmCursurPos GetCursorPosFromMousePos();
 
 	//-------------------------------------------------------------------------
 	// Hidemaru_EvalMacro関数のラップしたもの

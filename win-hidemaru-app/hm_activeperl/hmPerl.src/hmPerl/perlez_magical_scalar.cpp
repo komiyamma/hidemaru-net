@@ -33,6 +33,9 @@ LPCSTR CPerlEzMagicalScalar::GetHmComposedMagicScalarFunctions(LPVOID obj, LPCST
 	else if (utf8_SelfName == szMagicalVarEditCursorPos) {
 		utf8_getvarofreturn = Hm::Edit::Get::CursorPos();
 	}
+	else if (utf8_SelfName == szMagicalVarEditCursorPosFromMousePos) {
+		utf8_getvarofreturn = Hm::Edit::Get::CursorPosFromMousePos();
+	}
 	// hm->Macro->Var(...)�ւƓǂݎ��̏ꍇ
 	else if (utf8_SelfName == szMagicalVarMacroVarSimbol) {
 		utf8_getvarofreturn = Hm::Macro::Get::VarSimbol();
@@ -61,6 +64,12 @@ string CPerlEzMagicalScalar::Hm::Edit::Get::CursorPos() {
 	auto pos = CHidemaruExeExport::GetCursorPos();
 	return std::to_string(pos.lineno) + "," + std::to_string(pos.column);
 }
+
+string CPerlEzMagicalScalar::Hm::Edit::Get::CursorPosFromMousePos() {
+	auto pos = CHidemaruExeExport::GetCursorPosFromMousePos();
+	return std::to_string(pos.lineno) + "," + std::to_string(pos.column);
+}
+
 
 string CPerlEzMagicalScalar::Hm::Macro::Get::VarSimbol() {
 
@@ -251,6 +260,7 @@ void CPerlEzMagicalScalar::BindMagicalScalarFunctions(CPerlEzEngine* module) {
 		szMagicalVarEditSelectedText,
 		szMagicalVarEditLineText,
 		szMagicalVarEditCursorPos,
+		szMagicalVarEditCursorPosFromMousePos,
 		szMagicalVarMacroEval,
 		szMagicalVarMacroVarSimbol,
 		szMagicalVarMacroVarValue

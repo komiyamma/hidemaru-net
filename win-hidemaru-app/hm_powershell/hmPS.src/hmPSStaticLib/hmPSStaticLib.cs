@@ -326,7 +326,7 @@ public partial class hmPSDynamicLib
                     }
                     err.AppendLine(pipeline.Error.Read().ToString());
                 }
-                System.Diagnostics.Trace.WriteLine("Error executing PowershellCommand : " + err);
+                System.Diagnostics.Trace.WriteLine("Error executing PowerShell Command : " + err);
             }
         }
         catch (Exception err) {
