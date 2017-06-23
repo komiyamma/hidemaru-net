@@ -1,11 +1,20 @@
-﻿if (!#JS) { #JS = loaddll( hidemarudir + @"\hmV8.dll" ); }
-if (!#JS) {
-    message "hmV8が導入されていません";
-}
+﻿// HmExcelFileLoader.mac v 1.0.0.1
+// Copyright (c) 2017 VSCode.life
+// 秀丸 v8.66以上
+// hmV8 1.4.7.5以上。
+// Microsoft Excelアプリケーションが、PCに「入っていなくても」問題なく動作します。
+
 
 // 「ファイルを開いた直後の自動起動マクロ」として実行されている場合、第１引数を取得する。
 if (event == 1) {
     $argXlsFileFullPath = getarg(0);
+}
+
+
+
+if (!#JS) { #JS = loaddll( hidemarudir + @"\hmV8.dll" ); }
+if (!#JS) {
+    message "hmV8が導入されていません";
 }
 
 #_ = dllfuncw( #JS, "DoString", R"JS(
