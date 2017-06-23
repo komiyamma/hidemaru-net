@@ -1,0 +1,9 @@
+﻿if (event == 1 ) {
+    if(filetype == ".xls" || filetype == ".xlsx" ) {
+        // 閉じるので先にExcelファイルの名前をとっておく
+        $$dummyXlsFileName = filename2;
+        // 閉じる
+        closenew;
+        execmacro hidemarudir + @"\HmExcelFileLoader\HmExcelFileLoader.mac", $$dummyXlsFileName;
+    }
+}

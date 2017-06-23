@@ -1,0 +1,234 @@
+﻿if (!#JS) { #JS = loaddll( hidemarudir + @"\hmV8.dll" ); }
+if (!#JS) {
+    message "hmV8が導入されていません";
+}
+
+// 「ファイルを開いた直後の自動起動マクロ」として実行されている場合、第１引数を取得する。
+if (event == 1) {
+    $argXlsFileFullPath = getarg(0);
+}
+
+#_ = dllfuncw( #JS, "DoString", R"JS(
+
+AddReferenceByPartialName();
+/**
+ * メイン処理
+ */
+function Main() {
+    // ファイル名は未定（ファイル名が決まっているなら、ここでファイルのフルパスを指定すれば良い）
+    let xlsFileFullPath = "";
+
+    let argXlsFileFullPath = hm.Macro.Var["$argXlsFileFullPath"];
+
+    // 有効な文字列が入っているなら対象と仮定する
+    if (argXlsFileFullPath) {
+        xlsFileFullPath = argXlsFileFullPath;
+    }
+
+    // そのようなファイル名が存在しないのであれば
+    if (!clr.System.IO.File.Exists(xlsFileFullPath)) {
+        // ファイル選択ダイアログを出してマニュアルで選択
+        xlsFileFullPath = SelectOpenFileDialog();
+    }
+    // まだファイル名が決まっていなければ、注意メッセージを表示
+    if (!xlsFileFullPath) {
+        PrintOutputPane("有効なExcelファイルを対象してください。");
+        return;
+    }
+    let controller = new HmExcelFileLoaderController(xlsFileFullPath);
+    // 秀丸のCSVモードやTSVモードはセル中の改行に対応していないため、セルの値を加工する。
+    // どのようにカスタムしたいかはユーザーに選択の自由があったほうが良いので、このように注入可能としておく。
+    // 改行コード→[[改行]]に、" "で囲む。
+    controller.OverrideCellNormalizeAlgorithm((cell) => cell.replace(/\n/g, "[[改行]]"));
+    // 変換
+    let tsvFileNameList = controller.Convert();
+    // 変換したファイル名を、秀丸マクロスコープへと伝達しておく。
+    for (let i = 0; i < tsvFileNameList.length; i++) {
+        TransmitToHmMacroScope(tsvFileNameList[i], i);
+    }
+    // 残りはファイルの一番下部。秀丸マクロ側で処理する。
+}
+/**
+ * アセンブリのロード
+ */
+function AddReferenceByPartialName() {
+    // このマクロファイルの場所をアセンブリの置き場としても登録する
+    let currentmacrodirectory = hm.Macro.Var["currentmacrodirectory"];
+    AssemblyPath.Add(currentmacrodirectory);
+    // アセンブリの読み込み
+    host.lib(clr, "HmExcelFileLoader");
+}
+/**
+ * ファイル選択ダイアログを出して、xlsを１つ選択する。
+ */
+function SelectOpenFileDialog() {
+    let lib = host.lib("System.Windows.Forms");
+    let OpenFileDialog = lib.System.Windows.Forms.OpenFileDialog;
+    //OpenFileDialogクラスのインスタンスを作成
+    let ofd = new OpenFileDialog();
+    //[ファイルの種類]に表示される選択肢を指定する
+    //指定しないとすべてのファイルが表示される
+    ofd.Filter = "Excelファイル(*.xls;*.xlsx)|*.xls;*.xlsx|すべてのファイル(*.*)|*.*";
+    //[ファイルの種類]ではじめに選択されるものを指定する
+    //1番目の「Excel」が選択されているようにする
+    ofd.FilterIndex = 1;
+    //タイトルを設定する
+    ofd.Title = "秀丸へと読み込むExcelファイルを選択してください";
+    //ダイアログボックスを閉じる前に現在のディレクトリを復元するようにする
+    ofd.RestoreDirectory = true;
+    //ダイアログを表示する
+    let DialogResult = lib.System.Windows.Forms.DialogResult;
+    if (ofd.ShowDialog() == DialogResult.OK) {
+        //OKボタンがクリックされたとき、選択されたファイル名を返す
+        return ofd.FileName;
+    }
+    return null;
+}
+/**
+ * HmExcelFileLoader を利用して指定のxlsをこねる
+ */
+class HmExcelFileLoaderController {
+    constructor(xlsFileFullPath) {
+        this.xlsFileFullPath = xlsFileFullPath;
+        this.xlsFileBaseName = clr.System.IO.Path.GetFileNameWithoutExtension(this.xlsFileFullPath);
+        this.strTempFolder = clr.System.IO.Path.GetTempPath();
+        // デフォルトでは何も加工しないデータ
+        this.cellNormalizeAlgorithm = (cell) => cell;
+    }
+    /**
+     * セルのデータをカスタム加工する関数の設定
+     */
+    OverrideCellNormalizeAlgorithm(func) {
+        this.cellNormalizeAlgorithm = func;
+    }
+    /**
+     * コンバート。コンバート出来た各TSVファイル名のリストが返ってくる
+     */
+    Convert() {
+        let SheetDataList = this.ConvertExcelFileToSheetDataStruct();
+        // 結果のファイル名リスト
+        let resultTsvFileNameList = [];
+        for (var sdata of SheetDataList) {
+            // 保存に使えそうなフルパスの生成
+            let tsvFileName = this.GetTsvFileNameFromSheetData(sdata);
+            // シートデータからTSV形式の文字列へ
+            let tsvFileData = this.ConvertSheetDataToTsvData(sdata);
+            // ファイルへと保存
+            if (tsvFileData) {
+                try {
+                    var sw = new clr.System.IO.StreamWriter(tsvFileName);
+                    sw.Write(tsvFileData);
+                    sw.Flush();
+                    sw.Close();
+                    sw = null;
+                    let message = clr.System.String.Format("{0} → {1}への保存に成功", this.xlsFileFullPath, tsvFileName);
+                    PrintOutputPane(message);
+                    resultTsvFileNameList.push(tsvFileName);
+                }
+                catch (err) {
+                    PrintOutputPane(err.toString());
+                    let message = clr.System.String.Format("{0} → {1}への保存に失敗", this.xlsFileFullPath, tsvFileName);
+                    PrintOutputPane(message);
+                }
+            }
+            else {
+                let message = clr.System.String.Format("{0} → {1}は内容が読み取れません", this.xlsFileFullPath, tsvFileName);
+                PrintOutputPane(message);
+            }
+        }
+        return resultTsvFileNameList;
+    }
+    /**
+     * エクセルのファイルを、扱いやすいシートデータ的なクラス型のリストへ
+     */
+    ConvertExcelFileToSheetDataStruct() {
+        return clr.HmExcelFileLoader.LoadExcel(this.xlsFileFullPath);
+    }
+    /**
+     * ブック名とシート名を元に、妥当なTSVファイルフルパスを生成する。
+     * 「ファイル名としては使えない文字」がシート名に含まれている時などが考慮されている。
+     * @param sdata
+     */
+    GetTsvFileNameFromSheetData(sdata) {
+        // シート名にダメ文字が入っていた場合には、こちらの「NormalizedSheetName」にも文字列が入っている
+        let normalizedSheetName = sdata.NormalizedSheetName ? sdata.NormalizedSheetName : sdata.SheetName;
+        // ブック名やシート名を可能な限り反映した一時ファイル名を作成
+        let tsvFileName = clr.System.String.Format("{0}{1}_{2}.csv", this.strTempFolder, this.xlsFileBaseName, normalizedSheetName);
+        return tsvFileName;
+    }
+    /**
+     * １つのシートをTSVデータ文字列にする
+     * @param sdata
+     */
+    ConvertSheetDataToTsvData(sdata) {
+        // 64K程度のテキストバッファーを予め確保
+        var sb = new clr.System.IO.StringWriter();
+        // 各行について
+        for (let row of sdata.Cells) {
+            // 行内の各カラムについて
+            for (let cell of row) {
+                let normalizedCellValue = this.cellNormalizeAlgorithm(cell);
+                // データを出して
+                sb.Write(normalizedCellValue);
+                // タブ区切り
+                sb.Write("\t");
+            }
+            // 行の最後に改行
+            sb.Write("\n");
+        }
+        var result = sb.ToString();
+        sb = null;
+        return result;
+    }
+}
+/**
+ * 今回のtsvfilenameを秀丸マクロスコープへと蓄積
+ * @param tsvfilename
+ * @param index
+ */
+function TransmitToHmMacroScope(tsvfilename, index) {
+    hm.Macro.Var["#TsvFileNameListIndex"] = index;
+    hm.Macro.Var["$TsvFileName"] = tsvfilename;
+    hm.Macro.Eval(f => { /*
+        $TsvFileNameList[#TsvFileNameListIndex] = $TsvFileName;
+    */ });
+}
+/**
+ * 秀丸用のアウトプットパネル。簡易
+ */
+function PrintOutputPane(message) {
+    hm.Macro.Var["$OutputPaneMessageText"] = message;
+    hm.Macro.Eval(f => { /*
+        #HMOP = loaddll(hidemarudir + @"\HmOutputPane.dll");
+        #r = dllfunc(#HMOP, "Output", hidemaruhandle(0), $OutputPaneMessageText + "\r\n");
+        freedll( #HMOP );
+    */ });
+}
+Main();
+
+)JS"
+);
+
+
+freedll( #JS );
+
+OpenTsvFileList:
+{
+    // #TsvFileNameList[]に保存したファイルを１つ１つ開いていく
+    ##ix = 0;
+    while(true) {
+        $$tsvfilename = $TsvFileNameList[##ix];
+        if ( strlen($$tsvfilename) == 0 ) {
+            break;
+        }
+        // 履歴はなし
+        openfile $$tsvfilename, noaddhist;
+        // TSVモードにする
+        config "xTabMode:0x0001";
+
+        ##ix = ##ix + 1;
+    }
+}
+
+endmacro;
+

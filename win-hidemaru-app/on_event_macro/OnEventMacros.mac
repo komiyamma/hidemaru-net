@@ -108,6 +108,8 @@ OnEvent_08:
 //-----------------------------------------------------------
 OnPost_FileOpen:
 
+    call HmExcelFileLoader;
+
     call MacFile_EncodeNormalize;
 
     call LuaFile_EncodeNormalize;
@@ -155,6 +157,18 @@ OnPrev_FileClose:
 //===========================================================
 // 以下、各イベントハンドラ
 //-----------------------------------------------------------
+
+HmExcelFileLoader:
+
+    if(filetype == ".xls" || filetype == ".xlsx" ) {
+        // 閉じるので先にExcelファイルの名前をとっておく
+        $$dummyXlsFileName = filename2;
+        // 閉じる
+        closenew;
+        execmacro hidemarudir + @"\HmExcelFileLoader\HmExcelFileLoader.mac", $$dummyXlsFileName;
+    }
+
+
 LuaFile_EncodeNormalize:
 
     if (filetype == ".lua") {

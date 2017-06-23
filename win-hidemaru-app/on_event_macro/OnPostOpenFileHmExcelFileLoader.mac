@@ -1,0 +1,12 @@
+﻿HmExcelFileLoader:
+// ファイルを開いた直後
+if (event == 1) {
+    if(filetype == ".xls" || filetype == ".xlsx" ) {
+        // 閉じるので先にExcelファイルの名前をとっておく
+        $$dummyXlsFileName = filename2;
+        // 閉じる
+        closenew;
+        execmacro currentmacrodirectory + @"\HmExcelFileLoader.mac", $$dummyXlsFileName;
+    }
+}
+
