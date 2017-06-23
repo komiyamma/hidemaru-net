@@ -26,12 +26,7 @@ OnEvent_00:
 // ファイルを開いた直後
 //-----------------------------------------------------------
 OnEvent_01:
-    ##is_after_open = geteventparam(0);
-    if (##is_after_open) {
-        call OnPost_FileOpen;
-    } else {
-        call OnPrev_FileOpen;
-    }
+    call OnPost_FileOpen;
 
     return;
 //===========================================================
@@ -111,17 +106,13 @@ OnEvent_08:
 //-----------------------------------------------------------
 
 //-----------------------------------------------------------
-OnPrev_FileOpen:
-    return;
-
-//-----------------------------------------------------------
 OnPost_FileOpen:
 
-    call Mac_EncodeSrc;
+    call MacFile_EncodeNormalize;
 
-    call Lua_EncodeSrc;
+    call LuaFile_EncodeNormalize;
 
-    call MD_LiveView;
+    call HmLivePreview;
 
     return;
 
@@ -147,9 +138,9 @@ OnPrev_FileSave:
 //-----------------------------------------------------------
 OnPost_FileSave:
 
-    call Mac_EncodeSrc;
+    call MacFile_EncodeNormalize;
 
-    call Lua_EncodeSrc;
+    call LuaFile_EncodeNormalize;
 
     return;
 
@@ -159,7 +150,12 @@ OnPrev_FileClose:
 
 
 
-Lua_EncodeSrc:
+
+
+//===========================================================
+// 以下、各イベントハンドラ
+//-----------------------------------------------------------
+LuaFile_EncodeNormalize:
 
     if (filetype == ".lua") {
 
@@ -187,7 +183,7 @@ Lua_EncodeSrc:
     return;
 
 
-Mac_EncodeSrc:
+MacFile_EncodeNormalize:
     /*
      * .macファイルなら、utf8やutf16ならBOMを自動付与、sjisなら何もなし
      * それ以外なら、マルチバイト文字がはいっていれば、警告メッセージをアウトプット枠へ
@@ -227,7 +223,7 @@ Mac_EncodeSrc:
     return;
 
 
-MD_LiveView:
+HmLivePreview:
 
     if (filetype == ".md") {
         execmacro hidemarudir + @"\HmCustomLivePreview\HmCustomLivePreviewMD.mac";
