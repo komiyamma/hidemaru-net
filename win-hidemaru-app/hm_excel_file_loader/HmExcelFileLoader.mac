@@ -171,19 +171,19 @@ class HmExcelFileLoaderController {
      */
     ConvertSheetDataToTsvData(sdata) {
         // 64K程度のテキストバッファーを予め確保
-        var sb = new clr.System.IO.StringWriter();
+        var sb = new clr.System.Text.StringBuilder(64 * 1024);
         // 各行について
         for (let row of sdata.Cells) {
             // 行内の各カラムについて
             for (let cell of row) {
                 let normalizedCellValue = this.cellNormalizeAlgorithm(cell);
                 // データを出して
-                sb.Write(normalizedCellValue);
+                sb.Append(normalizedCellValue);
                 // タブ区切り
-                sb.Write("\t");
+                sb.Append("\t");
             }
             // 行の最後に改行
-            sb.Write("\n");
+            sb.Append("\n");
         }
         var result = sb.ToString();
         sb = null;

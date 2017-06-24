@@ -4,11 +4,11 @@
 if (event == 1 ) {
     if(filetype == ".xls" || filetype == ".xlsx" ) {
         // 閉じるので先にExcelファイルの名前をとっておく
-        $$dummyXlsFileName = filename2;
+        $$openedXlsFileName = filename2;
         // 閉じる
         closenew;
 
-        execmacro currentmacrodirectory + @"\HmExcelFileLoader.mac", $$dummyXlsFileName;
-        // execmacro hidemarudir + @"\HmExcelFileLoader\HmExcelFileLoader.mac", $$dummyXlsFileName;
+        execmacro currentmacrodirectory + @"\HmExcelFileLoader.mac", $$openedXlsFileName;
+        // execmacro hidemarudir + @"\HmExcelFileLoader\HmExcelFileLoader.mac", $$openedXlsFileName;
     }
 }

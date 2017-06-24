@@ -1,4 +1,13 @@
 /**
+ * WinAssemblyToTypeScriptDeclare.exe
+ *  any IWorkbook any ICell any IRow any ISheet
+ *  System.IO StringWriter System.IO StreamWriter System.Text StringBuilder
+ *  System.Windows.Forms OpenFileDialog System.Windows.Forms DialogResult
+ *  any LoadedSheetDataStruct any HmExcelFileLoader > a.txt
+ * による自動生成
+ */
+
+/**
 名前:HmExcelFileLoader
 名前空間:無し
 完全限定名:HmExcelFileLoader
@@ -187,6 +196,7 @@ declare namespace NPOI {
                 GetMergedRegion(index: number): NPOI.SS.Util.CellRangeAddress;
                 GetRowEnumerator(): System.Collections.IEnumerator;
                 GetEnumerator(): System.Collections.IEnumerator;
+                [Symbol.iterator](): IterableIterator<any>;
                 GetMargin(margin: NPOI.SS.UserModel.MarginType): number;
                 SetMargin(margin: NPOI.SS.UserModel.MarginType, size: number): void;
                 ProtectSheet(password: string): void;
@@ -268,6 +278,7 @@ declare namespace NPOI {
                 GetSheet(name: string): NPOI.SS.UserModel.ISheet;
                 RemoveSheetAt(index: number): void;
                 GetEnumerator(): System.Collections.IEnumerator;
+                [Symbol.iterator](): IterableIterator<any>;
                 SetRepeatingRowsAndColumns(sheetIndex: number, startColumn: number, endColumn: number, startRow: number, endRow: number): void;
                 CreateFont(): NPOI.SS.UserModel.IFont;
                 FindFont(boldWeight: System.Int16, color: System.Int16, fontHeight: System.Int16, name: string, italic: boolean, strikeout: boolean, typeOffset: NPOI.SS.UserModel.FontSuperScript, underline: NPOI.SS.UserModel.FontUnderlineType): NPOI.SS.UserModel.IFont;
@@ -430,6 +441,237 @@ declare namespace System {
     }
 }
 declare namespace System {
+    namespace IO {
+        /**
+        名前:StringWriter
+        名前空間:System.IO
+        完全限定名:System.IO.StringWriter
+        このメンバを宣言するクラス:
+        親クラス:System.IO.TextWriter
+        属性:AutoLayout, AnsiClass, Class, Public, Serializable, BeforeFieldInit
+        */
+        interface StringWriter {
+            new();
+            new(formatProvider: System.IFormatProvider);
+            new(sb: System.Text.StringBuilder);
+            new(sb: System.Text.StringBuilder, formatProvider: System.IFormatProvider);
+            readonly Encoding :System.Text.Encoding;
+            readonly FormatProvider :System.IFormatProvider;
+            NewLine :string;
+            Close(): void;
+            GetStringBuilder(): System.Text.StringBuilder;
+            Write(value: System.Char): void;
+            Write(buffer: System.Char[], index: number, count: number): void;
+            Write(value: string): void;
+            WriteAsync(value: System.Char): System.Threading.Tasks.Task;
+            WriteAsync(value: string): System.Threading.Tasks.Task;
+            WriteAsync(buffer: System.Char[], index: number, count: number): System.Threading.Tasks.Task;
+            WriteLineAsync(value: System.Char): System.Threading.Tasks.Task;
+            WriteLineAsync(value: string): System.Threading.Tasks.Task;
+            WriteLineAsync(buffer: System.Char[], index: number, count: number): System.Threading.Tasks.Task;
+            FlushAsync(): System.Threading.Tasks.Task;
+            ToString(): string;
+            Dispose(): void;
+            Flush(): void;
+            Write(buffer: System.Char[]): void;
+            Write(value: boolean): void;
+            Write(value: number): void;
+            Write(value: any): void;
+            Write(format: string, arg0: any): void;
+            Write(format: string, arg0: any, arg1: any): void;
+            Write(format: string, arg0: any, arg1: any, arg2: any): void;
+            Write(format: string, ...arg: any[]): void;
+            WriteLine(): void;
+            WriteLine(value: System.Char): void;
+            WriteLine(buffer: System.Char[]): void;
+            WriteLine(buffer: System.Char[], index: number, count: number): void;
+            WriteLine(value: boolean): void;
+            WriteLine(value: number): void;
+            WriteLine(value: string): void;
+            WriteLine(value: any): void;
+            WriteLine(format: string, arg0: any): void;
+            WriteLine(format: string, arg0: any, arg1: any): void;
+            WriteLine(format: string, arg0: any, arg1: any, arg2: any): void;
+            WriteLine(format: string, ...arg: any[]): void;
+            WriteAsync(buffer: System.Char[]): System.Threading.Tasks.Task;
+            WriteLineAsync(buffer: System.Char[]): System.Threading.Tasks.Task;
+            WriteLineAsync(): System.Threading.Tasks.Task;
+            GetLifetimeService(): any;
+            InitializeLifetimeService(): any;
+            CreateObjRef(requestedType: System.Type): System.Runtime.Remoting.ObjRef;
+            Equals(obj: any): boolean;
+            GetHashCode(): number;
+            GetType(): System.Type;
+        }
+    }
+}
+declare namespace System {
+    namespace Text {
+        /**
+        名前:StringBuilder
+        名前空間:System.Text
+        完全限定名:System.Text.StringBuilder
+        このメンバを宣言するクラス:
+        親クラス:System.Object
+        属性:AutoLayout, AnsiClass, Class, Public, Sealed, Serializable, BeforeFieldInit
+        */
+        interface StringBuilder {
+            new();
+            new(capacity: number);
+            new(value: string);
+            new(value: string, capacity: number);
+            new(value: string, startIndex: number, length: number, capacity: number);
+            new(capacity: number, maxCapacity: number);
+            Capacity :number;
+            readonly MaxCapacity :number;
+            Length :number;
+            Chars :System.Char;
+            EnsureCapacity(capacity: number): number;
+            ToString(): string;
+            ToString(startIndex: number, length: number): string;
+            Clear(): System.Text.StringBuilder;
+            Append(value: System.Char, repeatCount: number): System.Text.StringBuilder;
+            Append(value: System.Char[], startIndex: number, charCount: number): System.Text.StringBuilder;
+            Append(value: string): System.Text.StringBuilder;
+            Append(value: string, startIndex: number, count: number): System.Text.StringBuilder;
+            AppendLine(): System.Text.StringBuilder;
+            AppendLine(value: string): System.Text.StringBuilder;
+            CopyTo(sourceIndex: number, destination: System.Char[], destinationIndex: number, count: number): void;
+            Insert(index: number, value: string, count: number): System.Text.StringBuilder;
+            Remove(startIndex: number, length: number): System.Text.StringBuilder;
+            Append(value: boolean): System.Text.StringBuilder;
+            Append(value: System.SByte): System.Text.StringBuilder;
+            Append(value: System.Byte): System.Text.StringBuilder;
+            Append(value: System.Char): System.Text.StringBuilder;
+            Append(value: System.Int16): System.Text.StringBuilder;
+            Append(value: number): System.Text.StringBuilder;
+            Append(value: System.UInt16): System.Text.StringBuilder;
+            Append(value: any): System.Text.StringBuilder;
+            Append(value: System.Char[]): System.Text.StringBuilder;
+            Insert(index: number, value: string): System.Text.StringBuilder;
+            Insert(index: number, value: boolean): System.Text.StringBuilder;
+            Insert(index: number, value: System.SByte): System.Text.StringBuilder;
+            Insert(index: number, value: System.Byte): System.Text.StringBuilder;
+            Insert(index: number, value: System.Int16): System.Text.StringBuilder;
+            Insert(index: number, value: System.Char): System.Text.StringBuilder;
+            Insert(index: number, value: System.Char[]): System.Text.StringBuilder;
+            Insert(index: number, value: System.Char[], startIndex: number, charCount: number): System.Text.StringBuilder;
+            Insert(index: number, value: number): System.Text.StringBuilder;
+            Insert(index: number, value: System.UInt16): System.Text.StringBuilder;
+            Insert(index: number, value: any): System.Text.StringBuilder;
+            AppendFormat(format: string, arg0: any): System.Text.StringBuilder;
+            AppendFormat(format: string, arg0: any, arg1: any): System.Text.StringBuilder;
+            AppendFormat(format: string, arg0: any, arg1: any, arg2: any): System.Text.StringBuilder;
+            AppendFormat(format: string, ...args: any[]): System.Text.StringBuilder;
+            AppendFormat(provider: System.IFormatProvider, format: string, arg0: any): System.Text.StringBuilder;
+            AppendFormat(provider: System.IFormatProvider, format: string, arg0: any, arg1: any): System.Text.StringBuilder;
+            AppendFormat(provider: System.IFormatProvider, format: string, arg0: any, arg1: any, arg2: any): System.Text.StringBuilder;
+            AppendFormat(provider: System.IFormatProvider, format: string, ...args: any[]): System.Text.StringBuilder;
+            Replace(oldValue: string, newValue: string): System.Text.StringBuilder;
+            Equals(sb: System.Text.StringBuilder): boolean;
+            Replace(oldValue: string, newValue: string, startIndex: number, count: number): System.Text.StringBuilder;
+            Replace(oldChar: System.Char, newChar: System.Char): System.Text.StringBuilder;
+            Replace(oldChar: System.Char, newChar: System.Char, startIndex: number, count: number): System.Text.StringBuilder;
+            Append(value: System.Char, valueCount: number): System.Text.StringBuilder;
+            Equals(obj: any): boolean;
+            GetHashCode(): number;
+            GetType(): System.Type;
+        }
+    }
+}
+declare namespace System {
+    namespace Windows {
+        namespace Forms {
+            /**
+            名前:DialogResult
+            名前空間:System.Windows.Forms
+            完全限定名:System.Windows.Forms.DialogResult
+            このメンバを宣言するクラス:
+            親クラス:System.Enum
+            属性:AutoLayout, AnsiClass, Class, Public, Sealed
+            */
+            interface DialogResult {
+                value__ :number;
+                readonly None :System.Windows.Forms.DialogResult;
+                readonly OK :System.Windows.Forms.DialogResult;
+                readonly Cancel :System.Windows.Forms.DialogResult;
+                readonly Abort :System.Windows.Forms.DialogResult;
+                readonly Retry :System.Windows.Forms.DialogResult;
+                readonly Ignore :System.Windows.Forms.DialogResult;
+                readonly Yes :System.Windows.Forms.DialogResult;
+                readonly No :System.Windows.Forms.DialogResult;
+                Equals(obj: any): boolean;
+                GetHashCode(): number;
+                ToString(): string;
+                ToString(format: string, provider: System.IFormatProvider): string;
+                CompareTo(target: any): number;
+                ToString(format: string): string;
+                ToString(provider: System.IFormatProvider): string;
+                HasFlag(flag: System.Enum): boolean;
+                GetTypeCode(): System.TypeCode;
+                GetType(): System.Type;
+            }
+        }
+    }
+}
+declare namespace System {
+    namespace Windows {
+        namespace Forms {
+            /**
+            名前:OpenFileDialog
+            名前空間:System.Windows.Forms
+            完全限定名:System.Windows.Forms.OpenFileDialog
+            このメンバを宣言するクラス:
+            親クラス:System.Windows.Forms.FileDialog
+            属性:AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+            */
+            interface OpenFileDialog {
+                new();
+                CheckFileExists :boolean;
+                Multiselect :boolean;
+                ReadOnlyChecked :boolean;
+                ShowReadOnly :boolean;
+                readonly SafeFileName :string;
+                readonly SafeFileNames :string[];
+                AddExtension :boolean;
+                CheckPathExists :boolean;
+                DefaultExt :string;
+                DereferenceLinks :boolean;
+                FileName :string;
+                readonly FileNames :string[];
+                Filter :string;
+                FilterIndex :number;
+                InitialDirectory :string;
+                RestoreDirectory :boolean;
+                ShowHelp :boolean;
+                SupportMultiDottedExtensions :boolean;
+                Title :string;
+                ValidateNames :boolean;
+                readonly CustomPlaces :System.Windows.Forms.FileDialogCustomPlacesCollection;
+                AutoUpgradeEnabled :boolean;
+                Tag :any;
+                Site :System.ComponentModel.ISite;
+                readonly Container :System.ComponentModel.IContainer;
+                FileOk :System.ComponentModel.CancelEventHandler;
+                HelpRequest :System.EventHandler;
+                Disposed :System.EventHandler;
+                OpenFile(): System.IO.Stream;
+                Reset(): void;
+                ToString(): string;
+                ShowDialog(): System.Windows.Forms.DialogResult;
+                ShowDialog(owner: System.Windows.Forms.IWin32Window): System.Windows.Forms.DialogResult;
+                Dispose(): void;
+                GetLifetimeService(): any;
+                InitializeLifetimeService(): any;
+                CreateObjRef(requestedType: System.Type): System.Runtime.Remoting.ObjRef;
+                Equals(obj: any): boolean;
+                GetHashCode(): number;
+                GetType(): System.Type;
+            }
+        }
+    }
+}
+declare namespace System {
     namespace Collections {
         namespace Generic {
             /**
@@ -457,6 +699,7 @@ declare namespace System {
                 CopyTo(index: number, array: any, arrayIndex: number, count: number): void;
                 ForEach(action: any): void;
                 GetEnumerator(): any;
+                [Symbol.iterator](): IterableIterator<any>;
                 IndexOf(item: any): number;
                 Insert(index: number, item: any): void;
                 InsertRange(index: number, collection: any): void;
@@ -654,7 +897,7 @@ declare namespace System {
         GetDefaultMembers(): any;
         FindMembers(memberType: any, bindingAttr: any, filter: any, filterCriteria: any): any;
         GetGenericParameterConstraints(): any;
-        MakeGenericType(...typeArguments: any): any;
+        MakeGenericType(...typeArguments: any[]): any;
         GetElementType(): any;
         GetGenericArguments(): any;
         GetGenericTypeDefinition(): any;
@@ -1972,12 +2215,12 @@ declare namespace System {
                 ContinueWith<D, TResult>(continuationFunction: any, state: any, scheduler: any): any;
                 ContinueWith<D, TResult>(continuationFunction: any, state: any, continuationOptions: any): any;
                 ContinueWith<D, TResult>(continuationFunction: any, state: any, cancellationToken: any, continuationOptions: any, scheduler: any): any;
-                WaitAll(...tasks: any): void;
+                WaitAll(...tasks: any[]): void;
                 WaitAll(tasks: any, timeout: any): boolean;
                 WaitAll(tasks: any, millisecondsTimeout: number): boolean;
                 WaitAll(tasks: any, cancellationToken: any): void;
                 WaitAll(tasks: any, millisecondsTimeout: number, cancellationToken: any): boolean;
-                WaitAny(...tasks: any): number;
+                WaitAny(...tasks: any[]): number;
                 WaitAny(tasks: any, timeout: any): number;
                 WaitAny(tasks: any, cancellationToken: any): number;
                 WaitAny(tasks: any, millisecondsTimeout: number): number;
@@ -1998,12 +2241,12 @@ declare namespace System {
                 Delay(millisecondsDelay: number): any;
                 Delay(millisecondsDelay: number, cancellationToken: any): any;
                 WhenAll<D>(tasks: any): any;
-                WhenAll(...tasks: any): any;
+                WhenAll(...tasks: any[]): any;
                 WhenAll<D, TResult>(tasks: any): any;
-                WhenAll<TResult>(...tasks: any): any;
-                WhenAny(...tasks: any): any;
+                WhenAll<TResult>(...tasks: any[]): any;
+                WhenAny(...tasks: any[]): any;
                 WhenAny<D>(tasks: any): any;
-                WhenAny<TResult>(...tasks: any): any;
+                WhenAny<TResult>(...tasks: any[]): any;
                 WhenAny<D, TResult>(tasks: any): any;
                 FromCanceled(cancellationToken: any): any;
                 FromCanceled<TResult>(cancellationToken: any): any;
@@ -2041,6 +2284,287 @@ declare namespace System {
                 Equals(obj: any): boolean;
                 GetHashCode(): number;
                 GetType(): any;
+            }
+        }
+    }
+}
+declare namespace System {
+    /**
+    名前:SByte
+    名前空間:System
+    完全限定名:System.SByte
+    このメンバを宣言するクラス:
+    親クラス:System.ValueType
+    属性:AutoLayout, AnsiClass, Class, Public, SequentialLayout, Sealed, Serializable, BeforeFieldInit
+    */
+    interface SByte {
+        readonly MaxValue :any;
+        readonly MinValue :any;
+        ToString(): string;
+        CompareTo(obj: any): number;
+        CompareTo(value: any): number;
+        Equals(obj: any): boolean;
+        GetHashCode(): number;
+        ToString(provider: any): string;
+        ToString(format: string): string;
+        ToString(format: string, provider: any): string;
+        Parse(s: string): any;
+        Parse(s: string, style: any): any;
+        Parse(s: string, provider: any): any;
+        Parse(s: string, style: any, provider: any): any;
+        TryParse(s: string, result: any): boolean;
+        TryParse(s: string, style: any, provider: any, result: any): boolean;
+        GetTypeCode(): any;
+        GetType(): any;
+    }
+}
+declare namespace System {
+    /**
+    名前:UInt16
+    名前空間:System
+    完全限定名:System.UInt16
+    このメンバを宣言するクラス:
+    親クラス:System.ValueType
+    属性:AutoLayout, AnsiClass, Class, Public, SequentialLayout, Sealed, Serializable, BeforeFieldInit
+    */
+    interface UInt16 {
+        readonly MaxValue :any;
+        readonly MinValue :any;
+        CompareTo(value: any): number;
+        Equals(obj: any): boolean;
+        GetHashCode(): number;
+        ToString(): string;
+        ToString(provider: any): string;
+        ToString(format: string): string;
+        ToString(format: string, provider: any): string;
+        Parse(s: string): any;
+        Parse(s: string, style: any): any;
+        Parse(s: string, provider: any): any;
+        Parse(s: string, style: any, provider: any): any;
+        TryParse(s: string, result: any): boolean;
+        TryParse(s: string, style: any, provider: any, result: any): boolean;
+        GetTypeCode(): any;
+        GetType(): any;
+    }
+}
+declare namespace System {
+    /**
+    名前:Enum
+    名前空間:System
+    完全限定名:System.Enum
+    このメンバを宣言するクラス:
+    親クラス:System.ValueType
+    属性:AutoLayout, AnsiClass, Class, Public, Abstract, Serializable, BeforeFieldInit
+    */
+    interface Enum {
+        TryParse<TEnum>(value: string, result: any): boolean;
+        TryParse<TEnum>(value: string, ignoreCase: boolean, result: any): boolean;
+        Parse(enumType: any, value: string): any;
+        Parse(enumType: any, value: string, ignoreCase: boolean): any;
+        GetUnderlyingType(enumType: any): any;
+        GetValues(enumType: any): any;
+        GetName(enumType: any, value: any): string;
+        GetNames(enumType: any): any;
+        ToObject(enumType: any, value: any): any;
+        IsDefined(enumType: any, value: any): boolean;
+        Format(enumType: any, value: any, format: string): string;
+        Equals(obj: any): boolean;
+        GetHashCode(): number;
+        ToString(): string;
+        ToString(format: string, provider: any): string;
+        CompareTo(target: any): number;
+        ToString(format: string): string;
+        ToString(provider: any): string;
+        HasFlag(flag: any): boolean;
+        GetTypeCode(): any;
+        ToObject(enumType: any, value: number): any;
+        GetType(): any;
+    }
+}
+declare namespace System {
+    /**
+    名前:TypeCode
+    名前空間:System
+    完全限定名:System.TypeCode
+    このメンバを宣言するクラス:
+    親クラス:System.Enum
+    属性:AutoLayout, AnsiClass, Class, Public, Sealed, Serializable
+    */
+    interface TypeCode {
+        value__ :number;
+        readonly Empty :any;
+        readonly Object :any;
+        readonly DBNull :any;
+        readonly Boolean :any;
+        readonly Char :any;
+        readonly SByte :any;
+        readonly Byte :any;
+        readonly Int16 :any;
+        readonly UInt16 :any;
+        readonly Int32 :any;
+        readonly UInt32 :any;
+        readonly Int64 :any;
+        readonly UInt64 :any;
+        readonly Single :any;
+        readonly Double :any;
+        readonly Decimal :any;
+        readonly DateTime :any;
+        readonly String :any;
+        Equals(obj: any): boolean;
+        GetHashCode(): number;
+        ToString(): string;
+        ToString(format: string, provider: any): string;
+        CompareTo(target: any): number;
+        ToString(format: string): string;
+        ToString(provider: any): string;
+        HasFlag(flag: any): boolean;
+        GetTypeCode(): any;
+        GetType(): any;
+    }
+}
+declare namespace System {
+    namespace Windows {
+        namespace Forms {
+            /**
+            名前:FileDialogCustomPlacesCollection
+            名前空間:System.Windows.Forms
+            完全限定名:System.Windows.Forms.FileDialogCustomPlacesCollection
+            このメンバを宣言するクラス:
+            親クラス:System.Collections.ObjectModel.Collection`1[System.Windows.Forms.FileDialogCustomPlace]
+            属性:AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+            */
+            interface FileDialogCustomPlacesCollection {
+                new();
+                readonly Count :number;
+                Item :any;
+                Add(path: string): void;
+                Add(knownFolderGuid: any): void;
+                [index: number]: any;
+                Add(item: any): void;
+                Clear(): void;
+                CopyTo(array: any, index: number): void;
+                Contains(item: any): boolean;
+                GetEnumerator(): any;
+                [Symbol.iterator](): IterableIterator<any>;
+                IndexOf(item: any): number;
+                Insert(index: number, item: any): void;
+                Remove(item: any): boolean;
+                RemoveAt(index: number): void;
+                ToString(): string;
+                Equals(obj: any): boolean;
+                GetHashCode(): number;
+                GetType(): any;
+            }
+        }
+    }
+}
+declare namespace System {
+    namespace ComponentModel {
+        /**
+        名前:ISite
+        名前空間:System.ComponentModel
+        完全限定名:System.ComponentModel.ISite
+        このメンバを宣言するクラス:
+        親クラス:
+        属性:AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+        */
+        interface ISite {
+            readonly Component :any;
+            readonly Container :any;
+            readonly DesignMode :boolean;
+            Name :string;
+        }
+    }
+}
+declare namespace System {
+    namespace ComponentModel {
+        /**
+        名前:IContainer
+        名前空間:System.ComponentModel
+        完全限定名:System.ComponentModel.IContainer
+        このメンバを宣言するクラス:
+        親クラス:
+        属性:AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+        */
+        interface IContainer {
+            readonly Components :any;
+            Add(component: any): void;
+            Add(component: any, name: string): void;
+            Remove(component: any): void;
+        }
+    }
+}
+declare namespace System {
+    namespace ComponentModel {
+        /**
+        名前:CancelEventHandler
+        名前空間:System.ComponentModel
+        完全限定名:System.ComponentModel.CancelEventHandler
+        このメンバを宣言するクラス:
+        親クラス:System.MulticastDelegate
+        属性:AutoLayout, AnsiClass, Class, Public, Sealed, HasSecurity
+        */
+        interface CancelEventHandler {
+            new(object: any, method: any);
+            readonly Method :any;
+            readonly Target :any;
+            Invoke(sender: any, e: any): void;
+            connect(func: (sender: any, e: any) => void) :void
+            disconnect(func: (sender: any, e: any) => void) :void
+            BeginInvoke(sender: any, e: any, callback: any, object: any): any;
+            EndInvoke(result: any): void;
+            GetObjectData(info: any, context: any): void;
+            Equals(obj: any): boolean;
+            GetInvocationList(): any;
+            GetHashCode(): number;
+            DynamicInvoke(...args: any[]): any;
+            Clone(): any;
+            ToString(): string;
+            GetType(): any;
+        }
+    }
+}
+declare namespace System {
+    /**
+    名前:EventHandler
+    名前空間:System
+    完全限定名:System.EventHandler
+    このメンバを宣言するクラス:
+    親クラス:System.MulticastDelegate
+    属性:AutoLayout, AnsiClass, Class, Public, Sealed, Serializable
+    */
+    interface EventHandler {
+        new(object: any, method: any);
+        readonly Method :any;
+        readonly Target :any;
+        Invoke(sender: any, e: any): void;
+        connect(func: (sender: any, e: any) => void) :void
+        disconnect(func: (sender: any, e: any) => void) :void
+        BeginInvoke(sender: any, e: any, callback: any, object: any): any;
+        EndInvoke(result: any): void;
+        GetObjectData(info: any, context: any): void;
+        Equals(obj: any): boolean;
+        GetInvocationList(): any;
+        GetHashCode(): number;
+        DynamicInvoke(...args: any[]): any;
+        Clone(): any;
+        ToString(): string;
+        GetType(): any;
+    }
+}
+declare namespace System {
+    namespace Windows {
+        namespace Forms {
+            /**
+            名前:IWin32Window
+            名前空間:System.Windows.Forms
+            完全限定名:System.Windows.Forms.IWin32Window
+            このメンバを宣言するクラス:
+            親クラス:
+            属性:AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+            */
+            interface IWin32Window {
+                readonly Handle :any;
             }
         }
     }
