@@ -135,6 +135,7 @@ class HmExcelFileLoaderController {
 
             // ファイルへと保存
             if (tsvFileData) {
+                var sw: System.IO.StreamWriter = null;
                 try {
                     var sw: System.IO.StreamWriter = new clr.System.IO.StreamWriter(tsvFileName);
                     sw.Write(tsvFileData);
@@ -150,6 +151,11 @@ class HmExcelFileLoaderController {
                     PrintOutputPane(err.toString());
                     let message: string = clr.System.String.Format("{0} → {1}への保存に失敗", this.xlsFileFullPath, tsvFileName);
                     PrintOutputPane(message);
+                } finally {
+                    if (sw) {
+                        sw.Close();
+                        sw = null;
+                    }
                 }
             } else {
                 let message: string = clr.System.String.Format("{0} → {1}は内容が読み取れません", this.xlsFileFullPath, tsvFileName);

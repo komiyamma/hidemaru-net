@@ -1,4 +1,4 @@
-﻿// HmExcelFileLoader.mac v 1.0.0.1
+﻿// HmExcelFileLoader.mac v 1.1.0.1
 // Copyright (c) 2017 VSCode.life
 // 秀丸 v8.66以上
 // hmV8 1.4.7.5以上。
@@ -124,8 +124,9 @@ class HmExcelFileLoaderController {
             let tsvFileData = this.ConvertSheetDataToTsvData(sdata);
             // ファイルへと保存
             if (tsvFileData) {
+                var sw = null;
                 try {
-                    var sw = new clr.System.IO.StreamWriter(tsvFileName);
+                    sw = new clr.System.IO.StreamWriter(tsvFileName);
                     sw.Write(tsvFileData);
                     sw.Flush();
                     sw.Close();
@@ -138,6 +139,12 @@ class HmExcelFileLoaderController {
                     PrintOutputPane(err.toString());
                     let message = clr.System.String.Format("{0} → {1}への保存に失敗", this.xlsFileFullPath, tsvFileName);
                     PrintOutputPane(message);
+                }
+                finally {
+                    if (sw) {
+                        sw.Close();
+                        sw = null;
+                    }
                 }
             }
             else {
