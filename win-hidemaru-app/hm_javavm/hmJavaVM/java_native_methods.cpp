@@ -10,12 +10,18 @@
 #include "dllfunc_interface.h"
 #include "dllfunc_interface_internal.h"
 
-// javastring ¨ utf16‚Ö
+// jstring ¨ utf16‚Ö
 std::wstring jstr_to_utf16(JNIEnv *env, jstring& jtext) {
 	const char *utf8_text = env->GetStringUTFChars(jtext, 0);
 	wstring utf16_text = utf8_to_utf16(utf8_text);
 	env->ReleaseStringUTFChars(jtext, utf8_text);
 	return utf16_text;
+}
+
+// jstring ¨ utf16‚Ö
+jstring utf16_to_jstring(JNIEnv *env, wstring& utf16_text) {
+	string utf8_return_value = utf16_to_utf8(utf16_text);
+	return env->NewStringUTF(utf8_return_value.c_str());
 }
 
 
@@ -41,14 +47,12 @@ JNIEXPORT jstring JNICALL Java_Hm_MacroVarGetObj(JNIEnv *env, jobject obj, jstri
 		else {
 			return_value = wstring(L"HmJavaVMType_Int64<<>>") + std::to_wstring(TestDynamicVar.num);
 		}
-		string utf8_return_value = utf16_to_utf8(return_value);
-		return env->NewStringUTF(utf8_return_value.c_str());
+		return utf16_to_jstring(env, return_value);
 	}
 	// •¶Žš—ñ‚È‚ç
 	else {
 		wstring return_value = wstring(L"HmJavaVMType_String<<>>") + TestDynamicVar.wstr;
-		string utf8_return_value = utf16_to_utf8(return_value);
-		return env->NewStringUTF(utf8_return_value.c_str());
+		return utf16_to_jstring(env, return_value);
 	}
 }
 

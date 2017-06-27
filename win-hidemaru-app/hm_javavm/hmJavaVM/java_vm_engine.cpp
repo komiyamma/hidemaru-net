@@ -11,13 +11,11 @@ using namespace std;
 
 #pragma comment(lib, "shlwapi.lib")
 
-extern vector<wstring> wstring_split(const std::wstring& s, const std::wstring& delim); // 文字列を指定文字で分割
-
-
 																						// staticの初期化
 HMODULE CJavaVMEngine::hJavaVMDll = NULL;
 JavaVM *CJavaVMEngine::jvm = NULL;
 JNIEnv* CJavaVMEngine::env = NULL;
+
 
 void CJavaVMEngine::CreateVM() {
 	if (IsValid()) {
@@ -40,7 +38,7 @@ void CJavaVMEngine::CreateVM() {
 	MessageBox(NULL, L"OK1", L"OK1", NULL);
 
 	// JNI_CreateJavaVMを呼び出し
-	JavaVMOption options[2];
+	JavaVMOption options[3];
 	options[0].optionString = "-Xmx256m";
 	options[1].optionString = "-Djava.class.path=.";
 	JavaVMInitArgs vm_args;
@@ -96,6 +94,7 @@ bool CJavaVMEngine::IsValid() {
 	return env != NULL;
 }
 
+
 bool CJavaVMEngine::GetStaticActionMethod(wstring class_name, wstring method_name) {
 	MessageBox(NULL, L"DoTest", L"DoTest", NULL);
 
@@ -120,36 +119,13 @@ bool CJavaVMEngine::GetStaticActionMethod(wstring class_name, wstring method_nam
 	// mainメソッド実行
 	env->CallStaticVoidMethod(clazz, mid, NULL);
 
+	wstring errormsg = GetErrorMessage();
+	if (errormsg.size() > 0) {
+		OutputDebugStream(errormsg);
+	}
+
 	MessageBox(NULL, L"DoTest2", L"DoTest2", NULL);
 
 	return true;
-}
-
-// 文字列を指定文字で分割
-static vector<wstring> wstring_split(const std::wstring& s, const std::wstring& delim)
-{
-	vector<wstring> result;
-	result.clear();
-
-	using wstring = std::wstring;
-	wstring::size_type pos = 0;
-
-	while (pos != wstring::npos)
-	{
-		wstring::size_type p = s.find(delim, pos);
-
-		if (p == wstring::npos)
-		{
-			result.push_back(s.substr(pos));
-			break;
-		}
-		else {
-			result.push_back(s.substr(pos, p - pos));
-		}
-
-		pos = p + delim.size();
-	}
-
-	return result;
 }
 

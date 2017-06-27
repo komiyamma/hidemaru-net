@@ -159,6 +159,7 @@
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="hidemaruexe_expot.cpp" />
     <ClCompile Include="java_vm_engine.cpp" />
+    <ClCompile Include="java_vm_engine_error.cpp" />
     <ClCompile Include="output_debugstream.cpp" />
     <ClCompile Include="self_dll_info.cpp" />
     <ClCompile Include="java_native_methods.cpp" />

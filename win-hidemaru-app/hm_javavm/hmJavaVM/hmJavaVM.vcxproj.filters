@@ -63,6 +63,9 @@
     <ClCompile Include="java_native_methods.cpp">
       <Filter>JavaとのAPI Interface</Filter>
     </ClCompile>
+    <ClCompile Include="java_vm_engine_error.cpp">
+      <Filter>JavaVMの生成や破棄</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="hmJavaVM.def">
