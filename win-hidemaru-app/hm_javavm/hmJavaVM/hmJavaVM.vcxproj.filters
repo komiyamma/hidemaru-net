@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ソース ファイル">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="ヘッダー ファイル">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="文字列の相互変換 cp932⇔utf16⇔utf8">
+      <UniqueIdentifier>{e6a37622-b24f-4436-9bc6-1a303a9bcddf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="秀丸本体のexeの関数やバージョン">
+      <UniqueIdentifier>{1aa51543-36da-439f-8abb-a9f09de9d362}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="このhmJavaVM.dll自身の情報">
+      <UniqueIdentifier>{5cbab972-2d36-4501-b84f-257938c77ca2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="秀丸マクロとのAPI Interface">
+      <UniqueIdentifier>{4eeda739-bfe3-4610-b19f-86b89291c892}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="秀丸デバッグモニター表示用">
+      <UniqueIdentifier>{93f86677-851e-44f6-98e2-1906f50203e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="JavaVMの生成や破棄">
+      <UniqueIdentifier>{91e18a14-c2f2-4798-8fc7-d82bec253de5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="JavaとのAPI Interface">
+      <UniqueIdentifier>{4227b8b6-1916-4112-80ed-fd84463bfd49}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="convert_string.cpp">
+      <Filter>文字列の相互変換 cp932⇔utf16⇔utf8</Filter>
+    </ClCompile>
+    <ClCompile Include="hidemaruexe_expot.cpp">
+      <Filter>秀丸本体のexeの関数やバージョン</Filter>
+    </ClCompile>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>このhmJavaVM.dll自身の情報</Filter>
+    </ClCompile>
+    <ClCompile Include="self_dll_info.cpp">
+      <Filter>このhmJavaVM.dll自身の情報</Filter>
+    </ClCompile>
+    <ClCompile Include="dllfunc_interface.cpp">
+      <Filter>秀丸マクロとのAPI Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="dllfunc_interface_internal.cpp">
+      <Filter>秀丸マクロとのAPI Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="output_debugstream.cpp">
+      <Filter>秀丸デバッグモニター表示用</Filter>
+    </ClCompile>
+    <ClCompile Include="java_vm_engine.cpp">
+      <Filter>JavaVMの生成や破棄</Filter>
+    </ClCompile>
+    <ClCompile Include="java_native_methods.cpp">
+      <Filter>JavaとのAPI Interface</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="hmJavaVM.def">
+      <Filter>ソース ファイル</Filter>
+    </None>
+    <None Include="Hm.java">
+      <Filter>ソース ファイル</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="convert_string.h">
+      <Filter>文字列の相互変換 cp932⇔utf16⇔utf8</Filter>
+    </ClInclude>
+    <ClInclude Include="hidemaruexe_export.h">
+      <Filter>秀丸本体のexeの関数やバージョン</Filter>
+    </ClInclude>
+    <ClInclude Include="self_dll_info.h">
+      <Filter>このhmJavaVM.dll自身の情報</Filter>
+    </ClInclude>
+    <ClInclude Include="dllfunc_interface.h">
+      <Filter>秀丸マクロとのAPI Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="dllfunc_interface_internal.h">
+      <Filter>秀丸マクロとのAPI Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="output_debugstream.h">
+      <Filter>秀丸デバッグモニター表示用</Filter>
+    </ClInclude>
+    <ClInclude Include="java_vm_engine.h">
+      <Filter>JavaVMの生成や破棄</Filter>
+    </ClInclude>
+    <ClInclude Include="java_native_methods.h">
+      <Filter>JavaとのAPI Interface</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

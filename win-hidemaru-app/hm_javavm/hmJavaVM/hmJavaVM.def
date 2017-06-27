@@ -1,0 +1,6 @@
+LIBRARY
+EXPORTS
+	Java_Hm_DebugInfo
+	Java_Hm_MacroVarGetObj
+	Java_Hm_MacroVarSetNum
+	Java_Hm_MacroVarSetStr
