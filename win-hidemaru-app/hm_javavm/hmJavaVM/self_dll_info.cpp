@@ -6,6 +6,7 @@
 HMODULE CSelfDllInfo::hModule = NULL;
 
 TCHAR CSelfDllInfo::szSelfModuleFullPath[MAX_PATH] = L"";
+TCHAR CSelfDllInfo::szSelfModuleDirPath[MAX_PATH] = L"";
 
 int CSelfDllInfo::iSelfBindedType = 0;
 
@@ -37,4 +38,13 @@ wstring CSelfDllInfo::GetInvocantString() {
 	else {
 		return to_wstring(iSelfBindedType) + L",";
 	}
+}
+
+
+wstring CSelfDllInfo::GetSelfModuleFullPath() {
+	return szSelfModuleFullPath;
+}
+
+wstring CSelfDllInfo::GetSelfModuleDir() {
+	return szSelfModuleDirPath;
 }

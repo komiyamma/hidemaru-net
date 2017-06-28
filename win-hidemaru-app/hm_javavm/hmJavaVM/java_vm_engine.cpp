@@ -7,15 +7,31 @@
 #include "output_debugstream.h"
 
 
+
 using namespace std;
 
 #pragma comment(lib, "shlwapi.lib")
 
-																						// staticの初期化
+// staticの初期化
 HMODULE CJavaVMEngine::hJavaVMDll = NULL;
+
+char CJavaVMEngine::szJavaClassPathBuffer[512] = "-Djava.class.path=";
+
 JavaVM *CJavaVMEngine::jvm = NULL;
 JNIEnv* CJavaVMEngine::env = NULL;
 
+bool CJavaVMEngine::HmCalled = false;
+
+wstring CJavaVMEngine::GetHavaVMDllPath() {
+	wstring xmlpath = CSelfDllInfo::GetSelfModuleDir() + L"\\hmJavaXM.xml";
+	if (PathFileExists(xmlpath.c_str())) {
+		return LR"(C:\Program Files (x86)\Java\jdk1.8.0_131\jre\bin\client\jvm.dll)";
+	}
+	else {
+		MessageBox(NULL, L"hmJavaXM.xmlがありません。", L"hmJavaXM.xmlがありません。", NULL);
+		return L"";
+	}
+}
 
 void CJavaVMEngine::CreateVM() {
 	if (IsValid()) {
@@ -23,7 +39,7 @@ void CJavaVMEngine::CreateVM() {
 	}
 
 	// 読み取った値をパスとして動的にjvm.dllライブラリーをロード
-	hJavaVMDll = LoadLibrary(LR"(C:\Program Files (x86)\Java\jdk1.8.0_131\jre\bin\client\jvm.dll)");
+	hJavaVMDll = LoadLibrary(GetHavaVMDllPath().c_str());
 	if (!hJavaVMDll) {
 		MessageBox(NULL, L"jvm.dllが見つかりません。", L"jvm.dllが見つかりません。", NULL);
 		return;
@@ -35,12 +51,21 @@ void CJavaVMEngine::CreateVM() {
 		MessageBox(NULL, L"jvm.dllにJNI_CreateJavaVM関数が見つかりません。", L"jvm.dllにJNI_CreateJavaVM関数が見つかりません。", NULL);
 		return;
 	}
-	MessageBox(NULL, L"OK1", L"OK1", NULL);
 
 	// JNI_CreateJavaVMを呼び出し
-	JavaVMOption options[3];
-	options[0].optionString = "-Xmx256m";
-	options[1].optionString = "-Djava.class.path=.";
+	JavaVMOption options[2];
+	options[0].optionString = "-Xms8m-Xmx512m";
+
+//	options[1].optionString = "-Djava.class.path=C:\\usr\\hidemaru;C:\\usr\\hidemaru\\hmJavaVM.jar"; // という形にする。
+	wstring dir = CSelfDllInfo::GetSelfModuleDir();
+	string cp932_dir = utf16_to_cp932(dir);
+	strcat_s(szJavaClassPathBuffer, cp932_dir.c_str());
+	strcat_s(szJavaClassPathBuffer, ";");
+	strcat_s(szJavaClassPathBuffer, cp932_dir.c_str());
+	strcat_s(szJavaClassPathBuffer, "\\hmJavaVM.jar");
+	MessageBoxA(NULL, szJavaClassPathBuffer, szJavaClassPathBuffer, NULL);
+	options[1].optionString = szJavaClassPathBuffer;
+
 	JavaVMInitArgs vm_args;
 	vm_args.version = jni_version;
 	vm_args.options = options;
@@ -95,8 +120,7 @@ bool CJavaVMEngine::IsValid() {
 }
 
 
-bool CJavaVMEngine::GetStaticActionMethod(wstring class_name, wstring method_name) {
-	MessageBox(NULL, L"DoTest", L"DoTest", NULL);
+bool CJavaVMEngine::CallStaticEntryMethod(wstring class_name, wstring method_name) {
 
 	// utf16→utf8への変換
 	string utf8_class_name = utf16_to_utf8(class_name);
@@ -123,8 +147,6 @@ bool CJavaVMEngine::GetStaticActionMethod(wstring class_name, wstring method_nam
 	if (errormsg.size() > 0) {
 		OutputDebugStream(errormsg);
 	}
-
-	MessageBox(NULL, L"DoTest2", L"DoTest2", NULL);
 
 	return true;
 }

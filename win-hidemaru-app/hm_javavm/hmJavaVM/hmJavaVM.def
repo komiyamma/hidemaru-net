@@ -1,6 +1,16 @@
 LIBRARY
 EXPORTS
+	Java_Hm_GetVersion
 	Java_Hm_DebugInfo
-	Java_Hm_MacroVarGetObj
-	Java_Hm_MacroVarSetNum
-	Java_Hm_MacroVarSetStr
+	Java_Hm_EvalMacro
+	Java_Hm_GetMacroVarObj
+	Java_Hm_SetMacroVarNum
+	Java_Hm_SetMacroVarStr
+	Java_Hm_GetTotalText
+	Java_Hm_SetTotalText
+	Java_Hm_GetSelectedText
+	Java_Hm_SetSelectedText
+	Java_Hm_GetLineText
+	Java_Hm_SetLineText
+	Java_Hm_GetCursorPos
+	Java_Hm_GetCursorPosFromMousePos

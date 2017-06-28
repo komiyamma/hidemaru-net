@@ -19,6 +19,9 @@ struct CSelfDllInfo {
 	// 自分自身(hmPerl.dll)のフルパス
 	static TCHAR szSelfModuleFullPath[MAX_PATH];
 
+	static TCHAR szSelfModuleDirPath[MAX_PATH];
+
+
 	//-------------------------------------------------------------------------
 	// このdllが秀丸マクロからどのような形でloaddllされたのかの情報。
 	// この情報があれば、dll内部からマクロを発行することが出来る。
@@ -32,6 +35,8 @@ public:
 	static int GetBindDllType();
 	static BOOL SetBindDllHandle();
 	static wstring GetInvocantString();
+	static wstring GetSelfModuleFullPath();
+	static wstring GetSelfModuleDir();
 };
 
 

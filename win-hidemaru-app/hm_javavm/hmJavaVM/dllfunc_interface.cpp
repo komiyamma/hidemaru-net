@@ -22,7 +22,7 @@ static int CreateScope() {
 		return TRUE;
 	}
 
-	MessageBox(NULL, L"in バリッド", L"バリッド", NULL);
+	MessageBox(NULL, L"インバリッド", L"インバリッド", NULL);
 	CJavaVMEngine::CreateVM();
 	if (!CJavaVMEngine::IsValid()) {
 		return FALSE;
@@ -34,7 +34,7 @@ static int CreateScope() {
 
 
 
-MACRO_DLL intHM_t DoString(const TCHAR *class_name, TCHAR *method_name) {
+MACRO_DLL intHM_t CallMethod(const TCHAR *class_name, TCHAR *method_name) {
 	if (CreateScope() == 0)
 	{
 		return 0;
@@ -61,18 +61,24 @@ MACRO_DLL intHM_t DoString(const TCHAR *class_name, TCHAR *method_name) {
 
 	auto arg2_type = (CHidemaruExeExport::DLLFUNCPARAM)CHidemaruExeExport::Hidemaru_GetDllFuncCalledType(2); // 2は2番目の引数
 	if (arg2_type != CHidemaruExeExport::DLLFUNCPARAM::WCHAR_PTR) {
-		MessageBox(NULL, L"第２引数の型が異なります。\ndllfuncではなく、dllfuncw文を利用してください。", L"第２引数の型が異なります", MB_ICONERROR);
+		MessageBox(NULL, L"第２引数の型が異なります。", L"第２引数の型が異なります", MB_ICONERROR);
 		return 0;
 	}
 
-	CJavaVMEngine::GetStaticActionMethod(class_name, method_name);
+	// このプロセスで最初の１回
+	if (!CJavaVMEngine::HmCalled) {
+		bool success = CJavaVMEngine::CallStaticEntryMethod(L"Hm", L"_Init");
+		if (!success) {
+			return false;
+		}
+		CJavaVMEngine::HmCalled = true;
+	}
 
-	// OutputDebugErrMsg();
+	// JavaVMがクラスを探し出すパスをダイナミックに追加する
+	CJavaVMEngine::CallStaticEntryMethod(L"Hm", L"_AddClassPath");
 
-	// 成功したら1	return 1;
-
-	// 失敗したら0
-	return 0;
+	bool success = CJavaVMEngine::CallStaticEntryMethod(class_name, method_name);
+	return success;
 }
 
 
