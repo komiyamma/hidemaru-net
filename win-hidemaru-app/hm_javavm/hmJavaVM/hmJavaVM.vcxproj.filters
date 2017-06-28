@@ -43,6 +43,9 @@
     <Filter Include="Javaファイル\HmクラスのJava層">
       <UniqueIdentifier>{10326754-d49a-493d-a924-5ce5bca2b22a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="TinyXML">
+      <UniqueIdentifier>{918046c4-ed60-4b27-900c-2a803225a0f3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="convert_string.cpp">
@@ -74,6 +77,21 @@
     </ClCompile>
     <ClCompile Include="java_vm_engine_error.cpp">
       <Filter>JavaVMの生成や破棄</Filter>
+    </ClCompile>
+    <ClCompile Include="java_vm_engine_xml.cpp">
+      <Filter>JavaVMの生成や破棄</Filter>
+    </ClCompile>
+    <ClCompile Include="tinystr.cpp">
+      <Filter>TinyXML</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyxml.cpp">
+      <Filter>TinyXML</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyxmlerror.cpp">
+      <Filter>TinyXML</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyxmlparser.cpp">
+      <Filter>TinyXML</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -117,6 +135,12 @@
     </ClInclude>
     <ClInclude Include="java_native_methods.h">
       <Filter>JavaとのAPI Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="tinystr.h">
+      <Filter>TinyXML</Filter>
+    </ClInclude>
+    <ClInclude Include="tinyxml.h">
+      <Filter>TinyXML</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

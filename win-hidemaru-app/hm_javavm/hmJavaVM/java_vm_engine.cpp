@@ -22,16 +22,6 @@ JNIEnv* CJavaVMEngine::env = NULL;
 
 bool CJavaVMEngine::HmCalled = false;
 
-wstring CJavaVMEngine::GetHavaVMDllPath() {
-	wstring xmlpath = CSelfDllInfo::GetSelfModuleDir() + L"\\hmJavaXM.xml";
-	if (PathFileExists(xmlpath.c_str())) {
-		return LR"(C:\Program Files (x86)\Java\jdk1.8.0_131\jre\bin\client\jvm.dll)";
-	}
-	else {
-		MessageBox(NULL, L"hmJavaXM.xmlがありません。", L"hmJavaXM.xmlがありません。", NULL);
-		return L"";
-	}
-}
 
 void CJavaVMEngine::CreateVM() {
 	if (IsValid()) {
@@ -54,13 +44,13 @@ void CJavaVMEngine::CreateVM() {
 
 	// JNI_CreateJavaVMを呼び出し
 	JavaVMOption options[2];
-	options[0].optionString = "-Xms8m-Xmx512m";
+	options[0].optionString = "-Xmx512m";
 
 //	options[1].optionString = "-Djava.class.path=C:\\usr\\hidemaru;C:\\usr\\hidemaru\\hmJavaVM.jar"; // という形にする。
 	wstring dir = CSelfDllInfo::GetSelfModuleDir();
 	string cp932_dir = utf16_to_cp932(dir);
-	strcat_s(szJavaClassPathBuffer, cp932_dir.c_str());
-	strcat_s(szJavaClassPathBuffer, ";");
+//	strcat_s(szJavaClassPathBuffer, cp932_dir.c_str());
+//	strcat_s(szJavaClassPathBuffer, ";");
 	strcat_s(szJavaClassPathBuffer, cp932_dir.c_str());
 	strcat_s(szJavaClassPathBuffer, "\\hmJavaVM.jar");
 	MessageBoxA(NULL, szJavaClassPathBuffer, szJavaClassPathBuffer, NULL);
