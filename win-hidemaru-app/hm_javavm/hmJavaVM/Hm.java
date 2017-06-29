@@ -1,14 +1,26 @@
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.Files;
+ import java.util.Set;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ResourceBundle;
+import java.util.Iterator;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 public class Hm {
 
-	static int count;
 	// ライブラリをロード
-	static { System.loadLibrary("hmJavaVM"); }
+	static { 
+		System.loadLibrary("hmJavaVM");
+	}
+
+	// staticコンストラクタを強制実行させるために必要。
+	public static void _Init(String[] _dummy) {
+	}
+
 	
 	protected static native double GetVersion();
 
@@ -194,10 +206,12 @@ public class Hm {
 	 * @param path 追加するPATH
 	 */
     private static void _AddClassPath(String path) {
-		URLClassLoader loader = (URLClassLoader)ClassLoader.getSystemClassLoader();
+
+		URLClassLoader loader = (URLClassLoader)ClassLoader.getSystemClassLoader(); // Java9ではエラー
+
 		try {
 			URL u = new File(path).toURI().toURL();
-			Method m = URLClassLoader.class.getDeclaredMethod("addURL", new Class[]{ URL.class });
+ 			Method m = URLClassLoader.class.getDeclaredMethod("addURL", new Class[]{ URL.class }); // Java9ではエラー
 			m.setAccessible(true);
 			m.invoke(loader, new Object[]{u});
 			Hm.DebugInfo("ClassPathに「" + path + "」を追加しました");
@@ -206,7 +220,6 @@ public class Hm {
 			Hm.DebugInfo( new RuntimeException("ClassPathの追加に失敗しました。(" + path + ")" ) );
 		}
 	}
-
 
 	/**
 	 * ファイル名から拡張子を取り除いた名前を返します。
@@ -239,10 +252,5 @@ public class Hm {
         }
         return fileName;
     }
-
-
-	// staticコンストラクタを強制実行させるために必要。
-	public static void _Init(String[] _dummy) {
-	}
 }
 

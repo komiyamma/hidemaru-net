@@ -116,6 +116,9 @@
     <None Include="Test3.java">
       <Filter>Javaファイル\テスト用のJavaファイル</Filter>
     </None>
+    <None Include="SpclClassLoader.java">
+      <Filter>Javaファイル\参考ファイル</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="convert_string.h">

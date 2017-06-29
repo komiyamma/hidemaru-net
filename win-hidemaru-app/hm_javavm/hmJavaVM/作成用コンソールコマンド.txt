@@ -1,1 +1,1 @@
-jar cvfm hmJavaVM.jar Manifest.mf *.class
+jar cvfm hmJavaVM.jar Manifest.mf Hm.class Hm$Macro.class Hm$Edit.class Hm$Edit$CursorPos.class

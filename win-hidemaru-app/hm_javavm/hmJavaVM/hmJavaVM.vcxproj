@@ -189,6 +189,7 @@
     <None Include="Hm.java" />
     <None Include="hmJavaVM.def" />
     <None Include="Manifest.mf" />
+    <None Include="SpclClassLoader.java" />
     <None Include="Test.java" />
     <None Include="Test3.java" />
   </ItemGroup>
