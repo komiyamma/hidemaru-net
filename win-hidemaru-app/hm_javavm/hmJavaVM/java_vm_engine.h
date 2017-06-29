@@ -19,9 +19,11 @@ private:
 
 	// jvm.dllのハンドル
 	static HMODULE hJavaVMDll;
-public:
+private:
 	// hJavaVMDLLのフルパス
 	static wstring GetHavaVMDllPath();
+	static wstring GetHavaVMDllPathFromSettingsFile();
+	static wstring GetHavaVMDllPathFromDefaultJVMDir();
 private:
 	// "-Djava.class.path=C:\\usr\\hidemaru;C:\\usr\\hidemaru\\hmJavaVM.jar"; // という形にする。
 	static char szJavaClassPathBuffer[512];

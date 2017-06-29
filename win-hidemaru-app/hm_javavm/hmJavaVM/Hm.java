@@ -166,10 +166,27 @@ public class Hm {
 	 * そのパスのlibサブディレクトリの追加。
 	 */
 	public static void _AddClassPath(String[] _dummy){
-		String path1 = (String)Hm.Macro.getVar("currentmacrodirectory");
-		_AddClassPath(path1);
-		String path2 = (String)Hm.Macro.getVar("currentmacrodirectory") + "\\lib";
+		String currentmacrodirectory = (String)Hm.Macro.getVar("currentmacrodirectory");
+		_AddClassPath(currentmacrodirectory);
+
+		/*
+		String currentmacrofilename = (String)Hm.Macro.getVar("currentmacrofilename");
+		String path2 = _GetFiNamePrefix( currentmacrofilename ) + ".jar";
 		_AddClassPath(path2);
+		*/
+
+        // ディレクトリ配下を探索
+        File[] filelist = new File(currentmacrodirectory).listFiles();
+        for (File file : filelist) {
+			if (file.isFile()) {
+				String suffix = _GetFiNameSuffix(file.getName());
+				// 見つかったファイルがJARもしくはZipの場合は追加
+				if (suffix.equalsIgnoreCase("jar")) {
+					_AddClassPath(currentmacrodirectory + "\\" + file.getName());
+				}
+			}
+        }
+
 	}
 
 	/**
@@ -185,9 +202,44 @@ public class Hm {
 			m.invoke(loader, new Object[]{u});
 			Hm.DebugInfo("ClassPathに「" + path + "」を追加しました");
 		} catch (Exception e){
-			throw new RuntimeException("ClassPathの追加に失敗しました。(" + path + ")", e);
+			// 失敗は予測されること。いちいち止めない。
+			Hm.DebugInfo( new RuntimeException("ClassPathの追加に失敗しました。(" + path + ")" ) );
 		}
 	}
+
+
+	/**
+	 * ファイル名から拡張子を取り除いた名前を返します。
+	 * @param fileName ファイル名
+	 * @return ファイル名
+	 */
+	private static String _GetFiNamePrefix(String fileName) {
+		if (fileName == null) {
+			return null;
+		}
+		int point = fileName.lastIndexOf(".");
+		if (point != -1) {
+			return fileName.substring(0, point);
+		} 
+		return fileName;
+	}
+
+    /**
+    * ファイル名から拡張子を返却
+    * @param fileName ファイル名
+    * @return ファイルの拡張子
+    */
+    private static String _GetFiNameSuffix(String fileName) {
+        if (fileName == null) {
+            return null;
+        }
+        int point = fileName.lastIndexOf(".");
+        if (point != -1) {
+            return fileName.substring(point + 1);
+        }
+        return fileName;
+    }
+
 
 	// staticコンストラクタを強制実行させるために必要。
 	public static void _Init(String[] _dummy) {

@@ -105,8 +105,6 @@ wstring CJavaVMEngine::GetErrorMessage() {
 			"toString",
 			"()Ljava/lang/String;");
 
-		MessageBox(NULL, L"エラー北", L"エラー北", NULL);
-
 		wstring error_msg = L""; // Could use ostringstream instead.
 		_append_exception_trace_messages(*env, error_msg, exception, mid_throwable_getCause, mid_throwable_getStackTrace, mid_throwable_toString, mid_throwable_toString);
 

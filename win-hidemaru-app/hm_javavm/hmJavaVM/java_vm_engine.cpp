@@ -29,7 +29,8 @@ void CJavaVMEngine::CreateVM() {
 	}
 
 	// 読み取った値をパスとして動的にjvm.dllライブラリーをロード
-	hJavaVMDll = LoadLibrary(GetHavaVMDllPath().c_str());
+	wstring jvmFullPath = GetHavaVMDllPath().c_str();
+	hJavaVMDll = LoadLibrary(jvmFullPath.c_str());
 	if (!hJavaVMDll) {
 		MessageBox(NULL, L"jvm.dllが見つかりません。", L"jvm.dllが見つかりません。", NULL);
 		return;
@@ -44,32 +45,42 @@ void CJavaVMEngine::CreateVM() {
 
 	// JNI_CreateJavaVMを呼び出し
 	JavaVMOption options[2];
-	options[0].optionString = "-Xmx512m";
 
-//	options[1].optionString = "-Djava.class.path=C:\\usr\\hidemaru;C:\\usr\\hidemaru\\hmJavaVM.jar"; // という形にする。
+//	options[0].optionString = "-Djava.class.path=C:\\usr\\hidemaru;C:\\usr\\hidemaru\\hmJavaVM.jar"; // という形にする。
 	wstring dir = CSelfDllInfo::GetSelfModuleDir();
 	string cp932_dir = utf16_to_cp932(dir);
 //	strcat_s(szJavaClassPathBuffer, cp932_dir.c_str());
 //	strcat_s(szJavaClassPathBuffer, ";");
 	strcat_s(szJavaClassPathBuffer, cp932_dir.c_str());
 	strcat_s(szJavaClassPathBuffer, "\\hmJavaVM.jar");
-	MessageBoxA(NULL, szJavaClassPathBuffer, szJavaClassPathBuffer, NULL);
-	options[1].optionString = szJavaClassPathBuffer;
+	OutputDebugStream(cp932_to_utf16(szJavaClassPathBuffer));
+	options[0].optionString = szJavaClassPathBuffer;
+//	options[1].optionString = "Xmx16m-Xmx128m";
 
 	JavaVMInitArgs vm_args;
 	vm_args.version = jni_version;
 	vm_args.options = options;
-	vm_args.nOptions = 2;
+	vm_args.nOptions = 1;
 
-	MessageBox(NULL, L"OK2", L"OK2", NULL);
+	OutputDebugStream(L"Java VM起動直前");
 	env = NULL;
 	jvm = NULL;
 
 	try {
+		/*
+		#define JNI_OK        0      // success
+		#define JNI_ERR       (-1)   // unknown error
+		#define JNI_EDETACHED (-2)   // thread detached from the VM
+		#define JNI_EVERSION  (-3)   // JNI version error
+		#define JNI_ENOMEM    (-4)   // not enough memory
+		#define JNI_EEXIST    (-5)   // VM already created
+		#define JNI_EINVAL    (-6)   // invalid arguments
+		*/
 		int isValid = pCreateJavaVM(&jvm, (void**)&env, &vm_args);
 		if (isValid < 0) {
 			wstring msg = L"JNI_CreateJavaVM Error: " + std::to_wstring(isValid);
 			MessageBox(NULL, msg.c_str(), msg.c_str(), NULL);
+			OutputDebugStream(L"Java VM起動に失敗");
 			return;
 		}
 	}
@@ -77,7 +88,8 @@ void CJavaVMEngine::CreateVM() {
 		MessageBoxA(NULL, e.what(), e.what(), NULL);
 	}
 
-	MessageBox(NULL, L"OK3", L"OK3", NULL);
+	OutputDebugStream(jvmFullPath);
+	OutputDebugStream(L"Java VM起動に成功");
 }
 
 
@@ -123,7 +135,7 @@ bool CJavaVMEngine::CallStaticEntryMethod(wstring class_name, wstring method_nam
 		MessageBox(NULL, message.c_str(), message.c_str(), NULL);
 		return false;
 	}
-	// Helloクラスのmainメソッド取得
+	// 指定クラスの指定メソッド取得
 	jmethodID mid = env->GetStaticMethodID(clazz, utf8_method_name.c_str(), "([Ljava/lang/String;)V" );
 	if (mid == 0) {
 		wstring message = wstring(L"GetStaticMethodID Error for `static void ") + method_name + wstring(L"(String args[])`");

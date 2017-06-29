@@ -1,1 +1,1 @@
-jar cvfm HmJavaVM.jar Manifest.mf *.class
+jar cvfm hmJavaVM.jar Manifest.mf *.class

@@ -18,11 +18,11 @@ static int CreateScope() {
 
 	// すでに生成済みである。
 	if (CJavaVMEngine::IsValid()) {
-		MessageBox(NULL, L"バリッド", L"バリッド", NULL);
+		OutputDebugStream(L"JavaVMは起動済み。流用。");
 		return TRUE;
 	}
 
-	MessageBox(NULL, L"インバリッド", L"インバリッド", NULL);
+	OutputDebugStream(L"JavaVMは未起動。起動を試みる。");
 	CJavaVMEngine::CreateVM();
 	if (!CJavaVMEngine::IsValid()) {
 		return FALSE;

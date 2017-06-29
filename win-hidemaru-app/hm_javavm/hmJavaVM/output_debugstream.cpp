@@ -18,3 +18,4 @@ void OutputDebugStream(wstring wstr) {
 		OutputDebugStringA("\n");
 	}
 }
+

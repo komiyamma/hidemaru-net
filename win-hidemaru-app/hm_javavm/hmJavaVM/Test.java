@@ -10,4 +10,3 @@ public class Test {
 		Hm.DebugInfo(Hm.Macro.getVar("filename2"));
 	}
 }
-
