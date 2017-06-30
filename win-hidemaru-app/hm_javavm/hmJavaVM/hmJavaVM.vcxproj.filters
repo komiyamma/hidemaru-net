@@ -119,14 +119,14 @@
     <None Include="SpclClassLoader.java">
       <Filter>Javaファイル\参考ファイル</Filter>
     </None>
-    <None Include="MiscTools.java">
-      <Filter>Javaファイル\HmクラスのJava層</Filter>
-    </None>
-    <None Include="MiscTest.java">
-      <Filter>Javaファイル\HmクラスのJava層</Filter>
-    </None>
     <None Include="hmJavaVM.xml">
       <Filter>Javaファイル\HmクラスのJava層</Filter>
+    </None>
+    <None Include="MiscTools.java">
+      <Filter>Javaファイル\参考ファイル</Filter>
+    </None>
+    <None Include="MiscTest.java">
+      <Filter>Javaファイル\参考ファイル</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

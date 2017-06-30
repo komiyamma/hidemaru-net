@@ -185,7 +185,7 @@ public class Hm {
         for (File file : filelist) {
 			if (file.isFile()) {
 				String suffix = _GetFiNameSuffix(file.getName());
-				// 見つかったファイルがJARもしくはZipの場合は追加
+				// 見つかったファイルがJARの場合は追加
 				if (suffix.equalsIgnoreCase("jar")) {
 					_AddClassPath(currentmacrodirectory + "\\" + file.getName());
 				}
