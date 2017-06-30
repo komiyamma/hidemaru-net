@@ -45,6 +45,7 @@ public:
 
 	// 該当クラスの該当staticメソッドを実行してみよう。
 	static bool CallStaticEntryMethod(wstring class_name, wstring method_name);
+	static void GC();
 
 private:
 	static wstring GetErrorMessage();

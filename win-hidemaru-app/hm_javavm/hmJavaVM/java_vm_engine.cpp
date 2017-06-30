@@ -91,8 +91,7 @@ void CJavaVMEngine::CreateVM() {
 	OutputDebugStream(L"Java VM起動に成功");
 }
 
-
-void CJavaVMEngine::DestroyVM() {
+void CJavaVMEngine::GC() {
 
 	if (jvm) {
 		// Helloクラスのロード
@@ -113,6 +112,10 @@ void CJavaVMEngine::DestroyVM() {
 		}
 
 	}
+}
+
+void CJavaVMEngine::DestroyVM() {
+	GC();
 
 	// DestroyJavaVMするとバグるので何もしない
 	return;
@@ -168,6 +171,7 @@ bool CJavaVMEngine::CallStaticEntryMethod(wstring class_name, wstring method_nam
 	if (errormsg.size() > 0) {
 		OutputDebugStream(errormsg);
 	}
+	GC();
 
 	return true;
 }

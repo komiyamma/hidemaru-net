@@ -1,4 +1,4 @@
-¡hmJavaVM‚É‚Â‚¢‚Ä
+â– hmJavaVMã«ã¤ã„ã¦
 
 	Copyright (C) 2016-2017 VSCode.life
 
@@ -15,7 +15,7 @@
 	limitations under the License.
 
 
-¡Atacheƒ‰ƒCƒZƒ“ƒXŒ´•¶
+â– Atacheãƒ©ã‚¤ã‚»ãƒ³ã‚¹åŸæ–‡
 	Apache License
 	Version 2.0, January 2004
 	http://www.apache.org/licenses/ 
