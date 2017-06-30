@@ -1,1 +1,3 @@
-jar cvfm hmJavaVM.jar Manifest.mf Hm.class Hm$Macro.class Hm$Edit.class Hm$Edit$CursorPos.class
+Hidemaruというサブディレクトリを作成し、
+javac Hidemaru\Hm.java // この位置関係からjavacの必要性あり
+jar cvf Hidemaru // この位置関係からディレクトリを指定する必要性あり

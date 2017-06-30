@@ -101,9 +101,6 @@
     <None Include="hmJavaVM.def">
       <Filter>ソース ファイル</Filter>
     </None>
-    <None Include="Hm.java">
-      <Filter>Javaファイル\HmクラスのJava層</Filter>
-    </None>
     <None Include="Test.java">
       <Filter>Javaファイル\テスト用のJavaファイル</Filter>
     </None>
@@ -127,6 +124,9 @@
     </None>
     <None Include="MiscTest.java">
       <Filter>Javaファイル\参考ファイル</Filter>
+    </None>
+    <None Include="Hidemaru\Hm.java">
+      <Filter>Javaファイル\HmクラスのJava層</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

@@ -65,7 +65,6 @@ void CJavaVMEngine::CreateVM() {
 	OutputDebugStream(L"Java VM起動直前");
 	env = NULL;
 	jvm = NULL;
-
 	try {
 		/*
 		#define JNI_OK        0      // success
@@ -95,7 +94,27 @@ void CJavaVMEngine::CreateVM() {
 
 void CJavaVMEngine::DestroyVM() {
 
-	// フリーするとバグるので何もしない
+	if (jvm) {
+		// Helloクラスのロード
+		jclass clazz = env->FindClass("java/lang/System");
+		if (clazz) {
+			jmethodID mid = env->GetStaticMethodID(clazz, "gc", "()V");
+			if (mid) {
+				// mainメソッド実行
+				env->CallStaticVoidMethod(clazz, mid, NULL);
+				OutputDebugStream(L"System.gc()");
+			}
+			else {
+				MessageBox(NULL, L"System.gc()が出来ない。", L"System.gc()が出来ない。", NULL);
+			}
+		}
+		else {
+			MessageBox(NULL, L"System.gc()が出来ない。", L"System.gc()が出来ない。", NULL);
+		}
+
+	}
+
+	// DestroyJavaVMするとバグるので何もしない
 	return;
 
 	//-------------------------------------------------------------------------

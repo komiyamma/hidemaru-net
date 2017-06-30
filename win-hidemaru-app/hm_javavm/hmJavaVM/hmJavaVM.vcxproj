@@ -185,9 +185,9 @@
     <ClCompile Include="tinyxmlparser.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Hidemaru\Hm.java" />
     <None Include="MiscTools.java" />
     <None Include="ApplicationClassLoader.java" />
-    <None Include="Hm.java" />
     <None Include="hmJavaVM.def" />
     <None Include="Manifest.mf" />
     <None Include="MiscTest.java" />
