@@ -1,5 +1,5 @@
 #pragma once
-#include <jni.h>
+#include "jni.h"
 
 #include <tchar.h>
 #include <windows.h>

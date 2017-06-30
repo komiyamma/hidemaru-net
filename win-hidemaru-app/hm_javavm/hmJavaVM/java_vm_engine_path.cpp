@@ -30,7 +30,7 @@ wstring CJavaVMEngine::GetHavaVMDllPath() {
 }
 
 wstring CJavaVMEngine::GetHavaVMDllPathFromSettingsFile() {
-	wstring xmlpath = CSelfDllInfo::GetSelfModuleDir() + L"\\hmJavaXM.xml";
+	wstring xmlpath = CSelfDllInfo::GetSelfModuleDir() + L"\\hmJavaVM.xml";
 
 	if (PathFileExists(xmlpath.c_str())) {
 		string cp932_xmlpath = utf16_to_cp932(xmlpath);

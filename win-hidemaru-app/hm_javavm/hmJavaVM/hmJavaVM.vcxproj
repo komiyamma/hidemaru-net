@@ -115,7 +115,7 @@
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <ModuleDefinitionFile>Source.def</ModuleDefinitionFile>
+      <ModuleDefinitionFile>hmJavaVM.def</ModuleDefinitionFile>
     </Link>
     <ResourceCompile>
       <PreprocessorDefinitions>_UNICODE;UNICODE;%(PreprocessorDefinitions);RC_X64;</PreprocessorDefinitions>
@@ -185,10 +185,12 @@
     <ClCompile Include="tinyxmlparser.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="MiscTools.java" />
     <None Include="ApplicationClassLoader.java" />
     <None Include="Hm.java" />
     <None Include="hmJavaVM.def" />
     <None Include="Manifest.mf" />
+    <None Include="MiscTest.java" />
     <None Include="SpclClassLoader.java" />
     <None Include="Test.java" />
     <None Include="Test3.java" />
@@ -213,10 +215,10 @@
     <Text Include="作成用コンソールコマンド.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="hmJavaXM.xml" />
+    <ResourceCompile Include="hmJavaVM.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="hmJavaVM.rc" />
+    <None Include="hmJavaVM.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

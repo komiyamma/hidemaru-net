@@ -119,6 +119,15 @@
     <None Include="SpclClassLoader.java">
       <Filter>Javaファイル\参考ファイル</Filter>
     </None>
+    <None Include="MiscTools.java">
+      <Filter>Javaファイル\HmクラスのJava層</Filter>
+    </None>
+    <None Include="MiscTest.java">
+      <Filter>Javaファイル\HmクラスのJava層</Filter>
+    </None>
+    <None Include="hmJavaVM.xml">
+      <Filter>Javaファイル\HmクラスのJava層</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="convert_string.h">
@@ -159,11 +168,6 @@
     <Text Include="作成用コンソールコマンド.txt">
       <Filter>Javaファイル\HmクラスのJava層</Filter>
     </Text>
-  </ItemGroup>
-  <ItemGroup>
-    <Xml Include="hmJavaXM.xml">
-      <Filter>Javaファイル\HmクラスのJava層</Filter>
-    </Xml>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="hmJavaVM.rc">
