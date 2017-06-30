@@ -24,13 +24,13 @@ jstring utf16_to_jstring(JNIEnv *env, wstring& utf16_text) {
 	return env->NewStringUTF(utf8_return_value.c_str());
 }
 
-JNIEXPORT jdouble JNICALL Java_Hidemaru_Hm_GetVersion() {
+JNIEXPORT jdouble JNICALL Java_hidemaru_Hm_GetVersion() {
 	return CHidemaruExeExport::hm_version;
 }
 
 
 // EvalMacro
-JNIEXPORT jint JNICALL Java_Hidemaru_Hm_EvalMacro(JNIEnv *env, jobject obj, jstring value) {
+JNIEXPORT jint JNICALL Java_hidemaru_Hm_EvalMacro(JNIEnv *env, jobject obj, jstring value) {
 
 	wstring utf16_value = jstring_to_utf16(env, value);
 
@@ -46,7 +46,7 @@ JNIEXPORT jint JNICALL Java_Hidemaru_Hm_EvalMacro(JNIEnv *env, jobject obj, jstr
 }
 
 // 秀丸マクロのシンボルや変数の値の取得。
-JNIEXPORT jstring JNICALL Java_Hidemaru_Hm_GetMacroVarObj(JNIEnv *env, jobject obj, jstring key_name) {
+JNIEXPORT jstring JNICALL Java_hidemaru_Hm_GetMacroVarObj(JNIEnv *env, jobject obj, jstring key_name) {
 
 	TestDynamicVar.Clear();
 	auto dll_invocant = CSelfDllInfo::GetInvocantString();
@@ -77,7 +77,7 @@ JNIEXPORT jstring JNICALL Java_Hidemaru_Hm_GetMacroVarObj(JNIEnv *env, jobject o
 }
 
 // 秀丸マクロのシンボルや変数へ値を設定。数値系。
-JNIEXPORT jint JNICALL Java_Hidemaru_Hm_SetMacroVarNum(JNIEnv *env, jobject obj, jstring key_name, jlong value) {
+JNIEXPORT jint JNICALL Java_hidemaru_Hm_SetMacroVarNum(JNIEnv *env, jobject obj, jstring key_name, jlong value) {
 	jint success = false;
 
 	auto dll_invocant = CSelfDllInfo::GetInvocantString();
@@ -101,7 +101,7 @@ JNIEXPORT jint JNICALL Java_Hidemaru_Hm_SetMacroVarNum(JNIEnv *env, jobject obj,
 }
 
 // 秀丸マクロのシンボルや変数へ値を設定。文字列系。
-JNIEXPORT jint JNICALL Java_Hidemaru_Hm_SetMacroVarStr(JNIEnv *env, jobject obj, jstring key_name, jstring value) {
+JNIEXPORT jint JNICALL Java_hidemaru_Hm_SetMacroVarStr(JNIEnv *env, jobject obj, jstring key_name, jstring value) {
 	jint success = false;
 
 	auto dll_invocant = CSelfDllInfo::GetInvocantString();
@@ -127,20 +127,20 @@ JNIEXPORT jint JNICALL Java_Hidemaru_Hm_SetMacroVarStr(JNIEnv *env, jobject obj,
 }
 
 // 秀丸マクロのシンボルや変数へ値を設定。文字列系。
-JNIEXPORT void JNICALL Java_Hidemaru_Hm_DebugInfo(JNIEnv *env, jobject obj, jstring value) {
+JNIEXPORT void JNICALL Java_hidemaru_Hm_DebugInfo(JNIEnv *env, jobject obj, jstring value) {
 
 	wstring utf16_value = jstring_to_utf16(env, value);
 	OutputDebugStream(utf16_value);
 }
 
 // GetTotalText。
-JNIEXPORT jstring JNICALL Java_Hidemaru_Hm_GetTotalText(JNIEnv *env, jobject obj) {
+JNIEXPORT jstring JNICALL Java_hidemaru_Hm_GetTotalText(JNIEnv *env, jobject obj) {
 
 	return utf16_to_jstring(env, CHidemaruExeExport::GetTotalText());
 }
 
 // SetTotalText
-JNIEXPORT jint JNICALL Java_Hidemaru_Hm_SetTotalText(JNIEnv *env, jobject obj, jstring value) {
+JNIEXPORT jint JNICALL Java_hidemaru_Hm_SetTotalText(JNIEnv *env, jobject obj, jstring value) {
 	jint success = false;
 
 	auto dll_invocant = CSelfDllInfo::GetInvocantString();
@@ -159,13 +159,13 @@ JNIEXPORT jint JNICALL Java_Hidemaru_Hm_SetTotalText(JNIEnv *env, jobject obj, j
 }
 
 // GetSelectedText。
-JNIEXPORT jstring JNICALL Java_Hidemaru_Hm_GetSelectedText(JNIEnv *env, jobject obj) {
+JNIEXPORT jstring JNICALL Java_hidemaru_Hm_GetSelectedText(JNIEnv *env, jobject obj) {
 
 	return utf16_to_jstring(env, CHidemaruExeExport::GetSelectedText());
 }
 
 // SetSelectedText
-JNIEXPORT jint JNICALL Java_Hidemaru_Hm_SetSelectedText(JNIEnv *env, jobject obj, jstring value) {
+JNIEXPORT jint JNICALL Java_hidemaru_Hm_SetSelectedText(JNIEnv *env, jobject obj, jstring value) {
 	jint success = false;
 
 	auto dll_invocant = CSelfDllInfo::GetInvocantString();
@@ -183,13 +183,13 @@ JNIEXPORT jint JNICALL Java_Hidemaru_Hm_SetSelectedText(JNIEnv *env, jobject obj
 }
 
 // GetLineText。
-JNIEXPORT jstring JNICALL Java_Hidemaru_Hm_GetLineText(JNIEnv *env, jobject obj) {
+JNIEXPORT jstring JNICALL Java_hidemaru_Hm_GetLineText(JNIEnv *env, jobject obj) {
 
 	return utf16_to_jstring(env, CHidemaruExeExport::GetLineText());
 }
 
 // SetLineText
-JNIEXPORT jint JNICALL Java_Hidemaru_Hm_SetLineText(JNIEnv *env, jobject obj, jstring value) {
+JNIEXPORT jint JNICALL Java_hidemaru_Hm_SetLineText(JNIEnv *env, jobject obj, jstring value) {
 	jint success = false;
 
 	auto dll_invocant = CSelfDllInfo::GetInvocantString();
@@ -211,7 +211,7 @@ JNIEXPORT jint JNICALL Java_Hidemaru_Hm_SetLineText(JNIEnv *env, jobject obj, js
 }
 
 // GetCursorPos
-JNIEXPORT jstring JNICALL Java_Hidemaru_Hm_GetCursorPos(JNIEnv *env, jobject obj) {
+JNIEXPORT jstring JNICALL Java_hidemaru_Hm_GetCursorPos(JNIEnv *env, jobject obj) {
 
 	auto pos = CHidemaruExeExport::GetCursorPos();
 	wstring str_pos = std::to_wstring(pos.lineno) + L"," + std::to_wstring(pos.column);
@@ -220,7 +220,7 @@ JNIEXPORT jstring JNICALL Java_Hidemaru_Hm_GetCursorPos(JNIEnv *env, jobject obj
 }
 
 // GetCursorPosFromMousePos
-JNIEXPORT jstring JNICALL Java_Hidemaru_Hm_GetCursorPosFromMousePos(JNIEnv *env, jobject obj) {
+JNIEXPORT jstring JNICALL Java_hidemaru_Hm_GetCursorPosFromMousePos(JNIEnv *env, jobject obj) {
 
 	auto pos = CHidemaruExeExport::GetCursorPosFromMousePos();
 	wstring str_pos = std::to_wstring(pos.lineno) + L"," + std::to_wstring(pos.column);

@@ -1,4 +1,4 @@
-package Hidemaru;
+package hidemaru;
 
 import java.io.File;
 import java.lang.reflect.Method;

@@ -67,7 +67,7 @@ MACRO_DLL intHM_t CallMethod(const TCHAR *class_name, TCHAR *method_name) {
 
 	// このプロセスで最初の１回
 	if (!CJavaVMEngine::HmCalled) {
-		bool success = CJavaVMEngine::CallStaticEntryMethod(L"Hidemaru/Hm", L"_Init");
+		bool success = CJavaVMEngine::CallStaticEntryMethod(L"hidemaru/Hm", L"_Init");
 		if (!success) {
 			return false;
 		}
@@ -75,7 +75,7 @@ MACRO_DLL intHM_t CallMethod(const TCHAR *class_name, TCHAR *method_name) {
 	}
 
 	// JavaVMがクラスを探し出すパスをダイナミックに追加する
-	CJavaVMEngine::CallStaticEntryMethod(L"Hidemaru/Hm", L"_AddClassPath");
+	CJavaVMEngine::CallStaticEntryMethod(L"hidemaru/Hm", L"_AddClassPath");
 
 	wstring wstr_class_name = class_name;
 	std::replace(wstr_class_name.begin(), wstr_class_name.end(), '.', '/');

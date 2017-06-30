@@ -1,16 +1,16 @@
 LIBRARY
 EXPORTS
-	Java_Hidemaru_Hm_GetVersion
-	Java_Hidemaru_Hm_DebugInfo
-	Java_Hidemaru_Hm_EvalMacro
-	Java_Hidemaru_Hm_GetMacroVarObj
-	Java_Hidemaru_Hm_SetMacroVarNum
-	Java_Hidemaru_Hm_SetMacroVarStr
-	Java_Hidemaru_Hm_GetTotalText
-	Java_Hidemaru_Hm_SetTotalText
-	Java_Hidemaru_Hm_GetSelectedText
-	Java_Hidemaru_Hm_SetSelectedText
-	Java_Hidemaru_Hm_GetLineText
-	Java_Hidemaru_Hm_SetLineText
-	Java_Hidemaru_Hm_GetCursorPos
-	Java_Hidemaru_Hm_GetCursorPosFromMousePos
+	Java_hidemaru_Hm_GetVersion
+	Java_hidemaru_Hm_DebugInfo
+	Java_hidemaru_Hm_EvalMacro
+	Java_hidemaru_Hm_GetMacroVarObj
+	Java_hidemaru_Hm_SetMacroVarNum
+	Java_hidemaru_Hm_SetMacroVarStr
+	Java_hidemaru_Hm_GetTotalText
+	Java_hidemaru_Hm_SetTotalText
+	Java_hidemaru_Hm_GetSelectedText
+	Java_hidemaru_Hm_SetSelectedText
+	Java_hidemaru_Hm_GetLineText
+	Java_hidemaru_Hm_SetLineText
+	Java_hidemaru_Hm_GetCursorPos
+	Java_hidemaru_Hm_GetCursorPosFromMousePos
