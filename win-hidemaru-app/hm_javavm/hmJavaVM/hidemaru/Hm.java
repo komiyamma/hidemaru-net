@@ -13,7 +13,7 @@ public class Hm {
 	}
 
 	// staticコンストラクタを強制実行させるために必要。
-	public static void _Init(String[] _dummy) {
+	protected static void _Init(String[] _dummy) {
 	}
 
 	
@@ -172,7 +172,7 @@ public class Hm {
 	 * マクロが存在するパスの追加。
 	 * そのパスのlibサブディレクトリの追加。
 	 */
-	public static void _AddClassPath(String[] _dummy){
+	protected static void _AddClassPath(String[] _dummy){
 		String currentmacrodirectory = (String)Hm.Macro.getVar("currentmacrodirectory");
 		_AddClassPath(currentmacrodirectory);
 
