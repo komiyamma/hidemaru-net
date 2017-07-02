@@ -140,6 +140,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>C:\Program Files (x86)\Java\jdk1.8.0_131\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ModuleDefinitionFile>hmJavaVM.def</ModuleDefinitionFile>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -162,6 +163,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <ModuleDefinitionFile>hmJavaVM.def</ModuleDefinitionFile>
       <AdditionalLibraryDirectories>C:\Program Files\Java\jdk1.8.0_131\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
     </Link>
     <ResourceCompile>
       <PreprocessorDefinitions>_UNICODE;UNICODE;%(PreprocessorDefinitions);RC_X64;</PreprocessorDefinitions>

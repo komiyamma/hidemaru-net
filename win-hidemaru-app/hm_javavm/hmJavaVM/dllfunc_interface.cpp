@@ -77,6 +77,7 @@ MACRO_DLL intHM_t CallMethod(const TCHAR *class_name, TCHAR *method_name) {
 	// JavaVMがクラスを探し出すパスをダイナミックに追加する
 	CJavaVMEngine::CallStaticEntryMethod(L"hidemaru/Hm", L"_AddClassPath");
 
+	// クラスは、「.」区切りで記載しているなら、「/」区切りに直す
 	wstring wstr_class_name = class_name;
 	std::replace(wstr_class_name.begin(), wstr_class_name.end(), '.', '/');
 
