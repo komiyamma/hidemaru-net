@@ -59,8 +59,13 @@ public class Hm {
 	}
 
 	public static class Edit {
-		public static String getFileFullPath() {
-			return GetFileFullPath();
+		public static File getFile() {
+			String path = GetFileFullPath();
+			if (path.length() > 0) {
+			    return new File(path);
+			} else {
+			    return null;
+			}
 		}
 
 		public static String getTotalText() {
