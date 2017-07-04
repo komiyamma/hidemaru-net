@@ -1,6 +1,7 @@
 #include <windows.h>
 
 #include "hidemaruexe_handle.h"
+#include "hidemaruexe_export.h"
 
 
 HidemaruWindowHandleSearcher::HidemaruWindowHandleSearcher(wstring strClassName) {
@@ -10,7 +11,10 @@ HidemaruWindowHandleSearcher::HidemaruWindowHandleSearcher(wstring strClassName)
 
 HWND HidemaruWindowHandleSearcher::GetCurWndHidemaru() {
 	if (!hCurWndHidemaru) {
-		SearchCurWndHidemaru(GetDesktopWindow());
+		FastSearchCurWndHidemaru(GetDesktopWindow());
+	}
+	if (!hCurWndHidemaru) {
+		SlowSearchCurWndHidemaru(GetDesktopWindow());
 	}
 	return this->hCurWndHidemaru;
 }
@@ -31,7 +35,43 @@ bool HidemaruWindowHandleSearcher::IsWndHidemaru32ClassType(HWND hWnd) {
 	return false;
 }
 
-void HidemaruWindowHandleSearcher::SearchCurWndHidemaru(HWND hWnd)
+// ゆっくりだが、秀丸他のアプリの子供になってるなど、超レアケースでも発見出来る。
+void HidemaruWindowHandleSearcher::SlowSearchCurWndHidemaru(HWND hWnd)
+{
+	if (hCurWndHidemaru) { return; }
+
+	// 自分のプロセスIDと、サーチ対象のプロセスID
+	DWORD pID1 = GetCurrentProcessId();
+	DWORD pID2 = 0;
+	GetWindowThreadProcessId(hWnd, &pID2);
+	// 同じなら大きく候補だ
+	if (pID1 == pID2) {
+
+		if (hWnd && IsWndHidemaru32ClassType(hWnd)) {
+			HWND hWndParent = ::GetParent(hWnd);
+
+			// 自分自身の親も指定のクラス名なら、完全に特定した。
+			if (hWndParent && IsWndHidemaru32ClassType(hWndParent))
+			{
+				hCurWndHidemaru = hWnd;
+			}
+		}
+	}
+
+	// 子クラスをなめていく。子クラスはあくまでも「Hidemaru32Class系」。
+	// ストア版はちょっと違うのでインスタンス変数になっている。
+	HWND hWndChild = FindWindowEx(hWnd, NULL, NULL, NULL);
+	while (hWndChild != NULL)
+	{
+		SlowSearchCurWndHidemaru(hWndChild);
+		if (hCurWndHidemaru) { break; }
+
+		hWndChild = FindWindowEx(hWnd, hWndChild, NULL, NULL);
+	}
+}
+
+// 速い。通常ならこのアルゴリズムで十分
+void HidemaruWindowHandleSearcher::FastSearchCurWndHidemaru(HWND hWnd)
 {
 	if (hCurWndHidemaru) { return; }
 
@@ -55,7 +95,7 @@ void HidemaruWindowHandleSearcher::SearchCurWndHidemaru(HWND hWnd)
 	HWND hWndChild = FindWindowEx(hWnd, NULL, m_strClassName.c_str(), NULL);
 	while (hWndChild != NULL)
 	{
-		SearchCurWndHidemaru(hWndChild);
+		FastSearchCurWndHidemaru(hWndChild);
 		if (hCurWndHidemaru) { break; }
 
 		hWndChild = FindWindowEx(hWnd, hWndChild, m_strClassName.c_str(), NULL);

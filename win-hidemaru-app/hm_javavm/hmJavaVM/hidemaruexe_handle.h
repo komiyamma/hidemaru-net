@@ -25,6 +25,7 @@ public:
 private:
 	bool IsWndHidemaru32ClassType(HWND hWnd);
 	// 秀丸が変則的なことになっていない（例えば、他のアプリの子ウィンドウとかに強引にparentWindowsを捻じ曲げられているなどといったことになっていない)
-	void SearchCurWndHidemaru(HWND hWnd);
-	
+	void FastSearchCurWndHidemaru(HWND hWnd);
+	void SlowSearchCurWndHidemaru(HWND hWnd);
+
 };
