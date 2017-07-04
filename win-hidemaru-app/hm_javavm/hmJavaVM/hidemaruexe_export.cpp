@@ -2,9 +2,13 @@
 #include <tchar.h>
 
 #include "hidemaruexe_export.h"
+#include "hidemaruexe_handle.h"
+#include "output_debugstream.h"
+#include "java_native_methods.h"
 
 #pragma comment(lib, "version.lib")
 
+HWND CHidemaruExeExport::hCurWndHidemaru = NULL;
 HMODULE CHidemaruExeExport::hHideExeHandle = NULL;
 TCHAR CHidemaruExeExport::szHidemaruFullPath[MAX_PATH] = L"";
 
@@ -17,16 +21,16 @@ CHidemaruExeExport::PFNGetCursorPosUnicodeFromMousePos CHidemaruExeExport::Hidem
 CHidemaruExeExport::PFNEvalMacro CHidemaruExeExport::Hidemaru_EvalMacro = NULL;
 
 double CHidemaruExeExport::hm_version = 0;
-double CHidemaruExeExport::QueryFileVersion(TCHAR* path) {
+double CHidemaruExeExport::QueryFileVersion(TCHAR* path){
 	VS_FIXEDFILEINFO* v;
 	DWORD dwZero = 0;
 	UINT len;
 	DWORD sz = GetFileVersionInfoSize(path, &dwZero);
-	if (sz) {
+	if (sz){
 		void* buf = new char[sz];
 		GetFileVersionInfo(path, dwZero, sz, buf);
 
-		if (VerQueryValue(buf, L"\\", (LPVOID*)&v, &len)) {
+		if (VerQueryValue(buf, L"\\", (LPVOID*)&v, &len)){
 			double ret = 0;
 			ret = double(HIWORD(v->dwFileVersionMS)) * 100 +
 				double(LOWORD(v->dwFileVersionMS)) * 10 +
@@ -35,7 +39,7 @@ double CHidemaruExeExport::QueryFileVersion(TCHAR* path) {
 			delete buf;
 			return ret;
 		}
-		else {
+		else{
 			delete buf;
 		}
 	}
@@ -75,6 +79,19 @@ BOOL CHidemaruExeExport::init() {
 	return FALSE;
 }
 
+HWND CHidemaruExeExport::GetCurWndHidemaru() {
+	return gCurWndHicemaruHandle;
+
+}
+
+wstring CHidemaruExeExport::GetFileFullPath() {
+	HWND hWndHidemaru = GetCurWndHidemaru();
+	wchar_t szBufFileFullPath[MAX_PATH] = L"";
+
+	// 現在の秀丸ウィンドウのファイル名を得る。
+	LRESULT cwch = SendMessage(hWndHidemaru, WM_HIDEMARUINFO, HIDEMARUINFO_GETFILEFULLPATH, (LPARAM)szBufFileFullPath);
+	return szBufFileFullPath;
+}
 
 wstring CHidemaruExeExport::GetTotalText() {
 	HGLOBAL hGlobal = CHidemaruExeExport::Hidemaru_GetTotalTextUnicode();
@@ -148,4 +165,3 @@ CHidemaruExeExport::HmCursurPos CHidemaruExeExport::GetCursorPosFromMousePos() {
 BOOL CHidemaruExeExport::EvalMacro(wstring cmd) {
 	return Hidemaru_EvalMacro(cmd.data());
 }
-

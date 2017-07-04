@@ -117,7 +117,9 @@ public:
 	/// ラップ関数郡
 	//========================================================================
 public:
+	static HWND hCurWndHidemaru;
 
+	// 使用可能なのは、マクロ実行後
 	static HWND GetCurWndHidemaru();
 
 	static wstring GetFileFullPath();

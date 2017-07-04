@@ -54,9 +54,6 @@
     <ClCompile Include="convert_string.cpp">
       <Filter>文字列の相互変換 cp932⇔utf16⇔utf8</Filter>
     </ClCompile>
-    <ClCompile Include="hidemaruexe_expot.cpp">
-      <Filter>秀丸本体のexeの関数やバージョン</Filter>
-    </ClCompile>
     <ClCompile Include="dllmain.cpp">
       <Filter>このhmJavaVM.dll自身の情報</Filter>
     </ClCompile>
@@ -97,6 +94,9 @@
       <Filter>JavaVMの生成や破棄</Filter>
     </ClCompile>
     <ClCompile Include="hidemaruexe_handle.cpp">
+      <Filter>秀丸本体のexeの関数やバージョン</Filter>
+    </ClCompile>
+    <ClCompile Include="hidemaruexe_export.cpp">
       <Filter>秀丸本体のexeの関数やバージョン</Filter>
     </ClCompile>
   </ItemGroup>

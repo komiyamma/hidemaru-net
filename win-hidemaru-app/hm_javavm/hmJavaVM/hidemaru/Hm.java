@@ -21,6 +21,7 @@ public class Hm {
 
 	protected static native void DebugInfo(String message);
 	protected static native long GetWindowHandle();
+	protected static native void SetWindowHandle(long hWndHidemaru);
 
 	protected static native int EvalMacro(String message);
 
@@ -46,7 +47,8 @@ public class Hm {
 	}
 
 	public static long getWindowHandle() {
-		return GetWindowHandle();
+		long hWndHidemaru = Long.parseLong( Macro.getVar("hidemaruhandle(0)").toString() );
+		return hWndHidemaru;
 	}
 
 	public static void DebugInfo(Object text, Object... args) {
@@ -60,6 +62,9 @@ public class Hm {
 
 	public static class Edit {
 		public static File getFile() {
+			// 毎回更新して、JNIへと伝達しないとヤバイ
+			SetWindowHandle(getWindowHandle());
+
 			String path = GetFileFullPath();
 			if (path.length() > 0) {
 			    return new File(path);

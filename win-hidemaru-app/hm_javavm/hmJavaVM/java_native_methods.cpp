@@ -44,12 +44,19 @@ JNIEXPORT jint JNICALL Java_hidemaru_Hm_EvalMacro(JNIEnv *env, jobject obj, jstr
 	return false;
 }
 
+
+HWND gCurWndHicemaruHandle = NULL;
+
 // いわゆるhidemaruhandle(0)の値。SendMessageする時などに必要となる。
 JNIEXPORT jlong JNICALL Java_hidemaru_Hm_GetWindowHandle(JNIEnv *env, jobject obj) {
 
-	return (jlong)CHidemaruExeExport::GetCurWndHidemaru();
+	return (jlong)gCurWndHicemaruHandle;
 }
 
+// hidemaruhandle(0)の設定
+JNIEXPORT void JNICALL Java_hidemaru_Hm_SetWindowHandle(JNIEnv *env, jobject obj, jlong hwnd) {
+	gCurWndHicemaruHandle = (HWND)hwnd;
+}
 
 
 // 秀丸マクロのシンボルや変数の値の取得。

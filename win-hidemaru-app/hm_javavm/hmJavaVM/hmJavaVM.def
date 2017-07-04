@@ -2,6 +2,7 @@ LIBRARY
 EXPORTS
 	Java_hidemaru_Hm_GetVersion
 	Java_hidemaru_Hm_GetWindowHandle
+	Java_hidemaru_Hm_SetWindowHandle
 	Java_hidemaru_Hm_DebugInfo
 	Java_hidemaru_Hm_EvalMacro
 	Java_hidemaru_Hm_GetMacroVarObj
