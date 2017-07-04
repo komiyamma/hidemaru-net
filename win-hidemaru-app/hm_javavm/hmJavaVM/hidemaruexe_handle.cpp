@@ -52,8 +52,8 @@ void HidemaruWindowHandleSearcher::SlowSearchCurWndHidemaru(HWND hWnd)
 		if (pID1 == pID2) {
 
 			// 自分と親が両方ともHidemaru32Class(系)なら完全得てい
-			if ( hWnd && IsWndHidemaru32ClassType(hWnd) &&
-				 hWndParent && IsWndHidemaru32ClassType(hWndParent) ) {
+			if ( IsWndHidemaru32ClassType(hWnd) &&
+				 IsWndHidemaru32ClassType(hWndParent) ) {
 				hCurWndHidemaru = hWnd;
 			}
 		}
@@ -88,7 +88,7 @@ void HidemaruWindowHandleSearcher::FastSearchCurWndHidemaru(HWND hWnd)
 		if (pID1 == pID2) {
 
 			// 自分自身の親も指定のクラス名なら、完全に特定した。
-			if (hWndParent && IsWndHidemaru32ClassType(hWndParent))
+			if (IsWndHidemaru32ClassType(hWndParent))
 			{
 				hCurWndHidemaru = hWnd;
 			}
