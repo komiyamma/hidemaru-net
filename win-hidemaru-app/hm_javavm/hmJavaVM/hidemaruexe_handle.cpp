@@ -97,13 +97,14 @@ void HidemaruWindowHandleSearcher::FastSearchCurWndHidemaru(HWND hWnd)
 
 	// 子クラスをなめていく。子クラスはあくまでも「Hidemaru32Class系」。
 	// ストア版はちょっと違うのでインスタンス変数になっている。
-	HWND hWndChild = FindWindowEx(hWnd, NULL, m_strClassName.c_str(), NULL);
+	const wchar_t *pszClassName = m_strClassName.c_str();
+	HWND hWndChild = FindWindowEx(hWnd, NULL, pszClassName, NULL);
 	while (hWndChild != NULL)
 	{
 		FastSearchCurWndHidemaru(hWndChild);
 		if (hCurWndHidemaru) { break; }
 
-		hWndChild = FindWindowEx(hWnd, hWndChild, m_strClassName.c_str(), NULL);
+		hWndChild = FindWindowEx(hWnd, hWndChild, pszClassName, NULL);
 	}
 }
 
