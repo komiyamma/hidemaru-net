@@ -52,8 +52,7 @@ void HidemaruWindowHandleSearcher::SlowSearchCurWndHidemaru(HWND hWnd)
 		if (pID1 == pID2) {
 
 			// ©•ª‚Æe‚ª—¼•û‚Æ‚àHidemaru32Class(Œn)‚È‚çŠ®‘S“¾‚Ä‚¢
-			if ( IsWndHidemaru32ClassType(hWnd) &&
-				 IsWndHidemaru32ClassType(hWndParent) ) {
+			if ( IsWndHidemaru32ClassType(hWnd) && IsWndHidemaru32ClassType(hWndParent) ) {
 				hCurWndHidemaru = hWnd;
 			}
 		}
