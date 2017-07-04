@@ -5,8 +5,23 @@
 
 using namespace std;
 
+
+// 以下６つは、hidemaruhandle(0)へのSendMessageで値を得るパターン
+#define WM_HIDEMARUINFO (WM_USER + 181)
+#define HIDEMARUINFO_GETTABWIDTH 0
+#define HIDEMARUINFO_GETSTARTCOLUMN 1
+#define HIDEMARUINFO_GETSPACETAB 2
+#define HIDEMARUINFO_GETMANUALTAB 3
+#define HIDEMARUINFO_GETFILEFULLPATH 4
+
+// 以下は、外側の枠ではなく内側の「HM32CLIENT」のウィンドウに送る。
+// マクロ実行中かどうかを知るために、秀丸リーダー用にユーザーメッセージがあります。
+#define WM_ISMACROEXECUTING (WM_USER + 167)
+
+
 class CHidemaruExeExport {
 private:
+
 	static HMODULE hHideExeHandle;
 	static TCHAR szHidemaruFullPath[MAX_PATH];
 
@@ -89,6 +104,7 @@ public:
 		DOUBLE    = 0x0400   //doubleのパラメータ
 	};
 
+
 public:
 
 	//========================================================================
@@ -100,6 +116,11 @@ public:
 	//========================================================================
 	/// ラップ関数郡
 	//========================================================================
+public:
+
+	static HWND GetCurWndHidemaru();
+
+	static wstring GetFileFullPath();
 
 	//-------------------------------------------------------------------------
 	// Hidemaru_GetTotalTextUnicode関数のラップしたもの

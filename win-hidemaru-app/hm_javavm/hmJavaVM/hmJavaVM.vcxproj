@@ -175,6 +175,7 @@
     <ClCompile Include="dllfunc_interface_internal.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="hidemaruexe_expot.cpp" />
+    <ClCompile Include="hidemaruexe_handle.cpp" />
     <ClCompile Include="java_vm_engine.cpp" />
     <ClCompile Include="java_vm_engine_error.cpp" />
     <ClCompile Include="java_vm_engine_path.cpp" />
@@ -202,6 +203,7 @@
     <ClInclude Include="dllfunc_interface.h" />
     <ClInclude Include="dllfunc_interface_internal.h" />
     <ClInclude Include="hidemaruexe_export.h" />
+    <ClInclude Include="hidemaruexe_handle.h" />
     <ClInclude Include="java_native_methods.h" />
     <ClInclude Include="java_vm_engine.h" />
     <ClInclude Include="output_debugstream.h" />

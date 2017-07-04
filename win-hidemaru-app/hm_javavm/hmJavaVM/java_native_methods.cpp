@@ -28,7 +28,6 @@ JNIEXPORT jdouble JNICALL Java_hidemaru_Hm_GetVersion() {
 	return CHidemaruExeExport::hm_version;
 }
 
-
 // EvalMacro
 JNIEXPORT jint JNICALL Java_hidemaru_Hm_EvalMacro(JNIEnv *env, jobject obj, jstring value) {
 
@@ -44,6 +43,14 @@ JNIEXPORT jint JNICALL Java_hidemaru_Hm_EvalMacro(JNIEnv *env, jobject obj, jstr
 	OutputDebugStream(utf16_value);
 	return false;
 }
+
+// いわゆるhidemaruhandle(0)の値。SendMessageする時などに必要となる。
+JNIEXPORT jlong JNICALL Java_hidemaru_Hm_GetWindowHandle(JNIEnv *env, jobject obj) {
+
+	return (jlong)CHidemaruExeExport::GetCurWndHidemaru();
+}
+
+
 
 // 秀丸マクロのシンボルや変数の値の取得。
 JNIEXPORT jstring JNICALL Java_hidemaru_Hm_GetMacroVarObj(JNIEnv *env, jobject obj, jstring key_name) {
@@ -132,6 +139,14 @@ JNIEXPORT void JNICALL Java_hidemaru_Hm_DebugInfo(JNIEnv *env, jobject obj, jstr
 	wstring utf16_value = jstring_to_utf16(env, value);
 	OutputDebugStream(utf16_value);
 }
+
+
+// GetFileFullPath。
+JNIEXPORT jstring JNICALL Java_hidemaru_Hm_GetFileFullPath(JNIEnv *env, jobject obj) {
+
+	return utf16_to_jstring(env, CHidemaruExeExport::GetFileFullPath());
+}
+
 
 // GetTotalText。
 JNIEXPORT jstring JNICALL Java_hidemaru_Hm_GetTotalText(JNIEnv *env, jobject obj) {

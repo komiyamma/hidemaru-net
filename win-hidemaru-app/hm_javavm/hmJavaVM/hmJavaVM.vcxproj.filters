@@ -96,6 +96,9 @@
     <ClCompile Include="java_vm_engine_path.cpp">
       <Filter>JavaVMの生成や破棄</Filter>
     </ClCompile>
+    <ClCompile Include="hidemaruexe_handle.cpp">
+      <Filter>秀丸本体のexeの関数やバージョン</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="hmJavaVM.def">
@@ -162,6 +165,9 @@
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="hidemaruexe_handle.h">
+      <Filter>秀丸本体のexeの関数やバージョン</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -20,6 +20,7 @@ public class Hm {
 	protected static native double GetVersion();
 
 	protected static native void DebugInfo(String message);
+	protected static native long GetWindowHandle();
 
 	protected static native int EvalMacro(String message);
 
@@ -27,6 +28,7 @@ public class Hm {
 	protected static native int SetMacroVarNum(String name, long value);
 	protected static native int SetMacroVarStr(String name, String value);
 
+	protected static native String GetFileFullPath();
 	protected static native String GetTotalText();
 	protected static native int SetTotalText(String text);
 
@@ -43,6 +45,10 @@ public class Hm {
 		return GetVersion();
 	}
 
+	public static long getWindowHandle() {
+		return GetWindowHandle();
+	}
+
 	public static void DebugInfo(Object text, Object... args) {
 		String begin = text.toString();
 
@@ -53,6 +59,10 @@ public class Hm {
 	}
 
 	public static class Edit {
+		public static String getFileFullPath() {
+			return GetFileFullPath();
+		}
+
 		public static String getTotalText() {
 			return GetTotalText();
 		}

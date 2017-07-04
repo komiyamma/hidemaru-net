@@ -2,6 +2,8 @@
 #include <tchar.h>
 
 #include "hidemaruexe_export.h"
+#include "output_debugstream.h"
+#include "hidemaruexe_handle.h"
 
 #pragma comment(lib, "version.lib")
 
@@ -75,6 +77,18 @@ BOOL CHidemaruExeExport::init() {
 	return FALSE;
 }
 
+HWND CHidemaruExeExport::GetCurWndHidemaru() {
+	return ::GetCurWndHidemaru();
+}
+
+wstring CHidemaruExeExport::GetFileFullPath() {
+	HWND hWndHidemaru = GetCurWndHidemaru();
+	wchar_t szBufFileFullPath[MAX_PATH] = L"";
+
+	// 現在の秀丸ウィンドウのファイル名を得る。
+	LRESULT cwch = SendMessage(hWndHidemaru, WM_HIDEMARUINFO, HIDEMARUINFO_GETFILEFULLPATH, (LPARAM)szBufFileFullPath);
+	return szBufFileFullPath;
+}
 
 wstring CHidemaruExeExport::GetTotalText() {
 	HGLOBAL hGlobal = CHidemaruExeExport::Hidemaru_GetTotalTextUnicode();

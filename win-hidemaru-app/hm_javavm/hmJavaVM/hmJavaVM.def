@@ -1,11 +1,13 @@
 LIBRARY
 EXPORTS
 	Java_hidemaru_Hm_GetVersion
+	Java_hidemaru_Hm_GetWindowHandle
 	Java_hidemaru_Hm_DebugInfo
 	Java_hidemaru_Hm_EvalMacro
 	Java_hidemaru_Hm_GetMacroVarObj
 	Java_hidemaru_Hm_SetMacroVarNum
 	Java_hidemaru_Hm_SetMacroVarStr
+	Java_hidemaru_Hm_GetFileFullPath
 	Java_hidemaru_Hm_GetTotalText
 	Java_hidemaru_Hm_SetTotalText
 	Java_hidemaru_Hm_GetSelectedText
