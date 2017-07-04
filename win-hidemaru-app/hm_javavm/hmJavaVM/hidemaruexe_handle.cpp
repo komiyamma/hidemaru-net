@@ -40,19 +40,20 @@ void HidemaruWindowHandleSearcher::SlowSearchCurWndHidemaru(HWND hWnd)
 {
 	if (hCurWndHidemaru) { return; }
 
-	// 自分のプロセスIDと、サーチ対象のプロセスID
-	DWORD pID1 = GetCurrentProcessId();
-	DWORD pID2 = 0;
-	GetWindowThreadProcessId(hWnd, &pID2);
-	// 同じなら大きく候補だ
-	if (pID1 == pID2) {
+	HWND hWndParent = ::GetParent(hWnd);
 
-		if (hWnd && IsWndHidemaru32ClassType(hWnd)) {
-			HWND hWndParent = ::GetParent(hWnd);
+	// 親があることが条件
+	if (hWndParent) {
+		// 自分のプロセスIDと、サーチ対象のプロセスID
+		DWORD pID1 = GetCurrentProcessId();
+		DWORD pID2 = 0;
+		GetWindowThreadProcessId(hWnd, &pID2);
+		// 同じなら大きく候補だ
+		if (pID1 == pID2) {
 
-			// 自分自身の親も指定のクラス名なら、完全に特定した。
-			if (hWndParent && IsWndHidemaru32ClassType(hWndParent))
-			{
+			// 自分と親が両方ともHidemaru32Class(系)なら完全得てい
+			if ( hWnd && IsWndHidemaru32ClassType(hWnd) &&
+				 hWndParent && IsWndHidemaru32ClassType(hWndParent) ) {
 				hCurWndHidemaru = hWnd;
 			}
 		}
@@ -75,18 +76,22 @@ void HidemaruWindowHandleSearcher::FastSearchCurWndHidemaru(HWND hWnd)
 {
 	if (hCurWndHidemaru) { return; }
 
-	// 自分のプロセスIDと、サーチ対象のプロセスID
-	DWORD pID1 = GetCurrentProcessId();
-	DWORD pID2 = 0;
-	GetWindowThreadProcessId(hWnd, &pID2);
-	// 同じなら大きく候補だ
-	if (pID1 == pID2) {
+	HWND hWndParent = ::GetParent(hWnd);
 
-		HWND hWndParent = ::GetParent(hWnd);
-		// 自分自身の親も指定のクラス名なら、完全に特定した。
-		if (hWndParent && IsWndHidemaru32ClassType(hWndParent))
-		{
-			hCurWndHidemaru = hWnd;
+	// 親があることが条件
+	if (hWndParent) {
+		// 自分のプロセスIDと、サーチ対象のプロセスID
+		DWORD pID1 = GetCurrentProcessId();
+		DWORD pID2 = 0;
+		GetWindowThreadProcessId(hWnd, &pID2);
+		// 同じなら大きく候補だ
+		if (pID1 == pID2) {
+
+			// 自分自身の親も指定のクラス名なら、完全に特定した。
+			if (hWndParent && IsWndHidemaru32ClassType(hWndParent))
+			{
+				hCurWndHidemaru = hWnd;
+			}
 		}
 	}
 
