@@ -10,6 +10,47 @@
 #include "dllfunc_interface.h"
 #include "dllfunc_interface_internal.h"
 
+intptr_t GetMacroVarNum(wstring key_name) {
+
+	TestDynamicVar.Clear();
+
+	auto dll_invocant = CSelfDllInfo::GetInvocantString();
+
+	wstring utf16_key_name = key_name;
+
+	wstring cmd = L"##_tmp_dll_id_ret = dllfuncw( " + dll_invocant + L"\"SetDynamicVar\", " + utf16_key_name + L");\n"
+		L"##_tmp_dll_id_ret = 0;\n";
+	BOOL success = CHidemaruExeExport::EvalMacro(cmd);
+
+	if (TestDynamicVar.type == CDynamicValue::TDynamicType::TypeInteger) {
+		return TestDynamicVar.num;
+	}
+	else {
+		return 0;
+	}
+}
+
+wstring GetMacroVarStr(wstring key_name) {
+
+	TestDynamicVar.Clear();
+
+	auto dll_invocant = CSelfDllInfo::GetInvocantString();
+
+	wstring utf16_key_name = key_name;
+
+	wstring cmd = L"##_tmp_dll_id_ret = dllfuncw( " + dll_invocant + L"\"SetDynamicVar\", " + utf16_key_name + L");\n"
+		L"##_tmp_dll_id_ret = 0;\n";
+	BOOL success = CHidemaruExeExport::EvalMacro(cmd);
+
+	if (TestDynamicVar.type == CDynamicValue::TDynamicType::TypeString) {
+		return TestDynamicVar.wstr;
+	}
+	else {
+		return L"";
+	}
+}
+
+
 // jstring → utf16へ
 std::wstring jstring_to_utf16(JNIEnv *env, jstring& jtext) {
 	const char *utf8_text = env->GetStringUTFChars(jtext, 0);
@@ -45,18 +86,18 @@ JNIEXPORT jint JNICALL Java_hidemaru_Hm_EvalMacro(JNIEnv *env, jobject obj, jstr
 }
 
 
-HWND gCurWndHicemaruHandle = NULL;
 
 // いわゆるhidemaruhandle(0)の値。SendMessageする時などに必要となる。
 JNIEXPORT jlong JNICALL Java_hidemaru_Hm_GetWindowHandle(JNIEnv *env, jobject obj) {
-
-	return (jlong)gCurWndHicemaruHandle;
+	jlong hWndHidemaru = (jlong)GetMacroVarNum(L"hidemaruhandle(0)");
+	return (jlong)hWndHidemaru;
 }
 
 // hidemaruhandle(0)の設定
 JNIEXPORT void JNICALL Java_hidemaru_Hm_SetWindowHandle(JNIEnv *env, jobject obj, jlong hwnd) {
-	gCurWndHicemaruHandle = (HWND)hwnd;
+	// ★★
 }
+
 
 
 // 秀丸マクロのシンボルや変数の値の取得。

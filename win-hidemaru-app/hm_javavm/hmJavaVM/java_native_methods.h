@@ -3,4 +3,4 @@
 #include <jni.h>
 #include <windows.h>
 
-extern HWND gCurWndHicemaruHandle;
+extern intptr_t GetMacroVarNum(wstring key_name);

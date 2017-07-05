@@ -80,16 +80,16 @@ BOOL CHidemaruExeExport::init() {
 }
 
 HWND CHidemaruExeExport::GetCurWndHidemaru() {
-	return gCurWndHicemaruHandle;
-
+	hCurWndHidemaru = ::GetCurWndHidemaru(hCurWndHidemaru);
+	return hCurWndHidemaru;
 }
 
 wstring CHidemaruExeExport::GetFileFullPath() {
-	HWND hWndHidemaru = GetCurWndHidemaru();
+	HWND hWnd = CHidemaruExeExport::GetCurWndHidemaru();
 	wchar_t szBufFileFullPath[MAX_PATH] = L"";
 
 	// 現在の秀丸ウィンドウのファイル名を得る。
-	LRESULT cwch = SendMessage(hWndHidemaru, WM_HIDEMARUINFO, HIDEMARUINFO_GETFILEFULLPATH, (LPARAM)szBufFileFullPath);
+	LRESULT cwch = SendMessage(hWnd, WM_HIDEMARUINFO, HIDEMARUINFO_GETFILEFULLPATH, (LPARAM)szBufFileFullPath);
 	return szBufFileFullPath;
 }
 

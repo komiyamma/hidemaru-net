@@ -47,8 +47,7 @@ public class Hm {
 	}
 
 	public static long getWindowHandle() {
-		long hWndHidemaru = Long.parseLong( Macro.getVar("hidemaruhandle(0)").toString() );
-		return hWndHidemaru;
+		return GetWindowHandle();
 	}
 
 	public static void DebugInfo(Object text, Object... args) {
@@ -62,9 +61,6 @@ public class Hm {
 
 	public static class Edit {
 		public static File getFile() {
-			// 毎回更新して、JNIへと伝達しないとヤバイ
-			SetWindowHandle(getWindowHandle());
-
 			String path = GetFileFullPath();
 			if (path.length() > 0) {
 			    return new File(path);
