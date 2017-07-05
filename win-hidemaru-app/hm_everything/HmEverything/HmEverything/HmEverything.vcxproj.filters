@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ヘッダー ファイル">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="ネイティブライブラリ">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="ソースファイル">
+      <UniqueIdentifier>{ed7b3f35-f3e5-4d17-bad5-8843f034acb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NewFilter1">
+      <UniqueIdentifier>{55e301de-2cb1-42e1-938d-105eb3cf2209}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\Release\EverythingStaticLib_x86.lib">
+      <Filter>ネイティブライブラリ</Filter>
+    </Library>
+    <Library Include="..\x64\Release\EverythingStaticLib_x64.lib">
+      <Filter>ネイティブライブラリ</Filter>
+    </Library>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="EverythingStaticLib.cpp">
+      <Filter>ネイティブライブラリ</Filter>
+    </ClCompile>
+    <ClCompile Include="dllfunc_interface_internal.cpp">
+      <Filter>NewFilter1</Filter>
+    </ClCompile>
+    <ClCompile Include="hidemaruexe_export.cpp">
+      <Filter>NewFilter1</Filter>
+    </ClCompile>
+    <ClCompile Include="hidemaruexe_handle.cpp">
+      <Filter>NewFilter1</Filter>
+    </ClCompile>
+    <ClCompile Include="output_debugstream.cpp">
+      <Filter>NewFilter1</Filter>
+    </ClCompile>
+    <ClCompile Include="self_dll_info.cpp">
+      <Filter>NewFilter1</Filter>
+    </ClCompile>
+    <ClCompile Include="convert_string.cpp">
+      <Filter>NewFilter1</Filter>
+    </ClCompile>
+    <ClCompile Include="dllfunc_interface.cpp">
+      <Filter>NewFilter1</Filter>
+    </ClCompile>
+    <ClCompile Include="EverythingAPI.h">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="SharedMemory.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="dllfunc_interface.h">
+      <Filter>NewFilter1</Filter>
+    </ClInclude>
+    <ClInclude Include="dllfunc_interface_internal.h">
+      <Filter>NewFilter1</Filter>
+    </ClInclude>
+    <ClInclude Include="hidemaruexe_export.h">
+      <Filter>NewFilter1</Filter>
+    </ClInclude>
+    <ClInclude Include="hidemaruexe_handle.h">
+      <Filter>NewFilter1</Filter>
+    </ClInclude>
+    <ClInclude Include="output_debugstream.h">
+      <Filter>NewFilter1</Filter>
+    </ClInclude>
+    <ClInclude Include="self_dll_info.h">
+      <Filter>NewFilter1</Filter>
+    </ClInclude>
+    <ClInclude Include="EverythingSearchForm.h">
+      <Filter>ソースファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="CaptureReagion.h">
+      <Filter>ソースファイル</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="HmEverything.def">
+      <Filter>ネイティブライブラリ</Filter>
+    </None>
+  </ItemGroup>
+</Project>
