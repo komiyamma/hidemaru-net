@@ -4,11 +4,11 @@
 
 #if defined(_WIN64)
 
-#pragma comment(lib, "EverythingStaticLib_x64.lib")
+#pragma comment(lib, "EverythingStaticLib.lib")
 
 #else 
 
-#pragma comment(lib, "EverythingStaticLib_x86.lib")
+#pragma comment(lib, "EverythingStaticLib.lib")
 
 #endif
 

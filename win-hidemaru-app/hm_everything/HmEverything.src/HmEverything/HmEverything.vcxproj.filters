@@ -13,82 +13,91 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="ソースファイル">
-      <UniqueIdentifier>{ed7b3f35-f3e5-4d17-bad5-8843f034acb0}</UniqueIdentifier>
+    <Filter Include="秀丸デバッグモニター表示用">
+      <UniqueIdentifier>{9885afe1-051f-4082-8c1c-8e6963323063}</UniqueIdentifier>
     </Filter>
-    <Filter Include="NewFilter1">
+    <Filter Include="秀丸マクロとのAPI Interface">
+      <UniqueIdentifier>{72eff31b-e242-4b06-a93e-ffa9d423bf77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="秀丸本体のexeの関数やバージョン">
+      <UniqueIdentifier>{2afe5bf0-66d3-44cb-bf34-2319964af280}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="文字列の相互変換 cp932⇔utf16⇔utf8">
+      <UniqueIdentifier>{1e245d91-f5ef-4d51-bf3e-2eba883e5c64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="このhmEverything.dll自身の情報">
       <UniqueIdentifier>{55e301de-2cb1-42e1-938d-105eb3cf2209}</UniqueIdentifier>
     </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <Library Include="..\Release\EverythingStaticLib_x86.lib">
-      <Filter>ネイティブライブラリ</Filter>
-    </Library>
-    <Library Include="..\x64\Release\EverythingStaticLib_x64.lib">
-      <Filter>ネイティブライブラリ</Filter>
-    </Library>
+    <Filter Include="フォーム">
+      <UniqueIdentifier>{ed7b3f35-f3e5-4d17-bad5-8843f034acb0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EverythingStaticLib.cpp">
       <Filter>ネイティブライブラリ</Filter>
     </ClCompile>
-    <ClCompile Include="dllfunc_interface_internal.cpp">
-      <Filter>NewFilter1</Filter>
-    </ClCompile>
-    <ClCompile Include="hidemaruexe_export.cpp">
-      <Filter>NewFilter1</Filter>
-    </ClCompile>
-    <ClCompile Include="hidemaruexe_handle.cpp">
-      <Filter>NewFilter1</Filter>
+    <ClCompile Include="self_dll_info.cpp">
+      <Filter>このhmEverything.dll自身の情報</Filter>
     </ClCompile>
     <ClCompile Include="output_debugstream.cpp">
-      <Filter>NewFilter1</Filter>
-    </ClCompile>
-    <ClCompile Include="self_dll_info.cpp">
-      <Filter>NewFilter1</Filter>
-    </ClCompile>
-    <ClCompile Include="convert_string.cpp">
-      <Filter>NewFilter1</Filter>
+      <Filter>秀丸デバッグモニター表示用</Filter>
     </ClCompile>
     <ClCompile Include="dllfunc_interface.cpp">
-      <Filter>NewFilter1</Filter>
+      <Filter>秀丸マクロとのAPI Interface</Filter>
     </ClCompile>
-    <ClCompile Include="EverythingAPI.h">
-      <Filter>ソースファイル</Filter>
+    <ClCompile Include="dllfunc_interface_internal.cpp">
+      <Filter>秀丸マクロとのAPI Interface</Filter>
     </ClCompile>
-    <ClCompile Include="SharedMemory.cpp">
-      <Filter>ソースファイル</Filter>
+    <ClCompile Include="hidemaruexe_export.cpp">
+      <Filter>秀丸本体のexeの関数やバージョン</Filter>
+    </ClCompile>
+    <ClCompile Include="hidemaruexe_handle.cpp">
+      <Filter>秀丸本体のexeの関数やバージョン</Filter>
+    </ClCompile>
+    <ClCompile Include="convert_string.cpp">
+      <Filter>文字列の相互変換 cp932⇔utf16⇔utf8</Filter>
+    </ClCompile>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>このhmEverything.dll自身の情報</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="dllfunc_interface.h">
-      <Filter>NewFilter1</Filter>
-    </ClInclude>
-    <ClInclude Include="dllfunc_interface_internal.h">
-      <Filter>NewFilter1</Filter>
-    </ClInclude>
-    <ClInclude Include="hidemaruexe_export.h">
-      <Filter>NewFilter1</Filter>
-    </ClInclude>
-    <ClInclude Include="hidemaruexe_handle.h">
-      <Filter>NewFilter1</Filter>
-    </ClInclude>
-    <ClInclude Include="output_debugstream.h">
-      <Filter>NewFilter1</Filter>
-    </ClInclude>
     <ClInclude Include="self_dll_info.h">
-      <Filter>NewFilter1</Filter>
+      <Filter>このhmEverything.dll自身の情報</Filter>
     </ClInclude>
     <ClInclude Include="EverythingSearchForm.h">
-      <Filter>ソースファイル</Filter>
+      <Filter>フォーム</Filter>
     </ClInclude>
-    <ClInclude Include="CaptureReagion.h">
-      <Filter>ソースファイル</Filter>
+    <ClInclude Include="output_debugstream.h">
+      <Filter>秀丸デバッグモニター表示用</Filter>
+    </ClInclude>
+    <ClInclude Include="dllfunc_interface.h">
+      <Filter>秀丸マクロとのAPI Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="dllfunc_interface_internal.h">
+      <Filter>秀丸マクロとのAPI Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="hidemaruexe_export.h">
+      <Filter>秀丸本体のexeの関数やバージョン</Filter>
+    </ClInclude>
+    <ClInclude Include="hidemaruexe_handle.h">
+      <Filter>秀丸本体のexeの関数やバージョン</Filter>
+    </ClInclude>
+    <ClInclude Include="convert_string.h">
+      <Filter>文字列の相互変換 cp932⇔utf16⇔utf8</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="HmEverything.def">
       <Filter>ネイティブライブラリ</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="HmEverything.rc">
+      <Filter>リソース ファイル</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

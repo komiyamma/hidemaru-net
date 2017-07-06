@@ -1,18 +1,17 @@
 ﻿#include <stdio.h>
 #include <windows.h>
 #include <string>
+#include <msclr/marshal_cppstd.h>
 
 #include "Everything.h"
 
 #include "convert_string.h"
 #include "hidemaruexe_export.h"
 #include "self_dll_info.h"
-
 #include "dllfunc_interface.h"
 #include "dllfunc_interface_internal.h"
 #include "output_debugstream.h"
 
-#include <msclr/marshal_cppstd.h>
 
 #include "EverythingSearchForm.h"
 
@@ -33,13 +32,13 @@ MACRO_DLL HWND GetSharedWndHidemaru() {
 	}
 }
 
-MACRO_DLL intHM_t Show(HWND hWnd, int FilterMode) {
+MACRO_DLL intHM_t Show(HWND hWnd, int iOptionalFlags) {
 	hSharedHidemaruWndHandle = hWnd;
 
 	// DoStringされる度にdllのBindの在り方を確認更新する。
 	CSelfDllInfo::SetBindDllHandle();
 
-	EverythingSearchForm::form = gcnew EverythingSearchForm(hWnd, FilterMode);
+	EverythingSearchForm::form = gcnew EverythingSearchForm(hWnd, iOptionalFlags);
 
 	// フォームを表示。
 	EverythingSearchForm::form->ShowDialog();
