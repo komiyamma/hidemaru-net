@@ -27,6 +27,8 @@ namespace HmEverything {
 			this->OptionFlags = OptionFlags;
 			SetFormAttribute();
 			SetTextBoxAttribute();
+
+			TaskList->Clear();
 		}
 	private:
 		void form_OnShown(Object^ o, EventArgs^ e) {
@@ -223,6 +225,7 @@ namespace HmEverything {
 		// Everythingの非同期の結果取得のために必要らしい
 		const int MY_REPLY_ID = 0;
 
+		List<Task^>^ TaskList = gcnew List<Task^>();
 		virtual void WndProc(Message %m) override
 		{
 			WPARAM wP = (WPARAM)(m.WParam.ToPointer());
@@ -234,6 +237,16 @@ namespace HmEverything {
 			{
 				// 非同期で結果を秀丸へと反映するためのタスクを生成
 				Task^ task = Task::Factory->StartNew(gcnew Action(this, &EverythingSearchForm::TaskMethod));
+
+				// リストの中で終わってるタスクはクリア
+				for(int ix = TaskList->Count-1; ix>=0; ix--) {
+					if (TaskList[ix]->IsCompleted) {
+						TaskList->RemoveAt(ix);
+					}
+				}
+
+				// 改めてタスクに加える
+				TaskList->Add(task);
 			}
 
 			// マウスをこのウィンドウの外でクリックしたりした場合は、処理を全部とめてウィンドウを閉じるための処理。
@@ -259,7 +272,7 @@ namespace HmEverything {
 		}
 	public:
 		void Stop() {
-			Task::WaitAll();
+			Task::WaitAll(TaskList->ToArray());
 			delete mut;
 			this->Close();
 		}
