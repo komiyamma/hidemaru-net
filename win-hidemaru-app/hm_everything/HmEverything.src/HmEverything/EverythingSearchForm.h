@@ -40,7 +40,7 @@ namespace HmEverything {
 			this->StartPosition = FormStartPosition::Manual;
 			this->MaximizeBox = false;
 			this->Height = 80;
-			this->Width = 240;
+			this->Width = 320;
 			this->FormBorderStyle = ::FormBorderStyle::FixedSingle;
 			this->Text = gcnew String("Everything検索");
 			this->Shown += gcnew System::EventHandler(this, &HmEverything::EverythingSearchForm::form_OnShown);
@@ -79,6 +79,7 @@ namespace HmEverything {
 			tb = gcnew TextBox();
 			tb->Text = gcnew String("");
 			tb->Left = nPadding;
+			tb->Top = nPadding;
 			tb->Height = this->ClientSize.Height - nPadding * 2;
 			tb->Width = this->ClientSize.Width - nPadding * 2;
 			tb->Font = gcnew System::Drawing::Font(gcnew String(L"ＭＳ ゴシック"), 20);
