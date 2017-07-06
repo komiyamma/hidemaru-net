@@ -28,7 +28,7 @@ namespace HmEverything {
 			SetFormAttribute();
 			SetTextBoxAttribute();
 		}
-	public:
+	private:
 		void form_OnShown(Object^ o, EventArgs^ e) {
 		}
 	private:
