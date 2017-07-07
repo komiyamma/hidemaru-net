@@ -1,14 +1,17 @@
 #include <windows.h>
 #include <tchar.h>
 
-#include "HmExeExport.h"
+#include "hidemaruexe_export.h"
+#include "hidemaruexe_handle.h"
 
 #pragma comment(lib, "version.lib")
 
 
+HWND CHidemaruExeExport::hCurWndHidemaru = NULL;
 HMODULE CHidemaruExeExport::hHideExeHandle = NULL;
 TCHAR CHidemaruExeExport::szHidemaruFullPath[MAX_PATH] = L"";
 
+CHidemaruExeExport::PFNGetCurrentWindowHandle CHidemaruExeExport::Hidemaru_GetCurrentWindowHandle = NULL;
 CHidemaruExeExport::PFNGetTotalTextUnicode CHidemaruExeExport::Hidemaru_GetTotalTextUnicode = NULL;
 
 double CHidemaruExeExport::hm_version = 0;
@@ -58,10 +61,20 @@ CHidemaruExeExport::CHidemaruExeExport() {
 
 	if (hHideExeHandle) {
 		Hidemaru_GetTotalTextUnicode = (PFNGetTotalTextUnicode)GetProcAddress(hHideExeHandle, "Hidemaru_GetTotalTextUnicode");
+		Hidemaru_GetCurrentWindowHandle = (PFNGetCurrentWindowHandle)GetProcAddress(hHideExeHandle, "Hidemaru_GetCurrentWindowHandle");
 		return;
 	}
 }
 
+HWND CHidemaruExeExport::GetCurWndHidemaru() {
+	if (Hidemaru_GetCurrentWindowHandle) {
+		hCurWndHidemaru = Hidemaru_GetCurrentWindowHandle();
+	}
+	else {
+		hCurWndHidemaru = ::GetCurWndHidemaru(hCurWndHidemaru);
+	}
+	return hCurWndHidemaru;
+}
 
 wstring CHidemaruExeExport::GetTotalText() {
 	HGLOBAL hGlobal = CHidemaruExeExport::Hidemaru_GetTotalTextUnicode();

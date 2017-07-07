@@ -7,6 +7,7 @@
 
 #include "Mutex.h"
 #include "SharedExport.h"
+#include "hidemaruexe_export.h"
 
 using namespace std;
 
@@ -23,6 +24,10 @@ int lstOtputTimeGetTime = 0;					    // 一番最後に外部から内部に書き込まれた時刻
 DWORD curAutoUpdateTimeGetTime = ::timeGetTime();
 DWORD preAutoUpdateTimeGetTime = ::timeGetTime();
 #pragma data_seg()
+
+
+
+CHidemaruExeExport HMEXE;
 
 
 
@@ -100,6 +105,7 @@ DWORD preTimeGetTime = ::timeGetTime();
 
 extern void ShellErrorBalloon(tstring message);
 
+
 // 外部から秀丸ハンドルを設定する。
 bool isMustBreakLoop = 0;
 unsigned __stdcall OutputSharedMessage(void *) {
@@ -123,6 +129,10 @@ unsigned __stdcall OutputSharedMessage(void *) {
 		}
 		// 秀丸のアウトプット枠の速度を考慮すると、この程度は休憩を挟んでいてよい。
 		Sleep(30);
+
+		if (!IsWindow(hCurHidemaruWndHandle)) {
+			hCurHidemaruWndHandle = CHidemaruExeExport::GetCurWndHidemaru();
+		}
 
 		// 秀丸のウィンドウハンドルをマクロからもらっていない。何もしない
 		if (!hCurHidemaruWndHandle) {

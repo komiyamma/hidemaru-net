@@ -149,7 +149,8 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="HmExeExport.cpp" />
+    <ClCompile Include="hidemaruexe_handle.cpp" />
+    <ClCompile Include="hidemaruexe_export.cpp" />
     <ClCompile Include="HmMarkDownPreview.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -163,7 +164,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="HmExeExport.h" />
+    <ClInclude Include="hidemaruexe_handle.h" />
+    <ClInclude Include="hidemaruexe_export.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>

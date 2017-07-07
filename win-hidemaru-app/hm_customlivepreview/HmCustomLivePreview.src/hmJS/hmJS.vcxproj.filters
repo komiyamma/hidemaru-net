@@ -32,6 +32,9 @@
     <ClCompile Include="hmCustomLivePreviewForm.cpp">
       <Filter>メインフォーム</Filter>
     </ClCompile>
+    <ClCompile Include="hidemaruexe_handle.cpp">
+      <Filter>秀丸本体のexeの関数やバージョン</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="string_converter.h">
@@ -48,6 +51,9 @@
     </ClInclude>
     <ClInclude Include="hmCustomLivePreview.h">
       <Filter>hmJS</Filter>
+    </ClInclude>
+    <ClInclude Include="hidemaruexe_handle.h">
+      <Filter>秀丸本体のexeの関数やバージョン</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

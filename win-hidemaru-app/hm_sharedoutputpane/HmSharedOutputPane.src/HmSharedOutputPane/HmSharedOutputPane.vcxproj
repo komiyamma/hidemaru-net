@@ -155,17 +155,21 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="hidemaruexe_export.cpp" />
+    <ClCompile Include="hidemaruexe_handle.cpp" />
     <ClCompile Include="HmSharedOutputPane.cpp" />
     <ClCompile Include="Mutex.cpp" />
     <ClCompile Include="SharedExport.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="hidemaruexe_export.h" />
+    <ClInclude Include="hidemaruexe_handle.h" />
     <ClInclude Include="Mutex.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="SharedExport.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="hmSharedOutputPane.def" />
+    <None Include="HmSharedOutputPane.def" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

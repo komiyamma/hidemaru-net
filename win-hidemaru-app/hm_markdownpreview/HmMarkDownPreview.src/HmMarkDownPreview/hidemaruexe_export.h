@@ -31,6 +31,9 @@ protected:
 	using PFNGetTotalTextUnicode = HGLOBAL(WINAPI *)(void);
 	static PFNGetTotalTextUnicode Hidemaru_GetTotalTextUnicode;
 
+	using PFNGetCurrentWindowHandle = HWND(WINAPI *)(void);
+	static PFNGetCurrentWindowHandle Hidemaru_GetCurrentWindowHandle;
+
 public:
 
 
@@ -43,6 +46,10 @@ public:
 	//-------------------------------------------------------------------------
 	static wstring GetTotalText();
 
+private:
+	static HWND hCurWndHidemaru;
+public:
+	static HWND GetCurWndHidemaru();
 };
 
 

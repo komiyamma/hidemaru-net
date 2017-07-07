@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="秀丸本体からのexport">
+      <UniqueIdentifier>{9474fef7-656d-4a5a-805e-8e2c15fa697f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HmSharedOutputPane.cpp">
@@ -27,6 +30,12 @@
     <ClCompile Include="SharedExport.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="hidemaruexe_export.cpp">
+      <Filter>秀丸本体からのexport</Filter>
+    </ClCompile>
+    <ClCompile Include="hidemaruexe_handle.cpp">
+      <Filter>秀丸本体からのexport</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SharedExport.h">
@@ -38,15 +47,21 @@
     <ClInclude Include="resource.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="hmSharedOutputPane.def">
-      <Filter>ソース ファイル</Filter>
-    </None>
+    <ClInclude Include="hidemaruexe_export.h">
+      <Filter>秀丸本体からのexport</Filter>
+    </ClInclude>
+    <ClInclude Include="hidemaruexe_handle.h">
+      <Filter>秀丸本体からのexport</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc">
       <Filter>リソース ファイル</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="HmSharedOutputPane.def">
+      <Filter>ソース ファイル</Filter>
+    </None>
   </ItemGroup>
 </Project>

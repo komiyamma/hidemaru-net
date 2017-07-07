@@ -148,11 +148,13 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="HmExeExport.cpp" />
+    <ClCompile Include="hidemaruexe_export.cpp" />
+    <ClCompile Include="hidemaruexe_handle.cpp" />
     <ClCompile Include="HmHtmlPreview.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="HmExeExport.h" />
+    <ClInclude Include="hidemaruexe_export.h" />
+    <ClInclude Include="hidemaruexe_handle.h" />
     <ClInclude Include="HmHtmlBase.h" />
     <ClInclude Include="HmHtmlFile.h" />
     <ClInclude Include="HmHtmlLive.h" />

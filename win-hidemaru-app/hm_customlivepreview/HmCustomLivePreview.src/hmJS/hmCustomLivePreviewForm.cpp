@@ -1,5 +1,7 @@
 #include <windows.h>
 
+#include "hidemaruexe_export.h"
+
 #include "hmCustomLivePreview.h"
 #include "hmCustomLivePreviewStatlcLib.h"
 
@@ -55,7 +57,9 @@ public:
 
 		wchar_t szCurrentFileFullPath[MAX_PATH * 2] = L""; // 秀丸のSetHidemaruHandleが呼ばれた時に最初にスロットに入るファイル名。途中でファイル名が変わることがあるので、あくまでもなかった場合用途
 
-														   // 現在の秀丸ウィンドウのファイル名を得る。
+		if (!IsWindow(hWndHidemaru)) {
+			hWndHidemaru = CHidemaruExeExport::GetCurWndHidemaru();   // 現在の秀丸ウィンドウのファイル名を得る。
+		}
 		LRESULT cwch = SendMessage(hWndHidemaru, WM_HIDEMARUINFO, HIDEMARUINFO_GETFILEFULLPATH, (LPARAM)szCurrentFileFullPath);
 		if (cwch > 0) {
 			return gcnew String(szCurrentFileFullPath);

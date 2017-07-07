@@ -39,6 +39,8 @@ public:
 	//========================================================================
 	/// GŠÛ–{‘Ì‚©‚çExport‚³‚ê‚Ä‚¢‚é‚¢‚­‚Â‚©‚ÌŠÖ”ŒQ
 	//========================================================================
+	using PFNGetCurrentWindowHandle = HWND(WINAPI *)(void);
+	static PFNGetCurrentWindowHandle Hidemaru_GetCurrentWindowHandle;
 
 	using PFNCheckQueueStatus = BOOL (WINAPI *)(void);
 	static PFNCheckQueueStatus Hidemaru_CheckQueueStatus;

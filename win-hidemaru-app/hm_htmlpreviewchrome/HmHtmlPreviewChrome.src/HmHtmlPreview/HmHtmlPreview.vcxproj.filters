@@ -15,22 +15,28 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="HmExeExport.cpp">
+    <ClCompile Include="HmHtmlPreviewChrome.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="HmHtmlPreviewChrome.cpp">
+    <ClCompile Include="hidemaruexe_handle.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="hidemaruexe_export.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="HmExeExport.h">
-      <Filter>ソース ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="HmHtmlPreviewChrome.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="hidemaruexe_export.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="hidemaruexe_handle.h">
+      <Filter>ソース ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

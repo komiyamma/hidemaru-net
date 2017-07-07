@@ -13,7 +13,7 @@ HWND CHidemaruExeExport::hCurWndHidemaru = NULL;
 HMODULE CHidemaruExeExport::hHideExeHandle = NULL;
 TCHAR CHidemaruExeExport::szHidemaruFullPath[MAX_PATH] = L"";
 
-
+CHidemaruExeExport::PFNGetCurrentWindowHandle CHidemaruExeExport::Hidemaru_GetCurrentWindowHandle = NULL;
 CHidemaruExeExport::PFNCheckQueueStatus CHidemaruExeExport::Hidemaru_CheckQueueStatus = NULL;
 CHidemaruExeExport::PFNGetDllFuncCalledType CHidemaruExeExport::Hidemaru_GetDllFuncCalledType = NULL;
 CHidemaruExeExport::PFNGetTotalTextUnicode CHidemaruExeExport::Hidemaru_GetTotalTextUnicode = NULL;
@@ -84,7 +84,12 @@ BOOL CHidemaruExeExport::init() {
 }
 
 HWND CHidemaruExeExport::GetCurWndHidemaru() {
-	hCurWndHidemaru = ::GetCurWndHidemaru(hCurWndHidemaru);
+	if (Hidemaru_GetCurrentWindowHandle) {
+		hCurWndHidemaru = Hidemaru_GetCurrentWindowHandle();
+	}
+	else {
+		hCurWndHidemaru = ::GetCurWndHidemaru(hCurWndHidemaru);
+	}
 	return hCurWndHidemaru;
 }
 

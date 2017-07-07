@@ -12,6 +12,8 @@ HWND CHidemaruExeExport::hCurWndHidemaru = NULL;
 HMODULE CHidemaruExeExport::hHideExeHandle = NULL;
 TCHAR CHidemaruExeExport::szHidemaruFullPath[MAX_PATH] = L"";
 
+
+CHidemaruExeExport::PFNGetCurrentWindowHandle CHidemaruExeExport::Hidemaru_GetCurrentWindowHandle = NULL;
 CHidemaruExeExport::PFNGetDllFuncCalledType CHidemaruExeExport::Hidemaru_GetDllFuncCalledType = NULL;
 CHidemaruExeExport::PFNGetTotalTextUnicode CHidemaruExeExport::Hidemaru_GetTotalTextUnicode = NULL;
 CHidemaruExeExport::PFNGetSelectedTextUnicode CHidemaruExeExport::Hidemaru_GetSelectedTextUnicode = NULL;
@@ -66,6 +68,7 @@ BOOL CHidemaruExeExport::init() {
 	hHideExeHandle = LoadLibrary(szHidemaruFullPath);
 
 	if (hHideExeHandle) {
+		Hidemaru_GetCurrentWindowHandle = (PFNGetCurrentWindowHandle)GetProcAddress(hHideExeHandle, "Hidemaru_GetCurrentWindowHandle");
 		Hidemaru_GetDllFuncCalledType = (PFNGetDllFuncCalledType)GetProcAddress(hHideExeHandle, "Hidemaru_GetDllFuncCalledType");
 		Hidemaru_GetTotalTextUnicode = (PFNGetTotalTextUnicode)GetProcAddress(hHideExeHandle, "Hidemaru_GetTotalTextUnicode");
 		Hidemaru_GetSelectedTextUnicode = (PFNGetSelectedTextUnicode)GetProcAddress(hHideExeHandle, "Hidemaru_GetSelectedTextUnicode");
@@ -80,7 +83,11 @@ BOOL CHidemaruExeExport::init() {
 }
 
 HWND CHidemaruExeExport::GetCurWndHidemaru() {
-	hCurWndHidemaru = ::GetCurWndHidemaru(hCurWndHidemaru);
+	if (Hidemaru_GetCurrentWindowHandle) {
+		hCurWndHidemaru = Hidemaru_GetCurrentWindowHandle();
+	} else {
+		hCurWndHidemaru = ::GetCurWndHidemaru(hCurWndHidemaru);
+	}
 	return hCurWndHidemaru;
 }
 
