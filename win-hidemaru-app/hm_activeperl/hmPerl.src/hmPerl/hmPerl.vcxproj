@@ -242,9 +242,14 @@
     <ClCompile Include="hidemaruexe_expot.cpp" />
     <ClCompile Include="output_debugstream.cpp" />
     <ClCompile Include="perlez_engine.cpp" />
+    <ClCompile Include="perlez_engine_path.cpp" />
     <ClCompile Include="perlez_magical_scalar.cpp" />
     <ClCompile Include="dllfunc_interface.cpp" />
     <ClCompile Include="self_dll_info.cpp" />
+    <ClCompile Include="tinystr.cpp" />
+    <ClCompile Include="tinyxml.cpp" />
+    <ClCompile Include="tinyxmlerror.cpp" />
+    <ClCompile Include="tinyxmlparser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="convert_string.h" />
@@ -256,6 +261,8 @@
     <ClInclude Include="perlez_magical_scalar.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="self_dll_info.h" />
+    <ClInclude Include="tinystr.h" />
+    <ClInclude Include="tinyxml.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="hmPerl.rc" />

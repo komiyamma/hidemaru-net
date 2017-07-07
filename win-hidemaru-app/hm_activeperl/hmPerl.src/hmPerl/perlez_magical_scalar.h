@@ -3,6 +3,7 @@
 #include "perlez_engine.h"
 
 #define szMagicalVarDebugInfo		 "hm_debuginfo"
+#define szMagicalVarVersion			 "hm_version"
 #define szMagicalVarMacroVarSimbol   "hm_Macro_Var_Simbol"
 #define szMagicalVarMacroVarValue    "hm_Macro_Var_Value"
 #define szMagicalVarMacroEval		 "hm_Macro_Eval"
@@ -54,6 +55,7 @@ private:
 	struct Hm {
 
 		static BOOL debuginfo(wstring utf16_value);
+		static string version();
 
 		struct Edit {
 			struct Get {

@@ -21,7 +21,10 @@ LPCSTR CPerlEzMagicalScalar::GetHmComposedMagicScalarFunctions(LPVOID obj, LPCST
 
 	string utf8_SelfName = p_utf8_SelfName;
 
-	if (utf8_SelfName == szMagicalVarEditTotalText) {
+	if (utf8_SelfName == szMagicalVarVersion) {
+		utf8_getvarofreturn = Hm::version();
+	}
+	else if (utf8_SelfName == szMagicalVarEditTotalText) {
 		utf8_getvarofreturn = Hm::Edit::Get::TotalText();
 	}
 	else if (utf8_SelfName == szMagicalVarEditSelectedText) {
@@ -44,6 +47,10 @@ LPCSTR CPerlEzMagicalScalar::GetHmComposedMagicScalarFunctions(LPVOID obj, LPCST
 	return utf8_getvarofreturn.data();
 }
 
+string CPerlEzMagicalScalar::Hm::version() {
+	wstring utf16_Text = to_wstring(CHidemaruExeExport::hm_version);
+	return utf16_to_utf8(utf16_Text);
+}
 
 string CPerlEzMagicalScalar::Hm::Edit::Get::TotalText() {
 	wstring utf16_Text = CHidemaruExeExport::GetTotalText();
@@ -256,6 +263,7 @@ void CPerlEzMagicalScalar::BindMagicalScalarFunctions(CPerlEzEngine* module) {
 	// 上記関数を機能させるグローバル変数を登録していく。
 	auto list = {
 		szMagicalVarDebugInfo,
+		szMagicalVarVersion,
 		szMagicalVarEditTotalText,
 		szMagicalVarEditSelectedText,
 		szMagicalVarEditLineText,

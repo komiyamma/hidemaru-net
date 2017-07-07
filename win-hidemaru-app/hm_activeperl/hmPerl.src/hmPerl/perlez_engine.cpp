@@ -24,8 +24,22 @@ CPerlEzEngine::CPerlEzEngine() {
 	//-------------------------------------------------------------------------
 	// ActivePerlなんだからPathが通っているよね？ という前提の仕組みです >> PerlEz
 	//-------------------------------------------------------------------------
-	const TCHAR szLibName[] = _T("PerlEz.DLL");
-	hPerlEzDll = LoadLibrary(szLibName);
+	const TCHAR szLibName[MAX_PATH] = _T("PerlEz.DLL");
+
+	// XMLによる指定があるか？
+	wstring wstrPerlEzPath = GetPerlEzPath();
+	if (wstrPerlEzPath.length() > 0) {
+		hPerlEzDll = LoadLibrary( wstrPerlEzPath.c_str() );
+		if (!hPerlEzDll) {
+			MessageBox(NULL, L"指定のPerlEZ.dllを読み込むことが出来ません", L"エラー", NULL);
+		}
+	}
+	// 指定は無い
+	else {
+		hPerlEzDll = LoadLibrary(szLibName);
+
+	}
+
 	if (!hPerlEzDll) {
 		// ちょっと探してみる
 
@@ -43,6 +57,9 @@ CPerlEzEngine::CPerlEzEngine() {
 			if ( PathFileExists( full_path.c_str() ) ) {
 				// フルパス状態でロード
 				hPerlEzDll = LoadLibrary(full_path.c_str());
+				if (hPerlEzDll) {
+					break;
+				}
 			}
 		}
 	}
@@ -89,6 +106,8 @@ CPerlEzEngine::CPerlEzEngine() {
 		MessageBox(NULL, L"ActivePerl x86版を認識できません", L"ActivePerl x86版を認識できません", MB_ICONERROR);
 	}
 }
+
+
 
 
 CPerlEzEngine::~CPerlEzEngine() {
