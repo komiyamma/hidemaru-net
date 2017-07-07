@@ -154,6 +154,8 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="hidemaruexe_export.cpp" />
+    <ClCompile Include="hidemaruexe_handle.cpp" />
     <ClCompile Include="HmCursor.cpp" />
     <ClCompile Include="HmEditClient.cpp" />
     <ClCompile Include="HmStatusBarPreviewFormController.cpp" />
@@ -172,6 +174,8 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="hidemaruexe_export.h" />
+    <ClInclude Include="hidemaruexe_handle.h" />
     <ClInclude Include="HmCursor.h" />
     <ClInclude Include="HmEditClient.h" />
     <ClInclude Include="HmStatusBarPreviewFormController.h" />

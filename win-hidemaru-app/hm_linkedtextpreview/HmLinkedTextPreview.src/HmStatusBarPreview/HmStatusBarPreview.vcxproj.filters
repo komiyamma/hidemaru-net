@@ -27,6 +27,9 @@
     <Filter Include="カーソル">
       <UniqueIdentifier>{a5b1ff5b-3999-4fdf-a24c-ccea40fc97f8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="秀丸本体からのExport">
+      <UniqueIdentifier>{f0b7cb93-c7cc-4121-af2f-8a1edeca129d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="OutputDebugStream.cpp">
@@ -49,6 +52,12 @@
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="hidemaruexe_export.cpp">
+      <Filter>秀丸本体からのExport</Filter>
+    </ClCompile>
+    <ClCompile Include="hidemaruexe_handle.cpp">
+      <Filter>秀丸本体からのExport</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -76,6 +85,12 @@
       <Filter>カーソル</Filter>
     </ClInclude>
     <ClInclude Include="resource.h" />
+    <ClInclude Include="hidemaruexe_export.h">
+      <Filter>秀丸本体からのExport</Filter>
+    </ClInclude>
+    <ClInclude Include="hidemaruexe_handle.h">
+      <Filter>秀丸本体からのExport</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="HmLinkedTextPreview.rc">

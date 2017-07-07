@@ -9,10 +9,12 @@
 #include "HmEditClient.h"
 #include "HmCursor.h"
 #include "OutputDebugStream.h"
+#include "hidemaruexe_export.h"
 
 
 using namespace std;
 
+CHidemaruExeExport HMEXE;
 
 
 HWND hmWndHandle = NULL;
@@ -90,6 +92,11 @@ unsigned __stdcall ThreadCheckStatusBar(void *p)
 			Sleep(iThreadInterval);
 			continue;
 
+		}
+
+		// なぜかウィンドウそのものではなくなっている
+		if (!IsWindow(hCurrentForeHidemaruHandle)) {
+			hCurrentForeHidemaruHandle = CHidemaruExeExport::GetCurWndHidemaru();
 		}
 
 		// 秀丸のハンドルはフォアグラウンドではない。
