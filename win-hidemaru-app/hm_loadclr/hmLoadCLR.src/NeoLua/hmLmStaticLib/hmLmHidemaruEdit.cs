@@ -53,16 +53,17 @@ public partial class hmLmDynamicLib
                 int success = pGetCursorPosUnicode(ref lineno, ref column);
                 if (success > 0)
                 {
-                    LuaTable p = new LuaTable();
+                    var p = new LuaTable();
                     p["lineno"] = lineno;
                     p["column"] = column;
                     return p;
                 }
-
-                var t = new LuaTable();
-                t["column"] = -1;
-                t["lineno"] = -1;
-                return t;
+                else {
+                    var p = new LuaTable();
+                    p["column"] = -1;
+                    p["lineno"] = -1;
+                    return p;
+                }
             }
 
             // columnやlinenoはエディタ的な座標である。
