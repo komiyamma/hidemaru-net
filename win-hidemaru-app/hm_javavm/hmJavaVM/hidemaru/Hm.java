@@ -69,6 +69,10 @@ public class Hm {
 			}
 		}
 
+		public static long getWindowHandle() {
+			return GetWindowHandle();
+		}
+
 		public static String getTotalText() {
 			return GetTotalText();
 		}
