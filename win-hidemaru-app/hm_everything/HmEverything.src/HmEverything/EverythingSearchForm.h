@@ -182,6 +182,10 @@ namespace HmEverything {
 				}
 			}
 
+			if (data == L"") {
+				data += L"対象母数" + to_wstring(Everything_GetTotResults()) + L"\n";
+			}
+
 			// ここでロック。最大でも0.5秒まち。
 			if (mut->WaitOne(500)) {
 				// あほみたいだが秀丸が何かビジーになっていないかチェック。

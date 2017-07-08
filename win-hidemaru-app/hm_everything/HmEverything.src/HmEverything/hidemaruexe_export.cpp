@@ -69,6 +69,7 @@ BOOL CHidemaruExeExport::init() {
 	hHideExeHandle = LoadLibrary(szHidemaruFullPath);
 
 	if (hHideExeHandle) {
+		Hidemaru_GetCurrentWindowHandle = (PFNGetCurrentWindowHandle)GetProcAddress(hHideExeHandle, "Hidemaru_GetCurrentWindowHandle");
 		Hidemaru_CheckQueueStatus = (PFNCheckQueueStatus)GetProcAddress(hHideExeHandle, "Hidemaru_CheckQueueStatus");
 		Hidemaru_GetDllFuncCalledType = (PFNGetDllFuncCalledType)GetProcAddress(hHideExeHandle, "Hidemaru_GetDllFuncCalledType");
 		Hidemaru_GetTotalTextUnicode = (PFNGetTotalTextUnicode)GetProcAddress(hHideExeHandle, "Hidemaru_GetTotalTextUnicode");
