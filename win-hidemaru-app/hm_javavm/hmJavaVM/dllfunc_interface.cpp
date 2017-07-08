@@ -43,10 +43,6 @@ MACRO_DLL intHM_t CallMethod(const TCHAR *class_name, TCHAR *method_name) {
 	// DoStringされる度にdllのBindの在り方を確認更新する。
 	CSelfDllInfo::SetBindDllHandle();
 
-	//-------------------------------------------------------------------------
-	// ほとんどの場合、この「DoString」しか使われないハズなので、
-	// この関数だけチェックしておく。
-	//-------------------------------------------------------------------------
 	auto rtn_type = (CHidemaruExeExport::DLLFUNCRETURN)CHidemaruExeExport::Hidemaru_GetDllFuncCalledType(0); // 0は返り値の型
 	if (rtn_type == CHidemaruExeExport::DLLFUNCRETURN::CHAR_PTR || rtn_type == CHidemaruExeExport::DLLFUNCRETURN::WCHAR_PTR) {
 		MessageBox(NULL, L"返り値の型が異なります。\ndllfuncstrではなく、dllfuncw文を利用してください。", L"返り値の型が異なります", MB_ICONERROR);

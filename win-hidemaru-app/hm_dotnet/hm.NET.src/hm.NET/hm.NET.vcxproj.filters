@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ソース ファイル">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="ヘッダー ファイル">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="このhm.NET.dll自身の情報">
+      <UniqueIdentifier>{ab116c52-7bbc-4482-b0a7-3aec26b6444d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="秀丸デバッグモニター表示用">
+      <UniqueIdentifier>{5ea72a55-b125-45a9-8632-83907737efae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="秀丸マクロとのAPI Interface">
+      <UniqueIdentifier>{3394b2e9-d02b-4962-b943-86fd31c3113c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="秀丸本体のexeの関数やバージョン">
+      <UniqueIdentifier>{a4c8d3cf-4eb0-4adc-aa1f-12d8af537255}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="文字列の相互変換 cp932⇔utf16⇔utf8">
+      <UniqueIdentifier>{b07fc73c-9980-4aae-97ec-1601055234dd}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="output_debugstream.cpp">
+      <Filter>秀丸デバッグモニター表示用</Filter>
+    </ClCompile>
+    <ClCompile Include="dllfunc_interface.cpp">
+      <Filter>秀丸マクロとのAPI Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="dllfunc_interface_internal.cpp">
+      <Filter>秀丸マクロとのAPI Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="hidemaruexe_export.cpp">
+      <Filter>秀丸本体のexeの関数やバージョン</Filter>
+    </ClCompile>
+    <ClCompile Include="hidemaruexe_handle.cpp">
+      <Filter>秀丸本体のexeの関数やバージョン</Filter>
+    </ClCompile>
+    <ClCompile Include="convert_string.cpp">
+      <Filter>文字列の相互変換 cp932⇔utf16⇔utf8</Filter>
+    </ClCompile>
+    <ClCompile Include="self_dll_info.cpp">
+      <Filter>このhm.NET.dll自身の情報</Filter>
+    </ClCompile>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>このhm.NET.dll自身の情報</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="output_debugstream.h">
+      <Filter>秀丸デバッグモニター表示用</Filter>
+    </ClInclude>
+    <ClInclude Include="dllfunc_interface.h">
+      <Filter>秀丸マクロとのAPI Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="dllfunc_interface_internal.h">
+      <Filter>秀丸マクロとのAPI Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="hidemaruexe_export.h">
+      <Filter>秀丸本体のexeの関数やバージョン</Filter>
+    </ClInclude>
+    <ClInclude Include="hidemaruexe_handle.h">
+      <Filter>秀丸本体のexeの関数やバージョン</Filter>
+    </ClInclude>
+    <ClInclude Include="convert_string.h">
+      <Filter>文字列の相互変換 cp932⇔utf16⇔utf8</Filter>
+    </ClInclude>
+    <ClInclude Include="self_dll_info.h">
+      <Filter>このhm.NET.dll自身の情報</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
