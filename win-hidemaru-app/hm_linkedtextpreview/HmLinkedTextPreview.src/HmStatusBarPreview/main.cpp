@@ -94,10 +94,12 @@ unsigned __stdcall ThreadCheckStatusBar(void *p)
 
 		}
 
+		/*
 		// なぜかウィンドウそのものではなくなっている
 		if (!IsWindow(hCurrentForeHidemaruHandle)) {
 			hCurrentForeHidemaruHandle = CHidemaruExeExport::GetCurWndHidemaru();
 		}
+		*/
 
 		// 秀丸のハンドルはフォアグラウンドではない。
 		if (hmWndHandle != hCurrentForeHidemaruHandle ) {
