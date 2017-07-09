@@ -8,7 +8,6 @@ namespace HmRipGrep {
 
 	ref class RipGrepCommanLine {
 		System::Diagnostics::Process^ p;
-		Dictionary<String^, Boolean>^ hs;
 		String^ searcText = "";
 		String^ dirText = "";
 	public:
@@ -17,18 +16,9 @@ namespace HmRipGrep {
 			this->searcText = searcText;
 			this->dirText = dirText;
 
-			// まだ辞書が全くなりなら
-			if (prev == nullptr) {
-				hs = gcnew Dictionary<String^, Boolean>();
-				m_isContinueMode = false;
-				// 大丈夫そうなら書き込み
-				if (!CHidemaruExeExport::Hidemaru_CheckQueueStatus()) {
-					CHidemaruExeExport::SetTotalText(L"");
-				}
-			}
-			else {
-				hs = prev;
-				m_isContinueMode = true;
+			// 大丈夫そうなら書き込み
+			if (!CHidemaruExeExport::Hidemaru_CheckQueueStatus()) {
+				CHidemaruExeExport::SetTotalText(L"");
 			}
 		}
 	public:
@@ -51,27 +41,17 @@ namespace HmRipGrep {
 			return isStop;
 		}
 
-		bool m_isContinueMode = false;
-
 	public:
-		Dictionary<String^, Boolean>^ Grep()
+		void Grep()
 		{
 			try {
 				//Processオブジェクトを作成する
 				p = gcnew System::Diagnostics::Process();
 				//起動するファイルを指定する
-				p->StartInfo->FileName = gcnew String(CSelfDllInfo::GetSelfModuleDir().c_str()) + L"\\rg.exe";
+				p->StartInfo->FileName = gcnew String(CSelfDllInfo::GetSelfModuleDir().c_str()) + L"\\IronRg.exe";
 
 				List<String^>^ list = gcnew List<String^>();
-				if (m_isContinueMode) {
-					list->Add("-E");
-					list->Add("sjis");
-				}
-				list->Add("--no-ignore");
-				list->Add("-n");
-				list->Add("-e");
 				list->Add(Regex::Escape(this->searcText));
-				list->Add("-S");
 				list->Add(this->dirText);
 
 				String^ arg_line = EncodeCommandLineValues(list);
@@ -114,8 +94,6 @@ namespace HmRipGrep {
 			catch (Exception^ e) {
 				System::Diagnostics::Trace::WriteLine(e->Message);
 			}
-
-			return hs;
 		}
 
 	private:
@@ -179,33 +157,12 @@ namespace HmRipGrep {
 				return;
 			}
 
-			nRecieveCounter++;
-
 			try {
-
-				String^ s = r->Match(data)->Value;
-				if (s != nullptr) {
-					bool is_must_add = false;
-					if (m_isContinueMode) {
-						// 今度は、まだ登録されていない時だけ、SJIS版を吐き出す
-						if (!hs->ContainsKey(s)) {
-							is_must_add = true;
-						}
-					}
-					else {
-						hs[s] = true;
-						is_must_add = true;
-					}
-
-					if (is_must_add) {
-						alldata += data + L"\n";
-					}
-
-				}
+				alldata += data + L"\n";
 
 				DWORD currentTime = timeGetTime();
 
-				if (currentTime - startTime > nInterValMilliSecond || nRecieveCounter % 500 == 0) {
+				if (currentTime - startTime > nInterValMilliSecond) {
 					startTime = currentTime;
 					wstring data = String_to_wstring(alldata);
 					alldata = "";
@@ -231,9 +188,7 @@ namespace HmRipGrep {
 				alldata = "";
 
 				AddTotalText(data);
-				if (m_isContinueMode) {
-					AddTotalText(L"検索終了");
-				}
+				AddTotalText(L"検索終了");
 			}
 			catch (Exception^ e) {
 				System::Diagnostics::Trace::WriteLine(e->Message);
