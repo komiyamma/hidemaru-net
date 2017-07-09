@@ -12,7 +12,10 @@ namespace HmRipGrep {
 		static void Clear() {
 			if (hs != nullptr) {
 				hs->Clear();
-				CHidemaruExeExport::SetTotalText(L"");
+				// 大丈夫そうなら書き込み
+				if (!CHidemaruExeExport::Hidemaru_CheckQueueStatus()) {
+					CHidemaruExeExport::SetTotalText(L"");
+				}
 			}
 		}
 		static bool isStop = false;
@@ -26,6 +29,8 @@ namespace HmRipGrep {
 		}
 
 		static bool m_is_add = false;
+		static Mutex^ mut = gcnew Mutex();
+
 		static void Grep(String^ searcText, bool is_add)
 		{
 			try {
@@ -48,6 +53,7 @@ namespace HmRipGrep {
 					list->Add("-E");
 					list->Add("utf8");
 				}
+				list->Add("--no-ignore");
 				list->Add("-n");
 				list->Add("-e");
 				list->Add(Regex::Escape(searcText));
@@ -94,16 +100,16 @@ namespace HmRipGrep {
 		static DWORD startTime = 0;
 		static Dictionary<String^, Boolean>^ hs = gcnew Dictionary<String^, Boolean>();
 		static Regex^ r = gcnew Regex(R"MATCH(^[\s\S]+?:\d+:)MATCH");
-		static const int nInterValMilliSecond = 700;
+		static const int nInterValMilliSecond = 1000;
 
 		static void AddTotalText(wstring data) {
 			if (isStop) {
 				return;
 			}
-			if (CHidemaruExeExport::Hidemaru_CheckQueueStatus()) {
-				Threading::Thread::Sleep(50);
-				if (CHidemaruExeExport::Hidemaru_CheckQueueStatus()) {
-					Threading::Thread::Sleep(50);
+
+			try {
+				if (mut->WaitOne(500)) {
+
 					if (CHidemaruExeExport::Hidemaru_CheckQueueStatus()) {
 						Threading::Thread::Sleep(50);
 						if (CHidemaruExeExport::Hidemaru_CheckQueueStatus()) {
@@ -112,16 +118,29 @@ namespace HmRipGrep {
 								Threading::Thread::Sleep(50);
 								if (CHidemaruExeExport::Hidemaru_CheckQueueStatus()) {
 									Threading::Thread::Sleep(50);
+									if (CHidemaruExeExport::Hidemaru_CheckQueueStatus()) {
+										Threading::Thread::Sleep(50);
+										if (CHidemaruExeExport::Hidemaru_CheckQueueStatus()) {
+											Threading::Thread::Sleep(50);
+										}
+									}
 								}
 							}
 						}
 					}
-				}
-			}
 
-			// 大丈夫そうなら書き込み
-			if (!CHidemaruExeExport::Hidemaru_CheckQueueStatus()) {
-				CHidemaruExeExport::AddTotalText(data);
+					// 大丈夫そうなら書き込み
+					if (!CHidemaruExeExport::Hidemaru_CheckQueueStatus()) {
+						CHidemaruExeExport::AddTotalText(data);
+					}
+
+					// ロック解放
+					mut->ReleaseMutex();
+				}
+
+			}
+			catch (Exception ^e) {
+				System::Diagnostics::Trace::WriteLine(e->Message);
 			}
 
 		}
@@ -149,7 +168,6 @@ namespace HmRipGrep {
 					}
 					else {
 						hs[s] = true;
-						System::Diagnostics::Trace::WriteLine(s);
 						is_must_add = true;
 					}
 

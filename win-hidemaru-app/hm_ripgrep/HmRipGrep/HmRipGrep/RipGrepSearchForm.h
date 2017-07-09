@@ -86,9 +86,6 @@ namespace HmRipGrep {
 			tb->Width = this->ClientSize.Width - nPadding * 2;
 			tb->Font = gcnew System::Drawing::Font(gcnew String(L"ＭＳ ゴシック"), 20);
 
-			// テキストボックス上で、「フォームに対して特殊なことをしてしまう」キー自体を、別に割り振るため
-			tb->PreviewKeyDown += gcnew System::Windows::Forms::PreviewKeyDownEventHandler(this, &RipGrepSearchForm::tb_PreviewKeyDown);
-
 			// テキストボックスの中身が変わった時
 			tb->TextChanged += gcnew EventHandler(this, &RipGrepSearchForm::tb_TextChanged);
 
@@ -139,24 +136,17 @@ namespace HmRipGrep {
 
 			// 改めてタスクに加える
 			TaskList->Add(task);
+
+			btnOK->Enabled = false;
+			tb->Enabled = false;
 		}
 
 		void btnCancel_Click(Object^ sender, EventArgs^ e) {
-
-			Stop();
+			btnOK->Enabled = true;
+			tb->Enabled = true;
+			Close();
 		}
 
-		void tb_PreviewKeyDown(Object^ sender, PreviewKeyDownEventArgs^ e) {
-
-			// タブを押したらウィンドウを閉じる
-			switch (e->KeyCode) {
-				case Keys::Tab: {
-					e->IsInputKey = true;
-					Stop();
-					break;
-				}
-			}
-		}
 
 		// このウィンドウを表示した後、一度でもEverythingへとクエリーしたことがあるか
 		// マウスを外でクリックとかした際に、閉じていいかどうかの基準に利用する
@@ -207,45 +197,39 @@ namespace HmRipGrep {
 				RipGrepCommanLine::Grep(tbText, true);
 				// ロック解放
 				mut->ReleaseMutex();
+
+				Action^ delegateButtonEnable = gcnew Action(this, &RipGrepSearchForm::ButtonEnable);
+				Action^ delegateTextBoxEnable = gcnew Action(this, &RipGrepSearchForm::TextBoxEnable);
+
+				btnOK->Invoke(delegateButtonEnable);
+				tb->Invoke(delegateTextBoxEnable);
 			}
 		}
 
-	protected:
-		// Everythingの非同期の結果取得のために必要らしい
-		const int MY_REPLY_ID = 0;
-
-		virtual void WndProc(Message %m) override
-		{
-			WPARAM wP = (WPARAM)(m.WParam.ToPointer());
-			LPARAM lP = (LPARAM)(m.LParam.ToPointer());
-
-
-			// マウスをこのウィンドウの外でクリックしたりした場合は、処理を全部とめてウィンドウを閉じるための処理。
-			if (m.Msg == WM_NCACTIVATE) {
-				// 結果が出たことがある
-				if (isHaveQueriedFlag) {
-					// マウスがウィンドウの外である
-					int x = Cursor->Position.X;
-					int y = Cursor->Position.Y;
-
-					if (x < this->Location.X || this->Location.X + this->Width < x) {
-						Stop();
-					}
-
-					if (y < this->Location.Y || this->Location.Y + this->Height < y) {
-						Stop();
-					}
-				}
-			}
-
-			System::Windows::Forms::Form::WndProc(m);
+		void ButtonEnable() {
+			btnOK->Enabled = true;
 
 		}
+		void TextBoxEnable() {
+			tb->Enabled = true;
+		}
+
 	public:
+		void Cancel() {
+			try {
+				RipGrepCommanLine::Stop();
+				Task::WaitAll(TaskList->ToArray());
+				if (mut != nullptr) {
+					delete mut;
+				}
+				
+			}
+			catch (Exception ^e) {
+				System::Diagnostics::Trace::WriteLine(e->Message);
+			}
+		}
 		void Stop() {
-			RipGrepCommanLine::Stop();
-			Task::WaitAll(TaskList->ToArray());
-			delete mut;
+			Cancel();
 			this->Close();
 		}
 
