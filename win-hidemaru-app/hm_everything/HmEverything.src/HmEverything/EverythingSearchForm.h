@@ -116,6 +116,11 @@ namespace HmEverything {
 					Stop();
 					break;
 				}
+				case Keys::Escape: {
+					e->IsInputKey = true;
+					Stop();
+					break;
+				}
 			}
 		}
 
