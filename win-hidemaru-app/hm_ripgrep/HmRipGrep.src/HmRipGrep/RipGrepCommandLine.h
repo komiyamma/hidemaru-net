@@ -205,7 +205,7 @@ namespace HmRipGrep {
 
 				DWORD currentTime = timeGetTime();
 
-				if (currentTime - startTime > nInterValMilliSecond || nRecieveCounter % 1000 == 0) {
+				if (currentTime - startTime > nInterValMilliSecond || nRecieveCounter % 500 == 0) {
 					startTime = currentTime;
 					wstring data = String_to_wstring(alldata);
 					alldata = "";
