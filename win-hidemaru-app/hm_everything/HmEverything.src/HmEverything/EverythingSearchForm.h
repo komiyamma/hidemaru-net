@@ -39,6 +39,7 @@ namespace HmEverything {
 
 			this->TopMost = true;
 			this->Capture = true;
+			this->KeyPreview = true;
 			this->StartPosition = FormStartPosition::Manual;
 			this->MaximizeBox = false;
 			this->Height = 80;
@@ -46,6 +47,8 @@ namespace HmEverything {
 			this->FormBorderStyle = ::FormBorderStyle::FixedSingle;
 			this->Text = gcnew String("Everything検索");
 			this->Shown += gcnew System::EventHandler(this, &HmEverything::EverythingSearchForm::form_OnShown);
+
+			this->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &HmEverything::EverythingSearchForm::form_KeyPress);
 
 			SetFormPositionFromOwnerHidemaruWindow();
 		}
@@ -93,6 +96,16 @@ namespace HmEverything {
 			tb->TextChanged += gcnew EventHandler(this, &EverythingSearchForm::tb_TextChanged);
 
 			this->Controls->Add(tb);
+		}
+
+		void form_KeyPress(Object^ sender, KeyPressEventArgs^ e) {
+			// タブを押したらウィンドウを閉じる
+			switch (e->KeyChar) {
+			case (Char)Keys::Escape: {
+				Stop();
+				break;
+			}
+			}
 		}
 
 		void tb_PreviewKeyDown(Object^ sender, PreviewKeyDownEventArgs^ e) {
