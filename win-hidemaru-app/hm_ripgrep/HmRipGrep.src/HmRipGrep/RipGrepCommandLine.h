@@ -168,6 +168,7 @@ namespace HmRipGrep {
 
 		}
 
+		int nRecieveCounter = 0;
 		void proc_OutputDataReceived(Object^ sender, System::Diagnostics::DataReceivedEventArgs^ e)
 		{
 			if (isStop) {
@@ -177,6 +178,8 @@ namespace HmRipGrep {
 			if (data == nullptr) {
 				return;
 			}
+
+			nRecieveCounter++;
 
 			try {
 
@@ -202,7 +205,7 @@ namespace HmRipGrep {
 
 				DWORD currentTime = timeGetTime();
 
-				if (currentTime - startTime > nInterValMilliSecond) {
+				if (currentTime - startTime > nInterValMilliSecond || nRecieveCounter % 1000 == 0) {
 					startTime = currentTime;
 					wstring data = String_to_wstring(alldata);
 					alldata = "";
