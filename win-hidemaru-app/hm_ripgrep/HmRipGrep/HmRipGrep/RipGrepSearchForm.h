@@ -23,14 +23,16 @@ namespace HmRipGrep {
 	private:
 		Button^ btnOK;
 		Button^ btnCancel;
-		TextBox^ tb;
+		TextBox^ tbSearchWord;
+		TextBox^ tbTargetDir;
 		HWND hWndOwner;
 	public:
 		RipGrepSearchForm(HWND hWndOwner, int OptionFlags) {
 			this->hWndOwner = hWndOwner;
 			this->OptionFlags = OptionFlags;
 			SetFormAttribute();
-			SetTextBoxAttribute();
+			SetTextBoxSearchWordAttribute();
+			SetTextBoxTargetDirAttribute();
 			SetButtonAttribute();
 			TaskList->Clear();
 		}
@@ -75,24 +77,45 @@ namespace HmRipGrep {
 		}
 
 		// テキストボックスの属性
-		void SetTextBoxAttribute() {
+		void SetTextBoxSearchWordAttribute() {
 			// フォームとの隙間
 			const int nPadding = 6;
-			tb = gcnew TextBox();
-			tb->Text = gcnew String("");
-			tb->Left = nPadding;
-			tb->Top = nPadding;
-			tb->Height = this->ClientSize.Height - nPadding * 2;
-			tb->Width = this->ClientSize.Width - nPadding * 2;
-			tb->Font = gcnew System::Drawing::Font(gcnew String(L"ＭＳ ゴシック"), 20);
+			tbSearchWord = gcnew TextBox();
+			tbSearchWord->Text = gcnew String("");
+			tbSearchWord->Left = nPadding;
+			tbSearchWord->Top = nPadding;
+			tbSearchWord->Height = this->ClientSize.Height - nPadding * 2;
+			tbSearchWord->Width = this->ClientSize.Width - nPadding * 2;
+			tbSearchWord->Font = gcnew System::Drawing::Font(gcnew String(L"ＭＳ ゴシック"), 20);
 
 			// テキストボックスの中身が変わった時
-			tb->TextChanged += gcnew EventHandler(this, &RipGrepSearchForm::tb_TextChanged);
+			tbSearchWord->TextChanged += gcnew EventHandler(this, &RipGrepSearchForm::tbSearchWord_TextChanged);
 
-			tb->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &RipGrepSearchForm::tb_KeyDown);
+			tbSearchWord->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &RipGrepSearchForm::tbSearchWord_KeyDown);
 
-			this->Controls->Add(tb);
+			this->Controls->Add(tbSearchWord);
 		}
+
+		// テキストボックスの属性
+		void SetTextBoxTargetDirAttribute() {
+			// フォームとの隙間
+			const int nPadding = 6;
+			tbTargetDir = gcnew TextBox();
+			tbTargetDir->Text = gcnew String("");
+			tbTargetDir->Left = nPadding;
+			tbTargetDir->Top = tbSearchWord->Bottom + nPadding;
+			tbTargetDir->Height = this->ClientSize.Height - nPadding * 2;
+			tbTargetDir->Width = this->ClientSize.Width - nPadding * 2;
+			tbTargetDir->Font = gcnew System::Drawing::Font(gcnew String(L"ＭＳ ゴシック"), 20);
+
+			// テキストボックスの中身が変わった時
+			tbTargetDir->TextChanged += gcnew EventHandler(this, &RipGrepSearchForm::tbTargetDir_TextChanged);
+
+			tbTargetDir->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &RipGrepSearchForm::tbTargetDir_KeyDown);
+
+			this->Controls->Add(tbTargetDir);
+		}
+
 
 		void SetButtonAttribute() {
 			btnOK = gcnew Button();
@@ -119,12 +142,13 @@ namespace HmRipGrep {
 		List<Task^>^ TaskList = gcnew List<Task^>();
 		void btnOK_Click(Object^ sender, EventArgs^ e) {
 
-			if (tb->Text->Length == 0) {
+			if (tbSearchWord->Text->Length == 0) {
 				return;
 			}
 
 			// 非同期で結果を秀丸へと反映するためのタスクを生成
-			tbText = tb->Text;
+			tbSearchWordText = tbSearchWord->Text;
+			tbTargetDirText = tbTargetDir->Text;
 			Task^ task = Task::Factory->StartNew(gcnew Action(this, &RipGrepSearchForm::TaskMethod));
 
 			// リストの中で終わってるタスクはクリア
@@ -138,12 +162,12 @@ namespace HmRipGrep {
 			TaskList->Add(task);
 
 			btnOK->Enabled = false;
-			tb->Enabled = false;
+			tbSearchWord->Enabled = false;
 		}
 
 		void btnCancel_Click(Object^ sender, EventArgs^ e) {
 			btnOK->Enabled = true;
-			tb->Enabled = true;
+			tbSearchWord->Enabled = true;
 			Close();
 		}
 
@@ -152,9 +176,19 @@ namespace HmRipGrep {
 		// マウスを外でクリックとかした際に、閉じていいかどうかの基準に利用する
 		bool isHaveQueriedFlag = false; 
 
-		void tb_KeyDown(Object^ sender, KeyEventArgs^ e) {
+		void tbSearchWord_KeyDown(Object^ sender, KeyEventArgs^ e) {
 			if (e->KeyCode == System::Windows::Forms::Keys::Return) {
-				if (tb->Text->Length == 0) {
+				if (tbSearchWord->Text->Length == 0) {
+					btnCancel_Click(sender, e);
+				}
+				else {
+					btnOK_Click(sender, e);
+				}
+			}
+		}
+		void tbTargetDir_KeyDown(Object^ sender, KeyEventArgs^ e) {
+			if (e->KeyCode == System::Windows::Forms::Keys::Return) {
+				if (tbTargetDir->Text->Length == 0) {
 					btnCancel_Click(sender, e);
 				}
 				else {
@@ -163,8 +197,11 @@ namespace HmRipGrep {
 			}
 		}
 
-		void tb_TextChanged(Object^ sender, EventArgs^ e) {
-			tbText = tb->Text;
+		void tbSearchWord_TextChanged(Object^ sender, EventArgs^ e) {
+			tbSearchWordText = tbSearchWord->Text;
+		}
+		void tbTargetDir_TextChanged(Object^ sender, EventArgs^ e) {
+			tbTargetDirText = tbSearchWord->Text;
 		}
 
 	private:
@@ -179,7 +216,8 @@ namespace HmRipGrep {
 	private:
 		Mutex^ mut = gcnew Mutex();
 
-		String^ tbText = L"";
+		String^ tbSearchWordText = L"";
+		String^ tbTargetDirText = L"";
 		void TaskMethod() {
 
 			wstring data = L"";
@@ -193,8 +231,8 @@ namespace HmRipGrep {
 			// ここでロック。最大でも0.5秒まち。
 			if (mut->WaitOne(500)) {
 				RipGrepCommanLine::Clear();
-				RipGrepCommanLine::Grep(tbText, false);
-				RipGrepCommanLine::Grep(tbText, true);
+				RipGrepCommanLine::Grep(tbSearchWordText, tbTargetDirText, false);
+				RipGrepCommanLine::Grep(tbSearchWordText, tbTargetDirText, true);
 				// ロック解放
 				mut->ReleaseMutex();
 
@@ -202,7 +240,7 @@ namespace HmRipGrep {
 				Action^ delegateTextBoxEnable = gcnew Action(this, &RipGrepSearchForm::TextBoxEnable);
 
 				btnOK->Invoke(delegateButtonEnable);
-				tb->Invoke(delegateTextBoxEnable);
+				tbSearchWord->Invoke(delegateTextBoxEnable);
 			}
 		}
 
@@ -211,7 +249,7 @@ namespace HmRipGrep {
 
 		}
 		void TextBoxEnable() {
-			tb->Enabled = true;
+			tbSearchWord->Enabled = true;
 		}
 
 	public:

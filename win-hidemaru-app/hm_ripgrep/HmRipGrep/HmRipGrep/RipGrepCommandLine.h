@@ -21,17 +21,22 @@ namespace HmRipGrep {
 		static bool isStop = false;
 		static void Stop() {
 			if (p) {
-				isStop = true;
-				p->Close();
+				try {
+					isStop = true;
+					p->Close();
+					p->Kill();
+					delete p;
+				}
+				catch (Exception ^e) {
 
-				delete p;
+				}
 			}
 		}
 
 		static bool m_is_add = false;
 		static Mutex^ mut = gcnew Mutex();
 
-		static void Grep(String^ searcText, bool is_add)
+		static void Grep(String^ searcText, String^ dirText, bool is_add)
 		{
 			try {
 				m_is_add = is_add;
@@ -58,7 +63,7 @@ namespace HmRipGrep {
 				list->Add("-e");
 				list->Add(Regex::Escape(searcText));
 				list->Add("-S");
-				list->Add(R"(C:\usr\web)");
+				list->Add(dirText);
 
 				String^ arg_line = EncodeCommandLineValues(list);
 				p->StartInfo->Arguments = arg_line;
@@ -87,7 +92,15 @@ namespace HmRipGrep {
 
 				p->WaitForExit();
 
-				p->Close();
+				try {
+					if (p) {
+						p->Close();
+						p->Kill();
+					}
+				}
+				catch (Exception^ e) {
+
+				}
 			}
 			catch (Exception^ e) {
 				System::Diagnostics::Trace::WriteLine(e->Message);
@@ -195,7 +208,7 @@ namespace HmRipGrep {
 
 		static void P_ErrorDataReceived(Object^ sender, System::Diagnostics::DataReceivedEventArgs^ e)
 		{
-			P_OutputDataReceived(sender, e);
+			// P_OutputDataReceived(sender, e);
 		}
 
 		static void p_Exited(Object^ sender, EventArgs^ e)
