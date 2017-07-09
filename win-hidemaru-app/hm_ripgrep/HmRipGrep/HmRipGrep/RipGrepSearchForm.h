@@ -1,37 +1,38 @@
 ﻿#pragma once
+#include "convert_string.h"
 
 using namespace std;
 using namespace msclr::interop;
 using namespace System::Collections::Generic;
 using namespace System;
 using namespace System::Text;
+using namespace System::Text::RegularExpressions;
 using namespace System::Windows::Forms;
 using namespace System::Threading;
 using namespace System::Threading::Tasks;
 using namespace System::Drawing;
 
 
-namespace HmEverything {
+#include "RipGrepCommandLine.h"
 
-	wstring g_data = L"";
+namespace HmRipGrep {
 
-	ref class EverythingSearchForm : Form {
+	ref class RipGrepSearchForm : Form {
 	public:
-		static EverythingSearchForm^ form;
+		static RipGrepSearchForm^ form;
 	private:
+		Button^ btnOK;
+		Button^ btnCancel;
 		TextBox^ tb;
 		HWND hWndOwner;
 	public:
-		EverythingSearchForm(HWND hWndOwner, int OptionFlags) {
+		RipGrepSearchForm(HWND hWndOwner, int OptionFlags) {
 			this->hWndOwner = hWndOwner;
 			this->OptionFlags = OptionFlags;
 			SetFormAttribute();
 			SetTextBoxAttribute();
-
+			SetButtonAttribute();
 			TaskList->Clear();
-		}
-	private:
-		void form_OnShown(Object^ o, EventArgs^ e) {
 		}
 	private:
 		// フォームの属性
@@ -41,11 +42,10 @@ namespace HmEverything {
 			this->Capture = true;
 			this->StartPosition = FormStartPosition::Manual;
 			this->MaximizeBox = false;
-			this->Height = 80;
-			this->Width = 320;
+			this->Height =180;
+			this->Width = 520;
 			this->FormBorderStyle = ::FormBorderStyle::FixedSingle;
-			this->Text = gcnew String("Everything検索");
-			this->Shown += gcnew System::EventHandler(this, &HmEverything::EverythingSearchForm::form_OnShown);
+			this->Text = gcnew String("RipGrep検索");
 
 			SetFormPositionFromOwnerHidemaruWindow();
 		}
@@ -77,7 +77,7 @@ namespace HmEverything {
 		// テキストボックスの属性
 		void SetTextBoxAttribute() {
 			// フォームとの隙間
-			const int nPadding = 2;
+			const int nPadding = 6;
 			tb = gcnew TextBox();
 			tb->Text = gcnew String("");
 			tb->Left = nPadding;
@@ -87,15 +87,67 @@ namespace HmEverything {
 			tb->Font = gcnew System::Drawing::Font(gcnew String(L"ＭＳ ゴシック"), 20);
 
 			// テキストボックス上で、「フォームに対して特殊なことをしてしまう」キー自体を、別に割り振るため
-			tb->PreviewKeyDown += gcnew System::Windows::Forms::PreviewKeyDownEventHandler(this, &HmEverything::EverythingSearchForm::tb_PreviewKeyDown);
+			tb->PreviewKeyDown += gcnew System::Windows::Forms::PreviewKeyDownEventHandler(this, &RipGrepSearchForm::tb_PreviewKeyDown);
 
 			// テキストボックスの中身が変わった時
-			tb->TextChanged += gcnew EventHandler(this, &EverythingSearchForm::tb_TextChanged);
+			tb->TextChanged += gcnew EventHandler(this, &RipGrepSearchForm::tb_TextChanged);
+
+			tb->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &RipGrepSearchForm::tb_KeyDown);
 
 			this->Controls->Add(tb);
 		}
 
+		void SetButtonAttribute() {
+			btnOK = gcnew Button();
+			btnOK->Text = L"OK";
+			btnOK->Click += gcnew System::EventHandler(this, &RipGrepSearchForm::btnOK_Click);
+			btnOK->Width = 150;
+			btnOK->Height = 34;
+			btnOK->Left = 50;
+			btnOK->Top = 100;
+			btnOK->Font = gcnew System::Drawing::Font(gcnew String(L"ＭＳ ゴシック"), 16);
+			btnCancel = gcnew Button();
+			btnCancel->Text = L"キャンセル";
+			btnCancel->Click += gcnew System::EventHandler(this, &RipGrepSearchForm::btnCancel_Click);
+			btnCancel->Width = 150;
+			btnCancel->Height = 34;
+			btnCancel->Left = this->Width - btnCancel->Width - 50;
+			btnCancel->Top = 100;
+			btnCancel->Font = gcnew System::Drawing::Font(gcnew String(L"ＭＳ ゴシック"), 16);
+
+			this->Controls->Add(btnOK);
+			this->Controls->Add(btnCancel);
+		}
+
+		List<Task^>^ TaskList = gcnew List<Task^>();
+		void btnOK_Click(Object^ sender, EventArgs^ e) {
+
+			if (tb->Text->Length == 0) {
+				return;
+			}
+
+			// 非同期で結果を秀丸へと反映するためのタスクを生成
+			tbText = tb->Text;
+			Task^ task = Task::Factory->StartNew(gcnew Action(this, &RipGrepSearchForm::TaskMethod));
+
+			// リストの中で終わってるタスクはクリア
+			for (int ix = TaskList->Count - 1; ix >= 0; ix--) {
+				if (TaskList[ix]->IsCompleted) {
+					TaskList->RemoveAt(ix);
+				}
+			}
+
+			// 改めてタスクに加える
+			TaskList->Add(task);
+		}
+
+		void btnCancel_Click(Object^ sender, EventArgs^ e) {
+
+			Stop();
+		}
+
 		void tb_PreviewKeyDown(Object^ sender, PreviewKeyDownEventArgs^ e) {
+
 			// タブを押したらウィンドウを閉じる
 			switch (e->KeyCode) {
 				case Keys::Tab: {
@@ -110,28 +162,19 @@ namespace HmEverything {
 		// マウスを外でクリックとかした際に、閉じていいかどうかの基準に利用する
 		bool isHaveQueriedFlag = false; 
 
-		void tb_TextChanged(Object^ o, EventArgs^ e) {
-			wstring wstr = marshal_as<wstring>(tb->Text);
+		void tb_KeyDown(Object^ sender, KeyEventArgs^ e) {
+			if (e->KeyCode == System::Windows::Forms::Keys::Return) {
+				if (tb->Text->Length == 0) {
+					btnCancel_Click(sender, e);
+				}
+				else {
+					btnOK_Click(sender, e);
+				}
+			}
+		}
 
-			// 検索文字列として abc を指定
-			Everything_SetSearch(wstr.c_str());
-
-			// 応答ウィンドウ(このウィンドウ)を設定 [Everything_Queryで結果を待機中の場合は必須]
-			Everything_SetReplyWindow((HWND)this->Handle.ToPointer());
-
-			// 応答IDを設定
-			Everything_SetReplyID(MY_REPLY_ID);
-
-			// 可視結果ウィンドウをセットアップ
-			Everything_SetMax(200);
-
-			// 可視結果ウィンドウをセットアップ(何番めから表示するのか)
-			// Everything_SetOffset(0);
-
-			// Everythingへ問合せを実行
-			Everything_Query(false);
-
-			isHaveQueriedFlag = true;
+		void tb_TextChanged(Object^ sender, EventArgs^ e) {
+			tbText = tb->Text;
 		}
 
 	private:
@@ -146,80 +189,22 @@ namespace HmEverything {
 	private:
 		Mutex^ mut = gcnew Mutex();
 
+		String^ tbText = L"";
 		void TaskMethod() {
 
 			wstring data = L"";
 
-			// 結果全てループしてリストボックスにそれぞれの結果を追加
-			for (int i = 0; i < (int)Everything_GetNumResults(); i++)
-			{
-				// ファイルの時だけ
-				// 各結果のフルパスとファイル名を
-				wstring full = Everything_GetResultPath(i) + wstring(L"\\") + Everything_GetResultFileName(i);
-				// 対象がファイルなら
-				if (Everything_IsFileResult(i)) {
-					// ファイルを表示するというオプションが有効なら
-					if (IsOptionFlagsHasFile()) {
-						// 表示
-						full += L"\t\t(F)";
-						data += full + wstring(L"\t\t") + Everything_GetResultFileName(i) + L"\n";
-					}
-				}
-				// 対象がディレクトリなら
-				else if (Everything_IsFolderResult(i)) {
-					// 対象がディレクトリを表示するというオプションが有効なら
-					if (IsOptionFlagHasDir()) {
-						// 表示
-						full += L"\t\t(D)";
-						data += full + wstring(L"\t\t") + Everything_GetResultFileName(i) + L"\n";
-					}
-				}
-				// それ以外なら
-				else {
-					// 表示
-					full += L"\t\t(O)";
-					data += full + wstring(L"\t\t") + Everything_GetResultFileName(i) + L"\n";
-				}
-			}
+			int num = 100;
 
 			if (data == L"") {
-				data += L"対象母数" + to_wstring(Everything_GetTotResults()) + L"\n";
+				data += L"対象母数" + to_wstring(num) + L"\n";
 			}
 
 			// ここでロック。最大でも0.5秒まち。
 			if (mut->WaitOne(500)) {
-				// あほみたいだが秀丸が何かビジーになっていないかチェック。
-				// あほみたいな処理だと目立たせるため、あえて、「激しくコピー感」を残しておく。
-				// 最大0.3秒程度だが細かく
-				if (CHidemaruExeExport::Hidemaru_CheckQueueStatus()) {
-					Threading::Thread::Sleep(50);
-					if (CHidemaruExeExport::Hidemaru_CheckQueueStatus()) {
-						Threading::Thread::Sleep(50);
-						if (CHidemaruExeExport::Hidemaru_CheckQueueStatus()) {
-							Threading::Thread::Sleep(50);
-							if (CHidemaruExeExport::Hidemaru_CheckQueueStatus()) {
-								Threading::Thread::Sleep(50);
-								if (CHidemaruExeExport::Hidemaru_CheckQueueStatus()) {
-									Threading::Thread::Sleep(50);
-									if (CHidemaruExeExport::Hidemaru_CheckQueueStatus()) {
-										Threading::Thread::Sleep(50);
-									}
-								}
-							}
-						}
-					}
-				}
-
-				// 大丈夫そうなら書き込み
-				if ( ! CHidemaruExeExport::Hidemaru_CheckQueueStatus()) {
-					CHidemaruExeExport::SetTotalText(data);
-
-					// TSVモードにする
-					CHidemaruExeExport::EvalMacro(LR"(
-						movetolineno 1, 0;
-						config "xTabMode:0x0001";
-					)");
-				}
+				RipGrepCommanLine::Clear();
+				RipGrepCommanLine::Grep(tbText, false);
+				RipGrepCommanLine::Grep(tbText, true);
 				// ロック解放
 				mut->ReleaseMutex();
 			}
@@ -229,29 +214,11 @@ namespace HmEverything {
 		// Everythingの非同期の結果取得のために必要らしい
 		const int MY_REPLY_ID = 0;
 
-		List<Task^>^ TaskList = gcnew List<Task^>();
 		virtual void WndProc(Message %m) override
 		{
 			WPARAM wP = (WPARAM)(m.WParam.ToPointer());
 			LPARAM lP = (LPARAM)(m.LParam.ToPointer());
 
-			// nIdパラメータ用にはデフォルトid (0)を使用
-			// Everythingから結果が返ってきたなら
-			if (Everything_IsQueryReply(m.Msg, wP, lP, MY_REPLY_ID))
-			{
-				// 非同期で結果を秀丸へと反映するためのタスクを生成
-				Task^ task = Task::Factory->StartNew(gcnew Action(this, &EverythingSearchForm::TaskMethod));
-
-				// リストの中で終わってるタスクはクリア
-				for(int ix = TaskList->Count-1; ix>=0; ix--) {
-					if (TaskList[ix]->IsCompleted) {
-						TaskList->RemoveAt(ix);
-					}
-				}
-
-				// 改めてタスクに加える
-				TaskList->Add(task);
-			}
 
 			// マウスをこのウィンドウの外でクリックしたりした場合は、処理を全部とめてウィンドウを閉じるための処理。
 			if (m.Msg == WM_NCACTIVATE) {
@@ -276,6 +243,7 @@ namespace HmEverything {
 		}
 	public:
 		void Stop() {
+			RipGrepCommanLine::Stop();
 			Task::WaitAll(TaskList->ToArray());
 			delete mut;
 			this->Close();

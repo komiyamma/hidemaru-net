@@ -42,6 +42,9 @@ public:
 	using PFNGetCurrentWindowHandle = HWND(WINAPI *)(void);
 	static PFNGetCurrentWindowHandle Hidemaru_GetCurrentWindowHandle;
 
+	using PFNCheckQueueStatus = BOOL (WINAPI *)(void);
+	static PFNCheckQueueStatus Hidemaru_CheckQueueStatus;
+
 	//-------------------------------------------------------------------------
 	// 現在編集中の全てのテキストを得る
 	using PFNGetTotalTextUnicode = HGLOBAL(WINAPI *)(void);
@@ -130,6 +133,11 @@ public:
 	//-------------------------------------------------------------------------
 	static wstring GetTotalText();
 
+	static BOOL SetTotalText(wstring text);
+
+	static BOOL AddTotalText(wstring text);
+
+
 	//-------------------------------------------------------------------------
 	// Hidemaru_GetSelectedTextUnicode関数のラップしたもの
 	//-------------------------------------------------------------------------
@@ -170,6 +178,8 @@ public:
 	// Hidemaru_EvalMacro関数のラップしたもの
 	//-------------------------------------------------------------------------
 	static BOOL EvalMacro(wstring);
+
+
 };
 
 
