@@ -7,19 +7,34 @@ namespace HmRipGrep {
 	wstring g_data = L"";
 
 	ref class RipGrepCommanLine {
-		static System::Diagnostics::Process^ p;
+		System::Diagnostics::Process^ p;
+		Dictionary<String^, Boolean>^ hs;
+		String^ searcText = "";
+		String^ dirText = "";
 	public:
-		static void Clear() {
-			if (hs != nullptr) {
-				hs->Clear();
+		RipGrepCommanLine(String^ searcText, String^ dirText, Dictionary<String^, Boolean>^ prev) {
+
+			this->searcText = searcText;
+			this->dirText = dirText;
+
+			// まだ辞書が全くなりなら
+			if (prev == nullptr) {
+				hs = gcnew Dictionary<String^, Boolean>();
+				m_isContinueMode = false;
 				// 大丈夫そうなら書き込み
 				if (!CHidemaruExeExport::Hidemaru_CheckQueueStatus()) {
 					CHidemaruExeExport::SetTotalText(L"");
 				}
 			}
+			else {
+				hs = prev;
+				m_isContinueMode = true;
+			}
 		}
-		static bool isStop = false;
-		static void Stop() {
+	public:
+	
+		bool isStop = false;
+		void Stop() {
 			if (p) {
 				try {
 					isStop = true;
@@ -32,38 +47,32 @@ namespace HmRipGrep {
 				}
 			}
 		}
+		bool IsStop() {
+			return isStop;
+		}
 
-		static bool m_is_add = false;
-		static Mutex^ mut = gcnew Mutex();
+		bool m_isContinueMode = false;
 
-		static void Grep(String^ searcText, String^ dirText, bool is_add)
+	public:
+		Dictionary<String^, Boolean>^ Grep()
 		{
 			try {
-				m_is_add = is_add;
-
-				// 追加モードなのにStopかかっていたら、何もしない
-				if (m_is_add && isStop) {
-					return;
-				}
-
-				isStop = false;
-
 				//Processオブジェクトを作成する
 				p = gcnew System::Diagnostics::Process();
 				//起動するファイルを指定する
 				p->StartInfo->FileName = gcnew String(CSelfDllInfo::GetSelfModuleDir().c_str()) + L"\\rg.exe";
 
 				List<String^>^ list = gcnew List<String^>();
-				if (m_is_add) {
+				if (m_isContinueMode) {
 					list->Add("-E");
-					list->Add("utf8");
+					list->Add("sjis");
 				}
 				list->Add("--no-ignore");
 				list->Add("-n");
 				list->Add("-e");
-				list->Add(Regex::Escape(searcText));
+				list->Add(Regex::Escape(this->searcText));
 				list->Add("-S");
-				list->Add(dirText);
+				list->Add(this->dirText);
 
 				String^ arg_line = EncodeCommandLineValues(list);
 				p->StartInfo->Arguments = arg_line;
@@ -75,12 +84,12 @@ namespace HmRipGrep {
 				p->StartInfo->RedirectStandardError = true;
 				p->StartInfo->RedirectStandardOutput = true;
 
-				p->ErrorDataReceived += gcnew System::Diagnostics::DataReceivedEventHandler(&P_ErrorDataReceived);
-				p->OutputDataReceived += gcnew System::Diagnostics::DataReceivedEventHandler(&P_OutputDataReceived);
+				p->ErrorDataReceived += gcnew System::Diagnostics::DataReceivedEventHandler(this, &RipGrepCommanLine::proc_ErrorDataReceived);
+				p->OutputDataReceived += gcnew System::Diagnostics::DataReceivedEventHandler(this, &RipGrepCommanLine::proc_OutputDataReceived);
 				p->StartInfo->StandardOutputEncoding = Encoding::UTF8;
 				p->StartInfo->StandardErrorEncoding = Encoding::UTF8;
 
-				p->Exited += gcnew System::EventHandler(&p_Exited);
+				p->Exited += gcnew System::EventHandler(this, &RipGrepCommanLine::proc_Exited);
 				//プロセスが終了したときに Exited イベントを発生させる
 				p->EnableRaisingEvents = true;
 
@@ -105,17 +114,18 @@ namespace HmRipGrep {
 			catch (Exception^ e) {
 				System::Diagnostics::Trace::WriteLine(e->Message);
 			}
+
+			return hs;
 		}
 
 	private:
-		static String^ alldata = "";
-		static int cnt = 0;
-		static DWORD startTime = 0;
-		static Dictionary<String^, Boolean>^ hs = gcnew Dictionary<String^, Boolean>();
-		static Regex^ r = gcnew Regex(R"MATCH(^[\s\S]+?:\d+:)MATCH");
-		static const int nInterValMilliSecond = 1000;
+		String^ alldata = "";
+		DWORD startTime = 0;
+		Regex^ r = gcnew Regex(R"MATCH(^[\s\S]+?:\d+:)MATCH");
+		const int nInterValMilliSecond = 1000;
+		Mutex^ mut = gcnew Mutex();
 
-		static void AddTotalText(wstring data) {
+		void AddTotalText(wstring data) {
 			if (isStop) {
 				return;
 			}
@@ -158,7 +168,7 @@ namespace HmRipGrep {
 
 		}
 
-		static void P_OutputDataReceived(Object^ sender, System::Diagnostics::DataReceivedEventArgs^ e)
+		void proc_OutputDataReceived(Object^ sender, System::Diagnostics::DataReceivedEventArgs^ e)
 		{
 			if (isStop) {
 				return;
@@ -173,7 +183,7 @@ namespace HmRipGrep {
 				String^ s = r->Match(data)->Value;
 				if (s != nullptr) {
 					bool is_must_add = false;
-					if (m_is_add) {
+					if (m_isContinueMode) {
 						// 今度は、まだ登録されていない時だけ、SJIS版を吐き出す
 						if (!hs->ContainsKey(s)) {
 							is_must_add = true;
@@ -206,36 +216,31 @@ namespace HmRipGrep {
 			}
 		}
 
-		static void P_ErrorDataReceived(Object^ sender, System::Diagnostics::DataReceivedEventArgs^ e)
+		void proc_ErrorDataReceived(Object^ sender, System::Diagnostics::DataReceivedEventArgs^ e)
 		{
 			// P_OutputDataReceived(sender, e);
 		}
 
-		static void p_Exited(Object^ sender, EventArgs^ e)
+		void proc_Exited(Object^ sender, EventArgs^ e)
 		{
 			try {
 				wstring data = String_to_wstring(alldata);
 				alldata = "";
 
 				AddTotalText(data);
-				if (m_is_add) {
+				if (m_isContinueMode) {
 					AddTotalText(L"検索終了");
 				}
 			}
 			catch (Exception^ e) {
 				System::Diagnostics::Trace::WriteLine(e->Message);
 			}
-
-			// まぁ大きいだろうから早めに
-			if (m_is_add) {
-				hs->Clear();
-			}
 		}
 		/// 
 		/// コマンドライン引数 1 個をエンコード
 		/// 
 	public:
-		static String^ EncodeCommandLineValue(String^ value)
+		String^ EncodeCommandLineValue(String^ value)
 		{
 			if (String::IsNullOrEmpty(value))
 			{
@@ -255,14 +260,14 @@ namespace HmRipGrep {
 			return value;
 		}
 	private:
-		static initonly Regex^ _commandLineEscapePattern = gcnew Regex("(\\\\*)\"");
-		static initonly Regex^ _lastBackSlashPattern = gcnew Regex(R"((\\ + )$)");
+		initonly Regex^ _commandLineEscapePattern = gcnew Regex("(\\\\*)\"");
+		initonly Regex^ _lastBackSlashPattern = gcnew Regex(R"((\\ + )$)");
 
 		/// 
 		/// コマンドライン引数複数個をエンコードして、スペースで結合
 		/// 
 	public:
-		static String^ EncodeCommandLineValues(IEnumerable<String^>^ values)
+		String^ EncodeCommandLineValues(IEnumerable<String^>^ values)
 		{
 			if (values == nullptr)
 			{

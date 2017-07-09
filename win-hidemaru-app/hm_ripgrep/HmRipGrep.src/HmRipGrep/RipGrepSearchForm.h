@@ -218,6 +218,8 @@ namespace HmRipGrep {
 
 		String^ tbSearchWordText = L"";
 		String^ tbTargetDirText = L"";
+		List<RipGrepCommanLine^>^ rgcl_list = gcnew List<RipGrepCommanLine^>();
+		bool hasResult = false;
 		void TaskMethod() {
 
 			wstring data = L"";
@@ -230,9 +232,25 @@ namespace HmRipGrep {
 
 			// ここでロック。最大でも0.5秒まち。
 			if (mut->WaitOne(500)) {
-				RipGrepCommanLine::Clear();
-				RipGrepCommanLine::Grep(tbSearchWordText, tbTargetDirText, false);
-				RipGrepCommanLine::Grep(tbSearchWordText, tbTargetDirText, true);
+				rgcl_list->Clear();
+				hasResult = false;
+				RipGrepCommanLine^ rgcl1 = gcnew RipGrepCommanLine(tbSearchWordText, tbTargetDirText, nullptr);
+				rgcl_list->Add(rgcl1);
+				auto dic1 = rgcl1->Grep();
+				if (dic1 != nullptr && dic1->Count > 0) {
+					hasResult = true;
+				}
+
+				if (rgcl1 != nullptr && !rgcl1->IsStop()) {
+					RipGrepCommanLine^ rgcl2 = gcnew RipGrepCommanLine(tbSearchWordText, tbTargetDirText, dic1);
+					rgcl_list->Add(rgcl2);
+					auto dic2 = rgcl2->Grep();
+
+					if (dic2 != nullptr && dic2->Count > 0) {
+						hasResult = true;
+					}
+				}
+
 				// ロック解放
 				mut->ReleaseMutex();
 
@@ -255,16 +273,22 @@ namespace HmRipGrep {
 	public:
 		void Cancel() {
 			try {
-				RipGrepCommanLine::Stop();
+				for each(RipGrepCommanLine^ rgcl in rgcl_list) {
+					rgcl->Stop();
+				}
+				rgcl_list->Clear();
+
 				Task::WaitAll(TaskList->ToArray());
 				if (mut != nullptr) {
 					delete mut;
 				}
-				
 			}
 			catch (Exception ^e) {
 				System::Diagnostics::Trace::WriteLine(e->Message);
 			}
+
+			GC::Collect();
+
 		}
 		void Stop() {
 			Cancel();
