@@ -151,18 +151,20 @@ internal class RipGrepCommandLine
             if (s != null)
             {
                 bool is_must_add = false;
-                if (m_isContinueMode)
-                {
-                    // 今度は、まだ登録されていない時だけ、SJIS版を吐き出す
-                    if (!hs.ContainsKey(s))
+                lock(hs) { 
+                    if (m_isContinueMode)
                     {
+                        // 今度は、まだ登録されていない時だけ、SJIS版を吐き出す
+                        if (!hs.ContainsKey(s))
+                        {
+                            is_must_add = true;
+                        }
+                    }
+                    else
+                    {
+                        hs[s] = true;
                         is_must_add = true;
                     }
-                }
-                else
-                {
-                    hs[s] = true;
-                    is_must_add = true;
                 }
 
                 if (is_must_add)
@@ -188,6 +190,8 @@ public class IronRG
 {
     public static void Main(String[] args)
     {
+        Console.OutputEncoding = Encoding.UTF8;
+
         RipGrepCommandLine rgcl1 = new RipGrepCommandLine(args[0], args[1], null);
         var dic1 = rgcl1.Grep();
 

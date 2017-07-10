@@ -145,6 +145,9 @@ namespace HmRipGrep {
 			if (tbSearchWord->Text->Length == 0) {
 				return;
 			}
+			if (tbTargetDir->Text->Length == 0) {
+				return;
+			}
 
 			// 非同期で結果を秀丸へと反映するためのタスクを生成
 			tbSearchWordText = tbSearchWord->Text;
@@ -163,11 +166,13 @@ namespace HmRipGrep {
 
 			btnOK->Enabled = false;
 			tbSearchWord->Enabled = false;
+			tbTargetDir->Enabled = false;
 		}
 
 		void btnCancel_Click(Object^ sender, EventArgs^ e) {
 			btnOK->Enabled = true;
 			tbSearchWord->Enabled = true;
+			tbTargetDir->Enabled = true;
 			Close();
 		}
 
@@ -242,10 +247,12 @@ namespace HmRipGrep {
 				mut->ReleaseMutex();
 
 				Action^ delegateButtonEnable = gcnew Action(this, &RipGrepSearchForm::ButtonEnable);
-				Action^ delegateTextBoxEnable = gcnew Action(this, &RipGrepSearchForm::TextBoxEnable);
+				Action^ delegateSearchWordBoxEnable = gcnew Action(this, &RipGrepSearchForm::SearchWordEnable);
+				Action^ delegateTargetDirBoxEnable = gcnew Action(this, &RipGrepSearchForm::TargetDirEnable);
 
 				btnOK->Invoke(delegateButtonEnable);
-				tbSearchWord->Invoke(delegateTextBoxEnable);
+				tbSearchWord->Invoke(delegateSearchWordBoxEnable);
+				tbTargetDir->Invoke(delegateTargetDirBoxEnable);
 			}
 		}
 
@@ -253,8 +260,11 @@ namespace HmRipGrep {
 			btnOK->Enabled = true;
 
 		}
-		void TextBoxEnable() {
+		void SearchWordEnable() {
 			tbSearchWord->Enabled = true;
+		}
+		void TargetDirEnable() {
+			tbTargetDir->Enabled = true;
 		}
 
 	public:
