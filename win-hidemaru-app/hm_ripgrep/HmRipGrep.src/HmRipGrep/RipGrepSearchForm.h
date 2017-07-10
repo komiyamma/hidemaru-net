@@ -4,6 +4,7 @@
 using namespace std;
 using namespace msclr::interop;
 using namespace System::Collections::Generic;
+using namespace System::Collections::Concurrent;
 using namespace System;
 using namespace System::Text;
 using namespace System::Text::RegularExpressions;
@@ -44,7 +45,7 @@ namespace HmRipGrep {
 			this->Capture = true;
 			this->StartPosition = FormStartPosition::Manual;
 			this->MaximizeBox = false;
-			this->Height =180;
+			this->Height = 180;
 			this->Width = 520;
 			this->FormBorderStyle = ::FormBorderStyle::FixedSingle;
 			this->Text = gcnew String("RipGrep検索");
@@ -53,7 +54,7 @@ namespace HmRipGrep {
 		}
 		// このフォーム自体を、秀丸の位置に応じて、表示位置を決めるため
 		void SetFormPositionFromOwnerHidemaruWindow() {
-			if ( IsWindow(this->hWndOwner) ) {
+			if (IsWindow(this->hWndOwner)) {
 				// もし親がまだあるなら、そちらにすげ替え
 				// ( hidemaruhandle(0) == Hidemaru32Class なのだが、秀丸が「タブモード」の時と「非タブモード」の時では
 				// 実は実装が異なる。「タブモード」の時は、Hidemaru32Classは「秀丸の一番外側」と「エディタ部分付近の内側」の両方に「全く同じHidemaru32Classという名前」が付いていて
@@ -63,7 +64,7 @@ namespace HmRipGrep {
 				if (hWnd) {
 					wchar_t szBufClasName[MAX_CLASS_NAME];
 					GetClassName(hWnd, szBufClasName, _countof(szBufClasName));
-					if ( wcsstr(szBufClasName, L"Hidemaru32Class") ) {
+					if (wcsstr(szBufClasName, L"Hidemaru32Class")) {
 						this->hWndOwner = hWnd;
 					}
 				}
@@ -145,9 +146,6 @@ namespace HmRipGrep {
 			if (tbSearchWord->Text->Length == 0) {
 				return;
 			}
-			if (tbTargetDir->Text->Length == 0) {
-				return;
-			}
 
 			// 非同期で結果を秀丸へと反映するためのタスクを生成
 			tbSearchWordText = tbSearchWord->Text;
@@ -166,20 +164,18 @@ namespace HmRipGrep {
 
 			btnOK->Enabled = false;
 			tbSearchWord->Enabled = false;
-			tbTargetDir->Enabled = false;
 		}
 
 		void btnCancel_Click(Object^ sender, EventArgs^ e) {
 			btnOK->Enabled = true;
 			tbSearchWord->Enabled = true;
-			tbTargetDir->Enabled = true;
 			Close();
 		}
 
 
 		// このウィンドウを表示した後、一度でもEverythingへとクエリーしたことがあるか
 		// マウスを外でクリックとかした際に、閉じていいかどうかの基準に利用する
-		bool isHaveQueriedFlag = false; 
+		bool isHaveQueriedFlag = false;
 
 		void tbSearchWord_KeyDown(Object^ sender, KeyEventArgs^ e) {
 			if (e->KeyCode == System::Windows::Forms::Keys::Return) {
@@ -239,20 +235,31 @@ namespace HmRipGrep {
 			if (mut->WaitOne(500)) {
 				rgcl_list->Clear();
 				hasResult = false;
-				RipGrepCommanLine^ rgcl = gcnew RipGrepCommanLine(tbSearchWordText, tbTargetDirText, nullptr);
-				rgcl_list->Add(rgcl);
-				rgcl->Grep();
+				RipGrepCommanLine^ rgcl1 = gcnew RipGrepCommanLine(tbSearchWordText, tbTargetDirText, nullptr);
+				rgcl_list->Add(rgcl1);
+				auto dic1 = rgcl1->Grep();
+				if (dic1 != nullptr && dic1->Count > 0) {
+					hasResult = true;
+				}
+
+				if (rgcl1 != nullptr && !rgcl1->IsStop()) {
+					RipGrepCommanLine^ rgcl2 = gcnew RipGrepCommanLine(tbSearchWordText, tbTargetDirText, dic1);
+					rgcl_list->Add(rgcl2);
+					auto dic2 = rgcl2->Grep();
+
+					if (dic2 != nullptr && dic2->Count > 0) {
+						hasResult = true;
+					}
+				}
 
 				// ロック解放
 				mut->ReleaseMutex();
 
 				Action^ delegateButtonEnable = gcnew Action(this, &RipGrepSearchForm::ButtonEnable);
-				Action^ delegateSearchWordBoxEnable = gcnew Action(this, &RipGrepSearchForm::SearchWordEnable);
-				Action^ delegateTargetDirBoxEnable = gcnew Action(this, &RipGrepSearchForm::TargetDirEnable);
+				Action^ delegateTextBoxEnable = gcnew Action(this, &RipGrepSearchForm::TextBoxEnable);
 
 				btnOK->Invoke(delegateButtonEnable);
-				tbSearchWord->Invoke(delegateSearchWordBoxEnable);
-				tbTargetDir->Invoke(delegateTargetDirBoxEnable);
+				tbSearchWord->Invoke(delegateTextBoxEnable);
 			}
 		}
 
@@ -260,11 +267,8 @@ namespace HmRipGrep {
 			btnOK->Enabled = true;
 
 		}
-		void SearchWordEnable() {
+		void TextBoxEnable() {
 			tbSearchWord->Enabled = true;
-		}
-		void TargetDirEnable() {
-			tbTargetDir->Enabled = true;
 		}
 
 	public:

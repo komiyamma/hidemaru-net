@@ -8,26 +8,40 @@ namespace HmRipGrep {
 
 	ref class RipGrepCommanLine {
 		System::Diagnostics::Process^ p;
+		ConcurrentDictionary<String^, Boolean>^ hs;
 		String^ searcText = "";
 		String^ dirText = "";
 	public:
-		RipGrepCommanLine(String^ searcText, String^ dirText, Dictionary<String^, Boolean>^ prev) {
+		RipGrepCommanLine(String^ searcText, String^ dirText, ConcurrentDictionary<String^, Boolean>^ prev) {
 
 			this->searcText = searcText;
 			this->dirText = dirText;
 
-			// 大丈夫そうなら書き込み
-			if (!CHidemaruExeExport::Hidemaru_CheckQueueStatus()) {
-				CHidemaruExeExport::SetTotalText(L"");
+			// まだ辞書が全くなりなら
+			if (prev == nullptr) {
+				hs = gcnew ConcurrentDictionary<String^, Boolean>();
+				m_isContinueMode = false;
+				// 大丈夫そうなら書き込み
+				if (!CHidemaruExeExport::Hidemaru_CheckQueueStatus()) {
+					CHidemaruExeExport::SetTotalText(L"");
+				}
+			}
+			else {
+				hs = prev;
+				m_isContinueMode = true;
 			}
 		}
 	public:
-	
+
 		bool isStop = false;
 		void Stop() {
 			if (p) {
 				try {
 					isStop = true;
+					// ロック解放
+					mut->ReleaseMutex();
+					hs->Clear();
+					delete hs;
 					p->Close();
 					p->Kill();
 					delete p;
@@ -41,17 +55,27 @@ namespace HmRipGrep {
 			return isStop;
 		}
 
+		bool m_isContinueMode = false;
+
 	public:
-		void Grep()
+		ConcurrentDictionary<String^, Boolean>^ Grep()
 		{
 			try {
 				//Processオブジェクトを作成する
 				p = gcnew System::Diagnostics::Process();
 				//起動するファイルを指定する
-				p->StartInfo->FileName = gcnew String(CSelfDllInfo::GetSelfModuleDir().c_str()) + L"\\IronRg.exe";
+				p->StartInfo->FileName = gcnew String(CSelfDllInfo::GetSelfModuleDir().c_str()) + L"\\rg.exe";
 
 				List<String^>^ list = gcnew List<String^>();
+				if (m_isContinueMode) {
+					list->Add("-E");
+					list->Add("sjis");
+				}
+				list->Add("--no-ignore");
+				list->Add("-n");
+				list->Add("-e");
 				list->Add(Regex::Escape(this->searcText));
+				list->Add("-S");
 				list->Add(this->dirText);
 
 				String^ arg_line = EncodeCommandLineValues(list);
@@ -94,6 +118,8 @@ namespace HmRipGrep {
 			catch (Exception^ e) {
 				System::Diagnostics::Trace::WriteLine(e->Message);
 			}
+
+			return hs;
 		}
 
 	private:
@@ -146,7 +172,6 @@ namespace HmRipGrep {
 
 		}
 
-		int nRecieveCounter = 0;
 		void proc_OutputDataReceived(Object^ sender, System::Diagnostics::DataReceivedEventArgs^ e)
 		{
 			if (isStop) {
@@ -158,7 +183,26 @@ namespace HmRipGrep {
 			}
 
 			try {
-				alldata += data + L"\n";
+
+				String^ s = r->Match(data)->Value;
+				if (s != nullptr) {
+					bool is_must_add = false;
+					if (m_isContinueMode) {
+						// 今度は、まだ登録されていない時だけ、SJIS版を吐き出す
+						if (!hs->ContainsKey(s)) {
+							is_must_add = true;
+						}
+					}
+					else {
+						hs[s] = true;
+						is_must_add = true;
+					}
+
+					if (is_must_add) {
+						alldata += data + L"\n";
+					}
+
+				}
 
 				DWORD currentTime = timeGetTime();
 
@@ -174,6 +218,7 @@ namespace HmRipGrep {
 			catch (Exception ^e) {
 				System::Diagnostics::Trace::WriteLine(e->Message);
 			}
+
 		}
 
 		void proc_ErrorDataReceived(Object^ sender, System::Diagnostics::DataReceivedEventArgs^ e)
@@ -188,7 +233,9 @@ namespace HmRipGrep {
 				alldata = "";
 
 				AddTotalText(data);
-				AddTotalText(L"検索終了");
+				if (m_isContinueMode) {
+					AddTotalText(L"検索終了");
+				}
 			}
 			catch (Exception^ e) {
 				System::Diagnostics::Trace::WriteLine(e->Message);
