@@ -50,7 +50,7 @@ public class Hm {
 		return GetWindowHandle();
 	}
 
-	public static void DebugInfo(Object text, Object... args) {
+	public static void debugInfo(Object text, Object... args) {
 		String begin = text.toString();
 
 		for( Object arg : args ) {
@@ -229,10 +229,10 @@ public class Hm {
  			Method m = URLClassLoader.class.getDeclaredMethod("addURL", new Class[]{ URL.class }); // Java9ではエラー
 			m.setAccessible(true);
 			m.invoke(loader, new Object[]{u});
-			Hm.DebugInfo("ClassPathに「" + path + "」を追加しました");
+			Hm.debugInfo("ClassPathに「" + path + "」を追加しました");
 		} catch (Exception e){
 			// 失敗は予測されること。いちいち止めない。
-			Hm.DebugInfo( new RuntimeException("ClassPathの追加に失敗しました。(" + path + ")" ) );
+			Hm.debugInfo( new RuntimeException("ClassPathの追加に失敗しました。(" + path + ")" ) );
 		}
 	}
 
