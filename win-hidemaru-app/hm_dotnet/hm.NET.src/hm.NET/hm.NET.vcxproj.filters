@@ -28,6 +28,9 @@
     <Filter Include="文字列の相互変換 cp932⇔utf16⇔utf8">
       <UniqueIdentifier>{b07fc73c-9980-4aae-97ec-1601055234dd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="NewFilter1">
+      <UniqueIdentifier>{12b175c2-7fe8-475c-92f4-1282d4796753}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="output_debugstream.cpp">
@@ -76,6 +79,9 @@
     </ClInclude>
     <ClInclude Include="self_dll_info.h">
       <Filter>このhm.NET.dll自身の情報</Filter>
+    </ClInclude>
+    <ClInclude Include="HmPublicClass.h">
+      <Filter>NewFilter1</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

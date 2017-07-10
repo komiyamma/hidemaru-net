@@ -9,6 +9,7 @@
 #include "dllfunc_interface.h"
 #include "dllfunc_interface_internal.h"
 #include "output_debugstream.h"
+#include "HmPublicClass.h"
 
 using namespace std;
 using namespace System;

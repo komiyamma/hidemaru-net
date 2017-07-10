@@ -160,6 +160,7 @@
     <ClInclude Include="dllfunc_interface_internal.h" />
     <ClInclude Include="hidemaruexe_export.h" />
     <ClInclude Include="hidemaruexe_handle.h" />
+    <ClInclude Include="HmPublicClass.h" />
     <ClInclude Include="output_debugstream.h" />
     <ClInclude Include="self_dll_info.h" />
   </ItemGroup>
