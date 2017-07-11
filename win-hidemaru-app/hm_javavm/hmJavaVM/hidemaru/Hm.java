@@ -142,7 +142,7 @@ public class Hm {
 	}
 
 	public static class Macro {
-		public static boolean Eval(Object expression) {
+		public static boolean doEval(Object expression) {
 			int result = EvalMacro(expression.toString());
 			if (result==0) {
 				throw new java.lang.RuntimeException("Hidemaru Macro Expression Exception");
