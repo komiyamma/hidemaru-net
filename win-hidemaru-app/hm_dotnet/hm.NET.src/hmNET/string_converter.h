@@ -1,7 +1,10 @@
 #pragma once
 
 #include <string>
-#include <tchar.h>
+#include <msclr/marshal_cppstd.h>
+#include "string_converter.h"
+
+
 
 using namespace std;
 

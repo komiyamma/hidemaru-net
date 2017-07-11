@@ -7,6 +7,3 @@
 
 
 #define intHM_t intptr_t
-
-
-

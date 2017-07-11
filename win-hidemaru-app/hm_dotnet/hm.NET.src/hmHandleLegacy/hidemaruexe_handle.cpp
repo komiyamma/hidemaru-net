@@ -1,15 +1,14 @@
 #include <windows.h>
 
 #include "hidemaruexe_handle.h"
-#include "hidemaruexe_export.h"
+#include "string_converter.h"
 
-
-HidemaruWindowHandleSearcher::HidemaruWindowHandleSearcher(wstring strClassName) {
+HidemaruWindowHandleSearcher::HidemaruWindowHandleSearcher(String^ strClassName) {
 	this->strHidemaruClassName = strClassName;
 	this->hCurWndHidemaru = NULL;
 }
 
-HWND HidemaruWindowHandleSearcher::GetCurWndHidemaru() {
+HWND HidemaruWindowHandleSearcher::SearchCurWndHidemaru() {
 	// まず普通のタブモードの秀丸
 	if (!hCurWndHidemaru) {
 		TabOnSearchCurWndHidemaru(GetDesktopWindow());
@@ -33,7 +32,7 @@ bool HidemaruWindowHandleSearcher::IsWndHidemaru32ClassType(HWND hWnd) {
 	wchar_t strTargetClassName[MAX_CLASS_NAME];
 	::GetClassName(hWnd, strTargetClassName, _countof(strTargetClassName));
 
-	if (strHidemaruClassName == strTargetClassName) {
+	if (strHidemaruClassName == gcnew String(strTargetClassName)) {
 		return true;
 	}
 	return false;
@@ -65,7 +64,7 @@ void HidemaruWindowHandleSearcher::TabOnSearchCurWndHidemaru(HWND hWnd)
 
 	// 子クラスをなめていく。子クラスはあくまでも「Hidemaru32Class系」。
 	// ストア版はちょっと違うのでインスタンス変数になっている。
-	const wchar_t *pszClassName = strHidemaruClassName.c_str();
+	const wchar_t *pszClassName = String_to_wstring(strHidemaruClassName).c_str();
 	HWND hWndChild = FindWindowEx(hWnd, NULL, pszClassName, NULL);
 	while (hWndChild != NULL)
 	{
@@ -97,7 +96,7 @@ void HidemaruWindowHandleSearcher::NoTabSearchCurWndHidemaru(HWND hWnd)
 
 	// 子クラスをなめていく。子クラスはあくまでも「Hidemaru32Class系」。
 	// ストア版はちょっと違うのでインスタンス変数になっている。
-	const wchar_t *pszClassName = strHidemaruClassName.c_str();
+	const wchar_t *pszClassName = String_to_wstring(strHidemaruClassName).c_str();
 	HWND hWndChild = FindWindowEx(hWnd, NULL, pszClassName, NULL);
 	while (hWndChild != NULL)
 	{
@@ -108,10 +107,11 @@ void HidemaruWindowHandleSearcher::NoTabSearchCurWndHidemaru(HWND hWnd)
 	}
 }
 
-HWND GetCurWndHidemaru(HWND hCurWnd) {
+IntPtr HidemaruWindowHandleSearcher::GetCurWndHidemaru(IntPtr _hCurWnd) {
+	HWND hCurWnd = (HWND)_hCurWnd.ToPointer();
 	// 現状が機能しているならそのまま
 	if (IsWindow(hCurWnd)) {
-		return hCurWnd;
+		return (IntPtr)hCurWnd;
 	}
 
 	// 元々はいっていなかったら、もしくは、タブモードの切り替え等で機能しなくなった
@@ -119,14 +119,15 @@ HWND GetCurWndHidemaru(HWND hCurWnd) {
 	HWND hWnd = NULL;
 	if (!hWnd) {
 		HidemaruWindowHandleSearcher s1(L"Hidemaru32Class");
-		hWnd = s1.GetCurWndHidemaru();
+		hWnd = s1.SearchCurWndHidemaru();
 	}
 
 	if (!hWnd) {
 		// ストアアプリ版
 		HidemaruWindowHandleSearcher s2(L"Hidemaru32Class_Appx");
-		hWnd = s2.GetCurWndHidemaru();
+		hWnd = s2.SearchCurWndHidemaru();
 	}
 
-	return hWnd;
+	return (IntPtr)hWnd;
 }
+

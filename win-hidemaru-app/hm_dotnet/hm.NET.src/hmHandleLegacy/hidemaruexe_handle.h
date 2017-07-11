@@ -3,23 +3,27 @@
 #include <string>
 
 using namespace std;
-
+using namespace System;
 extern HWND GetCurWndHidemaru(HWND hCurWnd);
 
 // ストアアプリ版も考慮して鋳型にしておく
-class HidemaruWindowHandleSearcher {
+public ref class HidemaruWindowHandleSearcher {
 
 public:
-	HidemaruWindowHandleSearcher(wstring strClassName);
+	HidemaruWindowHandleSearcher(String^ strClassName);
 
 private:
 	// これはスタティックではない。デスクトップ版とアプリ版があるので
-	wstring strHidemaruClassName;
+	String^ strHidemaruClassName;
 	// 秀丸ハンドル
 	HWND hCurWndHidemaru;
 
 public:
-	HWND GetCurWndHidemaru();
+	HWND SearchCurWndHidemaru();
+
+public:
+	// 外との接点
+	static IntPtr GetCurWndHidemaru(IntPtr curWnd);
 
 
 private:
@@ -28,4 +32,4 @@ private:
 	void TabOnSearchCurWndHidemaru(HWND hWnd);
 	void NoTabSearchCurWndHidemaru(HWND hWnd);
 
-};
+}; 

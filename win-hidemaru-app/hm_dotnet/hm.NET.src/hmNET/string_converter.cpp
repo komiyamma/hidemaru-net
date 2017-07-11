@@ -2,7 +2,7 @@
 #include <windows.h>
 #include <msclr/marshal_cppstd.h>
 
-#include "convert_string.h"
+#include "string_converter.h"
 
 std::wstring utf8_to_utf16(const std::string &text)
 {
@@ -46,3 +46,4 @@ System::String^ wstring_to_String(std::wstring str) {
 	System::String^ managed_string = msclr::interop::marshal_as<System::String^>(str);
 	return managed_string;
 }
+

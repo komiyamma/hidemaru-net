@@ -2,7 +2,7 @@
 #include <tchar.h>
 #include <sstream>
 
-#include "convert_string.h"
+#include "string_converter.h"
 
 void OutputDebugStream(wstring wstr) {
 	string cp932_data = utf16_to_cp932(wstr);
@@ -18,4 +18,3 @@ void OutputDebugStream(wstring wstr) {
 		OutputDebugStringA("\n");
 	}
 }
-
