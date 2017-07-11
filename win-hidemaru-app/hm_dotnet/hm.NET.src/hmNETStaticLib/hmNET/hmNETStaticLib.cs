@@ -47,29 +47,6 @@ internal class INETStaticLib
 
 }
 
-namespace Hidemaru {
-    public static class Hm
-    {
-        public static IntPtr GetWindowHandle() { 
-            return hmNETDynamicLib.Hidemaru.WindowHandle;
-        }
-
-        public class Macro {
-            public static int Eval(String expression)
-            {
-                return hmNETDynamicLib.Hidemaru.Macro.Eval(expression);
-            }
-            public static T GetVar<T>(String var_name) { 
-                return (T)hmNETDynamicLib.Hidemaru.Macro.Var[var_name];
-            }
-        }
-
-        public static class Edit
-        {
-        }
-    }
-}
-
 
 
 // ★クラス実装内のメソッドの中でdynamic型を利用したもの。これを直接利用しないのは、内部でdynamic型を利用していると、クラスに自動的にメソッドが追加されてしまい、C++とはヘッダのメソッドの個数が合わなくなりリンクできなくなるため。
@@ -92,6 +69,11 @@ internal partial class hmNETDynamicLib
     {
         System.Diagnostics.Trace.WriteLine(error);
     }
+
+    [DllImport("user32.dll", EntryPoint = "SendMessage", CharSet = CharSet.Auto)]
+    public static extern bool SendMessage(IntPtr hWnd, uint Msg, int wParam, StringBuilder lParam);
+    [DllImport("user32.dll", SetLastError = true)]
+    public static extern IntPtr SendMessage(int hWnd, int Msg, int wparam, int lparam);
 
     static readonly String strDllFullPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
 

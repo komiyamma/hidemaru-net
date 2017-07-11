@@ -57,18 +57,18 @@ Object^ SubCallMethod(wstring assm_path, wstring class_name, wstring method_name
 		Assembly^ assm = nullptr;
 		Type^ t = nullptr;
 		if (assm_path.size() > 0) {
-			System::Diagnostics::Trace::WriteLine(gcnew String(assm_path.data()));
+			// System::Diagnostics::Trace::WriteLine(gcnew String(assm_path.data()));
 			assm = Assembly::LoadFile(gcnew String(assm_path.data()));
 			if (assm == nullptr) {
 				System::Diagnostics::Trace::WriteLine("ロード出来ない");
 			}
 			else {
-				System::Diagnostics::Trace::WriteLine(assm->FullName);
+				// System::Diagnostics::Trace::WriteLine(assm->FullName);
 			}
 			int i = 0;
 			String^ target_class_name = gcnew String(class_name.data());
 			for each(Type^ t2 in assm->GetExportedTypes() ) {
-				System::Diagnostics::Trace::Write(i);
+				// System::Diagnostics::Trace::Write(i);
 				if (t2->ToString() == target_class_name) {
 					t = assm->GetType(target_class_name);
 				}
@@ -76,7 +76,7 @@ Object^ SubCallMethod(wstring assm_path, wstring class_name, wstring method_name
 		}
 		else {
 			t = Type::GetType(gcnew String(class_name.data()));
-			System::Diagnostics::Trace::WriteLine(t->ToString());
+			// System::Diagnostics::Trace::WriteLine(t->ToString());
 		}
 		if (t == nullptr) {
 			System::Diagnostics::Trace::WriteLine("MissingMethodException(クラスもしくはメソッドを見つけることが出来ない):");
@@ -90,7 +90,7 @@ Object^ SubCallMethod(wstring assm_path, wstring class_name, wstring method_name
 		// System::Diagnostics::Trace::WriteLine(prms->Length);
 
 		o = m->Invoke(nullptr, args->ToArray());
-		System::Diagnostics::Trace::WriteLine(o);
+		// System::Diagnostics::Trace::WriteLine(o);
 		return o;
 	}
 	catch (Exception ^e) {
@@ -232,7 +232,7 @@ MACRO_DLL intHM_t CallMethod(const wchar_t* assm_path, const wchar_t* class_name
 	Object^ o = SubCallMethod(assm_path, class_name, method_name, args);
 
 	if (rt == DLLFUNCRETURN_INT) {
-		System::Diagnostics::Trace::WriteLine("数値リターン");
+		// System::Diagnostics::Trace::WriteLine("数値リターン");
 		if (o == nullptr) {
 			return (intHM_t)0;
 		}
@@ -247,7 +247,7 @@ MACRO_DLL intHM_t CallMethod(const wchar_t* assm_path, const wchar_t* class_name
 		return (intHM_t)0;
 
 	} else if (rt == DLLFUNCRETURN_WCHAR_PTR) {
-		System::Diagnostics::Trace::WriteLine("文字列リターン");
+		// System::Diagnostics::Trace::WriteLine("文字列リターン");
 		strcallmethod = String_to_wstring(o->ToString());
 		return (intHM_t)strcallmethod.data();
 
@@ -284,9 +284,6 @@ MACRO_DLL intHM_t DestroyScope() {
 
 	List<Object^>^ args = gcnew List<Object^>();
 	for each(auto v in finalizer_list) {
-		System::Diagnostics::Trace::WriteLine("DestroyScope");
-		System::Diagnostics::Trace::WriteLine(gcnew String(v.assm_path.c_str()));
-		System::Diagnostics::Trace::WriteLine(gcnew String(v.class_name.c_str()));
 		System::Diagnostics::Trace::WriteLine(gcnew String(v.method_name.c_str()));
 		SubCallMethod(v.assm_path, v.class_name, v.method_name, args);
 	}
