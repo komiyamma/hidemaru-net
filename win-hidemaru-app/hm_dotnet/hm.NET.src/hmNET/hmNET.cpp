@@ -50,7 +50,17 @@ MACRO_DLL const TCHAR * PopStrVar() {
 	return strvarsopop.data();
 }
 
+void TraceMethodInfo(String^ assm_path, String^ class_name, String^ method_name) {
+	System::Diagnostics::Trace::WriteLine("アセンブリパス   :" + assm_path);
+	System::Diagnostics::Trace::WriteLine("名前空間.クラス名:" + class_name);
+	System::Diagnostics::Trace::WriteLine("メソッド名       :" + method_name);
+}
 
+void TraceExceptionInfo(Exception^ e) {
+	System::Diagnostics::Trace::WriteLine(e->GetType());
+	System::Diagnostics::Trace::WriteLine(e->Message);
+	System::Diagnostics::Trace::WriteLine(e->StackTrace);
+}
 
 Object^ SubCallMethod(String^ assm_path, String^ class_name, String^ method_name, List<Object^>^ args) {
 	try {
@@ -76,9 +86,7 @@ Object^ SubCallMethod(String^ assm_path, String^ class_name, String^ method_name
 		}
 		if (t == nullptr) {
 			System::Diagnostics::Trace::WriteLine("MissingMethodException(クラスもしくはメソッドを見つけることが出来ない):");
-			System::Diagnostics::Trace::WriteLine("アセンブリパス   :" + assm_path);
-			System::Diagnostics::Trace::WriteLine("名前空間.クラス名:" + class_name);
-			System::Diagnostics::Trace::WriteLine("メソッド名       :" + method_name);
+			TraceMethodInfo( assm_path, class_name, method_name);
 			return nullptr;
 		}
 		MethodInfo^ m = t->GetMethod(method_name);
@@ -88,23 +96,16 @@ Object^ SubCallMethod(String^ assm_path, String^ class_name, String^ method_name
 		}
 		catch (Exception^ e) {
 			System::Diagnostics::Trace::WriteLine("指定のメソッドの実行時、例外が発生しました。");
-			System::Diagnostics::Trace::WriteLine("アセンブリパス   :" + assm_path);
-			System::Diagnostics::Trace::WriteLine("名前空間.クラス名:" + class_name);
-			System::Diagnostics::Trace::WriteLine("メソッド名       :" + method_name);
-			System::Diagnostics::Trace::WriteLine(e->GetType());
-			System::Diagnostics::Trace::WriteLine(e->Message);
-			System::Diagnostics::Trace::WriteLine(e->StackTrace);
+			throw;
+			TraceMethodInfo(assm_path, class_name, method_name);
+			TraceExceptionInfo(e);
 		}
 		return o;
 	}
 	catch (Exception ^e) {
 		System::Diagnostics::Trace::WriteLine("指定のアセンブリやメソッドを特定する前に、例外が発生しました。");
-		System::Diagnostics::Trace::WriteLine("アセンブリパス   :" + assm_path);
-		System::Diagnostics::Trace::WriteLine("名前空間.クラス名:" + class_name);
-		System::Diagnostics::Trace::WriteLine("メソッド名       :" + method_name);
-		System::Diagnostics::Trace::WriteLine(e->GetType());
-		System::Diagnostics::Trace::WriteLine(e->Message);
-		System::Diagnostics::Trace::WriteLine(e->StackTrace);
+		TraceMethodInfo(assm_path, class_name, method_name);
+		TraceExceptionInfo(e);
 	}
 
 
@@ -146,7 +147,6 @@ intHM_t ConvertObjectToIntPtr(Object^ o) {
 			{
 				return (intHM_t)(Int32)Math::Floor(dtmp);
 			}
-
 			else
 			{
 				return (intHM_t)0;
@@ -175,7 +175,6 @@ intHM_t ConvertObjectToIntPtr(Object^ o) {
 			{
 				return (intHM_t)(Int64)Math::Floor(dtmp);
 			}
-
 			else
 			{
 				return (intHM_t)0;
@@ -189,7 +188,7 @@ static wstring strcallmethod;
 MACRO_DLL intHM_t CallMethod(const wchar_t* assm_path, const wchar_t* class_name, wchar_t* method_name, void *arg0, void *arg1, void *arg2) {
 
 	// 自分自身のCallMethodを別から再度呼ぶと値が崩れるので、いち早く取得
-	int rt = Hidemaru_GetDllFuncCalledType(0);
+	int rty = Hidemaru_GetDllFuncCalledType(0);
 	int pt0 = Hidemaru_GetDllFuncCalledType(4); // 引数４番目
 	int pt1 = Hidemaru_GetDllFuncCalledType(5); // 引数５番目
 	int pt2 = Hidemaru_GetDllFuncCalledType(6); // 引数６番目
@@ -239,7 +238,9 @@ MACRO_DLL intHM_t CallMethod(const wchar_t* assm_path, const wchar_t* class_name
 
 	Object^ o = SubCallMethod(wstring_to_String(assm_path), wstring_to_String(class_name), wstring_to_String(method_name), args);
 
-	if (rt == DLLFUNCRETURN_INT) {
+	GC::Collect();
+
+	if (rty == DLLFUNCRETURN_INT) {
 		// System::Diagnostics::Trace::WriteLine("数値リターン");
 		if (o == nullptr) {
 			return (intHM_t)0;
@@ -254,52 +255,53 @@ MACRO_DLL intHM_t CallMethod(const wchar_t* assm_path, const wchar_t* class_name
 		}
 		return (intHM_t)0;
 
-	} else if (rt == DLLFUNCRETURN_WCHAR_PTR) {
+	} else if (rty == DLLFUNCRETURN_WCHAR_PTR) {
 		// System::Diagnostics::Trace::WriteLine("文字列リターン");
 		strcallmethod = String_to_wstring(o->ToString());
 		return (intHM_t)strcallmethod.data();
 
 	}
 
-	GC::Collect();
-	return true;
+	return false;
 }
 
-struct FINALIZER {
+struct DESTROYER {
 	wstring assm_path;
 	wstring class_name;
 	wstring method_name;
 };
 
-static vector<FINALIZER> finalizer_list;
-MACRO_DLL intHM_t SetDispose(const wchar_t* assm_path, const wchar_t* class_name, wchar_t* method_name) {
+static vector<DESTROYER> destroy_func_list;
+MACRO_DLL intHM_t SetDestroyer(const wchar_t* assm_path, const wchar_t* class_name, wchar_t* method_name) {
 	bool is_exist = false;
-	for each(auto v in finalizer_list) {
+	for each(auto v in destroy_func_list) {
 		if (v.assm_path == assm_path && v.class_name == class_name && v.method_name == method_name) {
 			is_exist = true;
 		}
 	}
 	if (!is_exist) {
-		FINALIZER f = { assm_path, class_name, method_name };
-		finalizer_list.push_back(f);
+		DESTROYER f = { assm_path, class_name, method_name };
+		destroy_func_list.push_back(f);
 	}
 	return true;
 }
 
-MACRO_DLL intHM_t DestroyScope() {
+MACRO_DLL intHM_t OnDestroy() {
 	strcallmethod.clear();
 	BindDllHandle();
 
 	List<Object^>^ args = gcnew List<Object^>();
-	for each(auto v in finalizer_list) {
+	for each(auto v in destroy_func_list) {
 		SubCallMethod(wstring_to_String(v.assm_path), wstring_to_String(v.class_name), wstring_to_String(v.method_name), args);
 	}
 
-	GC::Collect();
 	intHM_t ret = (intHM_t)INETStaticLib::DestroyScope();
+
+	GC::Collect();
+	
 	return ret;
 }
 
 MACRO_DLL intHM_t DllDetachFunc_After_Hm866() {
-	return DestroyScope();
+	return OnDestroy();
 }
