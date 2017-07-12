@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public partial class hmJSDynamicLib
 {
-    public class DllPathResolver
+    public sealed class DllPathResolver
     {
         public DllPathResolver()
         {

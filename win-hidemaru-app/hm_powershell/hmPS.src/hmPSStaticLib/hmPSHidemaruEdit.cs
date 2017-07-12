@@ -5,13 +5,13 @@ using System.Runtime.InteropServices;
 
 
 // ★秀丸クラス
-public partial class hmPSDynamicLib
+public sealed partial class hmPSDynamicLib
 {
-    public partial class Hidemaru
+    public sealed partial class Hidemaru
     {
 
         public static TEdit Edit;
-        public class TEdit
+        public sealed class TEdit
         {
             public TEdit()
             {
@@ -75,7 +75,7 @@ public partial class hmPSDynamicLib
             }
 
             [StructLayout(LayoutKind.Sequential)]
-            protected struct POINT
+            private struct POINT
             {
                 public int X;
                 public int Y;

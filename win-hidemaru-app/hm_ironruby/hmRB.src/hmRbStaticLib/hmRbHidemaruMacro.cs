@@ -4,9 +4,9 @@ using System.Runtime.InteropServices;
 
 
 // ★秀丸クラス
-public partial class hmRbDynamicLib
+public sealed partial class hmRbDynamicLib
 {
-    public partial class Hidemaru
+    public sealed partial class Hidemaru
     {
         public HmMacro Macro = new HmMacro();
         public class HmMacro
@@ -46,7 +46,7 @@ public partial class hmRbDynamicLib
             // 変数シンボル
             // [EXPORT NumVar]
             public TMacroVar Var = new TMacroVar();
-            public class TMacroVar
+            public sealed class TMacroVar
             {
                 public TMacroVar() { }
                 public Object this[String var_name]

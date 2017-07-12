@@ -2,11 +2,11 @@
 using System.Runtime.InteropServices;
 
 // ★秀丸クラス
-public partial class hmV8DynamicLib
+public sealed partial class hmV8DynamicLib
 {
-    public partial class Hidemaru
+    public sealed partial class Hidemaru
     {
-        public class Edit
+        public sealed class Edit
         {
             static Edit()
             {
@@ -71,7 +71,7 @@ public partial class hmV8DynamicLib
             }
 
             [StructLayout(LayoutKind.Sequential)]
-            protected struct POINT
+            private struct POINT
             {
                 public int X;
                 public int Y;

@@ -6,9 +6,9 @@ using System.Collections.Generic;
 
 
 // ★秀丸クラス
-internal partial class hmNETDynamicLib
+internal sealed partial class hmNETDynamicLib
 {
-    internal partial class Hidemaru
+    internal sealed partial class Hidemaru
     {
         public static List<String> AssemblyPath = new List<string>();
 
@@ -20,7 +20,7 @@ internal partial class hmNETDynamicLib
             SetUnManagedDll();
         }
 
-        internal class ErrorMsg
+        internal sealed class ErrorMsg
         {
             public const String MethodNeed866 = "このメソッドは秀丸エディタ v8.66 正式版以降で利用可能です。";
             public const String MethodNeed873 = "このメソッドは秀丸エディタ v8.73 正式版以降で利用可能です。";

@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 
 // Consoleのチープクラス
-public partial class hmJSDynamicLib
+public sealed partial class hmJSDynamicLib
 {
     public static hmJSConsole console;
 
-    public class hmJSConsole
+    public sealed class hmJSConsole
     {
         public static void log(params Object[] expressions)
         {

@@ -4,12 +4,12 @@ using System.Runtime.InteropServices;
 
 
 // ★秀丸クラス
-public partial class hmRbDynamicLib
+public sealed partial class hmRbDynamicLib
 {
-    public partial class Hidemaru
+    public sealed partial class Hidemaru
     {
         public HmEdit Edit = new HmEdit();
-        public class HmEdit
+        public sealed class HmEdit
         {
             public HmEdit()
             {
@@ -74,7 +74,7 @@ public partial class hmRbDynamicLib
 
 
             [StructLayout(LayoutKind.Sequential)]
-            protected struct POINT
+            private struct POINT
             {
                 public int X;
                 public int Y;

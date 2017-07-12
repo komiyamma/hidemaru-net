@@ -6,9 +6,9 @@ using System.Collections.Generic;
 
 
 // ★秀丸クラス
-internal partial class hmNETDynamicLib
+internal sealed partial class hmNETDynamicLib
 {
-    internal partial class Hidemaru
+    internal sealed partial class Hidemaru
     {
         // 秀丸本体から出ている関数群
         delegate IntPtr TGetCurrentWindowHandle();
@@ -73,10 +73,10 @@ internal partial class hmNETDynamicLib
                     pEvalMacro = hmExeHandle.GetProcDelegate<TEvalMacro>("Hidemaru_EvalMacro");
                     pCheckQueueStatus = hmExeHandle.GetProcDelegate<TCheckQueueStatus>("Hidemaru_CheckQueueStatus");
 
-                    pGetCursorPosUnicodeFromMousePos = hmExeHandle.GetProcDelegate<TGetCursorPosUnicodeFromMousePos>("Hidemaru_GetCursorPosUnicodeFromMousePos");
-                    pGetCurrentWindowHandle = hmExeHandle.GetProcDelegate<TGetCurrentWindowHandle>("Hidemaru_GetCurrentWindowHandle");
-                    System.Diagnostics.Trace.WriteLine("pGetCurrentWindowHandle");
-                    System.Diagnostics.Trace.WriteLine(pGetCurrentWindowHandle);
+                    if (version >= 873) { 
+                        pGetCursorPosUnicodeFromMousePos = hmExeHandle.GetProcDelegate<TGetCursorPosUnicodeFromMousePos>("Hidemaru_GetCursorPosUnicodeFromMousePos");
+                        pGetCurrentWindowHandle = hmExeHandle.GetProcDelegate<TGetCurrentWindowHandle>("Hidemaru_GetCurrentWindowHandle");
+                    }
                 }
             }
         }

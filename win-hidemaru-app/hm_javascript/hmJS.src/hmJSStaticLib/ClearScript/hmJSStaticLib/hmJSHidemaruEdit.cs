@@ -6,9 +6,9 @@ using System.Collections.Generic;
 
 
 // ★秀丸クラス
-public partial class hmJSDynamicLib
+public sealed partial class hmJSDynamicLib
 {
-    public partial class Hidemaru
+    public sealed partial class Hidemaru
     {
         public class Edit
         {

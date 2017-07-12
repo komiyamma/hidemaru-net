@@ -5,9 +5,9 @@ using System.Runtime.InteropServices;
 
 
 // ★秀丸クラス
-public partial class hmV8DynamicLib
+public sealed partial class hmV8DynamicLib
 {
-    public partial class Hidemaru
+    public sealed partial class Hidemaru
     {
         public Hidemaru()
         {

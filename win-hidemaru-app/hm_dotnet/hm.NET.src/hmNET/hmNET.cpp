@@ -52,13 +52,12 @@ MACRO_DLL const TCHAR * PopStrVar() {
 
 
 
-Object^ SubCallMethod(wstring assm_path, wstring class_name, wstring method_name, List<Object^>^ args) {
+Object^ SubCallMethod(String^ assm_path, String^ class_name, String^ method_name, List<Object^>^ args) {
 	try {
 		Assembly^ assm = nullptr;
 		Type^ t = nullptr;
-		if (assm_path.size() > 0) {
-			// System::Diagnostics::Trace::WriteLine(gcnew String(assm_path.data()));
-			assm = Assembly::LoadFile(gcnew String(assm_path.data()));
+		if (assm_path->Length > 0) {
+			assm = Assembly::LoadFile(assm_path);
 			if (assm == nullptr) {
 				System::Diagnostics::Trace::WriteLine("ロード出来ない");
 			}
@@ -66,34 +65,43 @@ Object^ SubCallMethod(wstring assm_path, wstring class_name, wstring method_name
 				// System::Diagnostics::Trace::WriteLine(assm->FullName);
 			}
 			int i = 0;
-			String^ target_class_name = gcnew String(class_name.data());
 			for each(Type^ t2 in assm->GetExportedTypes() ) {
-				// System::Diagnostics::Trace::Write(i);
-				if (t2->ToString() == target_class_name) {
-					t = assm->GetType(target_class_name);
+				if (t2->ToString() == class_name) {
+					t = assm->GetType(class_name);
 				}
 			}
 		}
 		else {
-			t = Type::GetType(gcnew String(class_name.data()));
-			// System::Diagnostics::Trace::WriteLine(t->ToString());
+			t = Type::GetType(class_name);
 		}
 		if (t == nullptr) {
 			System::Diagnostics::Trace::WriteLine("MissingMethodException(クラスもしくはメソッドを見つけることが出来ない):");
-			System::Diagnostics::Trace::WriteLine("アセンブリパス   :" + gcnew String(assm_path.data()));
-			System::Diagnostics::Trace::WriteLine("名前空間.クラス名:" + gcnew String(class_name.data()));
-			System::Diagnostics::Trace::WriteLine("メソッド名       :" + gcnew String(method_name.data()));
+			System::Diagnostics::Trace::WriteLine("アセンブリパス   :" + assm_path);
+			System::Diagnostics::Trace::WriteLine("名前空間.クラス名:" + class_name);
+			System::Diagnostics::Trace::WriteLine("メソッド名       :" + method_name);
+			return nullptr;
 		}
-		MethodInfo^ m = t->GetMethod(gcnew String(method_name.data()));
-		// cli::array<ParameterInfo^>^ prms = m->GetParameters();
+		MethodInfo^ m = t->GetMethod(method_name);
 		Object^ o = nullptr;
-		// System::Diagnostics::Trace::WriteLine(prms->Length);
-
-		o = m->Invoke(nullptr, args->ToArray());
-		// System::Diagnostics::Trace::WriteLine(o);
+		try {
+			o = m->Invoke(nullptr, args->ToArray());
+		}
+		catch (Exception^ e) {
+			System::Diagnostics::Trace::WriteLine("指定のメソッドの実行時、例外が発生しました。");
+			System::Diagnostics::Trace::WriteLine("アセンブリパス   :" + assm_path);
+			System::Diagnostics::Trace::WriteLine("名前空間.クラス名:" + class_name);
+			System::Diagnostics::Trace::WriteLine("メソッド名       :" + method_name);
+			System::Diagnostics::Trace::WriteLine(e->GetType());
+			System::Diagnostics::Trace::WriteLine(e->Message);
+			System::Diagnostics::Trace::WriteLine(e->StackTrace);
+		}
 		return o;
 	}
 	catch (Exception ^e) {
+		System::Diagnostics::Trace::WriteLine("指定のアセンブリやメソッドを特定する前に、例外が発生しました。");
+		System::Diagnostics::Trace::WriteLine("アセンブリパス   :" + assm_path);
+		System::Diagnostics::Trace::WriteLine("名前空間.クラス名:" + class_name);
+		System::Diagnostics::Trace::WriteLine("メソッド名       :" + method_name);
 		System::Diagnostics::Trace::WriteLine(e->GetType());
 		System::Diagnostics::Trace::WriteLine(e->Message);
 		System::Diagnostics::Trace::WriteLine(e->StackTrace);
@@ -229,7 +237,7 @@ MACRO_DLL intHM_t CallMethod(const wchar_t* assm_path, const wchar_t* class_name
 
 	INETStaticLib::CallMethod(L"init");
 
-	Object^ o = SubCallMethod(assm_path, class_name, method_name, args);
+	Object^ o = SubCallMethod(wstring_to_String(assm_path), wstring_to_String(class_name), wstring_to_String(method_name), args);
 
 	if (rt == DLLFUNCRETURN_INT) {
 		// System::Diagnostics::Trace::WriteLine("数値リターン");
@@ -284,8 +292,7 @@ MACRO_DLL intHM_t DestroyScope() {
 
 	List<Object^>^ args = gcnew List<Object^>();
 	for each(auto v in finalizer_list) {
-		System::Diagnostics::Trace::WriteLine(gcnew String(v.method_name.c_str()));
-		SubCallMethod(v.assm_path, v.class_name, v.method_name, args);
+		SubCallMethod(wstring_to_String(v.assm_path), wstring_to_String(v.class_name), wstring_to_String(v.method_name), args);
 	}
 
 	GC::Collect();

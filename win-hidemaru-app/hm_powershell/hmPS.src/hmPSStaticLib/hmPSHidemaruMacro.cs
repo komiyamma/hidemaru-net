@@ -3,12 +3,12 @@
 
 
 // ★秀丸クラス
-public partial class hmPSDynamicLib
+public sealed partial class hmPSDynamicLib
 {
-    public partial class Hidemaru
+    public sealed partial class Hidemaru
     {
         public static TMacro Macro;
-        public class TMacro
+        public sealed class TMacro
         {
             public TMacro()
             {

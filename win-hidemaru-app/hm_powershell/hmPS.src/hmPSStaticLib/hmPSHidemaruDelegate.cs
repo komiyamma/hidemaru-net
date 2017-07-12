@@ -3,9 +3,9 @@ using System.Runtime.InteropServices;
 
 
 // ★秀丸クラス
-public partial class hmPSDynamicLib
+public sealed partial class hmPSDynamicLib
 {
-    public partial class Hidemaru
+    public sealed partial class Hidemaru
     {
 
         // 秀丸本体から出ている関数群

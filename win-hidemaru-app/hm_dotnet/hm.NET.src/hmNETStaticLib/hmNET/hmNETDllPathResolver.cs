@@ -2,7 +2,7 @@
 using System.Reflection;
 using System.Collections.Generic;
 
-internal partial class hmNETDynamicLib
+internal sealed partial class hmNETDynamicLib
 {
     internal class DllPathResolver
     {

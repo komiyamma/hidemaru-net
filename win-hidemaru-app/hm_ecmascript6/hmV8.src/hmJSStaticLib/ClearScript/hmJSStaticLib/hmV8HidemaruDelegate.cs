@@ -4,9 +4,9 @@ using System.Runtime.InteropServices;
 
 
 // ★秀丸クラス
-public partial class hmV8DynamicLib
+public sealed partial class hmV8DynamicLib
 {
-    public partial class Hidemaru
+    public sealed partial class Hidemaru
     {
         // 秀丸本体から出ている関数群
         delegate IntPtr TGetTotalTextUnicode();

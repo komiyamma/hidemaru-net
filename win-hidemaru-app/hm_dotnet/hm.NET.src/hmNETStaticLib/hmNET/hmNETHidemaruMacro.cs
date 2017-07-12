@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 
 
 // ★秀丸クラス
-internal partial class hmNETDynamicLib
+internal sealed partial class hmNETDynamicLib
 {
-    internal partial class Hidemaru
+    internal sealed partial class Hidemaru
     {
-        public class Macro
+        public sealed class Macro
         {
             static Macro()
             {
@@ -39,7 +39,7 @@ internal partial class hmNETDynamicLib
 
             // マクロ文字列の実行。複数行を一気に実行可能
             public static TMacroVar Var = new TMacroVar();
-            public class TMacroVar
+            public sealed class TMacroVar
             {
                 public TMacroVar() { }
                 public Object this[String var_name]

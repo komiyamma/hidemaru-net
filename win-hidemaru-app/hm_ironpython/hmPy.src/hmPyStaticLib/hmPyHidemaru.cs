@@ -4,9 +4,9 @@ using System.Runtime.InteropServices;
 
 
 // ★秀丸クラス
-public partial class hmPyDynamicLib
+public sealed partial class hmPyDynamicLib
 {
-    public partial class Hidemaru
+    public sealed partial class Hidemaru
     {
         public Hidemaru()
         {

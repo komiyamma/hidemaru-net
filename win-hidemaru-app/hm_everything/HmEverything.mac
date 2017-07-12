@@ -29,6 +29,8 @@ CHANGE_OR_OPEN_WINDOW:
     if (#hPrevWndHidemaru == 0) {
         // 改めて開く
         newfile;
+        title "HmEverything 検索結果", 3; // 3 タブのタイトル
+        title -1, 3;             // タブのタイトルをこのマクロが終了しても保持
     } else {
         // すでにある結果表示用途のウィンドウをアクティブい
         setactivehidemaru( #hPrevWndHidemaru );

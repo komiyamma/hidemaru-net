@@ -126,7 +126,7 @@ public class IPyStaticLib
 }
 
 // IronPythonのエラーリスナーを独自に定義
-public class IronPytnonErrorListener : ErrorListener
+public sealed class IronPytnonErrorListener : ErrorListener
 {
     public string Message { get; set; }
     public int ErrorCode { get; set; }
@@ -143,7 +143,7 @@ public class IronPytnonErrorListener : ErrorListener
 
 
 // ★クラス実装内のメソッドの中でdynamic型を利用したもの。これを直接利用しないのは、内部でdynamic型を利用していると、クラスに自動的にメソッドが追加されてしまい、C++とはヘッダのメソッドの個数が合わなくなりリンクできなくなるため。
-public partial class hmPyDynamicLib
+public sealed partial class hmPyDynamicLib
 {
     static hmPyDynamicLib() {
         StringBuilder exe_full_path = new StringBuilder(260);

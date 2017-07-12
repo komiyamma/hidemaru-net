@@ -4,16 +4,16 @@ using System.Runtime.InteropServices;
 
 
 // ★秀丸クラス
-public partial class hmRbDynamicLib
+public sealed partial class hmRbDynamicLib
 {
-    public partial class Hidemaru
+    public sealed partial class Hidemaru
     {
         public Hidemaru()
         {
             SetUnManagedDll();
         }
 
-        class ErrorMsg
+        sealed class ErrorMsg
         {
             public const String MethodNeed866 = "このメソッドは秀丸エディタ v8.66 正式版以降で利用可能です。";
             public const String MethodNeed873 = "このメソッドは秀丸エディタ v8.73 正式版以降で利用可能です。";

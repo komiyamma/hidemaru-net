@@ -6,9 +6,9 @@ using System.Collections.Generic;
 
 
 // ★秀丸クラス
-public partial class hmJSDynamicLib
+public sealed partial class hmJSDynamicLib
 {
-    public partial class Hidemaru
+    public sealed partial class Hidemaru
     {
         // 秀丸本体から出ている関数群
         delegate IntPtr TGetTotalTextUnicode();

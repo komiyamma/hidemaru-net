@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
 
-internal class HmWndHandleSearcher
+internal sealed class HmWndHandleSearcher
 {
     String strHidemaruClassName;
     IntPtr hCurWndHidemaru = IntPtr.Zero;

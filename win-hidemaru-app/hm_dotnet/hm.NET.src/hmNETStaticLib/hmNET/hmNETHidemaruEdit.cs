@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 
 
 // ★秀丸クラス
-internal partial class hmNETDynamicLib
+internal sealed partial class hmNETDynamicLib
 {
-    internal partial class Hidemaru
+    internal sealed partial class Hidemaru
     {
-        public class Edit
+        public sealed class Edit
         {
             static Edit()
             {
@@ -35,24 +35,24 @@ internal partial class hmNETDynamicLib
 
             public struct HmMousePos
             {
-                private int m_x;
-                private int m_y;
                 private int m_lineno;
                 private int m_column;
+                private int m_x;
+                private int m_y;
                 public HmMousePos(int x, int y, int lineno, int column)
                 {
-                    this.m_x = x;
-                    this.m_y = y;
                     this.m_lineno = lineno;
                     this.m_column = column;
+                    this.m_x = x;
+                    this.m_y = y;
                 }
-                public int x { get { return m_x; } }
-                public int y { get { return m_y; } }
                 public int column { get { return m_column; } }
                 public int lineno { get { return m_lineno; } }
+                public int x { get { return m_x; } }
+                public int y { get { return m_y; } }
             }
-           
-            
+
+
             /// <summary>
             ///  CursorPos
             /// </summary>
@@ -73,7 +73,7 @@ internal partial class hmNETDynamicLib
             }
 
             [StructLayout(LayoutKind.Sequential)]
-            protected struct POINT
+            private struct POINT
             {
                 public int X;
                 public int Y;

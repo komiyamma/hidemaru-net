@@ -3,9 +3,9 @@ using System.Reflection;
 using System.Collections.Generic;
 
 
-public partial class hmV8DynamicLib
+public sealed partial class hmV8DynamicLib
 {
-    public class DllPathResolver
+    public sealed class DllPathResolver
     {
         public DllPathResolver()
         {

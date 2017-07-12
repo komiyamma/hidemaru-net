@@ -2,9 +2,9 @@
 using System.Reflection;
 using System.Collections.Generic;
 
-public partial class hmPSDynamicLib
+public sealed partial class hmPSDynamicLib
 {
-    public class DllPathResolver
+    public sealed class DllPathResolver
     {
         public DllPathResolver()
         {

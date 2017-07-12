@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 
 // Consoleのチープクラス
-public partial class hmV8DynamicLib
+public sealed partial class hmV8DynamicLib
 {
     public static hmV8Console console;
 
-    public class hmV8Console
+    public sealed class hmV8Console
     {
         public static void log(params Object[] expressions)
         {
