@@ -9,9 +9,9 @@ using Microsoft.ClearScript.Util;
 // ★秀丸クラス
 public partial class HmCustomLivePreviewDynamicLib
 {
-    public partial class Hidemaru
+    public sealed partial class Hidemaru
     {
-        public class Macro
+        public sealed class Macro
         {
             static Macro()
             {
@@ -48,7 +48,7 @@ public partial class HmCustomLivePreviewDynamicLib
                 // 文字列で書いているようであれば、普通のEval代わりに使っている
                 if (here_document.GetType().Name == "String")
                 {
-                    return _Eval( (String)here_document );
+                    return _Eval((String)here_document);
                 }
 
                 if (version < 866)
@@ -73,9 +73,11 @@ public partial class HmCustomLivePreviewDynamicLib
             }
 
             // マクロ文字列の実行。複数行を一気に実行可能
-            public static Object Var(String var_name, Object value = null) {
+            public static Object Var(String var_name, Object value = null)
+            {
                 // 読み取りであれば…
-                if (value == null) {
+                if (value == null)
+                {
                     if (version < 866)
                     {
                         OutputDebugStream(ErrorMsg.MethodNeed866);
@@ -120,8 +122,10 @@ public partial class HmCustomLivePreviewDynamicLib
                         return (String)ret + ""; // 確実に複製を
                     }
 
-                // 書き込みであれば…
-                } else {
+                    // 書き込みであれば…
+                }
+                else
+                {
                     // 設定先の変数が数値型
                     if (var_name.StartsWith("#"))
                     {

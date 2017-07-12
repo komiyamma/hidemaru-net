@@ -10,7 +10,7 @@ public sealed partial class hmJSDynamicLib
 {
     public sealed partial class Hidemaru
     {
-        public class Edit
+        public sealed class Edit
         {
             static Edit()
             {
@@ -62,7 +62,7 @@ public sealed partial class hmJSDynamicLib
                     return GetCursorPos();
                 }
             }
-            
+
             /// <summary>
             ///  [EXPORT] CursorPosFromMousePos
             /// </summary>
@@ -75,7 +75,7 @@ public sealed partial class hmJSDynamicLib
             }
 
             [StructLayout(LayoutKind.Sequential)]
-            protected struct POINT
+            private struct POINT
             {
                 public int X;
                 public int Y;
@@ -447,3 +447,4 @@ public sealed partial class hmJSDynamicLib
         }
     }
 }
+

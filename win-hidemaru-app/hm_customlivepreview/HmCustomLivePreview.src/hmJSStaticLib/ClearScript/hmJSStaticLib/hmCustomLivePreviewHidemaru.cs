@@ -6,17 +6,18 @@ using System.Collections.Generic;
 
 
 // ★秀丸クラス
-public partial class HmCustomLivePreviewDynamicLib
+public sealed partial class HmCustomLivePreviewDynamicLib
 {
-    public partial class Hidemaru
+    public sealed partial class Hidemaru
     {
         public Hidemaru()
         {
             System.Diagnostics.FileVersionInfo vi = System.Diagnostics.FileVersionInfo.GetVersionInfo(strExecuteFullpath);
             _ver = 100 * vi.FileMajorPart + 10 * vi.FileMinorPart + 1 * vi.FileBuildPart + 0.01 * vi.FilePrivatePart;
+            SetUnManagedDll();
         }
 
-        public class ErrorMsg
+        public sealed class ErrorMsg
         {
             public const String MethodNeed866 = "このメソッドは秀丸エディタ v8.66 正式版以降で利用可能です。";
             public const String MethodNeed873 = "このメソッドは秀丸エディタ v8.73 正式版以降で利用可能です。";

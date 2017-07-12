@@ -180,7 +180,7 @@ public sealed partial class hmJSDynamicLib
 }
 
 
-internal class hmTypeConverter
+internal sealed class hmTypeConverter
 {
     public static Object ToInteger(Object value)
     {

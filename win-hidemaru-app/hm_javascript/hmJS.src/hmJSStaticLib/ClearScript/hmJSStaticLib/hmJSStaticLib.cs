@@ -8,7 +8,7 @@ using Microsoft.ClearScript.Windows;
 
 // ★内部でdynamic型を利用しないもの。C++リンク用途のため「だけの」「コンパイルによってメソッド数が変化しない」インターフェイス。
 // このようなスタブを用意することで、C++とリンクすることが可能となる(=メソッドの個数がC#とC++/CLIで一致させることが出来る)
-public sealed class IJSStaticLib
+public class IJSStaticLib
 {
     public static void OutputDebugStream(String error)
     {
@@ -128,7 +128,7 @@ public sealed class IJSStaticLib
 
 
 // ★クラス実装内のメソッドの中でdynamic型を利用したもの。これを直接利用しないのは、内部でdynamic型を利用していると、クラスに自動的にメソッドが追加されてしまい、C++とはヘッダのメソッドの個数が合わなくなりリンクできなくなるため。
-public partial class hmJSDynamicLib
+public sealed partial class hmJSDynamicLib
 {
     static hmJSDynamicLib()
     {

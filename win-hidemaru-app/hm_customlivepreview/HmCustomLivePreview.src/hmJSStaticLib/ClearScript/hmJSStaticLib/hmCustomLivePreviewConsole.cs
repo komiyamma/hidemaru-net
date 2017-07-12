@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 // Consoleのチープクラス
-public partial class HmCustomLivePreviewDynamicLib
+public sealed partial class HmCustomLivePreviewDynamicLib
 {
     public static HmCustomLivePreviewConsole console;
 
@@ -180,7 +180,7 @@ public partial class HmCustomLivePreviewDynamicLib
 }
 
 
-internal class hmTypeConverter
+internal sealed class hmTypeConverter
 {
     public static Object ToInteger(Object value)
     {
