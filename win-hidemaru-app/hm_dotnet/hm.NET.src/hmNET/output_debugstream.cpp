@@ -8,5 +8,5 @@ using namespace std;
 using namespace System;
 
 void OutputDebugStream(wstring wstr) {
-	System::Diagnostics::Trace::WriteLine(gcnew String(wstr.data()));
+	System::Diagnostics::Trace::WriteLine(wstring_to_String(wstr));
 }
