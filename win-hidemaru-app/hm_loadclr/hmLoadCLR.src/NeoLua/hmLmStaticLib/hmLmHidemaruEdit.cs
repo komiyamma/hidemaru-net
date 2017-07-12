@@ -5,11 +5,11 @@ using Neo.IronLua;
 
 
 // ★クラス実装内のメソッドの中でdynamic型を利用したもの。これを直接利用しないのは、内部でdynamic型を利用していると、クラスに自動的にメソッドが追加されてしまい、C++とはヘッダのメソッドの個数が合わなくなりリンクできなくなるため。
-public partial class hmLmDynamicLib
+public sealed partial class hmLmDynamicLib
 {
-    public partial class Hidemaru
+    public sealed partial class Hidemaru
     {
-        public class Edit
+        public sealed class Edit
         {
             static Edit()
             {
@@ -28,7 +28,7 @@ public partial class hmLmDynamicLib
             /// <summary>
             ///  [EXPORT] CursorPosFromMousePos
             /// </summary>
-            public static LuaTable CursorPosFromMousePos
+            public static LuaTable MousePos
             {
                 get
                 {
@@ -66,6 +66,17 @@ public partial class hmLmDynamicLib
                 }
             }
 
+            [StructLayout(LayoutKind.Sequential)]
+            protected struct POINT
+            {
+                public int X;
+                public int Y;
+            }
+            [DllImport("user32.dll", SetLastError = true)]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            static extern bool GetCursorPos(out POINT lpPoint);
+
+
             // columnやlinenoはエディタ的な座標である。
             private static LuaTable GetCursorPosFromMousePos()
             {
@@ -73,6 +84,8 @@ public partial class hmLmDynamicLib
                 {
                     OutputDebugStream(ErrorMsg.MethodNeed873);
                     var t = new LuaTable();
+                    t["x"] = -1;
+                    t["y"] = -1;
                     t["column"] = -1;
                     t["lineno"] = -1;
                     return t;
@@ -83,16 +96,27 @@ public partial class hmLmDynamicLib
                 {
                     OutputDebugStream(ErrorMsg.MethodNeed873);
                     var t = new LuaTable();
+                    t["x"] = -1;
+                    t["y"] = -1;
                     t["column"] = -1;
                     t["lineno"] = -1;
                     return t;
                 }
 
+                POINT lpPoint;
+                bool success = GetCursorPos(out lpPoint);
+                if (!success)
+                {
+                    lpPoint.X = -1;
+                    lpPoint.Y = -1;
+                }
                 int column = -1;
                 int lineno = -1;
                 pGetCursorPosUnicodeFromMousePos(IntPtr.Zero, ref lineno, ref column);
 
                 LuaTable p = new LuaTable();
+                p["x"] = lpPoint.X;
+                p["y"] = lpPoint.Y;
                 p["lineno"] = lineno;
                 p["column"] = column;
                 return p;

@@ -74,7 +74,7 @@ string CPerlEzMagicalScalar::Hm::Edit::Get::CursorPos() {
 
 string CPerlEzMagicalScalar::Hm::Edit::Get::CursorPosFromMousePos() {
 	auto pos = CHidemaruExeExport::GetCursorPosFromMousePos();
-	return std::to_string(pos.lineno) + "," + std::to_string(pos.column);
+	return std::to_string(pos.x) + "," + std::to_string(pos.y) + "," + std::to_string(pos.lineno) + "," + std::to_string(pos.column);
 }
 
 

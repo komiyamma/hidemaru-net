@@ -9,21 +9,6 @@ public partial class hmPSDynamicLib
 {
     public partial class Hidemaru
     {
-        // 座標型。Point型では、System.Drawingを読み込まないとダメなので負荷がある。また、x, yは秀丸に別値として存在するので、
-        // あくまでも、マクロのcolumnとlinenoと一致しているという主張。なお、x, yはワープロ的な座標を拾ってくる。
-        // columnやlinenoはエディタ的な座標である。
-        public struct HmCursurPos
-        {
-            private int m_lineno;
-            private int m_column;
-            public HmCursurPos(int lineno, int column)
-            {
-                this.m_lineno = lineno;
-                this.m_column = column;
-            }
-            public int column { get { return m_column; } }
-            public int lineno { get { return m_lineno; } }
-        }
 
         public static TEdit Edit;
         public class TEdit
@@ -32,6 +17,42 @@ public partial class hmPSDynamicLib
             {
                 SetUnManagedDll();
             }
+
+            // 座標型。Point型では、System.Drawingを読み込まないとダメなので負荷がある。また、x, yは秀丸に別値として存在するので、
+            // あくまでも、マクロのcolumnとlinenoと一致しているという主張。なお、x, yはワープロ的な座標を拾ってくる。
+            // columnやlinenoはエディタ的な座標である。
+            public struct HmCursurPos
+            {
+                private int m_lineno;
+                private int m_column;
+                public HmCursurPos(int lineno, int column)
+                {
+                    this.m_lineno = lineno;
+                    this.m_column = column;
+                }
+                public int column { get { return m_column; } }
+                public int lineno { get { return m_lineno; } }
+            }
+
+            public struct HmMousePos
+            {
+                private int m_x;
+                private int m_y;
+                private int m_lineno;
+                private int m_column;
+                public HmMousePos(int x, int y, int lineno, int column)
+                {
+                    this.m_x = x;
+                    this.m_y = y;
+                    this.m_lineno = lineno;
+                    this.m_column = column;
+                }
+                public int x { get { return m_x; } }
+                public int y { get { return m_y; } }
+                public int column { get { return m_column; } }
+                public int lineno { get { return m_lineno; } }
+            }
+           
             /// <summary>
             ///  CursorPos
             /// </summary>
@@ -45,13 +66,23 @@ public partial class hmPSDynamicLib
             /// <summary>
             ///  [EXPORT] CursorPosFromMousePos
             /// </summary>
-            public static HmCursurPos CursorPosFromMousePos
+            public static HmMousePos MousePos
             {
                 get
                 {
                     return GetCursorPosFromMousePos();
                 }
             }
+
+            [StructLayout(LayoutKind.Sequential)]
+            protected struct POINT
+            {
+                public int X;
+                public int Y;
+            }
+            [DllImport("user32.dll", SetLastError = true)]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            static extern bool GetCursorPos(out POINT lpPoint);
 
             // columnやlinenoはエディタ的な座標である。
             private static HmCursurPos GetCursorPos()
@@ -75,25 +106,33 @@ public partial class hmPSDynamicLib
             }
 
             // columnやlinenoはエディタ的な座標である。
-            private static HmCursurPos GetCursorPosFromMousePos()
+            // columnやlinenoはエディタ的な座標である。
+            private static HmMousePos GetCursorPosFromMousePos()
             {
                 if (version < 873)
                 {
                     OutputDebugStream(ErrorMsg.MethodNeed873);
-                    return new HmCursurPos(-1, -1);
+                    return new HmMousePos(-1, -1, -1, -1);
                 }
 
                 // この関数が存在しないバージョン
                 if (pGetCursorPosUnicodeFromMousePos == null)
                 {
                     OutputDebugStream(ErrorMsg.MethodNeed873);
-                    return new HmCursurPos(-1, -1);
+                    return new HmMousePos(-1, -1, -1, -1);
                 }
 
+                POINT lpPoint;
+                bool success = GetCursorPos(out lpPoint);
+                if (!success)
+                {
+                    lpPoint.X = -1;
+                    lpPoint.Y = -1;
+                }
                 int column = -1;
                 int lineno = -1;
                 pGetCursorPosUnicodeFromMousePos(IntPtr.Zero, ref lineno, ref column);
-                HmCursurPos p = new HmCursurPos(lineno, column);
+                HmMousePos p = new HmMousePos(lpPoint.X, lpPoint.Y, lineno, column);
                 return p;
             }
 

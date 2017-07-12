@@ -3,9 +3,9 @@ using System.Reflection;
 using System.Collections.Generic;
 using Neo.IronLua;
 
-public partial class hmLmDynamicLib
+public sealed partial class hmLmDynamicLib
 {
-    public class DllPathResolver
+    public sealed class DllPathResolver
     {
         public DllPathResolver()
         {

@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // アンマネージドライブラリの遅延での読み込み。C++のLoadLibraryと同じことをするため
 // これをする理由は、このhmLoadCLRとHideamru.exeが異なるディレクトリに存在する可能性があるため、
 // C#風のDllImportは成立しないからだ。
-internal class UnManagedDll : IDisposable
+internal sealed class UnManagedDll : IDisposable
 {
     [DllImport("kernel32")]
     static extern IntPtr LoadLibrary(string lpFileName);

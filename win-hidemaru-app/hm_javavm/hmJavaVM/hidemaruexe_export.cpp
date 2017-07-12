@@ -155,7 +155,13 @@ CHidemaruExeExport::HmCursurPos CHidemaruExeExport::GetCursorPos() {
 	return pos;
 }
 
-CHidemaruExeExport::HmCursurPos CHidemaruExeExport::GetCursorPosFromMousePos() {
+CHidemaruExeExport::HmMousePos CHidemaruExeExport::GetCursorPosFromMousePos() {
+	POINT point;
+	int s = ::GetCursorPos(&point);
+	if (!s) {
+		point.x = -1;
+		point.y = -1;
+	}
 	int nLineNo = -1;
 	int nColumn = -1;
 
@@ -164,7 +170,7 @@ CHidemaruExeExport::HmCursurPos CHidemaruExeExport::GetCursorPosFromMousePos() {
 		// このsuccessはnLineNoもしくは、nColumnのどちらか１つが失敗するとFalseを返してしまうので、返り値は使わない
 		BOOL _ = Hidemaru_GetCursorPosUnicodeFromMousePos(NULL, &nLineNo, &nColumn);
 	}
-	HmCursurPos pos(nLineNo, nColumn);
+	HmMousePos pos(point.x, point.y, nLineNo, nColumn);
 	return pos;
 }
 

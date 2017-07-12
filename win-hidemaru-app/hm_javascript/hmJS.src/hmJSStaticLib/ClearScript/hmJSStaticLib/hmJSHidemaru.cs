@@ -14,6 +14,7 @@ public partial class hmJSDynamicLib
         {
             System.Diagnostics.FileVersionInfo vi = System.Diagnostics.FileVersionInfo.GetVersionInfo(strExecuteFullpath);
             _ver = 100 * vi.FileMajorPart + 10 * vi.FileMinorPart + 1 * vi.FileBuildPart + 0.01 * vi.FilePrivatePart;
+            SetUnManagedDll();
         }
 
         public class ErrorMsg

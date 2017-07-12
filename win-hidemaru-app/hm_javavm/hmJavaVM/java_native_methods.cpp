@@ -286,7 +286,7 @@ JNIEXPORT jstring JNICALL Java_hidemaru_Hm_GetCursorPos(JNIEnv *env, jobject obj
 JNIEXPORT jstring JNICALL Java_hidemaru_Hm_GetCursorPosFromMousePos(JNIEnv *env, jobject obj) {
 
 	auto pos = CHidemaruExeExport::GetCursorPosFromMousePos();
-	wstring str_pos = std::to_wstring(pos.lineno) + L"," + std::to_wstring(pos.column);
+	wstring str_pos = std::to_wstring(pos.x) + L"," + std::to_wstring(pos.y) + L"," + std::to_wstring(pos.lineno) + L"," + std::to_wstring(pos.column);
 
 	return utf16_to_jstring(env, str_pos);
 }

@@ -164,7 +164,22 @@ public:
 	// Hidemaru_GetCursorPosUnicodeFromMousePos関数のラップしたもの
 	// (秀丸8.73以上)
 	//-------------------------------------------------------------------------
-	static HmCursurPos GetCursorPosFromMousePos();
+	struct HmMousePos
+	{
+	public:
+		int x;
+		int y;
+		int lineno;
+		int column;
+		HmMousePos(int _x, int _y, int _lineno, int _column)
+		{
+			this->x = _x;
+			this->y = _y;
+			this->lineno = _lineno;
+			this->column = _column;
+		}
+	};
+	static HmMousePos GetCursorPosFromMousePos();
 
 	//-------------------------------------------------------------------------
 	// Hidemaru_EvalMacro関数のラップしたもの

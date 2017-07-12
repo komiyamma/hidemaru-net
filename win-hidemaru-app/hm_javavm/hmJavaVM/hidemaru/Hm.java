@@ -130,12 +130,40 @@ public class Hm {
 			return pos;
 		}
 
-		public static CursorPos getCursorPosFromMousePos() {
+		public static class MousePos {
+			private int m_x;
+			private int m_y;
+			private int m_lineno;
+			private int m_column;
+
+			public MousePos(int x, int y, int lineno, int column) {
+				this.m_x = x;
+				this.m_y = y;
+				this.m_lineno = lineno;
+				this.m_column = column;
+			}
+
+			public int getX() {
+				return m_x;
+			}
+			public int getY() {
+				return m_y;
+			}
+			public int getLineNo() {
+				return m_lineno;
+			}
+			public int getColumn() {
+				return m_column;
+			}
+		}
+		public static MousePos getMousePos() {
 			String strPos = GetCursorPosFromMousePos();
-			String[] lineno_and_column = strPos.split(",", 2);
-			int lineno = Integer.parseInt(lineno_and_column[0]);
-			int column = Integer.parseInt(lineno_and_column[1]);
-			CursorPos pos = new CursorPos(lineno, column);
+			String[] x_and_y_and_lineno_and_column = strPos.split(",", 4);
+			int x = Integer.parseInt(x_and_y_and_lineno_and_column[0]);
+			int y = Integer.parseInt(x_and_y_and_lineno_and_column[1]);
+			int lineno = Integer.parseInt(x_and_y_and_lineno_and_column[2]);
+			int column = Integer.parseInt(x_and_y_and_lineno_and_column[3]);
+			MousePos pos = new MousePos(x, y, lineno, column);
 			return pos;
 		}
 

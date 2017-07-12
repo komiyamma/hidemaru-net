@@ -5,14 +5,15 @@ using Neo.IronLua;
 
 
 // ★クラス実装内のメソッドの中でdynamic型を利用したもの。これを直接利用しないのは、内部でdynamic型を利用していると、クラスに自動的にメソッドが追加されてしまい、C++とはヘッダのメソッドの個数が合わなくなりリンクできなくなるため。
-public partial class hmLmDynamicLib
+public sealed partial class hmLmDynamicLib
 {
-    public partial class Hidemaru
+    public sealed partial class Hidemaru
     {
         public Hidemaru()
         {
             System.Diagnostics.FileVersionInfo vi = System.Diagnostics.FileVersionInfo.GetVersionInfo(strExecuteFullpath);
             _ver = 100 * vi.FileMajorPart + 10 * vi.FileMinorPart + 1 * vi.FileBuildPart + 0.01 * vi.FilePrivatePart;
+            SetUnManagedDll();
             Macro.Var = new Macro.TMacroVar();
         }
 

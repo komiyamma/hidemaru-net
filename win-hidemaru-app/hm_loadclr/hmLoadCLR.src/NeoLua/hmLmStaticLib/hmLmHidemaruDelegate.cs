@@ -5,9 +5,9 @@ using Neo.IronLua;
 
 
 // ★クラス実装内のメソッドの中でdynamic型を利用したもの。これを直接利用しないのは、内部でdynamic型を利用していると、クラスに自動的にメソッドが追加されてしまい、C++とはヘッダのメソッドの個数が合わなくなりリンクできなくなるため。
-public partial class hmLmDynamicLib
+public sealed partial class hmLmDynamicLib
 {
-    public partial class Hidemaru
+    public sealed partial class Hidemaru
     {
         delegate IntPtr TGetTotalTextUnicode();
         delegate IntPtr TGetLineTextUnicode(int nLineNo);
