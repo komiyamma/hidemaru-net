@@ -1,0 +1,23 @@
+// HmTextSynChrome v1.0.0.1 
+// Copyright @ 2017 VSCode.life
+
+$argOption1 = getarg(0);
+
+$curOption1 = "--lang=jp"; // デフォルトは「日本語へ」の翻訳
+
+// 引数で指定があるなら、それに切り替える
+if ($argOption1 != "") {
+    $curOption1 = $argOption1;
+}
+
+newfile;
+title "HmTextSyncChome「"+$curOption1+"」タブ" , 3;
+title -1, 3;
+
+#HTSC = loaddll( currentmacrodirectory + @"\HmTextSynChrome.dll" );
+if (#HTSC) {
+	#_ = dllfuncw(#HTSC, "Show", hidemaruhandle(0), $curOption1 );
+} else {
+	message("HmTextSynChrome.dllを読み込むことが出来ません");
+}
+
