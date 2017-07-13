@@ -19,7 +19,7 @@ internal sealed partial class hmNETDynamicLib
             // 座標型。Point型では、System.Drawingを読み込まないとダメなので負荷がある。また、x, yは秀丸に別値として存在するので、
             // あくまでも、マクロのcolumnとlinenoと一致しているという主張。なお、x, yはワープロ的な座標を拾ってくる。
             // columnやlinenoはエディタ的な座標である。
-            public struct HmCursurPos
+            public struct HmCursurPos : global::Hidemaru.Hm.Edit.ICursorPos
             {
                 private int m_lineno;
                 private int m_column;
@@ -28,12 +28,12 @@ internal sealed partial class hmNETDynamicLib
                     this.m_lineno = lineno;
                     this.m_column = column;
                 }
-                public int column { get { return m_column; } }
-                public int lineno { get { return m_lineno; } }
+                public int Column { get { return m_column; } }
+                public int LineNo { get { return m_lineno; } }
             }
 
 
-            public struct HmMousePos
+            public class HmMousePos : global::Hidemaru.Hm.Edit.IMousePos
             {
                 private int m_lineno;
                 private int m_column;
@@ -46,10 +46,10 @@ internal sealed partial class hmNETDynamicLib
                     this.m_x = x;
                     this.m_y = y;
                 }
-                public int column { get { return m_column; } }
-                public int lineno { get { return m_lineno; } }
-                public int x { get { return m_x; } }
-                public int y { get { return m_y; } }
+                public int Column { get { return m_column; } }
+                public int LineNo { get { return m_lineno; } }
+                public int X { get { return m_x; } }
+                public int Y { get { return m_y; } }
             }
 
 
@@ -393,7 +393,7 @@ internal sealed partial class hmNETDynamicLib
                 HmCursurPos p = GetCursorPos();
 
                 String curstr = "";
-                IntPtr hGlobal = pGetLineTextUnicode(p.lineno);
+                IntPtr hGlobal = pGetLineTextUnicode(p.LineNo);
                 HGlobalStatus hgs = HGlobalStatus.None;
                 if (hGlobal != null)
                 {
@@ -460,7 +460,7 @@ internal sealed partial class hmNETDynamicLib
                     "begingroupundo;\n" +
                     "selectline;\n" +
                     "insert dllfuncstrw( {0} \"PopStrVar\" );\n" +
-                    "moveto2 " + pos.column + ", " + pos.lineno + ";\n" +
+                    "moveto2 " + pos.Column + ", " + pos.LineNo + ";\n" +
                     "endgroupundo;\n"
                 );
                 Macro.Eval(cmd);

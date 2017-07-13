@@ -26,16 +26,21 @@ namespace Hidemaru
                 return hmNETDynamicLib.Hidemaru.Macro.Eval(expression);
             }
 
-            public static TVar Var = new TVar();
-            public class TVar {
-                public Object this[String var_name] {
+            public static IVar Var = new TVar();
+            public interface IVar
+            {
+                Object this[String name] { get; set; }
+            }
+            private class TVar : IVar
+            {
+                public Object this[String name] {
                     get
                     {
-                        return hmNETDynamicLib.Hidemaru.Macro.Var[var_name];
+                        return hmNETDynamicLib.Hidemaru.Macro.Var[name];
                     }
                     set
                     {
-                        hmNETDynamicLib.Hidemaru.Macro.Var[var_name] = value;
+                        hmNETDynamicLib.Hidemaru.Macro.Var[name] = value;
                     }
                 }
             }
@@ -96,19 +101,30 @@ namespace Hidemaru
 
             }
 
-            public static (int LineNo, int Column) CursorPos
+            public interface ICursorPos
+            {
+                int LineNo { get; }
+                int Column { get; }
+            }
+            public static ICursorPos CursorPos
             {
                 get {
                     var pos = hmNETDynamicLib.Hidemaru.Edit.CursorPos;
-                    return (pos.lineno, pos.column);
+                    return pos;
                 }
             }
 
-            public static (int LineNo, int Column, int X, int Y) MousePos
+            public interface IMousePos {
+                int LineNo { get; }
+                int Column { get; }
+                int X { get; }
+                int Y { get; }
+            }
+            public static IMousePos MousePos
             {
                 get {
                     var pos = hmNETDynamicLib.Hidemaru.Edit.MousePos;
-                    return (pos.lineno, pos.column, pos.x, pos.y);
+                    return pos;
                 }
             }
 
