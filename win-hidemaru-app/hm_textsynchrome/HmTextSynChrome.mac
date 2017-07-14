@@ -1,23 +1,56 @@
 // HmTextSynChrome v1.0.0.1 
 // Copyright @ 2017 VSCode.life
 
+:
 $argOption1 = getarg(0);
 
-$curOption1 = "--lang=jp"; // デフォルトは「日本語へ」の翻訳
+$curOption1 = "--lang=ja"; // デフォルトは「日本語」への翻訳
 
-// 引数で指定があるなら、それに切り替える
-if ($argOption1 != "") {
+
+// 引数で指定が無いなら、メニューで選ぶ
+if ($argOption1 == "") {
+    $menuOptions[0] = "--lang=ja"   ; $menuTitle[0] = "日本語";
+    $menuOptions[1] = "--lang=en"   ; $menuTitle[1] = "英語";
+    $menuOptions[2] = "--lang=zh-CN"; $menuTitle[2] = "中国語(簡体字)";
+    $menuOptions[3] = "--lang=zh-TW"; $menuTitle[3] = "中国語(繁体字)";
+    $menuOptions[4] = "--lang=ko"   ; $menuTitle[4] = "韓国語";
+    $menuOptions[5] = "--lang=fr"   ; $menuTitle[5] = "フランス語";
+    $menuOptions[6] = "--lang=de"   ; $menuTitle[6] = "ドイツ語";
+    $menuOptions[7] = "--lang=it"   ; $menuTitle[7] = "イタリア語";
+    $menuOptions[8] = "--lang=es"   ; $menuTitle[8] = "スペイン語";
+    $menuOptions[9] = "--lang=pt"   ; $menuTitle[9] = "ポルトガル語";
+    $menuOptions[10]= "--lang=ru"   ; $menuTitle[10]= "ロシア語";
+
+    #menu_length = 0;
+    while(true) {
+        if ($menuTitle[#menu_length] == "") {
+            break;
+        }
+        #menu_length = #menu_length + 1;
+    }
+    mousemenuarray $menuTitle, #menu_length;
+    #select_index = result - 1;
+    if (0 <= #select_index && #select_index < #menu_length) {
+        $curOption1 = $menuOptions[#select_index];
+    } else {
+        endmacro;
+    }
+
+// 引数で指定があるなら、直接代入
+} else {
     $curOption1 = $argOption1;
 }
 
+
 newfile;
-title "HmTextSyncChome「"+$curOption1+"」タブ" , 3;
+title "HmTextSynChrome「"+$curOption1+"」タブ" , 3;
 title -1, 3;
+
 
 #HTSC = loaddll( currentmacrodirectory + @"\HmTextSynChrome.dll" );
 if (#HTSC) {
-	#_ = dllfuncw(#HTSC, "Show", hidemaruhandle(0), $curOption1 );
+    #_ = dllfuncw(#HTSC, "Show", hidemaruhandle(0), $curOption1 );
 } else {
-	message("HmTextSynChrome.dllを読み込むことが出来ません");
+    message("HmTextSynChrome.dllを読み込むことが出来ません");
 }
 

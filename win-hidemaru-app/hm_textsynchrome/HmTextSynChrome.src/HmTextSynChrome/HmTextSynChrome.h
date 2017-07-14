@@ -29,7 +29,7 @@ public:
 protected:
 	HWND hWndHidemaru = NULL;
 	String^ strPrvTotalText = "";
-	String^ strOption1 = "--lang=jp";
+	String^ strOption1 = "--lang=ja";
 	hmHtmlPreviewMode mode;
 	Timer^ update;
 
@@ -66,7 +66,7 @@ protected:
 		try {
 			chromeOptions = gcnew ChromeOptions();
 			System::Diagnostics::Trace::WriteLine("\n¡" + strOption1);
-			chromeOptions->AddArgument("--lang=" + strOption1);
+			chromeOptions->AddArgument(strOption1);
 			chromeService = ChromeDriverService::CreateDefaultService();
 			chromeService->HideCommandPromptWindow = true;
 

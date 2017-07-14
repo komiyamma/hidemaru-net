@@ -93,7 +93,7 @@ MACRO_DLL intptr_t Dispose() {
 
 			// 秀丸が閉じる前までに可能な限りマネージドのインスタンスを解放して不正エラーが出にくい状態へと持っていく。
 			GC::Collect();
-			GC::WaitForPendingFinalizers();
+			// GC::WaitForPendingFinalizers();
 
 		}
 	}
