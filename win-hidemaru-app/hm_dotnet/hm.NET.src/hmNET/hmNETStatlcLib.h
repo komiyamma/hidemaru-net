@@ -8,7 +8,7 @@ private ref class INETStaticLib
 public:
 	static void OutputDebugStream(String^ error);
 
-	static IntPtr CreateScope();
+	static IntPtr AttachScope();
 
 	static IntPtr BindDllHandle(IntPtr dll);
 
@@ -19,6 +19,6 @@ public:
 
 	static IntPtr CallMethod(String^ expression);
 
-	static IntPtr DestroyScope();
+	static IntPtr DetachScope();
 
 };

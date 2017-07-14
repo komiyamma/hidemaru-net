@@ -13,9 +13,9 @@ internal class INETStaticLib
         hmNETDynamicLib.OutputDebugStream(error);
     }
 
-    public static IntPtr CreateScope()
+    public static IntPtr AttachScope()
     {
-        return hmNETDynamicLib.CreateScope();
+        return hmNETDynamicLib.AttachScope();
     }
 
     public static IntPtr BindDllHandle(IntPtr dll)
@@ -40,9 +40,9 @@ internal class INETStaticLib
         return hmNETDynamicLib.CallMethod(expression);
     }
 
-    public static IntPtr DestroyScope()
+    public static IntPtr DetachScope()
     {
-        return hmNETDynamicLib.DestroyScope();
+        return hmNETDynamicLib.DetachScope();
     }
 
 }
@@ -115,7 +115,7 @@ internal partial class hmNETDynamicLib
     private static Hidemaru hm;
 
     //----------------------------------------------------------------------------------------------
-    public static IntPtr CreateScope()
+    public static IntPtr AttachScope()
     {
         // まだエンジンが作られていなければ
         if (engine == null)
@@ -143,7 +143,7 @@ internal partial class hmNETDynamicLib
 
     public static IntPtr CallMethod(String expression, String inAction = "DoString")
     {
-        if (CreateScope() == (IntPtr)0)
+        if (AttachScope() == (IntPtr)0)
         {
             return (IntPtr)0;
         }
@@ -161,7 +161,7 @@ internal partial class hmNETDynamicLib
         return (IntPtr)0;
     }
 
-    public static IntPtr DestroyScope()
+    public static IntPtr DetachScope()
     {
         if (engine != null)
         {

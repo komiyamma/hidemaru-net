@@ -185,13 +185,14 @@ intHM_t ConvertObjectToIntPtr(Object^ o) {
 }
 
 static wstring strcallmethod;
-MACRO_DLL intHM_t CallMethod(const wchar_t* assm_path, const wchar_t* class_name, wchar_t* method_name, void *arg0, void *arg1, void *arg2) {
+MACRO_DLL intHM_t CallMethod(const wchar_t* assm_path, const wchar_t* class_name, wchar_t* method_name, void *arg0, void *arg1, void *arg2, void *arg3) {
 
 	// ©•ª©g‚ÌCallMethod‚ğ•Ê‚©‚çÄ“xŒÄ‚Ô‚Æ’l‚ª•ö‚ê‚é‚Ì‚ÅA‚¢‚¿‘‚­æ“¾
 	int rty = Hidemaru_GetDllFuncCalledType(0);
 	int pt0 = Hidemaru_GetDllFuncCalledType(4); // ˆø”‚S”Ô–Ú
 	int pt1 = Hidemaru_GetDllFuncCalledType(5); // ˆø”‚T”Ô–Ú
 	int pt2 = Hidemaru_GetDllFuncCalledType(6); // ˆø”‚U”Ô–Ú
+	int pt3 = Hidemaru_GetDllFuncCalledType(7); // ˆø”‚V”Ô–Ú
 
 	strcallmethod.clear();
 
@@ -218,6 +219,11 @@ MACRO_DLL intHM_t CallMethod(const wchar_t* assm_path, const wchar_t* class_name
 		case 6: {
 			arg = arg2;
 			pt = pt2;
+			break;
+		}
+		case 7: {
+			arg = arg3;
+			pt = pt3;
 			break;
 		}
 		}
@@ -265,37 +271,37 @@ MACRO_DLL intHM_t CallMethod(const wchar_t* assm_path, const wchar_t* class_name
 	return false;
 }
 
-struct DESTROYER {
+struct DETATH_FUNC {
 	wstring assm_path;
 	wstring class_name;
 	wstring method_name;
 };
 
-static vector<DESTROYER> destroy_func_list;
+static vector<DETATH_FUNC> detach_func_list;
 MACRO_DLL intHM_t SetDestroyer(const wchar_t* assm_path, const wchar_t* class_name, wchar_t* method_name) {
 	bool is_exist = false;
-	for each(auto v in destroy_func_list) {
+	for each(auto v in detach_func_list) {
 		if (v.assm_path == assm_path && v.class_name == class_name && v.method_name == method_name) {
 			is_exist = true;
 		}
 	}
 	if (!is_exist) {
-		DESTROYER f = { assm_path, class_name, method_name };
-		destroy_func_list.push_back(f);
+		DETATH_FUNC f = { assm_path, class_name, method_name };
+		detach_func_list.push_back(f);
 	}
 	return true;
 }
 
-MACRO_DLL intHM_t OnDestroy() {
+MACRO_DLL intHM_t DetachScope() {
 	strcallmethod.clear();
 	BindDllHandle();
 
 	List<Object^>^ args = gcnew List<Object^>();
-	for each(auto v in destroy_func_list) {
+	for each(auto v in detach_func_list) {
 		SubCallMethod(wstring_to_String(v.assm_path), wstring_to_String(v.class_name), wstring_to_String(v.method_name), args);
 	}
 
-	intHM_t ret = (intHM_t)INETStaticLib::DestroyScope();
+	intHM_t ret = (intHM_t)INETStaticLib::DetachScope();
 
 	GC::Collect();
 	
@@ -303,5 +309,5 @@ MACRO_DLL intHM_t OnDestroy() {
 }
 
 MACRO_DLL intHM_t DllDetachFunc_After_Hm866() {
-	return OnDestroy();
+	return DetachScope();
 }
