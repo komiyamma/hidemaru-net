@@ -55,4 +55,9 @@
       <Filter>リソース ファイル</Filter>
     </ResourceCompile>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="hmNET.def">
+      <Filter>本体</Filter>
+    </None>
+  </ItemGroup>
 </Project>
