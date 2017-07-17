@@ -16,7 +16,6 @@ public:
 
 	static Object^ PopTmpVar();
 
-
 	static IntPtr CallMethod(String^ expression);
 
 	static IntPtr DetachScope();

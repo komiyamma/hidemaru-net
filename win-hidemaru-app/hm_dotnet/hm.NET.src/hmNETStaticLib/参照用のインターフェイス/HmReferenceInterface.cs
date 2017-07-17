@@ -14,7 +14,8 @@ namespace Hidemaru
 
         public static Double Version
         {
-            get {
+            get
+            {
                 return hmNETDynamicLib.Hidemaru.version;
             }
         }
@@ -33,7 +34,8 @@ namespace Hidemaru
             }
             private class TVar : IVar
             {
-                public Object this[String name] {
+                public Object this[String name]
+                {
                     get
                     {
                         return hmNETDynamicLib.Hidemaru.Macro.Var[name];
@@ -90,7 +92,8 @@ namespace Hidemaru
 
             public static String LineText
             {
-                get {
+                get
+                {
                     return hmNETDynamicLib.Hidemaru.Edit.LineText;
                 }
 
@@ -108,13 +111,15 @@ namespace Hidemaru
             }
             public static ICursorPos CursorPos
             {
-                get {
+                get
+                {
                     var pos = hmNETDynamicLib.Hidemaru.Edit.CursorPos;
                     return pos;
                 }
             }
 
-            public interface IMousePos {
+            public interface IMousePos
+            {
                 int LineNo { get; }
                 int Column { get; }
                 int X { get; }
@@ -122,7 +127,8 @@ namespace Hidemaru
             }
             public static IMousePos MousePos
             {
-                get {
+                get
+                {
                     var pos = hmNETDynamicLib.Hidemaru.Edit.MousePos;
                     return pos;
                 }
