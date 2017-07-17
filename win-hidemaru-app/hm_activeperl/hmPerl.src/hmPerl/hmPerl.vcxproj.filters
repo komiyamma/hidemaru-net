@@ -34,9 +34,6 @@
     <Filter Include="TinyXML">
       <UniqueIdentifier>{d6840e4e-0c01-4881-8d6f-2a190b1d43af}</UniqueIdentifier>
     </Filter>
-    <Filter Include="秀丸Filterライブラリ">
-      <UniqueIdentifier>{95920314-654f-4f80-8c29-ae517b174e6e}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="convert_string.cpp">
@@ -81,12 +78,6 @@
     <ClCompile Include="perlez_engine_path.cpp">
       <Filter>ActivePerlのPerlEzのコネクト部分</Filter>
     </ClCompile>
-    <ClCompile Include="hm_filter.cpp">
-      <Filter>秀丸Filterライブラリ</Filter>
-    </ClCompile>
-    <ClCompile Include="hm_filter_implements.cpp">
-      <Filter>秀丸Filterライブラリ</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="convert_string.h">
@@ -121,9 +112,6 @@
     </ClInclude>
     <ClInclude Include="tinyxml.h">
       <Filter>TinyXML</Filter>
-    </ClInclude>
-    <ClInclude Include="hm_filter.h">
-      <Filter>秀丸Filterライブラリ</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

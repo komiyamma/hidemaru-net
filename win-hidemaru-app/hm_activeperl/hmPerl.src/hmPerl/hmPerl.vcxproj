@@ -240,12 +240,6 @@
     <ClCompile Include="dllfunc_interface_internal.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="hidemaruexe_expot.cpp" />
-    <ClCompile Include="hm_filter.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="hm_filter_implements.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="output_debugstream.cpp" />
     <ClCompile Include="perlez_engine.cpp" />
     <ClCompile Include="perlez_engine_path.cpp" />
@@ -262,9 +256,6 @@
     <ClInclude Include="dllfunc_interface_internal.h" />
     <ClInclude Include="hidemaruexe_export.h" />
     <ClInclude Include="dllfunc_interface.h" />
-    <ClInclude Include="hm_filter.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
-    </ClInclude>
     <ClInclude Include="output_debugstream.h" />
     <ClInclude Include="perlez_engine.h" />
     <ClInclude Include="perlez_magical_scalar.h" />
