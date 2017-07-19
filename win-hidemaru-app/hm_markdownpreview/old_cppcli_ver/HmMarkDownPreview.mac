@@ -1,0 +1,7 @@
+#HMDP = loaddll( currentmacrodirectory + @"\HmMarkDownPreview.dll" );
+
+if (#HMDP) {
+	#_ = dllfunc( #HMDP, "Show", hidemaruhandle(0) );
+} else {
+	message("HmMarkDownPreview.dll‚ğ“Ç‚İ‚Ş‚±‚Æ‚ªo—ˆ‚Ü‚¹‚ñ");
+}

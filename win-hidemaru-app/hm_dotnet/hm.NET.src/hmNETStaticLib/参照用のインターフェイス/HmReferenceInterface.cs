@@ -66,6 +66,14 @@ namespace Hidemaru
                 }
             }
 
+            public static bool QueueStatus
+            {
+                get
+                {
+                    return hmNETDynamicLib.Hidemaru.Edit.CheckQueueStatus;
+                }
+            }
+
             public static String TotalText
             {
                 get

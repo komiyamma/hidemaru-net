@@ -16,6 +16,11 @@ internal sealed partial class hmNETDynamicLib
                 SetUnManagedDll();
             }
 
+            public static bool CheckQueueStatus
+            {
+                get { return pCheckQueueStatus() != 0; }
+            }
+
             // 座標型。Point型では、System.Drawingを読み込まないとダメなので負荷がある。また、x, yは秀丸に別値として存在するので、
             // あくまでも、マクロのcolumnとlinenoと一致しているという主張。なお、x, yはワープロ的な座標を拾ってくる。
             // columnやlinenoはエディタ的な座標である。
@@ -138,7 +143,7 @@ internal sealed partial class hmNETDynamicLib
             {
                 get
                 {
-                    IntPtr hWndHidemaru = pGetCurrentWindowHandle();
+                    IntPtr hWndHidemaru = WindowHandle;
                     if (hWndHidemaru != IntPtr.Zero) {
                         const int WM_USER = 0x400;
                         const int WM_HIDEMARUINFO = WM_USER + 181;

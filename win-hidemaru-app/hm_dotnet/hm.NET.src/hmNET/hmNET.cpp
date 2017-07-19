@@ -278,7 +278,7 @@ struct DETATH_FUNC {
 };
 
 static vector<DETATH_FUNC> detach_func_list;
-MACRO_DLL intHM_t SetDestroyer(const wchar_t* assm_path, const wchar_t* class_name, wchar_t* method_name) {
+MACRO_DLL intHM_t SetDetachMethod(const wchar_t* assm_path, const wchar_t* class_name, wchar_t* method_name) {
 	bool is_exist = false;
 	for each(auto v in detach_func_list) {
 		if (v.assm_path == assm_path && v.class_name == class_name && v.method_name == method_name) {

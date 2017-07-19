@@ -1,7 +1,10 @@
-#HMDP = loaddll( currentmacrodirectory + @"\HmMarkDownPreview.dll" );
+ï»¿#HMNET = loaddll( hidemarudir + @"\hm.NET.dll" );
 
-if (#HMDP) {
-	#_ = dllfunc( #HMDP, "Show", hidemaruhandle(0) );
+if (#HMNET) {
+	#_ = dllfuncw(#HMNET, "SetDetachMethod", currentmacrodirectory + @"\HmMarkDownPreview.dll", "HmMarkDownPreview", "OnDetachMethod");
+	#_ = dllfuncw( #HMNET, "CallMethod", currentmacrodirectory + @"\HmMarkDownPreview.dll", "HmMarkDownPreview", "Show", hidemaruhandle(0) );
 } else {
-	message("HmMarkDownPreview.dll‚ğ“Ç‚İ‚Ş‚±‚Æ‚ªo—ˆ‚Ü‚¹‚ñ");
+	message("hm.NET.dllã‚’èª­ã¿è¾¼ã‚€ã“ã¨ãŒå‡ºæ¥ã¾ã›ã‚“");
 }
+
+

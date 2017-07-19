@@ -16,7 +16,7 @@ internal sealed partial class hmNETDynamicLib
         {
             System.Diagnostics.FileVersionInfo vi = System.Diagnostics.FileVersionInfo.GetVersionInfo(strExecuteFullpath);
             _ver = 100 * vi.FileMajorPart + 10 * vi.FileMinorPart + 1 * vi.FileBuildPart + 0.01 * vi.FilePrivatePart;
-            System.Diagnostics.Trace.WriteLine(_ver);
+            // System.Diagnostics.Trace.WriteLine(_ver);
             SetUnManagedDll();
         }
 
@@ -32,18 +32,24 @@ internal sealed partial class hmNETDynamicLib
         {
             get
             {
-                _hWndHidemaru = HmWndHandleSearcher.GetCurWndHidemaru(_hWndHidemaru);
-                System.Diagnostics.Trace.WriteLine("手動取得");
-                System.Diagnostics.Trace.WriteLine(_hWndHidemaru);
-                if (pGetCurrentWindowHandle != null) {
-                    System.Diagnostics.Trace.WriteLine("自動取得");
-                    IntPtr tmp = pGetCurrentWindowHandle();
-                    System.Diagnostics.Trace.WriteLine(tmp);
-                    return pGetCurrentWindowHandle();
-                } else
+                if (pGetCurrentWindowHandle != null)
                 {
-                    return IntPtr.Zero;
+                    // System.Diagnostics.Trace.WriteLine("自動取得");
+                    IntPtr tmp = pGetCurrentWindowHandle();
+                    // System.Diagnostics.Trace.WriteLine(tmp);
+                    return pGetCurrentWindowHandle();
+
                 }
+
+                // System.Diagnostics.Trace.WriteLine("手動取得");
+                _hWndHidemaru = HmWndHandleSearcher.GetCurWndHidemaru(_hWndHidemaru);
+                // System.Diagnostics.Trace.WriteLine(_hWndHidemaru);
+                if (_hWndHidemaru != IntPtr.Zero)
+                {
+                    return _hWndHidemaru;
+                }
+
+                return IntPtr.Zero;
             }
         }
 
