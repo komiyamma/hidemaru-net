@@ -1,4 +1,4 @@
-// HmTextSynChrome v1.0.0.1 
+// HmTextSynChrome v1.1.0.1 
 // Copyright @ 2017 VSCode.life
 
 :
@@ -47,10 +47,12 @@ title "HmTextSynChrome「"+$curOption1+"」タブ" , 3;
 title -1, 3;
 
 
-#HTSC = loaddll( currentmacrodirectory + @"\HmTextSynChrome.dll" );
-if (#HTSC) {
-    #_ = dllfuncw(#HTSC, "Show", hidemaruhandle(0), $curOption1 );
+#HMNET = loaddll( hidemarudir + @"\hm.NET.dll");
+
+if (#HMNET) {
+	#_ = dllfuncw(#HMNET, "SetDetachMethod", currentmacrodirectory + @"\HmTextSynChrome.dll", "HmTextSynChrome", "OnDetachMethod");
+    #_ = dllfuncw(#HMNET, "CallMethod", currentmacrodirectory + @"\HmTextSynChrome.dll", "HmTextSynChrome", "Show", hidemaruhandle(0), $curOption1 );
 } else {
-    message("HmTextSynChrome.dllを読み込むことが出来ません");
+    message("Hm.NET.dllを読み込むことが出来ません");
 }
 
