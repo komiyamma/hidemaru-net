@@ -1,10 +1,10 @@
 ﻿#HMNET = loaddll( hidemarudir + @"\hm.NET.dll" );
 
 if (#HMNET) {
-	#_ = dllfuncw(#HMNET, "SetDetachMethod", currentmacrodirectory + @"\HmMarkDownPreview.dll", "HmMarkDownPreview", "OnDetachMethod");
-	#_ = dllfuncw( #HMNET, "CallMethod", currentmacrodirectory + @"\HmMarkDownPreview.dll", "HmMarkDownPreview", "Show", hidemaruhandle(0) );
+    #_ = dllfuncw(#HMNET, "SetDetachMethod", currentmacrodirectory + @"\HmMarkDownPreview.dll", "HmMarkDownPreview", "OnDetachMethod");
+    #_ = dllfuncw(#HMNET, "CallMethod", currentmacrodirectory + @"\HmMarkDownPreview.dll", "HmMarkDownPreview", "Show", hidemaruhandle(0) );
 } else {
-	message("hm.NET.dllを読み込むことが出来ません");
+    message("hm.NET.dllを読み込むことが出来ません");
 }
 
 
