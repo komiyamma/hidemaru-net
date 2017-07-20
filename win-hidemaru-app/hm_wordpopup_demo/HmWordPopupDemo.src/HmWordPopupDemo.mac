@@ -1,0 +1,5 @@
+﻿#HMNET = loaddll( hidemarudir + @"\hm.NET.dll" );
+
+#r = dllfuncw( #HMNET, "SetDetachMethod", currentmacrodirectory + @"\HmWordPopupDemo.dll", "HmWordPopupDemo", "OnDetachMethod");
+#r = dllfuncw( #HMNET, "CallMethod", currentmacrodirectory + @"\HmWordPopupDemo.dll", "HmWordPopupDemo", "Show");
+// freedll しないこと。
