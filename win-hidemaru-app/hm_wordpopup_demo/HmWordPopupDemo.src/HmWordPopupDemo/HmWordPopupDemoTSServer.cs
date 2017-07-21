@@ -220,7 +220,6 @@ partial class HmWordPopupDemoForm : Form
                     // 開いて書き込み
                     using (var sw = new StreamWriter(winTempPath))
                     {
-                        System.Diagnostics.Trace.WriteLine("OK");
                         sw.Write(strTotalText);
                         sw.Close();
                     }
