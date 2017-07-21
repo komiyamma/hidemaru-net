@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 
 using Hidemaru;
+using System.Collections.Generic;
 
 // これらはアクティブ化しないための特殊な施策。
 partial class HmWordPopupDemoForm : Form
@@ -172,7 +173,10 @@ partial class HmWordPopupDemoForm : Form
     }
 
     private String strPrevFileName = "";
-    private String strPrevTotalText = "";
+
+    private List<String> strHmEditTotalTextQueue = new List<string>();
+    private int ListCapacitySize = 4;
+
     private void tsserver_Timer_Tick(object sender, EventArgs e)
     {
         var winFilePath = Hm.Edit.FilePath;
@@ -180,7 +184,6 @@ partial class HmWordPopupDemoForm : Form
         // ファイル名が有効である。
         if (!String.IsNullOrEmpty(winFilePath))
         {
-            var strTotalText = Hm.Edit.TotalText;
             // tsserver用にUri形式にする
             Uri u = new Uri(winFilePath);
             var urlFilePath = u.AbsolutePath;
@@ -190,11 +193,23 @@ partial class HmWordPopupDemoForm : Form
                 OpenFileMessage(urlFilePath);
             }
 
-            // ソースが変化しているならば
-            if (strPrevTotalText != strTotalText)
-            {
+            var strTotalText = Hm.Edit.TotalText;
 
-                strPrevTotalText = strTotalText;
+            strHmEditTotalTextQueue.Add(strTotalText);
+            if (strHmEditTotalTextQueue.Count > ListCapacitySize)
+            {
+                strHmEditTotalTextQueue.RemoveAt(0);
+            }
+
+            // テキストが変化する度に伝えていては頻繁すぎる。
+            // 「４つの履歴のうち、１番最初の履歴文字列だけが２番目以降とは異なる」とすることで、
+            // 入力が一段落したことの証となる。
+            if ((strHmEditTotalTextQueue.Count == 1) || (strHmEditTotalTextQueue.Count >= ListCapacitySize &&
+               strHmEditTotalTextQueue[0] != strHmEditTotalTextQueue[1] && // 過去に食い違いがあるのに…
+               strHmEditTotalTextQueue[1] == strHmEditTotalTextQueue[2] &&
+               strHmEditTotalTextQueue[2] == strHmEditTotalTextQueue[3]
+               )) // 今同じ
+            {
 
                 try
                 {
@@ -205,7 +220,8 @@ partial class HmWordPopupDemoForm : Form
                     // 開いて書き込み
                     using (var sw = new StreamWriter(winTempPath))
                     {
-                        sw.Write(strPrevTotalText);
+                        System.Diagnostics.Trace.WriteLine("OK");
+                        sw.Write(strTotalText);
                         sw.Close();
                     }
                     // tsserverが受け付けるuri形式に
