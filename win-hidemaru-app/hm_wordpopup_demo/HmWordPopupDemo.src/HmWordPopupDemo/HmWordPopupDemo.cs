@@ -13,8 +13,8 @@ public class HmWordPopupDemo
             {
                 HmWordPopupDemoForm.form.Close();
             }
-            HmWordPopupDemoForm.form = new HmWordPopupDemoForm();
-            HmWordPopupDemoForm.fontname = (String)Hm.Macro.Var["fontname"];
+            String fontname = (String)Hm.Macro.Var["fontname"];
+            HmWordPopupDemoForm.form = new HmWordPopupDemoForm(fontname);
         }
         catch (Exception e)
         {

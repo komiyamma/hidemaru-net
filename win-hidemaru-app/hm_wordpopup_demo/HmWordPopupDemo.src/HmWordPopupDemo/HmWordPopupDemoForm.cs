@@ -1,21 +1,24 @@
 ﻿using Hidemaru;
 using System;
 using System.Drawing;
-using System.Runtime.InteropServices;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 partial class HmWordPopupDemoForm : Form
 {
-    Label lb = new Label();
+    private Label lb = new Label();
+    private Label lbDetail = new Label();
     public static Form form { get; set; }
     public static String fontname;
-    public HmWordPopupDemoForm()
+    private String strFontName;
+    public HmWordPopupDemoForm(String fontname)
     {
+        this.strFontName = fontname;
         SetFormAttr();
         SetLabelAttr();
         SetTimerAttr();
+        SetTSServerAttr();
+        StartTSServer();
     }
 
     private void SetTimerAttr()
@@ -23,14 +26,14 @@ partial class HmWordPopupDemoForm : Form
         timer = new Timer();
         timer.Tick += Timer_Tick;
         timer.Enabled = true;
-        timer.Interval = 15;
+        timer.Interval = 10;
         timer.Start();
     }
 
     private void SetFormAttr()
     {
         this.Width = 516;
-        this.Height = 258;
+        this.Height = 208;
         this.BackColor = Color.White;
         this.FormClosing += ProgramForm_FormClosing;
 
@@ -44,11 +47,20 @@ partial class HmWordPopupDemoForm : Form
 
     private void SetLabelAttr()
     {
-        lb.Left = 8;
-        lb.Top = 8;
+        const int padding = 8;
+        lb.Left = padding;
+        lb.Top = padding;
         lb.Font = new Font(fontname, 14);
         lb.Width = 500;
+        lb.Height = 50;
         this.Controls.Add(lb);
+
+        lbDetail.Left = padding;
+        lbDetail.Top = lb.Bottom + padding;
+        lbDetail.Font = new Font(fontname, 14);
+        lbDetail.Width = lb.Width;
+        lbDetail.Height = 140;
+        this.Controls.Add(lbDetail);
     }
 
 
@@ -72,9 +84,9 @@ partial class HmWordPopupDemoForm : Form
 
     private void HideForm()
     {
-        resultInfo.result = "";
-        resultInfo.LineNo = -1;
-        resultInfo.Column = -1;
+        hepResultInfo.Result = "";
+        hepResultInfo.LineNo = -1;
+        hepResultInfo.Column = -1;
 
         this.Hide();
     }
@@ -92,13 +104,29 @@ partial class HmWordPopupDemoForm : Form
         DrawRectangle();
 
         nTickCounter++;
-        if (nTickCounter % 15 != 0)
+        if (nTickCounter % (200/timer.Interval) != 0) // 手抜き
         {
             return;
         }
+
+        // アクティブウィンドウがよそにある
+        if (!IsActiveWindowIsHidemaruMainWindow())
+        {
+            HideForm();
+            return;
+        }
+
+
+        if (!IsUnderWindowIsCurrentProcessWindow())
+        {
+            HideForm();
+            return;
+        }
+
         try
         {
-            SearchRegexpMatch(new Regex("^[a-zA-Z0-9_.]+"));
+            SearchRegexpMatch(new Regex("^[a-zA-Z0-9_]+"));
+            tsserver_Timer_Tick(null, null);
         }
         catch (Exception ex)
         {
@@ -108,14 +136,23 @@ partial class HmWordPopupDemoForm : Form
         }
     }
 
-    class Position
+    class HmEditPosition
     {
         public int LineNo { get; set; }
         public int Column { get; set; }
-        public String result { get; set; }
+        public String Result { get; set; }
+        public String LbText { get; set; }
+
+        public void Reset()
+        {
+            Result = "";
+            LbText = "";
+            LineNo = -1;
+            Column = -1;
+        }
     }
 
-    private Position resultInfo = new Position();
+    private HmEditPosition hepResultInfo = new HmEditPosition();
 
     private String SearchRegexpMatch(Regex r)
     {
@@ -128,16 +165,11 @@ partial class HmWordPopupDemoForm : Form
         if (lineno < 0 || column < 0)
         {
             HideForm();
+
+            hepResultInfo.Reset();
+
             return "";
         }
-
-        // アクティブウィンドウがよそにある
-        if (!IsActiveWindowIsHidemaruMainWindow())
-        {
-            HideForm();
-            return "";
-        }
-
 
         // テキスト全体を行単位に分解し
         String text = Hm.Edit.TotalText;
@@ -175,15 +207,18 @@ partial class HmWordPopupDemoForm : Form
         {
             // このフォームを表示して
             ShowForm();
-            // 現在ラベル内容を食い違うなら更新
-            if (result != lb.Text)
-            {
-                lb.Text = result + "(lineno:" + pos.LineNo.ToString() + ", column:" + result_ix.ToString() + ")";
-            }
 
-            resultInfo.result = result;
-            resultInfo.LineNo = pos.LineNo;
-            resultInfo.Column = result_ix;
+            hepResultInfo.Result = result;
+            hepResultInfo.LineNo = pos.LineNo;
+            hepResultInfo.Column = result_ix;
+            hepResultInfo.LbText = result + "(lineno:" + pos.LineNo.ToString() + ", column:" + result_ix.ToString() + ")";
+
+            // 現在ラベル内容を食い違うなら更新
+            if ((String)lb.Text != hepResultInfo.LbText )
+            {
+                lb.Text = hepResultInfo.LbText;
+                tsserver_ChangeTargetWord(pos.LineNo, hepResultInfo.Column + 1); // +1 するには、tsserverは、columnが１始まりだから。
+            }
 
             return result;
         }
@@ -191,32 +226,18 @@ partial class HmWordPopupDemoForm : Form
         else
         {
             HideForm();
+
+            hepResultInfo.Reset();
+
             // Labelの中身も消滅
             if (lb.Text != "")
             {
                 lb.Text = "";
+                lbDetail.Text = "";
             }
 
             return result;
         }
-    }
-
-    [DllImport("user32.dll")]
-    static extern IntPtr GetActiveWindow();
-
-    [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
-    static extern int GetClassName(IntPtr hWnd, StringBuilder lpClassName, int nMaxCount);
-
-    private bool IsActiveWindowIsHidemaruMainWindow()
-    {
-        IntPtr hWnd = GetActiveWindow();
-        StringBuilder ClassName = new StringBuilder(256);
-        int nRet = GetClassName(hWnd, ClassName, ClassName.Capacity);
-        if (ClassName.ToString().Contains("Hidemaru32Class"))
-        {
-            return true;
-        }
-        return false;
     }
 
     private void Stop()
@@ -228,6 +249,7 @@ partial class HmWordPopupDemoForm : Form
                 timer.Stop();
                 timer = null;
             }
+            StopTSServer();
         }
         catch (Exception e)
         {
@@ -236,57 +258,3 @@ partial class HmWordPopupDemoForm : Form
     }
 
 }
-
-// これらはアクティブ化しないための特殊な施策。
-partial class HmWordPopupDemoForm : Form
-{
-    private void SetFormNoBorderAttr()
-    {
-        //タイトルバーを消す
-        this.ControlBox = false;
-        this.Text = "";
-        // ボーダーを消す
-        this.FormBorderStyle = FormBorderStyle.None;
-    }
-
-
-    // フォーム表示時にアクティブにならないようにする
-    protected override bool ShowWithoutActivation
-    {
-        get
-        {
-            return true;
-        }
-    }
-
-    // このフォームがクリックなどされた時にアクティブにならないようにする。
-    const int WM_MOUSEACTIVATE = 0x0021;
-    const int MA_NOACTIVATE = 3;
-    protected override void WndProc(ref Message m)
-    {
-
-        if (m.Msg == WM_MOUSEACTIVATE)
-        {
-            m.Result = new IntPtr(MA_NOACTIVATE);
-            return;
-        }
-
-        base.WndProc(ref m);
-    }
-
-
-    // 常に最前面に表示させる(topMostプロパティを使うと
-    // ShowWithoutActivationが効かないため
-    private const int WS_EX_TOPMOST = 0x00000008;
-    protected override CreateParams CreateParams
-    {
-        get
-        {
-            CreateParams p = base.CreateParams;
-            p.ExStyle |= WS_EX_TOPMOST;
-            return p;
-        }
-    }
-
-}
-
