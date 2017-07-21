@@ -90,7 +90,7 @@ internal partial class HmMarkDownPreviewForm : System.Windows.Forms.Form
 
     public void SetTimerAttribute()
     {
-        // １秒に１回の更新で十分だろう。
+        // 500ミリに１回の更新で十分だろう。
         update = new Timer();
         update.Interval = 500 * 1;
         update.Tick += new EventHandler(update_Tick);
