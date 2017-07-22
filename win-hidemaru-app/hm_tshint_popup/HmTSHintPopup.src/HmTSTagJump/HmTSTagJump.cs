@@ -3,18 +3,18 @@ using System;
 
 using Hidemaru;
 
-public class HmWordPopupDemo
+public class HmTSTagJump
 {
-    public static IntPtr Show()
+    public static IntPtr TagJump()
     {
         try
         {
-            if (HmWordPopupDemoForm.form != null)
+            if (HmTSTagJumpForm.form != null)
             {
-                HmWordPopupDemoForm.form.Close();
+                HmTSTagJumpForm.form.Close();
             }
-            String fontname = (String)Hm.Macro.Var["fontname"];
-            HmWordPopupDemoForm.form = new HmWordPopupDemoForm(fontname);
+            HmTSTagJumpForm.form = new HmTSTagJumpForm();
+            HmTSTagJumpForm.form.TagJump();
         }
         catch (Exception e)
         {
@@ -28,9 +28,9 @@ public class HmWordPopupDemo
     {
         try
         {
-            if (HmWordPopupDemoForm.form != null)
+            if (HmTSTagJumpForm.form != null)
             {
-                HmWordPopupDemoForm.form.Close();
+                HmTSTagJumpForm.form.Close();
             }
         }
         catch (Exception e)

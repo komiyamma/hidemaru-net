@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 
 // これらはアクティブ化しないための特殊な施策。
-partial class HmWordPopupDemoForm : Form
+partial class HmTSHintPopupForm : Form
 {
     private void SetFormNoBorderAttr()
     {

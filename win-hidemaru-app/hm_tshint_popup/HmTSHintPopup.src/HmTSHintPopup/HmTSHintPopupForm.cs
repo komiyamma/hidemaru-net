@@ -4,14 +4,13 @@ using System.Drawing;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
-partial class HmWordPopupDemoForm : Form
+partial class HmTSHintPopupForm : Form
 {
     private Label lb = new Label();
     private Label lbDetail = new Label();
     public static Form form { get; set; }
-    public static String fontname;
     private String strFontName;
-    public HmWordPopupDemoForm(String fontname)
+    public HmTSHintPopupForm(String fontname)
     {
         this.strFontName = fontname;
         SetFormAttr();
@@ -35,12 +34,12 @@ partial class HmWordPopupDemoForm : Form
         this.Width = 516;
         this.Height = 208;
         this.BackColor = Color.White;
-        this.FormClosing += ProgramForm_FormClosing;
+        this.FormClosing += form_FormClosing;
 
         SetFormNoBorderAttr();
     }
 
-    private void ProgramForm_FormClosing(object sender, FormClosingEventArgs e)
+    private void form_FormClosing(object sender, FormClosingEventArgs e)
     {
         Stop();
     }
@@ -50,14 +49,14 @@ partial class HmWordPopupDemoForm : Form
         const int padding = 8;
         lb.Left = padding;
         lb.Top = padding;
-        lb.Font = new Font(fontname, 14);
+        lb.Font = new Font(strFontName, 14);
         lb.Width = 500;
         lb.Height = 50;
         this.Controls.Add(lb);
 
         lbDetail.Left = padding;
         lbDetail.Top = lb.Bottom + padding;
-        lbDetail.Font = new Font(fontname, 14);
+        lbDetail.Font = new Font(strFontName, 14);
         lbDetail.Width = lb.Width;
         lbDetail.Height = 140;
         this.Controls.Add(lbDetail);

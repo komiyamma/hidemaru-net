@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 
-partial class HmWordPopupDemoForm : Form
+partial class HmTSHintPopupForm : Form
 {
     [DllImport("user32.dll")]
     static extern IntPtr GetActiveWindow();

@@ -6,16 +6,16 @@ using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Windows.Forms;
 
-using Hidemaru;
-using System.Collections.Generic;
-
 // これらはアクティブ化しないための特殊な施策。
-partial class HmWordPopupDemoForm : Form
+partial class HmTSHintPopupForm : Form
 {
     private Process p;
-
     public void SetTSServerAttr()
     {
+        if (!System.IO.File.Exists(GetWinTempFilePath()))
+        {
+            WriteWinTempFilePath("//");
+        }
     }
 
     // プロセス確立
@@ -35,17 +35,21 @@ partial class HmWordPopupDemoForm : Form
         p.StartInfo.Arguments = "/c tsserver.cmd";
         p.OutputDataReceived += p_OutputDataReceived;
 
-        p.Start(); // アプリの実行開始
+        bool success = p.Start(); // アプリの実行開始
 
+        System.Diagnostics.Trace.WriteLine("Start TS Server" + " : " + success.ToString() );
         p.BeginOutputReadLine();
     }
 
     // プロセス停止
     private void StopTSServer()
     {
+        if (p != null) { 
+            ExitMessage();
+            p.Close();
+        }
+
         System.Diagnostics.Trace.WriteLine("Exit TS Server");
-        ExitMessage();
-        p.Close();
     }
 
     private void _SendMessage(string request)
@@ -78,6 +82,7 @@ partial class HmWordPopupDemoForm : Form
         _SendMessage("{ \"type\": \"response\", \"seq\": " + nSeqCount + ", \"command\": \"quickinfo\", \"arguments\": { \"file\": \"" + filename + "\", \"line\":" + line + ", \"offset\":" + offset + "} }");
     }
 
+
     // tsserver終了
     private void ExitMessage()
     {
@@ -98,7 +103,7 @@ partial class HmWordPopupDemoForm : Form
 
     // tsserverは結果はJsonで来るため。
     [DataContract]
-    class JsonData
+    class JsonDataQuickInfo
     {
         [DataMember]
         public int @seq;
@@ -125,30 +130,31 @@ partial class HmWordPopupDemoForm : Form
         public String @kind;
 
         [DataMember]
-        public String kindModifiers;
+        public String @kindModifiers;
 
         [DataMember]
-        public String displayString;
+        public String @displayString;
 
         [DataMember]
-        public String documentation;
+        public String @documentation;
     }
+
 
     // 分析
     private void AnalyzeReceivedOutputData(string recieve_data)
     {
-        // Trace.WriteLine(recieve_data);
+        Trace.WriteLine(recieve_data);
 
-        // 必ずjson形式で標準入力に入ってくる
-        var serializer = new DataContractJsonSerializer(typeof(JsonData));
-        using (var ms = new MemoryStream(Encoding.UTF8.GetBytes(recieve_data)))
+        try
         {
-            var data = (JsonData)serializer.ReadObject(ms);
-
-            // commandとしてquickinfoを要求
-            if (data.command == "quickinfo")
+            // 必ずjson形式で標準入力に入ってくる
+            var serializer = new DataContractJsonSerializer(typeof(JsonDataQuickInfo));
+            using (var ms = new MemoryStream(Encoding.UTF8.GetBytes(recieve_data)))
             {
-                try
+                var data = (JsonDataQuickInfo)serializer.ReadObject(ms);
+
+                // commandとしてquickinfoを要求
+                if (data.command == "quickinfo")
                 {
                     // 結果を伴うようなら
                     if (data.success)
@@ -164,87 +170,11 @@ partial class HmWordPopupDemoForm : Form
                         lbDetail.Invoke((Action)(() => { lbDetail.Text = ""; }));
                     }
                 }
-                catch (Exception e)
-                {
-                    Trace.WriteLine(e.Message);
-                }
             }
         }
-    }
-
-    private String strPrevFileName = "";
-
-    private List<String> strHmEditTotalTextQueue = new List<string>();
-    private int ListCapacitySize = 4;
-
-    private void tsserver_Timer_Tick(object sender, EventArgs e)
-    {
-        var winFilePath = Hm.Edit.FilePath;
-        var winFilename = System.IO.Path.GetFileName(winFilePath);
-        // ファイル名が有効である。
-        if (!String.IsNullOrEmpty(winFilePath))
+        catch (Exception e)
         {
-            // tsserver用にUri形式にする
-            Uri u = new Uri(winFilePath);
-            var urlFilePath = u.AbsolutePath;
-            if (strPrevFileName != urlFilePath)
-            {
-                strPrevFileName = urlFilePath;
-                OpenFileMessage(urlFilePath);
-            }
-
-            var strTotalText = Hm.Edit.TotalText;
-
-            strHmEditTotalTextQueue.Add(strTotalText);
-            if (strHmEditTotalTextQueue.Count > ListCapacitySize)
-            {
-                strHmEditTotalTextQueue.RemoveAt(0);
-            }
-
-            // テキストが変化する度に伝えていては頻繁すぎる。
-            // 「４つの履歴のうち、１番最初の履歴文字列だけが２番目以降とは異なる」とすることで、
-            // 入力が一段落したことの証となる。
-            if ((strHmEditTotalTextQueue.Count == 1) || (strHmEditTotalTextQueue.Count >= ListCapacitySize &&
-               strHmEditTotalTextQueue[0] != strHmEditTotalTextQueue[1] && // 過去に食い違いがあるのに…
-               strHmEditTotalTextQueue[1] == strHmEditTotalTextQueue[2] &&
-               strHmEditTotalTextQueue[2] == strHmEditTotalTextQueue[3]
-               )) // 今同じ
-            {
-
-                try
-                {
-                    // 一時ファイルのフルパス
-                    var winTempDir = System.IO.Path.GetTempPath();
-                    var winTempName = winFilename + "HmWordPopupDemo.tmp";
-                    var winTempPath = System.IO.Path.Combine(winTempDir, winTempName);
-                    // 開いて書き込み
-                    using (var sw = new StreamWriter(winTempPath))
-                    {
-                        sw.Write(strTotalText);
-                        sw.Close();
-                    }
-                    // tsserverが受け付けるuri形式に
-                    Uri uTmp = new Uri(winTempPath);
-                    var urlTempFilePath = uTmp.AbsolutePath;
-                    // リロード
-                    ReloadFileMessage(urlFilePath, urlTempFilePath);
-
-                }
-                catch (Exception ex)
-                {
-                    Trace.WriteLine(ex.Message);
-                }
-
-            }
-        }
-    }
-
-    // 対象の要求単語(あるいは位置)が変化した場合には、tsserverにquickinfoを要求する
-    private void tsserver_ChangeTargetWord(int lineno, int offset) // offset = column + 1 となる。１始まり。
-    {
-        if (strPrevFileName != null)
-        {
-            QuickInfoMessage(strPrevFileName, lineno, offset);
+            Trace.WriteLine(e.Message);
         }
     }
 
