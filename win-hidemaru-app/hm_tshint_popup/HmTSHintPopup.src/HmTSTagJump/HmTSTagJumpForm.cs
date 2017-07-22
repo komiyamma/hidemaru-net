@@ -9,41 +9,20 @@ using System.Windows.Forms;
 using Hidemaru;
 
 // これらはアクティブ化しないための特殊な施策。
-partial class HmTSTagJumpForm : Form
+partial class HmTSTagJumpForm
 {
-    private Process p;
+    private static Process p;
 
     public static HmTSTagJumpForm form;
 
-    public HmTSTagJumpForm()
-    {
-        StartTSServer();
-        this.FormClosing += form_FormClosing;
-    }
-
-    private void form_FormClosing(object sender, FormClosingEventArgs e)
-    {
-        Stop();
-    }
-
-    private void Stop()
-    {
-        try
-        {
-            StopTSServer();
-        }
-        catch (Exception e)
-        {
-            System.Diagnostics.Trace.WriteLine(e.Message);
-        }
-    }
-
-
     // プロセス確立
-    private void StartTSServer()
+    public static void StartTSServer()
     {
+        if (p != null)
+        {
+            return;
+        }
         p = new Process();
-
         p.StartInfo.FileName = p.StartInfo.FileName = System.Environment.GetEnvironmentVariable("ComSpec");
 
         p.StartInfo.CreateNoWindow = true; // コンソールを開かない
@@ -63,7 +42,7 @@ partial class HmTSTagJumpForm : Form
     }
 
     // プロセス停止
-    private void StopTSServer()
+    public static void StopTSServer()
     {
         if (p != null)
         {
@@ -74,45 +53,45 @@ partial class HmTSTagJumpForm : Form
         }
     }
 
-    private void _SendMessage(string request)
+    private static void _SendMessage(string request)
     {
         p.StandardInput.WriteLine(request);
     }
 
-    int nSeqCount = 0;
+    static int nSeqCount = 0;
     // ファイル読む
-    private void OpenFileMessage(string filename)
+    private static void OpenFileMessage(string filename)
     {
         _SendMessage("{ \"type\": \"request\", \"seq\": " + nSeqCount + ", \"command\": \"open\", \"arguments\": { \"file\": \"" + filename + "\"} }");
     }
 
     // ファイル更新(実態ソース内容をtmpfilenameに入れておく)
-    private void ReloadFileMessage(string filename, string tmpfilename)
+    private static void ReloadFileMessage(string filename, string tmpfilename)
     {
         _SendMessage("{ \"type\": \"none\", \"seq\": " + nSeqCount + ", \"command\": \"reload\", \"arguments\": { \"file\": \"" + filename + "\", \"tmpfile\": \"" + tmpfilename + "\"} }");
     }
 
     // ファイル閉じる
-    private void CloseFileMessage(string filename)
+    private static void CloseFileMessage(string filename)
     {
         _SendMessage("{ \"type\": \"none\", \"seq\": " + nSeqCount + ", \"command\": \"close\", \"arguments\": { \"file\": \"" + filename + "\"} }");
     }
 
     // 対象の情報
-    private void DefinitionMessage(string filename, int line, int offset)
+    private static void DefinitionMessage(string filename, int line, int offset)
     {
         _SendMessage("{ \"type\": \"response\", \"seq\": " + nSeqCount + ", \"command\": \"definition\", \"arguments\": { \"file\": \"" + filename + "\", \"line\":" + line + ", \"offset\":" + offset + "} }");
     }
 
     // tsserver終了
-    private void ExitMessage()
+    private static void ExitMessage()
     {
         _SendMessage("{ \"type\": \"none\", \"seq\": " + nSeqCount + ", \"command\": \"exit\" }");
     }
 
     //OutputDataReceivedイベントハンドラ
     //行が出力されるたびに呼び出される
-    private void p_OutputDataReceived(object sender, System.Diagnostics.DataReceivedEventArgs e)
+    private static void p_OutputDataReceived(object sender, System.Diagnostics.DataReceivedEventArgs e)
     {
         if (e.Data != null && e.Data.EndsWith("}"))
         {
@@ -168,7 +147,8 @@ partial class HmTSTagJumpForm : Form
     }
 
     // 分析
-    private void AnalyzeReceivedOutputData(string recieve_data)
+    private static bool isDefinitioned = false;
+    private static void AnalyzeReceivedOutputData(string recieve_data)
     {
         try
         {
@@ -193,7 +173,8 @@ partial class HmTSTagJumpForm : Form
                     {
                     }
 
-                    StopTSServer();
+                    isDefinitioned = true;
+                    // StopTSServer();
                 }
 
             }
@@ -205,7 +186,7 @@ partial class HmTSTagJumpForm : Form
     }
 
     // 一時ファイルのフルパスを得る
-    private String GetWinTempFilePath()
+    private static String GetWinTempFilePath()
     {
         var winTempDir = System.IO.Path.GetTempPath();
         var winTempName = "HmTSTagJump.tmp";
@@ -214,7 +195,7 @@ partial class HmTSTagJumpForm : Form
     }
 
     // 一時ファイルへとtextを書き込み
-    private void WriteWinTempFilePath(String text)
+    private static void WriteWinTempFilePath(String text)
     {
         var winTempPath = GetWinTempFilePath();
         // 開いて書き込み
@@ -225,7 +206,7 @@ partial class HmTSTagJumpForm : Form
         }
     }
 
-    private void ClearResult()
+    private static void ClearResult()
     {
         Hm.Macro.Var["$RTN_filename2"] = "";
         Hm.Macro.Var["#RTN_lineno"] = -1;
@@ -233,7 +214,7 @@ partial class HmTSTagJumpForm : Form
         Hm.Macro.Var["#RTN_noname"] = 0;
     }
 
-    private void SetResult(JsonDataDefinitionBody bodyFirst)
+    private static void SetResult(JsonDataDefinitionBody bodyFirst)
     {
         //ローカルファイルのパスを表すURI
         string uriPath = bodyFirst.file;
@@ -249,8 +230,13 @@ partial class HmTSTagJumpForm : Form
         Hm.Macro.Var["#RTN_column"] = bodyFirst.start.offset - 1;  // 1始まりのoffset → 0始まりのcolumn
     }
 
-    public void TagJump()
+    public static void TagJump()
     {
+        if ( p == null )
+        {
+            return;
+        }
+        isDefinitioned = false;
         ClearResult();
 
         var pos = Hm.Edit.CursorPos;
@@ -264,10 +250,10 @@ partial class HmTSTagJumpForm : Form
         var winFilePath = Hm.Edit.FilePath;
         if (winFilePath == null)
         {
+            Hm.Macro.Var["#RTN_noname"] = 1;
             winFilePath = GetWinTempFilePath();
         }
 
-        Hm.Macro.Var["#RTN_noname"] = 1;
 
         var winFilename = System.IO.Path.GetFileName(winFilePath);
         // tsserver用にUri形式にする
@@ -291,7 +277,21 @@ partial class HmTSTagJumpForm : Form
 
             DefinitionMessage(urlFilePath, lineno, column + 1);
 
-            p.WaitForExit();
+            int iSafetyCnt = 0;
+            while(true)
+            {
+                if (iSafetyCnt > 100)
+                {
+                    System.Windows.Forms.MessageBox.Show("待ち時間エラー");
+                    break;
+                }
+                if (isDefinitioned)
+                {
+                    break;
+                }
+                System.Threading.Thread.Sleep(50);
+            }
+            // p.WaitForExit();
         }
         catch (Exception ex)
         {

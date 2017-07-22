@@ -5,16 +5,26 @@ using Hidemaru;
 
 public class HmTSTagJump
 {
+    public static IntPtr Start()
+    {
+        try
+        {
+            HmTSTagJumpForm.StartTSServer();
+        }
+        catch (Exception e)
+        {
+            System.Diagnostics.Trace.WriteLine(e.Message);
+        }
+
+        return (IntPtr)1;
+    }
+
     public static IntPtr TagJump()
     {
         try
         {
-            if (HmTSTagJumpForm.form != null)
-            {
-                HmTSTagJumpForm.form.Close();
-            }
-            HmTSTagJumpForm.form = new HmTSTagJumpForm();
-            HmTSTagJumpForm.form.TagJump();
+            HmTSTagJumpForm.StartTSServer();
+            HmTSTagJumpForm.TagJump();
         }
         catch (Exception e)
         {
@@ -28,10 +38,7 @@ public class HmTSTagJump
     {
         try
         {
-            if (HmTSTagJumpForm.form != null)
-            {
-                HmTSTagJumpForm.form.Close();
-            }
+            HmTSTagJumpForm.StopTSServer();
         }
         catch (Exception e)
         {

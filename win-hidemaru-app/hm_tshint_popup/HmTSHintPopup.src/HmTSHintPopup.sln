@@ -7,10 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HmTSHintPopup", "HMTSHintPo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HmTSTagJump", "HmTSTagJump\HmTSTagJump.csproj", "{74405A88-3544-4635-985D-705DE8A444F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HmTSTagJumpProxy", "HmTSTagJumpProxy\HmTSTagJumpProxy.csproj", "{14855E56-DB86-463C-9CDD-C507531AE8F0}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HmTSTagJumpClient", "HmTSTagJumpClient\HmTSTagJumpClient.csproj", "{E5FCCB89-B8CE-4AAD-824D-6E1A1E8BC92C}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,14 +21,6 @@ Global
 		{74405A88-3544-4635-985D-705DE8A444F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{74405A88-3544-4635-985D-705DE8A444F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{74405A88-3544-4635-985D-705DE8A444F5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{14855E56-DB86-463C-9CDD-C507531AE8F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{14855E56-DB86-463C-9CDD-C507531AE8F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{14855E56-DB86-463C-9CDD-C507531AE8F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{14855E56-DB86-463C-9CDD-C507531AE8F0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E5FCCB89-B8CE-4AAD-824D-6E1A1E8BC92C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E5FCCB89-B8CE-4AAD-824D-6E1A1E8BC92C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E5FCCB89-B8CE-4AAD-824D-6E1A1E8BC92C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E5FCCB89-B8CE-4AAD-824D-6E1A1E8BC92C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

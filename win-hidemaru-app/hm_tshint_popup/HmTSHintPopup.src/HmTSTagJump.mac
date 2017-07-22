@@ -1,0 +1,15 @@
+﻿#HMNET = loaddll( hidemarudir + @"\hm.NET.dll" );
+if (!#HMNET) {
+    message "hm.NET.dll が無い";
+    endmacro;
+} 
+
+#r = dllfuncw( #HMNET, "SetDetachMethod", currentmacrodirectory + @"\HmTSTagJump.dll", "HmTSTagJump", "OnDetachMethod" );
+#r = dllfuncw( #HMNET, "CallMethod", currentmacrodirectory + @"\HmTSTagJump.dll", "HmTSTagJump", "TagJump" );
+
+if ($RTN_filename2 != "") {
+    if (!#RTN_noname) {
+        openfile $RTN_filename2;
+    }
+    movetolineno #RTN_column+1, #RTN_lineno;
+}
