@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // アセンブリに関する一般情報は以下の属性セットをとおして制御されます。
 // アセンブリに関連付けられている情報を変更するには、
 // これらの属性値を変更してください。
-[assembly: AssemblyTitle("HmTSTagJump for .NET 4.5 ANYCPU 版")]
+[assembly: AssemblyTitle("HmTSDefineJump for .NET 4.5 ANYCPU 版")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("HmTSTagJump for .NET 4.5 ANYCPU 版")]
+[assembly: AssemblyProduct("HmTSDefineJump for .NET 4.5 ANYCPU 版")]
 [assembly: AssemblyCopyright("Copyright © 2017 VSCode.life")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.26430.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HmTSHintPopup", "HMTSHintPopup\HmTSHintPopup.csproj", "{B0EFDD25-714B-4F6C-A0FF-BF3E033E98E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HmTSTagJump", "HmTSTagJump\HmTSTagJump.csproj", "{74405A88-3544-4635-985D-705DE8A444F5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HmTSDefineJump", "HmTSDefineJump\HmTSDefineJump.csproj", "{74405A88-3544-4635-985D-705DE8A444F5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

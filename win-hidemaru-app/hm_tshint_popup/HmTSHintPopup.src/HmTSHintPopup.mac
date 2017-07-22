@@ -6,6 +6,6 @@ if (!#HMNET) {
 
 #r = dllfuncw( #HMNET, "SetDetachMethod", currentmacrodirectory + @"\HmTSHintPopup.dll", "HmTSHintPopup", "OnDetachMethod" );
 #r = dllfuncw( #HMNET, "CallMethod", currentmacrodirectory + @"\HmTSHintPopup.dll", "HmTSHintPopup", "Start" );
-#r = dllfuncw( #HMNET, "SetDetachMethod", currentmacrodirectory + @"\HmTSTagJump.dll", "HmTSTagJump", "OnDetachMethod" );
-#r = dllfuncw( #HMNET, "CallMethod", currentmacrodirectory + @"\HmTSTagJump.dll", "HmTSTagJump", "Start" );
+#r = dllfuncw( #HMNET, "SetDetachMethod", currentmacrodirectory + @"\HmTSDefineJump.dll", "HmTSDefineJump", "OnDetachMethod" );
+#r = dllfuncw( #HMNET, "CallMethod", currentmacrodirectory + @"\HmTSDefineJump.dll", "HmTSDefineJump", "Start" );
 

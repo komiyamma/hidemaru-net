@@ -4,8 +4,8 @@ if (!#HMNET) {
     endmacro;
 } 
 
-#r = dllfuncw( #HMNET, "SetDetachMethod", currentmacrodirectory + @"\HmTSTagJump.dll", "HmTSTagJump", "OnDetachMethod" );
-#r = dllfuncw( #HMNET, "CallMethod", currentmacrodirectory + @"\HmTSTagJump.dll", "HmTSTagJump", "TagJump" );
+#r = dllfuncw( #HMNET, "SetDetachMethod", currentmacrodirectory + @"\HmTSDefineJump.dll", "HmTSDefineJump", "OnDetachMethod" );
+#r = dllfuncw( #HMNET, "CallMethod", currentmacrodirectory + @"\HmTSDefineJump.dll", "HmTSDefineJump", "TagJump" );
 
 if ($RTN_filename2 != "") {
     if (!#RTN_noname) {

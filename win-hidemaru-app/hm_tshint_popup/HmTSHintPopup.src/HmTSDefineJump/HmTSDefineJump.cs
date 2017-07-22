@@ -3,13 +3,13 @@ using System;
 
 using Hidemaru;
 
-public class HmTSTagJump
+public class HmTSDefineJump
 {
     public static IntPtr Start()
     {
         try
         {
-            HmTSTagJumpForm.StartTSServer();
+            HmTSDefineJumpForm.StartTSServer();
         }
         catch (Exception e)
         {
@@ -23,8 +23,8 @@ public class HmTSTagJump
     {
         try
         {
-            HmTSTagJumpForm.StartTSServer();
-            HmTSTagJumpForm.TagJump();
+            HmTSDefineJumpForm.StartTSServer();
+            HmTSDefineJumpForm.TagJump();
         }
         catch (Exception e)
         {
@@ -38,7 +38,7 @@ public class HmTSTagJump
     {
         try
         {
-            HmTSTagJumpForm.StopTSServer();
+            HmTSDefineJumpForm.StopTSServer();
         }
         catch (Exception e)
         {

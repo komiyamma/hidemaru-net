@@ -9,11 +9,11 @@ using System.Windows.Forms;
 using Hidemaru;
 
 // これらはアクティブ化しないための特殊な施策。
-partial class HmTSTagJumpForm
+partial class HmTSDefineJumpForm
 {
     private static Process p;
 
-    public static HmTSTagJumpForm form;
+    public static HmTSDefineJumpForm form;
 
     // プロセス確立
     public static void StartTSServer()

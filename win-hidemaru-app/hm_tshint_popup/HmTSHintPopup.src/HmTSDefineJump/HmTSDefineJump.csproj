@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{74405A88-3544-4635-985D-705DE8A444F5}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>HmTSTagJump</RootNamespace>
-    <AssemblyName>HmTSTagJump</AssemblyName>
+    <RootNamespace>HmTSDefineJump</RootNamespace>
+    <AssemblyName>HmTSDefineJump</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -48,10 +48,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HmTSTagJump.cs" />
-    <Compile Include="HmTSTagJumpForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="HmTSDefineJump.cs" />
+    <Compile Include="HmTSDefineJumpForm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
