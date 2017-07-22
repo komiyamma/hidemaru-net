@@ -21,6 +21,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{E0B1FFA2-D211-4F42-929E-F5AA12BE6F33}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <RootNamespace>hmJS</RootNamespace>
     <ProjectName>hmPS</ProjectName>
   </PropertyGroup>
