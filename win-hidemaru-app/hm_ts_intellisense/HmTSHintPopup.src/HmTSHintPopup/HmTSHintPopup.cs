@@ -9,12 +9,11 @@ public class HmTSHintPopup
     {
         try
         {
-            if (HmTSHintPopupForm.form != null)
+            if (HmTSHintPopupForm.form == null)
             {
-                HmTSHintPopupForm.form.Close();
+                String fontname = (String)Hm.Macro.Var["fontname"];
+                HmTSHintPopupForm.form = new HmTSHintPopupForm(fontname);
             }
-            String fontname = (String)Hm.Macro.Var["fontname"];
-            HmTSHintPopupForm.form = new HmTSHintPopupForm(fontname);
         }
         catch (Exception e)
         {
