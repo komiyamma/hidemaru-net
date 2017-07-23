@@ -51,7 +51,7 @@ partial class HmTSHintPopupForm : Form
         lb.Top = padding;
         lb.Font = new Font(strFontName, 14);
         lb.Width = 500;
-        lb.Height = 50;
+        lb.Height = 40;
         this.Controls.Add(lb);
 
         lbDetail.Left = padding;

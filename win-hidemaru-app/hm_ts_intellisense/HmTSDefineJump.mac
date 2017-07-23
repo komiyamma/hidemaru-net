@@ -11,12 +11,17 @@ if (event == 0 || filetype == ".ts" || filetype == ".js") {
     #r = dllfuncw( #HMNET, "SetDetachMethod", currentmacrodirectory + @"\HmTSDefineJump.dll", "HmTSDefineJump", "OnDetachMethod" );
     #r = dllfuncw( #HMNET, "CallMethod", currentmacrodirectory + @"\HmTSDefineJump.dll", "HmTSDefineJump", "DefineJump" );
 
+    // 処理が完了していれば、$RTN_filename2 は有効な値が入っている
+    // 元が無名でも関係なく $RTN_filename2 は処理が出来ているという証としても使える
     if ($RTN_filename2 != "") {
-	    if ($RTN_filename2 != filename2) {
+        // 今表示しているファイルと別のファイル名なら、新たに開く
+        if ($RTN_filename2 != filename2) {
+            // ただし、今表示しているものが無名ではない
+            // (filename2 が無名の時には、$RTN_filename2 には代理とした一時的なファイル名が返ってくるため)
             if (!#RTN_noname) {
                 openfile $RTN_filename2;
-	        }
+            }
         }
-	    movetolineno #RTN_column+1, #RTN_lineno;
+        movetolineno #RTN_column+1, #RTN_lineno;
     }
 }

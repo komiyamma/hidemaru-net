@@ -11,11 +11,13 @@ if (event == 0 || filetype == ".ts" || filetype == ".js") {
     #r = dllfuncw( #HMNET, "SetDetachMethod", currentmacrodirectory + @"\HmTSDefineJump.dll", "HmTSDefineJump", "OnDetachMethod" );
     #r = dllfuncw( #HMNET, "CallMethod", currentmacrodirectory + @"\HmTSDefineJump.dll", "HmTSDefineJump", "ReferencesList" );
 
-
+    // アウトプット枠への出力準備＆クリア
     #HMOP = loaddll(hidemarudir + @"\HmOutputPane.dll");
     #HWND = dllfunc(#HMOP, "GetWindowHandle", hidemaruhandle(0));
     #_ = sendmessage(#HWND,0x111, 1009,0); //1009=内容クリア
 
+    // 返ってきている数に従って、全て放出。
+    // (マクロバッファーの限界はあるものの、まぁTypeScript/EcmaScriptだし、普通はそこまでいかないでしょ…)
     #ix = 0;
     while (#ix < #RTN_REFERENCES_MAX) {
         #_ = dllfunc(#HMOP, "Output", hidemaruhandle(0), $RTN_REFERENCES[#ix] + "\r\n");

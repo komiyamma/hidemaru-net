@@ -10,6 +10,7 @@ if (event == 0 || filetype == ".ts" || filetype == ".js") {
 
     #r = dllfuncw( #HMNET, "SetDetachMethod", currentmacrodirectory + @"\HmTSHintPopup.dll", "HmTSHintPopup", "OnDetachMethod" );
     #r = dllfuncw( #HMNET, "CallMethod", currentmacrodirectory + @"\HmTSHintPopup.dll", "HmTSHintPopup", "Start" );
+
     #r = dllfuncw( #HMNET, "SetDetachMethod", currentmacrodirectory + @"\HmTSDefineJump.dll", "HmTSDefineJump", "OnDetachMethod" );
     #r = dllfuncw( #HMNET, "CallMethod", currentmacrodirectory + @"\HmTSDefineJump.dll", "HmTSDefineJump", "Start" );
 }
