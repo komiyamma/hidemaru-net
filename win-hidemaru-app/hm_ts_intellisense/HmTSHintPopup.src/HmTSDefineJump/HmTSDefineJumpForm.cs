@@ -12,7 +12,6 @@ using Hidemaru;
 partial class HmTSDefineJumpForm
 {
     private static Process p;
-
     public static HmTSDefineJumpForm form;
 
     // プロセス確立
@@ -23,20 +22,21 @@ partial class HmTSDefineJumpForm
             return;
         }
         p = new Process();
-        p.StartInfo.FileName = p.StartInfo.FileName = System.Environment.GetEnvironmentVariable("ComSpec");
+        p.StartInfo.FileName = System.Environment.GetEnvironmentVariable("ComSpec");
 
         p.StartInfo.CreateNoWindow = true; // コンソールを開かない
         p.StartInfo.UseShellExecute = false; // シェル機能を使用しない
 
         p.StartInfo.RedirectStandardInput = true;
         p.StartInfo.RedirectStandardOutput = true; // 標準出力をリダイレクト
+        p.StartInfo.RedirectStandardError = true; // 標準出力をリダイレクト
+
         // ソースなのでcp932の範囲を超える事があるため。あとjsonは通常utf8形式が慣例なので
         p.StartInfo.StandardOutputEncoding = Encoding.UTF8;
         p.StartInfo.Arguments = "/c tsserver.cmd";
         p.OutputDataReceived += p_OutputDataReceived;
 
         bool success = p.Start(); // アプリの実行開始
-
         Trace.WriteLine("Start TS Server" + " : " + success.ToString());
         p.BeginOutputReadLine();
     }
@@ -205,7 +205,7 @@ partial class HmTSDefineJumpForm
     private static String GetWinTempFilePath()
     {
         var winTempDir = System.IO.Path.GetTempPath();
-        var winTempName = "HmTSTagJump.tmp";
+        var winTempName = "HmTSDefineJump.tmp";
         var winTempPath = System.IO.Path.Combine(winTempDir, winTempName);
         return winTempPath;
     }
@@ -253,6 +253,12 @@ partial class HmTSDefineJumpForm
         {
             return;
         }
+        if (p.HasExited)
+        {
+            Trace.WriteLine("TS Server は未起動");
+            return;
+        }
+
         isDataAnalyzed = false;
         ClearDefinitionResult();
         ClearReferenceResult();
@@ -309,7 +315,6 @@ partial class HmTSDefineJumpForm
                 }
                 System.Threading.Thread.Sleep(50);
             }
-            // p.WaitForExit();
         }
         catch (Exception ex)
         {

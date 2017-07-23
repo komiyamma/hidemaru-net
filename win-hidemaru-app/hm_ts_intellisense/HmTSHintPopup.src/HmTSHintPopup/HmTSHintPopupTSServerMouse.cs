@@ -36,6 +36,16 @@ partial class HmTSHintPopupForm : Form
 
     private void tsserver_Timer_Tick(object sender, EventArgs e)
     {
+        if (p == null)
+        {
+            return;
+        }
+        if (p.HasExited)
+        {
+            Trace.WriteLine("TS Server は未起動");
+            return;
+        }
+
         var winFilePath = Hm.Edit.FilePath;
         if (winFilePath == null)
         {
@@ -93,6 +103,16 @@ partial class HmTSHintPopupForm : Form
     // 対象の要求単語(あるいは位置)が変化した場合には、tsserverにquickinfoを要求する
     private void tsserver_ChangeTargetWord(int lineno, int offset) // offset = column + 1 となる。１始まり。
     {
+        if (p == null)
+        {
+            return;
+        }
+        if (p.HasExited)
+        {
+            Trace.WriteLine("TS Server は未起動");
+            return;
+        }
+
         if (strPrevFileName != null)
         {
             QuickInfoMessage(strPrevFileName, lineno, offset);

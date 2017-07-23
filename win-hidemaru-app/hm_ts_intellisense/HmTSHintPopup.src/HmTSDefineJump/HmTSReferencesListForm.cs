@@ -28,7 +28,7 @@ partial class HmTSDefineJumpForm
         string winPath = u.LocalPath + Uri.UnescapeDataString(u.Fragment);
 
 
-        String text = winPath + "(" + r.start.line + "):\t" + r.lineText;
+        String text = winPath + "(" + r.start.line + ":" + (r.start.offset) + "):\t" + r.lineText;
 
         try
         { 

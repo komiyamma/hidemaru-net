@@ -23,7 +23,7 @@ partial class HmTSHintPopupForm : Form
     {
         p = new Process();
 
-        p.StartInfo.FileName = p.StartInfo.FileName = System.Environment.GetEnvironmentVariable("ComSpec");
+        p.StartInfo.FileName = System.Environment.GetEnvironmentVariable("ComSpec");
 
         p.StartInfo.CreateNoWindow = true; // コンソールを開かない
         p.StartInfo.UseShellExecute = false; // シェル機能を使用しない
