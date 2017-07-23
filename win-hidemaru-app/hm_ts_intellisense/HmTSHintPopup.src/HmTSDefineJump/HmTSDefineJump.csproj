@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="HmTSDefineJump.cs" />
     <Compile Include="HmTSDefineJumpForm.cs" />
+    <Compile Include="HmTSReferencesListForm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

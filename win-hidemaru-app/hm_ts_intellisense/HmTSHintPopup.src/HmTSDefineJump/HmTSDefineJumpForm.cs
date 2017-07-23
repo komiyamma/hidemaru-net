@@ -37,7 +37,7 @@ partial class HmTSDefineJumpForm
 
         bool success = p.Start(); // アプリの実行開始
 
-        System.Diagnostics.Trace.WriteLine("Start TS Server" + " : " + success.ToString());
+        Trace.WriteLine("Start TS Server" + " : " + success.ToString());
         p.BeginOutputReadLine();
     }
 
@@ -49,7 +49,7 @@ partial class HmTSDefineJumpForm
             ExitMessage();
             p.Close();
             p = null;
-            System.Diagnostics.Trace.WriteLine("Exit TS Server");
+            Trace.WriteLine("Exit TS Server");
         }
     }
 
@@ -78,9 +78,15 @@ partial class HmTSDefineJumpForm
     }
 
     // 対象の情報
-    private static void DefinitionMessage(string filename, int line, int offset)
+    public static void DefinitionMessage(string filename, int line, int offset)
     {
         _SendMessage("{ \"type\": \"response\", \"seq\": " + nSeqCount + ", \"command\": \"definition\", \"arguments\": { \"file\": \"" + filename + "\", \"line\":" + line + ", \"offset\":" + offset + "} }");
+    }
+
+    // リファレンス一覧の情報
+    public static void ReferencesMessage(string filename, int line, int offset)
+    {
+        _SendMessage("{ \"type\": \"response\", \"seq\": " + nSeqCount + ", \"command\": \"references\", \"arguments\": { \"file\": \"" + filename + "\", \"line\":" + line + ", \"offset\":" + offset + "} }");
     }
 
     // tsserver終了
@@ -147,37 +153,47 @@ partial class HmTSDefineJumpForm
     }
 
     // 分析
-    private static bool isDefinitioned = false;
+    private static bool isDataAnalyzed = false;
+
+
+    private static bool AnalyzeRecievedDataAsDefinition(string recieve_data)
+    {
+        // 必ずjson形式で標準入力に入ってくる
+        var serializer = new DataContractJsonSerializer(typeof(JsonDataDefinition));
+        using (var ms = new MemoryStream(Encoding.UTF8.GetBytes(recieve_data)))
+        {
+            var data = (JsonDataDefinition)serializer.ReadObject(ms);
+
+            // commandとしてquickinfoを要求
+            if (data.command == "definition")
+            {
+                // 結果を伴うようなら
+                if (data.success)
+                {
+                    SetDefinitionResult(data.body[0]);
+                }
+                // それ以外はクリア
+                else
+                {
+                }
+
+                isDataAnalyzed = true;
+                // StopTSServer();
+
+                return true;
+            }
+        }
+
+        return false;
+    }
     private static void AnalyzeReceivedOutputData(string recieve_data)
     {
         try
         {
             Trace.WriteLine(recieve_data);
-
-            // 必ずjson形式で標準入力に入ってくる
-            var serializer = new DataContractJsonSerializer(typeof(JsonDataDefinition));
-            using (var ms = new MemoryStream(Encoding.UTF8.GetBytes(recieve_data)))
-            {
-                var data = (JsonDataDefinition)serializer.ReadObject(ms);
-
-                // commandとしてquickinfoを要求
-                if (data.command == "definition")
-                {
-                    // 結果を伴うようなら
-                    if (data.success)
-                    {
-                        SetResult(data.body[0]);
-                    }
-                    // それ以外はクリア
-                    else
-                    {
-                    }
-
-                    isDefinitioned = true;
-                    // StopTSServer();
-                }
-
-            }
+            bool isanalyzed = false;
+            isanalyzed = AnalyzeRecievedDataAsDefinition(recieve_data);
+            isanalyzed = AnalyzeRecievedDataAsReferences(recieve_data);
         }
         catch (Exception e)
         {
@@ -206,7 +222,7 @@ partial class HmTSDefineJumpForm
         }
     }
 
-    private static void ClearResult()
+    private static void ClearDefinitionResult()
     {
         Hm.Macro.Var["$RTN_filename2"] = "";
         Hm.Macro.Var["#RTN_lineno"] = -1;
@@ -214,7 +230,7 @@ partial class HmTSDefineJumpForm
         Hm.Macro.Var["#RTN_noname"] = 0;
     }
 
-    private static void SetResult(JsonDataDefinitionBody bodyFirst)
+    private static void SetDefinitionResult(JsonDataDefinitionBody bodyFirst)
     {
         //ローカルファイルのパスを表すURI
         string uriPath = bodyFirst.file;
@@ -230,14 +246,16 @@ partial class HmTSDefineJumpForm
         Hm.Macro.Var["#RTN_column"] = bodyFirst.start.offset - 1;  // 1始まりのoffset → 0始まりのcolumn
     }
 
-    public static void TagJump()
+    public delegate void CommandDelegate(string command, int lineno, int offset);
+    public static void QueryCommand(CommandDelegate dlgQueryCommand)
     {
         if ( p == null )
         {
             return;
         }
-        isDefinitioned = false;
-        ClearResult();
+        isDataAnalyzed = false;
+        ClearDefinitionResult();
+        ClearReferenceResult();
 
         var pos = Hm.Edit.CursorPos;
         var lineno = pos.LineNo;
@@ -275,7 +293,7 @@ partial class HmTSDefineJumpForm
             // リロード
             ReloadFileMessage(urlFilePath, urlTempFilePath);
 
-            DefinitionMessage(urlFilePath, lineno, column + 1);
+            dlgQueryCommand(urlFilePath, lineno, column + 1);
 
             int iSafetyCnt = 0;
             while(true)
@@ -285,7 +303,7 @@ partial class HmTSDefineJumpForm
                     System.Windows.Forms.MessageBox.Show("待ち時間エラー");
                     break;
                 }
-                if (isDefinitioned)
+                if (isDataAnalyzed)
                 {
                     break;
                 }

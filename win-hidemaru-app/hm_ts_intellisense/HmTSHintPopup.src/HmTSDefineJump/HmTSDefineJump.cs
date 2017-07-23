@@ -19,12 +19,13 @@ public class HmTSDefineJump
         return (IntPtr)1;
     }
 
-    public static IntPtr TagJump()
+    public static IntPtr DefineJump()
     {
         try
         {
             HmTSDefineJumpForm.StartTSServer();
-            HmTSDefineJumpForm.TagJump();
+            HmTSDefineJumpForm.CommandDelegate dlgQueryCommandd = HmTSDefineJumpForm.DefinitionMessage;
+            HmTSDefineJumpForm.QueryCommand(dlgQueryCommandd);
         }
         catch (Exception e)
         {
@@ -33,6 +34,23 @@ public class HmTSDefineJump
 
         return (IntPtr)1;
     }
+
+    public static IntPtr ReferencesList()
+    {
+        try
+        {
+            HmTSDefineJumpForm.StartTSServer();
+            HmTSDefineJumpForm.CommandDelegate dlgQueryCommandd = HmTSDefineJumpForm.ReferencesMessage;
+            HmTSDefineJumpForm.QueryCommand(dlgQueryCommandd);
+        }
+        catch (Exception e)
+        {
+            System.Diagnostics.Trace.WriteLine(e.Message);
+        }
+
+        return (IntPtr)1;
+    }
+
 
     public static IntPtr OnDetachMethod()
     {

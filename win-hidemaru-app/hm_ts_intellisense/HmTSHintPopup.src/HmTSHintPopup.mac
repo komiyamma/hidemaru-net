@@ -3,6 +3,7 @@ if (!#HMNET) {
     message "hm.NET.dll が無い";
     endmacro;
 } 
+// HMNET は自己管理型なので、手動で freedllしないこと。
 
 #r = dllfuncw( #HMNET, "SetDetachMethod", currentmacrodirectory + @"\HmTSHintPopup.dll", "HmTSHintPopup", "OnDetachMethod" );
 #r = dllfuncw( #HMNET, "CallMethod", currentmacrodirectory + @"\HmTSHintPopup.dll", "HmTSHintPopup", "Start" );

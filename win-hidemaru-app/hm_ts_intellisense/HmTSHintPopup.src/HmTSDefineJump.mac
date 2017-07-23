@@ -3,9 +3,10 @@ if (!#HMNET) {
     message "hm.NET.dll が無い";
     endmacro;
 } 
+// HMNET は自己管理型なので、手動で freedllしないこと。
 
 #r = dllfuncw( #HMNET, "SetDetachMethod", currentmacrodirectory + @"\HmTSDefineJump.dll", "HmTSDefineJump", "OnDetachMethod" );
-#r = dllfuncw( #HMNET, "CallMethod", currentmacrodirectory + @"\HmTSDefineJump.dll", "HmTSDefineJump", "TagJump" );
+#r = dllfuncw( #HMNET, "CallMethod", currentmacrodirectory + @"\HmTSDefineJump.dll", "HmTSDefineJump", "DefineJump" );
 
 if ($RTN_filename2 != "") {
     if (!#RTN_noname) {
