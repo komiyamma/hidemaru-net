@@ -1,8 +1,12 @@
-#HWP = loaddll( currentmacrodirectory + @"\HmHtmlPreview.dll" );
-if (#HWP) {
+#HMNET = loaddll( hidemarudir + @"\hm.NET.dll");
+
+if (#HMNET) {
+	#_ = dllfuncw(#HMNET, "SetDetachMethod", currentmacrodirectory + @"\HmHtmlPreview.dll", "HmHtmlPreview", "OnDetachMethod");
+
 	##mode = 1; // 1: Fileモード
-	#_ = dllfuncw(#HWP, "Show", hidemaruhandle(0), ##mode);
+    #_ = dllfuncw(#HMNET, "CallMethod", currentmacrodirectory + @"\HmHtmlPreview.dll", "HmHtmlPreview", "Show", hidemaruhandle(0), ##mode );
 } else {
-	message("HmHtmlPreview.dllを読み込むことが出来ません");
+    message("Hm.NET.dllを読み込むことが出来ません");
 }
+
 

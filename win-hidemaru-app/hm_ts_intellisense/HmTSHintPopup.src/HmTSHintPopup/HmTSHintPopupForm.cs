@@ -31,7 +31,7 @@ partial class HmTSHintPopupForm : Form
 
     private void SetFormAttr()
     {
-        this.Width = 516;
+        this.Width = 816;
         this.Height = 208;
         this.BackColor = Color.White;
         this.FormClosing += form_FormClosing;
@@ -50,7 +50,7 @@ partial class HmTSHintPopupForm : Form
         lb.Left = padding;
         lb.Top = padding;
         lb.Font = new Font(strFontName, 14);
-        lb.Width = 500;
+        lb.Width = 800;
         lb.Height = 40;
         this.Controls.Add(lb);
 
