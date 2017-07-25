@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows.Forms;
 
 using Hidemaru;
+using System.Collections.Generic;
 
 internal partial class HmWebBrowserModeForm : Form
 {
@@ -65,16 +66,34 @@ internal partial class HmWebBrowserModeForm : Form
         Point po;
         if (GetCursorPos(out po))
         {
-            IntPtr hWnd = WindowFromPoint(po);
+            // マウスの下
+            IntPtr hWndUner = WindowFromPoint(po);
 
+            // マウスの下と、自分自身のプロセス比較
             int processID1 = 0;
-            int threadID = GetWindowThreadProcessId(hWnd, out processID1);
+            int threadID = GetWindowThreadProcessId(hWndUner, out processID1);
 
             uint processID2 = GetCurrentProcessId();
 
             if (processID1 == processID2)
             {
                 return true;
+            }
+            // 違う。だが、タブによって合体していて、Hidemaru32Clientの親と、Hidemaru32Clientの子という関係になっているかもしれない。
+            else
+            {
+                // hidemaruhandle(0)の親が、マウスの下のウィンドウなら、それはプロセスは異なるが真とみなす。
+                IntPtr hParent = GetParent(Hm.WindowHandle);
+                if (hParent == IntPtr.Zero)
+                {
+                    return false;
+                }
+                if (hWndUner == hParent)
+                {
+                    return true;
+                }
+
+                return false;
             }
         }
         return false;
@@ -100,4 +119,96 @@ internal partial class HmWebBrowserModeForm : Form
 
     [DllImport("user32.dll", ExactSpelling = true, CharSet = CharSet.Auto)]
     public static extern IntPtr GetParent(IntPtr hWnd);
+
+    [DllImport("user32.dll")]
+    public static extern IntPtr GetWindow(IntPtr hWnd, uint wCmd);
+
+    // Zオーダー順に収められた秀丸ハンドルのリスト
+    List<IntPtr> GetWindowHidemaruHandleList()
+    {
+        const uint GW_HWNDPREV = 3;
+        List<IntPtr> list = new List<IntPtr>();
+        IntPtr hCurWnd = Hm.WindowHandle;
+        list.Add(hCurWnd);
+
+        // 自分より前方を走査
+        IntPtr hTmpWnd = hCurWnd;
+        while (true)
+        {
+            // 次のウィンドウ
+            hTmpWnd = GetWindow(hTmpWnd, GW_HWNDPREV);
+            if (hTmpWnd == IntPtr.Zero)
+            {
+                break;
+            }
+
+            // タブモードななので親があるハズ。(非タブモードだとそもそも１つしかない)
+            IntPtr hParent = GetParent(hTmpWnd);
+            if (hParent == IntPtr.Zero)
+            {
+                break;
+            }
+
+            // クラス名で判断
+            StringBuilder ClassName = new StringBuilder(256);
+            int nRet = GetClassName(hTmpWnd, ClassName, ClassName.Capacity);
+
+            // クラス名にHidemaru32Classが含まれる
+            if (ClassName.ToString().Contains("Hidemaru32Class")) {
+
+                list.Insert(0, hTmpWnd);
+            }
+        }
+
+        // 一旦また自身のウィンドウハンドルにリセットして…
+        hTmpWnd = hCurWnd;
+
+        // 自分より後方を走査
+        const uint GW_HWNDNEXT = 2;
+        while (true)
+        {
+            // 次のウィンドウ
+            hTmpWnd = GetWindow(hTmpWnd, GW_HWNDNEXT);
+            if (hTmpWnd == IntPtr.Zero)
+            {
+                break;
+            }
+
+            // タブモードななので親があるハズ。(非タブモードだとそもそも１つしかない)
+            IntPtr hParent = GetParent(hTmpWnd);
+            if (hParent == IntPtr.Zero)
+            {
+                break;
+            }
+
+            // クラス名で判断
+            StringBuilder ClassName = new StringBuilder(256);
+            int nRet = GetClassName(hTmpWnd, ClassName, ClassName.Capacity);
+
+            // クラス名にHidemaru32Classが含まれる
+            if (ClassName.ToString().Contains("Hidemaru32Class"))
+            {
+
+                list.Add(hTmpWnd);
+            }
+        }
+
+        return list;
+    }
+
+    [DllImport("user32.dll")]
+    public static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
+
+    [DllImport("user32.dll")]
+    public static extern int GetWindowLong(IntPtr hWnd, int nIndex);
+
+    private void ChangeSetParent(IntPtr hWndParent)
+    {
+        const int GWL_STYLE = -16;
+        const int WS_CHILD = 0x40000000;
+
+        IntPtr guestHandle = this.Handle;
+        SetWindowLong(guestHandle, GWL_STYLE, GetWindowLong(guestHandle, GWL_STYLE) | WS_CHILD);
+        SetParent(guestHandle, hWndParent);
+    }
 }

@@ -122,6 +122,15 @@ partial class HmTSHintPopupForm : Form
             return;
         }
 
+        // 自分が先頭ではない
+        IntPtr hWnd = Hm.WindowHandle;
+        var list = GetWindowHidemaruHandleList();
+        if (list.Count > 0 && list[0] != hWnd)
+        {
+            HideForm();
+            return;
+        }
+
         try
         {
             SearchRegexpMatch(new Regex("^[a-zA-Z0-9_]+"));

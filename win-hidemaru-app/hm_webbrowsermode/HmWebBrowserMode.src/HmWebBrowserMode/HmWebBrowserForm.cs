@@ -35,6 +35,7 @@ internal partial class HmWebBrowserModeForm : Form
         this.Height = 1;
         this.BackColor = Color.White;
         this.FormClosing += form_FormClosing;
+        this.StartPosition = FormStartPosition.Manual;
 
         SetFormNoBorderAttr();
     }
@@ -46,6 +47,7 @@ internal partial class HmWebBrowserModeForm : Form
 
     private void SetWebBrowserAttr()
     {
+        wb.ScriptErrorsSuppressed = true;
         this.Controls.Add(wb);
     }
 
@@ -64,7 +66,7 @@ internal partial class HmWebBrowserModeForm : Form
                 RECT rect;
                 GetWindowRect(hHm32Client, out rect);
 
-                const int border = 1;
+                const int border = 2;
 
                 this.SuspendLayout();
                 this.Left = rect.Left + border;
@@ -102,6 +104,10 @@ internal partial class HmWebBrowserModeForm : Form
     int nTickCounter = 0;
 
     String strPrevFileName = "";
+    public String GetPrevFileName()
+    {
+        return strPrevFileName;
+    }
     String strPrevTotalText = "";
     private void Timer_Tick(object sender, EventArgs e)
     {
@@ -109,31 +115,18 @@ internal partial class HmWebBrowserModeForm : Form
 
         try
         {
-
             nTickCounter++;
             if (nTickCounter % (50 / timer.Interval) != 0) // 手抜き
             {
                 return;
             }
 
-            IntPtr hWnd = Hm.WindowHandle;
-            IntPtr hCurrentActiveWnd = ReadSharedMemory();
-
-            if (hCurrentActiveWnd != IntPtr.Zero)
-            {
-                if (hWnd != hCurrentActiveWnd)
-                {
-                    HideForm();
-                    return;
-                }
-            }
 
             if (!IsUnderWindowIsCurrentProcessWindow())
             {
                 HideForm();
                 return;
             }
-
 
             if (Form.ActiveForm == this)
             {
@@ -155,8 +148,20 @@ internal partial class HmWebBrowserModeForm : Form
                 }
             }
 
+            // 自分が先頭ではない
+            IntPtr hWnd = Hm.WindowHandle;
+            var list = GetWindowHidemaruHandleList();
+            if (list.Count > 0 && list[0] != hWnd)
+            {
+                HideForm();
+                return;
+            }
+
+
             ShowForm();
+
             String strCurFileName = Hm.Edit.FilePath ?? "";
+ 
             // 名前があるのなら、それをナビゲート
             if (strCurFileName.Length > 0)
             {

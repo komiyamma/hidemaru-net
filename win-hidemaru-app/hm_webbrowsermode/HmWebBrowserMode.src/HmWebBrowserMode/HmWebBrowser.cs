@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Drawing;
 
 using Hidemaru;
 
@@ -7,13 +8,13 @@ public class HmWebBrowserMode
 {
     public static IntPtr Create()
     {
-        _NotifyWnd(Hm.WindowHandle);
         try
         {
             if (HmWebBrowserModeForm.form == null)
             {
                 String fontname = (String)Hm.Macro.Var["fontname"];
-                HmWebBrowserModeForm.form = new HmWebBrowserModeForm(fontname);
+
+                HmWebBrowserModeForm.form = new HmWebBrowserModeForm(fontname );
             }
         }
         catch (Exception e)
@@ -36,19 +37,6 @@ public class HmWebBrowserMode
         }
     }
 
-    public static IntPtr Notify()
-    {
-        _NotifyWnd(Hm.WindowHandle);
-
-        return (IntPtr)1;
-    }
-    private static IntPtr _NotifyWnd(IntPtr hCurrentActiveWndHidemaru)
-    {
-        HmWebBrowserModeForm.WriteSharedMemory(hCurrentActiveWndHidemaru);
-
-        return (IntPtr)0;
-    }
-
     public static IntPtr Destroy()
     {
         try
@@ -58,7 +46,6 @@ public class HmWebBrowserMode
                 HmWebBrowserModeForm.form.Close();
                 HmWebBrowserModeForm.form = null;
             }
-            _NotifyWnd(IntPtr.Zero);
         }
         catch (Exception e)
         {
