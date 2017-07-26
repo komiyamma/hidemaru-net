@@ -142,7 +142,7 @@ internal partial class HmWebBrowserModeForm : Form
                 break;
             }
 
-            // タブモードななので親があるハズ。(非タブモードだとそもそも１つしかない)
+            // タブモードなので親があるハズ。(非タブモードだとそもそも１つしかない)
             IntPtr hParent = GetParent(hTmpWnd);
             if (hParent == IntPtr.Zero)
             {

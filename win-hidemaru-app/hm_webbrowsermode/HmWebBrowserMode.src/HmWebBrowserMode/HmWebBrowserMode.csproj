@@ -50,6 +50,9 @@
     <Compile Include="HmWebBrowserForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="HmWebBrowserFormChangeNotify.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="HmWeBBrowserHWnd.cs">
       <SubType>Form</SubType>
     </Compile>

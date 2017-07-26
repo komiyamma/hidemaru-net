@@ -6,20 +6,30 @@ using Hidemaru;
 
 public class HmWebBrowserMode
 {
+    private static bool HmWebBrowserModeFormClosed()
+    {
+        return HmWebBrowserModeForm.form == null || HmWebBrowserModeForm.form.IsClosed();
+    }
+
     public static IntPtr Create()
     {
         try
         {
-            if (HmWebBrowserModeForm.form == null)
+            HmWebBrowserModeForm.SetContinueNotify();
+            if (HmWebBrowserModeFormClosed())
             {
                 String fontname = (String)Hm.Macro.Var["fontname"];
-
-                HmWebBrowserModeForm.form = new HmWebBrowserModeForm(fontname );
+                /*
+                Int32 argb = (Int32)(dynamic)Hm.Macro.Var["tcolor"];
+                Color tcolor = Color.FromArgb(argb);
+                */
+                HmWebBrowserModeForm.form = new HmWebBrowserModeForm(fontname);
             }
         }
         catch (Exception e)
         {
             System.Diagnostics.Trace.WriteLine(e.Message);
+            System.Diagnostics.Trace.WriteLine(e.StackTrace);
         }
 
         return (IntPtr)1;
@@ -27,7 +37,7 @@ public class HmWebBrowserMode
 
     public static IntPtr IsNull()
     {
-        if (HmWebBrowserModeForm.form == null)
+        if (HmWebBrowserModeFormClosed())
         {
             return (IntPtr)1;
         }

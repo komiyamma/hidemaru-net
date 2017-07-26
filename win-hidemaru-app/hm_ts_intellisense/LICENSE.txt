@@ -1,4 +1,4 @@
-■HmTSIntellisenseについて、
+■HmTSIntelliSenseについて、
 
 	Copyright (C) 2017 VSCode.life
 

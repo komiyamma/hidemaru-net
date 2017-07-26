@@ -9,13 +9,17 @@ internal partial class HmWebBrowserModeForm : Form
     public static HmWebBrowserModeForm form { get; set; }
 
     private WebBrowser wb = new WebBrowser();
-    private String strFontName;
+    private String fontname;
+    private Color tcolor;
+//    private Button bt;
 
     public HmWebBrowserModeForm(String fontname)
     {
-        this.strFontName = fontname;
+        this.fontname = fontname;
+//        this.tcolor = tcolor;
         SetFormAttr();
         SetWebBrowserAttr();
+//        SetButtonAttr();
         SetTimerAttr();
         CreateSharedMemory();
     }
@@ -39,6 +43,20 @@ internal partial class HmWebBrowserModeForm : Form
 
         SetFormNoBorderAttr();
     }
+
+    /*
+    private void SetButtonAttr()
+    {
+        bt = new Button();
+        bt.Width = 4;
+        bt.Height = 4;
+        bt.BackColor = tcolor;
+        bt.Left = 0;
+        bt.Top = 0;
+        bt.FlatStyle = FlatStyle.Flat;
+        this.Controls.Add(bt);
+    }
+    */
 
     private void form_FormClosing(object sender, FormClosingEventArgs e)
     {
@@ -84,6 +102,14 @@ internal partial class HmWebBrowserModeForm : Form
                     wb.Width = this.Width;
                     wb.Height = this.Height;
                 }
+
+                /*
+                if (bt != null)
+                {
+                    bt.Left = this.Width - 4;
+                    bt.Top = 0;
+                }
+                */
                 this.ResumeLayout();
             }
         }
@@ -104,10 +130,6 @@ internal partial class HmWebBrowserModeForm : Form
     int nTickCounter = 0;
 
     String strPrevFileName = "";
-    public String GetPrevFileName()
-    {
-        return strPrevFileName;
-    }
     String strPrevTotalText = "";
     private void Timer_Tick(object sender, EventArgs e)
     {
@@ -121,6 +143,12 @@ internal partial class HmWebBrowserModeForm : Form
                 return;
             }
 
+            String strCurFileName = Hm.Edit.FilePath ?? "";
+            bool s = Timer_Tick_Notify(strCurFileName);
+            if (!s)
+            {
+                return;
+            }
 
             if (!IsUnderWindowIsCurrentProcessWindow())
             {
@@ -160,7 +188,6 @@ internal partial class HmWebBrowserModeForm : Form
 
             ShowForm();
 
-            String strCurFileName = Hm.Edit.FilePath ?? "";
  
             // 名前があるのなら、それをナビゲート
             if (strCurFileName.Length > 0)
@@ -212,6 +239,8 @@ internal partial class HmWebBrowserModeForm : Form
                 wb.Dispose();
                 wb = null;
             }
+
+            isClosed = true;
         }
         catch (Exception e)
         {
