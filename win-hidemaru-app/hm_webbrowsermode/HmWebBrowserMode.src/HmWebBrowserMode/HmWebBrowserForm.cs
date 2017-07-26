@@ -35,14 +35,27 @@ internal partial class HmWebBrowserModeForm : Form
 
     private void SetFormAttr()
     {
+        /*
+        this.KeyPreview = true;
+        this.KeyDown += HmWebBrowserModeForm_KeyDown;
+        */
         this.Width = 1;
         this.Height = 1;
         this.BackColor = Color.White;
         this.FormClosing += form_FormClosing;
         this.StartPosition = FormStartPosition.Manual;
 
+
         SetFormNoBorderAttr();
     }
+
+    /*
+    private void HmWebBrowserModeForm_KeyDown(object sender, KeyEventArgs e)
+    {
+        //受け取ったキーを表示する
+        System.Diagnostics.Trace.WriteLine(e.KeyCode);
+    }
+    */
 
     /*
     private void SetButtonAttr()
@@ -68,7 +81,6 @@ internal partial class HmWebBrowserModeForm : Form
         wb.ScriptErrorsSuppressed = true;
         this.Controls.Add(wb);
     }
-
 
     // 自分の位置をマウスの位置に従って移動
     private void MoveLocation()
@@ -144,11 +156,13 @@ internal partial class HmWebBrowserModeForm : Form
             }
 
             String strCurFileName = Hm.Edit.FilePath ?? "";
-            bool s = Timer_Tick_Notify(strCurFileName);
-            if (!s)
+            bool s1 = Timer_Tick_Notify(strCurFileName);
+            if (!s1)
             {
                 return;
             }
+
+            bool s2 = Timer_Tick_CloseFromUrl();
 
             if (!IsUnderWindowIsCurrentProcessWindow())
             {
@@ -223,6 +237,25 @@ internal partial class HmWebBrowserModeForm : Form
             System.Diagnostics.Trace.WriteLine(ex.Message);
             System.Diagnostics.Trace.WriteLine(ex.StackTrace);
         }
+    }
+
+    // 特定の文字列がURLに含まれていたら、HmWebBrowserModeを終了する。
+    bool Timer_Tick_CloseFromUrl()
+    {
+        if (wb != null)
+        {
+            if (wb.Url != null)
+            {
+                System.Diagnostics.Trace.WriteLine(wb.Url.ToString().ToLower());
+                if (wb.Url.ToString().ToLower().Contains("close_hmwebbrowsermode"))
+                {
+                    this.isClosed = true;
+                    this.Close();
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     private void Stop()
