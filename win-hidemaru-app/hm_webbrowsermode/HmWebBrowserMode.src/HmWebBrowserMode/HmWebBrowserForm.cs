@@ -145,16 +145,19 @@ internal partial class HmWebBrowserModeForm : Form
     String strPrevTotalText = "";
     private void Timer_Tick(object sender, EventArgs e)
     {
+        // 移動についていくのは細かなタイミングで
         MoveLocation();
 
         try
         {
+            // それに比べれば、内容を更新するのは、粒度を荒く
             nTickCounter++;
             if (nTickCounter % (50 / timer.Interval) != 0) // 手抜き
             {
                 return;
             }
 
+            // ファイル名の変化をとらえ、終了を判断する
             String strCurFileName = Hm.Edit.FilePath ?? "";
             bool s1 = Timer_Tick_Notify(strCurFileName);
             if (!s1)
@@ -162,20 +165,29 @@ internal partial class HmWebBrowserModeForm : Form
                 return;
             }
 
+            // 表示しているUrlアドレス内容そのものに終了のシグナルがあれば
             bool s2 = Timer_Tick_CloseFromUrl();
+            if (!s2)
+            {
+                return;
+            }
 
+
+           // マウスの下のウィンドウが現在のプロセスではない
             if (!IsUnderWindowIsCurrentProcessWindow())
             {
                 HideForm();
                 return;
             }
 
+            // アクティブフォームが自分なら通過
             if (Form.ActiveForm == this)
             {
 
             }
             else
             { 
+                // 最前面ウィンドウが自分自身のメインウィンドウではない
                 if (!IsForegroundWindowIsHidemaruMainWindow())
                 {
                     HideForm();
@@ -190,7 +202,7 @@ internal partial class HmWebBrowserModeForm : Form
                 }
             }
 
-            // 自分が先頭ではない
+            // 自分が先頭タブウィンドウではない
             IntPtr hWnd = Hm.WindowHandle;
             var list = GetWindowHidemaruHandleList();
             if (list.Count > 0 && list[0] != hWnd)
@@ -203,7 +215,7 @@ internal partial class HmWebBrowserModeForm : Form
             ShowForm();
 
  
-            // 名前があるのなら、それをナビゲート
+            // ファイル名が有効ならば、それをWebBrowserでナビゲート
             if (strCurFileName.Length > 0)
             {
                 if (strPrevFileName != strCurFileName)
