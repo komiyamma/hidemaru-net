@@ -87,31 +87,13 @@ internal partial class HmWebBrowserModeForm : Form
                 // hidemaruhandle(0)の親が、マウスの下のウィンドウなら、それはプロセスは異なるが真とみなす。
                 IntPtr hParentUnder = GetParent(hWndUner);
 
-                StringBuilder classNameOfParentUnderWnd = new StringBuilder(256);
-                int nRet = GetClassName(hParentUnder, classNameOfParentUnderWnd, classNameOfParentUnderWnd.Capacity);
-
-                System.Diagnostics.Trace.WriteLine(classNameOfParentUnderWnd.ToString());
-
                 Process pHidemaru = Process.GetCurrentProcess();
                 Process pUnder = Process.GetProcessById(processID1);
-                // プロセスの名前は異なるのに、
+                // プロセスの名前は異なれば
                 if (pUnder != null && pHidemaru.ProcessName != pUnder.ProcessName)
                 {
-                    // マウスの下の親はAVL_AVViewなら
-                    if (classNameOfParentUnderWnd.ToString() == "AVL_AVView")
-                    {
-                        // System.Diagnostics.Trace.WriteLine("AdobeReaderがWebBrowser内で起動している");
-                        return true;
-                    }
-
-                    // 他にもあったらここで対処していくしかない
-                    /*
-                    if (classNameOfParentUnderWnd.ToString() == "******")
-                    {
-                        // System.Diagnostics.Trace.WriteLine("AdobeReaderがWebBrowser内で起動している");
-                        return true;
-                    }
-                    */
+                    // ここではチェックしない
+                    return true;
                 }
 
                 // hidemaruhandle(0)の親が、マウスの下のウィンドウなら、それはプロセスは異なるが真とみなす。
