@@ -258,7 +258,7 @@ internal partial class HmWebBrowserModeForm : Form
         {
             if (wb.Url != null)
             {
-                System.Diagnostics.Trace.WriteLine(wb.Url.ToString().ToLower());
+                // System.Diagnostics.Trace.WriteLine(wb.Url.ToString().ToLower());
                 if (wb.Url.ToString().ToLower().Contains("close_hmwebbrowsermode"))
                 {
                     this.isClosed = true;
