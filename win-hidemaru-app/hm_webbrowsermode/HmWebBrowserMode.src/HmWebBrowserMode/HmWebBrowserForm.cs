@@ -10,7 +10,7 @@ internal partial class HmWebBrowserModeForm : Form
 
     private WebBrowser wb = new WebBrowser();
     private String fontname;
-    private Color tcolor;
+//    private Color tcolor;
 //    private Button bt;
 
     public HmWebBrowserModeForm(String fontname)

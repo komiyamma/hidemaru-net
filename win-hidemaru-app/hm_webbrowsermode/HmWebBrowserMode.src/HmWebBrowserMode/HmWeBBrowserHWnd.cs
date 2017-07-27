@@ -85,31 +85,44 @@ internal partial class HmWebBrowserModeForm : Form
             else
             {
                 // hidemaruhandle(0)の親が、マウスの下のウィンドウなら、それはプロセスは異なるが真とみなす。
-                IntPtr hParent = GetParent(Hm.WindowHandle);
+                IntPtr hParentUnder = GetParent(hWndUner);
 
-                StringBuilder ClassName = new StringBuilder(256);
-                int nRet = GetClassName(hParent, ClassName, ClassName.Capacity);
+                StringBuilder classNameOfParentUnderWnd = new StringBuilder(256);
+                int nRet = GetClassName(hParentUnder, classNameOfParentUnderWnd, classNameOfParentUnderWnd.Capacity);
+
+                System.Diagnostics.Trace.WriteLine(classNameOfParentUnderWnd.ToString());
 
                 Process pHidemaru = Process.GetCurrentProcess();
                 Process pUnder = Process.GetProcessById(processID1);
                 // プロセスの名前は異なるのに、
                 if (pUnder != null && pHidemaru.ProcessName != pUnder.ProcessName)
                 {
-                    // なぜかマウスの下の親はHidemaru32Classなら
-                    if (ClassName.ToString().Contains("Hidemaru32Class"))
+                    // マウスの下の親はAVL_AVViewなら
+                    if (classNameOfParentUnderWnd.ToString() == "AVL_AVView")
                     {
-                        // System.Diagnostics.Trace.WriteLine("他アプリがWebBrowser内で起動している");
+                        // System.Diagnostics.Trace.WriteLine("AdobeReaderがWebBrowser内で起動している");
                         return true;
                     }
+
+                    // 他にもあったらここで対処していくしかない
+                    /*
+                    if (classNameOfParentUnderWnd.ToString() == "******")
+                    {
+                        // System.Diagnostics.Trace.WriteLine("AdobeReaderがWebBrowser内で起動している");
+                        return true;
+                    }
+                    */
                 }
 
+                // hidemaruhandle(0)の親が、マウスの下のウィンドウなら、それはプロセスは異なるが真とみなす。
                 // 親が無いということは、違う
-                if (hParent == IntPtr.Zero)
+                IntPtr hParentHmWnd = GetParent(Hm.WindowHandle);
+                if (hParentHmWnd == IntPtr.Zero)
                 {
                     return false;
                 }
                 // マウスの下ウィンドウのハンドルと、秀丸ハンドルの親のウィンドウが同じということは、タブモードで秀丸本体付近部分にマウスが当たっている
-                if (hWndUner == hParent)
+                if (hWndUner == hParentHmWnd)
                 {
                     return true;
                 }
