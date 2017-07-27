@@ -172,8 +172,7 @@ internal partial class HmWebBrowserModeForm : Form
                 return;
             }
 
-
-           // マウスの下のウィンドウが現在のプロセスではない
+            // マウスの下のウィンドウが現在のプロセスではない
             if (!IsUnderWindowIsCurrentProcessWindow())
             {
                 HideForm();

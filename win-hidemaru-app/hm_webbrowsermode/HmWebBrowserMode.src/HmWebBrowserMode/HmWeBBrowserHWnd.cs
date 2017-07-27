@@ -6,6 +6,7 @@ using System.Windows.Forms;
 
 using Hidemaru;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 internal partial class HmWebBrowserModeForm : Form
 {
@@ -20,6 +21,7 @@ internal partial class HmWebBrowserModeForm : Form
 
     [DllImport("user32.dll")]
     public static extern int GetWindowThreadProcessId(IntPtr hWnd, out int lpdwProcessId);
+
 
     private bool IsActiveWindowIsHidemaruMainWindow()
     {
@@ -84,10 +86,29 @@ internal partial class HmWebBrowserModeForm : Form
             {
                 // hidemaruhandle(0)の親が、マウスの下のウィンドウなら、それはプロセスは異なるが真とみなす。
                 IntPtr hParent = GetParent(Hm.WindowHandle);
+
+                StringBuilder ClassName = new StringBuilder(256);
+                int nRet = GetClassName(hParent, ClassName, ClassName.Capacity);
+
+                Process pHidemaru = Process.GetCurrentProcess();
+                Process pUnder = Process.GetProcessById(processID1);
+                // プロセスの名前は異なるのに、
+                if (pUnder != null && pHidemaru.ProcessName != pUnder.ProcessName)
+                {
+                    // なぜかマウスの下の親はHidemaru32Classなら
+                    if (ClassName.ToString().Contains("Hidemaru32Class"))
+                    {
+                        // System.Diagnostics.Trace.WriteLine("他アプリがWebBrowser内で起動している");
+                        return true;
+                    }
+                }
+
+                // 親が無いということは、違う
                 if (hParent == IntPtr.Zero)
                 {
                     return false;
                 }
+                // マウスの下ウィンドウのハンドルと、秀丸ハンドルの親のウィンドウが同じということは、タブモードで秀丸本体付近部分にマウスが当たっている
                 if (hWndUner == hParent)
                 {
                     return true;
