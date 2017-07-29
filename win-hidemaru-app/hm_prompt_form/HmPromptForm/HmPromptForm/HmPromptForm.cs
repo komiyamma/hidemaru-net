@@ -1,0 +1,60 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Drawing;
+
+internal partial class HmPromptForm : Form
+{
+    static public HmPromptForm form { get; set; }
+
+    Timer timer = new Timer();
+    IntPtr hWndHidemaru = IntPtr.Zero;
+    public HmPromptForm(IntPtr hWndHidemaru, int consoleType, IntPtr hOutputPaneServer)
+    {
+        this.hWndOutputPaneServer = hOutputPaneServer;
+
+
+        this.hWndHidemaru = hWndHidemaru;
+
+        this.consoleType = (ConsoleType)consoleType;
+        isClose = false;
+        InitProcessAttr();
+
+        timer.Interval = 30;
+        timer.Enabled = true;
+        timer.Start();
+        timer.Tick += timer_Tick;
+    }
+
+    private void timer_Tick(object sender, EventArgs e)
+    {
+        this.timer_TickProcessWindow(sender, e);
+    }
+
+    private bool isClose = false;
+    public bool IsClose()
+    {
+        return isClose;
+    }
+    public void Stop()
+    {
+        try
+        {
+            isClose = true;
+            if (p != null)
+            {
+                p.Close();
+                p.Kill();
+                p = null;
+            }
+        }
+        catch (Exception)
+        {
+
+        }
+    }
+}
+
