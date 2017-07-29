@@ -5,48 +5,32 @@ using System.Text;
 
 internal partial class HmPromptForm
 {
-    public enum Command { cmd = 1, powershell = 2 };
-    Command command = Command.powershell;
-    public System.Diagnostics.Process p;
-    IntPtr guestHandle;
-    // bool isAttachConsole = false;
+    String promptCommand = "";
+    String promptArguments = "";
 
-    public IntPtr GetCommandType()
-    {
-        return (IntPtr)(int)command;
-    }
+    Boolean isSettingMode = false;
+
+    public System.Diagnostics.Process p;
+    IntPtr processWindowHandle;
 
     void InitProcessAttr()
     {
 
         //Processオブジェクトを作成
         p = new Process();
-        if (command == Command.cmd)
-        {
-            //ComSpec(cmd.exe)のパスを取得して、FileNameプロパティに指定
-            p.StartInfo.FileName = System.Environment.GetEnvironmentVariable("ComSpec");
-            //コマンドラインを指定（"/k"は実行後閉じないため）
-            p.StartInfo.Arguments = @"/K";
-        }
-        else if (command == Command.powershell)
-        {
-            p.StartInfo.FileName = "powershell";
-            //コマンドラインを指定（"/NoExit"は実行後閉じないため）
-            p.StartInfo.Arguments = "-NoExit -NoLogo";
-        }
-
+        p.StartInfo.FileName = this.promptCommand;
+        p.StartInfo.Arguments = this.promptArguments;
         //起動
         p.Start();
         while (true)
         {
             System.Threading.Thread.Sleep(5);
-            guestHandle = p.MainWindowHandle;
+            processWindowHandle = p.MainWindowHandle;
             StringBuilder sb = new StringBuilder(256);
-            GetClassName(guestHandle, sb, sb.Capacity);
+            GetClassName(processWindowHandle, sb, sb.Capacity);
 
             if (sb.ToString() == "ConsoleWindowClass")
             {
-                ShowWindowAsync(guestHandle, (int)ShowWindowCommands.Hide);
                 // isAttachConsole = AttachConsole((uint)p.Id);
                 break;
             }
@@ -57,18 +41,20 @@ internal partial class HmPromptForm
     // アウトプット枠が、下部もしくは上部にあるのか？
     private bool IsHmOutputPaneIsBottomOrTop()
     {
-        return true;
-        System.Diagnostics.Trace.WriteLine(rectOutputPaneServer.Bottom - rectOutputPaneServer.Top);
-
-        // 幅 > 高
-        if (rectOutputPaneServer.Right- rectOutputPaneServer.Left > rectOutputPaneServer.Bottom - rectOutputPaneServer.Top)
+        int iOutputPaneWidth = rectOutputPane.Right - rectOutputPane.Left;
+        if (iWndHidemaruWidth - iOutputPaneWidth < 100)
         {
             return true;
-
         }
-        return false;
+        else
+        {
+            return false;
+        }
     }
 
+
+    IntPtr iWntRootHidemaru;
+    RECT rectRootHidemaru;
 
     IntPtr hWndOutputPaneServer;
     RECT rectOutputPaneServer;
@@ -78,93 +64,103 @@ internal partial class HmPromptForm
     int iWndHidemaruWidth;
     int iWndHidemaruHeight;
 
+
     bool bStyleChanged = false;
     private void tick_OutputResize()
     {
         IntPtr hWndHidemaru = Hm.WindowHandle;
+        iWntRootHidemaru = hWndHidemaru;
+        IntPtr hParent = GetParent(hWndHidemaru);
+        if (hParent != IntPtr.Zero)
+        {
+            iWntRootHidemaru = hParent;
+        }
+        // ここだけはウィンドウ
+        GetWindowRect(iWntRootHidemaru, out rectRootHidemaru);
+
+
 
         hWndOutputPane = FindWindowEx(hWndHidemaru, IntPtr.Zero, "HM32OutputPane", IntPtr.Zero);
-        GetClientRect(hWndHidemaru, out rectOutputPane);
+        GetWindowRect(hWndOutputPane, out rectOutputPane);
 
         hWndOutputPaneServer = FindWindowEx(hWndOutputPane, IntPtr.Zero, "HM32OutputPaneServer", IntPtr.Zero);
-        GetClientRect(hWndOutputPaneServer, out rectOutputPaneServer);
+        GetWindowRect(hWndOutputPaneServer, out rectOutputPaneServer);
 
         RECT rectWndHidemaru;
-        GetClientRect(hWndHidemaru, out rectWndHidemaru);
+        GetWindowRect(hWndHidemaru, out rectWndHidemaru);
 
         iWndHidemaruWidth = rectWndHidemaru.Right - rectWndHidemaru.Left;
         iWndHidemaruHeight = rectWndHidemaru.Bottom - rectWndHidemaru.Top;
         int iOutputServerWidth = rectOutputPaneServer.Right - rectOutputPaneServer.Left;
 
-        //if (IsHmOutputPaneIsBottomOrTop() ) { 
+        if (IsHmOutputPaneIsBottomOrTop())
+        {
             SetWindowPos(hWndOutputPaneServer, IntPtr.Zero, 0, 0, iWndHidemaruWidth * 1 / 2, rectOutputPaneServer.Bottom - rectOutputPaneServer.Top, SWP_NOMOVE);
-        //} else
-        //{
-        // SetWindowPos(hWndOutputPaneServer, IntPtr.Zero, 0, 0, rectOutputPaneServer.Right - rectOutputPaneServer.Left, iWndHidemaruHeight * 1 / 2, SWP_NOMOVE);
-        //}
+        }
+        else
+        {
+            SetWindowPos(hWndOutputPaneServer, IntPtr.Zero, 0, 0, rectOutputPaneServer.Right - rectOutputPaneServer.Left, iWndHidemaruHeight * 1 / 2, SWP_NOMOVE);
+        }
 
         if (!bStyleChanged)
         {
-            uint style = (uint)GetWindowLong(guestHandle, (int)WindowLongFlags.GWL_STYLE);
-            uint remove = (uint)WindowStyles.WS_CAPTION | (uint)WindowStyles.WS_THICKFRAME;
-            SetParent(guestHandle, hWndOutputPane);
-            SetWindowLong(guestHandle, (int)WindowLongFlags.GWL_STYLE, style ^ remove);
+            IsHmOutputPaneIsBottomOrTop();
+            // アトリビュート設定可能モード以外なら 枠とかキャプションは消去
+            if (!isSettingMode)
+            {
+                uint style = (uint)GetWindowLong(processWindowHandle, (int)WindowLongFlags.GWL_STYLE);
+                if ((style & (uint)WindowStyles.WS_CAPTION) > 0)
+                {
+                    style = style ^ (uint)WindowStyles.WS_CAPTION;
+                }
+                if ((style & (uint)WindowStyles.WS_THICKFRAME) > 0)
+                {
+                    style = style ^ (uint)WindowStyles.WS_THICKFRAME;
+                }
 
-            //if (IsHmOutputPaneIsBottomOrTop())
-            // {
-            SetWindowPos(guestHandle, IntPtr.Zero, iWndHidemaruWidth * 1 / 2 + 3, 3, iWndHidemaruWidth * 1 / 2 - 5, rectOutputPaneServer.Bottom - rectOutputPaneServer.Top, SWP_FRAMECHANGED | SWP_SHOWWINDOW);
-            //  }
-            //  else
-            //  {
-            // SetWindowPos(guestHandle, IntPtr.Zero, 3, iWndHidemaruHeight * 1 / 2 + 3, rectOutputPaneServer.Right - rectOutputPaneServer.Left, iWndHidemaruHeight * 1 / 2 - 5, SWP_FRAMECHANGED | SWP_SHOWWINDOW);
-            // }
-
-            ShowWindowAsync(guestHandle, (int)ShowWindowCommands.Show);
+                SetWindowLong(processWindowHandle, (int)WindowLongFlags.GWL_STYLE, style);
+            }
+            IntPtr ret = SetParent(processWindowHandle, hWndOutputPane);
 
             bStyleChanged = true;
         }
     }
 
-    // int i = 0;
     private void timer_TickProcessWindow(object sender, EventArgs e)
     {
         /*
-        if (i % 100 == 0)
+        if (isAttachConsole)
         {
-            if (isAttachConsole)
+            const int STD_OUTPUT_HANDLE = -11;
+            const int FOREGROUND_GREEN = 2;
+            const int FOREGROUND_INTENSITY = 8;
+            const int BACKGROUND_BLUE = 16;
+
+            CONSOLE_SCREEN_BUFFER_INFO screenBuffer = new CONSOLE_SCREEN_BUFFER_INFO();
+            IntPtr hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+            GetConsoleScreenBufferInfo(hConsole, out screenBuffer);
+
+            SetConsoleTextAttribute(
+                hConsole,
+                FOREGROUND_GREEN
+                | FOREGROUND_INTENSITY
+                | BACKGROUND_BLUE);
+
+            COORD dwReadCoord;
+            dwReadCoord.X = 0;
+            dwReadCoord.Y = 0;
+            for (i = 0; i < screenBuffer.dwSize.Y; i++)
             {
-                const int STD_OUTPUT_HANDLE = -11;
-                const int FOREGROUND_GREEN = 2;
-                const int FOREGROUND_INTENSITY = 8;
-                const int BACKGROUND_BLUE = 16;
-
-                CONSOLE_SCREEN_BUFFER_INFO screenBuffer = new CONSOLE_SCREEN_BUFFER_INFO();
-                IntPtr hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-
-                GetConsoleScreenBufferInfo(hConsole, out screenBuffer);
-
-                SetConsoleTextAttribute(
-                    hConsole,
-                    FOREGROUND_GREEN
-                    | FOREGROUND_INTENSITY
-                    | BACKGROUND_BLUE);
-
-                COORD dwReadCoord;
-                dwReadCoord.X = 0;
-                dwReadCoord.Y = 0;
-                for (i = 0; i < screenBuffer.dwSize.Y; i++)
-                {
-                    StringBuilder buffer = new StringBuilder(screenBuffer.dwSize.X + 1);
-                    uint lpNumberOfCharsRead = 0;
-                    ReadConsoleOutputCharacter(hConsole, buffer, (uint)screenBuffer.dwSize.X, dwReadCoord, out lpNumberOfCharsRead);
-                    System.Diagnostics.Trace.WriteLine(buffer);
-                }
-            } else
-            {
-                System.Diagnostics.Trace.WriteLine("失敗");
+                StringBuilder buffer = new StringBuilder(screenBuffer.dwSize.X + 1);
+                uint lpNumberOfCharsRead = 0;
+                ReadConsoleOutputCharacter(hConsole, buffer, (uint)screenBuffer.dwSize.X, dwReadCoord, out lpNumberOfCharsRead);
+                System.Diagnostics.Trace.WriteLine(buffer);
             }
+        } else
+        {
+            System.Diagnostics.Trace.WriteLine("失敗");
         }
-        i++;
         */
 
         try
@@ -177,7 +173,16 @@ internal partial class HmPromptForm
 
             if (p.HasExited)
             {
-                SetWindowPos(hWndOutputPaneServer, IntPtr.Zero, 0, 0, rectOutputPane.Right - rectOutputPane.Left, rectOutputPaneServer.Bottom - rectOutputPaneServer.Top, SWP_NOMOVE);
+                if (IsHmOutputPaneIsBottomOrTop())
+                {
+                    SetWindowPos(iWntRootHidemaru, IntPtr.Zero, 0, 0, rectRootHidemaru.Right - rectRootHidemaru.Left + 2, rectRootHidemaru.Bottom - rectRootHidemaru.Top + 2, SWP_NOMOVE);
+                    SetWindowPos(iWntRootHidemaru, IntPtr.Zero, 0, 0, rectRootHidemaru.Right - rectRootHidemaru.Left, rectRootHidemaru.Bottom - rectRootHidemaru.Top, SWP_NOMOVE);
+                }
+                else
+                {
+                    SetWindowPos(iWntRootHidemaru, IntPtr.Zero, 0, 0, rectRootHidemaru.Right - rectRootHidemaru.Left + 2, rectRootHidemaru.Bottom - rectRootHidemaru.Top + 2, SWP_NOMOVE);
+                    SetWindowPos(iWntRootHidemaru, IntPtr.Zero, 0, 0, rectRootHidemaru.Right - rectRootHidemaru.Left, rectRootHidemaru.Bottom - rectRootHidemaru.Top, SWP_NOMOVE);
+                }
                 this.Close();
             }
             else
@@ -185,35 +190,27 @@ internal partial class HmPromptForm
                 tick_OutputResize();
             }
 
-            if (bStyleChanged) {
+            if (bStyleChanged)
+            {
                 IntPtr isActive = GetActiveWindow();
-                if (isActive == guestHandle)
+
+                uint uFlags = 0;
+                if (isActive == processWindowHandle)
                 {
-                    // SetWindowPos(guestHandle, IntPtr.Zero, iWndHidemaruWidth * 1 / 2 + 3, 3, iWndHidemaruWidth - iWndHidemaruWidth * 1 / 2 - 5, rectOutputServer.Bottom - rectOutputServer.Top, 0);
-                    //    if (IsHmOutputPaneIsBottomOrTop())
-                    //     {
-                    SetWindowPos(guestHandle, IntPtr.Zero, iWndHidemaruWidth * 1 / 2 + 3, 3, iWndHidemaruWidth * 1 / 2 - 5, rectOutputPaneServer.Bottom - rectOutputPaneServer.Top, 0);
-                    //     }
-                    //     else
-                    //     {
-                    // SetWindowPos(guestHandle, IntPtr.Zero, 3, iWndHidemaruHeight * 1 / 2 + 3, rectOutputPaneServer.Right - rectOutputPaneServer.Left, iWndHidemaruHeight * 1 / 2 - 5, 0);
-                    //   }
-
+                    uFlags = 0;
                 }
-                else {
-                    // SetWindowPos(guestHandle, IntPtr.Zero, iWndHidemaruWidth * 1 / 2 + 3, 3, iWndHidemaruWidth - iWndHidemaruWidth * 1 / 2 - 5, rectOutputServer.Bottom - rectOutputServer.Top, SWP_NOACTIVATE);
-                    //      if (IsHmOutputPaneIsBottomOrTop())
-                    //      {
-                    //System.Diagnostics.Trace.WriteLine("横");
-                        SetWindowPos(guestHandle, IntPtr.Zero, iWndHidemaruWidth * 1 / 2 + 3, 3, iWndHidemaruWidth * 1 / 2 - 5, rectOutputPaneServer.Bottom - rectOutputPaneServer.Top, SWP_NOACTIVATE);
-                    //    }
-                    //    else
-                    //     {
-                    //System.Diagnostics.Trace.WriteLine("縦");
-                    // SetWindowPos(guestHandle, IntPtr.Zero, 3, iWndHidemaruHeight * 1 / 2 + 3, rectOutputPaneServer.Right - rectOutputPaneServer.Left, iWndHidemaruHeight * 1 / 2 - 5, SWP_NOACTIVATE);
-                    //    }
+                else
+                {
+                    uFlags = SWP_NOACTIVATE;
+                }
 
-
+                if (IsHmOutputPaneIsBottomOrTop())
+                {
+                    SetWindowPos(processWindowHandle, IntPtr.Zero, iWndHidemaruWidth * 1 / 2 + 3, 3, iWndHidemaruWidth * 1 / 2 - 5, rectOutputPaneServer.Bottom - rectOutputPaneServer.Top, uFlags);
+                }
+                else
+                {
+                    SetWindowPos(processWindowHandle, IntPtr.Zero, 3, iWndHidemaruHeight * 1 / 2 + 3, rectOutputPaneServer.Right - rectOutputPaneServer.Left - 3, iWndHidemaruHeight * 1 / 2 - 5, uFlags);
                 }
             }
 

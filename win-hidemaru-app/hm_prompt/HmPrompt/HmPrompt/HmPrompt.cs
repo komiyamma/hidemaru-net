@@ -3,29 +3,29 @@ using System.Diagnostics;
 
 public class HmPrompt
 {
-    public static IntPtr Show(IntPtr command)
+    static String command = "";
+    static String arguments = "";
+    public static IntPtr ProcessStartInfo(String command, String arguments)
+    {
+        HmPrompt.command = command;
+        HmPrompt.arguments = arguments;
+        return (IntPtr)1;
+    }
+
+    public static IntPtr Show(IntPtr hasAttr)
     {
         try
         {
+            // Close()すると消えるので先に確保しておく
+            String command = HmPrompt.command;
+            String arguments = HmPrompt.arguments;
+
             // う～ん、どうもとにかくクローズしてしまった方がよさそう。
             Close();
-            HmPromptForm.form = new HmPromptForm(command);
 
-            /*
-            // ヌル
-            if (HmPromptForm.form == null) {
-                HmPromptForm.form = new HmPromptForm(command);
-            // インスタンスは生きてるが、プロセスが閉じてる
-            } else if (HmPromptForm.form.IsClose()) {
-                Close();
-                HmPromptForm.form = new HmPromptForm(command);
-            // コマンドのタイプが違う
-            } else if (command != HmPromptForm.form.GetCommandType())
-            {
-                Close();
-                HmPromptForm.form = new HmPromptForm(command);
-            }
-            */
+            HmPromptForm.form = new HmPromptForm(command, arguments, (hasAttr.ToInt32() != 0));
+            HmPrompt.command = "";
+            HmPrompt.arguments = "";
         }
         catch (Exception)
         {
@@ -37,6 +37,8 @@ public class HmPrompt
 
     public static IntPtr Close()
     {
+        HmPrompt.command = "";
+        HmPrompt.arguments = "";
         try
         {
             // まだ残っていたら(フォームを手動で閉じていたら、残っていない)

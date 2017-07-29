@@ -6,6 +6,23 @@ using System.Threading.Tasks;
 
 class HmPromptFormProgram
 {
+    static void abc()
+    {
+        int nTickCount = 0;
+        while(true)
+        {
+            System.Threading.Thread.Sleep(30);
+            HmPromptForm.form.timer_Tick(null, null);
+            nTickCount++;
+            if (nTickCount % 10 == 0) { 
+                if (!HidemaruWindowInfo.IsFindWindow())
+                {
+                    break;
+                }
+            }
+        }
+    }
+
     [STAThread]
     static void Main(string[] args)
     {
@@ -24,8 +41,11 @@ class HmPromptFormProgram
             return;
         }
 
-        HmPromptForm f = new HmPromptForm(hWndHidemaru, consoleType, hOutPane);
-        f.ShowDialog();
+        HmPromptForm.form = new HmPromptForm(hWndHidemaru, consoleType, hOutPane);
+        System.Windows.Forms.MessageBox.Show("タスク卓性");
+        Task task = new Task(abc);
+        task.Start();
+        Task.WaitAll(task);
     }
 }
 

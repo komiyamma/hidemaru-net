@@ -6,7 +6,7 @@ using System.Text;
 using System.Windows.Forms;
 
 
-internal partial class HmPromptForm : Form
+internal partial class HmPromptForm
 {
 
     [DllImport("user32.dll")]
@@ -403,43 +403,4 @@ internal partial class HmPromptForm : Form
     [DllImport("kernel32.dll", SetLastError = true)]
     static extern bool FreeCosole();
 
-    bool isFindWindowHmOutputPane = false;
-    void FindWindowHmOutputPane(IntPtr hWndParent)
-    {
-        if (isFindWindowHmOutputPane)
-        {
-            return;
-        }
-        StringBuilder dummy = new StringBuilder(512);
-
-        IntPtr hWndChild = FindWindowEx(hWndParent, IntPtr.Zero, IntPtr.Zero, IntPtr.Zero);
-        if (hWndChild == IntPtr.Zero)
-        {
-            return;
-        }
-
-        FindWindowHmOutputPane(hWndChild);
-
-        while(true)
-        {
-            hWndChild = FindWindowEx(hWndParent, hWndChild, IntPtr.Zero, IntPtr.Zero);
-            if (hWndChild == IntPtr.Zero)
-            {
-                break;
-            }
-            StringBuilder className = new StringBuilder(512);
-            GetClassName(hWndChild, className, className.Capacity);
-            if (className.ToString() == "HM32OutputPane")
-            {
-                hWndOutputPane = hWndChild;
-                System.Diagnostics.Trace.WriteLine("見付けた");
-            }
-            if (isFindWindowHmOutputPane)
-            {
-                break;
-            }
-
-        }
-
-    }
 }

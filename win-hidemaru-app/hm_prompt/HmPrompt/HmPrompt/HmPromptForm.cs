@@ -12,9 +12,11 @@ internal partial class HmPromptForm
 
     Timer timer = new Timer();
 
-    public HmPromptForm(IntPtr command)
+    public HmPromptForm(String command, String arguments, Boolean isSettingMode)
     {
-        this.command = (Command)command;
+        this.promptCommand = command;
+        this.promptArguments = arguments;
+        this.isSettingMode = isSettingMode;
         isClose = false;
         InitProcessAttr();
 
@@ -41,14 +43,23 @@ internal partial class HmPromptForm
             isClose = true;
             if (p != null)
             {
-                p.Close();
-                p.Kill();
+                try
+                {
+                    // p.Close()なんて甘いことをやったら、ほとんどゴミが残る
+                    // p.Close()の後にp.Killしても、関係が立たれてしまっているのでダメ。
+                    p.Kill();
+                }
+                catch (Exception)
+                {
+
+                }
+
                 p = null;
             }
         }
-        catch (Exception)
+        catch (Exception e)
         {
-
+            System.Diagnostics.Trace.WriteLine(e.Message);
         }
     }
 }

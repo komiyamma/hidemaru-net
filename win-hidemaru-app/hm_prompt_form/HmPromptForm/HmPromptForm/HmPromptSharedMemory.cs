@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.IO.MemoryMappedFiles;
 using System.Windows.Forms;
 
-internal partial class HmPromptForm : Form
+internal partial class HmPromptForm
 {
     private static MemoryMappedFile m_Mmf = null;
     private static MemoryMappedViewAccessor m_Accessor = null;

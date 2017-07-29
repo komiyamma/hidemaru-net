@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
 
-internal partial class HmPromptForm : Form
+internal partial class HmPromptForm
 {
     static public HmPromptForm form { get; set; }
 
@@ -22,14 +22,9 @@ internal partial class HmPromptForm : Form
         this.consoleType = (ConsoleType)consoleType;
         isClose = false;
         InitProcessAttr();
-
-        timer.Interval = 30;
-        timer.Enabled = true;
-        timer.Start();
-        timer.Tick += timer_Tick;
     }
 
-    private void timer_Tick(object sender, EventArgs e)
+    public void timer_Tick(object sender, EventArgs e)
     {
         this.timer_TickProcessWindow(sender, e);
     }

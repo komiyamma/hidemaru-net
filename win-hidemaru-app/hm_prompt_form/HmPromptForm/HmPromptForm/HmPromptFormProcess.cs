@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Text;
 using System.Windows.Forms;
 
-internal partial class HmPromptForm : Form
+internal partial class HmPromptForm
 {
     public enum ConsoleType { cmd = 1, powershell = 2 };
     ConsoleType consoleType = ConsoleType.powershell;
@@ -19,7 +19,6 @@ internal partial class HmPromptForm : Form
     void InitProcessAttr()
     {
         bStyleChanged = false;
-        bParentAttach = false;
 
         //Processオブジェクトを作成
         p = new Process();
@@ -80,10 +79,8 @@ internal partial class HmPromptForm : Form
     int iWndHidemaruHeight;
 
     static bool bStyleChanged = false;
-    static bool bParentAttach = false;
     public static void ResetStyleChange()
     {
-        bParentAttach = false;
         bStyleChanged = false;
     }
     private void tick_OutputResize()
@@ -103,11 +100,21 @@ internal partial class HmPromptForm : Form
 
         // その親が、HmOutputPaneのウィンドウ
         hWndOutputPane = GetParent(hWndOutputPaneServer);
+        if (hWndOutputPane == IntPtr.Zero)
+        {
+            System.Diagnostics.Trace.WriteLine("hWndOutputPane Zero Error");
+        }
         // ウィンドウのサイズはいつでも変化しうる
         GetClientRect(hWndHidemaru, out rectOutputPane);
 
         // いわゆる「秀丸ハンドル」
         hWndHidemaru = GetParent(hWndOutputPane);
+
+        if (hWndHidemaru == IntPtr.Zero)
+        {
+            System.Diagnostics.Trace.WriteLine("hWndHidemaru Zero Error");
+        }
+
         // サイズはいつでも変化しうる
         GetClientRect(hWndOutputPaneServer, out rectOutputPaneServer);
 
@@ -123,6 +130,8 @@ internal partial class HmPromptForm : Form
 
         if (!bStyleChanged)
         {
+            System.Diagnostics.Trace.WriteLine("スタイル変化");
+
             uint style = (uint)GetWindowLong(processWindowHandle, (int)WindowLongFlags.GWL_STYLE);
             if ((style & (uint)WindowStyles.WS_CAPTION) > 0)
             {
@@ -139,58 +148,56 @@ internal partial class HmPromptForm : Form
         }
     }
 
-    // int i = 0;
     private void timer_TickProcessWindow(object sender, EventArgs e)
     {
         /*
-        if (i % 100 == 0)
+        if (isAttachConsole)
         {
-            if (isAttachConsole)
+            const int STD_OUTPUT_HANDLE = -11;
+            const int FOREGROUND_GREEN = 2;
+            const int FOREGROUND_INTENSITY = 8;
+            const int BACKGROUND_BLUE = 16;
+
+            CONSOLE_SCREEN_BUFFER_INFO screenBuffer = new CONSOLE_SCREEN_BUFFER_INFO();
+            IntPtr hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+            GetConsoleScreenBufferInfo(hConsole, out screenBuffer);
+
+            SetConsoleTextAttribute(
+                hConsole,
+                FOREGROUND_GREEN
+                | FOREGROUND_INTENSITY
+                | BACKGROUND_BLUE);
+
+            COORD dwReadCoord;
+            dwReadCoord.X = 0;
+            dwReadCoord.Y = 0;
+            for (i = 0; i < screenBuffer.dwSize.Y; i++)
             {
-                const int STD_OUTPUT_HANDLE = -11;
-                const int FOREGROUND_GREEN = 2;
-                const int FOREGROUND_INTENSITY = 8;
-                const int BACKGROUND_BLUE = 16;
-
-                CONSOLE_SCREEN_BUFFER_INFO screenBuffer = new CONSOLE_SCREEN_BUFFER_INFO();
-                IntPtr hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-
-                GetConsoleScreenBufferInfo(hConsole, out screenBuffer);
-
-                SetConsoleTextAttribute(
-                    hConsole,
-                    FOREGROUND_GREEN
-                    | FOREGROUND_INTENSITY
-                    | BACKGROUND_BLUE);
-
-                COORD dwReadCoord;
-                dwReadCoord.X = 0;
-                dwReadCoord.Y = 0;
-                for (i = 0; i < screenBuffer.dwSize.Y; i++)
-                {
-                    StringBuilder buffer = new StringBuilder(screenBuffer.dwSize.X + 1);
-                    uint lpNumberOfCharsRead = 0;
-                    ReadConsoleOutputCharacter(hConsole, buffer, (uint)screenBuffer.dwSize.X, dwReadCoord, out lpNumberOfCharsRead);
-                    System.Diagnostics.Trace.WriteLine(buffer);
-                }
-            } else
-            {
-                System.Diagnostics.Trace.WriteLine("失敗");
+                StringBuilder buffer = new StringBuilder(screenBuffer.dwSize.X + 1);
+                uint lpNumberOfCharsRead = 0;
+                ReadConsoleOutputCharacter(hConsole, buffer, (uint)screenBuffer.dwSize.X, dwReadCoord, out lpNumberOfCharsRead);
+                System.Diagnostics.Trace.WriteLine(buffer);
             }
+        } else
+        {
+            System.Diagnostics.Trace.WriteLine("失敗");
         }
-        i++;
         */
 
         try
         {
             if (p == null)
             {
+                System.Diagnostics.Trace.WriteLine("プロセス無し");
+
                 return;
             }
 
 
             if (p.HasExited)
             {
+                System.Diagnostics.Trace.WriteLine("プロセスは終わった");
                 SetWindowPos(hWndOutputPaneServer, IntPtr.Zero, 0, 0, rectOutputPane.Right - rectOutputPane.Left, rectOutputPaneServer.Bottom - rectOutputPaneServer.Top, SWP_NOMOVE);
                 this.Stop();
             }
@@ -204,32 +211,11 @@ internal partial class HmPromptForm : Form
                 IntPtr isActive = GetActiveWindow();
                 if (isActive == processWindowHandle)
                 {
-                    // SetWindowPos(guestHandle, IntPtr.Zero, iWndHidemaruWidth * 1 / 2 + 3, 3, iWndHidemaruWidth - iWndHidemaruWidth * 1 / 2 - 5, rectOutputServer.Bottom - rectOutputServer.Top, 0);
-                    //    if (IsHmOutputPaneIsBottomOrTop())
-                    //     {
                     SetWindowPos(processWindowHandle, IntPtr.Zero, iWndHidemaruWidth * 1 / 2 + 3, 3, iWndHidemaruWidth * 1 / 2 - 5, rectOutputPaneServer.Bottom - rectOutputPaneServer.Top, 0);
-                    //     }
-                    //     else
-                    //     {
-                    // SetWindowPos(guestHandle, IntPtr.Zero, 3, iWndHidemaruHeight * 1 / 2 + 3, rectOutputPaneServer.Right - rectOutputPaneServer.Left, iWndHidemaruHeight * 1 / 2 - 5, 0);
-                    //   }
-
                 }
                 else
                 {
-                    // SetWindowPos(guestHandle, IntPtr.Zero, iWndHidemaruWidth * 1 / 2 + 3, 3, iWndHidemaruWidth - iWndHidemaruWidth * 1 / 2 - 5, rectOutputServer.Bottom - rectOutputServer.Top, SWP_NOACTIVATE);
-                    //      if (IsHmOutputPaneIsBottomOrTop())
-                    //      {
-                    //System.Diagnostics.Trace.WriteLine("横");
                     SetWindowPos(processWindowHandle, IntPtr.Zero, iWndHidemaruWidth * 1 / 2 + 3, 3, iWndHidemaruWidth * 1 / 2 - 5, rectOutputPaneServer.Bottom - rectOutputPaneServer.Top, SWP_NOACTIVATE);
-                    //    }
-                    //    else
-                    //     {
-                    //System.Diagnostics.Trace.WriteLine("縦");
-                    // SetWindowPos(guestHandle, IntPtr.Zero, 3, iWndHidemaruHeight * 1 / 2 + 3, rectOutputPaneServer.Right - rectOutputPaneServer.Left, iWndHidemaruHeight * 1 / 2 - 5, SWP_NOACTIVATE);
-                    //    }
-
-
                 }
             }
 

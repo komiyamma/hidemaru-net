@@ -45,26 +45,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HmPromptSharedMemory.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ConsoleScreenBufferInfoSetter.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="HmPromptForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="HmPromptFormHWnd.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="HmPromptFormProcess.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="HmFindWindowInfo.cs" />
+    <Compile Include="HmPromptSharedMemory.cs" />
+    <Compile Include="ConsoleScreenBufferInfoSetter.cs" />
+    <Compile Include="HmPromptForm.cs" />
+    <Compile Include="HmPromptFormHWnd.cs" />
+    <Compile Include="HmPromptFormProcess.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
