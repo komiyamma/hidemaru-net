@@ -8,8 +8,8 @@ if (#HMNET) {
     
     // 以下のうちどれかの行ひとつを有効にする。ご自身独自のお気に入りの「REPL」があるなら自分自身で加えてください。
     {
-     // $ProcessFileName =  "Cmd";        $ProcessArguments = "/K";
-     $ProcessFileName =  "PowerShell"; $ProcessArguments = "-NoExit -NoLogo";
+     $ProcessFileName =  "Cmd";        $ProcessArguments = "/K";
+     // $ProcessFileName =  "PowerShell"; $ProcessArguments = "-NoExit -NoLogo";
      // $ProcessFileName =  "Python";     $ProcessArguments = "";
      // $ProcessFileName =  "Node";       $ProcessArguments = "";
      // $ProcessFileName =  "irb.cmd";    $ProcessArguments = "";
@@ -18,10 +18,10 @@ if (#HMNET) {
      // $ProcessFileName =  "Cmd";        $ProcessArguments = "/K dir";
     }
     {
-        #SettingMode = false;
+        #ProcessSettingMode = false;
     }
-    #_ = dllfuncw(#HMNET, "CallMethod", currentmacrodirectory + @"\HmPrompt.dll", "HmPrompt", "ProcessStartInfo", $ProcessFileName, $ProcessArguments );
-    #_ = dllfuncw(#HMNET, "CallMethod", currentmacrodirectory + @"\HmPrompt.dll", "HmPrompt", "Show", #SettingMode );
+    #_ = dllfuncw(#HMNET, "CallMethod", currentmacrodirectory + @"\HmPrompt.dll", "HmPrompt", "ProcessStartInfo", $ProcessFileName, $ProcessArguments, @"C:\Windows" );
+    #_ = dllfuncw(#HMNET, "CallMethod", currentmacrodirectory + @"\HmPrompt.dll", "HmPrompt", "Show", #ProcessSettingMode );
 } else {
     message("Hm.NET.dllを読み込むことが出来ません");
 }

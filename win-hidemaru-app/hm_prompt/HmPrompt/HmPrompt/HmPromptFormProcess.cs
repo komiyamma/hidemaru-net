@@ -18,6 +18,7 @@ internal partial class HmPromptForm
         //Processオブジェクトを作成
         process = new Process();
         process.StartInfo = constructPsi.Copy();
+
         //起動
         process.Start();
 
@@ -39,7 +40,31 @@ internal partial class HmPromptForm
 
     }
 
-    IntPtr iWntRootHidemaru;
+    IntPtr hWndRootHidemaru;
+
+    RECT rectWndHidemaru;
+
+    RECT rectOutputPane;
+
+    IntPtr hWndOutputPaneServer;
+    RECT rectOutputPaneServer;
+
+
+    // アウトプット枠が、下部もしくは上部にあるのか？ LeftやRightにあったらfalse
+    bool IsHmOutputPaneIsBottomOrTop()
+    {
+        int iOutputPaneWidth = rectOutputPane.Right - rectOutputPane.Left;
+        int iWndHidemaruWidth = rectWndHidemaru.Right - rectWndHidemaru.Left;
+        if (iWndHidemaruWidth - iOutputPaneWidth < 100)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
 
     bool isPromptWindowStyleChanged = false;
     private void UpdateOutputPaneServerAndPromptLocation()
@@ -47,32 +72,29 @@ internal partial class HmPromptForm
         // hidemaruhandle(0)と呼ばれる値
         IntPtr hWndHidemaru = Hm.WindowHandle;
         // 
-        RECT rectWndHidemaru;
         GetWindowRect(hWndHidemaru, out rectWndHidemaru);
 
         // ルートの秀丸ウィンドウを求める 
-        iWntRootHidemaru = IntPtr.Zero;
+        hWndRootHidemaru = IntPtr.Zero;
         // hidemaruhandle(0)にさらに親はあるか？(タブモードだと親があり、非タブモードだとなし)
         IntPtr hParent = GetParent(hWndHidemaru);
         
         // 親があれば、そいつが秀丸
         if (hParent != IntPtr.Zero)
         {
-            iWntRootHidemaru = hParent;
+            hWndRootHidemaru = hParent;
         // 親がなければ、hidemaruhandle(0)相当が親
         } else
         {
-            iWntRootHidemaru = hWndHidemaru;
+            hWndRootHidemaru = hWndHidemaru;
         }
 
         // アウトプット枠を探す。
         IntPtr hWndOutputPane = FindWindowEx(hWndHidemaru, IntPtr.Zero, "HM32OutputPane", IntPtr.Zero);
-        RECT rectOutputPane;
         GetWindowRect(hWndOutputPane, out rectOutputPane);
 
         // アウトプット枠サーバーを探す。ちなみに、マクロにあるアウトプット枠用に用意されているGetWindowHandleはこの値
-        IntPtr hWndOutputPaneServer = FindWindowEx(hWndOutputPane, IntPtr.Zero, "HM32OutputPaneServer", IntPtr.Zero);
-        RECT rectOutputPaneServer;
+        hWndOutputPaneServer = FindWindowEx(hWndOutputPane, IntPtr.Zero, "HM32OutputPaneServer", IntPtr.Zero);
         GetWindowRect(hWndOutputPaneServer, out rectOutputPaneServer);
 
         // プロンプトが秀丸内にくっついた後
@@ -96,38 +118,27 @@ internal partial class HmPromptForm
 
             int iWndHidemaruWidth = rectWndHidemaru.Right - rectWndHidemaru.Left;
             int iWndHidemaruHeight = rectWndHidemaru.Bottom - rectWndHidemaru.Top;
-            int iOutputServerWidth = rectOutputPaneServer.Right - rectOutputPaneServer.Left;
+            int iOutputPaneWidth = rectOutputPane.Right - rectOutputPane.Left;
+            int iOutputPaneHeight = rectOutputPane.Bottom - rectOutputPane.Top;
 
-            // アウトプット枠が、下部もしくは上部にあるのか？ LeftやRightにあったらfalse
-            var IsHmOutputPaneIsBottomOrTop = new Func<bool>(() =>
-            {
-                int iOutputPaneWidth = rectOutputPane.Right - rectOutputPane.Left;
-                if (iWndHidemaruWidth - iOutputPaneWidth < 100)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            );
 
             // 秀丸内で、アウトプット枠は、TopやBottomにくっついているなら
             if (IsHmOutputPaneIsBottomOrTop())
             {
+                int original_height = rectOutputPaneServer.Bottom - rectOutputPaneServer.Top;
                 // アウトプット枠を左半分ぐらいにして
-                SetWindowPos(hWndOutputPaneServer, IntPtr.Zero, 0, 0, iWndHidemaruWidth * 1 / 2, rectOutputPaneServer.Bottom - rectOutputPaneServer.Top, SWP_NOMOVE);
+                SetWindowPos(hWndOutputPaneServer, IntPtr.Zero, 0, 0, iOutputPaneWidth / 2, original_height, SWP_NOMOVE);
                 // プロンプトはその右に配置
-                SetWindowPos(processWindowHandle, IntPtr.Zero, iWndHidemaruWidth * 1 / 2 + 3, 3, iWndHidemaruWidth * 1 / 2 - 5, rectOutputPaneServer.Bottom - rectOutputPaneServer.Top, uFlags);
+                SetWindowPos(processWindowHandle, IntPtr.Zero, iOutputPaneWidth / 2 + 3, 3, iOutputPaneWidth / 2 - 5, original_height - 3, uFlags);
             }
             // 秀丸内で、アウトプット枠は、LeftやRightにくっついている
             else
             {
+                int original_width = rectOutputPaneServer.Right - rectOutputPaneServer.Left;
                 // アウトプット枠は、上半分ぐらいにして
-                SetWindowPos(hWndOutputPaneServer, IntPtr.Zero, 0, 0, rectOutputPaneServer.Right - rectOutputPaneServer.Left, iWndHidemaruHeight * 1 / 2, SWP_NOMOVE);
+                SetWindowPos(hWndOutputPaneServer, IntPtr.Zero, 0, 0, original_width, iOutputPaneHeight / 2, SWP_NOMOVE);
                 // プロンプトはその下に配置
-                SetWindowPos(processWindowHandle, IntPtr.Zero, 3, iWndHidemaruHeight * 1 / 2 + 3, rectOutputPaneServer.Right - rectOutputPaneServer.Left - 3, iWndHidemaruHeight * 1 / 2 - 5, uFlags);
+                SetWindowPos(processWindowHandle, IntPtr.Zero, 3, iOutputPaneHeight / 2 + 5, original_width - 5, iOutputPaneHeight / 2 - 6, uFlags);
             }
         }
 
@@ -165,15 +176,49 @@ internal partial class HmPromptForm
     {
         RECT rectRootHidemaru;
         // ここだけはウィンドウ
-        GetWindowRect(iWntRootHidemaru, out rectRootHidemaru);
+        GetWindowRect(hWndRootHidemaru, out rectRootHidemaru);
 
-        // 秀丸本体にリサイズの通知
-        SetWindowPos(iWntRootHidemaru, IntPtr.Zero, 0, 0, rectRootHidemaru.Right - rectRootHidemaru.Left + 2, rectRootHidemaru.Bottom - rectRootHidemaru.Top + 2, SWP_NOMOVE);
-        SetWindowPos(iWntRootHidemaru, IntPtr.Zero, 0, 0, rectRootHidemaru.Right - rectRootHidemaru.Left, rectRootHidemaru.Bottom - rectRootHidemaru.Top, SWP_NOMOVE);
+        // 秀丸内で、アウトプット枠は、TopやBottomにくっついているなら
+        if (IsHmOutputPaneIsBottomOrTop())
+        {
+            // アウトプット枠(HmOutputPaneServerのサイズ)を元へと戻す
+            SetWindowPos(hWndOutputPaneServer, IntPtr.Zero, 0, 0, rectOutputPane.Right - rectOutputPane.Left, rectOutputPaneServer.Bottom - rectOutputPaneServer.Top, SWP_NOMOVE);
+        }
+        // 秀丸内で、アウトプット枠は、LeftやRightにくっついている
+        else
+        {
+            // アウトプット枠(HmOutputPaneServerのサイズ)を元へと戻す
+            SetWindowPos(hWndOutputPaneServer, IntPtr.Zero, 0, 0, rectOutputPaneServer.Right - rectOutputPaneServer.Left, rectOutputPane.Bottom - rectOutputPane.Top, SWP_NOMOVE);
+        }
+
     }
 
     private void Update_TickProcessWindow(object sender, EventArgs e)
     {
+
+        try
+        {
+            if (process == null)
+            {
+                return;
+            }
+
+            if (process.HasExited)
+            {
+                RevertOutputPaneServerLocation();
+                this.Close();
+                return;
+            }
+            else
+            {
+                UpdateOutputPaneServerAndPromptLocation();
+            }
+        }
+        catch (Exception)
+        {
+
+        }
+
         /*
         if (isAttachConsole)
         {
@@ -208,29 +253,6 @@ internal partial class HmPromptForm
             System.Diagnostics.Trace.WriteLine("失敗");
         }
         */
-
-        try
-        {
-            if (process == null)
-            {
-                return;
-            }
-
-            if (process.HasExited)
-            {
-                RevertOutputPaneServerLocation();
-                this.Close();
-                return;
-            }
-            else
-            {
-                UpdateOutputPaneServerAndPromptLocation();
-            }
-        }
-        catch (Exception)
-        {
-
-        }
     }
 }
 

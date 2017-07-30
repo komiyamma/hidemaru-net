@@ -357,6 +357,10 @@ internal partial class HmPromptForm
     [DllImport("kernel32.dll")]
     static extern uint GetCurrentProcessId();
 
+    [DllImport("user32.dll")]
+    static extern bool IsZoomed(IntPtr hWnd);
+
+
 
     [DllImport("user32.dll", SetLastError = true)]
     static extern bool GetWindowRect(IntPtr hwnd, out RECT lpRect);
@@ -385,7 +389,6 @@ internal partial class HmPromptForm
     [DllImport("user32.dll")]
     public static extern IntPtr GetWindow(IntPtr hWnd, uint wCmd);
 
-
     [DllImport("user32.dll")]
     public static extern int SetWindowLong(IntPtr hWnd, int nIndex, uint dwNewLong);
 
@@ -397,5 +400,10 @@ internal partial class HmPromptForm
 
     [DllImport("kernel32.dll", SetLastError = true)]
     static extern bool FreeCosole();
+
+
+    [return: MarshalAs(UnmanagedType.Bool)]
+    [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+    static extern bool PostMessage(HandleRef hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
 
 }

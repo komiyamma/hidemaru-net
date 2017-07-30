@@ -5,11 +5,12 @@ public class HmPrompt
 {
     static ProcessStartInfo psi = new ProcessStartInfo();
 
-    public static IntPtr ProcessStartInfo(String processFileName, String processArguments)
+    public static IntPtr ProcessStartInfo(String processFileName, String processArguments, String processWorkingDirectory)
     {
         HmPrompt.psi = new ProcessStartInfo {
             FileName = processFileName,
-            Arguments = processArguments
+            Arguments = processArguments,
+            WorkingDirectory = processWorkingDirectory
         };
 
         return (IntPtr)1;
@@ -73,13 +74,15 @@ internal static class ProcessStartInfoExtension
     {
         psi.FileName = "";
         psi.Arguments = "";
+        psi.WorkingDirectory = "";
     }
     public static ProcessStartInfo Copy(this ProcessStartInfo srcPsi)
     {
         ProcessStartInfo dstPsi= new ProcessStartInfo
         {
             FileName = srcPsi.FileName,
-            Arguments = srcPsi.Arguments
+            Arguments = srcPsi.Arguments,
+            WorkingDirectory = srcPsi.WorkingDirectory
         };
 
         return dstPsi;
