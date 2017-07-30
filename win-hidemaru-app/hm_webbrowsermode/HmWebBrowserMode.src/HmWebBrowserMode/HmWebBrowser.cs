@@ -47,6 +47,25 @@ public class HmWebBrowserMode
         }
     }
 
+    public static String GetDocumentText()
+    {
+        if (!HmWebBrowserModeFormClosed())
+        {
+            return HmWebBrowserModeForm.form.GetWebBrowserDocumentText();
+        }
+        return "";
+    }
+
+    public static String GetDocumentType()
+    {
+        if (!HmWebBrowserModeFormClosed())
+        {
+            return HmWebBrowserModeForm.form.GetWebBrowserDocumentType();
+        }
+        return "";
+    }
+
+
     public static IntPtr Destroy()
     {
         try

@@ -82,6 +82,24 @@ internal partial class HmWebBrowserModeForm : Form
         this.Controls.Add(wb);
     }
 
+    public String GetWebBrowserDocumentText()
+    {
+        if (wb != null)
+        {
+            return wb.DocumentText ?? "";
+        }
+        return "";
+    }
+
+    public String GetWebBrowserDocumentType()
+    {
+        if (wb != null)
+        {
+            return wb.DocumentType ?? "";
+        }
+        return "";
+    }
+
     // 自分の位置をマウスの位置に従って移動
     private void MoveLocation()
     {
@@ -213,7 +231,6 @@ internal partial class HmWebBrowserModeForm : Form
 
             ShowForm();
 
- 
             // ファイル名が有効ならば、それをWebBrowserでナビゲート
             if (strCurFileName.Length > 0)
             {
