@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics;
 using System.Windows.Forms;
-using System.Drawing;
 
 internal partial class HmPromptForm
 {
@@ -12,23 +8,35 @@ internal partial class HmPromptForm
 
     Timer timer = new Timer();
 
-    public HmPromptForm(String command, String arguments, Boolean isSettingMode)
+    public HmPromptForm(ProcessStartInfo psi, Boolean processSettingMode)
     {
-        this.promptCommand = command;
-        this.promptArguments = arguments;
-        this.isSettingMode = isSettingMode;
+        this.constructPsi = psi.Copy();
+        this.processSettingMode = processSettingMode;
         isClose = false;
         InitProcessAttr();
 
+        SetTimerAttr();
+
+    }
+
+    private void SetTimerAttr()
+    {
         timer.Interval = 30;
         timer.Enabled = true;
         timer.Start();
         timer.Tick += timer_Tick;
     }
 
+    private void ClearTimer()
+    {
+        timer.Enabled = false;
+        timer.Stop();
+        timer = null;
+    }
+
     private void timer_Tick(object sender, EventArgs e)
     {
-        this.timer_TickProcessWindow(sender, e);
+        this.Update_TickProcessWindow(sender, e);
     }
 
     private bool isClose = false;
@@ -40,21 +48,24 @@ internal partial class HmPromptForm
     {
         try
         {
+            ClearTimer();
+
             isClose = true;
-            if (p != null)
+
+            if (process != null)
             {
                 try
                 {
                     // p.Close()なんて甘いことをやったら、ほとんどゴミが残る
                     // p.Close()の後にp.Killしても、関係が立たれてしまっているのでダメ。
-                    p.Kill();
+                    process.Kill();
                 }
                 catch (Exception)
                 {
 
                 }
 
-                p = null;
+                process = null;
             }
         }
         catch (Exception e)

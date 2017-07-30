@@ -3,29 +3,30 @@ using System.Diagnostics;
 
 public class HmPrompt
 {
-    static String command = "";
-    static String arguments = "";
-    public static IntPtr ProcessStartInfo(String command, String arguments)
+    static ProcessStartInfo psi = new ProcessStartInfo();
+
+    public static IntPtr ProcessStartInfo(String processFileName, String processArguments)
     {
-        HmPrompt.command = command;
-        HmPrompt.arguments = arguments;
+        HmPrompt.psi = new ProcessStartInfo {
+            FileName = processFileName,
+            Arguments = processArguments
+        };
+
         return (IntPtr)1;
     }
 
-    public static IntPtr Show(IntPtr hasAttr)
+    public static IntPtr Show(IntPtr processSettingMode)
     {
         try
         {
             // Close()すると消えるので先に確保しておく
-            String command = HmPrompt.command;
-            String arguments = HmPrompt.arguments;
+            ProcessStartInfo cpyPsi = psi.Copy();
 
             // う～ん、どうもとにかくクローズしてしまった方がよさそう。
             Close();
 
-            HmPromptForm.form = new HmPromptForm(command, arguments, (hasAttr.ToInt32() != 0));
-            HmPrompt.command = "";
-            HmPrompt.arguments = "";
+            HmPromptForm.form = new HmPromptForm(cpyPsi, (processSettingMode.ToInt32() != 0));
+            psi.Clear();
         }
         catch (Exception)
         {
@@ -37,8 +38,7 @@ public class HmPrompt
 
     public static IntPtr Close()
     {
-        HmPrompt.command = "";
-        HmPrompt.arguments = "";
+        psi.Clear();
         try
         {
             // まだ残っていたら(フォームを手動で閉じていたら、残っていない)
@@ -66,3 +66,22 @@ public class HmPrompt
     }
 }
 
+// 拡張。コピーとクリア
+internal static class ProcessStartInfoExtension
+{
+    public static void Clear(this ProcessStartInfo psi)
+    {
+        psi.FileName = "";
+        psi.Arguments = "";
+    }
+    public static ProcessStartInfo Copy(this ProcessStartInfo srcPsi)
+    {
+        ProcessStartInfo dstPsi= new ProcessStartInfo
+        {
+            FileName = srcPsi.FileName,
+            Arguments = srcPsi.Arguments
+        };
+
+        return dstPsi;
+    }
+}
