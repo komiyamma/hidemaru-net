@@ -2,26 +2,70 @@
 // Copyright @ 2017 VSCode.life
 
 #HMNET = loaddll( hidemarudir + @"\hm.NET.dll");
+// HMNETは自己管理型なので、freedllしないこと。
 
 if (#HMNET) {
-    #_ = dllfuncw(#HMNET, "SetDetachMethod", currentmacrodirectory + @"\HmPrompt.dll", "HmPrompt", "OnDetachMethod");
-    
-    // 以下のうちどれかの行ひとつを有効にする。ご自身独自のお気に入りの「REPL」があるなら自分自身で加えてください。
+
+    // アウトプット枠を表示するだけ
+    SHOW_OUTPUT_PANE:
     {
-     $ProcessFileName =  "Cmd";        $ProcessArguments = "/K";
-     // $ProcessFileName =  "PowerShell"; $ProcessArguments = "-NoExit -NoLogo";
-     // $ProcessFileName =  "Python";     $ProcessArguments = "";
-     // $ProcessFileName =  "Node";       $ProcessArguments = "";
-     // $ProcessFileName =  "irb.cmd";    $ProcessArguments = "";
+        #OUT = loaddll("HmOutputPane.dll");
+        #_ = dllfunc(#OUT, "Output", hidemaruhandle(0), "");
+        freedll(#OUT);
+    }
+
+    // 以下のうちどれかの行ひとつを有効にする。ご自身独自のお気に入りの「REPL」があるなら自分自身で加えてください。
+    PROCESS_START_INFO_DEFAULT:
+    {
+     // $ProcessFileName =  "Cmd";        $ProcessArguments = "/K";
+     $ProcessFileName =  "PowerShell"; $ProcessArguments = "-NoExit -NoLogo";
+     // $ProcessFileName =  "Python";     $ProcessArguments = "";          // pythonが入っている場合のみ
+     // $ProcessFileName =  "Node";       $ProcessArguments = "";          // nodeが入っている場合のみ
+     // $ProcessFileName =  "irb.cmd";    $ProcessArguments = "";          // rubyが入っている場合のみ
 
         // REPLになっていない瞬間型のコマンド等は、以下のようにする。下記は「dir」の例。
      // $ProcessFileName =  "Cmd";        $ProcessArguments = "/K dir";
     }
+
+    PROCESS_START_INFO_WORKING_DIRECTORY:
+    {
+        // 実行時のオープンするディレクトリは、カレントディレクトリ
+        $ProcessWorkingDirectory = directory;
+    }
+
+    // フォントやウィンドウの色等々を設定可能なモード
+    PROCESS_SETTING_MODE:
     {
         #ProcessSettingMode = false;
     }
-    #_ = dllfuncw(#HMNET, "CallMethod", currentmacrodirectory + @"\HmPrompt.dll", "HmPrompt", "ProcessStartInfo", $ProcessFileName, $ProcessArguments, @"C:\Windows" );
-    #_ = dllfuncw(#HMNET, "CallMethod", currentmacrodirectory + @"\HmPrompt.dll", "HmPrompt", "Show", #ProcessSettingMode );
+
+    // 外部プログラムからのパラメータがあれば、それで上書きする
+    PROCESS_START_INFO_OVERRIDE_PARAMS:
+    {
+        if (getarg(0) != "") {
+            $ProcessFileName = getarg(0);
+            $ProcessArguments = ""; // セットなので変な挙動しないように、消しとく
+        }
+        if (getarg(1) != "") {
+            $ProcessArguments = getarg(1);
+        }
+        if (getarg(2) != "") {
+            $ProcessWorkingDirectory = getarg(2);
+        }
+    }
+
+    HM_PROMPT:
+    {
+        // プロセスが閉じた時に実行する
+        #_ = dllfuncw(#HMNET, "SetDetachMethod", currentmacrodirectory + @"\HmPrompt.dll", "HmPrompt", "OnDetachMethod");
+
+        // ProcessStartInfoの設定
+        #_ = dllfuncw(#HMNET, "CallMethod", currentmacrodirectory + @"\HmPrompt.dll", "HmPrompt",
+                              "ProcessStartInfo", $ProcessFileName, $ProcessArguments, $ProcessWorkingDirectory );
+        // プロンプト表示
+        #_ = dllfuncw(#HMNET, "CallMethod", currentmacrodirectory + @"\HmPrompt.dll", "HmPrompt",
+                              "Show", #ProcessSettingMode );
+    }
 } else {
     message("Hm.NET.dllを読み込むことが出来ません");
 }
