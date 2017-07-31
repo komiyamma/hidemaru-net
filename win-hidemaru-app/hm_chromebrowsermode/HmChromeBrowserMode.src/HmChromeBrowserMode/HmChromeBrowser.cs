@@ -9,7 +9,7 @@ public class HmChromeBrowserMode
 {
     private static bool HmWebBrowserModeFormClosed()
     {
-        return HmChromeBrowserModeForm.form == null || HmChromeBrowserModeForm.form.IsClosed();
+        return HmChromeBrowserModeForm.form == null || HmChromeBrowserModeForm.form.IsHideStop();
     }
 
     public static IntPtr Create()
@@ -74,12 +74,31 @@ public class HmChromeBrowserMode
         return "";
     }
 
+    public static IntPtr HideStop()
+    {
+        try
+        {
+            if (HmChromeBrowserModeForm.form != null)
+            {
+                HmChromeBrowserModeForm.form.Close();
+                GC.Collect();
+            }
+        }
+        catch (Exception e)
+        {
+            System.Diagnostics.Trace.WriteLine(e.Message);
+        }
+
+        return (IntPtr)1;
+    }
+
     public static IntPtr Destroy()
     {
         try
         {
             if (HmChromeBrowserModeForm.form != null)
             {
+                HmChromeBrowserModeForm.form.NextCommandMustClose = true;
                 HmChromeBrowserModeForm.form.Close();
                 HmChromeBrowserModeForm.form = null;
 

@@ -38,6 +38,7 @@ internal partial class HmChromeBrowserModeForm : Form
 
     public HmChromeBrowserModeForm(String fontname)
     {
+        NextCommandMustClose = false;
         try
         {
             this.fontname = fontname;
@@ -101,15 +102,27 @@ internal partial class HmChromeBrowserModeForm : Form
     }
     */
 
+    public bool NextCommandMustClose { get; set; }
     private void form_FormClosing(object sender, FormClosingEventArgs e)
     {
-        Stop();
+        if (NextCommandMustClose)
+        {
+            Stop();
+        }
+        else
+        {
+            e.Cancel = true;
+            HideStop();
+        }
     }
 
     private void SetWebBrowserAttr()
     {
         try
         {
+            Application.ThreadException += Application_ThreadException;
+
+
             this.strPrevFileName = "";
             this.strPrevTotalText = "";
             // ファイル名が有効ならば、それをWebBrowserでナビゲート
@@ -117,7 +130,6 @@ internal partial class HmChromeBrowserModeForm : Form
             if (wb == null)
             {
                 wb = new CefSharp.WinForms.ChromiumWebBrowser(strStartFileName);
-                
 
                 CefSharp.BrowserSettings bs = new CefSharp.BrowserSettings
                 {
@@ -153,13 +165,15 @@ internal partial class HmChromeBrowserModeForm : Form
                 }
 
                 this.Controls.Add(wb);
-            } else
+            }
+            else
             {
                 if (strStartFileName == "")
                 {
                     wb.ResetText();
                     wb_LoadHtml(Hm.Edit.TotalText);
-                } else
+                }
+                else
                 {
                     wb.ResetText();
                     System.Diagnostics.Trace.WriteLine("ここきたで");
@@ -173,6 +187,11 @@ internal partial class HmChromeBrowserModeForm : Form
         {
             System.Diagnostics.Trace.WriteLine(e.Message);
         }
+    }
+
+    private void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
+    {
+        System.Diagnostics.Trace.WriteLine(e);
     }
 
     private void wb_AddressChanged(object sender, AddressChangedEventArgs e)
@@ -404,8 +423,8 @@ internal partial class HmChromeBrowserModeForm : Form
                 // System.Diagnostics.Trace.WriteLine(wb.Url.ToString().ToLower());
                 if (wbUrl.ToString().ToLower().Contains("close_hmwebbrowsermode"))
                 {
-                    this.isClosed = true;
-                    this.Close();
+                    this.isHideStop = true;
+                    HideStop();
                     return false;
                 }
             }
@@ -413,7 +432,7 @@ internal partial class HmChromeBrowserModeForm : Form
         return true;
     }
 
-    private void Stop()
+    private void HideStop()
     {
         try
         {
@@ -424,7 +443,19 @@ internal partial class HmChromeBrowserModeForm : Form
                 timer = null;
             }
 
-            /*
+            isHideStop = true;
+        }
+        catch (Exception e)
+        {
+            System.Diagnostics.Trace.WriteLine(e.Message);
+        }
+    }
+
+    private void Stop()
+    {
+        try
+        {
+            HideStop();
 
             sve.Dispose();
             sve = null;
@@ -436,14 +467,12 @@ internal partial class HmChromeBrowserModeForm : Form
                 wb.Dispose();
                 wb = null;
             }
-            */
-
-            isClosed = true;
         }
         catch (Exception e)
         {
             System.Diagnostics.Trace.WriteLine(e.Message);
         }
     }
+
 
 }

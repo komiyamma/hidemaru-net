@@ -46,10 +46,10 @@ internal partial class HmChromeBrowserModeForm : Form
         }
     }
 
-    private bool isClosed = false;
-    public bool IsClosed()
+    private bool isHideStop = false;
+    public bool IsHideStop()
     {
-        return isClosed;
+        return isHideStop;
     }
 
     // ここがTickごとに実行される
@@ -111,7 +111,7 @@ internal partial class HmChromeBrowserModeForm : Form
                     }
 
                     // System.Diagnostics.Trace.WriteLine("閉じる");
-                    this.Hide();
+                    this.HideStop();
 
                     // 次ステップ以降は処理するだけ無駄
                     return false;
