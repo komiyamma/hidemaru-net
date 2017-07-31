@@ -120,9 +120,6 @@ internal partial class HmChromeBrowserModeForm : Form
     {
         try
         {
-            Application.ThreadException += Application_ThreadException;
-
-
             this.strPrevFileName = "";
             this.strPrevTotalText = "";
             // ファイル名が有効ならば、それをWebBrowserでナビゲート
@@ -138,7 +135,6 @@ internal partial class HmChromeBrowserModeForm : Form
                     UniversalAccessFromFileUrls = CefSharp.CefState.Enabled,
                     ApplicationCache = CefSharp.CefState.Enabled,
                     AcceptLanguageList = "ja-JP",
-
                 };
 
                 wb.BrowserSettings = bs;
@@ -187,11 +183,6 @@ internal partial class HmChromeBrowserModeForm : Form
         {
             System.Diagnostics.Trace.WriteLine(e.Message);
         }
-    }
-
-    private void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
-    {
-        System.Diagnostics.Trace.WriteLine(e);
     }
 
     private void wb_AddressChanged(object sender, AddressChangedEventArgs e)
