@@ -5,25 +5,53 @@ using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using CefSharp;
 
-internal partial class HmWebBrowserModeForm : Form
+namespace CefSharp
 {
-    public static HmWebBrowserModeForm form { get; set; }
-
-    private WebBrowser wb = new WebBrowser();
-    private String fontname;
-//    private Color tcolor;
-//    private Button bt;
-
-    public HmWebBrowserModeForm(String fontname)
+    internal class StringVisiterImplements : CefSharp.IStringVisitor
     {
-        this.fontname = fontname;
-//        this.tcolor = tcolor;
-        SetFormAttr();
-        SetWebBrowserAttr();
-//        SetButtonAttr();
-        SetTimerAttr();
-        CreateSharedMemory();
+        public string DocumentText { get; set; }
+        public void Dispose()
+        {
+            DocumentText = "";
+        }
+
+        public void Visit(string str)
+        {
+            // System.Diagnostics.Trace.WriteLine(str);
+            DocumentText = str;
+        }
+    }
+}
+
+internal partial class HmChromeBrowserModeForm : Form
+{
+    public static HmChromeBrowserModeForm form { get; set; }
+
+    private CefSharp.WinForms.ChromiumWebBrowser wb;
+    private string wbUrl = "";
+    private StringVisiterImplements sve = new StringVisiterImplements();
+    private String fontname;
+    //    private Color tcolor;
+    //    private Button bt;
+
+    public HmChromeBrowserModeForm(String fontname)
+    {
+        try
+        {
+            this.fontname = fontname;
+            //        this.tcolor = tcolor;
+            SetFormAttr();
+            SetWebBrowserAttr();
+            //        SetButtonAttr();
+            SetTimerAttr();
+            CreateSharedMemory();
+        }
+        catch (Exception e)
+        {
+            System.Diagnostics.Trace.WriteLine(e.Message);
+        }
     }
 
     private void SetTimerAttr()
@@ -80,32 +108,123 @@ internal partial class HmWebBrowserModeForm : Form
 
     private void SetWebBrowserAttr()
     {
-        wb.ScriptErrorsSuppressed = true;
-        this.Controls.Add(wb);
+        try
+        {
+            this.strPrevFileName = "";
+            this.strPrevTotalText = "";
+            // ファイル名が有効ならば、それをWebBrowserでナビゲート
+            var strStartFileName = Hm.Edit.FilePath ?? "";
+            if (wb == null)
+            {
+                wb = new CefSharp.WinForms.ChromiumWebBrowser(strStartFileName);
+                
+
+                CefSharp.BrowserSettings bs = new CefSharp.BrowserSettings
+                {
+                    LocalStorage = CefSharp.CefState.Enabled,
+                    FileAccessFromFileUrls = CefSharp.CefState.Enabled,
+                    UniversalAccessFromFileUrls = CefSharp.CefState.Enabled,
+                    ApplicationCache = CefSharp.CefState.Enabled,
+                    AcceptLanguageList = "ja-JP",
+
+                };
+
+                wb.BrowserSettings = bs;
+
+                // var requestContextSettings = new CefSharp.RequestContextSettings { CachePath = @"C:\Users\0300002167\AppData\Local\Google\Chrome\User Data" };
+
+                //var settings = new CefSharp.CefSettings();
+
+                // By default CEF uses an in memory cache, to save cached data e.g. passwords you need to specify a cache path
+                // NOTE: The executing user must have sufficient privileges to write to this folder.
+                //settings.CachePath = @"C:\Users\0300002167\AppData\Local\Google\Chrome\User Data";
+                // settings.AcceptLanguageList = "ja-JP";
+                // settings.Locale = "ja";
+
+                //CefSharp.Cef.Initialize(settings);
+
+                wb.Dock = DockStyle.Fill;
+                wb.LoadingStateChanged += wb_LoadingStateChanged;
+                wb.AddressChanged += wb_AddressChanged;
+
+                if (strStartFileName == "")
+                {
+                    wb_LoadHtml(Hm.Edit.TotalText);
+                }
+
+                this.Controls.Add(wb);
+            } else
+            {
+                if (strStartFileName == "")
+                {
+                    wb.ResetText();
+                    wb_LoadHtml(Hm.Edit.TotalText);
+                } else
+                {
+                    wb.ResetText();
+                    System.Diagnostics.Trace.WriteLine("ここきたで");
+                    wb.Load(strStartFileName);
+                    wb.Refresh();
+                }
+
+            }
+        }
+        catch (Exception e)
+        {
+            System.Diagnostics.Trace.WriteLine(e.Message);
+        }
+    }
+
+    private void wb_AddressChanged(object sender, AddressChangedEventArgs e)
+    {
+        try
+        {
+            wbUrl = e.Address ?? "";
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Trace.WriteLine(ex.Message);
+        }
+    }
+
+    private void wb_LoadingStateChanged(object sender, LoadingStateChangedEventArgs e)
+    {
+        try
+        {
+            wb.GetBrowser().MainFrame.GetSource(sve);
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Trace.WriteLine(ex.Message);
+        }
+    }
+
+    public void wb_LoadHtml(string html)
+    {
+        try
+        {
+            var uriEncodedHtml = Uri.EscapeDataString(html);
+            wb.Load("data:text/html," + uriEncodedHtml);
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Trace.WriteLine(ex.Message);
+        }
+
     }
 
     public String GetWebBrowserDocumentText()
     {
         if (wb != null)
         {
-            return wb.DocumentText ?? "";
+            return sve.DocumentText;
         }
         return "";
     }
 
     public String GetWebBrowserDocumentTextAsEncoding(Encoding encoding)
     {
-        if (wb != null)
-        {
-            if (wb.DocumentText != null)
-            {
-                MemoryStream reader = (MemoryStream)this.wb.DocumentStream;
-                byte[] bytes = reader.ToArray();
-                string html = encoding.GetString(bytes);
-                return html;
-            }
-        }
-        return "";
+        return GetWebBrowserDocumentText();
     }
 
     // 自分の位置をマウスの位置に従って移動
@@ -133,6 +252,7 @@ internal partial class HmWebBrowserModeForm : Form
 
                 this.Height = rect.Bottom - rect.Top - border * 2;
 
+                /*
                 if (wb != null)
                 {
                     wb.Left = 0;
@@ -140,6 +260,7 @@ internal partial class HmWebBrowserModeForm : Form
                     wb.Width = this.Width;
                     wb.Height = this.Height;
                 }
+                */
 
                 /*
                 if (bt != null)
@@ -198,6 +319,7 @@ internal partial class HmWebBrowserModeForm : Form
                 return;
             }
 
+
             // マウスの下のウィンドウが現在のプロセスではない
             if (!IsUnderWindowIsCurrentProcessWindow())
             {
@@ -211,7 +333,7 @@ internal partial class HmWebBrowserModeForm : Form
 
             }
             else
-            { 
+            {
                 // 最前面ウィンドウが自分自身のメインウィンドウではない
                 if (!IsForegroundWindowIsHidemaruMainWindow())
                 {
@@ -239,17 +361,14 @@ internal partial class HmWebBrowserModeForm : Form
 
             ShowForm();
 
+            System.Diagnostics.Trace.WriteLine(strCurFileName);
             // ファイル名が有効ならば、それをWebBrowserでナビゲート
             if (strCurFileName.Length > 0)
             {
                 if (strPrevFileName != strCurFileName)
                 {
                     strPrevFileName = strCurFileName;
-                    Uri u = new Uri(strCurFileName);
-                    if (wb != null)
-                    {
-                        wb.Navigate(u);
-                    }
+                    wb.Load(strCurFileName);
                 }
             }
 
@@ -262,7 +381,7 @@ internal partial class HmWebBrowserModeForm : Form
                     strPrevTotalText = strCurTotalText;
                     if (wb != null)
                     {
-                        wb.DocumentText = strCurTotalText;
+                        wb_LoadHtml(strCurTotalText);
                     }
                 }
             }
@@ -280,10 +399,10 @@ internal partial class HmWebBrowserModeForm : Form
     {
         if (wb != null)
         {
-            if (wb.Url != null)
+            if (wbUrl != null)
             {
                 // System.Diagnostics.Trace.WriteLine(wb.Url.ToString().ToLower());
-                if (wb.Url.ToString().ToLower().Contains("close_hmwebbrowsermode"))
+                if (wbUrl.ToString().ToLower().Contains("close_hmwebbrowsermode"))
                 {
                     this.isClosed = true;
                     this.Close();
@@ -298,16 +417,26 @@ internal partial class HmWebBrowserModeForm : Form
     {
         try
         {
+            this.Hide();
             if (timer != null)
             {
                 timer.Stop();
                 timer = null;
             }
+
+            /*
+
+            sve.Dispose();
+            sve = null;
+
+            Cef.Shutdown();
+
             if (wb != null)
             {
                 wb.Dispose();
                 wb = null;
             }
+            */
 
             isClosed = true;
         }

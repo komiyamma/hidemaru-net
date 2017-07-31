@@ -5,18 +5,18 @@ using System.Drawing;
 using Hidemaru;
 using System.Text;
 
-public class HmWebBrowserMode
+public class HmChromeBrowserMode
 {
     private static bool HmWebBrowserModeFormClosed()
     {
-        return HmWebBrowserModeForm.form == null || HmWebBrowserModeForm.form.IsClosed();
+        return HmChromeBrowserModeForm.form == null || HmChromeBrowserModeForm.form.IsClosed();
     }
 
     public static IntPtr Create()
     {
         try
         {
-            HmWebBrowserModeForm.SetContinueNotify();
+            HmChromeBrowserModeForm.SetContinueNotify();
             if (HmWebBrowserModeFormClosed())
             {
                 String fontname = (String)Hm.Macro.Var["fontname"];
@@ -24,7 +24,7 @@ public class HmWebBrowserMode
                 Int32 argb = (Int32)(dynamic)Hm.Macro.Var["tcolor"];
                 Color tcolor = Color.FromArgb(argb);
                 */
-                HmWebBrowserModeForm.form = new HmWebBrowserModeForm(fontname);
+                HmChromeBrowserModeForm.form = new HmChromeBrowserModeForm(fontname);
             }
         }
         catch (Exception e)
@@ -52,7 +52,7 @@ public class HmWebBrowserMode
     {
         if (!HmWebBrowserModeFormClosed())
         {
-            return HmWebBrowserModeForm.form.GetWebBrowserDocumentText();
+            return HmChromeBrowserModeForm.form.GetWebBrowserDocumentText();
         }
         return "";
     }
@@ -69,7 +69,7 @@ public class HmWebBrowserMode
             {
                 System.Diagnostics.Trace.WriteLine(e.Message);
             }
-            return HmWebBrowserModeForm.form.GetWebBrowserDocumentTextAsEncoding(enc);
+            return HmChromeBrowserModeForm.form.GetWebBrowserDocumentTextAsEncoding(enc);
         }
         return "";
     }
@@ -78,10 +78,13 @@ public class HmWebBrowserMode
     {
         try
         {
-            if (HmWebBrowserModeForm.form != null)
+            if (HmChromeBrowserModeForm.form != null)
             {
-                HmWebBrowserModeForm.form.Close();
-                HmWebBrowserModeForm.form = null;
+                HmChromeBrowserModeForm.form.Close();
+                HmChromeBrowserModeForm.form = null;
+
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
             }
         }
         catch (Exception e)
