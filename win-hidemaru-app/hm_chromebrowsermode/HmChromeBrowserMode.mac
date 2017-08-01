@@ -1,4 +1,4 @@
-﻿// HmChromeBrowserMode ver 1.2.6.2
+﻿// HmChromeBrowserMode ver 1.2.7.2
 // Copyright @ 2017 VSCode.life
 
 disablebreak;
@@ -32,21 +32,21 @@ HmChromeBrowser:
 
     if (#HMNET) {
 
-        #_ = dllfuncw(#HMNET, "SetDetachMethod", currentmacrodirectory + @"\HmChromeBrowserMode.dll", "HmChromeBrowserMode", "OnDetachMethod");
+        #_ = dllfuncw(#HMNET, "SetDetachMethod", hidemarudir + @"\HmChromeBrowserMode.dll", "HmChromeBrowserMode", "OnDetachMethod");
 
         // マクロを手動実行ならスイッチ。拡張子等の条件はなし。即ち、「実行されてないなら、実行」「実行されてるなら、閉じる」
         if (event == 0) {
-            #ChromeBrowserIsNull = dllfuncw( #HMNET, "CallMethod", currentmacrodirectory + @"\HmChromeBrowserMode.dll", "HmChromeBrowserMode", "IsNull" );
+            #ChromeBrowserIsNull = dllfuncw( #HMNET, "CallMethod", hidemarudir + @"\HmChromeBrowserMode.dll", "HmChromeBrowserMode", "IsNull" );
             if (#ChromeBrowserIsNull) {
-                #_ = dllfuncw( #HMNET, "CallMethod", currentmacrodirectory + @"\HmChromeBrowserMode.dll", "HmChromeBrowserMode", "Create" );
+                #_ = dllfuncw( #HMNET, "CallMethod", hidemarudir + @"\HmChromeBrowserMode.dll", "HmChromeBrowserMode", "Create" );
             } else {
-                #_ = dllfuncw( #HMNET, "CallMethod", currentmacrodirectory + @"\HmChromeBrowserMode.dll", "HmChromeBrowserMode", "Destroy" );
+                #_ = dllfuncw( #HMNET, "CallMethod", hidemarudir + @"\HmChromeBrowserMode.dll", "HmChromeBrowserMode", "HideStop" );
             }
 
         // ファイル読込時。拡張子の条件がマッチするなら。
         } else if (event == 1) {
-            #_ = dllfuncw( #HMNET, "CallMethod", currentmacrodirectory + @"\HmChromeBrowserMode.dll", "HmChromeBrowserMode", "Create" );
-        }
+            #_ = dllfuncw( #HMNET, "CallMethod", hidemarudir + @"\HmChromeBrowserMode.dll", "HmChromeBrowserMode", "Create" );
+		}
 
     } else {
         message("hm.NET.dllを読み込むことが出来ません");

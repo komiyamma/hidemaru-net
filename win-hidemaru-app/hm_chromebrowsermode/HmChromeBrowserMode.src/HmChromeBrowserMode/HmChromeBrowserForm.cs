@@ -126,6 +126,18 @@ internal partial class HmChromeBrowserModeForm : Form
             var strStartFileName = Hm.Edit.FilePath ?? "";
             if (wb == null)
             {
+                if (!Cef.IsInitialized) { 
+                    var settings = new CefSharp.CefSettings();
+
+                    // By default CEF uses an in memory cache, to save cached data e.g. passwords you need to specify a cache path
+                    // NOTE: The executing user must have sufficient privileges to write to this folder.
+                    //settings.CachePath = @"C:\Users\0300002167\AppData\Local\Google\Chrome\User Data";
+                    var dir = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+                    settings.LocalesDirPath = dir + @"\HmChromeBrowserMode\Locales";
+                    settings.AcceptLanguageList = "ja-JP";
+                    settings.Locale = "ja";
+                    CefSharp.Cef.Initialize(settings);
+                }
                 wb = new CefSharp.WinForms.ChromiumWebBrowser(strStartFileName);
 
                 CefSharp.BrowserSettings bs = new CefSharp.BrowserSettings
@@ -138,18 +150,6 @@ internal partial class HmChromeBrowserModeForm : Form
                 };
 
                 wb.BrowserSettings = bs;
-
-                // var requestContextSettings = new CefSharp.RequestContextSettings { CachePath = @"C:\Users\0300002167\AppData\Local\Google\Chrome\User Data" };
-
-                //var settings = new CefSharp.CefSettings();
-
-                // By default CEF uses an in memory cache, to save cached data e.g. passwords you need to specify a cache path
-                // NOTE: The executing user must have sufficient privileges to write to this folder.
-                //settings.CachePath = @"C:\Users\0300002167\AppData\Local\Google\Chrome\User Data";
-                // settings.AcceptLanguageList = "ja-JP";
-                // settings.Locale = "ja";
-
-                //CefSharp.Cef.Initialize(settings);
 
                 wb.Dock = DockStyle.Fill;
                 wb.LoadingStateChanged += wb_LoadingStateChanged;
@@ -213,8 +213,8 @@ internal partial class HmChromeBrowserModeForm : Form
     {
         try
         {
-            var uriEncodedHtml = Uri.EscapeDataString(html);
-            wb.Load("data:text/html," + uriEncodedHtml);
+            // なぜかこんな感じでまともなサイト指定しておかないと、第２引数を省略すると文字化けする
+            wb.LoadHtml(html, "http://www.google.com");
         }
         catch (Exception ex)
         {
