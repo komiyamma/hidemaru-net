@@ -103,7 +103,6 @@ public class HmChromeBrowserMode
                 HmChromeBrowserModeForm.form = null;
 
                 GC.Collect();
-                GC.WaitForPendingFinalizers();
             }
         }
         catch (Exception e)

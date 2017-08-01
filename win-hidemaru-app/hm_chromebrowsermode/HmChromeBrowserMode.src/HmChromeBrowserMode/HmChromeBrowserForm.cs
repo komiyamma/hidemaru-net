@@ -132,8 +132,7 @@ internal partial class HmChromeBrowserModeForm : Form
                     // By default CEF uses an in memory cache, to save cached data e.g. passwords you need to specify a cache path
                     // NOTE: The executing user must have sufficient privileges to write to this folder.
                     //settings.CachePath = @"C:\Users\0300002167\AppData\Local\Google\Chrome\User Data";
-                    var dir = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-                    settings.LocalesDirPath = dir + @"\HmChromeBrowserMode\Locales";
+                    settings.LocalesDirPath = Hm.Macro.Var["currentmacrodirectory"] + @"\Locales";
                     settings.AcceptLanguageList = "ja-JP";
                     settings.Locale = "ja";
                     CefSharp.Cef.Initialize(settings);
@@ -172,7 +171,6 @@ internal partial class HmChromeBrowserModeForm : Form
                 else
                 {
                     wb.ResetText();
-                    System.Diagnostics.Trace.WriteLine("ここきたで");
                     wb.Load(strStartFileName);
                     wb.Refresh();
                 }
@@ -371,7 +369,6 @@ internal partial class HmChromeBrowserModeForm : Form
 
             ShowForm();
 
-            System.Diagnostics.Trace.WriteLine(strCurFileName);
             // ファイル名が有効ならば、それをWebBrowserでナビゲート
             if (strCurFileName.Length > 0)
             {
@@ -442,7 +439,7 @@ internal partial class HmChromeBrowserModeForm : Form
         }
     }
 
-    private void Stop()
+    public void Stop()
     {
         try
         {
