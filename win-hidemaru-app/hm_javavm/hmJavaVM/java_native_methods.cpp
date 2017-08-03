@@ -196,6 +196,14 @@ JNIEXPORT jstring JNICALL Java_hidemaru_Hm_GetFileFullPath(JNIEnv *env, jobject 
 }
 
 
+// IsMacroExecutingÅB
+JNIEXPORT jboolean JNICALL Java_hidemaru_Hm_IsMacroExecuting(JNIEnv *env, jobject obj) {
+
+	return (jboolean)CHidemaruExeExport::IsMacroExecuting();
+}
+
+
+
 // GetTotalTextÅB
 JNIEXPORT jstring JNICALL Java_hidemaru_Hm_GetTotalText(JNIEnv *env, jobject obj) {
 

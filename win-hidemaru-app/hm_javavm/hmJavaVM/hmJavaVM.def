@@ -17,3 +17,4 @@ EXPORTS
 	Java_hidemaru_Hm_SetLineText
 	Java_hidemaru_Hm_GetCursorPos
 	Java_hidemaru_Hm_GetCursorPosFromMousePos
+	Java_hidemaru_Hm_IsMacroExecuting

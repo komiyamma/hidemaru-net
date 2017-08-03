@@ -150,7 +150,7 @@ internal sealed partial class hmNETDynamicLib
                         const int HIDEMARUINFO_GETFILEFULLPATH = 4;
 
                         StringBuilder sb = new StringBuilder(512);
-                        bool cwch = SendMessage(hWndHidemaru, WM_HIDEMARUINFO, HIDEMARUINFO_GETFILEFULLPATH, sb);
+                        bool cwch = SendMessage(hWndHidemaru, WM_HIDEMARUINFO, new IntPtr(HIDEMARUINFO_GETFILEFULLPATH), sb);
                         String filename = sb.ToString();
                         if ( String.IsNullOrEmpty(filename) )
                         {

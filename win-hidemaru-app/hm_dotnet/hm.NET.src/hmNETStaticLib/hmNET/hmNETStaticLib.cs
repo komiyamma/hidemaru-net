@@ -71,9 +71,11 @@ internal partial class hmNETDynamicLib
     }
 
     [DllImport("user32.dll", EntryPoint = "SendMessage", CharSet = CharSet.Auto)]
-    public static extern bool SendMessage(IntPtr hWnd, uint Msg, int wParam, StringBuilder lParam);
+    public static extern bool SendMessage(IntPtr hWnd, uint Msg, IntPtr wParam, StringBuilder lParam);
+    [DllImport("user32.dll", EntryPoint = "SendMessage", CharSet = CharSet.Auto)]
+    public static extern bool SendMessage(IntPtr hWnd, uint Msg, StringBuilder wParam, StringBuilder lParam);
     [DllImport("user32.dll", SetLastError = true)]
-    public static extern IntPtr SendMessage(int hWnd, int Msg, int wparam, int lparam);
+    public static extern bool SendMessage(IntPtr hWnd, uint Msg, IntPtr wparam, IntPtr lparam);
 
     static readonly String strDllFullPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
 

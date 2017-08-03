@@ -100,6 +100,23 @@ wstring CHidemaruExeExport::GetFileFullPath() {
 	return szBufFileFullPath;
 }
 
+bool CHidemaruExeExport::IsMacroExecuting() {
+	HWND hWnd = GetCurWndHidemaru();
+	// 875.02‚©‚ç‘¶Ý‚·‚é‚ªAˆÀ‘S‚ðŒ©‚Ä875³Ž®”ÅˆÈ~‚Æ‚·‚é
+	if (hm_version > 875.98) {
+		LRESULT ret = SendMessage(hWnd, WM_ISMACROEXECUTING, NULL, NULL);
+		return (bool)ret;
+	}
+	else {
+		HWND hWndHM32Client = FindWindowEx(hWnd, NULL, L"HM32CLIENT", NULL);
+		if (hWndHM32Client) {
+			LRESULT ret = SendMessage(hWnd, WM_ISMACROEXECUTING, NULL, NULL);
+			return (bool)ret;
+		}
+	}
+	return false;
+}
+
 wstring CHidemaruExeExport::GetTotalText() {
 	HGLOBAL hGlobal = CHidemaruExeExport::Hidemaru_GetTotalTextUnicode();
 	if (hGlobal) {

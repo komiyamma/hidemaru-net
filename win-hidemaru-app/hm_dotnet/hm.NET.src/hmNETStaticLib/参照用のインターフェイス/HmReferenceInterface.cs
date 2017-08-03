@@ -22,6 +22,24 @@ namespace Hidemaru
 
         public static class Macro
         {
+            public static bool IsExecuting
+            {
+                get
+                {
+                    return hmNETDynamicLib.Hidemaru.Macro.IsExecuting;
+                }
+            }
+
+            public static int Exec(String filename)
+            {
+                return hmNETDynamicLib.Hidemaru.Macro.Exec(filename);
+            }
+
+            public static int ExecEval(String expression)
+            {
+                return hmNETDynamicLib.Hidemaru.Macro.ExecEval(expression);
+            }
+
             public static int Eval(String expression)
             {
                 return hmNETDynamicLib.Hidemaru.Macro.Eval(expression);

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Text;
 
 
 
@@ -13,6 +14,110 @@ internal sealed partial class hmNETDynamicLib
             static Macro()
             {
                 SetUnManagedDll();
+            }
+
+            [DllImport("user32.dll", SetLastError = true)]
+            static extern IntPtr FindWindowEx(IntPtr hwndParent, IntPtr hwndChildAfter, string lpszClass, IntPtr szTitle);
+
+            public static bool IsExecuting
+            {
+                get
+                {
+                    const int WM_USER = 0x400;
+                    const int WM_ISMACROEXECUTING = WM_USER + 167;
+
+                    // 875.02から存在するが、安全を見て875正式版以降とする
+                    if (version >= 875.99)
+                    {
+                        IntPtr hWndHidemaru = WindowHandle;
+                        if (hWndHidemaru != IntPtr.Zero)
+                        {
+                            bool cwch = SendMessage(hWndHidemaru, WM_ISMACROEXECUTING, IntPtr.Zero, IntPtr.Zero);
+                            return cwch;
+                        }
+                    }
+                    // 古い状態でも取れる。866以上なら余裕
+                    else
+                    {
+                        IntPtr hWndHidemaru = WindowHandle;
+                        if (hWndHidemaru != IntPtr.Zero)
+                        {
+                            IntPtr hHm32Client = FindWindowEx(hWndHidemaru, IntPtr.Zero, "HM32CLIENT", IntPtr.Zero);
+                            bool cwch = SendMessage(hHm32Client, WM_ISMACROEXECUTING, IntPtr.Zero, IntPtr.Zero);
+                            return cwch;
+                        }
+
+                    }
+
+                    return false;
+                }
+            }
+
+            public static int Exec(String filename)
+            {
+                if (IsExecuting)
+                {
+                    return -1;
+                }
+
+                if (!System.IO.File.Exists(filename))
+                {
+                    throw new System.IO.FileNotFoundException(filename);
+                }
+
+                const int WM_USER = 0x400;
+                const int WM_REMOTE_EXECMACRO_FILE = WM_USER + 271;
+
+                if (version >= 875.02)
+                {
+                    IntPtr hWndHidemaru = WindowHandle;
+                    if (hWndHidemaru != IntPtr.Zero)
+                    {
+                        StringBuilder sbFileName = new StringBuilder(filename);
+                        StringBuilder sbRet = new StringBuilder("\x0f0f", 0x0f0f + 1); // 最初の値は帰り値のバッファー
+                        bool cwch = SendMessage(hWndHidemaru, WM_REMOTE_EXECMACRO_FILE, sbRet, sbFileName);
+                        if (cwch)
+                        {
+                            return 1;
+                        }
+                        else
+                        {
+                            throw new InvalidOperationException(filename + ":" + sbRet.ToString());
+                        }
+                    }
+                }
+                return 0;
+            }
+
+            public static int ExecEval(String cmd)
+            {
+                if (IsExecuting)
+                {
+                    return -1;
+                }
+
+                const int WM_USER = 0x400;
+                const int WM_REMOTE_EXECMACRO_MEMORY = WM_USER + 272;
+
+                if (version >= 875.02)
+                {
+                    IntPtr hWndHidemaru = WindowHandle;
+                    if (hWndHidemaru != IntPtr.Zero)
+                    {
+                        StringBuilder sbExpression = new StringBuilder(cmd);
+                        StringBuilder sbRet = new StringBuilder("\x0f0f", 0x0f0f + 1); // 最初の値は帰り値のバッファー
+                        bool cwch = SendMessage(hWndHidemaru, WM_REMOTE_EXECMACRO_MEMORY, sbRet, sbExpression);
+                        if (cwch)
+                        {
+                            return 1;
+                        }
+                        else
+                        {
+                            throw new InvalidOperationException("ExecEval:" + sbRet.ToString());
+                        }
+                    }
+                }
+                return 0;
             }
 
             // マクロ文字列の実行。複数行を一気に実行可能

@@ -42,6 +42,8 @@ public class Hm {
 	protected static native String GetCursorPos();
 	protected static native String GetCursorPosFromMousePos();
 
+	protected static native String IsMacroExecuting();
+
 	public static double getVersion() {
 		return GetVersion();
 	}
@@ -170,6 +172,11 @@ public class Hm {
 	}
 
 	public static class Macro {
+
+	    public static boolean isExecuting() {
+			return IsMacroExecuting();
+		}
+
 		public static boolean doEval(Object expression) {
 			int result = EvalMacro(expression.toString());
 			if (result==0) {

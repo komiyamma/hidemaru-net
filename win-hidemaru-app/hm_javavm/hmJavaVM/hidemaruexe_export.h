@@ -17,6 +17,8 @@ using namespace std;
 // 以下は、外側の枠ではなく内側の「HM32CLIENT」のウィンドウに送る。
 // マクロ実行中かどうかを知るために、秀丸リーダー用にユーザーメッセージがあります。
 #define WM_ISMACROEXECUTING (WM_USER + 167)
+#define WM_REMOTE_EXECMACRO_FILE (WM_USER + 271)
+#define WM_REMOTE_EXECMACRO_MEMORY (WM_USER + 272)
 
 
 class CHidemaruExeExport {
@@ -124,6 +126,8 @@ public:
 	static HWND GetCurWndHidemaru();
 
 	static wstring GetFileFullPath();
+
+	static bool IsMacroExecuting();
 
 	//-------------------------------------------------------------------------
 	// Hidemaru_GetTotalTextUnicode関数のラップしたもの
