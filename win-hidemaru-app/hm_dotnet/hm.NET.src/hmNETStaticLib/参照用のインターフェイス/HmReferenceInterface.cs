@@ -30,14 +30,23 @@ namespace Hidemaru
                 }
             }
 
-            public static int Exec(String filename)
+            public static IExec Exec = new TExec();
+            public interface IExec
             {
-                return hmNETDynamicLib.Hidemaru.Macro.Exec(filename);
+                int File(String filename);
+                int Eval(String expression);
             }
-
-            public static int ExecEval(String expression)
+            private class TExec : IExec
             {
-                return hmNETDynamicLib.Hidemaru.Macro.ExecEval(expression);
+                public int Eval(string expression)
+                {
+                    return hmNETDynamicLib.Hidemaru.Macro.ExecEval(expression);
+                }
+
+                public int File(string filename)
+                {
+                    return hmNETDynamicLib.Hidemaru.Macro.ExecFile(filename);
+                }
             }
 
             public static int Eval(String expression)

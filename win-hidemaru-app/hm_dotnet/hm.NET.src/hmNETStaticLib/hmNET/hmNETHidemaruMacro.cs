@@ -53,7 +53,7 @@ internal sealed partial class hmNETDynamicLib
                 }
             }
 
-            public static int Exec(String filename)
+            public static int ExecFile(String filename)
             {
                 if (IsExecuting)
                 {
