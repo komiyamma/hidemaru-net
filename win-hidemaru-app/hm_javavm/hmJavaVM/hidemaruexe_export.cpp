@@ -102,8 +102,8 @@ wstring CHidemaruExeExport::GetFileFullPath() {
 
 bool CHidemaruExeExport::IsMacroExecuting() {
 	HWND hWnd = GetCurWndHidemaru();
-	// 875.02から存在するが、安全を見て875正式版以降とする
-	if (hm_version > 875.98) {
+	// 875.02から存在するが、それ以前のバージョンも小窓から得られる
+	if (hm_version >= 875.02) {
 		LRESULT ret = SendMessage(hWnd, WM_ISMACROEXECUTING, NULL, NULL);
 		return (bool)ret;
 	}
@@ -116,6 +116,43 @@ bool CHidemaruExeExport::IsMacroExecuting() {
 	}
 	return false;
 }
+
+wstring CHidemaruExeExport::ExecMacroFromFile(wstring szMacroFileName) {
+	// マクロ実行中は別区別
+	if (IsMacroExecuting()) {
+		return L"-1,";
+	}
+
+	HWND hWnd = GetCurWndHidemaru();
+	// 875.02から存在するが、安全を見て875正式版以降とする
+	if (hm_version >= 875.02) {
+		wchar_t wszReturn[4096];
+		*(WORD*)wszReturn = _countof(wszReturn);
+		LRESULT lRet = SendMessage(hWnd, WM_REMOTE_EXECMACRO_FILE, (WPARAM)wszReturn, (LPARAM)szMacroFileName.c_str());
+		MessageBox(NULL, wszReturn, wszReturn, NULL);
+		return to_wstring(lRet) + L"," + wszReturn;
+	}
+	return L"0,";
+}
+
+wstring CHidemaruExeExport::ExecMacroFromString(wstring cmd) {
+	// マクロ実行中は別区別
+	if (IsMacroExecuting()) {
+		return L"-1,";
+	}
+
+	HWND hWnd = GetCurWndHidemaru();
+	// 875.02から存在するが、安全を見て875正式版以降とする
+	if (hm_version >= 875.02) {
+		wchar_t wszReturn[4096];
+		*(WORD*)wszReturn = _countof(wszReturn);
+		LRESULT lRet = SendMessage(hWnd, WM_REMOTE_EXECMACRO_MEMORY, (WPARAM)wszReturn, (LPARAM)cmd.c_str());
+		MessageBox(NULL, wszReturn, wszReturn, NULL);
+		return to_wstring(lRet) + L"," + wszReturn;
+	}
+	return L"0,";
+}
+
 
 wstring CHidemaruExeExport::GetTotalText() {
 	HGLOBAL hGlobal = CHidemaruExeExport::Hidemaru_GetTotalTextUnicode();

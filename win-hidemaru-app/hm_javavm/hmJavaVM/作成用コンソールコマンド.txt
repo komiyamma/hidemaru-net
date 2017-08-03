@@ -2,4 +2,4 @@ hidemaruというサブディレクトリを作成し、
 
 javac hidemaru\Hm.java // この位置関係からjavacの必要性あり
 
-jar cvf hidemaru // この位置関係からディレクトリを指定する必要性あり
+jar cvf hmJavaVM.jar hidemaru // この位置関係からディレクトリを指定する必要性あり

@@ -19,7 +19,7 @@ public class Hm {
 	
 	protected static native double GetVersion();
 
-	protected static native void DebugInfo(String message);
+	protected static native void DebugInfo(String expression);
 	protected static native long GetWindowHandle();
 	protected static native void SetWindowHandle(long hWndHidemaru);
 
@@ -42,7 +42,9 @@ public class Hm {
 	protected static native String GetCursorPos();
 	protected static native String GetCursorPosFromMousePos();
 
-	protected static native String IsMacroExecuting();
+	protected static native boolean IsMacroExecuting();
+	protected static native String ExecMacroFromFile(String filename);
+	protected static native String ExecMacroFromString(String expression);
 
 	public static double getVersion() {
 		return GetVersion();
@@ -175,6 +177,40 @@ public class Hm {
 
 	    public static boolean isExecuting() {
 			return IsMacroExecuting();
+		}
+
+		public static int doExec(File file) throws java.io.FileNotFoundException {
+			String filename = file.getAbsolutePath();
+			if (!file.exists()) {
+			    throw new java.io.FileNotFoundException(filename);
+			}
+		    String str_result = ExecMacroFromFile(filename);
+			String[] splited_result = str_result.split(",", 2);
+			int result = Integer.parseInt(splited_result[0]);
+			String errormsg = splited_result[1];
+			if (result == -1) {
+			    throw new java.lang.RuntimeException("Other Hidemaru Macro Executing");
+			}
+			if (result == 0 && errormsg.length() > 0) {
+			    throw new java.lang.RuntimeException("Hidemaru Macro Exec Exception:\n" + errormsg);
+			}
+
+			return result;
+		}
+
+		public static int doExec(Object expression) {
+		    String str_result = ExecMacroFromString(expression.toString());
+			String[] splited_result = str_result.split(",", 2);
+			int result = Integer.parseInt(splited_result[0]);
+			String errormsg = splited_result[1];
+			if (result == -1) {
+			    throw new java.lang.RuntimeException("Other Hidemaru Macro Executing");
+			}
+			if (result == 0 && errormsg.length() > 0) {
+			    throw new java.lang.RuntimeException("Hidemaru Macro Exec Exception:\n" + errormsg);
+			}
+
+			return result;
 		}
 
 		public static boolean doEval(Object expression) {

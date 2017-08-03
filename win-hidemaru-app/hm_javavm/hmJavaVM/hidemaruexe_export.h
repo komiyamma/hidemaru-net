@@ -127,8 +127,6 @@ public:
 
 	static wstring GetFileFullPath();
 
-	static bool IsMacroExecuting();
-
 	//-------------------------------------------------------------------------
 	// Hidemaru_GetTotalTextUnicode関数のラップしたもの
 	//-------------------------------------------------------------------------
@@ -189,6 +187,16 @@ public:
 	// Hidemaru_EvalMacro関数のラップしたもの
 	//-------------------------------------------------------------------------
 	static BOOL EvalMacro(wstring);
+
+	// マクロが実行中かどうか
+	static bool IsMacroExecuting();
+
+	// マクロのファイルを実行する
+	static wstring ExecMacroFromFile(wstring szMacroFileName);
+
+	static wstring ExecMacroFromString(wstring cmd);
+
+
 
 
 };

@@ -13,7 +13,7 @@ internal partial class HmChromeBrowserModeForm : Form
         if (m_Mmf == null)
         {
             // 共有メモリ生成
-            m_Mmf = MemoryMappedFile.CreateOrOpen(@"HmWebBrowserModeShared", sizeof(Int64));
+            m_Mmf = MemoryMappedFile.CreateOrOpen(@"HmChromeBrowserModeShared", sizeof(Int64));
             m_Accessor = m_Mmf.CreateViewAccessor();
         }
     }

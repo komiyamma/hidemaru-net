@@ -81,6 +81,7 @@ internal partial class HmWebBrowserModeForm : Form
     private void SetWebBrowserAttr()
     {
         wb.ScriptErrorsSuppressed = true;
+        wb.Dock = DockStyle.Fill;
         this.Controls.Add(wb);
     }
 

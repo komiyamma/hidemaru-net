@@ -196,11 +196,28 @@ JNIEXPORT jstring JNICALL Java_hidemaru_Hm_GetFileFullPath(JNIEnv *env, jobject 
 }
 
 
+
 // IsMacroExecutingÅB
 JNIEXPORT jboolean JNICALL Java_hidemaru_Hm_IsMacroExecuting(JNIEnv *env, jobject obj) {
 
 	return (jboolean)CHidemaruExeExport::IsMacroExecuting();
 }
+
+
+// ExecMacroFromFile
+JNIEXPORT jstring JNICALL Java_hidemaru_Hm_ExecMacroFromFile(JNIEnv *env, jobject obj, jstring value) {
+
+	wstring utf16_value = jstring_to_utf16(env, value);
+	return utf16_to_jstring(env, CHidemaruExeExport::ExecMacroFromFile(utf16_value));
+}
+
+// ExecMacroFromString
+JNIEXPORT jstring JNICALL Java_hidemaru_Hm_ExecMacroFromString(JNIEnv *env, jobject obj, jstring value) {
+
+	wstring utf16_value = jstring_to_utf16(env, value);
+	return utf16_to_jstring(env, CHidemaruExeExport::ExecMacroFromString(utf16_value));
+}
+
 
 
 
