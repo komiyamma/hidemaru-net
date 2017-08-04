@@ -4,6 +4,7 @@ namespace Hidemaru
 {
     public static class Hm
     {
+        // メインのウィンドウ
         public static IntPtr WindowHandle
         {
             get
@@ -12,6 +13,7 @@ namespace Hidemaru
             }
         }
 
+        // バージョン
         public static Double Version
         {
             get
@@ -20,8 +22,10 @@ namespace Hidemaru
             }
         }
 
+        // マクロ空間
         public static class Macro
         {
+            // 実行中か
             public static bool IsExecuting
             {
                 get
@@ -30,28 +34,62 @@ namespace Hidemaru
                 }
             }
 
-            public static IExec Exec = new TExec();
+            // マクロでの問い合わせ結果系
+            public interface IResult
+            {
+                int Result { get; }
+                String Message { get; }
+                Exception Error { get; }
+            }
+
+            // 問い合わせ結果系の実態。外から見えないように
+            private class TResult : IResult
+            {
+                public int Result { get; set; }
+                public string Message { get; set; }
+                public Exception Error { get; set; }
+
+                public TResult(int Result, String Message, Exception Error)
+                {
+                    this.Result = Result;
+                    this.Message = Message;
+                    this.Error = Error;
+                }
+            }
+
+            // 実行系
             public interface IExec
             {
-                int File(String filename);
-                int Eval(String expression);
+                IResult File(String filename);
+                IResult Eval(String expression);
             }
+
+            // 実行系の実態
             private class TExec : IExec
             {
-                public int Eval(string expression)
+                public IResult Eval(string expression)
                 {
-                    return hmNETDynamicLib.Hidemaru.Macro.ExecEval(expression);
+                    var ret = hmNETDynamicLib.Hidemaru.Macro.ExecEval(expression);
+                    var result = new TResult(ret.Result, ret.Message, null);
+                    return result;
                 }
 
-                public int File(string filename)
+                public IResult File(string filename)
                 {
-                    return hmNETDynamicLib.Hidemaru.Macro.ExecFile(filename);
+                    var ret = hmNETDynamicLib.Hidemaru.Macro.ExecFile(filename);
+                    var result = new TResult(ret.Result, ret.Message, null);
+                    return result;
                 }
             }
 
-            public static int Eval(String expression)
+            public static IExec Exec = new TExec();
+
+
+            public static IResult Eval(String expression)
             {
-                return hmNETDynamicLib.Hidemaru.Macro.Eval(expression);
+                var ret = hmNETDynamicLib.Hidemaru.Macro.Eval(expression);
+                var result = new TResult(ret, "", null);
+                return result;
             }
 
             public static IVar Var = new TVar();
@@ -75,6 +113,7 @@ namespace Hidemaru
             }
         }
 
+        // エディット系
         public static class Edit
         {
             public static String FilePath

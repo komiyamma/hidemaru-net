@@ -53,16 +53,27 @@ internal sealed partial class hmNETDynamicLib
                 }
             }
 
-            public static int ExecFile(String filename)
+            public struct ExecResult
             {
+                public int Result;
+                public string Message;
+            }
+
+            public static ExecResult ExecFile(String filename)
+            {
+                ExecResult result = new ExecResult();
                 if (IsExecuting)
                 {
-                    return -1;
+                    result.Result = -1;
+                    result.Message = "HidemaruMacroIsExectingException";
+                    return result;
                 }
 
                 if (!System.IO.File.Exists(filename))
                 {
-                    throw new System.IO.FileNotFoundException(filename);
+                    result.Result = -1;
+                    result.Message = "HidemaruMacroFileNotFoundException";
+                    return result;
                 }
 
                 const int WM_USER = 0x400;
@@ -78,22 +89,30 @@ internal sealed partial class hmNETDynamicLib
                         bool cwch = SendMessage(hWndHidemaru, WM_REMOTE_EXECMACRO_FILE, sbRet, sbFileName);
                         if (cwch)
                         {
-                            return 1;
+                            result.Result = 1;
+                            result.Message = sbRet.ToString();
                         }
                         else
                         {
-                            throw new InvalidOperationException(filename + ":" + sbRet.ToString());
+                            result.Result = 0;
+                            result.Message = "HidemaruMacroEvalException:\n" + sbRet.ToString();
                         }
+                        return result;
                     }
                 }
-                return 0;
+                result.Result = 0;
+                result.Message = "HidemaruNeedVersionException";
+                return result;
             }
 
-            public static int ExecEval(String cmd)
+            public static ExecResult ExecEval(String cmd)
             {
+                ExecResult result = new ExecResult();
                 if (IsExecuting)
                 {
-                    return -1;
+                    result.Result = -1;
+                    result.Message = "HidemaruMacroIsExectingException";
+                    return result;
                 }
 
                 const int WM_USER = 0x400;
@@ -109,15 +128,20 @@ internal sealed partial class hmNETDynamicLib
                         bool cwch = SendMessage(hWndHidemaru, WM_REMOTE_EXECMACRO_MEMORY, sbRet, sbExpression);
                         if (cwch)
                         {
-                            return 1;
+                            result.Result = 1;
+                            result.Message = sbRet.ToString();
                         }
                         else
                         {
-                            throw new InvalidOperationException("ExecEval:" + sbRet.ToString());
+                            result.Result = 0;
+                            result.Message = "HidemaruMacroEvalException:\n" + sbRet.ToString();
                         }
+                        return result;
                     }
                 }
-                return 0;
+                result.Result = 0;
+                result.Message = "HidemaruNeedVersionException";
+                return result;
             }
 
             // マクロ文字列の実行。複数行を一気に実行可能

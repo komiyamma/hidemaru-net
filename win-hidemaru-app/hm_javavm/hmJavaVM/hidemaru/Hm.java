@@ -4,6 +4,8 @@ import java.io.File;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.Map;
+import java.util.HashMap;
 
 public class Hm {
 
@@ -179,46 +181,87 @@ public class Hm {
 			return IsMacroExecuting();
 		}
 
-		public static int doExec(File file) throws java.io.FileNotFoundException {
+		public static Map<String, Object> doExec(File file) {
 			String filename = file.getAbsolutePath();
 			if (!file.exists()) {
-			    throw new java.io.FileNotFoundException(filename);
+				Map<String, Object> result = new HashMap<>();
+				result.put( "result", 0 );
+				result.put( "message", "HidemaruMacroFileNotFoundException");
+				result.put( "exception", new java.io.FileNotFoundException(filename) );
+				return result;
 			}
 		    String str_result = ExecMacroFromFile(filename);
 			String[] splited_result = str_result.split(",", 2);
-			int result = Integer.parseInt(splited_result[0]);
-			String errormsg = splited_result[1];
-			if (result == -1) {
-			    throw new java.lang.RuntimeException("Other Hidemaru Macro Executing");
+			int ret = Integer.parseInt(splited_result[0]);
+			String message = splited_result[1];
+			if (ret == -1) {
+				Map<String, Object> result = new HashMap<>();
+				result.put( "result", -1 );
+				result.put( "message", "HidemaruMacroIsExectingException");
+				result.put( "exception", new java.lang.RuntimeException("HidemaruMacroIsExectingException") );
+				return result;
 			}
-			if (result == 0 && errormsg.length() > 0) {
-			    throw new java.lang.RuntimeException("Hidemaru Macro Exec Exception:\n" + errormsg);
+			if (ret == 0) {
+				Map<String, Object> result = new HashMap<>();
+				result.put( "result", 0 );
+				result.put( "message", "HidemaruMacroEvalException\n:" + message );
+				result.put( "exception", new java.lang.RuntimeException("HidemaruMacroEvalException") );
+				return result;
 			}
+
+			Map<String, Object> result = new HashMap<>();
+			result.put( "result", ret );
+			result.put( "message",message );
+			result.put( "exception", null );
 
 			return result;
 		}
 
-		public static int doExec(Object expression) {
+		public static Map<String, Object> doExec(Object expression) {
 		    String str_result = ExecMacroFromString(expression.toString());
 			String[] splited_result = str_result.split(",", 2);
-			int result = Integer.parseInt(splited_result[0]);
-			String errormsg = splited_result[1];
-			if (result == -1) {
-			    throw new java.lang.RuntimeException("Other Hidemaru Macro Executing");
+			int ret = Integer.parseInt(splited_result[0]);
+			String message = splited_result[1];
+			if (ret == -1) {
+				Map<String, Object> result = new HashMap<>();
+				result.put( "result", -1 );
+				result.put( "message", "HidemaruMacroIsExectingException");
+				result.put( "exception", new java.lang.RuntimeException("HidemaruMacroIsExectingException") );
+				return result;
 			}
-			if (result == 0 && errormsg.length() > 0) {
-			    throw new java.lang.RuntimeException("Hidemaru Macro Exec Exception:\n" + errormsg);
+			if (ret == 0) {
+				Map<String, Object> result = new HashMap<>();
+				result.put( "result", 0 );
+				result.put( "message", "HidemaruMacroEvalException\n:" + message );
+				result.put( "exception", new java.lang.RuntimeException("HidemaruMacroEvalException") );
+				return result;
 			}
+
+			Map<String, Object> result = new HashMap<>();
+			result.put( "result", ret );
+			result.put( "message",message );
+			result.put( "exception", null );
 
 			return result;
 		}
 
-		public static boolean doEval(Object expression) {
-			int result = EvalMacro(expression.toString());
-			if (result==0) {
-				throw new java.lang.RuntimeException("Hidemaru Macro Expression Exception");
+		public static Map<String, Object> doEval(Object expression) {
+			int ret = EvalMacro(expression.toString());
+			// ÉGÉâÅ[
+			if (ret==0) {
+				Map<String, Object> result = new HashMap<>();
+				result.put( "result", 0 );
+				result.put( "message", "HidemaruMacroEvalException" );
+				result.put( "exception", new java.lang.RuntimeException("HidemaruMacroEvalException") );
+				return result;
+			} else {
+				Map<String, Object> result = new HashMap<>();
+				result.put( "result", ret );
+				result.put( "message", "" );
+				result.put( "exception", null );
+
+				return result;
 			}
-			return true;
 		}
 
 		public static Object getVar(String symbol) {

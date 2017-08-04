@@ -1,5 +1,6 @@
 #include <windows.h>
 #include <tchar.h>
+#include <shlwapi.h >
 
 #include "hidemaruexe_export.h"
 #include "hidemaruexe_handle.h"
@@ -120,7 +121,13 @@ bool CHidemaruExeExport::IsMacroExecuting() {
 wstring CHidemaruExeExport::ExecMacroFromFile(wstring szMacroFileName) {
 	// マクロ実行中は別区別
 	if (IsMacroExecuting()) {
-		return L"-1,";
+		return L"-1,HidemaruMacroIsExectingException";
+	}
+
+	bool isexists = PathFileExists(szMacroFileName.c_str());
+	// 対象のファイルは無い
+	if (!isexists) {
+		return L"0,HidemaruMacroFileNotFoundException";
 	}
 
 	HWND hWnd = GetCurWndHidemaru();
@@ -129,16 +136,22 @@ wstring CHidemaruExeExport::ExecMacroFromFile(wstring szMacroFileName) {
 		wchar_t wszReturn[4096];
 		*(WORD*)wszReturn = _countof(wszReturn);
 		LRESULT lRet = SendMessage(hWnd, WM_REMOTE_EXECMACRO_FILE, (WPARAM)wszReturn, (LPARAM)szMacroFileName.c_str());
-		MessageBox(NULL, wszReturn, wszReturn, NULL);
-		return to_wstring(lRet) + L"," + wszReturn;
+		// エラーだ
+		if (lRet == 0) {
+			return L"0,HidemaruMacroEvalException:\n" + wstring(wszReturn);
+		}
+		else {
+			return to_wstring(lRet) + L"," + wstring(wszReturn);
+		}
 	}
-	return L"0,";
+
+	return L"0,HidemaruNeedVersionException";
 }
 
 wstring CHidemaruExeExport::ExecMacroFromString(wstring cmd) {
 	// マクロ実行中は別区別
 	if (IsMacroExecuting()) {
-		return L"-1,";
+		return L"-1,HidemaruMacroIsExectingException";
 	}
 
 	HWND hWnd = GetCurWndHidemaru();
@@ -147,10 +160,16 @@ wstring CHidemaruExeExport::ExecMacroFromString(wstring cmd) {
 		wchar_t wszReturn[4096];
 		*(WORD*)wszReturn = _countof(wszReturn);
 		LRESULT lRet = SendMessage(hWnd, WM_REMOTE_EXECMACRO_MEMORY, (WPARAM)wszReturn, (LPARAM)cmd.c_str());
-		MessageBox(NULL, wszReturn, wszReturn, NULL);
-		return to_wstring(lRet) + L"," + wszReturn;
+		// エラーだ
+		if (lRet == 0) {
+			return L"0,HidemaruMacroEvalException:\n" + wstring(wszReturn);
+		}
+		else {
+			return to_wstring(lRet) + L"," + wstring(wszReturn);
+		}
 	}
-	return L"0,";
+
+	return L"0,HidemaruNeedVersionException";
 }
 
 
