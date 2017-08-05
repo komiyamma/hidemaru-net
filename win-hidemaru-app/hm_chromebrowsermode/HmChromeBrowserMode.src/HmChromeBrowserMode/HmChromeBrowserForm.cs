@@ -47,7 +47,6 @@ internal partial class HmChromeBrowserModeForm : Form
             SetWebBrowserAttr();
             //        SetButtonAttr();
             SetTimerAttr();
-            CreateSharedMemory();
         }
         catch (Exception e)
         {
