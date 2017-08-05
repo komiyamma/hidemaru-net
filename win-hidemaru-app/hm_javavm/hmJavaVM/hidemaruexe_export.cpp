@@ -121,55 +121,55 @@ bool CHidemaruExeExport::IsMacroExecuting() {
 wstring CHidemaruExeExport::ExecMacroFromFile(wstring szMacroFileName) {
 	// マクロ実行中は別区別
 	if (IsMacroExecuting()) {
-		return L"-1,HidemaruMacroIsExecutingException";
+		return L"-1,HidemaruMacroIsExecutingException,";
 	}
 
 	bool isexists = PathFileExists(szMacroFileName.c_str());
 	// 対象のファイルは無い
 	if (!isexists) {
-		return L"0,HidemaruMacroFileNotFoundException";
+		return L"0,HidemaruMacroFileNotFoundException,";
+	}
+
+	// 875.02から存在する
+	if (hm_version < 875.02) {
+		return L"0,HidemaruNeedVersionException,";
 	}
 
 	HWND hWnd = GetCurWndHidemaru();
-	// 875.02から存在するが、安全を見て875正式版以降とする
-	if (hm_version >= 875.02) {
-		wchar_t wszReturn[4096];
-		*(WORD*)wszReturn = _countof(wszReturn);
-		LRESULT lRet = SendMessage(hWnd, WM_REMOTE_EXECMACRO_FILE, (WPARAM)wszReturn, (LPARAM)szMacroFileName.c_str());
-		// エラーだ
-		if (lRet == 0) {
-			return L"0,HidemaruMacroEvalException:\n" + wstring(wszReturn);
-		}
-		else {
-			return to_wstring(lRet) + L"," + wstring(wszReturn);
-		}
+	wchar_t wszReturn[4096];
+	*(WORD*)wszReturn = _countof(wszReturn);
+	LRESULT lRet = SendMessage(hWnd, WM_REMOTE_EXECMACRO_FILE, (WPARAM)wszReturn, (LPARAM)szMacroFileName.c_str());
+	// エラーだ
+	if (lRet == 0) {
+		return L"0,HidemaruMacroEvalException," + wstring(wszReturn);
 	}
-
-	return L"0,HidemaruNeedVersionException";
+	else {
+		return to_wstring(lRet) + L",," + wstring(wszReturn);
+	}
 }
 
 wstring CHidemaruExeExport::ExecMacroFromString(wstring cmd) {
 	// マクロ実行中は別区別
 	if (IsMacroExecuting()) {
-		return L"-1,HidemaruMacroIsExecutingException";
+		return L"-1,HidemaruMacroIsExecutingException,";
+	}
+
+	// 875.02から存在する
+	if (hm_version < 875.02) {
+		return L"0,HidemaruNeedVersionException,";
 	}
 
 	HWND hWnd = GetCurWndHidemaru();
-	// 875.02から存在するが、安全を見て875正式版以降とする
-	if (hm_version >= 875.02) {
-		wchar_t wszReturn[4096];
-		*(WORD*)wszReturn = _countof(wszReturn);
-		LRESULT lRet = SendMessage(hWnd, WM_REMOTE_EXECMACRO_MEMORY, (WPARAM)wszReturn, (LPARAM)cmd.c_str());
-		// エラーだ
-		if (lRet == 0) {
-			return L"0,HidemaruMacroEvalException:\n" + wstring(wszReturn);
-		}
-		else {
-			return to_wstring(lRet) + L"," + wstring(wszReturn);
-		}
+	wchar_t wszReturn[4096];
+	*(WORD*)wszReturn = _countof(wszReturn);
+	LRESULT lRet = SendMessage(hWnd, WM_REMOTE_EXECMACRO_MEMORY, (WPARAM)wszReturn, (LPARAM)cmd.c_str());
+	// エラーだ
+	if (lRet == 0) {
+		return L"0,HidemaruMacroEvalException," + wstring(wszReturn);
 	}
-
-	return L"0,HidemaruNeedVersionException";
+	else {
+		return to_wstring(lRet) + L",," + wstring(wszReturn);
+	}
 }
 
 

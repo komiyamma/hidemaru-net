@@ -185,9 +185,10 @@ public class Hm {
 		public static Map<String, Object> doExec(File file) {
 			String filename = file.getAbsolutePath();
 		    String str_result = ExecMacroFromFile(filename);
-			String[] splited_result = str_result.split(",", 2);
+			String[] splited_result = str_result.split(",", 3);
 			int ret = Integer.parseInt(splited_result[0]);
-			String message = splited_result[1];
+			String exception = splited_result[1];
+			String message = splited_result[2];
 
 			if (!file.exists()) {
 				Map<String, Object> result = new HashMap<>();
@@ -201,14 +202,14 @@ public class Hm {
 				Map<String, Object> result = new HashMap<>();
 				result.put( "result", -1 );
 				result.put( "message", message);
-				result.put( "exception", new java.lang.RuntimeException() );
+				result.put( "exception", new java.lang.RuntimeException(exception) );
 				return Collections.unmodifiableMap(result);
 			}
 			if (ret == 0) {
 				Map<String, Object> result = new HashMap<>();
 				result.put( "result", 0 );
 				result.put( "message", message );
-				result.put( "exception", new java.lang.RuntimeException() );
+				result.put( "exception", new java.lang.RuntimeException(exception) );
 				return Collections.unmodifiableMap(result);
 			}
 
@@ -222,21 +223,23 @@ public class Hm {
 
 		public static Map<String, Object> doExec(Object expression) {
 		    String str_result = ExecMacroFromString(expression.toString());
-			String[] splited_result = str_result.split(",", 2);
+			String[] splited_result = str_result.split(",", 3);
 			int ret = Integer.parseInt(splited_result[0]);
-			String message = splited_result[1];
+			String exception = splited_result[1];
+			String message = splited_result[2];
+
 			if (ret == -1) {
 				Map<String, Object> result = new HashMap<>();
 				result.put( "result", -1 );
 				result.put( "message", message);
-				result.put( "exception", new java.lang.RuntimeException() );
+				result.put( "exception", new java.lang.RuntimeException(exception) );
 				return Collections.unmodifiableMap(result);
 			}
 			if (ret == 0) {
 				Map<String, Object> result = new HashMap<>();
 				result.put( "result", 0 );
 				result.put( "message", message);
-				result.put( "exception", new java.lang.RuntimeException() );
+				result.put( "exception", new java.lang.RuntimeException(exception) );
 				return Collections.unmodifiableMap(result);
 			}
 
@@ -254,8 +257,8 @@ public class Hm {
 			if (ret==0) {
 				Map<String, Object> result = new HashMap<>();
 				result.put( "result", 0 );
-				result.put( "message", "HidemaruMacroEvalException" );
-				result.put( "exception", new java.lang.RuntimeException() );
+				result.put( "message", "" );
+				result.put( "exception", new java.lang.RuntimeException("HidemaruMacroEvalException") );
 				return Collections.unmodifiableMap(result);
 			} else {
 				Map<String, Object> result = new HashMap<>();
