@@ -84,6 +84,7 @@ internal class RipGrepCommandLine
                 list.Add("sjis");
             }
             list.Add("--no-ignore");
+            list.Add("--no-heading");
             list.Add("-n");
             list.Add("-e");
             list.Add(Regex.Escape(this.searcText));
