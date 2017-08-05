@@ -4,6 +4,7 @@ import java.io.File;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.Collections;
 import java.util.Map;
 import java.util.HashMap;
 
@@ -180,41 +181,43 @@ public class Hm {
 	    public static boolean isExecuting() {
 			return IsMacroExecuting();
 		}
-
+		
 		public static Map<String, Object> doExec(File file) {
 			String filename = file.getAbsolutePath();
-			if (!file.exists()) {
-				Map<String, Object> result = new HashMap<>();
-				result.put( "result", 0 );
-				result.put( "message", "HidemaruMacroFileNotFoundException");
-				result.put( "exception", new java.io.FileNotFoundException(filename) );
-				return result;
-			}
 		    String str_result = ExecMacroFromFile(filename);
 			String[] splited_result = str_result.split(",", 2);
 			int ret = Integer.parseInt(splited_result[0]);
 			String message = splited_result[1];
+
+			if (!file.exists()) {
+				Map<String, Object> result = new HashMap<>();
+				result.put( "result", 0 );
+				result.put( "message", message);
+				result.put( "exception", new java.io.FileNotFoundException(filename) );
+				return Collections.unmodifiableMap(result);
+			}
+
 			if (ret == -1) {
 				Map<String, Object> result = new HashMap<>();
 				result.put( "result", -1 );
-				result.put( "message", "HidemaruMacroIsExectingException");
-				result.put( "exception", new java.lang.RuntimeException("HidemaruMacroIsExectingException") );
-				return result;
+				result.put( "message", message);
+				result.put( "exception", new java.lang.RuntimeException() );
+				return Collections.unmodifiableMap(result);
 			}
 			if (ret == 0) {
 				Map<String, Object> result = new HashMap<>();
 				result.put( "result", 0 );
-				result.put( "message", "HidemaruMacroEvalException\n:" + message );
-				result.put( "exception", new java.lang.RuntimeException("HidemaruMacroEvalException") );
-				return result;
+				result.put( "message", message );
+				result.put( "exception", new java.lang.RuntimeException() );
+				return Collections.unmodifiableMap(result);
 			}
 
 			Map<String, Object> result = new HashMap<>();
 			result.put( "result", ret );
-			result.put( "message",message );
+			result.put( "message", message );
 			result.put( "exception", null );
 
-			return result;
+			return Collections.unmodifiableMap(result);
 		}
 
 		public static Map<String, Object> doExec(Object expression) {
@@ -225,24 +228,24 @@ public class Hm {
 			if (ret == -1) {
 				Map<String, Object> result = new HashMap<>();
 				result.put( "result", -1 );
-				result.put( "message", "HidemaruMacroIsExectingException");
-				result.put( "exception", new java.lang.RuntimeException("HidemaruMacroIsExectingException") );
-				return result;
+				result.put( "message", message);
+				result.put( "exception", new java.lang.RuntimeException() );
+				return Collections.unmodifiableMap(result);
 			}
 			if (ret == 0) {
 				Map<String, Object> result = new HashMap<>();
 				result.put( "result", 0 );
-				result.put( "message", "HidemaruMacroEvalException\n:" + message );
-				result.put( "exception", new java.lang.RuntimeException("HidemaruMacroEvalException") );
-				return result;
+				result.put( "message", message);
+				result.put( "exception", new java.lang.RuntimeException() );
+				return Collections.unmodifiableMap(result);
 			}
 
 			Map<String, Object> result = new HashMap<>();
 			result.put( "result", ret );
-			result.put( "message",message );
+			result.put( "message", message );
 			result.put( "exception", null );
 
-			return result;
+			return Collections.unmodifiableMap(result);
 		}
 
 		public static Map<String, Object> doEval(Object expression) {
@@ -252,15 +255,15 @@ public class Hm {
 				Map<String, Object> result = new HashMap<>();
 				result.put( "result", 0 );
 				result.put( "message", "HidemaruMacroEvalException" );
-				result.put( "exception", new java.lang.RuntimeException("HidemaruMacroEvalException") );
-				return result;
+				result.put( "exception", new java.lang.RuntimeException() );
+				return Collections.unmodifiableMap(result);
 			} else {
 				Map<String, Object> result = new HashMap<>();
 				result.put( "result", ret );
 				result.put( "message", "" );
 				result.put( "exception", null );
 
-				return result;
+				return Collections.unmodifiableMap(result);
 			}
 		}
 

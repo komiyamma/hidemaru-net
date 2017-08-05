@@ -121,7 +121,7 @@ bool CHidemaruExeExport::IsMacroExecuting() {
 wstring CHidemaruExeExport::ExecMacroFromFile(wstring szMacroFileName) {
 	// マクロ実行中は別区別
 	if (IsMacroExecuting()) {
-		return L"-1,HidemaruMacroIsExectingException";
+		return L"-1,HidemaruMacroIsExecutingException";
 	}
 
 	bool isexists = PathFileExists(szMacroFileName.c_str());
@@ -151,7 +151,7 @@ wstring CHidemaruExeExport::ExecMacroFromFile(wstring szMacroFileName) {
 wstring CHidemaruExeExport::ExecMacroFromString(wstring cmd) {
 	// マクロ実行中は別区別
 	if (IsMacroExecuting()) {
-		return L"-1,HidemaruMacroIsExectingException";
+		return L"-1,HidemaruMacroIsExecutingException";
 	}
 
 	HWND hWnd = GetCurWndHidemaru();
