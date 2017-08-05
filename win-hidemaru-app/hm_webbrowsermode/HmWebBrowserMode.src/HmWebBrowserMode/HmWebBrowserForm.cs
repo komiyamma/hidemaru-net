@@ -23,7 +23,6 @@ internal partial class HmWebBrowserModeForm : Form
         SetWebBrowserAttr();
 //        SetButtonAttr();
         SetTimerAttr();
-        CreateSharedMemory();
     }
 
     private void SetTimerAttr()
