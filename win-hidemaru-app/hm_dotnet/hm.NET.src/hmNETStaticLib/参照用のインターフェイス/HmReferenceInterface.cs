@@ -70,14 +70,14 @@ namespace Hidemaru
                 public IResult Eval(string expression)
                 {
                     var ret = hmNETDynamicLib.Hidemaru.Macro.ExecEval(expression);
-                    var result = new TResult(ret.Result, ret.Message, null);
+                    var result = new TResult(ret.Result, ret.Message, ret.Error);
                     return result;
                 }
 
                 public IResult File(string filename)
                 {
                     var ret = hmNETDynamicLib.Hidemaru.Macro.ExecFile(filename);
-                    var result = new TResult(ret.Result, ret.Message, null);
+                    var result = new TResult(ret.Result, ret.Message, ret.Error);
                     return result;
                 }
             }
@@ -88,7 +88,7 @@ namespace Hidemaru
             public static IResult Eval(String expression)
             {
                 var ret = hmNETDynamicLib.Hidemaru.Macro.Eval(expression);
-                var result = new TResult(ret, "", null);
+                var result = new TResult(ret.Result, ret.Message, ret.Error);
                 return result;
             }
 

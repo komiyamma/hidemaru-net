@@ -2,8 +2,6 @@
 using System.Runtime.InteropServices;
 using System.Text;
 
-
-
 // ★秀丸クラス
 internal sealed partial class hmNETDynamicLib
 {
@@ -57,6 +55,7 @@ internal sealed partial class hmNETDynamicLib
             {
                 public int Result;
                 public string Message;
+                public Exception Error;
             }
 
             public static ExecResult ExecFile(String filename)
@@ -65,43 +64,55 @@ internal sealed partial class hmNETDynamicLib
                 if (IsExecuting)
                 {
                     result.Result = -1;
-                    result.Message = "HidemaruMacroIsExectingException";
+                    result.Message = "";
+                    result.Error = new InvalidOperationException("HidemaruMacroIsExecutingException");
                     return result;
                 }
 
                 if (!System.IO.File.Exists(filename))
                 {
                     result.Result = -1;
-                    result.Message = "HidemaruMacroFileNotFoundException";
+                    result.Message = "";
+                    result.Error = new System.IO.FileNotFoundException(filename);
+                    return result;
+                }
+
+                if (version < 875.02)
+                {
+                    OutputDebugStream(ErrorMsg.MethodNeed875);
+                    result.Result = 0;
+                    result.Message = "";
+                    result.Error = new InvalidOperationException("HidemaruNeedVersionException");
+                    return result;
+                }
+
+                IntPtr hWndHidemaru = WindowHandle;
+                if (hWndHidemaru == IntPtr.Zero)
+                {
+                    result.Result = 0;
+                    result.Message = "";
+                    result.Error = new NullReferenceException("HidemaruWindowHandleException");
                     return result;
                 }
 
                 const int WM_USER = 0x400;
                 const int WM_REMOTE_EXECMACRO_FILE = WM_USER + 271;
 
-                if (version >= 875.02)
+                StringBuilder sbFileName = new StringBuilder(filename);
+                StringBuilder sbRet = new StringBuilder("\x0f0f", 0x0f0f + 1); // 最初の値は帰り値のバッファー
+                bool cwch = SendMessage(hWndHidemaru, WM_REMOTE_EXECMACRO_FILE, sbRet, sbFileName);
+                if (cwch)
                 {
-                    IntPtr hWndHidemaru = WindowHandle;
-                    if (hWndHidemaru != IntPtr.Zero)
-                    {
-                        StringBuilder sbFileName = new StringBuilder(filename);
-                        StringBuilder sbRet = new StringBuilder("\x0f0f", 0x0f0f + 1); // 最初の値は帰り値のバッファー
-                        bool cwch = SendMessage(hWndHidemaru, WM_REMOTE_EXECMACRO_FILE, sbRet, sbFileName);
-                        if (cwch)
-                        {
-                            result.Result = 1;
-                            result.Message = sbRet.ToString();
-                        }
-                        else
-                        {
-                            result.Result = 0;
-                            result.Message = "HidemaruMacroEvalException:\n" + sbRet.ToString();
-                        }
-                        return result;
-                    }
+                    result.Result = 1;
+                    result.Message = sbRet.ToString();
+                    result.Error = null;
                 }
-                result.Result = 0;
-                result.Message = "HidemaruNeedVersionException";
+                else
+                {
+                    result.Result = 0;
+                    result.Message = sbRet.ToString();
+                    result.Error = new InvalidOperationException("HidemaruMacroEvalException");
+                }
                 return result;
             }
 
@@ -111,46 +122,61 @@ internal sealed partial class hmNETDynamicLib
                 if (IsExecuting)
                 {
                     result.Result = -1;
-                    result.Message = "HidemaruMacroIsExectingException";
+                    result.Message = "";
+                    result.Error = new InvalidOperationException("HidemaruMacroIsExecutingException");
+                    return result;
+                }
+
+                if (version < 875.02)
+                {
+                    OutputDebugStream(ErrorMsg.MethodNeed875);
+                    result.Result = 0;
+                    result.Message = "";
+                    result.Error = new InvalidOperationException("HidemaruNeedVersionException");
+                    return result;
+                }
+
+                IntPtr hWndHidemaru = WindowHandle;
+                if (hWndHidemaru == IntPtr.Zero)
+                {
+                    result.Result = 0;
+                    result.Message = "";
+                    result.Error = new NullReferenceException("HidemaruWindowHandleException");
                     return result;
                 }
 
                 const int WM_USER = 0x400;
                 const int WM_REMOTE_EXECMACRO_MEMORY = WM_USER + 272;
 
-                if (version >= 875.02)
+                StringBuilder sbExpression = new StringBuilder(cmd);
+                StringBuilder sbRet = new StringBuilder("\x0f0f", 0x0f0f + 1); // 最初の値は帰り値のバッファー
+                bool cwch = SendMessage(hWndHidemaru, WM_REMOTE_EXECMACRO_MEMORY, sbRet, sbExpression);
+                if (cwch)
                 {
-                    IntPtr hWndHidemaru = WindowHandle;
-                    if (hWndHidemaru != IntPtr.Zero)
-                    {
-                        StringBuilder sbExpression = new StringBuilder(cmd);
-                        StringBuilder sbRet = new StringBuilder("\x0f0f", 0x0f0f + 1); // 最初の値は帰り値のバッファー
-                        bool cwch = SendMessage(hWndHidemaru, WM_REMOTE_EXECMACRO_MEMORY, sbRet, sbExpression);
-                        if (cwch)
-                        {
-                            result.Result = 1;
-                            result.Message = sbRet.ToString();
-                        }
-                        else
-                        {
-                            result.Result = 0;
-                            result.Message = "HidemaruMacroEvalException:\n" + sbRet.ToString();
-                        }
-                        return result;
-                    }
+                    result.Result = 1;
+                    result.Message = sbRet.ToString();
+                    result.Error = null;
                 }
-                result.Result = 0;
-                result.Message = "HidemaruNeedVersionException";
+                else
+                {
+                    result.Result = 0;
+                    result.Message = sbRet.ToString();
+                    result.Error = new InvalidOperationException("HidemaruMacroEvalException");
+                }
                 return result;
             }
 
             // マクロ文字列の実行。複数行を一気に実行可能
-            public static int Eval(String cmd)
+            public static ExecResult Eval(String cmd)
             {
+                ExecResult result = new ExecResult();
                 if (version < 866)
                 {
                     OutputDebugStream(ErrorMsg.MethodNeed866);
-                    return 0;
+                    result.Result = 0;
+                    result.Message = "";
+                    result.Error = new InvalidOperationException("HidemaruNeedVersionException");
+                    return result;
                 }
 
                 int ret = 0;
@@ -162,7 +188,19 @@ internal sealed partial class hmNETDynamicLib
                 {
                     OutputDebugStream(e.Message);
                 }
-                return ret;
+                if (ret == 0)
+                {
+                    result.Result = 0;
+                    result.Message = "";
+                    result.Error = new InvalidOperationException("HidemaruMacroEvalException");
+                }
+                else
+                {
+                    result.Result = ret;
+                    result.Message = "";
+                    result.Error = null;
+                }
+                return result;
             }
 
 

@@ -160,7 +160,7 @@ internal partial class hmNETDynamicLib
             OutputDebugStream(e.Message);
         }
 
-        return (IntPtr)0;
+        return (IntPtr)1;
     }
 
     public static IntPtr DetachScope()
@@ -183,7 +183,7 @@ internal partial class hmNETDynamicLib
 
         dpr = null;
 
-        return (IntPtr)0;
+        return (IntPtr)1;
     }
 
 }
