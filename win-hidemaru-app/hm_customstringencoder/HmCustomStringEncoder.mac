@@ -7,27 +7,26 @@
 ParameterSettings: 
 {
     // 変換後のコードページ 
-    // (https://msdn.microsoft.com/ja-jp/library/aa288104(v=vs.71).aspx のコードページへの
-    //  変換とそのフォールバック検知に、原則「全て」対応している)
+    // https://msdn.microsoft.com/ja-jp/library/windows/desktop/dd317756(v=vs.85).aspx の「コードページ」のいずれでも指定可能。
     #ToEncodeCodePage = 932;
 
-    // 結合文字は、結合後の文字(正規化)してから判断する
+    // 結合文字は、結合後の文字に正規化してから判断する
     #DoNormalize = true;
 }
 goto Main;
 
 
 // --------------------------------------------------------------------------------
-// フォールバック(変換出来ない文字への遭遇)の際に、どのような文字(列)へと再マッピングするかの定義
-// (指定のコードページへの変換時に、無事に変換出来る文字は、そもそもフォールバックが発生しないので、
-// 『ここで指定したとしても』対象とはならない」ので注意)
+// フォールバック(変換出来ない文字への遭遇)の際に、どのような文字列へと再マッピングするかの定義
+// (無事に変換出来た文字は、そもそもフォールバックが発生しないので、
+//  ここで指定したとしても、対象とはならないので注意)
 // --------------------------------------------------------------------------------
-PushFallBackPairList:
+PushFallBackPairs:
 {
-    call PushFallBackPair "㉑",           "(21)";
+    call PushFallBackPair "㉑", "(21)";
     call PushFallBackPair "\uD867\uDE3D", "ほっけ"; // 魚偏に花と書いてホッケ
-    call PushFallBackPair "♬",            "♪";     // 音符を普通の♪に
-    call PushFallBackPair "🎶",           "♪";     // 音符を普通の♪に
+    call PushFallBackPair "♬", "♪"; // 音符を普通の♪に
+    call PushFallBackPair "🎶", "♪"; // 音符を普通の♪に
     return;
 }
 
@@ -72,7 +71,7 @@ HmCustomStringEncorder:
         #r = dllfuncw( #NET, "CallMethod", $DLLPATH, "HmCustomStringEncoder", "Open");
 
         // ユーザー定義によるフォールバック時の変換規則を加える
-        call PushFallBackPairList;
+        call PushFallBackPairs;
 
         // 指定のコードで、Normalize(合成文字は１つにして)して表現してみる。ユーザー定義フォールバック変換も採用する
         $text = dllfuncstrw( #NET, "CallMethod", $DLLPATH, "HmCustomStringEncoder", "ToEncode", #ToEncodeCodePage, #DoNormalize );
