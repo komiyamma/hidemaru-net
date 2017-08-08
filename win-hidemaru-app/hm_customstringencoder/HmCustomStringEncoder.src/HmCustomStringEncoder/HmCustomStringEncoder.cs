@@ -108,7 +108,7 @@ internal class HmEncoderScalarValueFallbackBuffer : EncoderFallbackBuffer
 
 public class HmCustomStringEncoder
 {
-    // 順番を維持した方がよさそうなので、key, valueのリストで
+    // フォールバック時のユーザー定義の対処リスト
     public static Dictionary<string, string> map = new Dictionary<string, string>();
 
 
