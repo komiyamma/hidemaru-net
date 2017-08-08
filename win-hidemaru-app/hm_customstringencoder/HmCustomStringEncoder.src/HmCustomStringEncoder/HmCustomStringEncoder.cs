@@ -150,7 +150,7 @@ public class HmCustomStringEncoder
         map.Clear();
     }
 
-    public static String ToEncode(IntPtr code, IntPtr isNormalize)
+    public static String ToEncode(IntPtr code, IntPtr nNormalizeForm)
     {
         try
         {
@@ -158,20 +158,63 @@ public class HmCustomStringEncoder
             if ((Int32)(dynamic)Hm.Macro.Var["selecting"] == 1)
             {
                 text = Hm.Edit.SelectedText;
-            } else
+            }
+            else
             {
                 text = Hm.Edit.TotalText;
             }
 
             int lineCnt = text.Count(c => c == '\n');
-            if (lineCnt < 2) {
+            if (lineCnt < 2)
+            {
                 text += "\n\n";
             }
 
             String normalize_text = "";
-            if (isNormalize.ToInt32() == 1)
+
+            if (nNormalizeForm.ToInt32() == 2)
             {
                 normalize_text = text.Normalize();
+            }
+            else if (nNormalizeForm.ToInt32() == 1)
+            {
+                //TextElementEnumeratorを作成する
+                System.Globalization.TextElementEnumerator tee = System.Globalization.StringInfo.GetTextElementEnumerator(text);
+                //読み取る位置をテキストの先頭にする
+                tee.Reset();
+                //1文字ずつ取得する
+                while (tee.MoveNext())
+                {
+                    //1文字取得する
+                    string te = tee.GetTextElement();
+                    //1文字が2つ以上のCharから成る場合は、サロゲートペアか結合文字列と判断する
+                    if (te.Length > 1)
+                    {
+                        // ノーマライズしいて足す
+                        normalize_text += te.Normalize();
+
+                        /*
+                        //サロゲートペアか調べる
+                        if (te.Length == 2 && char.IsSurrogatePair(te, 0))
+                        {
+                            Console.WriteLine("サロゲートペア「{0}」が「{1}」の位置にあります。",
+                                te, tee.ElementIndex);
+                        }
+                        else
+                        {
+                            //サロゲートペアでない場合は結合文字列と判断する
+                            Console.WriteLine("結合文字列「{0}」が「{1}」の位置にあります。",
+                                te, tee.ElementIndex);
+                        }
+                        */
+                    }
+                    else
+                    {
+                        // 普通にたす
+                        normalize_text += te;
+                    }
+                }
+
             }
             else
             {
