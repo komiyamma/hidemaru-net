@@ -1,0 +1,115 @@
+﻿// HmCustomStringEncorder v1.0.0.1
+// Copyright (c) 2017 VSCode.life
+
+// --------------------------------------------------------------------------------
+// 各種パラメータの設定
+// --------------------------------------------------------------------------------
+ParameterSettings: 
+{
+    // 変換後のコードページ 
+    // (https://msdn.microsoft.com/ja-jp/library/aa288104(v=vs.71).aspx のコードページへの
+    //  変換とそのフォールバック検知に、原則「全て」対応している)
+    #ToEncodeCodePage = 932;
+
+    // 結合文字は、結合後の文字(正規化)してから判断する
+    #DoNormalize = true;
+}
+goto Main;
+
+
+// --------------------------------------------------------------------------------
+// フォールバック(変換出来ない文字への遭遇)の際に、どのような文字(列)へと再マッピングするかの定義
+// (指定のコードページへの変換時に、無事に変換出来る文字は、そもそもフォールバックが発生しないので、
+// 『ここで指定したとしても』対象とはならない」ので注意)
+// --------------------------------------------------------------------------------
+PushFallBackPairList:
+{
+    call PushFallBackPair "㉑",           "(21)";
+    call PushFallBackPair "\uD867\uDE3D", "ほっけ"; // 魚偏に花と書いてホッケ
+    call PushFallBackPair "♬",            "♪";     // 音符を普通の♪に
+    call PushFallBackPair "🎶",           "♪";     // 音符を普通の♪に
+    return;
+}
+
+
+// --------------------------------------------------------------------------------
+// 以上までが一般的なカスタムの範囲
+// --------------------------------------------------------------------------------
+
+
+
+
+
+// --------------------------------------------------------------------------------
+// ここから下を変更する場合、C#ソースも含め、ある程度は挙動を理解した上で変更のこと
+// --------------------------------------------------------------------------------
+
+HmCustomStringEncorder:
+{
+    // ORG
+    {
+        $DLLPATH = currentmacrodirectory + @"\HmCustomStringEncoder.dll";
+        #NET = loaddll( hidemarudir + @"\hm.NET.dll" ); // hm.NET.dllは自己管理型なので、freedllしないこと。
+
+        #r = dllfuncw( #NET, "CallMethod", $DLLPATH, "HmCustomStringEncoder", "Open" );
+
+        // まずは、現行最も広範囲に表現出来るUnicode系で、Normalize(合成文字は１つにして)して表現してみる
+        $text = dllfuncstrw( #NET, "CallMethod", $DLLPATH, "HmCustomStringEncoder", "ToEncode", 65001, #DoNormalize );
+
+        #r = dllfuncw( #NET, "CallMethod", $DLLPATH, "HmCustomStringEncoder", "Close" );
+
+        // １つめ控え
+        newfile;
+        insert $text;
+        #handle_src = hidemaruhandle(0);
+        clearupdated;
+    }
+
+    // DST
+    {
+        #NET = loaddll( hidemarudir + @"\hm.NET.dll" ); // hm.NET.dllは自己管理型なので、freedllしないこと。
+
+        #r = dllfuncw( #NET, "CallMethod", $DLLPATH, "HmCustomStringEncoder", "Open");
+
+        // ユーザー定義によるフォールバック時の変換規則を加える
+        call PushFallBackPairList;
+
+        // 指定のコードで、Normalize(合成文字は１つにして)して表現してみる。ユーザー定義フォールバック変換も採用する
+        $text = dllfuncstrw( #NET, "CallMethod", $DLLPATH, "HmCustomStringEncoder", "ToEncode", #ToEncodeCodePage, #DoNormalize );
+
+        #r = dllfuncw( #NET, "CallMethod", $DLLPATH, "HmCustomStringEncoder", "Close" );
+
+        // ２つめ控え
+        newfile;
+        title "HmCustomStringEncoderの結果", 3;
+        title -1, 3;
+        insert $text;
+        #handle_dst = hidemaruhandle(0);
+        clearupdated;
+    }
+
+    // COMPARE
+    {
+        // ２つの違いを出す。マーカー付き
+        compfile hidemaruorder(#handle_src), 1;
+        // １つ目は必要ないのでクローズ
+        closehidemaru hidemaruorder(#handle_src);
+    }
+
+    return;
+}
+
+
+PushFallBackPair: {
+    $$src = $$1;
+    $$dst = $$2;
+    // フォールバック(変換出来ない文字への遭遇)の際に、どのような文字へと再マッピングするかの定義
+    #r = dllfuncw( #NET, "CallMethod", $DLLPATH, "HmCustomStringEncoder", "PushFallBackPair", $$src, $$dst );
+    return;
+}
+
+
+Main: {
+    call HmCustomStringEncorder;
+    endmacro;
+}
