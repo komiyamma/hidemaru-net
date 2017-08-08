@@ -18,7 +18,6 @@ endmacro;
 // 自動起動マクロではない
 //-----------------------------------------------------------
 OnEvent_00:
-    
     return;
 //===========================================================
 
@@ -83,7 +82,7 @@ OnEvent_06:
 //-----------------------------------------------------------
 OnEvent_07:
     call OnPrev_FileClose;
-    
+
     return;
 //===========================================================
 
@@ -96,6 +95,14 @@ OnEvent_08:
     return;
 //===========================================================
 
+
+// 予備
+OnEvent_09:
+    return;
+
+// 予備
+OnEvent_10:
+    return;
 
 
 //===========================================================
@@ -116,10 +123,17 @@ OnPost_FileOpen:
 
     call HmLivePreview;
 
+    call HmTSIntelliSense;
+
+    call HmWebBrowserMode;
+
+    call HmChromeBrowserMode;
+
     return;
 
 //-----------------------------------------------------------
 OnPost_NewDocumentMake:
+
     return;
 
 //-----------------------------------------------------------
@@ -129,7 +143,9 @@ OnPost_WindowFocus:
 
     call HmLinkedTextPreview;
 
-	call HmAutoCompleteEx;
+    call HmAutoCompleteEx;
+
+    call HmTSIntelliSense;
 
     return;
 
@@ -139,6 +155,7 @@ OnPrev_FileSave:
 
 //-----------------------------------------------------------
 OnPost_FileSave:
+return;
 
     call MacFile_EncodeNormalize;
 
@@ -148,6 +165,7 @@ OnPost_FileSave:
 
 //-----------------------------------------------------------
 OnPrev_FileClose:
+
     return;
 
 
@@ -246,6 +264,34 @@ HmLivePreview:
     return;
 
 
+HmTSIntelliSense:
+
+    if( filetype == ".js" || filetype == ".ts" ) {
+        execmacro hidemarudir + @"\HmTSIntelliSense\HmTSHintPopup.mac";
+    }
+
+    return;
+
+HmWebBrowserMode:
+    if (filetype==".jpg" || filetype==".jpeg" || filetype==".bmp" || filetype==".png" || filetype==".gif" || filetype==".ico") {
+        // setencode 26, 0;
+        execmacro hidemarudir + @"\HmWebBrowserMode\HmWebBrowserMode.mac";
+    }
+    return;
+
+HmChromeBrowserMode:
+
+    if (filetype==".pdf") {
+        // setencode 26, 0;
+        execmacro hidemarudir + @"\HmChromeBrowserMode\\HmChromeBrowserMode.mac";
+    }
+    return;
+
+HmChromeBrowserMode:
+    execmacro hidemarudir + @"\HmChromeBrowserMode.mac";
+    return;
+
+
 HmOutputPane:
 
     $$message = $$1;
@@ -272,6 +318,7 @@ HmSharedOutputPane:
 
 
 HmLinkedTextPreview:
+    return;
 
     #HLTP = loaddll(hidemarudir + @"\HmLinkedTextPreview.dll");
     if (#HLTP) {
@@ -284,11 +331,13 @@ HmLinkedTextPreview:
 
 
 HmAutoCompleteEx:
+    return;
 
-    #HMACE = loaddll( hidemarudir + @"\HmAutoCompleteEx.dll" );
-    if (#HMACE) {
-        #_ = dllfuncw( #HMACE, "SetHidemaruHandle", hidemaruhandle(0), filename2 );
-        #_ = dllfuncw( #HMACE, "BindAutoCompleter", hidemarudir + "\\HmAutoCompleteExPerl.dll", "\\.pl$" );
+    if (filetype == ".pl") {
+        #HMACE = loaddll( hidemarudir + @"\HmAutoCompleteEx.dll" );
+        if (#HMACE) {
+            #_ = dllfuncw( #HMACE, "SetHidemaruHandle", hidemaruhandle(0), filename2 );
+            #_ = dllfuncw( #HMACE, "BindAutoCompleter", hidemarudir + "\\HmAutoCompleteExPerl.dll", "\\.pl$" );
+        }
     }
-
     return;
