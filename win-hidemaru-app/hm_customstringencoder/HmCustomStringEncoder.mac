@@ -27,6 +27,7 @@ PushFallBackPairs:
     call PushFallBackPair "\uD867\uDE3D", "ほっけ"; // 魚偏に花と書いてホッケ
     call PushFallBackPair "♬", "♪"; // 音符を普通の♪に
     call PushFallBackPair "🎶", "♪"; // 音符を普通の♪に
+    call PushFallBackPair "\u2049", "!?";
     return;
 }
 
@@ -99,7 +100,8 @@ HmCustomStringEncorder:
 }
 
 
-PushFallBackPair: {
+PushFallBackPair:
+{
     $$src = $$1;
     $$dst = $$2;
     // フォールバック(変換出来ない文字への遭遇)の際に、どのような文字へと再マッピングするかの定義
@@ -108,7 +110,8 @@ PushFallBackPair: {
 }
 
 
-Main: {
+Main:
+{
     call HmCustomStringEncorder;
     endmacro;
 }
