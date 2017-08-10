@@ -1,4 +1,4 @@
-﻿// HmCustomStringEncorder v1.0.0.1
+﻿// HmCustomStringEncorder v1.0.1.1
 // Copyright (c) 2017 VSCode.life
 
 // --------------------------------------------------------------------------------
@@ -46,7 +46,7 @@ PushFallBackPairs:
 
 HmCustomStringEncorder:
 {
-    // ORG
+    // SRC
     {
         $DLLPATH = currentmacrodirectory + @"\HmCustomStringEncoder.dll";
         #NET = loaddll( hidemarudir + @"\hm.NET.dll" ); // hm.NET.dllは自己管理型なので、freedllしないこと。

@@ -152,9 +152,9 @@ public class HmCustomStringEncoder
 
     public static String ToEncode(IntPtr code, IntPtr nNormalizeForm)
     {
+        String text = "";
         try
         {
-            String text = "";
             if ((Int32)(dynamic)Hm.Macro.Var["selecting"] == 1)
             {
                 text = Hm.Edit.SelectedText;
@@ -169,9 +169,16 @@ public class HmCustomStringEncoder
             {
                 text += "\n\n";
             }
+        }
+        catch (Exception ex0)
+        {
+            return ex0.GetType() + ":" + ex0.Message + "\n元のファイルにバイナリが混在していないかを確認してください。";
+        }
 
-            String normalize_text = "";
 
+        String normalize_text = "";
+        try
+        {
             if (nNormalizeForm.ToInt32() == 2)
             {
                 normalize_text = text.Normalize();
@@ -220,9 +227,14 @@ public class HmCustomStringEncoder
             {
                 normalize_text = text;
             }
+        }
+        catch (Exception ex1)
+        {
+            return ex1.GetType() + ":" + ex1.Message + "\n元のファイルにバイナリが混在していないかを確認してください。";
+        }
 
-            text = Hm.Edit.TotalText;
-
+        try
+        {
             // 独自に実装したフォールバックを指定してEncodingを取得
             var encode = Encoding.GetEncoding(code.ToInt32(), new HmEncoderScalarValueFallback(), DecoderFallback.ReplacementFallback);
 
@@ -231,9 +243,9 @@ public class HmCustomStringEncoder
             // 再び文字列に戻して
             return encode.GetString(bytes);
         }
-        catch (Exception ex)
+        catch (Exception ex2)
         {
-            return ex.GetType() + ":" + ex.Message + "\n指定の「#ToEncodeCodePage」の値等が正しいか、よく確認してください。";
+            return ex2.GetType() + ":" + ex2.Message + "\n指定の「#ToEncodeCodePage」の値等が正しいか、よく確認してください。";
         }
     }
 }
