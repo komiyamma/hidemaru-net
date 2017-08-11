@@ -14,7 +14,6 @@ namespace CefSharp
         public string DocumentText { get; set; }
         public void Dispose()
         {
-            DocumentText = "";
         }
 
         public void Visit(string str)
