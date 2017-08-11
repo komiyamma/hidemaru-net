@@ -185,6 +185,8 @@ public class HmCustomStringEncoder
             }
             else if (nNormalizeForm.ToInt32() == 1)
             {
+                StringBuilder sb = new StringBuilder(500 * 1024); // 500k程度をデフォルトとして確保
+
                 //TextElementEnumeratorを作成する
                 System.Globalization.TextElementEnumerator tee = System.Globalization.StringInfo.GetTextElementEnumerator(text);
                 //読み取る位置をテキストの先頭にする
@@ -197,8 +199,8 @@ public class HmCustomStringEncoder
                     //1文字が2つ以上のCharから成る場合は、サロゲートペアか結合文字列と判断する
                     if (te.Length > 1)
                     {
-                        // ノーマライズしいて足す
-                        normalize_text += te.Normalize();
+                        // ノーマライズして足す
+                        sb.Append(te.Normalize());
 
                         /*
                         //サロゲートペアか調べる
@@ -217,10 +219,12 @@ public class HmCustomStringEncoder
                     }
                     else
                     {
-                        // 普通にたす
-                        normalize_text += te;
+                        // 普通に足す
+                        sb.Append(te);
                     }
                 }
+
+                normalize_text = sb.ToString();
 
             }
             else
