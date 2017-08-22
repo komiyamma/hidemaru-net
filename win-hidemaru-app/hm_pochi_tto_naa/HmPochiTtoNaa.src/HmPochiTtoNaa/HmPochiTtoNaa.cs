@@ -148,6 +148,7 @@ namespace HmPochiTtoNaa
                 // クリア
                 dtl.list.Clear();
 
+                /*
                 Trace.WriteLine(d.key);
                 Trace.WriteLine(d.x);
                 Trace.WriteLine(d.y);
@@ -155,6 +156,7 @@ namespace HmPochiTtoNaa
                 Trace.WriteLine(d.hidemaruhandle);
                 Trace.WriteLine(d.filename2);
                 Trace.WriteLine(d.splitmode);
+                */
             }
             catch (Exception e)
             {
