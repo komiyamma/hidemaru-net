@@ -124,7 +124,8 @@ internal partial class HmChromeBrowserModeForm : Form
             var strStartFileName = Hm.Edit.FilePath ?? "";
             if (wb == null)
             {
-                if (!Cef.IsInitialized) { 
+                if (!Cef.IsInitialized)
+                {
                     var settings = new CefSharp.CefSettings();
 
                     // By default CEF uses an in memory cache, to save cached data e.g. passwords you need to specify a cache path
