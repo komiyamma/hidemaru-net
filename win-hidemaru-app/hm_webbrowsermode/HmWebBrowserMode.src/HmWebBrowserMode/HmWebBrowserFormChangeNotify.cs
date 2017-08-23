@@ -53,13 +53,13 @@ internal partial class HmWebBrowserModeForm : Form
     }
 
     // ここがTickごとに実行される
-    private bool Timer_Tick_Notify(String strCurFileName) { 
-        bool ret = _Timer_Tick_Notify(strCurFileName);
+    private bool TimerTick_Notify(String strCurFileName) { 
+        bool ret = _TimerTick_Notify(strCurFileName);
         cointinueData.hasData = false;
         return ret;
     }
 
-    private bool _Timer_Tick_Notify(String strCurFileName)
+    private bool _TimerTick_Notify(String strCurFileName)
     {
         // 要素が０なら比較対象が無いので加えるだけ
         if (listNotifyData.Count == 0)

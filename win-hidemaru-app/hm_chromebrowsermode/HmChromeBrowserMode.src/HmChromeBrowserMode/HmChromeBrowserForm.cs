@@ -1,11 +1,9 @@
-﻿using Hidemaru;
+﻿using CefSharp;
+using Hidemaru;
 using System;
 using System.Drawing;
-using System.IO;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using CefSharp;
 
 namespace CefSharp
 {
@@ -32,8 +30,6 @@ internal partial class HmChromeBrowserModeForm : Form
     private string wbUrl = "";
     private StringVisiterImplements sve = new StringVisiterImplements();
     private String fontname;
-    //    private Color tcolor;
-    //    private Button bt;
 
     public HmChromeBrowserModeForm(String fontname)
     {
@@ -41,10 +37,8 @@ internal partial class HmChromeBrowserModeForm : Form
         try
         {
             this.fontname = fontname;
-            //        this.tcolor = tcolor;
             SetFormAttr();
             SetWebBrowserAttr();
-            //        SetButtonAttr();
             SetTimerAttr();
         }
         catch (Exception e)
@@ -64,10 +58,6 @@ internal partial class HmChromeBrowserModeForm : Form
 
     private void SetFormAttr()
     {
-        /*
-        this.KeyPreview = true;
-        this.KeyDown += HmWebBrowserModeForm_KeyDown;
-        */
         this.Width = 1;
         this.Height = 1;
         this.BackColor = Color.White;
@@ -77,28 +67,6 @@ internal partial class HmChromeBrowserModeForm : Form
 
         SetFormNoBorderAttr();
     }
-
-    /*
-    private void HmWebBrowserModeForm_KeyDown(object sender, KeyEventArgs e)
-    {
-        //受け取ったキーを表示する
-        System.Diagnostics.Trace.WriteLine(e.KeyCode);
-    }
-    */
-
-    /*
-    private void SetButtonAttr()
-    {
-        bt = new Button();
-        bt.Width = 4;
-        bt.Height = 4;
-        bt.BackColor = tcolor;
-        bt.Left = 0;
-        bt.Top = 0;
-        bt.FlatStyle = FlatStyle.Flat;
-        this.Controls.Add(bt);
-    }
-    */
 
     public bool NextCommandMustClose { get; set; }
     private void form_FormClosing(object sender, FormClosingEventArgs e)
@@ -259,23 +227,6 @@ internal partial class HmChromeBrowserModeForm : Form
 
                 this.Height = rect.Bottom - rect.Top - border * 2;
 
-                /*
-                if (wb != null)
-                {
-                    wb.Left = 0;
-                    wb.Top = 0;
-                    wb.Width = this.Width;
-                    wb.Height = this.Height;
-                }
-                */
-
-                /*
-                if (bt != null)
-                {
-                    bt.Left = this.Width - 4;
-                    bt.Top = 0;
-                }
-                */
                 this.ResumeLayout();
             }
         }
@@ -313,84 +264,29 @@ internal partial class HmChromeBrowserModeForm : Form
 
             // ファイル名の変化をとらえ、終了を判断する
             String strCurFileName = Hm.Edit.FilePath ?? "";
-            bool s1 = Timer_Tick_Notify(strCurFileName);
+            bool s1 = TimerTick_Notify(strCurFileName);
             if (!s1)
             {
                 return;
             }
 
             // 表示しているUrlアドレス内容そのものに終了のシグナルがあれば
-            bool s2 = Timer_Tick_CloseFromUrl();
+            bool s2 = TimerTick_CloseFromUrl();
             if (!s2)
             {
                 return;
             }
 
-
-            // マウスの下のウィンドウが現在のプロセスではない
-            if (!IsUnderWindowIsCurrentProcessWindow())
+            bool s3 = IsFormHideCondition();
+            if (s3)
             {
                 HideForm();
                 return;
             }
-
-            // アクティブフォームが自分なら通過
-            if (Form.ActiveForm == this)
-            {
-
-            }
-            else
-            {
-                // 最前面ウィンドウが自分自身のメインウィンドウではない
-                if (!IsForegroundWindowIsHidemaruMainWindow())
-                {
-                    HideForm();
-                    return;
-                }
-
-                // アクティブウィンドウがよそにある
-                if (!IsActiveWindowIsHidemaruMainWindow())
-                {
-                    HideForm();
-                    return;
-                }
-            }
-
-            // 自分が先頭タブウィンドウではない
-            IntPtr hWnd = Hm.WindowHandle;
-            var list = GetWindowHidemaruHandleList();
-            if (list.Count > 0 && list[0] != hWnd)
-            {
-                HideForm();
-                return;
-            }
-
 
             ShowForm();
 
-            // ファイル名が有効ならば、それをWebBrowserでナビゲート
-            if (strCurFileName.Length > 0)
-            {
-                if (strPrevFileName != strCurFileName)
-                {
-                    strPrevFileName = strCurFileName;
-                    wb.Load(strCurFileName);
-                }
-            }
-
-            // 名前が無いのならテキスト内容をそのまま
-            else
-            {
-                var strCurTotalText = Hm.Edit.TotalText;
-                if (strPrevTotalText != strCurTotalText)
-                {
-                    strPrevTotalText = strCurTotalText;
-                    if (wb != null)
-                    {
-                        wb_LoadHtml(strCurTotalText);
-                    }
-                }
-            }
+            UpdateBrowserContent(strCurFileName);
         }
         catch (Exception ex)
         {
@@ -400,14 +296,78 @@ internal partial class HmChromeBrowserModeForm : Form
         }
     }
 
+    private bool IsFormHideCondition()
+    {
+        // マウスの下のウィンドウが現在のプロセスではない
+        if (!IsUnderWindowIsCurrentProcessWindow())
+        {
+            return true;
+        }
+
+        // アクティブフォームが自分なら通過
+        if (Form.ActiveForm == this)
+        {
+        }
+        else
+        {
+            // 最前面ウィンドウが自分自身のメインウィンドウではない
+            if (!IsForegroundWindowIsHidemaruMainWindow())
+            {
+                return true;
+            }
+
+            // アクティブウィンドウがよそにある
+            if (!IsActiveWindowIsHidemaruMainWindow())
+            {
+                return true;
+            }
+        }
+
+        // 自分が先頭タブウィンドウではない
+        IntPtr hWnd = Hm.WindowHandle;
+        var list = GetWindowHidemaruHandleList();
+        if (list.Count > 0 && list[0] != hWnd)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    private void UpdateBrowserContent(string strCurFileName)
+    {
+        // ファイル名が有効ならば、それをWebBrowserでナビゲート
+        if (strCurFileName.Length > 0)
+        {
+            if (strPrevFileName != strCurFileName)
+            {
+                strPrevFileName = strCurFileName;
+                wb.Load(strCurFileName);
+            }
+        }
+
+        // 名前が無いのならテキスト内容をそのまま
+        else
+        {
+            var strCurTotalText = Hm.Edit.TotalText;
+            if (strPrevTotalText != strCurTotalText)
+            {
+                strPrevTotalText = strCurTotalText;
+                if (wb != null)
+                {
+                    wb_LoadHtml(strCurTotalText);
+                }
+            }
+        }
+    }
+
     // 特定の文字列がURLに含まれていたら、HmWebBrowserModeを終了する。
-    bool Timer_Tick_CloseFromUrl()
+    bool TimerTick_CloseFromUrl()
     {
         if (wb != null)
         {
             if (wbUrl != null)
             {
-                // System.Diagnostics.Trace.WriteLine(wb.Url.ToString().ToLower());
                 if (wbUrl.ToString().ToLower().Contains("close_hmwebbrowsermode"))
                 {
                     this.isHideStop = true;
