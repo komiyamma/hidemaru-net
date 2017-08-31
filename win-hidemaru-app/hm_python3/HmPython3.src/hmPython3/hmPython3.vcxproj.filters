@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ヘッダー ファイル">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="秀丸デバッグモニター表示用">
+      <UniqueIdentifier>{75564118-c9c8-4cbb-bdb8-22df414478ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="このhmPython3.dll自身の情報">
+      <UniqueIdentifier>{a0a93ae2-3a17-4516-b637-5d1ceb17a7b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="秀丸マクロとのAPI Interface">
+      <UniqueIdentifier>{98303d1c-9b2d-4136-ac52-5f4a8fb5bf09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="秀丸本体のexeの関数やバージョン">
+      <UniqueIdentifier>{482488b0-1b22-46c8-976b-64c9c8e5def0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="文字列の相互変換 cp932⇔utf16⇔utf8">
+      <UniqueIdentifier>{196027b8-5768-4ce0-8191-1d494283737b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PythonEngineとのコネクト部分">
+      <UniqueIdentifier>{e64e8a4e-be74-4f37-a8e3-f7ed68ce0243}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="PythonEngine.cpp">
+      <Filter>PythonEngineとのコネクト部分</Filter>
+    </ClCompile>
+    <ClCompile Include="self_dll_info.cpp">
+      <Filter>このhmPython3.dll自身の情報</Filter>
+    </ClCompile>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>このhmPython3.dll自身の情報</Filter>
+    </ClCompile>
+    <ClCompile Include="output_debugstream.cpp">
+      <Filter>秀丸デバッグモニター表示用</Filter>
+    </ClCompile>
+    <ClCompile Include="dllfunc_interface.cpp">
+      <Filter>秀丸マクロとのAPI Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="dllfunc_interface_internal.cpp">
+      <Filter>秀丸マクロとのAPI Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="hidemaruexe_expot.cpp">
+      <Filter>秀丸本体のexeの関数やバージョン</Filter>
+    </ClCompile>
+    <ClCompile Include="convert_string.cpp">
+      <Filter>文字列の相互変換 cp932⇔utf16⇔utf8</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="PythonEngine.h">
+      <Filter>PythonEngineとのコネクト部分</Filter>
+    </ClInclude>
+    <ClInclude Include="self_dll_info.h">
+      <Filter>このhmPython3.dll自身の情報</Filter>
+    </ClInclude>
+    <ClInclude Include="output_debugstream.h">
+      <Filter>秀丸デバッグモニター表示用</Filter>
+    </ClInclude>
+    <ClInclude Include="dllfunc_interface.h">
+      <Filter>秀丸マクロとのAPI Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="dllfunc_interface_internal.h">
+      <Filter>秀丸マクロとのAPI Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="hidemaruexe_export.h">
+      <Filter>秀丸本体のexeの関数やバージョン</Filter>
+    </ClInclude>
+    <ClInclude Include="convert_string.h">
+      <Filter>文字列の相互変換 cp932⇔utf16⇔utf8</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="hmPython3.rc">
+      <Filter>リソース ファイル</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Release\hmPython3.dll" />
+  </ItemGroup>
+</Project>
