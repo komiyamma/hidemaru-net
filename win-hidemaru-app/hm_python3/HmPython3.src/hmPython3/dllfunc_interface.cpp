@@ -260,10 +260,8 @@ MACRO_DLL intHM_t DoString(const TCHAR *szexpression) {
 	}
 
 	string utf8_expression = utf16_to_utf8(szexpression);
-	char utf8_buffer[4096] = "";
 
-
-	PythonEngine::DoString();
+	PythonEngine::DoString(utf8_expression);
 
 	// 失敗したら0
 	return 0;

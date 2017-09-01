@@ -31,6 +31,8 @@ struct CSelfDllInfo {
 private:
 	static int iSelfBindedType;
 public:
+	static void InitializeHandle(HMODULE handle);
+
 	static int GetBindDllType();
 	static BOOL SetBindDllHandle();
 	static wstring GetInvocantString();

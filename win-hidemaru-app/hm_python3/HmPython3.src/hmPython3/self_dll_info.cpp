@@ -1,4 +1,5 @@
 #include <windows.h>
+#include <shlwapi.h>
 
 #include "self_dll_info.h"
 #include "hidemaruexe_export.h"
@@ -12,6 +13,13 @@ TCHAR CSelfDllInfo::szSelfModuleFullPath[MAX_PATH] = L"";
 TCHAR CSelfDllInfo::szSelfModuleDirPath[MAX_PATH] = L"";
 
 int CSelfDllInfo::iSelfBindedType = 0;
+
+void CSelfDllInfo::InitializeHandle(HMODULE hModule) {
+	CSelfDllInfo::hModule = hModule;
+	GetModuleFileName(hModule, CSelfDllInfo::szSelfModuleFullPath, _countof(CSelfDllInfo::szSelfModuleFullPath));
+	wcscpy_s(CSelfDllInfo::szSelfModuleDirPath, CSelfDllInfo::szSelfModuleFullPath);
+	PathRemoveFileSpec(CSelfDllInfo::szSelfModuleDirPath);
+}
 
 int CSelfDllInfo::GetBindDllType() {
 	return iSelfBindedType;

@@ -4,7 +4,7 @@
 namespace PythonEngine {
 
 	int Create();
-	int DoString();
+	int DoString(string utf8expressoin);
 	int Destroy();
 
 }

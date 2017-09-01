@@ -179,9 +179,6 @@
   <ItemGroup>
     <ResourceCompile Include="hmPython3.rc" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="..\Release\hmPython3.dll" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -85,7 +85,4 @@
       <Filter>リソース ファイル</Filter>
     </ResourceCompile>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="..\Release\hmPython3.dll" />
-  </ItemGroup>
 </Project>
