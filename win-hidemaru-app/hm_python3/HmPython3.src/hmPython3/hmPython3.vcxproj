@@ -163,15 +163,17 @@
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="hidemaruexe_expot.cpp" />
     <ClCompile Include="output_debugstream.cpp" />
+    <ClCompile Include="python_hidemaru_lib.cpp" />
     <ClCompile Include="self_dll_info.cpp" />
-    <ClCompile Include="PythonEngine.cpp" />
+    <ClCompile Include="python_engine.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="convert_string.h" />
     <ClInclude Include="dllfunc_interface.h" />
     <ClInclude Include="dllfunc_interface_internal.h" />
     <ClInclude Include="output_debugstream.h" />
-    <ClInclude Include="PythonEngine.h" />
+    <ClInclude Include="python_hidemaru_lib.h" />
+    <ClInclude Include="python_engine.h" />
     <ClInclude Include="hidemaruexe_export.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="self_dll_info.h" />

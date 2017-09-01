@@ -8,7 +8,7 @@
 #include "dllfunc_interface.h"
 #include "dllfunc_interface_internal.h"
 
-#include "PythonEngine.h"
+#include "python_engine.h"
 
 using namespace std;
 
