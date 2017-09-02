@@ -2,11 +2,17 @@
 #include "python_hidemaru_lib.h"
 
 
-static wchar_t* program = nullptr;
 namespace PythonEngine {
+
+	wchar_t* m_wszProgram = nullptr;
+	BOOL m_isValid = false;
+	BOOL IsValid() {
+		return m_isValid;
+	}
 
 	int Create()
 	{
+		m_isValid = FALSE;
 		wchar_t szHidemaruFullPath[MAX_PATH];
 		GetModuleFileName(NULL, szHidemaruFullPath, _countof(szHidemaruFullPath));
 
@@ -14,8 +20,8 @@ namespace PythonEngine {
 
 		try {
 			Py_SetPythonHome(python_home);
-			program = Py_DecodeLocale(utf16_to_utf8(szHidemaruFullPath).c_str(), nullptr);
-			if (program == nullptr) {
+			m_wszProgram = Py_DecodeLocale(utf16_to_utf8(szHidemaruFullPath).c_str(), nullptr);
+			if (m_wszProgram == nullptr) {
 				MessageBox(NULL, L"Fatal error: cannot decode", L"Fatal error: cannot decode", NULL);
 				fprintf(stderr, "Fatal error: cannot decode argv[0]\n");
 				return FALSE;
@@ -24,7 +30,7 @@ namespace PythonEngine {
 
 			PyImport_AppendInittab("hm", PyInit_hidemaru);
 
-			Py_SetProgramName(program);
+			Py_SetProgramName(m_wszProgram);
 
 			Py_Initialize();
 
@@ -37,6 +43,7 @@ namespace PythonEngine {
 				"def DestroyScope():\n"
 				"    pass");
 
+			m_isValid = TRUE;
 			return TRUE;
 		}
 		catch (py::error_already_set& e) {
@@ -45,6 +52,90 @@ namespace PythonEngine {
 
 		return FALSE;
 	}
+
+	intHM_t GetNumVar(wstring utf16_simbol) {
+		try {
+			auto global = py::dict(py::module::import("__main__").attr("__dict__"));
+			auto local = py::dict();
+
+			string utf8_simbol = utf16_to_utf8(utf16_simbol);
+			auto value = local[utf8_simbol.c_str()];
+
+			string utf8_value = py::str(value);
+			wstring utf16_value = utf8_to_utf16(utf8_value);
+
+			// 数字を数値にトライ。ダメなら0だよ。
+			intHM_t n = 0;
+			try {
+				n = (intHM_t)std::stol(utf16_value);
+			}
+			catch (...) {
+				n = 0;
+			}
+			return n;
+		}
+		catch (py::error_already_set& e) {
+			OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
+		}
+
+		return 0;
+	}
+
+	BOOL SetNumVar(wstring utf16_simbol, intHM_t value) {
+		try {
+			auto global = py::dict(py::module::import("__main__").attr("__dict__"));
+			auto local = py::dict();
+
+			string utf8_simbol = utf16_to_utf8(utf16_simbol);
+			local[utf8_simbol.c_str()] = value;
+
+			return TRUE;
+		}
+		catch (py::error_already_set& e) {
+			OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
+		}
+
+		return FALSE;
+	}
+
+	wstring GetStrVar(wstring utf16_simbol) {
+		try {
+			auto global = py::dict(py::module::import("__main__").attr("__dict__"));
+			auto local = py::dict();
+
+			string utf8_simbol = utf16_to_utf8(utf16_simbol);
+			auto value = local[utf8_simbol.c_str()];
+
+			string utf8_value = py::str(value);
+
+			wstring utf16_value = utf8_to_utf16(utf8_value);
+			return utf16_value;
+		}
+		catch (py::error_already_set& e) {
+			OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
+		}
+
+		return L"";
+	}
+
+	BOOL SetStrVar(wstring utf16_simbol, wstring utf16_value) {
+		try {
+			auto global = py::dict(py::module::import("__main__").attr("__dict__"));
+			auto local = py::dict();
+
+			string utf8_simbol = utf16_to_utf8(utf16_simbol);
+			string utf8_value = utf16_to_utf8(utf16_value);
+			local[utf8_simbol.c_str()] = utf8_value;
+
+			return TRUE;
+		}
+		catch (py::error_already_set& e) {
+			OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
+		}
+
+		return FALSE;
+	}
+
 
 	/*
 	int Test() {
@@ -77,11 +168,12 @@ namespace PythonEngine {
 	}
 	*/
 
-	int DoString(string utf8expression) {
+	int DoString(wstring utf16_expression) {
 
 		try {
 
-			py::eval<py::eval_statements>(utf8expression);
+			string utf8_expression = utf16_to_utf8(utf16_expression);
+			py::eval<py::eval_statements>(utf8_expression);
 
 			return TRUE;
 		}
@@ -95,7 +187,7 @@ namespace PythonEngine {
 
 	int Destroy() {
 
-		if (program) {
+		if (m_wszProgram) {
 
 			try {
 				auto global = py::dict(py::module::import("__main__").attr("__dict__"));
@@ -108,13 +200,15 @@ namespace PythonEngine {
 
 			try {
 				Py_Finalize();
-				PyMem_RawFree(program);
+				PyMem_RawFree(m_wszProgram);
 			}
 			catch (py::error_already_set& e) {
 				OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
 			}
 		}
-		program = nullptr;
+		m_wszProgram = nullptr;
+
+		m_isValid = FALSE;
 
 		return TRUE;
 	}
