@@ -46,37 +46,40 @@ namespace PythonEngine {
 		return FALSE;
 	}
 
+	/*
+	int Test() {
+		auto global = py::dict(py::module::import("__main__").attr("__dict__"));
+		auto local = py::dict();
+
+		local["x"] = 100;
+		py::eval<py::eval_single_statement>("y = 200", global, local);
+		py::eval("print('x + y =', x + y)", global, local); // x + y = 300
+		auto z = local["y"].cast<int>();
+		printf("%d", z);
+		OutputDebugString(std::to_wstring(z).data());
+
+		py::eval<py::eval_statements>("import random\nrandom.random()");
+		py::eval<py::eval_single_statement>(utf16_to_utf8(L"print('Ç†Ç†Ç†')"));
+		// Python Ç≈ä÷êîÇçÏê¨ (Name=Hoge, Job=Teacher)
+		py::eval<py::eval_statements>(
+		"def initialize_person(p):\n"
+		"   job = hm.Edit()\n"
+		"   job.name = 'Teacher'\n"
+		"   p.name = 'Hoge'\n"
+		"   p.job = job\n",
+		global);
+		{
+		auto person = std::make_shared<Hidemaru::Macro>();
+		global["initialize_person"](person);
+		std::cout << "Name : " << person->GetName() << "\n";           // Name : Hoge
+		std::cout << "Job  : " << person->GetJob()->GetName() << "\n"; // Job  : Teacher
+		}
+	}
+	*/
+
 	int DoString(string utf8expression) {
 
 		try {
-			/*
-			auto global = py::dict(py::module::import("__main__").attr("__dict__"));
-			auto local = py::dict();
-
-			local["x"] = 100;
-			py::eval<py::eval_single_statement>("y = 200", global, local);
-			py::eval("print('x + y =', x + y)", global, local); // x + y = 300
-			auto z = local["y"].cast<int>();
-			printf("%d", z);
-			OutputDebugString(std::to_wstring(z).data());
-
-			py::eval<py::eval_statements>("import random\nrandom.random()");
-			py::eval<py::eval_single_statement>(utf16_to_utf8(L"print('Ç†Ç†Ç†')"));
-			// Python Ç≈ä÷êîÇçÏê¨ (Name=Hoge, Job=Teacher)
-			py::eval<py::eval_statements>(
-				"def initialize_person(p):\n"
-				"   job = hm.Edit()\n"
-				"   job.name = 'Teacher'\n"
-				"   p.name = 'Hoge'\n"
-				"   p.job = job\n",
-				global);
-			{
-				auto person = std::make_shared<Hidemaru::Macro>();
-				global["initialize_person"](person);
-				std::cout << "Name : " << person->GetName() << "\n";           // Name : Hoge 
-				std::cout << "Job  : " << person->GetJob()->GetName() << "\n"; // Job  : Teacher
-			}
-			*/
 
 			py::eval<py::eval_statements>(utf8expression);
 
