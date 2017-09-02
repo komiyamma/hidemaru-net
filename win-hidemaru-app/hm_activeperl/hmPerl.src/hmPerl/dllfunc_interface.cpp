@@ -41,6 +41,9 @@ MACRO_DLL intHM_t GetNumVar(const TCHAR *sz_full_var_name) {
 		return 0;
 	}
 
+	// DoStringされる度にdllのBindの在り方を確認更新する。
+	CSelfDllInfo::SetBindDllHandle();
+
 	// 絶対に２文字は必要
 	if (_tcslen(sz_full_var_name) < 2) {
 		return 0;
@@ -87,6 +90,9 @@ MACRO_DLL intHM_t SetNumVar(const TCHAR *sz_full_var_name, intHM_t value) {
 	{
 		return 0;
 	}
+
+	// DoStringされる度にdllのBindの在り方を確認更新する。
+	CSelfDllInfo::SetBindDllHandle();
 
 	// 絶対に２文字は必要
 	if (_tcslen(sz_full_var_name) < 2) {
@@ -147,6 +153,9 @@ MACRO_DLL const TCHAR * GetStrVar(const TCHAR *sz_full_var_name) {
 		return 0;
 	}
 
+	// DoStringされる度にdllのBindの在り方を確認更新する。
+	CSelfDllInfo::SetBindDllHandle();
+
 	// 絶対に２文字は必要
 	if (_tcslen(sz_full_var_name) < 2) {
 		return 0;
@@ -188,6 +197,9 @@ MACRO_DLL intHM_t SetStrVar(const TCHAR *sz_full_var_name, const TCHAR *value) {
 	{
 		return 0;
 	}
+
+	// DoStringされる度にdllのBindの在り方を確認更新する。
+	CSelfDllInfo::SetBindDllHandle();
 
 	// 絶対に２文字は必要
 	if (_tcslen(sz_full_var_name) < 2) {
