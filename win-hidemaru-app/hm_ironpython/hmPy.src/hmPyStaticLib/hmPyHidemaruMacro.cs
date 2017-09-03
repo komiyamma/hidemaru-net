@@ -15,13 +15,37 @@ public sealed partial class hmPyDynamicLib
                 SetUnManagedDll();
             }
 
+            // マクロでの問い合わせ結果系
+            public interface IResult
+            {
+                int Result { get; }
+                String Message { get; }
+                Exception Error { get; }
+            }
+
+            // 問い合わせ結果系の実態。外から見えないように
+            private class TResult : IResult
+            {
+                public int Result { get; set; }
+                public string Message { get; set; }
+                public Exception Error { get; set; }
+
+                public TResult(int Result, String Message, Exception Error)
+                {
+                    this.Result = Result;
+                    this.Message = Message;
+                    this.Error = Error;
+                }
+            }
+
             // マクロ文字列の実行。複数行を一気に実行可能
-            public static int Eval(String cmd)
+            public static IResult Eval(String cmd)
             {
                 if (version < 866)
                 {
                     OutputDebugStream(ErrorMsg.MethodNeed866);
-                    return 0;
+                    TResult result = new TResult(0, "", new InvalidOperationException("HidemaruNeedVersionException"));
+                    return result;
                 }
 
                 int ret = 0;
@@ -33,7 +57,17 @@ public sealed partial class hmPyDynamicLib
                 {
                     OutputDebugStream(e.Message);
                 }
-                return ret;
+
+                if (ret == 0)
+                {
+                    TResult result = new TResult(ret, "", new InvalidOperationException("HidemaruMacroEvalException"));
+                    return result;
+                }
+                else
+                {
+                    TResult result = new TResult(ret, "", null);
+                    return result;
+                }
             }
 
 

@@ -17,6 +17,29 @@ public sealed partial class hmV8DynamicLib
 
             }
 
+            // マクロでの問い合わせ結果系
+            public interface IResult
+            {
+                int Result { get; }
+                String Message { get; }
+                Exception Error { get; }
+            }
+
+            // 問い合わせ結果系の実態。外から見えないように
+            private class TResult : IResult
+            {
+                public int Result { get; set; }
+                public string Message { get; set; }
+                public Exception Error { get; set; }
+
+                public TResult(int Result, String Message, Exception Error)
+                {
+                    this.Result = Result;
+                    this.Message = Message;
+                    this.Error = Error;
+                }
+            }
+
             // マクロ文字列の実行。複数行を一気に実行可能
             internal static int _Eval(String cmd)
             {
@@ -41,32 +64,55 @@ public sealed partial class hmV8DynamicLib
             // マクロ文字列の実行。複数行を一気に実行可能。
             // 文字列なら、そのまま、ぞれ以外なら、「engine.Script.R」の関数でヒアドキュメント化する。
             // function R(text){ で検索
-            public static int Eval(Object here_document)
+            public static IResult Eval(Object here_document)
             {
-                // 文字列で書いているようであれば、普通のEval代わりに使っている
-                if (here_document.GetType().Name == "String")
-                {
-                    return _Eval((String)here_document);
-                }
-
                 if (version < 866)
                 {
                     OutputDebugStream(ErrorMsg.MethodNeed866);
-                    return 0;
+                    TResult result = new TResult(0, "", new InvalidOperationException("HidemaruNeedVersionException"));
+                    return result;
                 }
 
-                String cmd = engine.Script.R(here_document);
+                // 文字列で書いているようであれば、普通のEval代わりに使っている
+                if (here_document.GetType().Name == "String")
+                {
+                    int _ret = _Eval((String)here_document);
 
-                int ret = 0;
-                try
-                {
-                    ret = pEvalMacro(cmd);
+                    if (_ret == 0)
+                    {
+                        TResult result = new TResult(_ret, "", new InvalidOperationException("HidemaruMacroEvalException"));
+                        return result;
+                    }
+                    else
+                    {
+                        TResult result = new TResult(_ret, "", null);
+                        return result;
+                    }
+                } else { 
+
+                    String cmd = engine.Script.R(here_document);
+
+                    int ret = 0;
+                    try
+                    {
+                        ret = pEvalMacro(cmd);
+                    }
+                    catch (Exception e)
+                    {
+                        OutputDebugStream(e.Message);
+                    }
+
+                    if (ret == 0)
+                    {
+                        TResult result = new TResult(ret, "", new InvalidOperationException("HidemaruMacroEvalException"));
+                        return result;
+                    }
+                    else
+                    {
+                        TResult result = new TResult(ret, "", null);
+                        return result;
+                    }
                 }
-                catch (Exception e)
-                {
-                    OutputDebugStream(e.Message);
-                }
-                return ret;
             }
 
             // __Varのプロキシを貼るためのショートカット

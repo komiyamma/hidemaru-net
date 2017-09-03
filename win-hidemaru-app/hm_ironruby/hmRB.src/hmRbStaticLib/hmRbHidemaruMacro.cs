@@ -16,11 +16,44 @@ public sealed partial class hmRbDynamicLib
                 SetUnManagedDll();
             }
 
+            // マクロでの問い合わせ結果系
+            public interface IResult
+            {
+                int Result { get; }
+                String Message { get; }
+                Exception Error { get; }
+            }
+
+            // 問い合わせ結果系の実態。外から見えないように
+            private class TResult : IResult
+            {
+                public int Result { get; set; }
+                public string Message { get; set; }
+                public Exception Error { get; set; }
+
+                public TResult(int Result, String Message, Exception Error)
+                {
+                    this.Result = Result;
+                    this.Message = Message;
+                    this.Error = Error;
+                }
+            }
+
             // マクロ文字列の実行。複数行を一気に実行可能
             // [EXPORT Eval]
-            public int Eval(String cmd)
+            public IResult Eval(String cmd)
             {
-                return EvalMacro(cmd);
+                int ret = EvalMacro(cmd);
+                if (ret == 0)
+                {
+                    TResult result = new TResult(ret, "", new InvalidOperationException("HidemaruMacroEvalException"));
+                    return result;
+                }
+                else
+                {
+                    TResult result = new TResult(ret, "", null);
+                    return result;
+                }
             }
 
             internal static int EvalMacro(String cmd)
