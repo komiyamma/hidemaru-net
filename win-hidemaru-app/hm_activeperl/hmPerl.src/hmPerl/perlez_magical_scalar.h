@@ -7,6 +7,7 @@
 #define szMagicalVarMacroVarSimbol   "hm_Macro_Var_Simbol"
 #define szMagicalVarMacroVarValue    "hm_Macro_Var_Value"
 #define szMagicalVarMacroEval		 "hm_Macro_Eval"
+#define szMagicalVarMacroEvalResult	 "hm_Macro_Eval_Result"
 #define szMagicalVarEditTotalText	 "hm_Edit_TotalText"
 #define szMagicalVarEditSelectedText "hm_Edit_SelectedText"
 #define szMagicalVarEditLineText     "hm_Edit_LineText"

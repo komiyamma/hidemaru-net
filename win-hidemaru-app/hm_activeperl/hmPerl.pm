@@ -1,6 +1,6 @@
 ﻿#--------------------------------------------------------------
-# hmPerl 1.3.0.1用 カスタムファイル
-#                 ActivePerl x86版 v5.10.0.1004 ～ v5.24.1.2402
+# hmPerl 1.5.3.1用 カスタムファイル
+#                 ActivePerl x86版 v5.10 ～ v5.24
 #--------------------------------------------------------------
 
 
@@ -85,6 +85,12 @@ sub Macro {
         sub Eval {
             my ($self, $expression) = @_;
             $::hm_Macro_Eval = $expression;
+            my $last_error_msg = $::hm_Macro_Eval_Result;
+            if ($last_error_msg) {
+                return {'Result'=>0, 'Message'=>"", 'Error'=>"HidemaruMacroEvalException" };
+            } else {
+                return {'Result'=>1, 'Message'=>"", 'Error'=>"" };
+            }
         }
 
         sub Var {

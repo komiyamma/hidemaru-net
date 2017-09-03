@@ -15,6 +15,8 @@ wstring CPerlEzMagicalScalar::stocked_macro_var_simbol = L"";
 // LPCSTRを返すので実体を残すため、必ず、utf8_getvarofreturn.data()をリターンする。
 string CPerlEzMagicalScalar::utf8_getvarofreturn = "";
 
+extern string utf8_lastEvalResult = "";
+
 LPCSTR CPerlEzMagicalScalar::GetHmComposedMagicScalarFunctions(LPVOID obj, LPCSTR p_utf8_SelfName)
 {
 	utf8_getvarofreturn.clear();
@@ -42,6 +44,13 @@ LPCSTR CPerlEzMagicalScalar::GetHmComposedMagicScalarFunctions(LPVOID obj, LPCST
 	// hm->Macro->Var(...)へと読み取りの場合
 	else if (utf8_SelfName == szMagicalVarMacroVarSimbol) {
 		utf8_getvarofreturn = Hm::Macro::Get::VarSimbol();
+	}
+
+	// hm->Macro->Evalの結果
+	else if (utf8_SelfName == szMagicalVarMacroEvalResult) {
+		string ret = utf8_lastEvalResult;
+		utf8_lastEvalResult.clear();
+		utf8_getvarofreturn = ret;
 	}
 
 	return utf8_getvarofreturn.data();
@@ -117,7 +126,16 @@ LPCSTR CPerlEzMagicalScalar::SetHmComposedMagicScalarFunctions(LPVOID obj, LPCST
 
 	// hm->Macro->Eval(...)を実行
 	else if (utf8_SelfName == szMagicalVarMacroEval) {
+		// 結果のクリア
+		utf8_lastEvalResult.clear();
+
 		int ret = CPerlEzMagicalScalar::Hm::Macro::Eval(utf16_value);
+		if (ret) {
+			utf8_lastEvalResult = "";
+		}
+		else {
+			utf8_lastEvalResult = "HidemaruMacroEvalException";
+		}
 		return ret ? p_utf8_Value : "";
 	}
 
@@ -270,6 +288,7 @@ void CPerlEzMagicalScalar::BindMagicalScalarFunctions(CPerlEzEngine* module) {
 		szMagicalVarEditCursorPos,
 		szMagicalVarEditCursorPosFromMousePos,
 		szMagicalVarMacroEval,
+		szMagicalVarMacroEvalResult,
 		szMagicalVarMacroVarSimbol,
 		szMagicalVarMacroVarValue
 	};
