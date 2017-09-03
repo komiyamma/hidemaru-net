@@ -9,8 +9,8 @@ using namespace std;
 //========================================================================
 /// 他のファイルから見ているためのextern。実際は.cppの方をみてね
 //========================================================================
-MACRO_DLL const TCHAR * PopStrVar();
-MACRO_DLL intHM_t PushStrVar(const TCHAR *sz_tmp_str);
+MACRO_DLL const wchar_t * PopStrVar();
+MACRO_DLL intHM_t PushStrVar(const wchar_t *sz_tmp_str);
 MACRO_DLL intHM_t PopNumVar();
 MACRO_DLL intHM_t PushNumVar(intHM_t i_tmp_num);
 

@@ -18,5 +18,7 @@ namespace PythonEngine {
 
 	wstring GetStrVar(wstring utf16_simbol);
 	BOOL SetStrVar(wstring utf16_simbol, wstring utf16_value);
+
+	wstring GetPythonPath();
 }
 

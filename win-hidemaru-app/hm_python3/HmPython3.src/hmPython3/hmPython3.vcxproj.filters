@@ -30,6 +30,12 @@
     <Filter Include="PythonEngine用の秀丸関連ライブラリ">
       <UniqueIdentifier>{dee4b69b-e0d7-4948-8dfb-e875ef18192c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="TinyXML">
+      <UniqueIdentifier>{f135d712-f5e4-41c7-96ad-e28ae086ec3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PythonEngineのパス">
+      <UniqueIdentifier>{1cbade8e-2c39-4f9e-a914-5733cddab77f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="self_dll_info.cpp">
@@ -59,6 +65,21 @@
     <ClCompile Include="python_hidemaru_lib.cpp">
       <Filter>PythonEngine用の秀丸関連ライブラリ</Filter>
     </ClCompile>
+    <ClCompile Include="tinystr.cpp">
+      <Filter>TinyXML</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyxml.cpp">
+      <Filter>TinyXML</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyxmlerror.cpp">
+      <Filter>TinyXML</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyxmlparser.cpp">
+      <Filter>TinyXML</Filter>
+    </ClCompile>
+    <ClCompile Include="python_engine_path.cpp">
+      <Filter>PythonEngineのパス</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="self_dll_info.h">
@@ -87,6 +108,12 @@
     </ClInclude>
     <ClInclude Include="python_hidemaru_lib.h">
       <Filter>PythonEngine用の秀丸関連ライブラリ</Filter>
+    </ClInclude>
+    <ClInclude Include="tinystr.h">
+      <Filter>TinyXML</Filter>
+    </ClInclude>
+    <ClInclude Include="tinyxml.h">
+      <Filter>TinyXML</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

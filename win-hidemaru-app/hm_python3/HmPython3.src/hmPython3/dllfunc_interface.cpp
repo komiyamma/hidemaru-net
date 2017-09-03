@@ -29,7 +29,7 @@ static int CreateScope() {
 
 
 //------------------------------------------------------------------------------------
-MACRO_DLL intHM_t GetNumVar(const TCHAR *utf16_simbol) {
+MACRO_DLL intHM_t GetNumVar(const wchar_t *utf16_simbol) {
 	if (CreateScope() == 0)
 	{
 		return 0;
@@ -42,7 +42,7 @@ MACRO_DLL intHM_t GetNumVar(const TCHAR *utf16_simbol) {
 	return r;
 }
 
-MACRO_DLL intHM_t SetNumVar(const TCHAR *utf16_simbol, intHM_t value) {
+MACRO_DLL intHM_t SetNumVar(const wchar_t *utf16_simbol, intHM_t value) {
 	if (CreateScope() == 0)
 	{
 		return 0;
@@ -57,7 +57,7 @@ MACRO_DLL intHM_t SetNumVar(const TCHAR *utf16_simbol, intHM_t value) {
 
 // 秀丸のキャッシュのため
 static wstring strvars;
-MACRO_DLL const TCHAR * GetStrVar(const TCHAR *utf16_simbol) {
+MACRO_DLL const wchar_t * GetStrVar(const wchar_t *utf16_simbol) {
 	// クリア必須
 	strvars.clear();
 
@@ -68,12 +68,12 @@ MACRO_DLL const TCHAR * GetStrVar(const TCHAR *utf16_simbol) {
 
 	CSelfDllInfo::SetBindDllHandle();
 
-	wstring strvars = PythonEngine::GetStrVar(utf16_simbol);
+	strvars = PythonEngine::GetStrVar(utf16_simbol);
 
 	return strvars.c_str();
 }
 
-MACRO_DLL intHM_t SetStrVar(const TCHAR *utf16_simbol, const TCHAR *utf16_value) {
+MACRO_DLL intHM_t SetStrVar(const wchar_t *utf16_simbol, const wchar_t *utf16_value) {
 	if (CreateScope() == 0)
 	{
 		return 0;
@@ -86,7 +86,7 @@ MACRO_DLL intHM_t SetStrVar(const TCHAR *utf16_simbol, const TCHAR *utf16_value)
 	return (intHM_t)r;
 }
 
-MACRO_DLL intHM_t DoString(const TCHAR *utf16_expression) {
+MACRO_DLL intHM_t DoString(const wchar_t *utf16_expression) {
 	if (CreateScope() == 0)
 	{
 		return 0;

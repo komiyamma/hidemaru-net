@@ -17,9 +17,9 @@ struct CSelfDllInfo {
 
 	//-------------------------------------------------------------------------
 	// 自分自身(hmPerl.dll)のフルパス
-	static TCHAR szSelfModuleFullPath[MAX_PATH];
+	static wchar_t szSelfModuleFullPath[MAX_PATH];
 
-	static TCHAR szSelfModuleDirPath[MAX_PATH];
+	static wchar_t szSelfModuleDirPath[MAX_PATH];
 
 	//-------------------------------------------------------------------------
 	// このdllが秀丸マクロからどのような形でloaddllされたのかの情報。

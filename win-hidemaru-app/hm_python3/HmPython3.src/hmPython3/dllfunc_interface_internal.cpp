@@ -44,12 +44,12 @@ MACRO_DLL intHM_t PushNumVar(intHM_t i_tmp_num) {
 
 // スタックした変数を秀丸マクロから取り出す。内部処理用
 static wstring popstrvar;
-MACRO_DLL const TCHAR * PopStrVar() {
+MACRO_DLL const wchar_t * PopStrVar() {
 	return popstrvar.data();
 }
 
 // 変数を秀丸マクロから取り出すためにスタック。内部処理用
-MACRO_DLL intHM_t PushStrVar(const TCHAR *sz_tmp_str) {
+MACRO_DLL intHM_t PushStrVar(const wchar_t *sz_tmp_str) {
 	popstrvar = sz_tmp_str;
 	return 1;
 }

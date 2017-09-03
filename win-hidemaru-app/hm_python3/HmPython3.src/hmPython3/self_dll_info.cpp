@@ -9,8 +9,8 @@
 
 HMODULE CSelfDllInfo::hModule = NULL;
 
-TCHAR CSelfDllInfo::szSelfModuleFullPath[MAX_PATH] = L"";
-TCHAR CSelfDllInfo::szSelfModuleDirPath[MAX_PATH] = L"";
+wchar_t CSelfDllInfo::szSelfModuleFullPath[MAX_PATH] = L"";
+wchar_t CSelfDllInfo::szSelfModuleDirPath[MAX_PATH] = L"";
 
 int CSelfDllInfo::iSelfBindedType = 0;
 

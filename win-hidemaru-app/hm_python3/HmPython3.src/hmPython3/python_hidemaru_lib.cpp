@@ -1,15 +1,17 @@
 
 #include "python_hidemaru_lib.h"
+#include "pybind11.h"
 
+using namespace pybind11::literals;
 
 namespace Hidemaru {
 
-	double version() {
+	double GetVersion() {
 		return CHidemaruExeExport::hm_version;
 	}
 
 	// オブジェクトとして捉え、文字列に変換して出力
-	void debuginfo(const py::object message) {
+	void DebugInfo(const py::object message) {
 		auto str = py::str(message);
 		OutputDebugStream(utf8_to_utf16(str));
 	}
@@ -82,6 +84,15 @@ namespace Hidemaru {
 		return success;
 	}
 
+	py::tuple Edit_GetCursorPos() {
+		auto ret = CHidemaruExeExport::GetCursorPos();
+		return py::make_tuple(ret.lineno, ret.column);
+	}
+
+	py::tuple Edit_GetCursorPosFromMousePos() {
+		auto ret = CHidemaruExeExport::GetCursorPosFromMousePos();
+		return py::make_tuple(ret.lineno, ret.column, ret.x, ret.y);
+	}
 
 	py::object Macro_GetVar(const std::string utf8_simbol) {
 
@@ -146,17 +157,19 @@ namespace Hidemaru {
 		return success;
 	}
 
-	BOOL Macro_Eval(const std::string utf8_expression) {
+	py::tuple Macro_Eval(const std::string utf8_expression) {
 		wstring utf16_expression = utf8_to_utf16(utf8_expression);
 
 		BOOL success = CHidemaruExeExport::EvalMacro(utf16_expression);
 		if (success) {
-			return TRUE;
+			return py::make_tuple(success, "", "");
 		}
-		OutputDebugStream(L"マクロの実行に失敗しました。\n");
-		OutputDebugStream(L"マクロ内容:\n");
-		OutputDebugStream(utf16_expression);
-		return FALSE;
+		else {
+			OutputDebugStream(L"マクロの実行に失敗しました。\n");
+			OutputDebugStream(L"マクロ内容:\n");
+			OutputDebugStream(utf16_expression);
+			return py::make_tuple( success, "", "HidemaruMacroEvalException");
+		}
 	}
 
 #pragma region
@@ -202,23 +215,42 @@ namespace Hidemaru {
 #pragma endregion 
 }
 
+class hm {
+	string m_name;
+public:
+
+	static double GetVersion() {
+		return CHidemaruExeExport::hm_version;
+	}
+
+	// オブジェクトとして捉え、文字列に変換して出力
+	static void DebugInfo(const py::object message) {
+		auto str = py::str(message);
+		OutputDebugStream(utf8_to_utf16(str));
+	}
+};
+
 PyMODINIT_FUNC PyInit_hidemaru() {
-	py::module m("hm", "Hidemaru python module.");
+	py::module m("hidemaru", "Hidemaru python module.");
 
-	m.def("version", &Hidemaru::version);
-	m.def("debuginfo", &Hidemaru::debuginfo);
+	m.def("get_version", &Hidemaru::GetVersion);
+	m.def("debug_info", &Hidemaru::DebugInfo);
 
-	m.def("Edit_GetTotalText", &Hidemaru::Edit_GetTotalText);
-	m.def("Edit_SetTotalText", &Hidemaru::Edit_SetTotalText);
-	m.def("Edit_GetSelectedText", &Hidemaru::Edit_GetSelectedText);
-	m.def("Edit_SetSelectedText", &Hidemaru::Edit_SetSelectedText);
-	m.def("Edit_GetLineText", &Hidemaru::Edit_GetLineText);
-	m.def("Edit_SetLineText", &Hidemaru::Edit_SetLineText);
+	py::module edit = m.def_submodule("edit", "Hidemaru Edit python module");
+	edit.def("get_totaltext", &Hidemaru::Edit_GetTotalText);
+	edit.def("set_totaltext", &Hidemaru::Edit_SetTotalText);
+	edit.def("get_selectedtext", &Hidemaru::Edit_GetSelectedText);
+	edit.def("set_selectedtext", &Hidemaru::Edit_SetSelectedText);
+	edit.def("get_linetext", &Hidemaru::Edit_GetLineText);
+	edit.def("set_linetext", &Hidemaru::Edit_SetLineText);
 
-	m.def("Macro_GetVar", &Hidemaru::Macro_GetVar);
-	m.def("Macro_SetVar", &Hidemaru::Macro_SetVar);
+	edit.def("get_cursorpos", &Hidemaru::Edit_GetCursorPos);
+	edit.def("get_mousepos", &Hidemaru::Edit_GetCursorPosFromMousePos);
 
-	m.def("Macro_Eval", &Hidemaru::Macro_Eval);
+	py::module macro = m.def_submodule("macro", "Hidemaru Macro python module");
+	macro.def("get_var", &Hidemaru::Macro_GetVar);
+	macro.def("set_var", &Hidemaru::Macro_SetVar);
+	macro.def("do_eval", &Hidemaru::Macro_Eval);
 
 #pragma region
 	/*

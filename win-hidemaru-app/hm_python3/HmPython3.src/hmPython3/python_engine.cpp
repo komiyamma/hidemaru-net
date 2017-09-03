@@ -1,6 +1,6 @@
 
 #include "python_hidemaru_lib.h"
-
+#include "python_engine.h"
 
 namespace PythonEngine {
 
@@ -16,10 +16,10 @@ namespace PythonEngine {
 		wchar_t szHidemaruFullPath[MAX_PATH];
 		GetModuleFileName(NULL, szHidemaruFullPath, _countof(szHidemaruFullPath));
 
-		wchar_t python_home[] = LR"(c:\usr\cpython3)";
+		wstring python_home = GetPythonPath();
 
 		try {
-			Py_SetPythonHome(python_home);
+			Py_SetPythonHome((wchar_t *)python_home.data());
 			m_wszProgram = Py_DecodeLocale(utf16_to_utf8(szHidemaruFullPath).c_str(), nullptr);
 			if (m_wszProgram == nullptr) {
 				MessageBox(NULL, L"Fatal error: cannot decode", L"Fatal error: cannot decode", NULL);
@@ -28,15 +28,15 @@ namespace PythonEngine {
 				// exit(1);
 			}
 
-			PyImport_AppendInittab("hm", PyInit_hidemaru);
+			PyImport_AppendInittab("hidemaru", PyInit_hidemaru);
 
 			Py_SetProgramName(m_wszProgram);
 
 			Py_Initialize();
 
-			//	py::module::import("hm");
+			//	py::module::import("hidemaru");
 			py::eval<py::eval_single_statement>("import sys");
-			py::eval<py::eval_single_statement>("import hm");
+			py::eval<py::eval_single_statement>("import hidemaru");
 			py::eval<py::eval_single_statement>("sys.dont_write_bytecode = True");
 			auto global = py::dict(py::module::import("__main__").attr("__dict__"));
 			py::eval<py::eval_statements>(
@@ -59,7 +59,7 @@ namespace PythonEngine {
 			auto local = py::dict();
 
 			string utf8_simbol = utf16_to_utf8(utf16_simbol);
-			auto value = local[utf8_simbol.c_str()];
+			auto value = global[utf8_simbol.c_str()];
 
 			string utf8_value = py::str(value);
 			wstring utf16_value = utf8_to_utf16(utf8_value);
@@ -87,7 +87,7 @@ namespace PythonEngine {
 			auto local = py::dict();
 
 			string utf8_simbol = utf16_to_utf8(utf16_simbol);
-			local[utf8_simbol.c_str()] = value;
+			global[utf8_simbol.c_str()] = value;
 
 			return TRUE;
 		}
@@ -104,7 +104,7 @@ namespace PythonEngine {
 			auto local = py::dict();
 
 			string utf8_simbol = utf16_to_utf8(utf16_simbol);
-			auto value = local[utf8_simbol.c_str()];
+			auto value = global[utf8_simbol.c_str()];
 
 			string utf8_value = py::str(value);
 
@@ -125,7 +125,7 @@ namespace PythonEngine {
 
 			string utf8_simbol = utf16_to_utf8(utf16_simbol);
 			string utf8_value = utf16_to_utf8(utf16_value);
-			local[utf8_simbol.c_str()] = utf8_value;
+			global[utf8_simbol.c_str()] = utf8_value;
 
 			return TRUE;
 		}

@@ -6,7 +6,7 @@
 #pragma comment(lib, "version.lib")
 
 HMODULE CHidemaruExeExport::hHideExeHandle = NULL;
-TCHAR CHidemaruExeExport::szHidemaruFullPath[MAX_PATH] = L"";
+wchar_t CHidemaruExeExport::szHidemaruFullPath[MAX_PATH] = L"";
 
 CHidemaruExeExport::PFNGetDllFuncCalledType CHidemaruExeExport::Hidemaru_GetDllFuncCalledType = NULL;
 CHidemaruExeExport::PFNGetTotalTextUnicode CHidemaruExeExport::Hidemaru_GetTotalTextUnicode = NULL;
@@ -17,7 +17,7 @@ CHidemaruExeExport::PFNGetCursorPosUnicodeFromMousePos CHidemaruExeExport::Hidem
 CHidemaruExeExport::PFNEvalMacro CHidemaruExeExport::Hidemaru_EvalMacro = NULL;
 
 double CHidemaruExeExport::hm_version = 0;
-double CHidemaruExeExport::QueryFileVersion(TCHAR* path){
+double CHidemaruExeExport::QueryFileVersion(wchar_t* path){
 	VS_FIXEDFILEINFO* v;
 	DWORD dwZero = 0;
 	UINT len;

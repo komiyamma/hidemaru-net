@@ -13,7 +13,7 @@
 //========================================================================
 /// 他のファイルから見ているためのextern。実際は.cppの方をみてね
 //========================================================================
-MACRO_DLL intHM_t GetNumVar(const TCHAR *sz_full_var_name);
-MACRO_DLL intHM_t SetNumVar(const TCHAR *sz_full_var_name, intHM_t value);
-MACRO_DLL const TCHAR * GetStrVar(const TCHAR *sz_full_var_name);
-MACRO_DLL intHM_t SetStrVar(const TCHAR *sz_full_var_name, const TCHAR *value);
+MACRO_DLL intHM_t GetNumVar(const wchar_t *utf16_simbol);
+MACRO_DLL intHM_t SetNumVar(const wchar_t *utf16_simbol, intHM_t value);
+MACRO_DLL const wchar_t * GetStrVar(const wchar_t *utf16_simbol);
+MACRO_DLL intHM_t SetStrVar(const wchar_t *utf16_simbol, const wchar_t *utf16_value);

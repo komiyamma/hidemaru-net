@@ -8,7 +8,7 @@ using namespace std;
 class CHidemaruExeExport {
 private:
 	static HMODULE hHideExeHandle;
-	static TCHAR szHidemaruFullPath[MAX_PATH];
+	static wchar_t szHidemaruFullPath[MAX_PATH];
 
 public:
 	//========================================================================
@@ -18,7 +18,7 @@ public:
 	//========================================================================
 	static double hm_version;
 private:
-	static double QueryFileVersion(TCHAR* path);
+	static double QueryFileVersion(wchar_t* path);
 
 public:
 	//========================================================================
