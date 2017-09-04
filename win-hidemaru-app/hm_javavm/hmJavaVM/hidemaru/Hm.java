@@ -24,7 +24,6 @@ public class Hm {
 
 	protected static native void DebugInfo(String expression);
 	protected static native long GetWindowHandle();
-	protected static native void SetWindowHandle(long hWndHidemaru);
 
 	protected static native int EvalMacro(String message);
 
