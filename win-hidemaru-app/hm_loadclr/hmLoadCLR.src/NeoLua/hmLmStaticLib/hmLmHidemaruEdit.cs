@@ -67,7 +67,7 @@ public sealed partial class hmLmDynamicLib
             }
 
             [StructLayout(LayoutKind.Sequential)]
-            protected struct POINT
+            private struct POINT
             {
                 public int X;
                 public int Y;
