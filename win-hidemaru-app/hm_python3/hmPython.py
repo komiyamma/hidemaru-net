@@ -69,10 +69,9 @@ class _TEdit:
         return _TEdit._TMousePos(lineno, column, x, y)
 
     # マウスの位置に対応するカーソルの情報。
-    # linenoとcolumn（マクロのlinenoとcolumnと同じ値）  xとyは、win32 apiのマウス位置情報と同じ
+    # linenoとcolumn（マクロのlinenoとcolumnと同じ値） xとyは、win32 apiのマウス位置情報と同じ
     MousePos = property(__GetMousePos)
     #--------------------------------------------------
-
 
 
 class _TMacro:
@@ -85,11 +84,11 @@ class _TMacro:
         秀丸マクロ関連のうち、マクロシンボル（マクロ変数）を扱うクラス
         """
 
-       def __getitem__(self, varname):
-           return hidemaru.macro.get_var(varname)
+        def __getitem__(self, varname):
+            return hidemaru.macro.get_var(varname)
 
-       def __setitem__(self, varname, value):
-           return hidemaru.macro.set_var(varname, value)
+        def __setitem__(self, varname, value):
+            return hidemaru.macro.set_var(varname, value)
     #--------------------------------------------------
 
     #--------------------------------------------------
@@ -109,7 +108,7 @@ class _TMacro:
 
     #--------------------------------------------------
     def __init__(self):
-        self.Var  = _TMacro._TVar()
+        self.Var = _TMacro._TVar()
     #--------------------------------------------------
 
     #--------------------------------------------------
@@ -121,14 +120,13 @@ class _TMacro:
     #--------------------------------------------------
 
 
-
 class _THidemaru:
     """
     特定のカテゴリに所属しないようなもの
     """
     #--------------------------------------------------
     def __init__(self):
-        self.Edit  = _TEdit()
+        self.Edit = _TEdit()
         self.Macro = _TMacro()
     #--------------------------------------------------
 
@@ -147,7 +145,6 @@ class _THidemaru:
     # 正式版だと、866.99 のように「99」となる。
     version = property(__GetVersion)
     #--------------------------------------------------
-
 
 
 hm = _THidemaru()
