@@ -4,47 +4,57 @@
 
 namespace PythonEngine {
 
-	wchar_t* m_wszProgram = nullptr;
+	// エンジンが有効になった
 	BOOL m_isValid = false;
+	// 秀丸の名前格納
+	wchar_t *m_wstr_program = NULL;
+
 	BOOL IsValid() {
 		return m_isValid;
 	}
 
+	// エンジン生成
 	int Create()
 	{
 		m_isValid = FALSE;
-		wchar_t szHidemaruFullPath[MAX_PATH];
-		GetModuleFileName(NULL, szHidemaruFullPath, _countof(szHidemaruFullPath));
 
+		// XMLの設定に従ってPythonのパスを取得
 		wstring python_home = GetPythonPath();
 		if (python_home.size() == 0) {
 			return FALSE;
 		}
 
 		try {
-			Py_SetPythonHome((wchar_t *)python_home.data());
-			m_wszProgram = Py_DecodeLocale(utf16_to_utf8(szHidemaruFullPath).c_str(), nullptr);
-			if (m_wszProgram == nullptr) {
-				MessageBox(NULL, L"致命的エラー: 秀丸自身のフルパス名を解釈出来ません", L"致命的エラー: 秀丸自身のフルパス名を解釈出来ません", NULL);
-				return FALSE;
-			}
 
+			// パイソンのホーム設定
+			Py_SetPythonHome((wchar_t *)python_home.data());
+
+			// ビルトインとして定義する
 			PyImport_AppendInittab("hidemaru", PyInit_hidemaru);
 
-			Py_SetProgramName(m_wszProgram);
+			// 自分の名前の伝達。(相対パスの解釈のために利用されると思われる)
+			m_wstr_program = Py_DecodeLocale(__argv[0], NULL);
+			Py_SetProgramName(m_wstr_program);
 
+			// 決まり文句
 			Py_Initialize();
 
 			//	py::module::import("hidemaru");
+			// キャッシュを作らないためにsysのインポート。
 			py::eval<py::eval_single_statement>("import sys");
+			// 秀丸用のクラスのインポート。他で、これ経由で処理したい場合などに利用する
 			py::eval<py::eval_single_statement>("import hidemaru");
+			// pythonライブラリなどを使用した時にキャッシュを迂闊に作らないように。(そうでないとあちこちにキャッシュが出来る)
 			py::eval<py::eval_single_statement>("sys.dont_write_bytecode = True");
+
+			// メイン辞書読み込み
 			auto global = py::dict(py::module::import("__main__").attr("__dict__"));
-			
+			// DestroyScopeの定義
 			py::eval<py::eval_statements>(
 				"def DestroyScope():\n"
 				"    pass");
 
+			// ここまで実行出来たら、エンジンとして有効になったというフラグが立つ
 			m_isValid = TRUE;
 			return TRUE;
 		}
@@ -52,11 +62,14 @@ namespace PythonEngine {
 			OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
 		}
 
+		// エンジンとして駄目
 		return FALSE;
 	}
 
+	// エンジンが構築された後に１回だけ実行するように
 	static bool m_isInitialize = FALSE;
 	int Initialize() {
+
 		if (!m_isInitialize) {
 			auto global = py::dict(py::module::import("__main__").attr("__dict__"));
 			auto local = py::dict();
@@ -65,21 +78,25 @@ namespace PythonEngine {
 
 			m_isInitialize = TRUE;
 		}
-		return true;
+
+		return TRUE;
 	}
 
+	// 対象のシンボル名の値を数値として得る
 	intHM_t GetNumVar(wstring utf16_simbol) {
 		try {
 			auto global = py::dict(py::module::import("__main__").attr("__dict__"));
 			auto local = py::dict();
 
+			// 値を得て…
 			string utf8_simbol = utf16_to_utf8(utf16_simbol);
 			auto value = global[utf8_simbol.c_str()];
 
+			// 文字列化するのは、実態がなんのオブジェクトかわからないため
 			string utf8_value = py::str(value);
 			wstring utf16_value = utf8_to_utf16(utf8_value);
 
-			// 数字を数値にトライ。ダメなら0だよ。
+			// 数字を数値に変換トライ。ダメなら0だよ。
 			intHM_t n = 0;
 			try {
 				n = (intHM_t)std::stol(utf16_value);
@@ -96,11 +113,13 @@ namespace PythonEngine {
 		return 0;
 	}
 
+	// 対象のシンボル名の値に数値を代入する
 	BOOL SetNumVar(wstring utf16_simbol, intHM_t value) {
 		try {
 			auto global = py::dict(py::module::import("__main__").attr("__dict__"));
 			auto local = py::dict();
 
+			// 値を代入
 			string utf8_simbol = utf16_to_utf8(utf16_simbol);
 			global[utf8_simbol.c_str()] = value;
 
@@ -113,14 +132,17 @@ namespace PythonEngine {
 		return FALSE;
 	}
 
+	// 対象のシンボル名の値を文字列として得る
 	wstring GetStrVar(wstring utf16_simbol) {
 		try {
 			auto global = py::dict(py::module::import("__main__").attr("__dict__"));
 			auto local = py::dict();
 
+			// 値を得て…
 			string utf8_simbol = utf16_to_utf8(utf16_simbol);
 			auto value = global[utf8_simbol.c_str()];
 
+			// 文字列化して
 			string utf8_value = py::str(value);
 
 			wstring utf16_value = utf8_to_utf16(utf8_value);
@@ -133,11 +155,13 @@ namespace PythonEngine {
 		return L"";
 	}
 
+	// 対象のシンボル名の値に文字列を代入する
 	BOOL SetStrVar(wstring utf16_simbol, wstring utf16_value) {
 		try {
 			auto global = py::dict(py::module::import("__main__").attr("__dict__"));
 			auto local = py::dict();
 
+			// 値を代入
 			string utf8_simbol = utf16_to_utf8(utf16_simbol);
 			string utf8_value = utf16_to_utf8(utf16_value);
 			global[utf8_simbol.c_str()] = utf8_value;
@@ -182,6 +206,8 @@ namespace PythonEngine {
 		}
 	}
 	*/
+
+	// 対象の文字列をPythonの複数式とみなして評価する
 	int DoString(wstring utf16_expression) {
 
 		try {
@@ -198,12 +224,14 @@ namespace PythonEngine {
 		return FALSE;
 	}
 
-
+	// エンジンの破棄
 	int Destroy() {
 
-		if (m_wszProgram) {
+		// 有効な時だけ
+		if (m_isValid) {
 
 			try {
+				// DestroyScopeというのが、メインモジュール内に定義されていれば、それを実行する
 				auto global = py::dict(py::module::import("__main__").attr("__dict__"));
 				auto func = global["DestroyScope"];
 				func();
@@ -212,19 +240,20 @@ namespace PythonEngine {
 				OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
 			}
 
+			// 破棄
 			try {
 				Py_Finalize();
-				PyMem_RawFree(m_wszProgram);
+				PyMem_RawFree(m_wstr_program);
 			}
 			catch (py::error_already_set& e) {
 				OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
 			}
 		}
-		m_wszProgram = nullptr;
 
+		// 初期状態へ
 		m_isValid = FALSE;
-
 		m_isInitialize = FALSE;
+		m_wstr_program = NULL;
 
 		return TRUE;
 	}

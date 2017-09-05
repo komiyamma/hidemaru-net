@@ -3,7 +3,6 @@
 
 #include "self_dll_info.h"
 #include "hidemaruexe_export.h"
-#include "python_engine.h"
 
 #pragma comment(lib, "shlwapi.lib")
 

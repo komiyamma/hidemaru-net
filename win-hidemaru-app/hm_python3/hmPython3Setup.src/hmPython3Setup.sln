@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "hmPython3Setup", "hmPython3Setup\hmPython3Setup.vdproj", "{DA7F5F4B-FCCD-44E4-AC87-243D08E40B91}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "hmPython3Setup_x64", "hmPython3Setup_x64\hmPython3Setup_x64.vdproj", "{8AB1BA45-A5D7-4431-BDAB-9A52A0838B3A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Default = Debug|Default
+		Release|Default = Release|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DA7F5F4B-FCCD-44E4-AC87-243D08E40B91}.Debug|Default.ActiveCfg = Debug
+		{DA7F5F4B-FCCD-44E4-AC87-243D08E40B91}.Debug|Default.Build.0 = Debug
+		{DA7F5F4B-FCCD-44E4-AC87-243D08E40B91}.Release|Default.ActiveCfg = Release
+		{DA7F5F4B-FCCD-44E4-AC87-243D08E40B91}.Release|Default.Build.0 = Release
+		{8AB1BA45-A5D7-4431-BDAB-9A52A0838B3A}.Debug|Default.ActiveCfg = Debug
+		{8AB1BA45-A5D7-4431-BDAB-9A52A0838B3A}.Release|Default.ActiveCfg = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

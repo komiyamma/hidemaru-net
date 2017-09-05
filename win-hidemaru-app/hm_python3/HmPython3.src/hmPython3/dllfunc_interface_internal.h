@@ -1,8 +1,7 @@
 #pragma once
 
-#include "dllfunc_interface.h"
-
 #include <string>
+#include "dllfunc_interface.h"
 
 using namespace std;
 

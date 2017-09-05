@@ -1,7 +1,6 @@
 #pragma once
 
 #include <windows.h>
-#include <tchar.h>
 #include <string>
 
 using namespace std;

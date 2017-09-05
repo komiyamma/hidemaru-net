@@ -19,6 +19,3 @@ void OutputDebugStream(wstring wstr) {
 	}
 }
 
-void OutputDebugErrMsg() {
-	OutputDebugStringA("何らかのパースエラーが発生しました\n");
-}

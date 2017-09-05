@@ -4,6 +4,8 @@
 #include <shlwapi.h>
 #include "tinyxml.h"
 
+#include "patchlevel.h"
+
 /*
 TiXmlDocument::LoadFile…ファイルを読み込む
 ・TiXmlDocument::RootElement…XML木構造のルートの要素を取得する
@@ -15,6 +17,7 @@ TiXmlDocument::LoadFile…ファイルを読み込む
 */
 const wstring xmlFileName = L"hmPython3.xml";
 const wstring wstrTargetKeyName = L"PYTHONPATH";
+const wstring defaultRelativePath = L"\\hmPython3";
 
 static wstring LoadPythonSettingsPathFromXml() {
 	wstring xmlpath = CSelfDllInfo::GetSelfModuleDir() + L"\\" + xmlFileName;
@@ -65,15 +68,33 @@ static wstring LoadPythonSettingsPathFromXml() {
 		return L"";
 
 	}
+
+	// XMLファイルは存在しない
 	else {
+		wstring defaultAbsolutePath = CSelfDllInfo::GetSelfModuleDir() + defaultRelativePath;
+		// デフォルトでインストールしているHmPythonフォルダがあり、その中に、
+		if ( PathFileExists(defaultAbsolutePath.c_str()) ) {
+			return defaultAbsolutePath;
+		}
+
 		return L"";
 	}
 
 }
 
 namespace PythonEngine {
+
 	wstring GetPythonPath() {
-		wstring path_from_settings = LoadPythonSettingsPathFromXml();
+
+		// XMLに設定されているPYTHONPATHの値
+		wstring path_from_settings = L"";
+		
+		try {
+			path_from_settings = LoadPythonSettingsPathFromXml();
+		}
+		catch (exception e) {
+
+		}
 
 		// 設定されていない
 		if (path_from_settings.length() == 0) {
@@ -86,7 +107,7 @@ namespace PythonEngine {
 		}
 
 		// 設定されていて、かつ、そのようなファイルは存在していない
-		wstring errormsg = path_from_settings + L"というファイルは存在しません。\n" + xmlFileName + L"の" + wstrTargetKeyName + L"の値を正しいパスに設定してください。";
+		wstring errormsg = path_from_settings + L"というディレクトリは存在しません。\n" + xmlFileName + L"の" + wstrTargetKeyName + L"の値を正しいパスに設定してください。";
 		MessageBox(NULL, errormsg.c_str(), L"パスエラー", NULL);
 		return L"";
 	}

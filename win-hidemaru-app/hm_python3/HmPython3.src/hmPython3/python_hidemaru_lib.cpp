@@ -6,6 +6,7 @@ using namespace pybind11::literals;
 
 namespace Hidemaru {
 
+	// バージョンの取得
 	double GetVersion() {
 		return CHidemaruExeExport::hm_version;
 	}
@@ -16,11 +17,13 @@ namespace Hidemaru {
 		OutputDebugStream(utf8_to_utf16(str));
 	}
 
+	// 秀丸で現在編集しているテキスト全体の取得
 	std::string Edit_GetTotalText() {
 		wstring utf16_value = CHidemaruExeExport::GetTotalText();
 		return utf16_to_utf8(utf16_value);
 	}
 
+	// 秀丸で現在編集しているテキスト全体の設定
 	BOOL Edit_SetTotalText(const std::string utf8_value) {
 		BOOL success = 0;
 
@@ -38,11 +41,13 @@ namespace Hidemaru {
 		return success;
 	}
 
+	// 秀丸で現在編集している選択テキストの取得
 	std::string Edit_GetSelectedText() {
 		wstring utf16_value = CHidemaruExeExport::GetSelectedText();
 		return utf16_to_utf8(utf16_value);
 	}
 
+	// 秀丸で現在編集している選択テキストの設定
 	BOOL Edit_SetSelectedText(const std::string utf8_value) {
 		BOOL success = 0;
 
@@ -59,11 +64,13 @@ namespace Hidemaru {
 		return success;
 	}
 
+	// 秀丸で現在編集しているテキストの中で、カーソルがある行の内容を取得
 	std::string Edit_GetLineText() {
 		wstring utf16_value = CHidemaruExeExport::GetLineText();
 		return utf16_to_utf8(utf16_value);
 	}
 
+	// 秀丸で現在編集しているテキストの中で、カーソルがある行の内容を設定
 	BOOL Edit_SetLineText(const std::string utf8_value) {
 		BOOL success = 0;
 
@@ -84,16 +91,20 @@ namespace Hidemaru {
 		return success;
 	}
 
+	// カーソルの位置。扱いやすいのでpythonのタプル(lineno, column)で返しておく
 	py::tuple Edit_GetCursorPos() {
 		auto ret = CHidemaruExeExport::GetCursorPos();
 		return py::make_tuple(ret.lineno, ret.column);
 	}
 
+	// マウスの座標の下に相当する(lineno, column)の値。扱いやすいのでpythonのタプル(lineno, column, x, y)で返しておく
+	// x, yは本当にwin32apiでのマウスの座標
 	py::tuple Edit_GetCursorPosFromMousePos() {
 		auto ret = CHidemaruExeExport::GetCursorPosFromMousePos();
 		return py::make_tuple(ret.lineno, ret.column, ret.x, ret.y);
 	}
 
+	// シンボルの値の取得
 	py::object Macro_GetVar(const std::string utf8_simbol) {
 
 		wstring utf16_simbol = utf8_to_utf16(utf8_simbol);
@@ -119,6 +130,7 @@ namespace Hidemaru {
 		}
 	}
 
+	// シンボルの値の設定
 	BOOL Macro_SetVar(const std::string utf8_simbol, const py::object value) {
 		BOOL success = 0;
 
@@ -157,6 +169,7 @@ namespace Hidemaru {
 		return success;
 	}
 
+	// pythonの中から秀丸マクロ文字列を実行
 	py::tuple Macro_Eval(const std::string utf8_expression) {
 		wstring utf16_expression = utf8_to_utf16(utf8_expression);
 
@@ -215,20 +228,6 @@ namespace Hidemaru {
 #pragma endregion 
 }
 
-class hm {
-	string m_name;
-public:
-
-	static double GetVersion() {
-		return CHidemaruExeExport::hm_version;
-	}
-
-	// オブジェクトとして捉え、文字列に変換して出力
-	static void DebugInfo(const py::object message) {
-		auto str = py::str(message);
-		OutputDebugStream(utf8_to_utf16(str));
-	}
-};
 
 PyMODINIT_FUNC PyInit_hidemaru() {
 	py::module m("hidemaru", "Hidemaru python module.");
