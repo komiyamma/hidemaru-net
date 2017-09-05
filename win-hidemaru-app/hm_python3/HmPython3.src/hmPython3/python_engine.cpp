@@ -17,15 +17,16 @@ namespace PythonEngine {
 		GetModuleFileName(NULL, szHidemaruFullPath, _countof(szHidemaruFullPath));
 
 		wstring python_home = GetPythonPath();
+		if (python_home.size() == 0) {
+			return FALSE;
+		}
 
 		try {
 			Py_SetPythonHome((wchar_t *)python_home.data());
 			m_wszProgram = Py_DecodeLocale(utf16_to_utf8(szHidemaruFullPath).c_str(), nullptr);
 			if (m_wszProgram == nullptr) {
-				MessageBox(NULL, L"Fatal error: cannot decode", L"Fatal error: cannot decode", NULL);
-				fprintf(stderr, "Fatal error: cannot decode argv[0]\n");
+				MessageBox(NULL, L"致命的エラー: 秀丸自身のフルパス名を解釈出来ません", L"致命的エラー: 秀丸自身のフルパス名を解釈出来ません", NULL);
 				return FALSE;
-				// exit(1);
 			}
 
 			PyImport_AppendInittab("hidemaru", PyInit_hidemaru);
@@ -39,6 +40,7 @@ namespace PythonEngine {
 			py::eval<py::eval_single_statement>("import hidemaru");
 			py::eval<py::eval_single_statement>("sys.dont_write_bytecode = True");
 			auto global = py::dict(py::module::import("__main__").attr("__dict__"));
+			
 			py::eval<py::eval_statements>(
 				"def DestroyScope():\n"
 				"    pass");
@@ -51,6 +53,19 @@ namespace PythonEngine {
 		}
 
 		return FALSE;
+	}
+
+	static bool m_isInitialize = FALSE;
+	int Initialize() {
+		if (!m_isInitialize) {
+			auto global = py::dict(py::module::import("__main__").attr("__dict__"));
+			auto local = py::dict();
+			// マクロを呼び出した元のフォルダはpythonファイルの置き場としても認識する
+			py::eval<py::eval_single_statement>("sys.path.append( hidemaru.macro.get_var('currentmacrodirectory') )");
+
+			m_isInitialize = TRUE;
+		}
+		return true;
 	}
 
 	intHM_t GetNumVar(wstring utf16_simbol) {
@@ -167,7 +182,6 @@ namespace PythonEngine {
 		}
 	}
 	*/
-
 	int DoString(wstring utf16_expression) {
 
 		try {
@@ -209,6 +223,8 @@ namespace PythonEngine {
 		m_wszProgram = nullptr;
 
 		m_isValid = FALSE;
+
+		m_isInitialize = FALSE;
 
 		return TRUE;
 	}

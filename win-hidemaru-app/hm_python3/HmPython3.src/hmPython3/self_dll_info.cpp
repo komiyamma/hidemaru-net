@@ -3,6 +3,7 @@
 
 #include "self_dll_info.h"
 #include "hidemaruexe_export.h"
+#include "python_engine.h"
 
 #pragma comment(lib, "shlwapi.lib")
 
@@ -38,6 +39,8 @@ BOOL CSelfDllInfo::SetBindDllHandle() {
 	else {
 		MessageBox(NULL, L"loadllのパターンが認識出来ませんでした。", L"loadllのパターンが認識出来ませんでした。", MB_ICONERROR);
 	}
+
+
 	return FALSE;
 
 }

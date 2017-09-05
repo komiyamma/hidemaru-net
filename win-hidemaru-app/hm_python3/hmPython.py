@@ -1,7 +1,6 @@
 import hidemaru
 
 
-
 class _TEdit:
     """
     秀丸で編集中のドキュメント関連のクラス

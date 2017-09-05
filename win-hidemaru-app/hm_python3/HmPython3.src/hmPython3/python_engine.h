@@ -10,6 +10,7 @@ namespace PythonEngine {
 	BOOL IsValid();
 
 	int Create();
+	int Initialize();
 	int DoString(wstring utf16_expressoin);
 	int Destroy();
 

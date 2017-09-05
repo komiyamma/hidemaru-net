@@ -37,6 +37,8 @@ MACRO_DLL intHM_t GetNumVar(const wchar_t *utf16_simbol) {
 
 	CSelfDllInfo::SetBindDllHandle();
 
+	PythonEngine::Initialize();
+
 	intHM_t r = PythonEngine::GetNumVar(utf16_simbol);
 
 	return r;
@@ -49,6 +51,8 @@ MACRO_DLL intHM_t SetNumVar(const wchar_t *utf16_simbol, intHM_t value) {
 	}
 
 	CSelfDllInfo::SetBindDllHandle();
+
+	PythonEngine::Initialize();
 
 	BOOL r = PythonEngine::SetNumVar(utf16_simbol, value);
 
@@ -68,6 +72,8 @@ MACRO_DLL const wchar_t * GetStrVar(const wchar_t *utf16_simbol) {
 
 	CSelfDllInfo::SetBindDllHandle();
 
+	PythonEngine::Initialize();
+
 	strvars = PythonEngine::GetStrVar(utf16_simbol);
 
 	return strvars.c_str();
@@ -80,6 +86,8 @@ MACRO_DLL intHM_t SetStrVar(const wchar_t *utf16_simbol, const wchar_t *utf16_va
 	}
 
 	CSelfDllInfo::SetBindDllHandle();
+
+	PythonEngine::Initialize();
 
 	BOOL r = PythonEngine::SetStrVar(utf16_simbol, utf16_value);
 
@@ -109,6 +117,8 @@ MACRO_DLL intHM_t DoString(const wchar_t *utf16_expression) {
 		MessageBox(NULL, L"引数の型が異なります。\ndllfuncではなく、dllfuncw文を利用してください。", L"引数の型が異なります", MB_ICONERROR);
 	}
 
+	PythonEngine::Initialize();
+
 	PythonEngine::DoString(utf16_expression);
 
 	// 失敗したら0
@@ -124,6 +134,8 @@ MACRO_DLL intHM_t DestroyScope() {
 
 	// DoStringされる度にdllのBindの在り方を確認更新する。
 	CSelfDllInfo::SetBindDllHandle();
+
+	PythonEngine::Initialize();
 
 	PythonEngine::Destroy();
 
