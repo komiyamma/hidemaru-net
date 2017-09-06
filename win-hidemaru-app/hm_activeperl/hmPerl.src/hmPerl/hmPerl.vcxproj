@@ -239,7 +239,7 @@
     <ClCompile Include="convert_string.cpp" />
     <ClCompile Include="dllfunc_interface_internal.cpp" />
     <ClCompile Include="dllmain.cpp" />
-    <ClCompile Include="hidemaruexe_expot.cpp" />
+    <ClCompile Include="hidemaruexe_export.cpp" />
     <ClCompile Include="output_debugstream.cpp" />
     <ClCompile Include="perlez_engine.cpp" />
     <ClCompile Include="perlez_engine_path.cpp" />

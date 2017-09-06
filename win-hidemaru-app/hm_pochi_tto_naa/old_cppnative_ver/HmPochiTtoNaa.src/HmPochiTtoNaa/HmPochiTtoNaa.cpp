@@ -70,25 +70,25 @@ static bool KMJ_ReadMarkerSaveFile() {
 			// ID
 			wstring strID = wmt[1];
 			intHM_t iID = 0;
-			try { iID = (intHM_t)std::stol(strID); }
+			try { iID = (intHM_t)std::stoll(strID); }
 			catch (...) {}
 
 			// ç¿ïWX
 			wstring strPosX = wmt[2];
 			intHM_t iPosX = 0;
-			try { iPosX = (intHM_t)std::stol(strPosX); }
+			try { iPosX = (intHM_t)std::stoll(strPosX); }
 			catch (...) {}
 
 			// ç¿ïWX
 			wstring strPosY = wmt[3];
 			intHM_t iPosY = 0;
-			try { iPosY = (intHM_t)std::stol(strPosY); }
+			try { iPosY = (intHM_t)std::stoll(strPosY); }
 			catch (...) {}
 
 			// ç¿ïWX
 			wstring hStrWndHandle = wmt[4];
 			intHM_t iWndHandle = 0;
-			try { iWndHandle = (intHM_t)std::stol(hStrWndHandle); }
+			try { iWndHandle = (intHM_t)std::stoll(hStrWndHandle); }
 			catch (...) {}
 
 

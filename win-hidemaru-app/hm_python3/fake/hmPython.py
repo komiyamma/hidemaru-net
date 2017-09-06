@@ -1,3 +1,6 @@
+IS_FAKE = True
+
+
 class _TEdit:
 
     # 編集中のテキスト全体
@@ -88,7 +91,10 @@ class _TMacro:
     #--------------------------------------------------
 
 
-class _THidemaru:
+class _TFakeHidemaru:
+    
+    FAKE = True
+    
     """
     特定のカテゴリに所属しないようなもの
     """

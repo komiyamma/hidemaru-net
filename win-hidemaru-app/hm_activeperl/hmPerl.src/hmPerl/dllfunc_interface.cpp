@@ -71,7 +71,7 @@ MACRO_DLL intHM_t GetNumVar(const TCHAR *sz_full_var_name) {
 		// 数字→数値の変換
 		try {
 			wstring strnum = utf8_to_utf16(utf8_buffer);
-			return (intHM_t)std::stol(strnum);
+			return (intHM_t)std::stoll(strnum);
 		}
 		catch (...) {
 
