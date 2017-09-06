@@ -146,7 +146,7 @@ namespace Hidemaru {
 			// 数字を数値にトライ。ダメなら0だよ。
 			intHM_t n = 0;
 			try {
-				n = (intHM_t)std::stol(utf16_value);
+				n = (intHM_t)std::stoll(utf16_value);
 			}
 			catch (...) {}
 

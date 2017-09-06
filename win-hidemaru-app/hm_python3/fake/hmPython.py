@@ -1,5 +1,7 @@
-IS_FAKE = True
-
+#--------------------------------------------------------------
+# hmPython3 1.5.5.1用 フェイクライブラリ
+# Copyright @ 2017 VSCode.life
+#--------------------------------------------------------------
 
 class _TEdit:
 
@@ -54,15 +56,20 @@ class _TMacro:
     """
     #--------------------------------------------------
     class _TVar:
+        __map = {}
         """
         秀丸マクロ関連のうち、マクロシンボル（マクロ変数）を扱うクラス
         """
 
         def __getitem__(self, varname):
-            return 999
+            return self.__map[varname]
 
         def __setitem__(self, varname, value):
-            pass
+            if not varname.startswith("#") and not varname.startswith("$"):
+                hm.debuginfo(varname + " <= " + str(value) )
+                hm.debuginfo("cant set attribute: ファイクデータ構築とみなします。本来のhmPython3ではこの代入は認められません。")
+
+            self.__map[varname] = value
     #--------------------------------------------------
 
     #--------------------------------------------------
@@ -91,10 +98,7 @@ class _TMacro:
     #--------------------------------------------------
 
 
-class _TFakeHidemaru:
-    
-    FAKE = True
-    
+class _THidemaru:
     """
     特定のカテゴリに所属しないようなもの
     """
@@ -110,10 +114,14 @@ class _TFakeHidemaru:
         return print(obj)
     #--------------------------------------------------
 
+    #--------------------------------------------------
+    def __GetVersion(self):
+        return 866.99
+
     # 秀丸のバージョンを 866.05 のような形で取得。
     # 「β5」なら少数部分が「05」のような形。
     # 正式版だと、866.99 のように「99」となる。
-    version = 866.99
+    version = property(__GetVersion)
     #--------------------------------------------------
 
 

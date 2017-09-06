@@ -173,7 +173,7 @@
     <ClCompile Include="dllfunc_interface.cpp" />
     <ClCompile Include="dllfunc_interface_internal.cpp" />
     <ClCompile Include="dllmain.cpp" />
-    <ClCompile Include="hidemaruexe_expot.cpp" />
+    <ClCompile Include="hidemaruexe_export.cpp" />
     <ClCompile Include="output_debugstream.cpp" />
     <ClCompile Include="python_engine_path.cpp" />
     <ClCompile Include="python_hidemaru_lib.cpp" />

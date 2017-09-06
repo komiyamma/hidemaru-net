@@ -122,18 +122,19 @@ MACRO_DLL intHM_t DoString(const wchar_t *utf16_expression) {
 
 	PythonEngine::Initialize();
 
-	PythonEngine::DoString(utf16_expression);
+	intHM_t r = PythonEngine::DoString(utf16_expression);
 
-	return TRUE;
+	return r;
 }
 
 // エンジンの破棄
 MACRO_DLL intHM_t DestroyScope() {
 	if (PythonEngine::IsValid()) {
-		PythonEngine::Destroy();
+		intHM_t r = PythonEngine::Destroy();
+		return r;
 	}
 
-	return TRUE;
+	return (intHM_t)TRUE;
 }
 
 

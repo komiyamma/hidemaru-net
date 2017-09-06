@@ -49,11 +49,14 @@ namespace PythonEngine {
 
 			// メイン辞書読み込み
 			auto global = py::dict(py::module::import("__main__").attr("__dict__"));
+#pragma region
+			/*
 			// DestroyScopeの定義
 			py::eval<py::eval_statements>(
 				"def DestroyScope():\n"
 				"    pass");
-
+			*/
+#pragma endregion
 			// ここまで実行出来たら、エンジンとして有効になったというフラグが立つ
 			m_isValid = TRUE;
 			return TRUE;
@@ -99,7 +102,7 @@ namespace PythonEngine {
 			// 数字を数値に変換トライ。ダメなら0だよ。
 			intHM_t n = 0;
 			try {
-				n = (intHM_t)std::stol(utf16_value);
+				n = (intHM_t)std::stoll(utf16_value);
 			}
 			catch (...) {
 				n = 0;
@@ -175,7 +178,7 @@ namespace PythonEngine {
 		return FALSE;
 	}
 
-
+#pragma region
 	/*
 	int Test() {
 		auto global = py::dict(py::module::import("__main__").attr("__dict__"));
@@ -206,6 +209,7 @@ namespace PythonEngine {
 		}
 	}
 	*/
+#pragma endregion
 
 	// 対象の文字列をPythonの複数式とみなして評価する
 	int DoString(wstring utf16_expression) {
@@ -233,8 +237,16 @@ namespace PythonEngine {
 			try {
 				// DestroyScopeというのが、メインモジュール内に定義されていれば、それを実行する
 				auto global = py::dict(py::module::import("__main__").attr("__dict__"));
+
+				// マクロを呼び出した元のフォルダはpythonファイルの置き場としても認識する
+				py::eval<py::eval_statements>("if 'DestroyScope' in globals(): DestroyScope()");
+#pragma region
+				/*
 				auto func = global["DestroyScope"];
 				func();
+				*/
+#pragma endregion
+
 			}
 			catch (py::error_already_set& e) {
 				OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
