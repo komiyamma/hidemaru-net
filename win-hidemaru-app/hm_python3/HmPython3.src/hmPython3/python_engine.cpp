@@ -9,6 +9,8 @@ namespace PythonEngine {
 	// 秀丸の名前格納
 	wchar_t *m_wstr_program = NULL;
 
+	wchar_t szHidemaruFullPath[MAX_PATH] = L"";
+
 	BOOL IsValid() {
 		return m_isValid;
 	}
@@ -25,30 +27,32 @@ namespace PythonEngine {
 		}
 
 		try {
-
 			// パイソンのホーム設定
 			Py_SetPythonHome((wchar_t *)python_home.data());
 
 			// ビルトインとして定義する
 			PyImport_AppendInittab("hidemaru", PyInit_hidemaru);
 
+			GetModuleFileName(NULL, szHidemaruFullPath, _countof(szHidemaruFullPath));
+
 			// 自分の名前の伝達。(相対パスの解釈のために利用されると思われる)
-			m_wstr_program = Py_DecodeLocale(__argv[0], NULL);
+			m_wstr_program = szHidemaruFullPath;
 			Py_SetProgramName(m_wstr_program);
 
 			// 決まり文句
-			Py_Initialize();
+			py::initialize_interpreter();
+			{
+				//	py::module::import("hidemaru");
+				// キャッシュを作らないためにsysのインポート。
+				py::eval<py::eval_single_statement>("import sys");
+				// 秀丸用のクラスのインポート。他で、これ経由で処理したい場合などに利用する
+				py::eval<py::eval_single_statement>("import hidemaru");
+				// pythonライブラリなどを使用した時にキャッシュを迂闊に作らないように。(そうでないとあちこちにキャッシュが出来る)
+				py::eval<py::eval_single_statement>("sys.dont_write_bytecode = True");
 
-			//	py::module::import("hidemaru");
-			// キャッシュを作らないためにsysのインポート。
-			py::eval<py::eval_single_statement>("import sys");
-			// 秀丸用のクラスのインポート。他で、これ経由で処理したい場合などに利用する
-			py::eval<py::eval_single_statement>("import hidemaru");
-			// pythonライブラリなどを使用した時にキャッシュを迂闊に作らないように。(そうでないとあちこちにキャッシュが出来る)
-			py::eval<py::eval_single_statement>("sys.dont_write_bytecode = True");
-
-			// メイン辞書読み込み
-			auto global = py::dict(py::module::import("__main__").attr("__dict__"));
+				// メイン辞書読み込み
+				auto global = py::dict(py::module::import("__main__").attr("__dict__"));
+			}
 #pragma region
 			/*
 			// DestroyScopeの定義
@@ -213,6 +217,9 @@ namespace PythonEngine {
 
 	// 対象の文字列をPythonの複数式とみなして評価する
 	int DoString(wstring utf16_expression) {
+		if (!IsValid()) {
+			return FALSE;
+		}
 
 		try {
 
@@ -254,7 +261,8 @@ namespace PythonEngine {
 
 			// 破棄
 			try {
-				Py_Finalize();
+				py::finalize_interpreter();
+
 				PyMem_RawFree(m_wstr_program);
 			}
 			catch (py::error_already_set& e) {
@@ -265,7 +273,7 @@ namespace PythonEngine {
 		// 初期状態へ
 		m_isValid = FALSE;
 		m_isInitialize = FALSE;
-		m_wstr_program = NULL;
+		// m_wstr_program = NULL;
 
 		return TRUE;
 	}
