@@ -76,14 +76,21 @@ namespace PythonEngine {
 	// エンジンが構築された後に１回だけ実行するように
 	static bool m_isInitialize = FALSE;
 	int Initialize() {
+		if (!IsValid()) {
+			return FALSE;
+		}
+		try {
+			if (!m_isInitialize) {
+				auto global = py::dict(py::module::import("__main__").attr("__dict__"));
+				auto local = py::dict();
+				// マクロを呼び出した元のフォルダはpythonファイルの置き場としても認識する
+				py::eval<py::eval_single_statement>("sys.path.append( hidemaru.macro.get_var('currentmacrodirectory') )");
 
-		if (!m_isInitialize) {
-			auto global = py::dict(py::module::import("__main__").attr("__dict__"));
-			auto local = py::dict();
-			// マクロを呼び出した元のフォルダはpythonファイルの置き場としても認識する
-			py::eval<py::eval_single_statement>("sys.path.append( hidemaru.macro.get_var('currentmacrodirectory') )");
-
-			m_isInitialize = TRUE;
+				m_isInitialize = TRUE;
+			}
+		}
+		catch (py::error_already_set& e) {
+			OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
 		}
 
 		return TRUE;
@@ -238,6 +245,11 @@ namespace PythonEngine {
 	// エンジンの破棄
 	int Destroy() {
 
+		// 有効でないならば、即終了
+		if (!IsValid()) {
+			return FALSE;
+		}
+
 		// 有効な時だけ
 		if (m_isValid) {
 
@@ -263,7 +275,7 @@ namespace PythonEngine {
 			try {
 				py::finalize_interpreter();
 
-				PyMem_RawFree(m_wstr_program);
+				// PyMem_RawFree(m_wstr_program);
 			}
 			catch (py::error_already_set& e) {
 				OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));

@@ -1677,12 +1677,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_1337E768C9624582BCFB6A017920D32A"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_13439C13B5B54907B015B69AD89A6F84"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -7942,6 +7936,12 @@
         "Entry"
         {
         "MsmKey" = "8:_61DEC673CE374B28B3A93F2F05DF81C3"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_61E0D28E31E548D2B86AC79D19BBDFDD"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -26423,26 +26423,6 @@
             "TargetName" = "8:test_codecmaps_cn.py"
             "Tag" = "8:"
             "Folder" = "8:_5CD86F0CE8374CA98708B2C0C6B93BB8"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_1337E768C9624582BCFB6A017920D32A"
-            {
-            "SourcePath" = "8:..\\..\\hmPython3.src\\Release\\hmPython3.dll"
-            "TargetName" = "8:hmPython3.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_60BA52AFD76B43E384DBF3601FA535DF"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -47323,6 +47303,26 @@
             "TargetName" = "8:macDingbats.enc"
             "Tag" = "8:"
             "Folder" = "8:_40F8DBD0F17C49F9AB2BAC7ACB920A48"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_61E0D28E31E548D2B86AC79D19BBDFDD"
+            {
+            "SourcePath" = "8:..\\..\\hmPython3.src\\Release\\hmPython3.dll"
+            "TargetName" = "8:hmPython3.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_60BA52AFD76B43E384DBF3601FA535DF"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
