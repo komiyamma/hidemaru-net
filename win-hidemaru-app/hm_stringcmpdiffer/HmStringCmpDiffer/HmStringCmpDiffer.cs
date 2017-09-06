@@ -177,7 +177,18 @@ namespace HmStringCmpDiffer {
         }
 
         /*
-         * 
-         */
+        class Program
+        {
+            static void Main(String[] args)
+            {
+                var ret = @"「あぁ、『おっぱい』を『いっぱい』に書き換えるためには、1文字目に『い』を追加して、".Diff("これを見た人は、マシにする方法をこの記事の最後に載せておきました。");
+                foreach (var r in ret)
+                {
+                    Console.WriteLine(r);
+                }
+                Console.ReadKey();
+            }
+        }
+        */
     }
 }
