@@ -265,7 +265,6 @@ namespace PythonEngine {
 				func();
 				*/
 #pragma endregion
-
 			}
 			catch (py::error_already_set& e) {
 				OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
@@ -275,7 +274,7 @@ namespace PythonEngine {
 			try {
 				py::finalize_interpreter();
 
-				// PyMem_RawFree(m_wstr_program);
+				PyMem_RawFree(m_wstr_program);
 			}
 			catch (py::error_already_set& e) {
 				OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
@@ -291,3 +290,4 @@ namespace PythonEngine {
 	}
 
 }
+

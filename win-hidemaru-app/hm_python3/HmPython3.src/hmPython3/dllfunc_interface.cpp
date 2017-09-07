@@ -12,6 +12,14 @@
 using namespace std;
 
 
+// 自分自身を読み込んでリファレンスカウンタを１つ増やしておく
+static HMODULE DoReferenceCounterPatch() {
+	// こうしないと、毎かいdllを解放したり、読み込んだりすると、
+	// Pythonエンジンの解放が付いていけないため、安定しない。
+	// (要するにプロセスが残った状態で、エンジンで確保したもののクリアが綺麗に出来ない模様)
+	return LoadLibrary(CSelfDllInfo::GetSelfModuleFullPath().data());
+}
+
 // エンジンの生成
 static int CreateScope() {
 
@@ -19,6 +27,8 @@ static int CreateScope() {
 	if (PythonEngine::IsValid()) {
 		return TRUE;
 	}
+
+	HMODULE hSelfModule = DoReferenceCounterPatch();
 
 	// エンジン構築。結果をそのまま返す
 	BOOL isValid = PythonEngine::Create();
@@ -138,3 +148,4 @@ MACRO_DLL intHM_t DestroyScope() {
 MACRO_DLL intHM_t DllDetachFunc_After_Hm866() {
 	return DestroyScope();
 }
+
