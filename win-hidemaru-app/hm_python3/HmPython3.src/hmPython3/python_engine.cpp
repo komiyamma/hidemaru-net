@@ -274,7 +274,7 @@ namespace PythonEngine {
 			try {
 				py::finalize_interpreter();
 
-				PyMem_RawFree(m_wstr_program);
+				// PyMem_RawFree(m_wstr_program);
 			}
 			catch (py::error_already_set& e) {
 				OutputDebugStream(L"ÉGÉâÅ[:\n" + utf8_to_utf16(e.what()));
