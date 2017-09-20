@@ -48,8 +48,8 @@ public class HmSelctedTextAutoHighlighterForm : Form
                     setcompatiblemode 0x20000;
                     deletecolormarker ""HmSelctedTextTmpColorMarker"", 33001;
                     $text = gettext(seltopx, seltopy, selendx, selendy, 1);
-                    setsearch $text, 0x00000002;
-                    colormarkerallfound 0x333333,0x8CE6F0,-1,1,33001,""HmSelctedTextTmpColorMarker"";
+                    setsearch $text, 0x00000802;
+                    hilightfound 1;
                     endmacro ""CompleteHighlight"";
                 ");
 
