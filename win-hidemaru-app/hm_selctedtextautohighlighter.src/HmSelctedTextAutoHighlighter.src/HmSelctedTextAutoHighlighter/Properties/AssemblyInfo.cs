@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("HmSelctedTextAutoHighlighter for .NET 4.5 ANYCPU")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("HmSelctedTextAutoHighlighter")]
+[assembly: AssemblyProduct("HmSelctedTextAutoHighlighter for .NET 4.5 ANYCPU")]
 [assembly: AssemblyCopyright("パブリックドメイン")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
