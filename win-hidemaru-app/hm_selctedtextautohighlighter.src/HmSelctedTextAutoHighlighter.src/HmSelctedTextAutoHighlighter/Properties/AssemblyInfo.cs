@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("HmSelctedTextAutoHighlighter for .NET 4.5 ANYCPU")]
 [assembly: AssemblyDescription("HmSelctedTextAutoHighlighter for .NET 4.5 ANYCPU")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Sony Computer Entertainment inc.")]
+[assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("HmSelctedTextAutoHighlighter")]
 [assembly: AssemblyCopyright("パブリックドメイン")]
 [assembly: AssemblyTrademark("")]
