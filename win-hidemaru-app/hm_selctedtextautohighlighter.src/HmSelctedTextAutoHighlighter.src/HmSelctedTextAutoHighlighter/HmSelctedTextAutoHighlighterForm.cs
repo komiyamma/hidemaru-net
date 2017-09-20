@@ -28,7 +28,6 @@ public class HmSelctedTextAutoHighlighterForm : Form
         {
             if (text.Length == 0)
             {
-
                 var ret = Hm.Macro.Exec.Eval(
                 @"
                     deletecolormarker ""HmSelctedTextTmpColorMarker"", 33001;
@@ -41,15 +40,16 @@ public class HmSelctedTextAutoHighlighterForm : Form
                 }
 
             }
-            else { 
+            else
+            {
 
                 var ret = Hm.Macro.Exec.Eval(
                 @"
                     setcompatiblemode 0x20000;
                     deletecolormarker ""HmSelctedTextTmpColorMarker"", 33001;
                     $text = gettext(seltopx, seltopy, selendx, selendy, 1);
-                    setsearch $text, 0x00000802;
-                    hilightfound 1;
+                    setsearch $text, 0x00000002;
+                    colormarkerallfound 0x333333,0x8CE6F0,-1,1,33001,""HmSelctedTextTmpColorMarker"";
                     endmacro ""CompleteHighlight"";
                 ");
 
@@ -58,55 +58,53 @@ public class HmSelctedTextAutoHighlighterForm : Form
                     return true;
                 }
             }
-
         }
-
         return false;
     }
 
 
-
     private void timer_Tick(object sender, EventArgs e)
-    {
-        try
         {
-            Timer timer = sender as Timer;
-
-            var text = Hm.Edit.SelectedText;
-
-            // 長すぎる文字列をハイライトとか変。やめ
-            if (text.Length > 100)
+            try
             {
-                return;
-            }
+                Timer timer = sender as Timer;
 
-            buffer.Add(Hm.Edit.SelectedText);
+                var text = Hm.Edit.SelectedText;
 
-            if (buffer.Count > KeepMonitoringMilliSeconds / timer.Interval)
-            {
-                buffer.RemoveAt(0);
-
-                if (text != strLastText)
+                // 長すぎる文字列をハイライトとか変。やめ
+                if (text.Length > 100)
                 {
-                    if (buffer.TrueForAll(tx => tx == text))
+                    return;
+                }
+
+                buffer.Add(Hm.Edit.SelectedText);
+
+                if (buffer.Count > KeepMonitoringMilliSeconds / timer.Interval)
+                {
+                    buffer.RemoveAt(0);
+
+                    if (text != strLastText)
                     {
-                        if (TryUpdateHidemaruMarker(text))
+                        if (buffer.TrueForAll(tx => tx == text))
                         {
-                            strLastText = text;
+                            if (TryUpdateHidemaruMarker(text))
+                            {
+                                strLastText = text;
+                            }
                         }
                     }
                 }
             }
+            catch (Exception)
+            {
+            }
         }
-        catch (Exception)
-        {
-        }
-    }
 
-    public void Stop()
-    {
-        timer.Enabled = false;
-        timer.Stop();
-        timer = null;
+        public void Stop()
+        {
+            timer.Enabled = false;
+            timer.Stop();
+            timer = null;
+        }
     }
-}
+    
