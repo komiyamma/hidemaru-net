@@ -12,7 +12,7 @@ public class HmSelectedTextAutoHighlighterForm : Form
     private const int mustMonitoringCount = KeepMonitoringMilliSeconds / ItvlMonitoringMilliSeconds;  // モニターすべきカウント数
 
     private List<string> bufferSelectedText = new List<string>();
-    private string strLastSelectedText = "";
+    private string strLastHighlightSelectedText = "";
 
     public HmSelectedTextAutoHighlighterForm()
     {
@@ -93,7 +93,7 @@ public class HmSelectedTextAutoHighlighterForm : Form
     private void AddQueueBufferSelectedText(String text)
     {
         // バッファーに加える
-        bufferSelectedText.Add(Hm.Edit.SelectedText);
+        bufferSelectedText.Add(text);
 
         // モニターすべきカウント数より、バッファーのカウントが多かったら、先頭から取り除く
         while (true)
@@ -117,13 +117,13 @@ public class HmSelectedTextAutoHighlighterForm : Form
 
             AddQueueBufferSelectedText(text);
 
-            if (text != strLastSelectedText)
+            if (text != strLastHighlightSelectedText)
             {
                 if (IsConditionMonitoringPass(text))
                 {
                     if (TryUpdateHidemaruMarker(text))
                     {
-                        strLastSelectedText = text;
+                        strLastHighlightSelectedText = text;
                     }
                 }
             }
