@@ -7,8 +7,8 @@ public class HmSelectedTextAutoHighlighterForm : Form
 {
     public static HmSelectedTextAutoHighlighterForm form;
     private Timer timer;
-    private const int KeepMonitoringMilliSeconds = 1000; // 文字列選択が「固定した」とする最低目安時間。これプラス
-    private const int ItvlMonitoringMilliSeconds = 300; // 文字列選択が「固定した」とする最低目安時間。これプラス
+    private const int KeepMonitoringMilliSeconds = 1000; // 監視する上で、文字列選択が「固定した」とする目安時間。これプラス
+    private const int ItvlMonitoringMilliSeconds = 300; // 基本的な監視の「チェック」間隔
     private const int mustMonitoringCount = KeepMonitoringMilliSeconds / ItvlMonitoringMilliSeconds;  // モニターすべきカウント数
 
     private List<string> bufferSelectedText = new List<string>();
