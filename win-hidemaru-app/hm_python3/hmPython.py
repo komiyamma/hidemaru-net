@@ -91,7 +91,8 @@ class _TMacro:
             return hidemaru.macro.get_var(varname)
 
         def __setitem__(self, varname, value):
-            return hidemaru.macro.set_var(varname, value)
+            if not varname.startswith('#') and not varname.startswith('$'):
+                raise NameError("指定のマクロ変数への値の代入は出来ません")
     #--------------------------------------------------
 
     #--------------------------------------------------
