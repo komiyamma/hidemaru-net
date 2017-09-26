@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using Microsoft.ClearScript;
 using Microsoft.ClearScript.V8;
+using System.IO;
+using hmV8DynamicNS;
 
 // ★内部でdynamic型を利用しないもの。C++リンク用途のため「だけの」「コンパイルによってメソッド数が変化しない」インターフェイス。
 // このようなスタブを用意することで、C++とリンクすることが可能となる(=メソッドの個数がC#とC++/CLIで一致させることが出来る)
@@ -147,6 +149,7 @@ public sealed partial class hmV8DynamicLib
     private static extern ulong GetModuleFileName(IntPtr hModule, StringBuilder filename, ulong bufsize);
 
     public static Microsoft.ClearScript.V8.V8ScriptEngine engine;
+    public static V8EngineCore core;
 
     public static void OutputDebugStream(string error)
     {
@@ -201,6 +204,15 @@ public sealed partial class hmV8DynamicLib
 
     private static DllPathResolver dpr;
 
+    private static V8EngineCore CreateCore()
+    {
+        var pathResolver = new ModulePathResolver("", new[] { ".js", ".json", ".dll" }, "index");
+        var loaderFactory = new ModuleLoaderFactory();
+
+        core = new V8EngineCore(pathResolver, loaderFactory, iDebuggingPort);
+        return core;
+    }
+
     //----------------------------------------------------------------------------------------------
     public static IntPtr CreateScope()
     {
@@ -209,20 +221,9 @@ public sealed partial class hmV8DynamicLib
         {
             try
             {
-                // デバッグありモード
-                if (iDebuggingPort > 0)
-                {
-                    engine = new V8ScriptEngine(V8ScriptEngineFlags.EnableDebugging, iDebuggingPort);
-                }
-                else
-                {
-                    engine = new V8ScriptEngine();
-                }
-
-                engine.AddHostObject("clr", new HostTypeCollection("mscorlib", "System", "System.Core"));
-                engine.AddHostObject("host", new ExtendedHostFunctions());
-
-                engine.AllowReflection = true;
+                core = CreateCore();
+                engine = core.Engine;
+                core.ExposeGlobalRequire(); // requireが使えるように
 
                 hm = new Hidemaru();
                 engine.AddHostType("hm", typeof(Hidemaru));
@@ -717,6 +718,9 @@ public sealed partial class hmV8DynamicLib
         iDebuggingPort = 0;
 
         dpr = null;
+
+        core.Dispose();
+        core = null;
 
         return (IntPtr)0;
     }

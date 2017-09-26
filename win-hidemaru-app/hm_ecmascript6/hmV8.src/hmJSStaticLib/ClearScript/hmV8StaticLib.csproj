@@ -59,13 +59,45 @@
     <Reference Include="ClearScript">
       <HintPath>..\..\..\..\..\..\..\..\hidemaru\ClearScript.dll</HintPath>
     </Reference>
-    <Reference Include="CustomMarshalers" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EngineCore\EngineCore.cs" />
+    <Compile Include="EngineCore\EngineCore.script.cs" />
+    <Compile Include="Extension\Abstract\IEventConnection.cs" />
+    <Compile Include="Extension\Abstract\IEventSource.cs" />
+    <Compile Include="Extension\Abstract\IScriptNativeObject.cs" />
+    <Compile Include="Extension\Annotations\ModuleExports.cs" />
+    <Compile Include="Extension\Annotations\NativeObjectAttribute.cs" />
+    <Compile Include="Extension\Annotations\NativeObjectHintAttribute.cs" />
+    <Compile Include="Extension\Extensions\ExceptionExtensions.cs" />
+    <Compile Include="Extension\Extensions\ObjectExtensions.cs" />
+    <Compile Include="Extension\Helpers\ObjectHelpers.cs" />
+    <Compile Include="Extension\Helpers\PathHelpers.cs" />
+    <Compile Include="Extension\Helpers\StringHelpers.cs" />
+    <Compile Include="Extension\Modules\Abstract\IModuleCompiler.cs" />
+    <Compile Include="Extension\Modules\Abstract\IModuleLoader.cs" />
+    <Compile Include="Extension\Modules\Abstract\IModuleLoaderFactory.cs" />
+    <Compile Include="Extension\Modules\Abstract\IModulePathResolver.cs" />
+    <Compile Include="Extension\Modules\Abstract\IVirtualPath.cs" />
+    <Compile Include="Extension\Modules\Compilers\DllCompiler.cs" />
+    <Compile Include="Extension\Modules\Compilers\JsonCompiler.cs" />
+    <Compile Include="Extension\Modules\Compilers\ScriptCompiler.cs" />
+    <Compile Include="Extension\Modules\FilePath.cs" />
+    <Compile Include="Extension\Modules\Module.cs" />
+    <Compile Include="Extension\Modules\ModuleLoader.cs" />
+    <Compile Include="Extension\Modules\ModuleLoaderFactory.cs" />
+    <Compile Include="Extension\Modules\ModulePathResolver.cs" />
+    <Compile Include="Extension\Modules\NativeModule.cs" />
+    <Compile Include="Extension\Modules\NativeModulePath.cs" />
+    <Compile Include="Extension\Modules\ReflectableAssembly.cs" />
+    <Compile Include="Extension\Modules\RequireFunction.cs" />
+    <Compile Include="Extension\Modules\ScriptModule.cs" />
+    <Compile Include="Extension\Modules\ScriptModulePath.cs" />
+    <Compile Include="Extension\Modules\ScriptModules.cs" />
+    <Compile Include="Extension\NativeTypes\JArray.cs" />
     <Compile Include="hmJSStaticLib\hmV8Console.cs" />
     <Compile Include="hmJSStaticLib\hmV8DllPathResolver.cs" />
     <Compile Include="hmJSStaticLib\hmV8Hidemaru.cs" />

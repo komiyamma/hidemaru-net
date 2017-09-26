@@ -20,7 +20,8 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -160,6 +161,7 @@
     <Compile Include="新規追加\HostTypeCollectionEx.cs" />
     <None Include="Exports\CallbackManager.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CallbackManager1.h</LastGenOutput>
     </None>
     <None Include="Properties\AssemblyInfo.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -201,6 +203,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Exports\CallbackManager.h">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CallbackManager.tt</DependentUpon>
+    </Content>
+    <Content Include="Exports\CallbackManager1.h">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CallbackManager.tt</DependentUpon>
