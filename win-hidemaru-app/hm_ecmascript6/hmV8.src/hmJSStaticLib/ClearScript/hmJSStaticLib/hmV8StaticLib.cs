@@ -225,8 +225,11 @@ public sealed partial class hmV8DynamicLib
                 engine = core.Engine;
                 core.ExposeGlobalRequire(); // requireが使えるように
 
+                // 秀丸クラスの登録
                 hm = new Hidemaru();
                 engine.AddHostType("hm", typeof(Hidemaru));
+
+                // consoleの簡易版
                 console = new hmV8Console();
                 engine.AddHostType("console", typeof(hmV8Console));
 
