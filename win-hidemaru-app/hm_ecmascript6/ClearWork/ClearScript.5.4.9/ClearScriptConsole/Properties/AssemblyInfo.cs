@@ -65,9 +65,11 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("iv8")]
-[assembly: AssemblyProduct("ClearScript V8 Console for .NET 4.5 ANYCPU 版")]
+[assembly: AssemblyProduct("ClearScript V8 Console for .NET 4.0 ANYCPU 版")]
 [assembly: AssemblyCopyright("© 2017 Microsoft Corporation, Google Corporation")]
 
 [assembly: ComVisible(false)]
 [assembly: AssemblyVersion("5.4.9.0")]
 [assembly: AssemblyFileVersion("5.4.9.0")]
+[assembly: AssemblyDescription("ClearScript V8 Console for .NET 4.0 ANYCPU 版")]
+

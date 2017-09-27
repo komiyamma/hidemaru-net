@@ -6,6 +6,7 @@ using Microsoft.ClearScript;
 using Microsoft.ClearScript.V8;
 using System.IO;
 using hmV8DynamicNS;
+using hmV8DynamicNS.Extensions;
 
 // ★内部でdynamic型を利用しないもの。C++リンク用途のため「だけの」「コンパイルによってメソッド数が変化しない」インターフェイス。
 // このようなスタブを用意することで、C++とリンクすることが可能となる(=メソッドの個数がC#とC++/CLIで一致させることが出来る)
@@ -614,10 +615,7 @@ public sealed partial class hmV8DynamicLib
         catch (ScriptEngineException e)
         {
             OutputDebugStream("in " + inAction);
-            OutputDebugStream(e.GetType().Name + ":");
-            OutputDebugStream(e.ErrorDetails);
-
-            var stack = engine.GetStackTrace();
+            var stack = e.GetScriptStack();
             OutputDebugStream(stack.ToString());
 
             /*
@@ -636,7 +634,6 @@ public sealed partial class hmV8DynamicLib
             return message;
             */
 
-
             ScriptEngineException next = e.InnerException as ScriptEngineException;
             while (next != null)
             {
@@ -651,10 +648,7 @@ public sealed partial class hmV8DynamicLib
         catch (ScriptInterruptedException e)
         {
             OutputDebugStream("in " + inAction);
-            OutputDebugStream(e.GetType().Name + ":");
-            OutputDebugStream(e.ErrorDetails);
-
-            var stack = engine.GetStackTrace();
+            var stack = e.GetScriptStack();
             OutputDebugStream(stack.ToString());
 
 
@@ -670,8 +664,7 @@ public sealed partial class hmV8DynamicLib
         catch (Exception e)
         {
             OutputDebugStream("in " + inAction);
-            OutputDebugStream(e.GetType().Name + ":");
-            OutputDebugStream(e.Message);
+            OutputDebugStream(e.GetScriptStack());
         }
 
         return (IntPtr)0;

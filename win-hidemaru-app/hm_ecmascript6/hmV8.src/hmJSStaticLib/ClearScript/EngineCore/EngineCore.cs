@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.ClearScript;
 using Microsoft.ClearScript.V8;
 using hmV8DynamicNS.Compilers;
+using hmV8DynamicNS.Extensions;
 
 // [assembly: NoDefaultScriptAccess]
 
@@ -88,7 +89,7 @@ namespace hmV8DynamicNS
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Trace.WriteLine(ex);
+                System.Diagnostics.Trace.WriteLine(ex.GetScriptStack());
                 Sleeping = true;
                 throw;
             }
