@@ -363,7 +363,7 @@ JavaScript用のライブラリです。文字キャンバスに対して処理�
 ## 使い方5 - 文字列の描画 図形として
 
 Webブラウザ限定の機能です。HTML5のCanvasを利用しています。
-(★Webブラウザ限定なので、秀丸では使えないので注意)
+###(<font color="red">★Webブラウザ限定なので、秀丸では使えないので注意</font>)
 
 	var cc = new CharCanvas(70, 40, '-');
 	var mask = cc.areaText(2, -3, '顔貌', 20, 'sans-serif', 0.85, 1.7)
