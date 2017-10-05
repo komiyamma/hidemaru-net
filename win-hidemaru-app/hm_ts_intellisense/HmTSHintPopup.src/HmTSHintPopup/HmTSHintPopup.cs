@@ -5,11 +5,29 @@ using Hidemaru;
 
 public class HmTSHintPopup
 {
+    private static bool HmTSHintPopupFormClosed()
+    {
+        return HmTSHintPopupForm.form == null || HmTSHintPopupForm.form.IsClosed();
+    }
+
+    public static IntPtr IsNull()
+    {
+        if (HmTSHintPopupFormClosed())
+        {
+            return (IntPtr)1;
+        }
+        else
+        {
+            return (IntPtr)0;
+        }
+    }
+
     public static IntPtr Start()
     {
         try
         {
-            if (HmTSHintPopupForm.form == null)
+            HmTSHintPopupForm.SetContinueNotify();
+            if (HmTSHintPopupFormClosed())
             {
                 String fontname = (String)Hm.Macro.Var["fontname"];
                 HmTSHintPopupForm.form = new HmTSHintPopupForm(fontname);
@@ -23,7 +41,7 @@ public class HmTSHintPopup
         return (IntPtr)1;
     }
 
-    public static IntPtr OnDetachMethod()
+    public static IntPtr Stop()
     {
         try
         {
@@ -36,6 +54,13 @@ public class HmTSHintPopup
         {
             System.Diagnostics.Trace.WriteLine(e.Message);
         }
+
+        return (IntPtr)1;
+    }
+
+    public static IntPtr OnDetachMethod()
+    {
+        Stop();
 
         return (IntPtr)1;
     }

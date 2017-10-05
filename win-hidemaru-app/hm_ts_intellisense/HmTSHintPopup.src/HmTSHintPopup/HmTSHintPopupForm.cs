@@ -8,7 +8,7 @@ partial class HmTSHintPopupForm : Form
 {
     private Label lb = new Label();
     private Label lbDetail = new Label();
-    public static Form form { get; set; }
+    public static HmTSHintPopupForm form { get; set; }
     private String strFontName;
     public HmTSHintPopupForm(String fontname)
     {
@@ -128,6 +128,13 @@ partial class HmTSHintPopupForm : Form
         if (list.Count > 0 && list[0] != hWnd)
         {
             HideForm();
+            return;
+        }
+
+        String strCurFileName = Hm.Edit.FilePath ?? "";
+        bool isTSfile = TimerTick_Notify(strCurFileName);
+        if (!isTSfile)
+        {
             return;
         }
 
@@ -257,7 +264,10 @@ partial class HmTSHintPopupForm : Form
                 timer.Stop();
                 timer = null;
             }
+
             StopTSServer();
+
+            isClosed = true;
         }
         catch (Exception e)
         {
