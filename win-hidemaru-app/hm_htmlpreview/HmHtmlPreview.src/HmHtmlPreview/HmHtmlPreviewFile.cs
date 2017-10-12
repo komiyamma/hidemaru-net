@@ -118,8 +118,10 @@ internal class HmHtmlFileForm : HmHtmlBaseForm
         {
             if (e.ChangeType == System.IO.WatcherChangeTypes.Changed)
             {
-                // 秀丸で編集中のテキストが変わったのだよ。
-                if (string.Compare(e.FullPath, strCurFileFullPath, true) != 0)
+                var strOpenFileFullPath = Hm.Edit.FilePath ?? "";
+
+                // 今、秀丸で編集中のテキストファイル名と一致
+                if (String.Compare(e.FullPath, strOpenFileFullPath, true) == 0)
                 {
 
                     // 今のスクロールの位置を後で復元するので保存しておく
