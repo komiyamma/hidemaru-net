@@ -29,7 +29,7 @@ internal sealed class HmTextSynChromeForm : System.Windows.Forms.Form
         this.strOption1 = strOption1;
 
         SetFormAttribute();
-        SetWebBrowserAttribulte();
+        SetWebBrowserAttribute();
         SetTimerAttribute();
     }
 
@@ -43,7 +43,7 @@ internal sealed class HmTextSynChromeForm : System.Windows.Forms.Form
     }
 
     /// <summary>Webブラウザ属性設定</summary>
-    private void SetWebBrowserAttribulte()
+    private void SetWebBrowserAttribute()
     {
 
         try

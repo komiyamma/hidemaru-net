@@ -28,7 +28,7 @@ internal partial class HmMarkDownPreviewForm : System.Windows.Forms.Form
 
         SetFormAttribute();
         SetTextBoxAttribute();
-        SetWebBrowserAttribulte();
+        SetWebBrowserAttribute();
         SetTimerAttribute();
     }
 
@@ -70,7 +70,7 @@ internal partial class HmMarkDownPreviewForm : System.Windows.Forms.Form
         tb.ClientSize = sc.Panel1.ClientSize;
     }
 
-    public void SetWebBrowserAttribulte()
+    public void SetWebBrowserAttribute()
     {
         // WebBrowserオブジェクトを配置
         wb = new WebBrowser();
