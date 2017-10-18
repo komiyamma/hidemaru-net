@@ -28,7 +28,7 @@ internal abstract partial class HmHtmlBaseForm : System.Windows.Forms.Form
         this.hWndHidemaru = hWndHidemaru;
 
         SetFormAttribute();
-        SetWebBrowserAttribulte();
+        SetWebBrowserAttribute();
         SetTimerAttribute();
     }
 
@@ -49,7 +49,7 @@ internal abstract partial class HmHtmlBaseForm : System.Windows.Forms.Form
     }
 
     /// <summary>Webブラウザ属性設定</summary>
-    protected void SetWebBrowserAttribulte()
+    protected void SetWebBrowserAttribute()
     {
         // WebBrowserオブジェクトを配置
         wb = new WebBrowser();

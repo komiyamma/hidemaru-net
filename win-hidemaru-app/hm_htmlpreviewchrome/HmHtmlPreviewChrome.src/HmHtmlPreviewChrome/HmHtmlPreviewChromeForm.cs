@@ -37,7 +37,7 @@ internal class HmHtmlPreviewChromeForm : System.Windows.Forms.Form
         this.hWndHidemaru = hWndHidemaru;
 
         SetFormAttribute();
-        SetWebBrowserAttribulte();
+        SetWebBrowserAttribute();
         SetTimerAttribute();
     }
 
@@ -50,7 +50,7 @@ internal class HmHtmlPreviewChromeForm : System.Windows.Forms.Form
     }
 
     /// <summary>Webブラウザ属性設定</summary>
-    private void SetWebBrowserAttribulte()
+    private void SetWebBrowserAttribute()
     {
         update_Tick(null, null);
 
