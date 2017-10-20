@@ -68,6 +68,9 @@ namespace PythonEngine {
 		catch (py::error_already_set& e) {
 			OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
 		}
+		catch (exception& e) {
+			OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
+		}
 
 		// エンジンとして駄目
 		return FALSE;
@@ -90,6 +93,9 @@ namespace PythonEngine {
 			}
 		}
 		catch (py::error_already_set& e) {
+			OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
+		}
+		catch (exception& e) {
 			OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
 		}
 
@@ -123,6 +129,9 @@ namespace PythonEngine {
 		catch (py::error_already_set& e) {
 			OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
 		}
+		catch (exception& e) {
+			OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
+		}
 
 		return 0;
 	}
@@ -140,6 +149,9 @@ namespace PythonEngine {
 			return TRUE;
 		}
 		catch (py::error_already_set& e) {
+			OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
+		}
+		catch (exception& e) {
 			OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
 		}
 
@@ -165,6 +177,9 @@ namespace PythonEngine {
 		catch (py::error_already_set& e) {
 			OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
 		}
+		catch (exception& e) {
+			OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
+		}
 
 		return L"";
 	}
@@ -183,6 +198,9 @@ namespace PythonEngine {
 			return TRUE;
 		}
 		catch (py::error_already_set& e) {
+			OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
+		}
+		catch (exception& e) {
 			OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
 		}
 
@@ -238,6 +256,9 @@ namespace PythonEngine {
 		catch (py::error_already_set& e) {
 			OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
 		}
+		catch (exception& e) {
+			OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
+		}
 
 		return FALSE;
 	}
@@ -269,6 +290,9 @@ namespace PythonEngine {
 			catch (py::error_already_set& e) {
 				OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
 			}
+			catch (exception& e) {
+				OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
+			}
 
 			// 破棄
 			try {
@@ -277,6 +301,9 @@ namespace PythonEngine {
 				// PyMem_RawFree(m_wstr_program);
 			}
 			catch (py::error_already_set& e) {
+				OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
+			}
+			catch (exception& e) {
 				OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
 			}
 		}
