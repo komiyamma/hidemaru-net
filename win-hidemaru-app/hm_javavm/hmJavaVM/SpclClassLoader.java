@@ -38,10 +38,8 @@ public class MiscTools
         protected String findLibrary(String libname)
         {
             String nativeName = System.mapLibraryName(libname);
-            return userLibPaths.stream().map(tpath -> tpath.resolve(nativeName)).filter(Files::exists).map(Path::toString).findFirst().orElse(super.findLibrary(libname));
-        }
+            return userLibPaths.stream().map(tpath -> tpath.resolve(nativeName)).filter(Files::exists).map(Path::toString).findFirst().orElse(super.findLibrary(libname));            }
     }
-    
     private final static SpclClassLoader ucl = new SpclClassLoader();
 
     /**
