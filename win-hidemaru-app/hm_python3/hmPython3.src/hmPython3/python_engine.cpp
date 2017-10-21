@@ -1,6 +1,7 @@
 
 #include "python_hidemaru_lib.h"
 #include "python_engine.h"
+#include "exception_translator.h"
 
 namespace PythonEngine {
 
@@ -71,6 +72,11 @@ namespace PythonEngine {
 		catch (exception& e) {
 			OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
 		}
+		catch (...) {
+			auto what = python_critical_exception_message();
+			OutputDebugStream(L"エラー:\n" + what);
+			MessageBox(NULL, what.data(), L"システム例外", NULL);
+		}
 
 		// エンジンとして駄目
 		return FALSE;
@@ -97,6 +103,11 @@ namespace PythonEngine {
 		}
 		catch (exception& e) {
 			OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
+		}
+		catch (...) {
+			auto what = python_critical_exception_message();
+			OutputDebugStream(L"エラー:\n" + what);
+			MessageBox(NULL, what.data(), L"システム例外", NULL);
 		}
 
 		return TRUE;
@@ -132,6 +143,11 @@ namespace PythonEngine {
 		catch (exception& e) {
 			OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
 		}
+		catch (...) {
+			auto what = python_critical_exception_message();
+			OutputDebugStream(L"エラー:\n" + what);
+			MessageBox(NULL, what.data(), L"システム例外", NULL);
+		}
 
 		return 0;
 	}
@@ -153,6 +169,11 @@ namespace PythonEngine {
 		}
 		catch (exception& e) {
 			OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
+		}
+		catch (...) {
+			auto what = python_critical_exception_message();
+			OutputDebugStream(L"エラー:\n" + what);
+			MessageBox(NULL, what.data(), L"システム例外", NULL);
 		}
 
 		return FALSE;
@@ -180,6 +201,11 @@ namespace PythonEngine {
 		catch (exception& e) {
 			OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
 		}
+		catch (...) {
+			auto what = python_critical_exception_message();
+			OutputDebugStream(L"エラー:\n" + what);
+			MessageBox(NULL, what.data(), L"システム例外", NULL);
+		}
 
 		return L"";
 	}
@@ -202,6 +228,11 @@ namespace PythonEngine {
 		}
 		catch (exception& e) {
 			OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
+		}
+		catch (...) {
+			auto what = python_critical_exception_message();
+			OutputDebugStream(L"エラー:\n" + what);
+			MessageBox(NULL, what.data(), L"システム例外", NULL);
 		}
 
 		return FALSE;
@@ -259,6 +290,11 @@ namespace PythonEngine {
 		catch (exception& e) {
 			OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
 		}
+		catch (...) {
+			auto what = python_critical_exception_message();
+			OutputDebugStream(L"エラー:\n" + what);
+			MessageBox(NULL, what.data(), L"システム例外", NULL);
+		}
 
 		return FALSE;
 	}
@@ -293,6 +329,11 @@ namespace PythonEngine {
 			catch (exception& e) {
 				OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
 			}
+			catch (...) {
+				auto what = python_critical_exception_message();
+				OutputDebugStream(L"エラー:\n" + what);
+				MessageBox(NULL, what.data(), L"システム例外", NULL);
+			}
 
 			// 破棄
 			try {
@@ -305,6 +346,11 @@ namespace PythonEngine {
 			}
 			catch (exception& e) {
 				OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
+			}
+			catch (...) {
+				auto what = python_critical_exception_message();
+				OutputDebugStream(L"エラー:\n" + what);
+				MessageBox(NULL, what.data(), L"システム例外", NULL);
 			}
 		}
 

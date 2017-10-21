@@ -2,6 +2,7 @@
 #include "self_dll_info.h"
 
 #include "output_debugstream.h"
+#include "exception_translator.h"
 
 
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReserved)
@@ -14,6 +15,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReser
 		// 自分自身のdllのハンドルやフルパスを保存しておく
 		//-------------------------------------------------------------------------
 		CSelfDllInfo::InitializeHandle(hModule);
+
 		break;
 	case DLL_THREAD_ATTACH:
 		break;

@@ -36,6 +36,9 @@
     <Filter Include="PythonEngineのパス">
       <UniqueIdentifier>{1cbade8e-2c39-4f9e-a914-5733cddab77f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="システム例外変換">
+      <UniqueIdentifier>{1679ce89-55ae-4f5f-be94-e460d4ee5821}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="self_dll_info.cpp">
@@ -80,6 +83,9 @@
     <ClCompile Include="hidemaruexe_export.cpp">
       <Filter>秀丸本体のexeの関数やバージョン</Filter>
     </ClCompile>
+    <ClCompile Include="exception_translator.cpp">
+      <Filter>システム例外変換</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="self_dll_info.h">
@@ -114,6 +120,9 @@
     </ClInclude>
     <ClInclude Include="tinyxml.h">
       <Filter>TinyXML</Filter>
+    </ClInclude>
+    <ClInclude Include="exception_translator.h">
+      <Filter>システム例外変換</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

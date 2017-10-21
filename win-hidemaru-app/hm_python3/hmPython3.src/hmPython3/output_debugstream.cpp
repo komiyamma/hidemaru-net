@@ -1,6 +1,7 @@
 #include <windows.h>
 #include <tchar.h>
 #include <sstream>
+#include <string>
 
 #include "convert_string.h"
 
