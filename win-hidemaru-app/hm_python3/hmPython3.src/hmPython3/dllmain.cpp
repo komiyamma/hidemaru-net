@@ -16,6 +16,9 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReser
 		//-------------------------------------------------------------------------
 		CSelfDllInfo::InitializeHandle(hModule);
 
+		/* SWFilter()を例外フィルタとして設定しておく */
+		// SetUnhandledExceptionFilter(SWFilter);
+
 		break;
 	case DLL_THREAD_ATTACH:
 		break;
