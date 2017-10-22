@@ -9,7 +9,7 @@ if (!#V8) {
 
 #r = dllfuncw( #V8, "DoString", R"V8(
 
-let Guesslanguage = require("HmGuessNaturalLanguage.js");
+let GuessNaturalLanguage = require("HmGuessNaturalLanguage.js");
 
 function GetTargetText() {
     return hm.Edit.SelectedText || hm.Edit.TotalText;
@@ -17,7 +17,7 @@ function GetTargetText() {
 
 function GuessLanguage(text) {
     let [id, name] = ['unknown', 'unknown'];
-    Guesslanguage.info( text, (info)=>{
+    GuessNaturalLanguage.info( text, (info)=>{
         [id, name] = [ info[0], info[2] ]
     });
     return [id, name];
