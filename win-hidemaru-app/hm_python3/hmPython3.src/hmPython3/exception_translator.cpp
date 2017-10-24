@@ -16,10 +16,12 @@ wstring CSEHException::what() {
 
 	PEXCEPTION_RECORD exRecord = m_ExceptionPointers->ExceptionRecord;
 
+	/*
 	printf("|Exception Code:    0x%08x\n", exRecord->ExceptionCode);
 	printf("|Exception Falgs:   0x%08x\n", exRecord->ExceptionFlags);
 	printf("|Exception Address: 0x%p\n", exRecord->ExceptionAddress);
 	printf("|Parameters:\n");
+	*/
 
 	STACKFRAME sf;
 
@@ -64,7 +66,7 @@ wstring CSEHException::what() {
 	}
 
 	// 後処理
-	SymCleanup(GetCurrentProcess());
+	SymCleanup(hProcess);
 	GlobalFree(pSym);
 
 	ret += L""
@@ -95,7 +97,7 @@ void PythonKnknownException(exception &e) {
 }
 void SystemAlreadySetException(CSEHException &e) {
 	auto err = e.what();
-	OutputDebugStream((L"エラー:\n" + err).data());
+	OutputDebugStream(err.data());
 	MessageBox(NULL, err.data(), L"システム例外", NULL);
 }
 void SystemUnknownException() {
