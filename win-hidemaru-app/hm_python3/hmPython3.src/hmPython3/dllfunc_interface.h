@@ -1,5 +1,6 @@
 #pragma once
 
+#include <windows.h>
 
 #define MACRO_DLL extern "C" __declspec(dllexport)
 

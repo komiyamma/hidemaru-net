@@ -2,7 +2,6 @@
 #include "self_dll_info.h"
 
 #include "output_debugstream.h"
-#include "exception_translator.h"
 
 
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReserved)

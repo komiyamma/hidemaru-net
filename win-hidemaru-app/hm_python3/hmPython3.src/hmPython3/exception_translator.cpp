@@ -1,3 +1,5 @@
+
+
 #include "exception_translator.h"
 #include "output_debugstream.h"
 
@@ -83,3 +85,20 @@ void PythonTransSEHtoCEH(unsigned int ExceptionCode, PEXCEPTION_POINTERS Excepti
 	throw CSEHException(ExceptionCode, ExceptionPointers);
 }
 
+
+
+void PythonAlreadySetException(py::error_already_set &e) {
+	OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
+}
+void PythonKnknownException(exception &e) {
+	OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
+}
+void SystemAlreadySetException(CSEHException &e) {
+	auto err = e.what();
+	OutputDebugStream((L"エラー:\n" + err).data());
+	MessageBox(NULL, err.data(), L"システム例外", NULL);
+}
+void SystemUnknownException() {
+	OutputDebugStream(L"エラー:\nシステム例外(...)");
+	MessageBox(NULL, L"捕捉出来ないシステム例外が発生しました。", L"システム例外", NULL);
+}

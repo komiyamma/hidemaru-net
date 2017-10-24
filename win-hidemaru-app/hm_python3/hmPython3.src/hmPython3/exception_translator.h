@@ -1,7 +1,8 @@
 #pragma once
 
-#include <windows.h>
-#include <string>
+#include "python_hidemaru_lib.h"
+
+
 
 
 class CSEHException {
@@ -23,3 +24,9 @@ private:
 
 
 void PythonTransSEHtoCEH(unsigned int ExceptionCode, PEXCEPTION_POINTERS ExceptionPointers);
+
+
+extern void PythonAlreadySetException(py::error_already_set &e);
+extern void PythonKnknownException(exception &e);
+extern void SystemAlreadySetException(CSEHException &e);
+extern void SystemUnknownException();

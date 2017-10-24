@@ -3,6 +3,7 @@
 #include "python_engine.h"
 #include "exception_translator.h"
 
+
 namespace PythonEngine {
 
 	// エンジンが有効になった
@@ -67,19 +68,16 @@ namespace PythonEngine {
 			return TRUE;
 		}
 		catch (py::error_already_set& e) {
-			OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
+			PythonAlreadySetException(e);
 		}
 		catch (exception& e) {
-			OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
+			PythonKnknownException(e);
 		}
 		catch (CSEHException &e) {
-			auto err = e.what();
-			OutputDebugStream((L"エラー:\n" + err).data());
-			MessageBox(NULL, err.data(), L"システム例外", NULL);
+			SystemAlreadySetException(e);
 		}
 		catch (...) {
-			OutputDebugStream(L"エラー:\nシステム例外(...)");
-			MessageBox(NULL, L"システム例外(...)", L"システム例外(...)", NULL);
+			SystemUnknownException();
 		}
 
 		// エンジンとして駄目
@@ -111,19 +109,16 @@ namespace PythonEngine {
 			}
 		}
 		catch (py::error_already_set& e) {
-			OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
+			PythonAlreadySetException(e);
 		}
 		catch (exception& e) {
-			OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
+			PythonKnknownException(e);
 		}
 		catch (CSEHException &e) {
-			auto err = e.what();
-			OutputDebugStream((L"エラー:\n" + err).data());
-			MessageBox(NULL, err.data(), L"システム例外", NULL);
+			SystemAlreadySetException(e);
 		}
 		catch (...) {
-			OutputDebugStream(L"エラー:\nシステム例外(...)");
-			MessageBox(NULL, L"システム例外(...)", L"システム例外(...)", NULL);
+			SystemUnknownException();
 		}
 
 		return TRUE;
@@ -161,19 +156,16 @@ namespace PythonEngine {
 			return n;
 		}
 		catch (py::error_already_set& e) {
-			OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
+			PythonAlreadySetException(e);
 		}
 		catch (exception& e) {
-			OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
+			PythonKnknownException(e);
 		}
 		catch (CSEHException &e) {
-			auto err = e.what();
-			OutputDebugStream((L"エラー:\n" + err).data());
-			MessageBox(NULL, err.data(), L"システム例外", NULL);
+			SystemAlreadySetException(e);
 		}
 		catch (...) {
-			OutputDebugStream(L"エラー:\nシステム例外(...)");
-			MessageBox(NULL, L"システム例外(...)", L"システム例外(...)", NULL);
+			SystemUnknownException();
 		}
 
 		return 0;
@@ -200,19 +192,16 @@ namespace PythonEngine {
 			return TRUE;
 		}
 		catch (py::error_already_set& e) {
-			OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
+			PythonAlreadySetException(e);
 		}
 		catch (exception& e) {
-			OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
+			PythonKnknownException(e);
 		}
 		catch (CSEHException &e) {
-			auto err = e.what();
-			OutputDebugStream((L"エラー:\n" + err).data());
-			MessageBox(NULL, err.data(), L"システム例外", NULL);
+			SystemAlreadySetException(e);
 		}
 		catch (...) {
-			OutputDebugStream(L"エラー:\nシステム例外(...)");
-			MessageBox(NULL, L"システム例外(...)", L"システム例外(...)", NULL);
+			SystemUnknownException();
 		}
 
 		return FALSE;
@@ -242,19 +231,16 @@ namespace PythonEngine {
 			return utf16_value;
 		}
 		catch (py::error_already_set& e) {
-			OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
+			PythonAlreadySetException(e);
 		}
 		catch (exception& e) {
-			OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
+			PythonKnknownException(e);
 		}
 		catch (CSEHException &e) {
-			auto err = e.what();
-			OutputDebugStream((L"エラー:\n" + err).data());
-			MessageBox(NULL, err.data(), L"システム例外", NULL);
+			SystemAlreadySetException(e);
 		}
 		catch (...) {
-			OutputDebugStream(L"エラー:\nシステム例外(...)");
-			MessageBox(NULL, L"システム例外(...)", L"システム例外(...)", NULL);
+			SystemUnknownException();
 		}
 
 		return L"";
@@ -281,19 +267,16 @@ namespace PythonEngine {
 			return TRUE;
 		}
 		catch (py::error_already_set& e) {
-			OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
+			PythonAlreadySetException(e);
 		}
 		catch (exception& e) {
-			OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
+			PythonKnknownException(e);
 		}
 		catch (CSEHException &e) {
-			auto err = e.what();
-			OutputDebugStream((L"エラー:\n" + err).data());
-			MessageBox(NULL, err.data(), L"システム例外", NULL);
+			SystemAlreadySetException(e);
 		}
 		catch (...) {
-			OutputDebugStream(L"エラー:\nシステム例外(...)");
-			MessageBox(NULL, L"システム例外(...)", L"システム例外(...)", NULL);
+			SystemUnknownException();
 		}
 
 		return FALSE;
@@ -354,19 +337,16 @@ namespace PythonEngine {
 			return TRUE;
 		}
 		catch (py::error_already_set& e) {
-			OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
+			PythonAlreadySetException(e);
 		}
 		catch (exception& e) {
-			OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
+			PythonKnknownException(e);
 		}
 		catch (CSEHException &e) {
-			auto err = e.what();
-			OutputDebugStream((L"エラー:\n" + err).data());
-			MessageBox(NULL, err.data(), L"システム例外", NULL);
+			SystemAlreadySetException(e);
 		}
 		catch (...) {
-			OutputDebugStream(L"エラー:\nシステム例外(...)");
-			MessageBox(NULL, L"システム例外(...)", L"システム例外(...)", NULL);
+			SystemUnknownException();
 		}
 
 		return FALSE;
@@ -404,19 +384,16 @@ namespace PythonEngine {
 #pragma endregion
 			}
 			catch (py::error_already_set& e) {
-				OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
+				PythonAlreadySetException(e);
 			}
 			catch (exception& e) {
-				OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
+				PythonKnknownException(e);
 			}
 			catch (CSEHException &e) {
-				auto err = e.what();
-				OutputDebugStream((L"エラー:\n" + err).data());
-				MessageBox(NULL, err.data(), L"システム例外", NULL);
+				SystemAlreadySetException(e);
 			}
 			catch (...) {
-				OutputDebugStream(L"エラー:\nシステム例外(...)");
-				MessageBox(NULL, L"システム例外(...)", L"システム例外(...)", NULL);
+				SystemUnknownException();
 			}
 
 			// 破棄
@@ -426,19 +403,16 @@ namespace PythonEngine {
 				// PyMem_RawFree(m_wstr_program);
 			}
 			catch (py::error_already_set& e) {
-				OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
+				PythonAlreadySetException(e);
 			}
 			catch (exception& e) {
-				OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
+				PythonKnknownException(e);
 			}
 			catch (CSEHException &e) {
-				auto err = e.what();
-				OutputDebugStream((L"エラー:\n" + err).data());
-				MessageBox(NULL, err.data(), L"システム例外", NULL);
+				SystemAlreadySetException(e);
 			}
 			catch (...) {
-				OutputDebugStream(L"エラー:\nシステム例外(...)");
-				MessageBox(NULL, L"システム例外(...)", L"システム例外(...)", NULL);
+				SystemUnknownException();
 			}
 		}
 
