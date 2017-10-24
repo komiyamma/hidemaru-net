@@ -20,8 +20,6 @@ private:
 
 };
 
-extern std::wstring python_critical_exception_message();
 
 
 void PythonTransSEHtoCEH(unsigned int ExceptionCode, PEXCEPTION_POINTERS ExceptionPointers);
-using OrgTransSEHtoCEH = void (*)(unsigned int ExceptionCode, PEXCEPTION_POINTERS ExceptionPointers);

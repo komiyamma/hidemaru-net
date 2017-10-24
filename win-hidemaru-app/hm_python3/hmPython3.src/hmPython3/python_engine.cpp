@@ -78,9 +78,8 @@ namespace PythonEngine {
 			MessageBox(NULL, err.data(), L"システム例外", NULL);
 		}
 		catch (...) {
-			auto what = python_critical_exception_message();
-			OutputDebugStream(L"エラー:\n" + what);
-			MessageBox(NULL, what.data(), L"システム例外", NULL);
+			OutputDebugStream(L"エラー:\nシステム例外(...)");
+			MessageBox(NULL, L"システム例外(...)", L"システム例外(...)", NULL);
 		}
 
 		// エンジンとして駄目
@@ -123,9 +122,8 @@ namespace PythonEngine {
 			MessageBox(NULL, err.data(), L"システム例外", NULL);
 		}
 		catch (...) {
-			auto what = python_critical_exception_message();
-			OutputDebugStream(L"エラー:\n" + what);
-			MessageBox(NULL, what.data(), L"システム例外", NULL);
+			OutputDebugStream(L"エラー:\nシステム例外(...)");
+			MessageBox(NULL, L"システム例外(...)", L"システム例外(...)", NULL);
 		}
 
 		return TRUE;
@@ -174,9 +172,8 @@ namespace PythonEngine {
 			MessageBox(NULL, err.data(), L"システム例外", NULL);
 		}
 		catch (...) {
-			auto what = python_critical_exception_message();
-			OutputDebugStream(L"エラー:\n" + what);
-			MessageBox(NULL, what.data(), L"システム例外", NULL);
+			OutputDebugStream(L"エラー:\nシステム例外(...)");
+			MessageBox(NULL, L"システム例外(...)", L"システム例外(...)", NULL);
 		}
 
 		return 0;
@@ -214,9 +211,8 @@ namespace PythonEngine {
 			MessageBox(NULL, err.data(), L"システム例外", NULL);
 		}
 		catch (...) {
-			auto what = python_critical_exception_message();
-			OutputDebugStream(L"エラー:\n" + what);
-			MessageBox(NULL, what.data(), L"システム例外", NULL);
+			OutputDebugStream(L"エラー:\nシステム例外(...)");
+			MessageBox(NULL, L"システム例外(...)", L"システム例外(...)", NULL);
 		}
 
 		return FALSE;
@@ -257,9 +253,8 @@ namespace PythonEngine {
 			MessageBox(NULL, err.data(), L"システム例外", NULL);
 		}
 		catch (...) {
-			auto what = python_critical_exception_message();
-			OutputDebugStream(L"エラー:\n" + what);
-			MessageBox(NULL, what.data(), L"システム例外", NULL);
+			OutputDebugStream(L"エラー:\nシステム例外(...)");
+			MessageBox(NULL, L"システム例外(...)", L"システム例外(...)", NULL);
 		}
 
 		return L"";
@@ -297,9 +292,8 @@ namespace PythonEngine {
 			MessageBox(NULL, err.data(), L"システム例外", NULL);
 		}
 		catch (...) {
-			auto what = python_critical_exception_message();
-			OutputDebugStream(L"エラー:\n" + what);
-			MessageBox(NULL, what.data(), L"システム例外", NULL);
+			OutputDebugStream(L"エラー:\nシステム例外(...)");
+			MessageBox(NULL, L"システム例外(...)", L"システム例外(...)", NULL);
 		}
 
 		return FALSE;
@@ -371,9 +365,8 @@ namespace PythonEngine {
 			MessageBox(NULL, err.data(), L"システム例外", NULL);
 		}
 		catch (...) {
-			auto what = python_critical_exception_message();
-			OutputDebugStream(L"エラー:\n" + what);
-			MessageBox(NULL, what.data(), L"システム例外", NULL);
+			OutputDebugStream(L"エラー:\nシステム例外(...)");
+			MessageBox(NULL, L"システム例外(...)", L"システム例外(...)", NULL);
 		}
 
 		return FALSE;
@@ -416,10 +409,14 @@ namespace PythonEngine {
 			catch (exception& e) {
 				OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
 			}
+			catch (CSEHException &e) {
+				auto err = e.what();
+				OutputDebugStream((L"エラー:\n" + err).data());
+				MessageBox(NULL, err.data(), L"システム例外", NULL);
+			}
 			catch (...) {
-				auto what = python_critical_exception_message();
-				OutputDebugStream(L"エラー:\n" + what);
-				MessageBox(NULL, what.data(), L"システム例外", NULL);
+				OutputDebugStream(L"エラー:\nシステム例外(...)");
+				MessageBox(NULL, L"システム例外(...)", L"システム例外(...)", NULL);
 			}
 
 			// 破棄
@@ -440,9 +437,8 @@ namespace PythonEngine {
 				MessageBox(NULL, err.data(), L"システム例外", NULL);
 			}
 			catch (...) {
-				auto what = python_critical_exception_message();
-				OutputDebugStream(L"エラー:\n" + what);
-				MessageBox(NULL, what.data(), L"システム例外", NULL);
+				OutputDebugStream(L"エラー:\nシステム例外(...)");
+				MessageBox(NULL, L"システム例外(...)", L"システム例外(...)", NULL);
 			}
 		}
 
