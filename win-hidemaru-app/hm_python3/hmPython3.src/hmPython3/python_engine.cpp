@@ -17,7 +17,7 @@ namespace PythonEngine {
 	}
 
 	// エンジン生成
-	int Create()
+	int _Create()
 	{
 		m_isValid = FALSE;
 
@@ -72,6 +72,11 @@ namespace PythonEngine {
 		catch (exception& e) {
 			OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
 		}
+		catch (CSEHException &e) {
+			auto err = e.what();
+			OutputDebugStream((L"エラー:\n" + err).data());
+			MessageBox(NULL, err.data(), L"システム例外", NULL);
+		}
 		catch (...) {
 			auto what = python_critical_exception_message();
 			OutputDebugStream(L"エラー:\n" + what);
@@ -82,9 +87,17 @@ namespace PythonEngine {
 		return FALSE;
 	}
 
+	int Create() {
+		auto prevTransEHtoCEH = _set_se_translator(PythonTransSEHtoCEH);
+		auto ret = _Create();
+		_set_se_translator(prevTransEHtoCEH);
+		return ret;
+	}
+
+
 	// エンジンが構築された後に１回だけ実行するように
 	static bool m_isInitialize = FALSE;
-	int Initialize() {
+	int _Initialize() {
 		if (!IsValid()) {
 			return FALSE;
 		}
@@ -104,6 +117,11 @@ namespace PythonEngine {
 		catch (exception& e) {
 			OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
 		}
+		catch (CSEHException &e) {
+			auto err = e.what();
+			OutputDebugStream((L"エラー:\n" + err).data());
+			MessageBox(NULL, err.data(), L"システム例外", NULL);
+		}
 		catch (...) {
 			auto what = python_critical_exception_message();
 			OutputDebugStream(L"エラー:\n" + what);
@@ -113,8 +131,15 @@ namespace PythonEngine {
 		return TRUE;
 	}
 
+	int Initialize() {
+		auto prevTransEHtoCEH = _set_se_translator(PythonTransSEHtoCEH);
+		auto ret = _Initialize();
+		_set_se_translator(prevTransEHtoCEH);
+		return ret;
+	}
+
 	// 対象のシンボル名の値を数値として得る
-	intHM_t GetNumVar(wstring utf16_simbol) {
+	intHM_t _GetNumVar(wstring utf16_simbol) {
 		try {
 			auto global = py::dict(py::module::import("__main__").attr("__dict__"));
 			auto local = py::dict();
@@ -143,6 +168,11 @@ namespace PythonEngine {
 		catch (exception& e) {
 			OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
 		}
+		catch (CSEHException &e) {
+			auto err = e.what();
+			OutputDebugStream((L"エラー:\n" + err).data());
+			MessageBox(NULL, err.data(), L"システム例外", NULL);
+		}
 		catch (...) {
 			auto what = python_critical_exception_message();
 			OutputDebugStream(L"エラー:\n" + what);
@@ -152,8 +182,16 @@ namespace PythonEngine {
 		return 0;
 	}
 
+	intHM_t GetNumVar(wstring utf16_simbol) {
+		auto prevTransEHtoCEH = _set_se_translator(PythonTransSEHtoCEH);
+		auto ret = _GetNumVar(utf16_simbol);
+		_set_se_translator(prevTransEHtoCEH);
+		return ret;
+	}
+
+
 	// 対象のシンボル名の値に数値を代入する
-	BOOL SetNumVar(wstring utf16_simbol, intHM_t value) {
+	BOOL _SetNumVar(wstring utf16_simbol, intHM_t value) {
 		try {
 			auto global = py::dict(py::module::import("__main__").attr("__dict__"));
 			auto local = py::dict();
@@ -170,6 +208,11 @@ namespace PythonEngine {
 		catch (exception& e) {
 			OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
 		}
+		catch (CSEHException &e) {
+			auto err = e.what();
+			OutputDebugStream((L"エラー:\n" + err).data());
+			MessageBox(NULL, err.data(), L"システム例外", NULL);
+		}
 		catch (...) {
 			auto what = python_critical_exception_message();
 			OutputDebugStream(L"エラー:\n" + what);
@@ -179,8 +222,15 @@ namespace PythonEngine {
 		return FALSE;
 	}
 
+	BOOL SetNumVar(wstring utf16_simbol, intHM_t value) {
+		auto prevTransEHtoCEH = _set_se_translator(PythonTransSEHtoCEH);
+		auto ret = _SetNumVar(utf16_simbol, value);
+		_set_se_translator(prevTransEHtoCEH);
+		return ret;
+	}
+
 	// 対象のシンボル名の値を文字列として得る
-	wstring GetStrVar(wstring utf16_simbol) {
+	wstring _GetStrVar(wstring utf16_simbol) {
 		try {
 			auto global = py::dict(py::module::import("__main__").attr("__dict__"));
 			auto local = py::dict();
@@ -201,6 +251,11 @@ namespace PythonEngine {
 		catch (exception& e) {
 			OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
 		}
+		catch (CSEHException &e) {
+			auto err = e.what();
+			OutputDebugStream((L"エラー:\n" + err).data());
+			MessageBox(NULL, err.data(), L"システム例外", NULL);
+		}
 		catch (...) {
 			auto what = python_critical_exception_message();
 			OutputDebugStream(L"エラー:\n" + what);
@@ -210,8 +265,15 @@ namespace PythonEngine {
 		return L"";
 	}
 
+	wstring GetStrVar(wstring utf16_simbol) {
+		auto prevTransEHtoCEH = _set_se_translator(PythonTransSEHtoCEH);
+		auto ret = _GetStrVar(utf16_simbol);
+		_set_se_translator(prevTransEHtoCEH);
+		return ret;
+	}
+
 	// 対象のシンボル名の値に文字列を代入する
-	BOOL SetStrVar(wstring utf16_simbol, wstring utf16_value) {
+	BOOL _SetStrVar(wstring utf16_simbol, wstring utf16_value) {
 		try {
 			auto global = py::dict(py::module::import("__main__").attr("__dict__"));
 			auto local = py::dict();
@@ -229,6 +291,11 @@ namespace PythonEngine {
 		catch (exception& e) {
 			OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
 		}
+		catch (CSEHException &e) {
+			auto err = e.what();
+			OutputDebugStream((L"エラー:\n" + err).data());
+			MessageBox(NULL, err.data(), L"システム例外", NULL);
+		}
 		catch (...) {
 			auto what = python_critical_exception_message();
 			OutputDebugStream(L"エラー:\n" + what);
@@ -236,6 +303,13 @@ namespace PythonEngine {
 		}
 
 		return FALSE;
+	}
+
+	BOOL SetStrVar(wstring utf16_simbol, wstring utf16_value) {
+		auto prevTransEHtoCEH = _set_se_translator(PythonTransSEHtoCEH);
+		auto ret = _SetStrVar(utf16_simbol, utf16_value);
+		_set_se_translator(prevTransEHtoCEH);
+		return ret;
 	}
 
 #pragma region
@@ -272,7 +346,7 @@ namespace PythonEngine {
 #pragma endregion
 
 	// 対象の文字列をPythonの複数式とみなして評価する
-	int DoString(wstring utf16_expression) {
+	int _DoString(wstring utf16_expression) {
 		if (!IsValid()) {
 			return FALSE;
 		}
@@ -280,6 +354,7 @@ namespace PythonEngine {
 		try {
 
 			string utf8_expression = utf16_to_utf8(utf16_expression);
+
 			py::eval<py::eval_statements>(utf8_expression);
 
 			return TRUE;
@@ -290,6 +365,11 @@ namespace PythonEngine {
 		catch (exception& e) {
 			OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
 		}
+		catch (CSEHException &e) {
+			auto err = e.what();
+			OutputDebugStream((L"エラー:\n" + err).data());
+			MessageBox(NULL, err.data(), L"システム例外", NULL);
+		}
 		catch (...) {
 			auto what = python_critical_exception_message();
 			OutputDebugStream(L"エラー:\n" + what);
@@ -297,12 +377,17 @@ namespace PythonEngine {
 		}
 
 		return FALSE;
+	}
 
-
+	int DoString(wstring utf16_expression) {
+		auto prevTransEHtoCEH = _set_se_translator(PythonTransSEHtoCEH);
+		auto ret = _DoString(utf16_expression);
+		_set_se_translator(prevTransEHtoCEH);
+		return ret;
 	}
 
 	// エンジンの破棄
-	int Destroy() {
+	int _Destroy() {
 
 		// 有効でないならば、即終了
 		if (!IsValid()) {
@@ -349,6 +434,11 @@ namespace PythonEngine {
 			catch (exception& e) {
 				OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
 			}
+			catch (CSEHException &e) {
+				auto err = e.what();
+				OutputDebugStream((L"エラー:\n" + err).data());
+				MessageBox(NULL, err.data(), L"システム例外", NULL);
+			}
 			catch (...) {
 				auto what = python_critical_exception_message();
 				OutputDebugStream(L"エラー:\n" + what);
@@ -364,5 +454,11 @@ namespace PythonEngine {
 		return TRUE;
 	}
 
+	int Destroy() {
+		auto prevTransEHtoCEH = _set_se_translator(PythonTransSEHtoCEH);
+		auto ret = _Destroy();
+		_set_se_translator(prevTransEHtoCEH);
+		return ret;
+	}
 }
 
