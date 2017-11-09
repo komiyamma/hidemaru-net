@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Microsoft.ClearScript</RootNamespace>
     <AssemblyName>hmV8StaticLib</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>
     </SccProjectName>
@@ -56,9 +56,9 @@
     <AssemblyOriginatorKeyFile>$(SolutionDir)ClearScript.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ClearScript, Version=5.4.9.0, Culture=neutral, PublicKeyToken=fcfb11bd4d6fae20, processorArchitecture=MSIL">
+    <Reference Include="ClearScript, Version=5.4.10.0, Culture=neutral, PublicKeyToken=960a7608304be6a9, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\ClearWork\ClearScript 5.4.10\bin\Release\ClearScript.dll</HintPath>
+      <HintPath>..\..\..\ClearWork\ClearScript.5.5.0\bin\Release\ClearScript.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
