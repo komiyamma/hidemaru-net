@@ -28,9 +28,15 @@ wstring CSEHException::what() {
 	// スタックフレームの初期化/
 	ZeroMemory(&sf, sizeof(sf));
 	auto ctRecord = m_ExceptionPointers->ContextRecord;
+#if _WIN64
+	sf.AddrPC.Offset = ctRecord->Rip;
+	sf.AddrStack.Offset = ctRecord->Rsp;
+	sf.AddrFrame.Offset = ctRecord->Rbp;
+#else
 	sf.AddrPC.Offset = ctRecord->Eip;
 	sf.AddrStack.Offset = ctRecord->Esp;
 	sf.AddrFrame.Offset = ctRecord->Ebp;
+#endif
 	sf.AddrPC.Mode = AddrModeFlat;
 	sf.AddrStack.Mode = AddrModeFlat;
 	sf.AddrFrame.Mode = AddrModeFlat;
@@ -44,8 +50,7 @@ wstring CSEHException::what() {
 	IMAGEHLP_MODULE imageModule = { sizeof(IMAGEHLP_MODULE) };
 
 	BOOL bResult;
-	PIMAGEHLP_SYMBOL pSym;
-	DWORD Disp;
+	PIMAGEHLP_SYMBOL pSym = { 0 };
 
 	bResult = SymGetModuleInfo(hProcess, sf.AddrPC.Offset, &imageModule);
 	if (bResult) {
@@ -53,16 +58,35 @@ wstring CSEHException::what() {
 		ret += buf;
 	}
 	else {
+#if _WIN64
+		wsprintf(buf, L"%llx, ---\n", sf.AddrPC.Offset);
+#else
 		wsprintf(buf, L"%08x, ---\n", sf.AddrPC.Offset);
+#endif
 	}
 
+#if _WIN64
+	DWORD64 Disp;
 	bResult = SymGetSymFromAddr(hProcess, sf.AddrPC.Offset, &Disp, pSym);
+#else
+	DWORD Disp;
+	bResult = SymGetSymFromAddr(hProcess, sf.AddrPC.Offset, &Disp, pSym);
+#endif
+
 	if (bResult) {
+#if _WIN64
+		wsprintf(buf, L"0x%llx %s() + 0x%llx\n", sf.AddrPC.Offset, cp932_to_utf16(pSym->Name).data(), Disp);
+#else
 		wsprintf(buf, L"0x%08x %s() + 0x%x\n", sf.AddrPC.Offset, cp932_to_utf16(pSym->Name).data(), Disp);
+#endif
 		ret += buf;
 	}
 	else {
+#if _WIN64
+		wsprintf(buf, L"%llx, ---\n", sf.AddrPC.Offset);
+#else
 		wsprintf(buf, L"%08x, ---\n", sf.AddrPC.Offset);
+#endif
 	}
 
 	// 後処理
