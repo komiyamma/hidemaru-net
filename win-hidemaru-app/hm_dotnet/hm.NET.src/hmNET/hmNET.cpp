@@ -308,6 +308,32 @@ MACRO_DLL intHM_t DetachScope() {
 	return ret;
 }
 
-MACRO_DLL intHM_t DllDetachFunc_After_Hm866() {
-	return DetachScope();
+MACRO_DLL intHM_t DllDetachFunc_After_Hm866(intHM_t n) {
+
+	auto ret = DetachScope();
+
+	// v8.77未満だと、nは常に0
+	if (n == 0) {
+		// OutputDebugStream(L"v8.66未満\n");
+	}
+	else if (n == 1) {
+		MessageBox(NULL, L"hm.NET.dllをマクロ制御下で解放をしてはいけません。\n"
+			L"(freedllによる解放エラー)", L"エラー", MB_ICONERROR);
+		// freedll
+	}
+	else if (n == 2) {
+		MessageBox(NULL, L"hm.NET.dllをマクロ制御下で解放をしてはいけません。\n"
+			L"「loaddll文」ではなく、「loaddll関数」を利用してください。\n"
+			L"(新たなloaddll文による、hm.NET.dllの暗黙的解放エラー)", L"エラー", MB_ICONERROR);
+		// loaddll文による入れ替え
+	}
+	else if (n == 3) {
+		// OutputDebugStream(L"プロセス終了時\n");
+		// プロセス終了時
+	}
+	else {
+		// 未知の数
+	}
+
+	return ret;
 }
