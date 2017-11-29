@@ -1,8 +1,6 @@
-
 #include "python_hidemaru_lib.h"
 #include "python_engine.h"
 #include "exception_translator.h"
-
 
 namespace PythonEngine {
 
@@ -18,7 +16,7 @@ namespace PythonEngine {
 	}
 
 	// エンジン生成
-	int _Create()
+	int Create()
 	{
 		m_isValid = FALSE;
 
@@ -59,8 +57,8 @@ namespace PythonEngine {
 			/*
 			// DestroyScopeの定義
 			py::eval<py::eval_statements>(
-				"def DestroyScope():\n"
-				"    pass");
+			"def DestroyScope():\n"
+			"    pass");
 			*/
 #pragma endregion
 			// ここまで実行出来たら、エンジンとして有効になったというフラグが立つ
@@ -68,33 +66,24 @@ namespace PythonEngine {
 			return TRUE;
 		}
 		catch (py::error_already_set& e) {
-			PythonAlreadySetException(e);
+			OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
 		}
 		catch (exception& e) {
-			PythonKnknownException(e);
-		}
-		catch (CSEHException &e) {
-			SystemAlreadySetException(e);
+			OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
 		}
 		catch (...) {
-			SystemUnknownException();
+			auto what = python_critical_exception_message();
+			OutputDebugStream(L"エラー:\n" + what);
+			MessageBox(NULL, what.data(), L"システム例外", NULL);
 		}
 
 		// エンジンとして駄目
 		return FALSE;
 	}
 
-	int Create() {
-		auto prevTransEHtoCEH = _set_se_translator(PythonTransSEHtoCEH);
-		auto ret = _Create();
-		_set_se_translator(prevTransEHtoCEH);
-		return ret;
-	}
-
-
 	// エンジンが構築された後に１回だけ実行するように
 	static bool m_isInitialize = FALSE;
-	int _Initialize() {
+	int Initialize() {
 		if (!IsValid()) {
 			return FALSE;
 		}
@@ -109,30 +98,22 @@ namespace PythonEngine {
 			}
 		}
 		catch (py::error_already_set& e) {
-			PythonAlreadySetException(e);
+			OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
 		}
 		catch (exception& e) {
-			PythonKnknownException(e);
-		}
-		catch (CSEHException &e) {
-			SystemAlreadySetException(e);
+			OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
 		}
 		catch (...) {
-			SystemUnknownException();
+			auto what = python_critical_exception_message();
+			OutputDebugStream(L"エラー:\n" + what);
+			MessageBox(NULL, what.data(), L"システム例外", NULL);
 		}
 
 		return TRUE;
 	}
 
-	int Initialize() {
-		auto prevTransEHtoCEH = _set_se_translator(PythonTransSEHtoCEH);
-		auto ret = _Initialize();
-		_set_se_translator(prevTransEHtoCEH);
-		return ret;
-	}
-
 	// 対象のシンボル名の値を数値として得る
-	intHM_t _GetNumVar(wstring utf16_simbol) {
+	intHM_t GetNumVar(wstring utf16_simbol) {
 		try {
 			auto global = py::dict(py::module::import("__main__").attr("__dict__"));
 			auto local = py::dict();
@@ -156,31 +137,22 @@ namespace PythonEngine {
 			return n;
 		}
 		catch (py::error_already_set& e) {
-			PythonAlreadySetException(e);
+			OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
 		}
 		catch (exception& e) {
-			PythonKnknownException(e);
-		}
-		catch (CSEHException &e) {
-			SystemAlreadySetException(e);
+			OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
 		}
 		catch (...) {
-			SystemUnknownException();
+			auto what = python_critical_exception_message();
+			OutputDebugStream(L"エラー:\n" + what);
+			MessageBox(NULL, what.data(), L"システム例外", NULL);
 		}
 
 		return 0;
 	}
 
-	intHM_t GetNumVar(wstring utf16_simbol) {
-		auto prevTransEHtoCEH = _set_se_translator(PythonTransSEHtoCEH);
-		auto ret = _GetNumVar(utf16_simbol);
-		_set_se_translator(prevTransEHtoCEH);
-		return ret;
-	}
-
-
 	// 対象のシンボル名の値に数値を代入する
-	BOOL _SetNumVar(wstring utf16_simbol, intHM_t value) {
+	BOOL SetNumVar(wstring utf16_simbol, intHM_t value) {
 		try {
 			auto global = py::dict(py::module::import("__main__").attr("__dict__"));
 			auto local = py::dict();
@@ -192,30 +164,22 @@ namespace PythonEngine {
 			return TRUE;
 		}
 		catch (py::error_already_set& e) {
-			PythonAlreadySetException(e);
+			OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
 		}
 		catch (exception& e) {
-			PythonKnknownException(e);
-		}
-		catch (CSEHException &e) {
-			SystemAlreadySetException(e);
+			OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
 		}
 		catch (...) {
-			SystemUnknownException();
+			auto what = python_critical_exception_message();
+			OutputDebugStream(L"エラー:\n" + what);
+			MessageBox(NULL, what.data(), L"システム例外", NULL);
 		}
 
 		return FALSE;
 	}
 
-	BOOL SetNumVar(wstring utf16_simbol, intHM_t value) {
-		auto prevTransEHtoCEH = _set_se_translator(PythonTransSEHtoCEH);
-		auto ret = _SetNumVar(utf16_simbol, value);
-		_set_se_translator(prevTransEHtoCEH);
-		return ret;
-	}
-
 	// 対象のシンボル名の値を文字列として得る
-	wstring _GetStrVar(wstring utf16_simbol) {
+	wstring GetStrVar(wstring utf16_simbol) {
 		try {
 			auto global = py::dict(py::module::import("__main__").attr("__dict__"));
 			auto local = py::dict();
@@ -231,30 +195,22 @@ namespace PythonEngine {
 			return utf16_value;
 		}
 		catch (py::error_already_set& e) {
-			PythonAlreadySetException(e);
+			OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
 		}
 		catch (exception& e) {
-			PythonKnknownException(e);
-		}
-		catch (CSEHException &e) {
-			SystemAlreadySetException(e);
+			OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
 		}
 		catch (...) {
-			SystemUnknownException();
+			auto what = python_critical_exception_message();
+			OutputDebugStream(L"エラー:\n" + what);
+			MessageBox(NULL, what.data(), L"システム例外", NULL);
 		}
 
 		return L"";
 	}
 
-	wstring GetStrVar(wstring utf16_simbol) {
-		auto prevTransEHtoCEH = _set_se_translator(PythonTransSEHtoCEH);
-		auto ret = _GetStrVar(utf16_simbol);
-		_set_se_translator(prevTransEHtoCEH);
-		return ret;
-	}
-
 	// 対象のシンボル名の値に文字列を代入する
-	BOOL _SetStrVar(wstring utf16_simbol, wstring utf16_value) {
+	BOOL SetStrVar(wstring utf16_simbol, wstring utf16_value) {
 		try {
 			auto global = py::dict(py::module::import("__main__").attr("__dict__"));
 			auto local = py::dict();
@@ -267,63 +223,53 @@ namespace PythonEngine {
 			return TRUE;
 		}
 		catch (py::error_already_set& e) {
-			PythonAlreadySetException(e);
+			OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
 		}
 		catch (exception& e) {
-			PythonKnknownException(e);
-		}
-		catch (CSEHException &e) {
-			SystemAlreadySetException(e);
+			OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
 		}
 		catch (...) {
-			SystemUnknownException();
+			auto what = python_critical_exception_message();
+			OutputDebugStream(L"エラー:\n" + what);
+			MessageBox(NULL, what.data(), L"システム例外", NULL);
 		}
 
 		return FALSE;
 	}
 
-	BOOL SetStrVar(wstring utf16_simbol, wstring utf16_value) {
-		auto prevTransEHtoCEH = _set_se_translator(PythonTransSEHtoCEH);
-		auto ret = _SetStrVar(utf16_simbol, utf16_value);
-		_set_se_translator(prevTransEHtoCEH);
-		return ret;
-	}
-
 #pragma region
 	/*
 	int Test() {
-		auto global = py::dict(py::module::import("__main__").attr("__dict__"));
-		auto local = py::dict();
-
-		local["x"] = 100;
-		py::eval<py::eval_single_statement>("y = 200", global, local);
-		py::eval("print('x + y =', x + y)", global, local); // x + y = 300
-		auto z = local["y"].cast<int>();
-		printf("%d", z);
-		OutputDebugString(std::to_wstring(z).data());
-
-		py::eval<py::eval_statements>("import random\nrandom.random()");
-		py::eval<py::eval_single_statement>(utf16_to_utf8(L"print('あああ')"));
-		// Python で関数を作成 (Name=Hoge, Job=Teacher)
-		py::eval<py::eval_statements>(
-		"def initialize_person(p):\n"
-		"   job = hm.Edit()\n"
-		"   job.name = 'Teacher'\n"
-		"   p.name = 'Hoge'\n"
-		"   p.job = job\n",
-		global);
-		{
-		auto person = std::make_shared<Hidemaru::Macro>();
-		global["initialize_person"](person);
-		std::cout << "Name : " << person->GetName() << "\n";           // Name : Hoge
-		std::cout << "Job  : " << person->GetJob()->GetName() << "\n"; // Job  : Teacher
-		}
+	auto global = py::dict(py::module::import("__main__").attr("__dict__"));
+	auto local = py::dict();
+	local["x"] = 100;
+	py::eval<py::eval_single_statement>("y = 200", global, local);
+	py::eval("print('x + y =', x + y)", global, local); // x + y = 300
+	auto z = local["y"].cast<int>();
+	printf("%d", z);
+	OutputDebugString(std::to_wstring(z).data());
+	py::eval<py::eval_statements>("import random\nrandom.random()");
+	py::eval<py::eval_single_statement>(utf16_to_utf8(L"print('あああ')"));
+	// Python で関数を作成 (Name=Hoge, Job=Teacher)
+	py::eval<py::eval_statements>(
+	"def initialize_person(p):\n"
+	"   job = hm.Edit()\n"
+	"   job.name = 'Teacher'\n"
+	"   p.name = 'Hoge'\n"
+	"   p.job = job\n",
+	global);
+	{
+	auto person = std::make_shared<Hidemaru::Macro>();
+	global["initialize_person"](person);
+	std::cout << "Name : " << person->GetName() << "\n";           // Name : Hoge
+	std::cout << "Job  : " << person->GetJob()->GetName() << "\n"; // Job  : Teacher
+	}
 	}
 	*/
 #pragma endregion
 
 	// 対象の文字列をPythonの複数式とみなして評価する
-	int _DoString(wstring utf16_expression) {
+	int DoString(wstring utf16_expression) {
 		if (!IsValid()) {
 			return FALSE;
 		}
@@ -331,36 +277,29 @@ namespace PythonEngine {
 		try {
 
 			string utf8_expression = utf16_to_utf8(utf16_expression);
-
 			py::eval<py::eval_statements>(utf8_expression);
 
 			return TRUE;
 		}
 		catch (py::error_already_set& e) {
-			PythonAlreadySetException(e);
+			OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
 		}
 		catch (exception& e) {
-			PythonKnknownException(e);
-		}
-		catch (CSEHException &e) {
-			SystemAlreadySetException(e);
+			OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
 		}
 		catch (...) {
-			SystemUnknownException();
+			auto what = python_critical_exception_message();
+			OutputDebugStream(L"エラー:\n" + what);
+			MessageBox(NULL, what.data(), L"システム例外", NULL);
 		}
 
 		return FALSE;
-	}
 
-	int DoString(wstring utf16_expression) {
-		auto prevTransEHtoCEH = _set_se_translator(PythonTransSEHtoCEH);
-		auto ret = _DoString(utf16_expression);
-		_set_se_translator(prevTransEHtoCEH);
-		return ret;
+
 	}
 
 	// エンジンの破棄
-	int _Destroy() {
+	int Destroy() {
 
 		// 有効でないならば、即終了
 		if (!IsValid()) {
@@ -384,16 +323,15 @@ namespace PythonEngine {
 #pragma endregion
 			}
 			catch (py::error_already_set& e) {
-				PythonAlreadySetException(e);
+				OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
 			}
 			catch (exception& e) {
-				PythonKnknownException(e);
-			}
-			catch (CSEHException &e) {
-				SystemAlreadySetException(e);
+				OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
 			}
 			catch (...) {
-				SystemUnknownException();
+				auto what = python_critical_exception_message();
+				OutputDebugStream(L"エラー:\n" + what);
+				MessageBox(NULL, what.data(), L"システム例外", NULL);
 			}
 
 			// 破棄
@@ -403,16 +341,15 @@ namespace PythonEngine {
 				// PyMem_RawFree(m_wstr_program);
 			}
 			catch (py::error_already_set& e) {
-				PythonAlreadySetException(e);
+				OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
 			}
 			catch (exception& e) {
-				PythonKnknownException(e);
-			}
-			catch (CSEHException &e) {
-				SystemAlreadySetException(e);
+				OutputDebugStream(L"エラー:\n" + utf8_to_utf16(e.what()));
 			}
 			catch (...) {
-				SystemUnknownException();
+				auto what = python_critical_exception_message();
+				OutputDebugStream(L"エラー:\n" + what);
+				MessageBox(NULL, what.data(), L"システム例外", NULL);
 			}
 		}
 
@@ -424,11 +361,4 @@ namespace PythonEngine {
 		return TRUE;
 	}
 
-	int Destroy() {
-		auto prevTransEHtoCEH = _set_se_translator(PythonTransSEHtoCEH);
-		auto ret = _Destroy();
-		_set_se_translator(prevTransEHtoCEH);
-		return ret;
-	}
 }
-
