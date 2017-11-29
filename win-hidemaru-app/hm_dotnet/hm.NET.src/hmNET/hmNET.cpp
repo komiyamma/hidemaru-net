@@ -310,7 +310,7 @@ MACRO_DLL intHM_t DetachScope() {
 
 MACRO_DLL intHM_t DllDetachFunc_After_Hm866(intHM_t n) {
 
-	auto ret = DetachScope();
+	intHM_t ret = DetachScope();
 
 	// v8.77ñ¢ñûÇæÇ∆ÅAnÇÕèÌÇ…0
 	if (n == 0) {
