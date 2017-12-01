@@ -69,6 +69,7 @@ internal sealed class HmTextSynChromeForm : System.Windows.Forms.Form
         update = new System.Windows.Forms.Timer();
         update.Interval = 1000 * 1;
         update.Tick += update_Tick;
+        update.Tick += new EventHandler(chrome_CloseCheck);
         update.Start();
 
         update_Tick(null, null);
@@ -128,6 +129,20 @@ internal sealed class HmTextSynChromeForm : System.Windows.Forms.Form
         }
         catch (Exception)
         {
+        }
+    }
+
+    private void chrome_CloseCheck(object sender, EventArgs e)
+    {
+        try
+        {
+            var ret = driver.WindowHandles;
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Trace.WriteLine("クローズしている");
+            this.Stop();
+            this.Close();
         }
     }
 
