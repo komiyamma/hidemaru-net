@@ -78,8 +78,23 @@ internal class HmHtmlPreviewChromeForm : System.Windows.Forms.Form
         update = new Timer();
         update.Interval = 1000 * 1;
         update.Tick += new EventHandler(update_Tick);
+        update.Tick += new EventHandler(chrome_CloseCheck);
         update.Enabled = true;
         update.Start();
+    }
+
+    private void chrome_CloseCheck(object sender, EventArgs e)
+    {
+        try
+        {
+            var ret = driver.WindowHandles;
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Trace.WriteLine("クローズしている");
+            this.Stop();
+            this.Close();
+        }
     }
 
     private void update_Tick(object sender, EventArgs e)
