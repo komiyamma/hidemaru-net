@@ -74,7 +74,8 @@ internal partial class HmPandocPreviewChromeForm : System.Windows.Forms.Form
                       var scrollTop = body.scrollTop || html.scrollTop;
                       return html.scrollHeight - html.clientHeight - scrollTop;
                     }
-                    if (__getScrollBottom() < 70) {
+
+                    if (__getScrollBottom() < 70 ) {
                         window.scrollBy(0,70);
                     }
                     ", "");
@@ -93,8 +94,9 @@ internal partial class HmPandocPreviewChromeForm : System.Windows.Forms.Form
                       var scrollTop = body.scrollTop || html.scrollTop;
                       return html.scrollHeight - html.clientHeight - scrollTop;
                     }
-                    if (__getScrollBottom() < 300) {
-                        window.scrollBy(0,300);
+
+                    if (__getScrollBottom() < 500 ) {
+                        window.scrollBy(0,500);
                     }
                     ", "");
 
