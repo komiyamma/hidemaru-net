@@ -1,6 +1,4 @@
 ﻿using Hidemaru;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -9,8 +7,10 @@ using System.Windows.Forms;
 
 
 /// <summary> モードに関わらず共通 </summary>
-internal class HmHtmlPreviewChromeForm : System.Windows.Forms.Form
+internal partial class HmHtmlPreviewChromeForm : System.Windows.Forms.Form
 {
+
+    public static HmHtmlPreviewChromeForm form;
 
     /// やたらめったらtry_catchなのは、「いつ不意に秀丸本体が閉じても可能な限り黙って終了できるようにするため」
     public enum HmHtmlPreviewMode
@@ -19,18 +19,13 @@ internal class HmHtmlPreviewChromeForm : System.Windows.Forms.Form
         File = 1
     }
 
-    public static HmHtmlPreviewChromeForm form;
+    protected HmHtmlPreviewMode mode = new HmHtmlPreviewMode();
+
     protected System.IntPtr hWndHidemaru = IntPtr.Zero;
     protected string strCurFileFullPath = "";
     protected string strPrvFileFullPath = "";
-    protected string strPrvHmEditTotalText = "";
-    protected HmHtmlPreviewMode mode = new HmHtmlPreviewMode();
+
     protected Timer update;
-
-    protected IWebDriver driver;
-    protected ChromeOptions chromeOptions;
-    protected ChromeDriverService chromeService;
-
 
     public HmHtmlPreviewChromeForm(System.IntPtr hWndHidemaru)
     {
@@ -49,29 +44,6 @@ internal class HmHtmlPreviewChromeForm : System.Windows.Forms.Form
         Application.UseWaitCursor = false;
     }
 
-    /// <summary>Webブラウザ属性設定</summary>
-    private void SetWebBrowserAttribute()
-    {
-        update_Tick(null, null);
-
-        try
-        {
-            chromeOptions = new ChromeOptions();
-            string self_full_path = System.Reflection.Assembly.GetExecutingAssembly().Location;
-            string self_dir = System.IO.Path.GetDirectoryName(self_full_path);
-
-            chromeService = ChromeDriverService.CreateDefaultService(self_dir);
-            chromeService.HideCommandPromptWindow = true;
-
-            driver = new ChromeDriver(chromeService, chromeOptions);
-            watcher_Renamed(strCurFileFullPath);
-        }
-        catch (Exception e)
-        {
-            Trace.WriteLine(e.Message);
-        }
-    }
-
     private void SetTimerAttribute()
     {
         // １秒に１回の更新で十分だろう。
@@ -81,20 +53,6 @@ internal class HmHtmlPreviewChromeForm : System.Windows.Forms.Form
         update.Tick += new EventHandler(chrome_CloseCheck);
         update.Enabled = true;
         update.Start();
-    }
-
-    private void chrome_CloseCheck(object sender, EventArgs e)
-    {
-        try
-        {
-            var ret = driver.WindowHandles;
-        }
-        catch (Exception ex)
-        {
-            System.Diagnostics.Trace.WriteLine("クローズしている");
-            this.Stop();
-            this.Close();
-        }
     }
 
     private void update_Tick(object sender, EventArgs e)
@@ -134,11 +92,8 @@ internal class HmHtmlPreviewChromeForm : System.Windows.Forms.Form
                 watcher.EnableRaisingEvents = false;
                 watcher = null;
             }
-            if (driver != null)
-            {
-                driver.Close();
-                driver.Quit();
-            }
+
+            StopSelenium();
         }
         catch (Exception)
         {
@@ -197,7 +152,7 @@ internal class HmHtmlPreviewChromeForm : System.Windows.Forms.Form
                 // 今、秀丸で編集中のテキストファイル名と一致
                 if ( String.Compare(e.FullPath, strOpenFileFullPath, true) == 0 )
                 {
-                    driver.Navigate().Refresh();
+                    RefleshBrowserPage();
                 }
             }
         }
@@ -209,6 +164,6 @@ internal class HmHtmlPreviewChromeForm : System.Windows.Forms.Form
     private void watcher_Renamed(string strCurFileFullPath)
     {
         // ここを通過するということはファイルのフルパスが変更となったのであろうから、Urlの更新
-        driver.Url = strCurFileFullPath;
+        UpdateBrowserUrl(strCurFileFullPath);
     }
 }
