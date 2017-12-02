@@ -5,7 +5,8 @@ public class HmPandocPreviewChrome
 {
     public static IntPtr Show(IntPtr hWndHidemaru, IntPtr pmode)
     {
-        HmPandocPreviewChromeForm.form = new HmPandocPreviewChromeForm(hWndHidemaru, pmode);
+        HmPandocPreviewChromeForm.HmGFMPreviewMode mode = (HmPandocPreviewChromeForm.HmGFMPreviewMode)pmode; // IntPtr → modeへ
+        HmPandocPreviewChromeForm.form = new HmPandocPreviewChromeForm(hWndHidemaru, mode);
 
         return (IntPtr)1;
     }

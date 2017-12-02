@@ -1,6 +1,4 @@
 ﻿using Hidemaru;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -9,41 +7,34 @@ using System.Windows.Forms;
 
 
 
-/// <summary> モードに関わらず共通 </summary>
-internal class HmPandocPreviewChromeForm : System.Windows.Forms.Form
+internal partial class HmPandocPreviewChromeForm : System.Windows.Forms.Form
 {
+    public static HmPandocPreviewChromeForm form; // 自分自身
 
     public enum HmGFMPreviewMode
     {
-        Github = 0,
-        MathJax = 1
+        Pandoc = 0,
+        Github = 1,
+        MathJax = 2
     }
     protected HmGFMPreviewMode mode = new HmGFMPreviewMode();
 
-    public static HmPandocPreviewChromeForm form;
     protected System.IntPtr hWndHidemaru = IntPtr.Zero;
     protected string strCurFileFullPath = "";
     protected string strPrvFileFullPath = "";
     protected string strCurFileFullPathTmp = "";
-    protected string strPrvFileFullPathTmp = "";
-    protected string strPrvHmEditTotalText = "";
-
-    private List<string> tmpFileNameList = new List<string>();
 
     protected Timer update;
     protected Timer blocker;
 
-    protected IWebDriver driver;
-    protected ChromeOptions chromeOptions;
-    protected ChromeDriverService chromeService;
-
-    public HmPandocPreviewChromeForm(System.IntPtr hWndHidemaru, IntPtr pmode)
+    public HmPandocPreviewChromeForm(System.IntPtr hWndHidemaru, HmGFMPreviewMode mode)
     {
         this.hWndHidemaru = hWndHidemaru;
-        mode = (HmGFMPreviewMode)pmode;
+        this.mode = mode;
 
         SetFormAttribute();
         SetWebBrowserAttribute();
+        SetPandocBlockAttribute();
         SetTimerAttribute();
     }
 
@@ -57,29 +48,6 @@ internal class HmPandocPreviewChromeForm : System.Windows.Forms.Form
         isFirstWather = true;
     }
 
-    /// <summary>Webブラウザ属性設定</summary>
-    private void SetWebBrowserAttribute()
-    {
-        update_Tick(null, null);
-
-        try
-        {
-            chromeOptions = new ChromeOptions();
-            string self_full_path = System.Reflection.Assembly.GetExecutingAssembly().Location;
-            string self_dir = System.IO.Path.GetDirectoryName(self_full_path);
-
-            chromeService = ChromeDriverService.CreateDefaultService(self_dir);
-            chromeService.HideCommandPromptWindow = true;
-
-            driver = new ChromeDriver(chromeService, chromeOptions);
-            watcher_Renamed(strCurFileFullPath);
-        }
-        catch (Exception e)
-        {
-            Trace.WriteLine(e.Message);
-        }
-    }
-
     private void SetTimerAttribute()
     {
         // １秒に１回の更新で十分だろう。
@@ -87,24 +55,10 @@ internal class HmPandocPreviewChromeForm : System.Windows.Forms.Form
         update.Interval = 1000 * 1;
         update.Tick += new EventHandler(update_Tick);
         update.Tick += new EventHandler(chrome_CloseCheck);
+        update.Tick += new EventHandler(chrome_PageEndAdjustCheck);
         update.Enabled = true;
         update.Start();
-
-        blocker = new Timer();
-        blocker.Interval = 200;
-        blocker.Tick += new EventHandler(blocker_Tick);
-        blocker.Enabled = true;
-        blocker.Start();
-
     }
-
-    private const int nextRefleshBlockTimeDefault = 500;
-    private int nextRefleshBlockTime = -1;
-    private void blocker_Tick(object sender, EventArgs e)
-    {
-        nextRefleshBlockTime -= blocker.Interval;
-    }
-
 
     private void update_Tick(object sender, EventArgs e)
     {
@@ -127,21 +81,6 @@ internal class HmPandocPreviewChromeForm : System.Windows.Forms.Form
         }
     }
 
-    private void chrome_CloseCheck(object sender, EventArgs e)
-    {
-        try
-        {
-            var ret = driver.WindowHandles;
-        }
-        catch (Exception ex)
-        {
-            System.Diagnostics.Trace.WriteLine("クローズしている");
-            this.Stop();
-            this.Close();
-        }
-    }
-
-
     string GetTmpHtmlFileNameFromMarkDownFileName(string stdMDFileName)
     {
         if (String.IsNullOrEmpty(stdMDFileName))
@@ -153,7 +92,7 @@ internal class HmPandocPreviewChromeForm : System.Windows.Forms.Form
 
         var basename = Path.GetFileNameWithoutExtension(stdMDFileName);
 
-        basename += "_tmp_for_preview.html";
+        basename += ".tmp.html";
 
         var fullpath = Path.Combine(directory, basename);
 
@@ -170,17 +109,7 @@ internal class HmPandocPreviewChromeForm : System.Windows.Forms.Form
     {
         try
         {
-            // 溜め込んでいた一時ファイルは全て削除
-            foreach(var f in tmpFileNameList)
-            {
-                try
-                {
-                    System.IO.File.Delete(f);
-                } catch(Exception e)
-                {
-                    System.Diagnostics.Trace.WriteLine(e);
-                }
-            }
+            DeletePandocTmpFiles();
 
             if (update != null)
             {
@@ -201,18 +130,10 @@ internal class HmPandocPreviewChromeForm : System.Windows.Forms.Form
                 watcher.EnableRaisingEvents = false;
                 watcher = null;
             }
-            if (driver != null)
-            {
-                driver.Close();
-                driver.Quit();
-            }
 
-            if (pandoc != null)
-            {
-                pandoc.WaitForExit();
-                pandoc.Close();
-                pandoc = null;
-            }
+            StopSelenium();
+
+            StopPandoc();
 
         }
         catch (Exception)
@@ -257,43 +178,6 @@ internal class HmPandocPreviewChromeForm : System.Windows.Forms.Form
         }
     }
 
-    Process pandoc;
-
-    private void DoPandoc(string inputFileName, string outputFileName)
-    {
-        if (pandoc == null || pandoc.HasExited)
-        {
-            ; // 通過
-        } else
-        {
-            return;
-        }
-
-        // mathjaxのパターン: pandoc a.md -s --mathjax -o b.html -s
-        // githubのパターン:pandoc a.md -s -t html5 -c github.css -o b.html
-
-        System.Diagnostics.ProcessStartInfo psi = new System.Diagnostics.ProcessStartInfo();
-        psi.FileName = "pandoc.exe";
-        psi.CreateNoWindow = true;
-        psi.UseShellExecute = false;
-
-        string self_full_path = System.Reflection.Assembly.GetExecutingAssembly().Location;
-        string self_dir = System.IO.Path.GetDirectoryName(self_full_path);
-        string self_basename = System.IO.Path.GetFileNameWithoutExtension(self_full_path);
-
-        // モードによって分ける
-        if (mode == HmGFMPreviewMode.Github)
-        {
-            psi.Arguments = "-f gfm " + "\"" + inputFileName + "\"" + " -s -t html5 -c " + "\"" + self_dir + "\\" + self_basename +".css" + "\"" + " -o " + "\"" + outputFileName + "\" -s";
-
-        } else if (mode == HmGFMPreviewMode.MathJax) { 
-            psi.Arguments = "\"" + inputFileName + "\"" + " -s --mathjax -t html5 -c " + "\"" + self_dir + "\\" + self_basename + ".css" + "\"" + " -o " + "\"" + outputFileName + "\" -s";
-
-        }
-
-        pandoc = Process.Start(psi);
-    }
-
 
 
     /// <summary>ファイルの監視の属性。
@@ -318,10 +202,10 @@ internal class HmPandocPreviewChromeForm : System.Windows.Forms.Form
                 // 今、変換後のhtmlファイル名と一緒
                 else if ( String.Compare(e.FullPath, strCurFileFullPathTmp, true) == 0 )
                 {
-                    if (nextRefleshBlockTime <= 0)
+                    if (pandocBlockTimer <= 0)
                     {
-                        driver.Navigate().Refresh();
-                        nextRefleshBlockTime = nextRefleshBlockTimeDefault;
+                        RefleshBrowserPage();
+                        ResetPandocBlockAttribute();
                     }
                 }
             }
@@ -336,13 +220,15 @@ internal class HmPandocPreviewChromeForm : System.Windows.Forms.Form
     {
         strCurFileFullPathTmp = GetTmpHtmlFileNameFromMarkDownFileName(strCurFileFullPath);
         DoPandoc(strCurFileFullPath, strCurFileFullPathTmp);
+
+        // 最初の１回だけはファイルの生成を待つ
         if (isFirstWather) {
-            pandoc.WaitForExit();
+            // pandoc.WaitForExit();
             isFirstWather = false;
         }
 
 
         // ここを通過するということはファイルのフルパスが変更となったのであろうから、Urlの更新
-        driver.Url = strCurFileFullPathTmp;
+        UpdateBrowserUrl(strCurFileFullPathTmp);
     }
 }
