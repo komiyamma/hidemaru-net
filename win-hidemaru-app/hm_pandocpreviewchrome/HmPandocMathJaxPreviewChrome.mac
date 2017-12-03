@@ -1,15 +1,16 @@
 #HMNET = loaddll( hidemarudir + @"\hm.NET.dll");
 
+// このEnum_Markdown_Renderer編集しないこと。
+Enum_Markdown_Renderer: {
+   #Github  = 1;  // 1: Githubレンダリングモード
+   #MathJax = 2;  // 2: MathJaxレンダリングモード
+}
+
+##mode = #MathJax;
+
 if (#HMNET) {
 	#_ = dllfuncw(#HMNET, "SetDetachMethod", currentmacrodirectory + @"\HmPandocPreviewChrome.dll", "HmPandocPreviewChrome", "OnDetachMethod");
 
-	// このenum編集しないこと。
-    enum: {
-	   #Github  = 0;  // 0: Githubレンダリングモード
-	   #MathJax = 1;  // 1: MathJaxレンダリングモード
-    }
-    
-	##mode = #MathJax;
     #_ = dllfuncw(#HMNET, "CallMethod", currentmacrodirectory + @"\HmPandocPreviewChrome.dll", "HmPandocPreviewChrome", "Show", hidemaruhandle(0), ##mode );
 } else {
     message("Hm.NET.dllを読み込むことが出来ません");
