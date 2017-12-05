@@ -42,6 +42,11 @@ internal partial class HmPandocPreviewChromeForm : System.Windows.Forms.Form
             psi.Arguments = "\"" + inputFileName + "\"" + " -s --mathjax -t html5 -c " + "\"" + self_dir + "\\" + self_basename + ".css" + "\"" + " -o " + "\"" + outputFileName + "\" -s";
 
         }
+        else if (mode == HmGFMPreviewMode.Katex)
+        {
+            psi.Arguments = "\"" + inputFileName + "\"" + " -s --katex -t html5 -c " + "\"" + self_dir + "\\" + self_basename + ".css" + "\"" + " -o " + "\"" + outputFileName + "\" -s";
+
+        }
 
         pandoc = Process.Start(psi);
     }

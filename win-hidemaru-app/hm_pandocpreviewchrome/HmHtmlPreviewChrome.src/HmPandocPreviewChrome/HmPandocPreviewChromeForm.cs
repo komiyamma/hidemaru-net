@@ -15,7 +15,8 @@ internal partial class HmPandocPreviewChromeForm : System.Windows.Forms.Form
     {
         Pandoc = 0,
         Github = 1,
-        MathJax = 2
+        MathJax = 2,
+        Katex = 3
     }
     protected HmGFMPreviewMode mode = new HmGFMPreviewMode();
 

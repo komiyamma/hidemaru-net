@@ -4,6 +4,7 @@
 Enum_Markdown_Renderer: {
    #Github  = 1;  // 1: Githubレンダリングモード
    #MathJax = 2;  // 2: MathJaxレンダリングモード
+   #Katex   = 3;  // 3: Katexレンダリングモード
 }
 
 ##mode = #Github;

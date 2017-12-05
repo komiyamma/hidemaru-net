@@ -75,8 +75,8 @@ internal partial class HmPandocPreviewChromeForm : System.Windows.Forms.Form
                       return html.scrollHeight - html.clientHeight - scrollTop;
                     }
 
-                    if (__getScrollBottom() < 70 ) {
-                        window.scrollBy(0,70);
+                    if (__getScrollBottom() < 200 ) {
+                        window.scrollBy(0,200);
                     }
                     ", "");
 
@@ -97,6 +97,26 @@ internal partial class HmPandocPreviewChromeForm : System.Windows.Forms.Form
 
                     if (__getScrollBottom() < 500 ) {
                         window.scrollBy(0,500);
+                    }
+                    ", "");
+
+                }
+
+                // Katexは描画が比較的安定する、秀丸上で最後らへんにいるのであれば、吸着範囲は中ぐらいで十分そう
+                else if (mode == HmGFMPreviewMode.Katex)
+                {
+                    // JavaScriptとして評価
+                    executor.ExecuteScript(
+                    @"
+                    function __getScrollBottom() {
+                      var body = window.document.body;
+                      var html = window.document.documentElement;
+                      var scrollTop = body.scrollTop || html.scrollTop;
+                      return html.scrollHeight - html.clientHeight - scrollTop;
+                    }
+
+                    if (__getScrollBottom() < 300 ) {
+                        window.scrollBy(0,300);
                     }
                     ", "");
 

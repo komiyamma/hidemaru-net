@@ -7,7 +7,7 @@ Enum_Markdown_Renderer: {
    #Katex   = 3;  // 3: Katexレンダリングモード
 }
 
-##mode = #MathJax;
+##mode = #Katex;
 
 if (#HMNET) {
 	#_ = dllfuncw(#HMNET, "SetDetachMethod", currentmacrodirectory + @"\HmPandocPreviewChrome.dll", "HmPandocPreviewChrome", "OnDetachMethod");
