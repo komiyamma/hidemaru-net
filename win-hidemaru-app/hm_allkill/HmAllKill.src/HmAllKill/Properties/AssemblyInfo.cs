@@ -11,7 +11,7 @@ using System.Resources;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("HmAllKill for .NET 4.0 ANYCPU 版")]
-[assembly: AssemblyCopyright("Public Domain")]
+[assembly: AssemblyCopyright("CC0 1.0 Universal")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

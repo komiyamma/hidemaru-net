@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*
+ * CC0 1.0 Universal
+ */
+
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
