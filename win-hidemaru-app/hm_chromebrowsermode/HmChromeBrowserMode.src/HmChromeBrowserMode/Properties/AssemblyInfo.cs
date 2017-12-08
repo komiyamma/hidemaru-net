@@ -18,7 +18,7 @@ using System.Runtime.InteropServices;
 #else
 [assembly: AssemblyProduct("HmChromeBrowserMode for .NET 4.5.2 x86 版")]
 #endif
-[assembly: AssemblyCopyright("Copyright © 2017 VSCode.life")]
+[assembly: AssemblyCopyright("Copyright © 2017 Akitsugu Komiyama")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
