@@ -1,3 +1,7 @@
+/*
+ * CC0 1.0 Universal
+ */ 
+
 #JS = loaddll( hidemarudir + @"\hmV8.dll" );
 
 if ( !#JS ) {
