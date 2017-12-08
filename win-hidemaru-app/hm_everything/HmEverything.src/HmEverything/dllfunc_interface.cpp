@@ -1,4 +1,9 @@
-﻿#include <stdio.h>
+﻿/*
+ * Copyright (c) 2017 Akitsugu Komiyama
+ * under the MIT License
+ */
+
+#include <stdio.h>
 #include <windows.h>
 #include <string>
 #include <msclr/marshal_cppstd.h>

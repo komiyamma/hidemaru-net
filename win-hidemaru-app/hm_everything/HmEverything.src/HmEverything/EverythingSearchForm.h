@@ -1,4 +1,9 @@
-﻿#pragma once
+﻿/*
+ * Copyright (c) 2017 Akitsugu Komiyama
+ * under the MIT License
+ */
+
+#pragma once
 
 using namespace std;
 using namespace msclr::interop;
