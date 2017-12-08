@@ -1,129 +1,129 @@
 =====================================================
-��  �i  ��:  Sendkeys
-�o�[�W����:  1.00
-��      ��:  con
+製  品  名:  Sendkeys
+バージョン:  1.00
+作      者:  con
 W   e    b:  http://cspace.s2.xrea.com/
 M  a  i  l:  cspace@s2.xrea.com
-��      ��:  �t���[�\�t�g
+種      別:  フリーソフト
    Copyright (c) Con 2001 All rights reserved
 =====================================================
 
-���������@�\
-	�w�肵���E�B���h�E�ɃL�[���M���邱�Ƃɂ��A
-	���̃A�v���P�[�V�����𑀍�ł��܂��B
+■■■■機能
+	指定したウィンドウにキー送信することにより、
+	他のアプリケーションを操作できます。
 
-	�g�����Ȃ��̂͏��X����ł����A
-	�g�����Ȃ��Ε��G�ȓ���ł��������ł���悤�ɂȂ�܂��B
-
-
-
-���������C���X�g�[��
-	1.sendkeys.zip���𓀁B
-	(��������Ă���Ƃ������Ƃ͂����𓀂ł��Ă܂���)
-
-	2.�D���ȏ��ɒu���Ă����B
-	(�f�X�N�g�b�v�ɃV���[�g�J�b�g�����ƕ֗�)
+	使いこなすのは少々難しいですが、
+	使いこなせば複雑な動作でも自動化できるようになります。
 
 
 
+■■■■インストール
+	1.sendkeys.zipを解凍。
+	(これを見ているということはもう解凍できてますね)
 
-���������A���C���X�g�[��
-	1.SendKeys.exe������t�H���_���ƍ폜���܂�
-
-	�@!�V�X�e���̐ݒ�⃌�W�X�g���͂�����܂���!
-
-	2.����ŐՌ`���Ȃ������Ă��܂��܂�
-
-
-
-���������p�����[�^�̎w��̎d��
-
-�p�����[�^���w�肷��ɂ́ASendKey.exe�̃V���[�g�J�b�g���쐬���A
-	�E�N���b�N���v���p�e�B�������N��
-���A
-	"Sendkey.exe�̃t���p�X(��������͂���Ă���)" "���p�����[�^" "���p�����[�^"
-�ƕύX���邩�A
-bluewind�Ȃǂ̃p�����[�^���g�p�ł���\�t�g�������p���������B
+	2.好きな所に置いておく。
+	(デスクトップにショートカットを作ると便利)
 
 
 
-	�����p�����[�^ : �Ώۂ̃E�B���h�E�^�C�g��or���s�t�@�C��
+
+■■■■アンインストール
+	1.SendKeys.exeがあるフォルダごと削除します
+
+	　!システムの設定やレジストリはいじりません!
+
+	2.これで跡形もなく消えてしまいます
+
+
+
+■■■■パラメータの指定の仕方
+
+パラメータを指定するには、SendKey.exeのショートカットを作成し、
+	右クリック→プロパティ→リンク先
+を、
+	"Sendkey.exeのフルパス(元から入力されている)" "第一パラメータ" "第二パラメータ"
+と変更するか、
+bluewindなどのパラメータを使用できるソフトをご利用ください。
+
+
+
+	☆第一パラメータ : 対象のウィンドウタイトルor実行ファイル
 			
-		�L�[�𑗂肽���A�v���P�[�V������
-		���̃A�v���P�[�V�������o���Ă���E�B���h�E�̃^�C�g�����A
-		���s�t�@�C���Ŏw�肵�Ă��������B
+		キーを送りたいアプリケーションを
+		そのアプリケーションが出しているウィンドウのタイトルか、
+		実行ファイルで指定してください。
 
-		�^�C�g���Ŏw�肵���ꍇ�A���S�Ɉ�v����E�B���h�E���Ȃ���΁A
-		�^�C�g���̈ꕔ����v�����E�B���h�E���ΏۂɂȂ�܂��B
+		タイトルで指定した場合、完全に一致するウィンドウがなければ、
+		タイトルの一部が一致したウィンドウが対象になります。
 
-		��F�u�������v���w�肵�����A
-		�@�@�u�������v�Ƃ����^�C�g���̃E�B���h�E���Ȃ��ꍇ�ɁA
-		�@�@�u���� - �������v�ƌ����^�C�g���̃E�B���h�E������΁A
-		�@�@���̃E�B���h�E���ΏۃE�B���h�E�ƂȂ�܂��B
+		例：「メモ帳」を指定した時、
+		　　「メモ帳」というタイトルのウィンドウがない場合に、
+		　　「無題 - メモ帳」と言うタイトルのウィンドウがあれば、
+		　　そのウィンドウが対象ウィンドウとなります。
 
 
 
-	�����p�����[�^ : ���M�������L�[
+	☆第二パラメータ : 送信したいキー
 			
-		���M����L�[���w�肵�܂��B
-		�ڂ����͉��̍��ڂŐ������܂��B
+		送信するキーを指定します。
+		詳しくは下の項目で説明します。
 
 
 
-	�@�@�����p�����[�^���ȗ����邩�A���p�����[�^�̑���ɁA
-	�@�@�@/active�Ǝw�肷��ƁA�A�N�e�B�u�ȃE�B���h�E�ɃL�[�����M����܂��B
+	　　※第一パラメータを省略するか、第一パラメータの代わりに、
+	　　　/activeと指定すると、アクティブなウィンドウにキーが送信されます。
 
 
-	�@�@�����p�����[�^�̑O�ɁA/all���w�肵�A
-	�@�@�@���p�����[�^�Ŏ��s�t�@�C�����w�肷��ƁA
-	�@�@�@���̎��s�t�@�C�����o���Ă��邷�ׂẴE�B���h�E��
-	�@�@�@�L�[�����M����܂��B
-	�@�@�@(����ȊO�̏ꍇ�ɂ͍ŏ��Ɍ����������̂ɑ��M����܂�)
+	　　※第一パラメータの前に、/allを指定し、
+	　　　第一パラメータで実行ファイルを指定すると、
+	　　　その実行ファイルが出しているすべてのウィンドウに
+	　　　キーが送信されます。
+	　　　(それ以外の場合には最初に見つかったものに送信されます)
 
 
 
 
-���������L�[�̎w��̎d��
+■■■■キーの指定の仕方
 
-��{�I�ɂ͑��肽��������𒼐ڎw�肵�Ă��������B
+基本的には送りたい文字列を直接指定してください。
 
-	��:�u�L�[���M�e�X�g�v
-		��������̂܂܃p�����[�^�Ƃ��Ďw�肷��΁A
-		�A�N�e�B�u�ȃE�B���h�E�ɒ��ڂ��̕����񂪑����܂��B
+	例:「キー送信テスト」
+		これをそのままパラメータとして指定すれば、
+		アクティブなウィンドウに直接この文字列が送られます。
 
 
-������ȃL�[
+□特殊なキー
 
-����ȃL�[���w�肷��ɂ͈ȉ��̂悤�ɂ��Ă��������B
-(�啶���������͋�ʂ��܂���)
+特殊なキーを指定するには以下のようにしてください。
+(大文字小文字は区別しません)
 
-	��:[��][��][��]sendkey
-		�J�[�\�����E�ɎO�񓮂�������A
-		sendkey�Ƃ���������𑗂�܂��B
+	例:[→][→][→]sendkey
+		カーソルを右に三回動かした後、
+		sendkeyという文字列を送ります。
 
-�L�[			�w�肷�镶��
+キー			指定する文字
 --------------------------------------------------------
-[BS]			[BACKSPACE]�܂���[BS]�܂���[BKSP]
+[BS]			[BACKSPACE]または[BS]または[BKSP]
 [BREAK]			[BREAK]
 [CAPS LOCK]		[CAPSLOCK]
 [CLEAR]			[CLEAR]
-[DEL]			[DELETE]�܂���[DEL]
-[��]			[DOWN]�܂���[��]
+[DEL]			[DELETE]または[DEL]
+[↓]			[DOWN]または[↓]
 [END]			[END]
-[ENTER]			[ENTER]�܂��� [RETURN]
-[ESC]			[ESCAPE]�܂���[ESC]
+[ENTER]			[ENTER]または [RETURN]
+[ESC]			[ESCAPE]または[ESC]
 [HELP]			[HELP]
 [HOME]			[HOME]
 [INS]			[INSERT]
-[��]			[LEFT]�܂���[��]
-[NUM LOCK]		[NUMLOCK]�܂���[NUMLK]
-[PAGE DOWN]		[PGDN]�܂���[PageUp]
-[PAGE UP]		[PGUP]�܂���[PageDown]
-[COPY]			[PRTSC]�܂���[PrintScreen]
-[��]			[RIGHT]�܂���[��]
-[SCROLL LOCK]		[SCROLLLOCK]�܂���[SCRLC}
+[←]			[LEFT]または[←]
+[NUM LOCK]		[NUMLOCK]または[NUMLK]
+[PAGE DOWN]		[PGDN]または[PageUp]
+[PAGE UP]		[PGUP]または[PageDown]
+[COPY]			[PRTSC]または[PrintScreen]
+[→]			[RIGHT]または[→]
+[SCROLL LOCK]		[SCROLLLOCK]または[SCRLC}
 [TAB]			[TAB]
-[��]			[UP]�܂���[��]
+[↑]			[UP]または[↑]
 [F1]			[F1]
 [F2]			[F2]
 [F3]			[F3]
@@ -148,23 +148,23 @@ bluewind�Ȃǂ̃p�����[�^���g�p�ł���\�t�g�������p���������B
 [F22]			[F22]
 [F23]			[F23]
 [F24]			[F24]
-Alt+[���p/�S�p]		[IME]
+Alt+[半角/全角]		[IME]
 
 
 
 
-�����������L�[
+□同時押しキー
 
-�܂��AAlt,Shift,Ctrl,Win�L�[�̂悤��
-����L�[�Ƃ̓�������������ɂ͈ȉ���
-�������擪�ɂ����܂��B
+また、Alt,Shift,Ctrl,Winキーのような
+特殊キーとの同時押しをするには以下の
+文字列を先頭におきます。
 
-	��:[Ctrl]va
-		Ctrl�L�[�������Ȃ���A[V]�������A
-		���̌�Ctrl�L�[�𗣂��Ă���A
-		[A]���������̂Ɠ������������܂��B
+	例:[Ctrl]va
+		Ctrlキーを押しながら、[V]を押し、
+		その後Ctrlキーを離してから、
+		[A]を押したのと同じ働きをします。
 
-�L�[			�w�肷�镶��
+キー			指定する文字
 ---------------------------------------------------------
 SHIFT			[Shift]
 CTRL			[Ctrl]
@@ -172,105 +172,105 @@ ALT				[Alt]
 Win				[Win]
 
 
-�܂���̃L�[�������Ȃ��畡���̃L�[�������ɂ�'�ň͂��܂��B
+また上のキーを押しながら複数のキーを押すには'で囲います。
 
-	��:[Shift]'ab'
-		Shift�L�[�������Ȃ���A
-		[A]�A[B]���������̂Ɠ��������ł��B
-
-
-
-
-���L�[�R�[�h�Ŏw��
-
-�L�[�R�[�h�ő���L�[���w�肷��ɂ́A
-	[#�L�[�i���o�[]
-�ƌ����`���Ŏw�肵�܂��B
-
-
-	��:[#13][#10]
-		���s�R�[�h�𑗐M���܂��B
+	例:[Shift]'ab'
+		Shiftキーを押しながら、
+		[A]、[B]を押したのと同じ働きです。
 
 
 
 
-��������Ignore.txt�ɂ���
+□キーコードで指定
 
-	�A�N�e�B�u�ȃE�B���h�E��T�����A
-	Ignore.txt�ɏ�����Ă���
-	���s�t�@�C���A�������̓^�C�g���̃E�B���h�E��
-	��������܂��B
+キーコードで送るキーを指定するには、
+	[#キーナンバー]
+と言う形式で指定します。
+
+
+	例:[#13][#10]
+		改行コードを送信します。
+
+
+
+
+■■■■Ignore.txtについて
+
+	アクティブなウィンドウを探す時、
+	Ignore.txtに書かれている
+	実行ファイル、もしくはタイトルのウィンドウは
+	無視されます。
 	
-	Sendkey.exe��o�^���������`���[�Ȃǂ̃^�C�g����
-	�w�肵�Ă����Ă��������B
-	(KWLCMain�́Abluewind�̃E�B���h�E�^�C�g���ł�)
+	Sendkey.exeを登録したランチャーなどのタイトルを
+	指定しておいてください。
+	(KWLCMainは、bluewindのウィンドウタイトルです)
 
 
 
-��������bluewind�ł̎g�p��
+■■■■bluewindでの使用例
 
-	SendKey.exe��  "Sendkey"�Ƃ���
-	��������       "memo"   �Ƃ��ēo�^���Ă����ꍇ�B
+	SendKey.exeを  "Sendkey"として
+	メモ帳を       "memo"   として登録していた場合。
 
 
-	���N���b�v�{�[�h�̃e�L�X�g���A�N�e�B�u�E�B���h�E�ɓ\��t��
+	◇クリップボードのテキストをアクティブウィンドウに貼り付け
 	
 		Sendkey [ctrl]v
 
-		�Ɠ��͂��AEnter�������܂��B
+		と入力し、Enterを押します。
 
 
 
-	���N���b�v�{�[�h�̋N�����Ă��邷�ׂẴ������ɓ\��t��(1)
+	◇クリップボードの起動しているすべてのメモ帳に貼り付け(1)
 
 		Sendkey /all memo [ctrl]v
 
-		�Ɠ��͂��AEnter�������܂��B
+		と入力し、Enterを押します。
 
 
 
-	���N���b�v�{�[�h�̋N�����Ă��邷�ׂẴ������ɓ\��t��(1)
+	◇クリップボードの起動しているすべてのメモ帳に貼り付け(1)
 
-		1."Sendkey"�̐ݒ�ŁA�p�����[�^�� /all %* [ctrl]v �ɂ��܂��B
+		1."Sendkey"の設定で、パラメータを /all %* [ctrl]v にします。
 		
 		2.Sendkey memo
-			�Ɠ��͂��AEnter�������܂��B
+			と入力し、Enterを押します。
 
 
 
-	�����͒��̕�������A�N�e�B�u�E�B���h�E�ɑ���
+	◇入力中の文字列をアクティブウィンドウに送る
 		
-		1."Sendkey"�̐ݒ�ŁA�p�����[�^�� /active %* �ɂ��܂��B
+		1."Sendkey"の設定で、パラメータを /active %* にします。
 		
-		2.����ɁAbluewind�̐ݒ��ʂ�
-		  �u���́v���u�L�[���蓖�āv�ŁA
-		  "Sendkey"�ɁA�K���ȃV���[�g�J�b�g�����蓖�Ă܂��B
-		  (���̏ꍇ��Ctrl+S�Ƃ��܂�)
+		2.さらに、bluewindの設定画面の
+		  「入力」→「キー割り当て」で、
+		  "Sendkey"に、適当なショートカットを割り当てます。
+		  (この場合はCtrl+Sとします)
 		
-		3.���̏�ԂŁA�t�@�C�����Ȃǂ���͒��ɁA
-		  Ctrl+S�������ƁA�A�N�e�B�u�E�B���h�E�ɂ��̃t�@�C�����������܂��B
+		3.この状態で、ファイル名などを入力中に、
+		  Ctrl+Sを押すと、アクティブウィンドウにそのファイル名が送られます。
 		  
-		  �܂��A�L�[���[�h����͒���Ctrl+S�������ƁA
-		  ���̃L�[���[�h�̃����N�悪�A�N�e�B�u�E�B���h�E�ɑ����܂��B
+		  また、キーワードを入力中にCtrl+Sを押すと、
+		  そのキーワードのリンク先がアクティブウィンドウに送られます。
 		 
 
 
-���������T�|�[�g
-	���̃\�t�g�ɑ΂���v�]�E�s���Ȃǂ�
+■■■■サポート
+	このソフトに対する要望・不満などは
 	http://cspace.s2.xrea.com/
-	�̌f���A
-	�܂��̓��[��(cspace@s2.xrea.com)
-	�ł��肢���܂��B
+	の掲示板、
+	またはメール(cspace@s2.xrea.com)
+	でお願いします。
 
 
-���������Ɛ�
-	���̃\�t�g���g�����Ƃɂ���Đ������s��A���̂Ȃǂɂ���
-	��҂͈�ؐӔC�𕉂����Ƃ��ł��܂���B
-	���ȐӔC�Ŏg���Ă��������B
+■■■■免責
+	このソフトを使うことによって生じた不具合、事故などについて
+	作者は一切責任を負うことができません。
+	自己責任で使ってください。
 
 
 
-���������X�V���
+■■■■更新情報
 
 ver1.00(2002.07.24(wed))
-	�Ƃ肠��������
+	とりあえず完成

@@ -1,5 +1,8 @@
-﻿// HmGuessNaturalLanguage v1.0.0.1
-// (c) 2017 VSCode.life
+﻿/*
+ * HmGuessNaturalLanguage v1.0.0.1
+ * Copyright (c) 2017 Akitsugu Komiyama
+ * under the MIT License
+ */
 
 #V8 = loaddll( hidemarudir + @"\hmV8.dll" );
 if (!#V8) {

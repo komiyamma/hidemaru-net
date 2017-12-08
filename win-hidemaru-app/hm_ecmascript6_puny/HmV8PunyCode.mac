@@ -1,6 +1,6 @@
 /*
- * CC0 1.0 Universal
- */ 
+ * This codes is licensed under CC0 1.0 Universal
+ */
 
 #JS = loaddll( hidemarudir + @"\hmV8.dll" );
 

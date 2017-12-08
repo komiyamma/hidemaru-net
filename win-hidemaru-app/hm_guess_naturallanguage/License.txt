@@ -1,0 +1,63 @@
+- HmGuessNaturalLanguage.mac
+   Copyright (C) 2017 Akitsugu Komiyama
+
+
+   The MIT License (MIT)
+   
+   Permission is hereby granted, free of charge, to any person obtaining a copy
+   of this software and associated documentation files (the "Software"), to deal
+   in the Software without restriction, including without limitation the rights
+   to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+   copies of the Software, and to permit persons to whom the Software is
+   furnished to do so, subject to the following conditions:
+   
+   The above copyright notice and this permission notice shall be included in all
+   copies or substantial portions of the Software.
+   
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+   FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+   AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+   SOFTWARE.
+
+
+
+- HmGuessNaturalLanguage.js / HmGuessNaturalLanguageData.js
+   (Original filename is guessLanguage.js / _languageData.js)
+
+   Guess the natural language of a text
+   Copyright (c) 2012-2014, Rich Tibbett
+   http://github.com/richtr/guessLanguage.js/
+
+   Original Python package:
+   Copyright (c) 2008, Kent S Johnson
+   http://code.google.com/p/guess-language/
+
+   Original C++ version for KDE:
+   Copyright (c) 2006 Jacob R Rideout <kde@jacobrideout.net>
+   http://websvn.kde.org/branches/work/sonnet-refactoring/common/nlp/guesslanguage.cpp?view=markup
+
+   Original Language::Guess Perl module:
+   Copyright (c) 2004-2006 Maciej Ceglowski
+   http://web.archive.org/web/20090228163219/http://languid.cantbedone.org/
+
+
+   Note: Language::Guess is GPL-licensed. KDE developers received permission
+   from the author to distribute their port under LGPL:
+   http://lists.kde.org/?l=kde-sonnet&m=116910092228811&w=2
+
+   This program is free software: you can redistribute it and/or modify it
+   under the terms of the GNU Lesser General Public License as published
+   by the Free Software Foundation, either version 3 of the License,
+   or (at your option) any later version.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty
+   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+   See the GNU Lesser General Public License for more details.
+
+   You should have received a copy of the GNU Lesser General Public License
+   along with this program. If not, see <http://www.gnu.org/licenses/>.
+

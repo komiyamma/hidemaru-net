@@ -1,4 +1,8 @@
-﻿// ************** にデフォルトにしたいファイルフスパスを入れる
+﻿/*
+ * This codes is licensed under CC0 1.0 Universal
+ */
+
+// ************** にデフォルトにしたいファイルフスパスを入れる
 $str_default_fullpath = "**************";
 
 if (existfile($str_default_fullpath) {
