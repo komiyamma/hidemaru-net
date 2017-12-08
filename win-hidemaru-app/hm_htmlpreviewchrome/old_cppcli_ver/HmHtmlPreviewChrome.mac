@@ -1,8 +1,0 @@
-#HWP = loaddll( currentmacrodirectory + @"\HmHtmlPreviewChrome.dll" );
-if (#HWP) {
-	##mode = 1; // 1: Fileƒ‚[ƒh
-	#_ = dllfuncw(#HWP, "Show", hidemaruhandle(0), ##mode);
-} else {
-	message("HmHtmlPreviewChrome.dll‚ğ“Ç‚İ‚Ş‚±‚Æ‚ªo—ˆ‚Ü‚¹‚ñ");
-}
-
