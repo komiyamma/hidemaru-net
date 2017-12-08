@@ -1,8 +1,12 @@
-﻿// HmExcelFileLoader.mac v 1.1.0.1
-// Copyright (c) 2017 VSCode.life
-// 秀丸 v8.66以上
-// hmV8 1.4.7.5以上。
-// Microsoft Excelアプリケーションが、PCに「入っていなくても」問題なく動作します。
+﻿/* 
+ * HmExcelFileLoader.mac v 1.1.0.1
+ * Copyright (c) 2017 Akitsugu Komiyama
+ * under the Apache License Version 2.0
+ *
+ * 秀丸 v8.66以上
+ * hmV8 1.4.7.5以上。
+ * Microsoft Excelアプリケーションが、PCに「入っていなくても」問題なく動作します。
+ */
 
 
 // 「ファイルを開いた直後の自動起動マクロ」として実行されている場合、第１引数を取得する。
