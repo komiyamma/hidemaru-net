@@ -1,4 +1,10 @@
-﻿using System.Reflection;
+﻿/*
+ * Copyright (c) 2016-2017 Akitsugu Komiyama
+ * under the MIT License
+ */
+
+
+using System.Reflection;
 using Microsoft.ClearScript.Util;
 
 

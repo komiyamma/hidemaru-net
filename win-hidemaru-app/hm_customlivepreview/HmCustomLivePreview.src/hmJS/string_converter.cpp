@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016-2017 Akitsugu Komiyama
+ * under the MIT License
+ */
+
 #include <string>
 #include <msclr/marshal_cppstd.h>
 #include "string_converter.h"

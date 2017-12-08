@@ -1,4 +1,4 @@
-#dll = loaddll( currentmacrodirectory + @"\HmCustomLivePreview.dll" );
+﻿#dll = loaddll( currentmacrodirectory + @"\HmCustomLivePreview.dll" );
 if (!#dll) {
 	message("NO");
 	endmacro;
