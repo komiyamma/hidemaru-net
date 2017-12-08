@@ -1,4 +1,9 @@
-﻿using System;
+﻿/*
+ * Copyright (C) 2017 Akitsugu Komiyama
+ * under the GNU GENERAL PUBLIC LICENSE v2.0
+ */
+
+using System;
 
 public class HmIECapt
 {
