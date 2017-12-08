@@ -1,6 +1,10 @@
-﻿// 秀丸 v8.66 以上
-// hmV8 1.475 以上
-// (C) 2017 VSCode.life
+﻿/*
+ * Copyright (c) 2017 Akitsugu Komiyama
+ * under the Apache License Version 2.0
+ *
+ * 秀丸 v8.66 以上
+ * hmV8 1.475 以上
+ */
 
 #JS = loaddll(hidemarudir + @"\hmV8.dll" );
 if (!#JS) {

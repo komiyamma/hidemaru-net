@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("HmJapanesePhoneticAnalyzer for Win8.1以上 ANYCPU 版")]
-[assembly: AssemblyCopyright("Copyright © 2017 VSCode.life")]
+[assembly: AssemblyCopyright("Copyright © 2017 Akitsugu Komiyama")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
