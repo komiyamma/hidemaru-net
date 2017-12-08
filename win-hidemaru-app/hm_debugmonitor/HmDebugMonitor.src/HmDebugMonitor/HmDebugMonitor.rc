@@ -72,7 +72,7 @@ BEGIN
             VALUE "FileDescription", "秀丸エディタ・デバッグ出力モニター"
             VALUE "FileVersion", "1.1.0.1"
             VALUE "InternalName", "HmDebugMonitor"
-            VALUE "LegalCopyright", "Copyright (C) 2016-2017 VSCode.life"
+            VALUE "LegalCopyright", "Copyright (C) 2016-2017 Akitsugu Komiyama"
             VALUE "OriginalFilename", "HmDebugMonitor.exe"
             VALUE "ProductName", "秀丸エディタ・デバッグ出力モニター"
             VALUE "ProductVersion", "1.1.0.1"

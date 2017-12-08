@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016-2017 Akitsugu Komiyama
+ * under the MIT License
+ */
+
 #pragma once
 
 // szNameがフルパスに含まれるプロセスＩＤを取得。最初に見つかったやつ。

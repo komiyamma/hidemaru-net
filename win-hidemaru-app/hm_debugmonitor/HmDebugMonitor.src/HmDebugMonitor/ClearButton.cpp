@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016-2017 Akitsugu Komiyama
+ * under the MIT License
+ */
+
 #include "ClearButton.h"
 #include "TextBox.h"
 #include "DebugMonitor.h"
