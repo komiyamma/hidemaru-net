@@ -1,4 +1,9 @@
-﻿#include "self_dll_info.h"
+﻿/*
+ Copyright (c) 2016-2017 Akitsugu Komiyama
+ under the Apache License Version 2.0
+*/
+
+#include "self_dll_info.h"
 #include "convert_string.h"
 
 #include "perlez_engine.h"
