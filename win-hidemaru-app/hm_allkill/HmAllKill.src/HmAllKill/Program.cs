@@ -1,5 +1,5 @@
 ﻿/*
- * CC0 1.0 Universal
+ * This codes is licensed under CC0 1.0 Universal
  */
 
 using System;

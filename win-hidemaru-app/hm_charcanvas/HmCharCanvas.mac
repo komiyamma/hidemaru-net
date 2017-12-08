@@ -1,4 +1,8 @@
-﻿#V8 = loaddll( hidemarudir + @"\hmV8.dll");
+﻿/*
+ * This codes is licensed under CC0 1.0 Universal
+ */
+
+#V8 = loaddll( hidemarudir + @"\hmV8.dll");
 
 if (!#V8) {
     message "hmV8がインストールされていないようです。";
