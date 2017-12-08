@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2017 Akitsugu Komiyama
+ * under the MIT License
+ */
 
 #include <windows.h>
 #include "Shlobj.h "
@@ -186,6 +190,7 @@ void SearchLaunched(char *szFilename, char *szLine, BOOL isLaunch) {
 		Sleep(300);
 		EnumWindows(IsHavokScriptDebuggerStandByOK, NULL);
 
+		// 子ウィンドウがぞろぞろとある
 		if ( subWindowList.size() >= 3 ) { 
 			Sleep(400);
 

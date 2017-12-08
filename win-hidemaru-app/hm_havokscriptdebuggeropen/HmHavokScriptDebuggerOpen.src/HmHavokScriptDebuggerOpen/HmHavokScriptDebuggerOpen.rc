@@ -81,7 +81,7 @@ BEGIN
             VALUE "FileDescription", "秀丸エディタからHavokScriptDebuggerを開く"
             VALUE "FileVersion", "1.0.1.1"
             VALUE "InternalName", "HmHavokScriptDebuggerOpen"
-            VALUE "LegalCopyright", "Copyright (C) 2014-2017 VSCode.life"
+            VALUE "LegalCopyright", "Copyright (C) 2014-2017 Akitsugu Komiyama"
             VALUE "OriginalFilename", "HmHavokScriptDebuggerOpen.exe"
             VALUE "ProductName", "HmHavokScriptDebuggerOpen"
             VALUE "ProductVersion", "1.0.1.1"
