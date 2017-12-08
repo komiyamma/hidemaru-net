@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Akitsugu Komiyama
+ * under the MIT License
+ */
+
 #include <vector>
 #include <windows.h>
 #include <msclr/marshal_cppstd.h>

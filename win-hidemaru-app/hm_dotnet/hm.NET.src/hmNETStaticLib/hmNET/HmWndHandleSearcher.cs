@@ -1,4 +1,9 @@
-﻿using System;
+﻿/*
+ * Copyright (c) 2017 Akitsugu Komiyama
+ * under the MIT License
+ */
+
+using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;

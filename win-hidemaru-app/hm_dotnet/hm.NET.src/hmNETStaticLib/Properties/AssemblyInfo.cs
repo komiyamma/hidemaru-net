@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Copyright © 2017 VSCode.life")]
 [assembly: AssemblyProduct("hmNETStaticLib")]
-[assembly: AssemblyCopyright("Copyright © 2017 VSCode.life")]
+[assembly: AssemblyCopyright("Copyright © 2017 Akitsugu Komiyama")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

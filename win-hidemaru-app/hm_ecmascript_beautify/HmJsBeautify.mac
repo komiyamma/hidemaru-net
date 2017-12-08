@@ -1,10 +1,11 @@
-// HmJsBeautify v1.01
-// 
-// 秀丸エディタ v8.66以上. 
-// 「hmV8 v1.475以上」もしくは「hmJS v1.162以上」のどちらかを導入していること。
-// 
-// Copyright (C) 2017 VSCode.life
-//------------------------------------------------------------------------------
+/*
+ * HmJsBeautify v1.01
+ * Copyright (C) 2017 Akitsugu Komiyama
+ * under the MIT License
+ *
+ * 秀丸エディタ v8.66以上.
+ * 「hmV8 v1.475以上」もしくは「hmJS v1.162以上」のどちらかを導入していること。
+ */ 
 
 if (readonly) {
     message "ファイルが書き込み禁止になっています";
