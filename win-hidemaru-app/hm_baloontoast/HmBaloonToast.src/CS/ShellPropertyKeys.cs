@@ -1,4 +1,9 @@
-﻿using System;
+﻿/*
+ * Copyright (c) 2017 Microsoft Corporation.
+ * under the Ms-PL License
+ */
+
+using System;
 using System.Runtime.InteropServices;
 
 namespace HmBaloonToast

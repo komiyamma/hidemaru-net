@@ -1,4 +1,9 @@
-﻿using System;
+﻿/*
+ * Copyright (c) 2017 Akitsugu Komiyama.
+ * under the Ms-PL License
+ */
+
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;

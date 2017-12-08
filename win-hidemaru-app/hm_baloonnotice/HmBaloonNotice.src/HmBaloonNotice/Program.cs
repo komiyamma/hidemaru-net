@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*
+ * Copyright (c) 2015-2017 Akitsugu Komiyama
+ * under the MIT License
+ */
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;

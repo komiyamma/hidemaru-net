@@ -12,7 +12,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("HmBaloonToast for Windows 10")]
-[assembly: AssemblyCopyright("Copyright © 2017 VSCode.life & Microsoft Corporation.")]
+[assembly: AssemblyCopyright("Copyright © 2017 Akitsugu Komiyama & Microsoft Corporation.")]
 [assembly: AssemblyTrademark("HmBaloonToast for Windows 10")]
 [assembly: AssemblyCulture("")]
 
