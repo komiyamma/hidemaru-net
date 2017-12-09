@@ -2,7 +2,8 @@
 ///<reference path="HmAbstractTranslator.ts"/>
 /**
  * HmRensoRuigoTranslator v1.02
- * Copyright (C) 2017 VSCode.life
+ * Copyright (C) 2017 Akitsugu Komiyama
+ * under the MIT License
  */
 
 interface IRensoRuigoElement {

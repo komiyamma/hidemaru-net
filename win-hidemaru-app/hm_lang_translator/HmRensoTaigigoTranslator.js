@@ -2,7 +2,8 @@
 ///<reference path="HmAbstractTranslator.ts"/>
 /**
  * HmRensoTaigigoTranslator v1.02
- * Copyright (C) 2017 VSCode.life
+ * Copyright (C) 2017 Akitsugu Komiyama
+ * under the MIT License
  */
 class IterableRensoTaigigoElementList {
     constructor(result_page) {

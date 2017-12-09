@@ -1,3 +1,8 @@
+/*
+ * Copyright(C) 2017 Akitsugu Komiyama
+ * under the MIT License
+ */ 
+
 
 #include "HmStatusBarPreviewForm.h"
 #include "HmStatusBarText.h"

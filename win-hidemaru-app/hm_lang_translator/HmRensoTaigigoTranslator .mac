@@ -1,4 +1,8 @@
-﻿#JS = loaddll( hidemarudir + @"\hmV8.dll" );
+﻿/*
+ * This codes is licensed under CC0 1.0 Universal
+ */
+
+#JS = loaddll( hidemarudir + @"\hmV8.dll" );
 
 #_ = dllfuncw( #JS, "DoFile", currentmacrodirectory + @"\HmAbstractTranslator.js");
 #_ = dllfuncw( #JS, "DoFile", currentmacrodirectory + @"\HmRensoTaigigoTranslator.js");

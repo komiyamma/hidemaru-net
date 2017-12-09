@@ -1,3 +1,8 @@
+/*
+ * Copyright(C) 2017 Akitsugu Komiyama
+ * under the MIT License
+ */ 
+
 #pragma once
 #include <windows.h>
 #include <string>

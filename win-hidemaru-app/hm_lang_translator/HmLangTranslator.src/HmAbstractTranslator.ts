@@ -2,7 +2,8 @@
 
 /**
  * HmAbstractTranslator v1.02
- * Copyright (C) 2017 VSCode.life
+ * Copyright (C) 2017 Akitsugu Komiyama
+ * under the MIT License
  */
 
 type TranslatorLanguageType = undefined | "auto" | "en" | "ja"; // 実際にはこれらに縛られない。

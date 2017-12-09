@@ -1,3 +1,9 @@
+/**
+ * HmV8.d.ts
+ * Copyright (C) 2017 Akitsugu Komiyama
+ * under the MIT License
+ */
+
 declare var clr: any;
 
 declare namespace host {

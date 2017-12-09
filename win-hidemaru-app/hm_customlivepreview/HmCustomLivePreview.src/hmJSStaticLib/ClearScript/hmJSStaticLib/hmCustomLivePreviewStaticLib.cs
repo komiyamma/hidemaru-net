@@ -1,9 +1,9 @@
 ﻿/*
  * Copyright (c) 2016-2017 Akitsugu Komiyama
- * under the MIT License
+ * under the Apache License Version 2.0
  */
 
- using System;
+using System;
 using System.Text;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;

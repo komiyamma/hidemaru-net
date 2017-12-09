@@ -1,5 +1,10 @@
 ///<reference path="HmV8.d.ts"/>
 /**
+ * HmAbstractTranslator v1.02
+ * Copyright (C) 2017 Akitsugu Komiyama
+ * under the MIT License
+ */
+/**
  * ストラテジーっぽい翻訳アルゴリズムの抽象クラス。
  */
 class AbstractTranslatorQueryStrategy {

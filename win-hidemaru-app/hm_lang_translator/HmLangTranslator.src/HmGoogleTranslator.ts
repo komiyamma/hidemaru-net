@@ -2,7 +2,8 @@
 ///<reference path="HmAbstractTranslator.ts"/>
 /**
  * HmGoogleTranslator v1.02
- * Copyright (C) @ 2017 VSCode.life
+ * Copyright (C) 2017 Akitsugu Komiyama
+ * under the MIT License
  */
 /**
  * Google用に導出されたクラス

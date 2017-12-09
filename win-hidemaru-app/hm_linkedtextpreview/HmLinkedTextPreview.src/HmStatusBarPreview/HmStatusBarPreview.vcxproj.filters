@@ -84,12 +84,14 @@
     <ClInclude Include="HmCursor.h">
       <Filter>カーソル</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h" />
     <ClInclude Include="hidemaruexe_export.h">
       <Filter>秀丸本体からのExport</Filter>
     </ClInclude>
     <ClInclude Include="hidemaruexe_handle.h">
       <Filter>秀丸本体からのExport</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>リソース ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
