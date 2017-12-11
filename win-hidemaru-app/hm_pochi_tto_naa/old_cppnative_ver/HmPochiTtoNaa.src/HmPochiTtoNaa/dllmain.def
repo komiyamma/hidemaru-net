@@ -1,9 +1,0 @@
-LIBRARY "kbd_marker_jump"
-EXPORTS
-    KMJ_StockMarker = KMJ_StockMarker @ 1
-	KMJ_GetPosX = KMJ_GetPosX @ 2
-	KMJ_GetPosY = KMJ_GetPosY @ 3
-	KMJ_GetWindowHandle = KMJ_GetWindowHandle @ 4
-	KMJ_GetFileFullPath = KMJ_GetFileFullPath @ 5
-	KMJ_GetSplitMode = KMJ_GetSplitMode @ 6
-

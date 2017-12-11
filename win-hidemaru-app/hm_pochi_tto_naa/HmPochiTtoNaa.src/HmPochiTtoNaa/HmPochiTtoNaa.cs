@@ -1,4 +1,9 @@
-﻿using Hidemaru;
+﻿/*
+ * Copyright (C) 2016-2017 Akitsugu Komiyama
+ * under the MIT License
+ */
+
+using Hidemaru;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
