@@ -1,4 +1,10 @@
-﻿using System.Runtime.InteropServices;
+﻿/*
+ * Copyright (C) 2016-2017 Akitsugu Komiyama
+ * under the MIT License
+ */
+
+
+using System.Runtime.InteropServices;
 
 internal partial class HmMarkDownPreviewForm
 {

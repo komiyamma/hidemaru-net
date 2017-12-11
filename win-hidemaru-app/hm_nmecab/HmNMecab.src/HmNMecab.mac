@@ -1,5 +1,11 @@
-﻿// 秀丸 v8.66以上
-// hmV8 1.4.7.5 以上が必要。
+﻿/*
+ * Copyright (C) 2016-2017 Akitsugu Komiyama
+ * under the MIT License
+ *
+ * 秀丸 v8.66以上
+ * hmV8 1.4.7.5 以上が必要。
+ */ 
+
 if (!#JS) { #JS = loaddll( hidemarudir + @"\hmV8.dll" ); }
 #_ = dllfuncw( #JS, "DoString", R"JS(
 
@@ -15,58 +21,58 @@ let text = GetTargetText();
 ParseNode(text);
 // メモリが出来た
 function ParseNode(text) {
-	// 対象のテキストをMecabでパース
-	let node = t.ParseToNode(text);
-	let data_array = [];
+    // 対象のテキストをMecabでパース
+    let node = t.ParseToNode(text);
+    let data_array = [];
 
-	// 日本語で考える
-	let ci = new clr.System.Globalization.CultureInfo("ja-JP");
+    // 日本語で考える
+    let ci = new clr.System.Globalization.CultureInfo("ja-JP");
 
-	while (node != null)
-	{
+    while (node != null)
+    {
         console.log(node.Surface);
-	    if (node.CharType > 0 )
-	    {
-			let yomi = GetYomiFromNode(node);
-			// ひらがなとカタカナを区別しない状態で、２つの文字列を比べたとき、同じであれば…
-			if (clr.System.String.Compare( node.Surface, yomi, ci, clr.System.Globalization.CompareOptions.IgnoreKanaType) == 0 ) {
-	            console.log(node.Surface);
-			} else {
-	            console.log(node.Surface + "\t" + yomi);
-			}
+        if (node.CharType > 0 )
+        {
+            let yomi = GetYomiFromNode(node);
+            // ひらがなとカタカナを区別しない状態で、２つの文字列を比べたとき、同じであれば…
+            if (clr.System.String.Compare( node.Surface, yomi, ci, clr.System.Globalization.CompareOptions.IgnoreKanaType) == 0 ) {
+                console.log(node.Surface);
+            } else {
+                console.log(node.Surface + "\t" + yomi);
+            }
 
-	    } else {
+        } else {
             console.log(node.Surface);
-		}
-	    node = node.Next;
-	}
+        }
+        node = node.Next;
+    }
 }
 
 function GetYomiFromNode(node) {
-	let features_text = node.Feature;
-	// 「,」で区切られているのは事実だが、何個あるかは不明
-	let results = features_text.split(',');
-	let l = results.length;
-	if (l>=8) { // 9個に分割というのは、よみがなを振ることが可能な状態
-		let katakana_yomi = results[l-2];
-	    let hiragana_yomi = ConvKatakanaToHiragana(katakana_yomi);
-		return hiragana_yomi;
-	}
-	return "";
+    let features_text = node.Feature;
+    // 「,」で区切られているのは事実だが、何個あるかは不明
+    let results = features_text.split(',');
+    let l = results.length;
+    if (l>=8) { // 9個に分割というのは、よみがなを振ることが可能な状態
+        let katakana_yomi = results[l-2];
+        let hiragana_yomi = ConvKatakanaToHiragana(katakana_yomi);
+        return hiragana_yomi;
+    }
+    return "";
 }
 
 function ConvKatakanaToHiragana(src) {
-	return src.replace(/[\u30a1-\u30f6]/g, function(match) {
-		var chr = match.charCodeAt(0) - 0x60;
-		return String.fromCharCode(chr);
-	});
+    return src.replace(/[\u30a1-\u30f6]/g, function(match) {
+        var chr = match.charCodeAt(0) - 0x60;
+        return String.fromCharCode(chr);
+    });
 }
 
 function GetTargetText() {
     if ( hm.Macro.Var["selecting"] ) {
-	    return hm.Edit.SelectedText;
-	}
-	return "";
+        return hm.Edit.SelectedText;
+    }
+    return "";
 }
 
 )JS"

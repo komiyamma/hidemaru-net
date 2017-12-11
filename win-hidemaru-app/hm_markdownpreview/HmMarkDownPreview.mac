@@ -1,4 +1,9 @@
-﻿#HMNET = loaddll( hidemarudir + @"\hm.NET.dll" );
+﻿/*
+ * Copyright (C) 2016-2017 Akitsugu Komiyama
+ * under the MIT License
+ */ 
+
+#HMNET = loaddll( hidemarudir + @"\hm.NET.dll" );
 
 if (#HMNET) {
     #_ = dllfuncw(#HMNET, "SetDetachMethod", currentmacrodirectory + @"\HmMarkDownPreview.dll", "HmMarkDownPreview", "OnDetachMethod");
