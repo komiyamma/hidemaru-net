@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*
+ * This codes is licensed under CC0 1.0 Universal
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

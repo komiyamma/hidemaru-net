@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // アセンブリに関する一般情報は以下の属性セットをとおして制御されます。
 // アセンブリに関連付けられている情報を変更するには、
 // これらの属性値を変更してください。
-[assembly: AssemblyTitle("HmStringSimilar for .NET ANYCPU 版")]
-[assembly: AssemblyDescription("HmStringSimilar for .NET ANYCPU 版")]
+[assembly: AssemblyTitle("HmStringCmpDiffer ２つの文字列比較の関数")]
+[assembly: AssemblyDescription("HmStringCmpDiffer ２つの文字列比較の関数")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("HmStringSimilar")]
-[assembly: AssemblyCopyright("Public Domain")]
+[assembly: AssemblyProduct("HmStringCmpDiffer ２つの文字列比較の関数")]
+[assembly: AssemblyCopyright("CC0 1.0 Universal")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // このプロジェクトが COM に公開される場合、次の GUID が typelib の ID になります
-[assembly: Guid("a9405d5b-81eb-42e2-b249-4cdcb3b796e8")]
+[assembly: Guid("df84001d-9140-44c1-bc90-e8de2d173791")]
 
 // アセンブリのバージョン情報は次の 4 つの値で構成されています:
 //
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // すべての値を指定するか、次を使用してビルド番号とリビジョン番号を既定に設定できます
 // 以下のように '*' を使用します:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("1.0.0.1")]
+[assembly: AssemblyFileVersion("1.0.0.1")]
