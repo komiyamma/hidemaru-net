@@ -1,3 +1,8 @@
+/*
+ * Example script.
+ * This codes is licensed under CC0 1.0 Universal
+ */
+
 call HmDclreMessagePrm;
 call HmTimerMessageBox "111", "‚¢‚¢‚¢", (#MB_ABORTRETRYIGNORE | #MB_ICONINFORMATION | #MB_DEFBUTTON2), 4000;
 

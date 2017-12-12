@@ -1,3 +1,9 @@
+/*
+ * Copyright (C) 2016-2017 Akitsugu Komiyama and Microsoft Corporation
+ * under the BSD 3-Clause License
+ */
+
+
 #define _CRT_SECURE_NO_WARNINGS
 // TimerMessageBox.cpp : アプリケーションのエントリ ポイントを定義します。
 
