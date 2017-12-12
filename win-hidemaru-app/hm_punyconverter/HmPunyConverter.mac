@@ -1,4 +1,11 @@
-// 動作環境は、「.NET 4.6以上」と「秀丸 v8.3以上」
+/*
+ * Copyright (C) 2017 Akitsugu Komiyama
+ * under the MIT License
+ *
+ * 秀丸エディタ v8.3以上.
+ * .NET Framework 4.6以上
+ */ 
+ 
 
 if( !selecting ) {
     message "秀丸エディタ上で変換したい(URL的な)文字列を選択してください";
