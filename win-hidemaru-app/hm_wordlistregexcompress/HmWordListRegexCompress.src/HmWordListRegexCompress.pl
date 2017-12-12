@@ -1,3 +1,7 @@
+#-----------------------------------------------------------------------------
+# Copyright (C) 2016-2017 Akitsugu Komiyama
+# under The MIT License
+#-----------------------------------------------------------------------------
 
 my $HIDE_LINE_CHAR_LIMIT = 240;
 
@@ -54,12 +58,12 @@ sub PrintRegex {
 
 
 
-
-
 #-----------------------------------------------------------------------------
-# à»â∫ÇÕÅARegex::PresufÇÃì‡óeÇªÇÃÇ‹Ç‹
-# Copyright (C) Jarkko Hietaniemi
-# http://search.cpan.org/~jhi/Regex-PreSuf-1.17/PreSuf.pm
+# Regex::Presuf
+# This code is distributed under the same copyright terms as Perl itself.
+# under The Artistic License 2.0
+#    Copyright (C) Jarkko Hietaniemi
+#    http://search.cpan.org/~jhi/Regex-PreSuf-1.17/PreSuf.pm
 #-----------------------------------------------------------------------------
 
 sub debug {

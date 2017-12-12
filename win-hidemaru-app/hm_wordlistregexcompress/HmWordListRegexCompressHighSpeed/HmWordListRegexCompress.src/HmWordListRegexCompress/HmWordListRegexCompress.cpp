@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2016-2017 Akitsugu Komiyama
+ * under the MIT License
+ */
+
 #include <EXTERN.h>               /* from the Perl distribution     */
 #include <perl.h>                 /* from the Perl distribution     */
 

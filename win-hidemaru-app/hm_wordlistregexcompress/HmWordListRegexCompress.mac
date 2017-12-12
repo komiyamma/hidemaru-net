@@ -1,3 +1,8 @@
+/* 
+ * Copyright (c) 2017 Akitsugu Komiyama
+ * under the MIT License
+ */
+
 #output_type =  4;   //  4:new 5:insert 6:replace 7:output frame
 #line_climit = 240;  //  生成された正規表現がこの文字数を超えるようなら、一度席表現をそこで区切る
 
