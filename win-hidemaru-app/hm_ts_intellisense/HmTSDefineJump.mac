@@ -1,4 +1,9 @@
-﻿// 手動でマクロを実行したか、もしくは、拡張子が指定のもの。
+﻿/* 
+ * Copyright (c) 2017 Akitsugu Komiyama
+ * under the Apache License Version 2.0
+ */
+
+// 手動でマクロを実行したか、もしくは、拡張子が指定のもの。
 if (event == 0 || filetype == ".ts" || filetype == ".js") {
 
     #HMNET = loaddll( hidemarudir + @"\hm.NET.dll" );

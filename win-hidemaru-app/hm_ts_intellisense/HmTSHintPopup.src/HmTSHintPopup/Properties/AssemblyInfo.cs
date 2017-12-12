@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // アセンブリに関連付けられている情報を変更するには、
 // これらの属性値を変更してください。
 [assembly: AssemblyTitle("HmWordPopupDemo for .NET 4.5 ANYCPU 版")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("HmWordPopupDemo for .NET 4.5 ANYCPU 版")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("HmWordPopupDemo for .NET 4.5 ANYCPU 版")]
-[assembly: AssemblyCopyright("Copyright © 2017 VSCode.life")]
+[assembly: AssemblyCopyright("Copyright © 2017 Akitsugu Komiyama")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

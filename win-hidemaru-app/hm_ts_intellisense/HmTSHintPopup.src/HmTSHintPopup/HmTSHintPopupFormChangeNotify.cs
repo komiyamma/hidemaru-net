@@ -1,4 +1,9 @@
-﻿using Hidemaru;
+﻿/* 
+ * Copyright (c) 2017 Akitsugu Komiyama
+ * under the Apache License Version 2.0
+ */
+
+ using Hidemaru;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
