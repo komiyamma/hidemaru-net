@@ -1,6 +1,11 @@
+/*
+ * Copyright (c) 2017 Akitsugu Komiyama
+ * under the Apache License Version 2.0
+ */
+
+
 #include <vector>
 #include <windows.h>
-// #include <msclr/marshal_cppstd.h>
 
 #include "convert_string.h"
 
@@ -36,15 +41,3 @@ std::string utf16_to_cp932(const std::wstring &text)
 	return std::string(buf.begin(), buf.begin() + size).data(); // このdata()必要
 }
 
-/*
-std::wstring String_to_wstring(System::String^ str) {
-	std::wstring native_string = msclr::interop::marshal_as<std::wstring>(str);
-	return native_string;
-}
-
-// 「tstring」⇒「System::String^」へ。C++のtstring文字列を .NETのString^文字列へ
-System::String^ wstring_to_String(std::wstring str) {
-	System::String^ managed_string = msclr::interop::marshal_as<System::String^>(str);
-	return managed_string;
-}
-*/

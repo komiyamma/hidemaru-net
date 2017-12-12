@@ -1,4 +1,9 @@
-﻿#include <stdio.h>
+﻿/*
+ * Copyright (c) 2017 Akitsugu Komiyama
+ * under the Apache License Version 2.0
+ */
+
+#include <stdio.h>
 #include <windows.h>
 
 #include "convert_string.h"

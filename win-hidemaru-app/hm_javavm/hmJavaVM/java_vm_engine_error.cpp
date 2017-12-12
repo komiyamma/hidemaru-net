@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Akitsugu Komiyama
+ * under the Apache License Version 2.0
+ */
+
 #include "java_vm_engine.h"
 #include "convert_string.h"
 #include "output_debugstream.h"

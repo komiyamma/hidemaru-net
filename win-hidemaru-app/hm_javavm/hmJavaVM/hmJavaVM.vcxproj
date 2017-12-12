@@ -189,14 +189,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Hidemaru\Hm.java" />
-    <None Include="MiscTools.java" />
-    <None Include="ApplicationClassLoader.java" />
     <None Include="hmJavaVM.def" />
+    <None Include="java_class_loader_future\Java9ClassLoaderSample.java" />
+    <None Include="java_class_loader_future\Java9ClassLoaderSample2.java" />
+    <None Include="java_class_loader_future\MiscTest.java" />
+    <None Include="java_class_loader_future\MiscTools.java" />
+    <None Include="java_class_loader_future\SpclClassLoader.java" />
     <None Include="Manifest.mf" />
-    <None Include="MiscTest.java" />
-    <None Include="SpclClassLoader.java" />
-    <None Include="Test.java" />
-    <None Include="Test3.java" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="convert_string.h" />

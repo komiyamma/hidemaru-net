@@ -37,9 +37,6 @@
     <Filter Include="Javaファイル">
       <UniqueIdentifier>{d1dc8e15-3c95-461b-a434-d5f0eb8d09ed}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Javaファイル\テスト用のJavaファイル">
-      <UniqueIdentifier>{95203313-2551-4213-8412-6b6f956c3e3a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Javaファイル\HmクラスのJava層">
       <UniqueIdentifier>{10326754-d49a-493d-a924-5ce5bca2b22a}</UniqueIdentifier>
     </Filter>
@@ -104,32 +101,29 @@
     <None Include="hmJavaVM.def">
       <Filter>ソース ファイル</Filter>
     </None>
-    <None Include="Test.java">
-      <Filter>Javaファイル\テスト用のJavaファイル</Filter>
-    </None>
     <None Include="Manifest.mf">
       <Filter>Javaファイル\HmクラスのJava層</Filter>
-    </None>
-    <None Include="ApplicationClassLoader.java">
-      <Filter>Javaファイル\参考ファイル</Filter>
-    </None>
-    <None Include="Test3.java">
-      <Filter>Javaファイル\テスト用のJavaファイル</Filter>
-    </None>
-    <None Include="SpclClassLoader.java">
-      <Filter>Javaファイル\参考ファイル</Filter>
     </None>
     <None Include="hmJavaVM.xml">
       <Filter>Javaファイル\HmクラスのJava層</Filter>
     </None>
-    <None Include="MiscTools.java">
-      <Filter>Javaファイル\参考ファイル</Filter>
-    </None>
-    <None Include="MiscTest.java">
-      <Filter>Javaファイル\参考ファイル</Filter>
-    </None>
     <None Include="Hidemaru\Hm.java">
       <Filter>Javaファイル\HmクラスのJava層</Filter>
+    </None>
+    <None Include="java_class_loader_future\Java9ClassLoaderSample.java">
+      <Filter>Javaファイル\参考ファイル</Filter>
+    </None>
+    <None Include="java_class_loader_future\Java9ClassLoaderSample2.java">
+      <Filter>Javaファイル\参考ファイル</Filter>
+    </None>
+    <None Include="java_class_loader_future\MiscTest.java">
+      <Filter>Javaファイル\参考ファイル</Filter>
+    </None>
+    <None Include="java_class_loader_future\MiscTools.java">
+      <Filter>Javaファイル\参考ファイル</Filter>
+    </None>
+    <None Include="java_class_loader_future\SpclClassLoader.java">
+      <Filter>Javaファイル\参考ファイル</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
