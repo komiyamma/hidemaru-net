@@ -1,4 +1,7 @@
-﻿// サンプル パブリックドメイン
+﻿/*
+ * Copyright (C) 2017 Akitsugu Komiyama
+ * under the MIT License
+ */ 
 
 #HMNET = loaddll( hidemarudir + @"\hm.NET.dll" );
 // hm.NET.dllは自己管理型 freedllしないこと。

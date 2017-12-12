@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("HmSelectedTextAutoHighlighter for .NET 4.5 ANYCPU")]
-[assembly: AssemblyCopyright("パブリックドメイン")]
+[assembly: AssemblyCopyright("Copyright (c) 2017 Akitsugu Komiyama")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
