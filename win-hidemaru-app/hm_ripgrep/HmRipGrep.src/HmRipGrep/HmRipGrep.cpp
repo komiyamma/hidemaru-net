@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2017 Akitsugu Komiyama
+ * under the MIT License
+ */ 
+
 // Regex.Escape
 // 正規表現を含んだ文字を、ただの文字列へとエスケープする
 

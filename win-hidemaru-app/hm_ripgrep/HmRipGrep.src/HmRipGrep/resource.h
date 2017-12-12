@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2017 Akitsugu Komiyama
+ * under the MIT License
+ */ 
+
 //{{NO_DEPENDENCIES}}
 // Microsoft Visual C++ generated include file.
 // Used by HmRipGrep.rc

@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // アセンブリに関連付けられている情報を変更するには、
 // これらの属性値を変更してください。
 [assembly: AssemblyTitle("IronRG")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("RipGrepをutf8とsjisの２つの文字コードで検索")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("IronRG")]
-[assembly: AssemblyCopyright("Copyright ©  2017")]
+[assembly: AssemblyCopyright("Copyright © 2017 Akitsugu Komiyama")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

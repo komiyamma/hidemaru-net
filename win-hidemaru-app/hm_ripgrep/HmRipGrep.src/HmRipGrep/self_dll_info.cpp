@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2017 Akitsugu Komiyama
+ * under the MIT License
+ */ 
+
 #include <windows.h>
 
 #include "self_dll_info.h"
