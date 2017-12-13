@@ -1,5 +1,7 @@
-
-
+-------------------------------------------------------------------------------
+-- Copyright (c) 2015-2017 Akitsugu Komiyama
+-- under the MIT License
+-------------------------------------------------------------------------------
 
 function main()
 	local str_exe_fullpath = arg[-1]
@@ -11,18 +13,18 @@ function main()
 	local result = ""
 
 	-------------------------------------------------------------------------------
-	-- =dofile–½—ß‚Å‚ÍA‘ÎÛƒtƒ@ƒCƒ‹‚ğƒCƒ“ƒ^ƒvƒŠƒ^‚Æ‚µ‚ÄÀs‚·‚é
+	-- =dofileå‘½ä»¤ã§ã¯ã€å¯¾è±¡ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ã‚¤ãƒ³ã‚¿ãƒ—ãƒªã‚¿ã¨ã—ã¦å®Ÿè¡Œã™ã‚‹
 	-------------------------------------------------------------------------------
 	if str_cmd == "=dofile" then
 		phandle = io.popen(str_exe_fullpath .." \""..str_filename.."\" 2>&1")
 		result = phandle:read("*all")
 		phandle:close()
 
-		result = string.gsub(result, str_exe_fullpath..": ", "") -- jLua.exe©‘Ì‚Ì–¼‘O‚ªprint‚³‚ê‚Ä‚µ‚Ü‚¤‚Ì‚ğÁ‚·B
+		result = string.gsub(result, str_exe_fullpath..": ", "") -- jLua.exeè‡ªä½“ã®åå‰ãŒprintã•ã‚Œã¦ã—ã¾ã†ã®ã‚’æ¶ˆã™ã€‚
 		print(result)
 
 	-------------------------------------------------------------------------------
-	-- =dolink–½—ß‚Å‚ÍA‘ÎÛƒtƒ@ƒCƒ‹‚ğƒGƒ‰[ƒ`ƒFƒbƒN‚·‚éB
+	-- =dolinkå‘½ä»¤ã§ã¯ã€å¯¾è±¡ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ã‚¨ãƒ©ãƒ¼ãƒã‚§ãƒƒã‚¯ã™ã‚‹ã€‚
 	-------------------------------------------------------------------------------
 	elseif str_cmd == "=docheck" then
 
@@ -30,7 +32,7 @@ function main()
 		result = phandle:read("*all")
 		phandle:close()
 
-		result = string.gsub(result, str_exe_fullpath..": ", "") -- jLua.exe©‘Ì‚Ì–¼‘O‚ªprint‚³‚ê‚Ä‚µ‚Ü‚¤‚Ì‚ğÁ‚·B
+		result = string.gsub(result, str_exe_fullpath..": ", "") -- jLua.exeè‡ªä½“ã®åå‰ãŒprintã•ã‚Œã¦ã—ã¾ã†ã®ã‚’æ¶ˆã™ã€‚
 		if result == "" then
 			print "syntax ok"
 		else
@@ -38,7 +40,7 @@ function main()
 		end
 
 	-------------------------------------------------------------------------------
-	-- =dolink–½—ß‚Å‚ÍA‘ÎÛƒtƒ@ƒCƒ‹‚ğ.exe‚Ö‚ÆƒRƒ“ƒpƒCƒ‹‚·‚éB
+	-- =dolinkå‘½ä»¤ã§ã¯ã€å¯¾è±¡ãƒ•ã‚¡ã‚¤ãƒ«ã‚’.exeã¸ã¨ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«ã™ã‚‹ã€‚
 	-------------------------------------------------------------------------------
 	elseif str_cmd == "=dolink" then
 
@@ -46,7 +48,7 @@ function main()
 		result = phandle:read("*all")
 		phandle:close()
 
-		result = string.gsub(result, str_exe_fullpath..": ", "") -- jLua.exe©‘Ì‚Ì–¼‘O‚ªprint‚³‚ê‚Ä‚µ‚Ü‚¤‚Ì‚ğÁ‚·B
+		result = string.gsub(result, str_exe_fullpath..": ", "") -- jLua.exeè‡ªä½“ã®åå‰ãŒprintã•ã‚Œã¦ã—ã¾ã†ã®ã‚’æ¶ˆã™ã€‚
 		if result == "" then
 			print "syntax ok"
 		else
@@ -59,7 +61,7 @@ function main()
 			result = phandle:read("*all")
 			phandle:close()
 
-			result = string.gsub(result, str_exe_fullpath..": ", "") -- jLua.exe©‘Ì‚Ì–¼‘O‚ªprint‚³‚ê‚Ä‚µ‚Ü‚¤‚Ì‚ğÁ‚·B
+			result = string.gsub(result, str_exe_fullpath..": ", "") -- jLua.exeè‡ªä½“ã®åå‰ãŒprintã•ã‚Œã¦ã—ã¾ã†ã®ã‚’æ¶ˆã™ã€‚
 			if result ~= "" then
 				print(result)
 			end
@@ -71,7 +73,7 @@ function main()
 end
 
 -------------------------------------------------------------------------------
--- ƒtƒ@ƒCƒ‹‚Ìƒtƒ‹ƒpƒX‚ÌŠg’£q‚ğ‘æ‚Qˆø”‚É‚·‚éB
+-- ãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒ•ãƒ«ãƒ‘ã‚¹ã®æ‹¡å¼µå­ã‚’ç¬¬ï¼’å¼•æ•°ã«ã™ã‚‹ã€‚
 	-------------------------------------------------------------------------------
 function path_to_ext(path, ext)
 	return string.gsub(path, "[^.]+$", ext)

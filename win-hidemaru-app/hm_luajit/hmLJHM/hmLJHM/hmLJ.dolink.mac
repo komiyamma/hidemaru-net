@@ -1,0 +1,15 @@
+﻿/*
+ * Copyright (c) 2016-2017 Akitsugu Komiyama
+ * under the MIT License
+ */
+
+runex hidemarudir+"\\hmLJ.exe" + " " + currentmacrodirectory+"\\hmLJ.do.lua =dolink \"%f\""
+    , 0             //sync    0:async 1:sync
+    , 0, ""         //stdin   0:none 1:auto 2:file 3:(reserve) 4:all 5:select
+    , 7, ""         //stdout  0:none 1:auto 2:file 3:add file  4:new 5:insert 6:replace 7:output frame 8:add output frame
+    , 0, ""         //stderr  0:none 1:=out 2:file 3:add file  4:new 5:insert 6:replace 7:output frame 8:add output frame
+    , 0, ""         //folder  0:none 1:current 2:specify 3:(reserve) 4:exe's folder
+    , 0             //show    0:auto 1:show 2:hide
+    , 0             //nodraw  0:draw 1:no draw
+    , 0             //unicode 0:ansi 2:unicode
+    ;
