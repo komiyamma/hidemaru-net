@@ -1,4 +1,9 @@
-runex currentmacrodirectory+"\\uLua.exe" + " " + currentmacrodirectory+"\\uLua.do.lua =dofile \"%f\""
+﻿/*
+ * Copyright (c) 2016-2017 Akitsugu Komiyama
+ * under the MIT License
+ */
+
+runex currentmacrodirectory+"\\uLua.exe" + " " + currentmacrodirectory+"\\uLua.do.lua =dolink \"%f\""
     , 0             //sync    0:async 1:sync
     , 0, ""         //stdin   0:none 1:auto 2:file 3:(reserve) 4:all 5:select
     , 7, ""         //stdout  0:none 1:auto 2:file 3:add file  4:new 5:insert 6:replace 7:output frame 8:add output frame
