@@ -1,0 +1,196 @@
+
+endmacro;
+
+/*
+ * This codes is licensed under CC0 1.0 Universal
+ */
+
+//----------------------------------------------------------------------------------
+// BOOL HMRE_Match("対象文字列", "部分マッチ正規表現", "オプションの文字列 /i");
+// 返り値: マッチせず(0)  マッチした(非0)
+// ※ マッチした部分は、$HMRE_M[0]へと入る
+//    正規表現を( )で囲んだ(一般にキャプチャなどと称する)ものは、HMRE_M[1]～数に応じて、格納される。
+//----------------------------------------------------------------------------------
+HMRE_Match:
+    // 引数は３つ。最後のオプション引数は省略しても良い。
+    $$str_source = $$1;
+    $$str_regexp = $$2;
+    $$str_option = $$3;
+
+    // 前回の結果を格納してたとしても無条件にクリア
+    call HMRE_Clear_M;
+
+    /*
+     * VBScriptのCOMを使った操作
+     * 中間的なメタプログラム表現としては以下のようなものである
+     *
+     *   function(str_source, str_regexp, option) {
+     *       var rgxp = new VBScript.RegExp()
+     *       rgxp.IgnoreCase = (0 or 1)      // iオプション
+     *       rgxp.Pattern    = str_regexp
+     *       var matches = try { rgxp.Execute(str_source) } catch(...) { message("正規表現エラー"); }
+     *       if (matches.Count==0) {
+     *           return false;
+     *       }
+     *       for m in matches { // 今回の実装では実は、最大でも１つしかない想定
+     *           // キャプチャの方
+     *           for i in 0..m.SubMatches.Count {
+     *               $g_match_array[i] = matches.SubMatches(i)
+     *           }
+     *           global $g_match_array[0] = m.Value
+     *       }
+     *       return true;
+     *   }
+     *
+     */
+
+    // VBScriptの正規表現で充分だろう
+    ##rgx_obj = createobject("VBScript.RegExp");
+
+    // 対象正規表現オブジェクトの正規表現部分の文字列を設定
+    setpropstr ##rgx_obj, "Pattern", $$str_regexp;
+
+    // 大文字小文字無視のオプション
+    if (strstr($$str_option, "i") >= 0) {
+        setpropnum ##rgx_obj, "IgnoreCase", 1;
+    } else {
+        setpropnum ##rgx_obj, "IgnoreCase", 0;
+    }
+
+    // 元文字列を対象として正規表現を実行してみる
+    ##matchs_obj_list = member(##rgx_obj, "Execute", $$str_source);
+
+    // 秀丸のエラー取得がマジックナンバーだとわかりにくいので、#define
+    ##COM_LAST_HRESULT = 11;
+    ##error_result = getresultex(##COM_LAST_HRESULT);
+    if (##error_result != 0) {
+        message("正規表現エラー:" + $$str_regexp);
+    }
+
+    // 結果のマッチ個数
+    ##matchs_cnt = member(##matchs_obj_list, "Count");
+
+    // マッチしないなければ、COMオブジェクトをリリースして、FALSE返す
+    if (##matchs_cnt == 0) {
+        releaseobject(##rgx_obj);
+        return 0;
+    }
+
+    // 秀丸のgetcollectionがマジックナンバーだとわかりにくい仕様なので、define
+    ##COLLECTION_OBJECT_REQUEST_NEXT    = 0;
+    ##COLLECTION_OBJECT_RELEASE_COMMAND = 3;
+
+    ##match_obj = 0; // NULL
+    while(1) {
+        // マッチオブジェクトを取得
+        ##match_obj = getcollection(##matchs_obj_list, ##COLLECTION_OBJECT_REQUEST_NEXT);
+        // もうないなら、さようなら
+        if ( ##match_obj == 0 ) { break; }
+        
+        // マッチオブジェクトがあるので、括弧( )で囲まれたキャプチャ対象があるか探す
+        ##sub_matches = member(##match_obj, "SubMatches");
+        // キャプチャーで確保できた数
+        ##sub_matches_cnt = member(##sub_matches, "Count");
+
+        // キャプチャーの中身を、グローバル変数として、$HMRE_Mへと格納していく。
+        // 概ねの他の言事合わせる形としたいので、１番からの格納。
+        ##sub_matches_ix = 0;
+        while(##sub_matches_ix < ##sub_matches_cnt) {
+            $$str_sub_match = member(##match_obj, "SubMatches", ##sub_matches_ix);
+            $HMRE_M[##sub_matches_ix+1] = $$str_sub_match; // 0番目にはマッチ全体を入れるので1番目から入れる
+            ##sub_matches_ix = ##sub_matches_ix + 1;
+        }
+        // 今回使った配列数を入れておく。$HMRE_Mをクリアする際に利用したいため。 + 1するのは、頭にマッチ全体の文字列を入れるため
+        #HMRE_M_ArrayLength = ##sub_matches_cnt + 1;
+        
+        $$match_value = member(##match_obj, "Value");
+        $HMRE_M[0] = $$match_value;
+    }
+    // 解放
+    ##match_obj = getcollection( #matchs_obj_list, ##COLLECTION_OBJECT_RELEASE_COMMAND );
+
+    // マッチした上、必要な処理も終わったので、COMオブジェクトをリリースして、TRUEを返す。
+    releaseobject(##rgx_obj);
+    return 1;
+
+
+
+//----------------------------------------------------------------------------------
+// string HMRE_Replace("対象文字列", "部分マッチ正規表現", "置き換え後文字列", "オプションの文字列 /i");
+// 返り値: 置き換えした文字列
+//----------------------------------------------------------------------------------
+HMRE_Replace:
+
+    // 引数は４つ。最後のオプション引数は省略しても良い。
+    $$str_source  = $$1;
+    $$str_regexp  = $$2;
+    $$str_replace = $$3;
+    $$str_option  = $$4;
+
+    // 前回の結果を格納してたとしても無条件にクリア
+    call HMRE_Clear_M;
+
+    /*
+     * VBScriptのCOMを使った操作
+     * 中間的なメタプログラム表現としては以下のようなものである
+     *
+     *   function(str_source, str_regexp, str_replace, option) {
+     *       var rgxp = new VBScript.RegExp()
+     *       rgxp.IgnoreCase = (0 or 1)      // iオプション
+     *       rgxp.Pattern    = str_regexp
+     *       var str_destination = try { rgxp.Replace(str_source, str_replace) } catch(...) { message("正規表現エラー"); }
+     *       return str_destination;
+     *   }
+     *
+     */
+
+    // VBScriptの正規表現で充分だろう
+    ##rgx_obj = createobject("VBScript.RegExp");
+
+    // 対象正規表現オブジェクトの正規表現部分の文字列を設定
+    setpropstr ##rgx_obj, "Pattern", $$str_regexp;
+
+    // 大文字小文字無視のオプション
+    if (strstr($$str_option, "i") >= 0) {
+        setpropnum ##rgx_obj, "IgnoreCase", 1;
+    } else {
+        setpropnum ##rgx_obj, "IgnoreCase", 0;
+    }
+
+    // 置き換えを実行
+    $$str_result = member(##rgx_obj, "Replace", $$str_source, $$str_replace);
+
+    // 秀丸のエラー取得がマジックナンバーだとわかりにくいので、#define
+    ##COM_LAST_HRESULT = 11;
+    ##error_result = getresultex(##COM_LAST_HRESULT);
+    if (##error_result != 0) {
+        message("正規表現エラー:" + $$str_regexp);
+    }
+
+    // 必要な処理も終わったので、COMオブジェクトをリリース。
+    releaseobject(##rgx_obj);
+
+    // 置き換え結果の文字を返す
+    return $$str_result;
+
+
+
+//----------------------------------------------------------------------------------
+// void HMRE_Clear_M
+// HMRE_Match を呼び出したマッチ結果の配列内容をクリアする。
+// 手動で呼び出す必要はない。
+//----------------------------------------------------------------------------------
+HMRE_Clear_M:
+
+    // 配列の数
+    ##array_cnt = #HMRE_M_ArrayLength;
+
+    ##ix = 0;
+    while(##ix < ##array_cnt) {
+        $HMRE_M[##ix] = "";
+        ##ix = ##ix + 1;
+    }
+
+    #HMRE_M_ArrayLength = 0;
+
+    return;
