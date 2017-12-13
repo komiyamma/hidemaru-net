@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 Akitsugu Komiyama
+ * under the Apache License Version 2.0
+ */
+
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <windows.h>

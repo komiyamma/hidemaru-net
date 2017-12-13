@@ -8,9 +8,6 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="② 入力補完関連のコールバックなど">
-      <UniqueIdentifier>{08f3033d-f848-4974-b89d-e953724b3a14}</UniqueIdentifier>
-    </Filter>
     <Filter Include="① DLLMAIN">
       <UniqueIdentifier>{e8ec2cf3-70c7-4e95-8c15-8e7ab4091783}</UniqueIdentifier>
     </Filter>
@@ -35,6 +32,9 @@
     </Filter>
     <Filter Include="⑪ 自動補完関係の最もIF付近">
       <UniqueIdentifier>{bf680ea0-7cd3-4c80-add6-fcd0237efac0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="② 入力補完関連のコールバックなど">
+      <UniqueIdentifier>{08f3033d-f848-4974-b89d-e953724b3a14}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -1,3 +1,7 @@
+/*
+ * This codes is licensed under CC0 1.0 Universal
+ */
+
 #include <windows.h>
 #include <stdio.h>
 #include <tchar.h>
