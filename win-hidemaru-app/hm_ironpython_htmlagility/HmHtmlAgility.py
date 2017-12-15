@@ -1,8 +1,8 @@
+#coding: cp932
+
 #
 # This codes is licensed under CC0 1.0 Universal
 #
-
-#coding: cp932
 
 DEBUG = 1
 

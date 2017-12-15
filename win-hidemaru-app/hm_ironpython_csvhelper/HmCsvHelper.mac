@@ -1,0 +1,39 @@
+/*
+ * This codes is licensed under CC0 1.0 Universal
+ * このcsvhelper.macはサンプルコードです自由にご利用ください。
+ */
+
+#PY = loaddll( hidemarudir + @"\hmPy.dll" );
+
+if (!#PY) {
+    message("hmPyが未導入のようです");
+    endmacro;
+}
+
+// 前準備
+// サンプルにあるようなcsvファイルのフルパスを指定してください。
+#_ = dllfuncw(#PY, "DoString", R"IPY(
+
+target_csv_filename = "C:\\work\\test.csv"; 
+target_csv_encoding = "shift_jis";
+
+)IPY"
+);
+
+// csvhelper.pyを実行
+#IS = dllfuncw(#PY, "DoFile", currentmacrodirectory + @"\HmCsvHelper.py" );
+
+// 実際のデータを得る
+#_ = dllfuncw(#PY, "DoString", R"IPY(
+
+data_row_count = GetRowCount()
+hm.debuginfo("全部で何行:" + str(data_row_count))
+
+data_item = GetCellItem(1, 2)
+hm.debuginfo("Cell(1,2)のデータ:" + data_item);
+
+
+)IPY"
+);
+
+freedll(#PY);
