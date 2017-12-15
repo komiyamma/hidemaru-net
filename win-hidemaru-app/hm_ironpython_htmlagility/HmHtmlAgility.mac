@@ -1,0 +1,30 @@
+/*
+ * This codes is licensed under CC0 1.0 Universal
+ */
+
+
+#PY = loaddll( hidemarudir + "\\hmPY.dll" );
+if (!#PY) {
+  message("hmPY‚ª–¢“±“ü");
+}
+
+
+$load_html_filename = filename2;
+$save_html_filename = directory2 + "\\" + basename2 + "_up.html";
+#encode = codepage;
+
+#_ = dllfuncw( #PY, "DoFile", currentmacrodirectory + "\\HmHtmlAgility.py" );
+
+#_ = dllfuncw( #PY, "DoString", R"IPY(
+
+LoadHTML()
+toInnerText('title')
+toInnerHtml('blockquote')
+SaveHTML()
+
+)IPY"
+);
+
+freedll( #PY );
+
+openfile $save_html_filename;
