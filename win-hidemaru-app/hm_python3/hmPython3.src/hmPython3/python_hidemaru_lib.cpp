@@ -1,3 +1,7 @@
+/* 
+ * Copyright (c) 2017 Akitsugu Komiyama
+ * under the Apache License Version 2.0
+ */
 
 #include "python_hidemaru_lib.h"
 #include "pybind11.h"

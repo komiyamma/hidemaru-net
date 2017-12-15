@@ -1,6 +1,7 @@
 #--------------------------------------------------------------
 # hmPython3 1.5.7.5用 フェイクライブラリ
-# Copyright @ 2017 VSCode.life
+# Copyright (c) 2017 Akitsugu Komiyama
+# under the Apache License Version 2.0
 #--------------------------------------------------------------
 
 class _TEdit:

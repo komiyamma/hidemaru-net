@@ -1,3 +1,8 @@
+/* 
+ * Copyright (c) 2017 Akitsugu Komiyama
+ * under the Apache License Version 2.0
+ */
+
 #include "exception_translator.h"
 #include "output_debugstream.h"
 
@@ -18,7 +23,3 @@ std::wstring python_critical_exception_message() {
 		"秀丸上の必要なファイルを保存し、「この秀丸プロセス」を終了してください。\n";
 	return err;
 }
-
-
-
-

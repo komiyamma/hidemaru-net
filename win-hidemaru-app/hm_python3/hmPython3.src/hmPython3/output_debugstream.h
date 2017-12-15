@@ -1,3 +1,8 @@
+/* 
+ * Copyright (c) 2017 Akitsugu Komiyama
+ * under the Apache License Version 2.0
+ */
+
 #pragma once
 
 #include <string>
@@ -8,6 +13,3 @@ using namespace std;
 // cp932に収まらない文字は「?」となってしまうのはやむを得ない。
 void OutputDebugStream(wstring wstr);
 
-//-------------------------------------------------------------------------
-// とりあえずのエラー発生用の文字列。仮
-void OutputDebugErrMsg();
