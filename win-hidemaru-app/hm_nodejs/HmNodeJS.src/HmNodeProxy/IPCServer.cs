@@ -1,4 +1,9 @@
-﻿using System;
+﻿/* 
+ * Copyright (c) 2017 Akitsugu Komiyama
+ * under the Apache License Version 2.0
+ */
+
+using System;
 using System.Runtime.Remoting.Channels.Ipc;
 using System.Security.Permissions;
 using System.Windows.Forms;
