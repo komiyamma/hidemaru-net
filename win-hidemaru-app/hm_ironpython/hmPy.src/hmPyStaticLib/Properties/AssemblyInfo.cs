@@ -1,4 +1,10 @@
-﻿using System.Reflection;
+﻿/* 
+ * Copyright (c) 2016-2017 Akitsugu Komiyama
+ * under the Apache License Version 2.0
+ */
+
+
+using System.Reflection;
 using System.Runtime.InteropServices;
 
 
