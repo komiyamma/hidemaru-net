@@ -1,4 +1,8 @@
-// copyright (c) 2016 VSCode.life
+/* 
+ * Copyright (c) 2016-2017 Akitsugu Komiyama
+ * under the MIT License
+ */
+
 #include "lua_interface.h"
 
 void lua_OutputDebugStream(const char *format, ...) {

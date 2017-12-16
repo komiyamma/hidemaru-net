@@ -1,4 +1,7 @@
-// copyright (c) 2016 VSCode.life
+/* 
+ * Copyright (c) 2016-2017 Akitsugu Komiyama
+ * under the MIT License
+ */
 
 #define MACRO_DLL extern "C" __declspec(dllexport)
 

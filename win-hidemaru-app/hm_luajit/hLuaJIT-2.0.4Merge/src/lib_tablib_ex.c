@@ -1,3 +1,8 @@
+/* 
+ * Copyright (c) 2016-2017 Akitsugu Komiyama
+ * under the MIT License
+ */
+
 #include <stddef.h>
 
 #define lib_tab_ex_c
