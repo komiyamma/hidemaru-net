@@ -1,5 +1,6 @@
 // 
-// Copyright (c) Microsoft Corporation. All rights reserved.
+// Copyright (c) Microsoft Corporation.
+// Copyright (c) 2016-2017 Akitsugu Komiyama.
 // 
 // Microsoft Public License (MS-PL)
 // 

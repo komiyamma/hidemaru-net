@@ -1,4 +1,9 @@
-﻿using System;
+﻿/*
+ * Copyright (c) 2015-2016 EdonGashi
+ * https://github.com/EdonGashi/ShipScript
+ */
+
+using System;
 using System.Dynamic;
 using System.Linq;
 using Microsoft.CSharp.RuntimeBinder;

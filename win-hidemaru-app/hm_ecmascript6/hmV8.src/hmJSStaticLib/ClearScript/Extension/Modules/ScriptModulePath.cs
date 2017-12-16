@@ -1,4 +1,9 @@
-﻿using hmV8DynamicNS.Helpers;
+﻿/*
+ * Copyright (c) 2015-2016 EdonGashi
+ * https://github.com/EdonGashi/ShipScript
+ */
+
+using hmV8DynamicNS.Helpers;
 
 namespace hmV8DynamicNS
 {

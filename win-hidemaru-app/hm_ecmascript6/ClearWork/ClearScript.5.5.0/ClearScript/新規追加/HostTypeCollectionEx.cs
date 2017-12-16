@@ -1,4 +1,6 @@
-﻿
+﻿// Copyright (c) Microsoft Corporation.
+// Copyright (c) 2016-2017 Akitsugu Komiyama.
+
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,4 +1,9 @@
-﻿namespace hmV8DynamicNS.Compilers
+﻿/*
+ * Copyright (c) 2015-2016 EdonGashi
+ * https://github.com/EdonGashi/ShipScript
+ */
+
+namespace hmV8DynamicNS.Compilers
 {
     public class JsonCompiler : IModuleCompiler
     {

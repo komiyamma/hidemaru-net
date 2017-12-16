@@ -1,4 +1,9 @@
-﻿using System.Text.RegularExpressions;
+﻿/*
+ * Copyright (c) 2015-2016 EdonGashi
+ * https://github.com/EdonGashi/ShipScript
+ */
+
+using System.Text.RegularExpressions;
 
 namespace hmV8DynamicNS.Helpers
 {
