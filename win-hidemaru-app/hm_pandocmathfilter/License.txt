@@ -1,4 +1,4 @@
-- HmMathjaxToSvg.node.js
+- HmPandocMathJaxFilter.js
    Copyright (C) 2017 Akitsugu Komiyama
 
 

@@ -8,10 +8,10 @@ using System;
 
 public class HmPandocPreviewChrome
 {
-    public static IntPtr Show(IntPtr hWndHidemaru, IntPtr pmode)
+    public static IntPtr Show(IntPtr hWndHidemaru, IntPtr pmode, String filter)
     {
         HmPandocPreviewChromeForm.HmGFMPreviewMode mode = (HmPandocPreviewChromeForm.HmGFMPreviewMode)pmode; // IntPtr → modeへ
-        HmPandocPreviewChromeForm.form = new HmPandocPreviewChromeForm(hWndHidemaru, mode);
+        HmPandocPreviewChromeForm.form = new HmPandocPreviewChromeForm(hWndHidemaru, mode, filter);
 
         return (IntPtr)1;
     }

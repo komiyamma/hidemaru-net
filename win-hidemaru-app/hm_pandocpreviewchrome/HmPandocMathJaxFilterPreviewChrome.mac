@@ -12,12 +12,13 @@ Enum_Markdown_Renderer: {
    #Katex   = 3;  // 3: Katexレンダリングモード
 }
 
-##mode = #Katex;
+##mode = #MathJax;
+$$filter = currentmacrodirectory + @"\HmPandocMathJaxFilter.py";
 
 if (#HMNET) {
 	#_ = dllfuncw(#HMNET, "SetDetachMethod", currentmacrodirectory + @"\HmPandocPreviewChrome.dll", "HmPandocPreviewChrome", "OnDetachMethod");
 
-    #_ = dllfuncw(#HMNET, "CallMethod", currentmacrodirectory + @"\HmPandocPreviewChrome.dll", "HmPandocPreviewChrome", "Show", hidemaruhandle(0), ##mode, "" );
+    #_ = dllfuncw(#HMNET, "CallMethod", currentmacrodirectory + @"\HmPandocPreviewChrome.dll", "HmPandocPreviewChrome", "Show", hidemaruhandle(0), ##mode, $$filter );
 } else {
     message("Hm.NET.dllを読み込むことが出来ません");
 }

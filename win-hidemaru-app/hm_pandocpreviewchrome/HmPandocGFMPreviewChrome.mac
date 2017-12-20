@@ -17,7 +17,7 @@ Enum_Markdown_Renderer: {
 if (#HMNET) {
 	#_ = dllfuncw(#HMNET, "SetDetachMethod", currentmacrodirectory + @"\HmPandocPreviewChrome.dll", "HmPandocPreviewChrome", "OnDetachMethod");
 
-    #_ = dllfuncw(#HMNET, "CallMethod", currentmacrodirectory + @"\HmPandocPreviewChrome.dll", "HmPandocPreviewChrome", "Show", hidemaruhandle(0), ##mode );
+    #_ = dllfuncw(#HMNET, "CallMethod", currentmacrodirectory + @"\HmPandocPreviewChrome.dll", "HmPandocPreviewChrome", "Show", hidemaruhandle(0), ##mode, "" );
 } else {
     message("Hm.NET.dllÇì«Ç›çûÇﬁÇ±Ç∆Ç™èoóàÇ‹ÇπÇÒ");
 }

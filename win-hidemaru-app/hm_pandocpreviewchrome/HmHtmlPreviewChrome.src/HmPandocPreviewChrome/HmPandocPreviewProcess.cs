@@ -38,19 +38,35 @@ internal partial class HmPandocPreviewChromeForm : System.Windows.Forms.Form
         string self_dir = System.IO.Path.GetDirectoryName(self_full_path);
         string self_basename = System.IO.Path.GetFileNameWithoutExtension(self_full_path);
 
+        String filter_option = "";
+        if (this.filter.Length > 0)
+        {
+            filter_option = " --filter " + "" + this.filter + " ";
+            string task_dir = System.IO.Path.GetDirectoryName(inputFileName);
+
+            //書き込むファイルが既に存在している場合は、上書きする
+            System.IO.StreamWriter sw = new System.IO.StreamWriter(self_dir + "\\HmPandocMathFilterCurrentTaskFolder.txt");
+
+            // 現在編集中のファイルのディレクトリ
+            sw.Write(task_dir);
+            //閉じる
+            sw.Close();
+        }
+
+
         if (mode == HmGFMPreviewMode.Github)
         {
-            psi.Arguments = "-f gfm " + "\"" + inputFileName + "\"" + " -s -t html5 -c " + "\"" + self_dir + "\\" + self_basename + ".css" + "\"" + " -o " + "\"" + outputFileName + "\" -s";
+            psi.Arguments = filter_option + "-f gfm " + "\"" + inputFileName + "\"" + " -s -t html5 -c " + "\"" + self_dir + "\\" + self_basename + ".css" + "\"" + " -o " + "\"" + outputFileName + "\" -s";
 
         }
         else if (mode == HmGFMPreviewMode.MathJax)
         {
-            psi.Arguments = "\"" + inputFileName + "\"" + " -s --mathjax -t html5 -c " + "\"" + self_dir + "\\" + self_basename + ".css" + "\"" + " -o " + "\"" + outputFileName + "\" -s";
-
+            psi.Arguments = filter_option + "\"" + inputFileName + "\"" + " -s --mathjax -t html5 -c " + "\"" + self_dir + "\\" + self_basename + ".css" + "\"" + " -o " + "\"" + outputFileName + "\" -s";
+            MessageBox.Show(psi.Arguments);
         }
         else if (mode == HmGFMPreviewMode.Katex)
         {
-            psi.Arguments = "\"" + inputFileName + "\"" + " -s --katex -t html5 -c " + "\"" + self_dir + "\\" + self_basename + ".css" + "\"" + " -o " + "\"" + outputFileName + "\" -s";
+            psi.Arguments = filter_option + "\"" + inputFileName + "\"" + " -s --katex -t html5 -c " + "\"" + self_dir + "\\" + self_basename + ".css" + "\"" + " -o " + "\"" + outputFileName + "\" -s";
 
         }
 
@@ -63,15 +79,20 @@ internal partial class HmPandocPreviewChromeForm : System.Windows.Forms.Form
         {
             if (pandoc != null)
             {
-                pandoc.WaitForExit();
+                pandoc.WaitForExit(300);
                 pandoc.Close();
-                pandoc = null;
+                pandoc.Kill();
             }
 
         }
         catch (Exception)
         {
         }
+        finally
+        {
+            pandoc = null;
+        }
+
     }
 
     // どうも Pandoc は ファイルへと出力する際に、複数回に小分けにして出すもよう。

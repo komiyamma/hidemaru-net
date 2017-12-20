@@ -26,6 +26,8 @@ internal partial class HmPandocPreviewChromeForm : System.Windows.Forms.Form
     }
     protected HmGFMPreviewMode mode = new HmGFMPreviewMode();
 
+    protected String filter;
+
     protected System.IntPtr hWndHidemaru = IntPtr.Zero;
     protected string strCurFileFullPath = "";
     protected string strPrvFileFullPath = "";
@@ -34,10 +36,11 @@ internal partial class HmPandocPreviewChromeForm : System.Windows.Forms.Form
     protected Timer update;
     protected Timer blocker;
 
-    public HmPandocPreviewChromeForm(System.IntPtr hWndHidemaru, HmGFMPreviewMode mode)
+    public HmPandocPreviewChromeForm(System.IntPtr hWndHidemaru, HmGFMPreviewMode mode, String filter)
     {
         this.hWndHidemaru = hWndHidemaru;
         this.mode = mode;
+        this.filter = filter;
 
         SetFormAttribute();
         SetWebBrowserAttribute();
