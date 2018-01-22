@@ -59,6 +59,8 @@ try {
 
     // 秀丸マクロへと伝搬
     hm.Macro.Var["$relativePath"] = relativePath;
+    hm.Macro.Var["$localPath"] = targetUrl.LocalPath;
+    hm.Macro.Var["$absolutePath"] = targetUrl.AbsolutePath;
 
 } catch(e) {
     hm.Macro.Var["$exceptionMessage"] = e;
@@ -72,6 +74,8 @@ if ($exceptionMessage != "") {
     message $exceptionMessage;
 } else {
     message $relativePath;
+    message $localPath;
+    message $absolutePath;
 }
 
 freedll(#JS);
