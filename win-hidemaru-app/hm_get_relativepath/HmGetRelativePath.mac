@@ -46,10 +46,10 @@ try {
     let targetUrl = new clr.System.Uri(strTargetPath);
 
 
-    // 絶対Uriから相対Uriを取得する
+    // ベースUriから対象のUrlの相対Uriを得る
     let relativeUri = baseUrl.MakeRelativeUri(targetUrl);
 
-    //文字列に変換する
+    // Uriオブジェクト→文字列に変換する
     let relativePath = relativeUri.ToString();
 
     // そのパスはローカルに本当に存在するのか？
