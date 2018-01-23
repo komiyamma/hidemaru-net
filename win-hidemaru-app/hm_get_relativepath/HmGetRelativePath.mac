@@ -38,10 +38,11 @@ function GetTargetFilePath(strBaseDirectory) {
 }
 
 try {
-    // ファイルを選択し、ベースのディレクトリを得る。
+    // ベースのディレクトリを得る。
     let strBaseDirectory = GetBaseDirectory();
     let baseUrl = new clr.System.Uri(strBaseDirectory);
 
+    // ターゲットのファイルのフルパスを得る
     let strTargetPath = GetTargetFilePath(strBaseDirectory);
     let targetUrl = new clr.System.Uri(strTargetPath);
 
