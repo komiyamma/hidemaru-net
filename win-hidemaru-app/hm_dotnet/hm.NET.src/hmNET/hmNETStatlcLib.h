@@ -23,6 +23,6 @@ public:
 
 	static IntPtr CallMethod(String^ expression);
 
-	static IntPtr DetachScope();
+	static IntPtr DetachScope(IntPtr status);
 
 };

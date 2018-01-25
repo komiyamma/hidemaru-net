@@ -67,7 +67,7 @@ void TraceExceptionInfo(Exception^ e) {
 	System::Diagnostics::Trace::WriteLine(e->StackTrace);
 }
 
-Object^ SubCallMethod(String^ assm_path, String^ class_name, String^ method_name, List<Object^>^ args) {
+Object^ SubCallMethod(String^ assm_path, String^ class_name, String^ method_name, List<Object^>^ args, bool isDetachFunc = false) {
 	try {
 		Assembly^ assm = nullptr;
 		Type^ t = nullptr;
@@ -97,7 +97,24 @@ Object^ SubCallMethod(String^ assm_path, String^ class_name, String^ method_name
 		MethodInfo^ m = t->GetMethod(method_name);
 		Object^ o = nullptr;
 		try {
-			o = m->Invoke(nullptr, args->ToArray());
+			// デタッチ関数の時に、引数が無いパターンを許す
+			if (isDetachFunc) {
+				auto paramInfo = m->GetParameters();
+				// 受け側の破棄メソッドの「引数が無い」ならば
+				if (paramInfo->Length == 0) {
+					List<Object^>^ empty = gcnew List<Object^>();
+					o = m->Invoke(nullptr, empty->ToArray());
+					// System::Diagnostics::Trace::WriteLine("引数無し");
+				}
+				// 引数があるならば、一応その値を渡す。とは言っても基本的にアセンブリなのでアプリ終了時にしかこれは実行されないハズであるが…
+				else {
+					o = m->Invoke(nullptr, args->ToArray());
+					// System::Diagnostics::Trace::WriteLine("引数有り");
+				}
+			}
+			else {
+				o = m->Invoke(nullptr, args->ToArray());
+			}
 		}
 		catch (Exception^ e) {
 			System::Diagnostics::Trace::WriteLine("指定のメソッドの実行時、例外が発生しました。");
@@ -297,16 +314,17 @@ MACRO_DLL intHM_t SetDetachMethod(const wchar_t* assm_path, const wchar_t* class
 	return true;
 }
 
-MACRO_DLL intHM_t DetachScope() {
+MACRO_DLL intHM_t DetachScope(intHM_t n) {
 	strcallmethod.clear();
 	BindDllHandle();
 
 	List<Object^>^ args = gcnew List<Object^>();
+	args->Add((IntPtr)n); // 終了時のパラメータを付け足し
 	for each(auto v in detach_func_list) {
-		SubCallMethod(wstring_to_String(v.assm_path), wstring_to_String(v.class_name), wstring_to_String(v.method_name), args);
+		SubCallMethod(wstring_to_String(v.assm_path), wstring_to_String(v.class_name), wstring_to_String(v.method_name), args, true);
 	}
 
-	intHM_t ret = (intHM_t)INETStaticLib::DetachScope();
+	intHM_t ret = (intHM_t)INETStaticLib::DetachScope(System::IntPtr(n));
 
 	GC::Collect();
 	
@@ -315,7 +333,7 @@ MACRO_DLL intHM_t DetachScope() {
 
 MACRO_DLL intHM_t DllDetachFunc_After_Hm866(intHM_t n) {
 
-	intHM_t ret = DetachScope();
+	intHM_t ret = DetachScope(n);
 
 	// v8.77未満だと、nは常に0
 	if (n == 0) {

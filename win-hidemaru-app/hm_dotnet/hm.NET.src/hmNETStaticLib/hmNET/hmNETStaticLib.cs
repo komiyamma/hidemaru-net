@@ -45,9 +45,9 @@ internal class INETStaticLib
         return hmNETDynamicLib.CallMethod(expression);
     }
 
-    public static IntPtr DetachScope()
+    public static IntPtr DetachScope(IntPtr status)
     {
-        return hmNETDynamicLib.DetachScope();
+        return hmNETDynamicLib.DetachScope(status);
     }
 
 }
@@ -168,7 +168,7 @@ internal partial class hmNETDynamicLib
         return (IntPtr)1;
     }
 
-    public static IntPtr DetachScope()
+    public static IntPtr DetachScope(IntPtr status)
     {
         if (engine != null)
         {
