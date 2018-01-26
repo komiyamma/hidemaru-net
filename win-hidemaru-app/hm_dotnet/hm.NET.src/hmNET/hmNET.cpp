@@ -332,26 +332,33 @@ MACRO_DLL intHM_t SetDetachMethod(const wchar_t* assm_path, const wchar_t* class
 }
 
 MACRO_DLL intHM_t DetachScope(intHM_t n) {
-	strcallmethod.clear();
-	BindDllHandle();
+	intHM_t ret = 0;
 
-	List<Object^>^ args = gcnew List<Object^>();
-	args->Add((IntPtr)n); // 終了時のパラメータを付け足し
-	for each(auto v in detach_func_list) {
-		SubCallMethod(wstring_to_String(v.assm_path), wstring_to_String(v.class_name), wstring_to_String(v.method_name), args, true);
+	try {
+		strcallmethod.clear();
+		BindDllHandle();
+
+		List<Object^>^ args = gcnew List<Object^>();
+		args->Add((IntPtr)n); // 終了時のパラメータを付け足し
+		for each(auto v in detach_func_list) {
+			SubCallMethod(wstring_to_String(v.assm_path), wstring_to_String(v.class_name), wstring_to_String(v.method_name), args, true);
+		}
+
+		ret = (intHM_t)INETStaticLib::DetachScope(System::IntPtr(n));
+
+		GC::Collect();
 	}
 
-	intHM_t ret = (intHM_t)INETStaticLib::DetachScope(System::IntPtr(n));
+	catch (Exception^ ex) {
+		TraceExceptionInfo(ex);
+	}
 
-	GC::Collect();
-	
 	return ret;
 }
 
 MACRO_DLL intHM_t DllDetachFunc_After_Hm866(intHM_t n) {
 
 	intHM_t ret = DetachScope(n);
-
 	// v8.77未満だと、nは常に0
 	if (n == 0) {
 		// OutputDebugStream(L"v8.66未満\n");
