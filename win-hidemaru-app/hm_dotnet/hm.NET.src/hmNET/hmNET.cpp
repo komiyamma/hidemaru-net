@@ -67,7 +67,8 @@ void TraceExceptionInfo(Exception^ e) {
 	System::Diagnostics::Trace::WriteLine(e->StackTrace);
 }
 
-Object^ SubCallMethod(String^ assm_path, String^ class_name, String^ method_name, List<Object^>^ args, bool isDetachFunc = false) {
+
+Object^ SubCallMethod(String^ assm_path, String^ class_name, String^ method_name, List<Object^>^ args, bool isDetathFuncMode = false) {
 	try {
 		Assembly^ assm = nullptr;
 		Type^ t = nullptr;
@@ -98,12 +99,11 @@ Object^ SubCallMethod(String^ assm_path, String^ class_name, String^ method_name
 		Object^ o = nullptr;
 		try {
 			// デタッチ関数の時に、引数が無いパターンを許す
-			if (isDetachFunc) {
+			if (isDetathFuncMode) {
 				auto paramInfo = m->GetParameters();
 				// 受け側の破棄メソッドの「引数が無い」ならば
 				if (paramInfo->Length == 0) {
-					List<Object^>^ empty = gcnew List<Object^>();
-					o = m->Invoke(nullptr, empty->ToArray());
+					o = m->Invoke(nullptr, nullptr);
 					// System::Diagnostics::Trace::WriteLine("引数無し");
 				}
 				// 引数があるならば、一応その値を渡す。とは言っても基本的にアセンブリなのでアプリ終了時にしかこれは実行されないハズであるが…
@@ -116,11 +116,9 @@ Object^ SubCallMethod(String^ assm_path, String^ class_name, String^ method_name
 				o = m->Invoke(nullptr, args->ToArray());
 			}
 		}
-		catch (Exception^ e) {
+		catch (Exception^) {
 			System::Diagnostics::Trace::WriteLine("指定のメソッドの実行時、例外が発生しました。");
 			throw;
-			TraceMethodInfo(assm_path, class_name, method_name);
-			TraceExceptionInfo(e);
 		}
 		return o;
 	}
@@ -216,81 +214,100 @@ MACRO_DLL intHM_t CallMethod(const wchar_t* assm_path, const wchar_t* class_name
 	int pt2 = Hidemaru_GetDllFuncCalledType(6); // 引数６番目
 	int pt3 = Hidemaru_GetDllFuncCalledType(7); // 引数７番目
 
-	strcallmethod.clear();
+	try {
 
-	BindDllHandle();
+		strcallmethod.clear();
 
-	List<Object^>^ args = gcnew List<Object^>();
-	int pt = 0;
+		BindDllHandle();
 
-	for (int i=4; true; i++) {
-
-		void *arg = nullptr;
+		List<Object^>^ args = gcnew List<Object^>();
 		int pt = 0;
-		switch (i) {
-		case 4: {
-			arg = arg0;
-			pt = pt0;
-			break;
-		}
-		case 5: {
-			arg = arg1;
-			pt = pt1;
-			break;
-		}
-		case 6: {
-			arg = arg2;
-			pt = pt2;
-			break;
-		}
-		case 7: {
-			arg = arg3;
-			pt = pt3;
-			break;
-		}
+
+		for (int i = 4; true; i++) {
+
+			void *arg = nullptr;
+			int pt = 0;
+			switch (i) {
+			case 4: {
+				arg = arg0;
+				pt = pt0;
+				break;
+			}
+			case 5: {
+				arg = arg1;
+				pt = pt1;
+				break;
+			}
+			case 6: {
+				arg = arg2;
+				pt = pt2;
+				break;
+			}
+			case 7: {
+				arg = arg3;
+				pt = pt3;
+				break;
+			}
+			}
+
+			// arg0のチェック
+			if (pt == DLLFUNCPARAM_NOPARAM) {
+				break;
+			}
+			else if (pt == DLLFUNCPARAM_INT) {
+				args->Add((IntPtr)arg);
+			}
+			else if (pt == DLLFUNCPARAM_WCHAR_PTR) {
+				args->Add(gcnew String((wchar_t *)arg));
+			}
 		}
 
-		// arg0のチェック
-		if (pt == DLLFUNCPARAM_NOPARAM) {
-			break;
+		INETStaticLib::CallMethod(L"init");
+
+		Object^ o = SubCallMethod(wstring_to_String(assm_path), wstring_to_String(class_name), wstring_to_String(method_name), args);
+
+		GC::Collect();
+
+		if (rty == DLLFUNCRETURN_INT) {
+			// System::Diagnostics::Trace::WriteLine("数値リターン");
+			if (o == nullptr) {
+				return (intHM_t)0;
+			}
+			try {
+				intHM_t rtn = ConvertObjectToIntPtr(o);
+				return rtn;
+			}
+			catch (Exception^ e) {
+				System::Diagnostics::Trace::WriteLine(e->GetType());
+				System::Diagnostics::Trace::WriteLine(e->Message);
+			}
+			return (intHM_t)0;
+
 		}
-		else if (pt == DLLFUNCPARAM_INT) {
-			args->Add((IntPtr)arg);
+		else if (rty == DLLFUNCRETURN_WCHAR_PTR) {
+			// System::Diagnostics::Trace::WriteLine("文字列リターン");
+			strcallmethod = String_to_wstring(o->ToString());
+			return (intHM_t)strcallmethod.data();
+
 		}
-		else if (pt == DLLFUNCPARAM_WCHAR_PTR) {
-			args->Add(gcnew String((wchar_t *)arg));
-		}
+
+		return false;
+
 	}
-
-	INETStaticLib::CallMethod(L"init");
-
-	Object^ o = SubCallMethod(wstring_to_String(assm_path), wstring_to_String(class_name), wstring_to_String(method_name), args);
-
-	GC::Collect();
-
-	if (rty == DLLFUNCRETURN_INT) {
-		// System::Diagnostics::Trace::WriteLine("数値リターン");
-		if (o == nullptr) {
+	catch (Exception^ ex) {
+		TraceExceptionInfo(ex);
+		if (rty == DLLFUNCRETURN_INT) {
 			return (intHM_t)0;
 		}
-		try {
-			intHM_t rtn = ConvertObjectToIntPtr(o);
-			return rtn;
-		}
-		catch (Exception^ e) {
-			System::Diagnostics::Trace::WriteLine(e->GetType());
-			System::Diagnostics::Trace::WriteLine(e->Message);
-		}
-		return (intHM_t)0;
+		else if (rty == DLLFUNCRETURN_WCHAR_PTR) {
+			// System::Diagnostics::Trace::WriteLine("文字列リターン");
+			strcallmethod = L"";
+			return (intHM_t)strcallmethod.data();
 
-	} else if (rty == DLLFUNCRETURN_WCHAR_PTR) {
-		// System::Diagnostics::Trace::WriteLine("文字列リターン");
-		strcallmethod = String_to_wstring(o->ToString());
-		return (intHM_t)strcallmethod.data();
+		}
 
+		return false;
 	}
-
-	return false;
 }
 
 struct DETATH_FUNC {
