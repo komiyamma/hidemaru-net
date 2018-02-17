@@ -1,6 +1,6 @@
 // 秀丸 v8.66 以上
 // hmV8 1.475 以上
-// (C) 2017 VSCode.life
+// (C) 2017 Akitsugu Komiyama
 
 /// <reference path="./HmJapanesePhoneticAnalyzer.d.ts" />
 // ライブラリの読み込み
