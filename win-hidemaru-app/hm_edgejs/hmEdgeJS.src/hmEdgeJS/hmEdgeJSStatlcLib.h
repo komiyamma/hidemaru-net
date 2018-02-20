@@ -18,24 +18,9 @@ public:
 
 	static IntPtr BindDllHandle(IntPtr dll);
 
-	static void SetCodePage(IntPtr cp);
-
 	static IntPtr SetTmpVar(Object^ value);
 
 	static Object^ PopTmpVar();
-
-	//-----------------------------------------------------------------
-	static IntPtr GetNumVar(String^ mng_var_name);
-
-	static IntPtr SetNumVar(String^ mng_var_name, IntPtr value);
-
-	static String^ GetStrVar(String^ mng_var_name);
-
-	static IntPtr SetStrVar(String^ mng_var_name, String^ value);
-	//-----------------------------------------------------------------
-
-
-	static IntPtr DoString(String^ expression);
 
 	static IntPtr DoFile(String^ filename);
 

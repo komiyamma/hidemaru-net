@@ -1,10 +1,9 @@
 ﻿/* 
- * Copyright (c) 2016-2017 Akitsugu Komiyama
+ * Copyright (c) 2016-2018 Akitsugu Komiyama
  * under the Apache License Version 2.0
  */
 
 using System;
-using System.Collections.Generic;
 
 
 
@@ -13,15 +12,12 @@ public sealed partial class hmEdgeJSDynamicLib
 {
     public sealed partial class Hidemaru
     {
-        public Hidemaru()
+        static Hidemaru()
         {
             System.Diagnostics.FileVersionInfo vi = System.Diagnostics.FileVersionInfo.GetVersionInfo(strExecuteFullpath);
             _ver = 100 * vi.FileMajorPart + 10 * vi.FileMinorPart + 1 * vi.FileBuildPart + 0.01 * vi.FilePrivatePart;
 
             SetUnManagedDll();
-
-            Edit = new TEdit();
-            Macro = new TMacro();
         }
 
         public sealed class ErrorMsg
@@ -32,16 +28,9 @@ public sealed partial class hmEdgeJSDynamicLib
         }
 
         // debuginfo関数
-        public static void debuginfo(params Object[] expressions)
+        public static void debuginfo(Object obj)
         {
-            List<String> list = new List<String>();
-            foreach (var exp in expressions)
-            {
-                list.Add(exp.ToString());
-            }
-
-            String joind = String.Join(" ", list);
-            OutputDebugStream(joind);
+            OutputDebugStream(obj.ToString());
         }
 
         // バージョン。hm.versionのため。読み取り専用

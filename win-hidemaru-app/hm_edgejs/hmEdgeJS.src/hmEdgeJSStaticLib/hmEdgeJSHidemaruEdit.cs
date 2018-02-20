@@ -1,5 +1,5 @@
 ﻿/* 
- * Copyright (c) 2016-2017 Akitsugu Komiyama
+ * Copyright (c) 2016-2018 Akitsugu Komiyama
  * under the Apache License Version 2.0
  */
 
@@ -14,11 +14,9 @@ public sealed partial class hmEdgeJSDynamicLib
 {
     public sealed partial class Hidemaru
     {
-
-        public static TEdit Edit;
-        public sealed class TEdit
+        public sealed class Edit
         {
-            public TEdit()
+            static Edit()
             {
                 SetUnManagedDll();
             }
@@ -57,27 +55,6 @@ public sealed partial class hmEdgeJSDynamicLib
                 public int column { get { return m_column; } }
                 public int lineno { get { return m_lineno; } }
             }
-           
-            /// <summary>
-            ///  CursorPos
-            /// </summary>
-            public static HmCursurPos CursorPos
-            {
-                get
-                {
-                    return GetCursorPos();
-                }
-            }
-            /// <summary>
-            ///  [EXPORT] CursorPosFromMousePos
-            /// </summary>
-            public static HmMousePos MousePos
-            {
-                get
-                {
-                    return GetCursorPosFromMousePos();
-                }
-            }
 
             [StructLayout(LayoutKind.Sequential)]
             private struct POINT
@@ -89,8 +66,9 @@ public sealed partial class hmEdgeJSDynamicLib
             [return: MarshalAs(UnmanagedType.Bool)]
             static extern bool GetCursorPos(out POINT lpPoint);
 
+
             // columnやlinenoはエディタ的な座標である。
-            private static HmCursurPos GetCursorPos()
+            public static HmCursurPos GetCursorPos()
             {
                 if (version < 866)
                 {
@@ -111,10 +89,9 @@ public sealed partial class hmEdgeJSDynamicLib
             }
 
             // columnやlinenoはエディタ的な座標である。
-            // columnやlinenoはエディタ的な座標である。
-            private static HmMousePos GetCursorPosFromMousePos()
+            public static HmMousePos GetCursorPosFromMousePos()
             {
-                if (version < 873)
+                if (_ver < 873)
                 {
                     OutputDebugStream(ErrorMsg.MethodNeed873);
                     return new HmMousePos(-1, -1, -1, -1);
@@ -141,27 +118,12 @@ public sealed partial class hmEdgeJSDynamicLib
                 return p;
             }
 
-            /// <summary>
-            /// TotalText
-            /// </summary>
-            public static String TotalText
-            {
-                get
-                {
-                    return GetTotalText();
-                }
-                set
-                {
-                    SetTotalText(value);
-                }
-            }
-
             // 途中でエラーが出るかもしれないので、相応しいUnlockやFreeが出来るように内部管理用
             private enum HGlobalStatus { None, Lock, Unlock, Free };
 
             // 現在の秀丸の編集中のテキスト全て。元が何の文字コードでも関係なく秀丸がwchar_tのユニコードで返してくれるので、
             // String^型に入れておけば良い。
-            private static String GetTotalText()
+            public static String GetTotalText()
             {
                 if (version < 866)
                 {
@@ -170,6 +132,10 @@ public sealed partial class hmEdgeJSDynamicLib
                 }
 
                 String curstr = "";
+                if (pGetTotalTextUnicode == null)
+                {
+                    return "";
+                }
                 IntPtr hGlobal = pGetTotalTextUnicode();
                 HGlobalStatus hgs = HGlobalStatus.None;
                 if (hGlobal != null)
@@ -216,7 +182,7 @@ public sealed partial class hmEdgeJSDynamicLib
                 return curstr;
             }
 
-            private static void SetTotalText(String value)
+            public static void SetTotalText(String value)
             {
                 if (version < 866)
                 {
@@ -238,29 +204,14 @@ public sealed partial class hmEdgeJSDynamicLib
                     "insert dllfuncstrw( {0} \"PopStrVar\" );\n" +
                     "endgroupundo;\n"
                 );
-                TMacro.Eval(cmd);
+                Macro._Eval(cmd);
                 SetTmpVar(null);
             }
 
-            /// <summary>
-            ///  SelecetdText
-            /// </summary>
-            public static String SelectedText
-            {
-                get
-                {
-                    return GetSelectedText();
-                }
-                set
-                {
-                    SetSelectedText(value);
-                }
-
-            }
 
             // 現在の秀丸の選択中のテキスト。元が何の文字コードでも関係なく秀丸がwchar_tのユニコードで返してくれるので、
             // String^型に入れておけば良い。
-            private static String GetSelectedText()
+            public static String GetSelectedText()
             {
                 if (version < 866)
                 {
@@ -320,7 +271,7 @@ public sealed partial class hmEdgeJSDynamicLib
                 return curstr;
             }
 
-            private static void SetSelectedText(String value)
+            public static void SetSelectedText(String value)
             {
                 if (version < 866)
                 {
@@ -341,30 +292,14 @@ public sealed partial class hmEdgeJSDynamicLib
                     "if (selecting) {\n" +
                     "insert dllfuncstrw( " + invocate + " \"PopStrVar\" );\n" +
                     "}\n";
-                TMacro.Eval(cmd);
+                Macro._Eval(cmd);
                 SetTmpVar(null);
-            }
-
-
-            /// <summary>
-            /// LineText
-            /// </summary>
-            public static String LineText
-            {
-                get
-                {
-                    return GetLineText();
-                }
-                set
-                {
-                    SetLineText(value);
-                }
             }
 
             // 現在の秀丸の編集中のテキストで、カーソルがある行だけのテキスト。
             // 元が何の文字コードでも関係なく秀丸がwchar_tのユニコードで返してくれるので、
             // String^型に入れておけば良い。
-            private static String GetLineText()
+            public static String GetLineText()
             {
                 if (version < 866)
                 {
@@ -421,7 +356,7 @@ public sealed partial class hmEdgeJSDynamicLib
                 return curstr;
             }
 
-            private static void SetLineText(String value)
+            public static void SetLineText(String value)
             {
                 if (version < 866)
                 {
@@ -445,10 +380,9 @@ public sealed partial class hmEdgeJSDynamicLib
                     "moveto2 " + pos.column + ", " + pos.lineno + ";\n" +
                     "endgroupundo;\n"
                 );
-                TMacro.Eval(cmd);
+                Macro._Eval(cmd);
                 SetTmpVar(null);
             }
-
         }
     }
 }
