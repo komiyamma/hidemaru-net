@@ -139,31 +139,10 @@ public sealed partial class hmEdgeJSDynamicLib
                     return ver;
                 }
 
+                let format = require('util').format;
                 function _hm_refDebugInfo(...args) {
-                    let list = [];
-                    for(let o of args) {
-　　　　　　　　　　　  if (o == undefined) {
-                            list.push(""undefined"");
-                        }
-　　　　　　　　　　　  else if (o == null) {
-                            list.push(""null"");
-                        }
-                        else {
-                            var stringify = JSON.stringify(o);
-
-                            // stringify不可能だが、toStringは可能
-                            if (stringify == undefined && o.toString && typeof(o.toString) == ""function"" ) {
-                                list.push(o.toString());
-
-                            // stringify可能だった
-                            } else {
-                                list.push(stringify);
-                            }
-                        }
-                    }
-                    let joined = list.join(' ');
-                    _TransRefObj.refDebugInfo(joined);
-                    // console.log(args);
+                    let str = format(...args)
+                    _TransRefObj.refDebugInfo(str);
                 }
 
                 function _hm_refEditGetTotalText(obj) {
