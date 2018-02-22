@@ -5,6 +5,7 @@
 
 using EdgeJs;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 // ★クラス実装内のメソッドの中でdynamic型を利用したもの。これを直接利用しないのは、内部でdynamic型を利用していると、クラスに自動的にメソッドが追加されてしまい、C++とはヘッダのメソッドの個数が合わなくなりリンクできなくなるため。
@@ -28,7 +29,6 @@ public sealed partial class hmEdgeJSDynamicLib
     static string strSetVarName = "";
     static Func<object, Task<object>> refMacroSetVarName;
     static Func<object, Task<object>> refMacroSetVarValue;
-
 
     static void InitMethodReference()
     {
@@ -116,13 +116,19 @@ public sealed partial class hmEdgeJSDynamicLib
             var ret = Hidemaru.Macro.SetVar(strSetVarName, obj);
             return ret;
         });
-
     }
 
     public static async Task InitExpression(string filename)
     {
+
         try
         {
+            var refManualResetEvent = (Func<object, Task<object>>)(async (obj) =>
+            {
+                manualResetEvent.Set();
+                return true;
+            });
+
             var func = Edge.Func(@"
 
                 var _TransRefObj = null;
@@ -133,16 +139,20 @@ public sealed partial class hmEdgeJSDynamicLib
 
                 global.R = R;
 
+                function _hm_refManualResetEvent(obj) {
+                    let dumm = _TransRefObj.refManualResetEvent(obj, function(error, result) { ; } );
+                }
+
                 function _hm_refGetVersion(obj) {
                     let ver = 0;
                     let dumm = _TransRefObj.refGetVersion(obj, function(error, result) { ver = result; } );
                     return ver;
                 }
 
-                let format = require('util').format;
                 function _hm_refDebugInfo(...args) {
-                    let str = format(...args)
-                    _TransRefObj.refDebugInfo(str);
+                    let format = require('util').format;
+                    let joined = format(...args);
+                    _TransRefObj.refDebugInfo(joined);
                 }
 
                 function _hm_refEditGetTotalText(obj) {
@@ -321,21 +331,31 @@ public sealed partial class hmEdgeJSDynamicLib
                 global.hm = hm;
 
                 return function(data, callback) {
+                    try {
+                        // まず値全体を代入
+                        _TransRefObj = data;
 
-                    // まず値全体を代入
-                    _TransRefObj = data;
+                        // モジュールパスの追加
+                        // global.module.paths.push( hm.Macro.Var[""currentmacrodirectory""] );
 
-                    // モジュールパスの追加
-                    // global.module.paths.push( hm.Macro.Var[""currentmacrodirectory""] );
+                        // 読み込み(成功するとメモリにキャッシュされるので注意。対策するため次のキャッシュ削除がある)
+                        require(data.filename);
 
-                    // 読み込み(成功するとメモリにキャッシュされるので注意。対策するため次のキャッシュ削除がある)
-                    require(data.filename);
+                    } catch(err) {
 
-                    // 複数回実行しても確実に実行されるように、requireのキャッシュは毎回削除しておく。
-                    Object.keys(require.cache).forEach(function(key) { delete require.cache[key] }) 
+                        hm.debuginfo(err);
 
-                    // 決まり文句
-                    callback(null, 'hmEdgeJS:' + data);
+                    } finally {
+
+                        // 複数回実行しても確実に実行されるように、requireのキャッシュは毎回削除しておく。
+                        Object.keys(require.cache).forEach(function(key) { delete require.cache[key] }) 
+
+                        // 決まり文句
+                        callback(null, 'hmEdgeJS:' + data);
+
+                        // 最後までやったという実績
+                        _hm_refManualResetEvent();
+                     }
                 }
 
             ");
@@ -357,14 +377,17 @@ public sealed partial class hmEdgeJSDynamicLib
                 refMacroEval = refMacroEval,
                 refMacroGetVar = refMacroGetVar,
                 refMacroSetVarName = refMacroSetVarName,
-                refMacroSetVarValue = refMacroSetVarValue
+                refMacroSetVarValue = refMacroSetVarValue,
+                refManualResetEvent = refManualResetEvent
             });
 
         }
         catch (Exception ex)
         {
+            manualResetEvent.Set();
             OutputDebugStream(ex.ToString());
         }
     }
 }
+
 

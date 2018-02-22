@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Linq;
 using System.Collections.ObjectModel;
+using System.Threading;
 
 
 // ★内部でdynamic型を利用しないもの。C++リンク用途のため「だけの」「コンパイルによってメソッド数が変化しない」インターフェイス。
@@ -130,6 +131,9 @@ public sealed partial class hmEdgeJSDynamicLib
     {
         return (IntPtr)1;
     }
+
+    static ManualResetEvent manualResetEvent;
+
     public static IntPtr DoFile(String filename)
     {
         if (CreateScope() == (IntPtr)0)
@@ -139,12 +143,14 @@ public sealed partial class hmEdgeJSDynamicLib
 
         try
         {
+            manualResetEvent = new ManualResetEvent(false);
             var tsk = InitExpression(filename);
-            tsk.Wait();
+            manualResetEvent.WaitOne();
             return (IntPtr)1;
         }
         catch (Exception e)
         {
+            manualResetEvent.Set();
             OutputDebugStream(e.Message);
         }
         return (IntPtr)0;
