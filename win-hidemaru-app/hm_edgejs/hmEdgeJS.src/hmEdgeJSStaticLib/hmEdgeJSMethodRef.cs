@@ -41,7 +41,6 @@ public sealed partial class hmEdgeJSDynamicLib
         refGetVersion = (Func<object, Task<object>>)(async (obj) =>
         {
             var ret = Hidemaru.version;
-            System.Diagnostics.Trace.WriteLine(ret);
             return ret;
         });
 

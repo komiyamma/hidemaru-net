@@ -91,6 +91,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
         "Release"
         {
@@ -107,6 +115,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
     }
     "Deployable"
@@ -149,7 +165,7 @@
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:C:\\usr\\web\\hidemaru-net\\win-hidemaru-app\\hm_edgejs\\hmEdgeJS.src\\hmEdgeJSStaticLib\\edge\\x64\\edge_nativeclr.node"
+            "SourcePath" = "8:..\\..\\hmEdgeJS.src\\hmEdgeJSStaticLib\\edge\\x64\\edge_nativeclr.node"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_BE77EAEC76A14FF48CA1E5101C592B07"
@@ -171,7 +187,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:hmEdgeJS, Version=1.0.0.1, Culture=neutral, processorArchitecture=AMD64"
+            "AssemblyAsmDisplayName" = "8:hmEdgeJS, Version=1.0.1.1, Culture=neutral, processorArchitecture=AMD64"
                 "ScatterAssemblies"
                 {
                     "_0AD7942C246445FBBB5B8A6AD261D226"
@@ -180,7 +196,7 @@
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:C:\\usr\\web\\hidemaru-net\\win-hidemaru-app\\hm_edgejs\\hmEdgeJS.src\\x64\\Release\\hmEdgeJS.dll"
+            "SourcePath" = "8:..\\..\\hmEdgeJS.src\\x64\\Release\\hmEdgeJS.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_2046B89A3BC04676B8B18E84394E801F"
@@ -200,7 +216,7 @@
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_19969FC2FA2E49248C8293656AB74C1A"
             {
-            "SourcePath" = "8:C:\\usr\\web\\hidemaru-net\\win-hidemaru-app\\hm_edgejs\\License.txt"
+            "SourcePath" = "8:..\\..\\License.txt"
             "TargetName" = "8:License.txt"
             "Tag" = "8:"
             "Folder" = "8:_2046B89A3BC04676B8B18E84394E801F"
@@ -231,7 +247,7 @@
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:C:\\usr\\web\\hidemaru-net\\win-hidemaru-app\\hm_edgejs\\hmEdgeJS.src\\hmEdgeJSStaticLib\\bin\\Release\\EdgeJs.dll"
+            "SourcePath" = "8:..\\..\\hmEdgeJS.src\\hmEdgeJSStaticLib\\bin\\Release\\EdgeJs.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_2046B89A3BC04676B8B18E84394E801F"
@@ -251,7 +267,7 @@
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6BBE14B5BE094A448245ECBCB4A19532"
             {
-            "SourcePath" = "8:C:\\usr\\web\\hidemaru-net\\win-hidemaru-app\\hm_edgejs\\hmEdgeJS.src\\hmEdgeJSStaticLib\\edge\\double_edge.js"
+            "SourcePath" = "8:..\\..\\hmEdgeJS.src\\hmEdgeJSStaticLib\\edge\\double_edge.js"
             "TargetName" = "8:double_edge.js"
             "Tag" = "8:"
             "Folder" = "8:_C591FDCB5E264DDFB2C92294B1DB4903"
@@ -271,7 +287,7 @@
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9A28DF5C00C74AB6AC586D6C702FAD93"
             {
-            "SourcePath" = "8:C:\\usr\\web\\hidemaru-net\\win-hidemaru-app\\hm_edgejs\\hmEdgeJS.src\\hmEdgeJSStaticLib\\edge\\x64\\node.dll"
+            "SourcePath" = "8:..\\..\\hmEdgeJS.src\\hmEdgeJSStaticLib\\edge\\x64\\node.dll"
             "TargetName" = "8:node.dll"
             "Tag" = "8:"
             "Folder" = "8:_BE77EAEC76A14FF48CA1E5101C592B07"
@@ -291,7 +307,7 @@
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B6E67B35F5204321852B5593B9167CCD"
             {
-            "SourcePath" = "8:C:\\usr\\web\\hidemaru-net\\win-hidemaru-app\\hm_edgejs\\hmEdgeJS.src\\hmEdgeJSStaticLib\\edge\\edge.js"
+            "SourcePath" = "8:..\\..\\hmEdgeJS.src\\hmEdgeJSStaticLib\\edge\\edge.js"
             "TargetName" = "8:edge.js"
             "Tag" = "8:"
             "Folder" = "8:_C591FDCB5E264DDFB2C92294B1DB4903"
@@ -387,15 +403,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:hmEdgeJSSetup_x64"
-        "ProductCode" = "8:{71D158FC-B700-4C1C-B540-502CDF96FE89}"
-        "PackageCode" = "8:{BB472411-FB43-44D7-B3A7-C7C3EDF87232}"
+        "ProductCode" = "8:{5F448D79-819B-41B3-9DD6-B28208446323}"
+        "PackageCode" = "8:{5FB8BA25-05B7-4A52-86EE-6209181131CA}"
         "UpgradeCode" = "8:{F2C86FB9-3FF7-44DE-9DE2-8B12595EE05C}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.0"
+        "ProductVersion" = "8:1.0.1"
         "Manufacturer" = "8:Akitsugu Komiyama"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
