@@ -198,7 +198,7 @@ window.sirusiizu = new sirusiizu();
 
 </script>
 <script type="text/javascript">
-function abc() {
+function doMarking() {
         changeTab("mapCanvasArea");
         sirusiizu.marking($("#addressList").val(), {
             onGeocoded: function(i, addr) {
@@ -266,7 +266,7 @@ $(function () {
     window.sirusiizu.initialize("mapCanvas");
     $("#mapArea li:first").css("backgroundColor", "white");
 
-    $("#execButton").click(abc);
+    $("#execButton").click(doMarking);
     $("#showDesc").click(function () {
         if ($("#descriptionOfParam").toggle().is(":visible")) {
             $("#showDesc").html("詳細非表示");
@@ -514,7 +514,7 @@ a.readyfor {
 
 <script type="text/javascript">
 // 追加。全ての読み込みデータ完了時に表示
-$(window).load(abc);
+$(window).load(doMarking);
 </script>
 
 </body>
