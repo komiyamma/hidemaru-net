@@ -31,7 +31,7 @@ try {
         throw "GoogleMapで表示すべき対象の文字列が存在しません。";
     }
 
-    // 駄目文字が入っている場合用の対策として軽くHTMLエンコード等や改行対策しておく。
+    // 駄目文字が入っている場合用の対策としてHTMLエンコード。
     host.lib(clr, "System.Web");
     let encoded_text = clr.System.Web.HttpUtility.HtmlEncode(target_text);
 
