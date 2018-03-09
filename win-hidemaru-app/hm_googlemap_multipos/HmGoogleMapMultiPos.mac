@@ -1,0 +1,64 @@
+﻿/* 
+ * HmGoogleMapMultiPos
+ * Copyright (c) 2018 Akitsugu Komiyama
+ * under the MIT License
+ */
+
+#V8 = loaddll(hidemarudir + @"\hmV8.dll" );
+if (!#V8) {
+    message "hmV8が導入されていないようです!";
+    endmacro;
+}
+
+#r = dllfuncw(#V8, "DoString", R"V8(
+
+try {
+    // このマクロファイルを開いた状態（アクティブにした状態）でマクロを実行している。 → エラー
+    if (hm.Macro.Var["filename"] == hm.Macro.Var["currentmacrofilename"]) {
+        throw "GoogleMapで表示すべき文字列が含まれた秀丸タブを対象として下さい。\nこのマクロ自体を対象にはできません。\n";
+    }
+
+    // 対象のテキスト。選択ありなら選択、なしなら全体
+    let target_text = hm.Edit.SelectedText || hm.Edit.TotalText;
+
+    // テキスト内容が空 → エラー
+    if (!target_text) {
+        throw "GoogleMapで表示すべき対象の文字列が存在しません。";
+    }
+
+    // 駄目文字が入っている場合用の対策として軽くHTMLエンコード等や改行対策しておく。
+    let weblib = host.lib("System.Web");
+    let html_encoder = weblib.System.Web.HttpUtility.HtmlEncode;
+    let encoded_text = html_encoder(target_text);
+
+    // テンプレートファイルをテキストとして取得。
+    let currentmacrofilename = hm.Macro.Var["currentmacrofilename"];
+    let tmpl_filename = clr.System.IO.Path.ChangeExtension(currentmacrofilename, ".tmpl");
+    let sr = new clr.System.IO.StreamReader(tmpl_filename, clr.System.Text.Encoding.UTF8);
+    let tmpl_text = sr.ReadToEnd();
+    sr.Close();
+
+    // 最終的に表示するHTML。テンプレートテキストの"%location_list%"の部分を、場所の文字列リストで置換え
+    let result_html = tmpl_text.replace(/%location_list%/g, encoded_text);
+
+    // ファイルとして出力。
+    let result_filename = clr.System.IO.Path.ChangeExtension(currentmacrofilename, ".html");
+    let sw = new clr.System.IO.StreamWriter(result_filename, false, clr.System.Text.Encoding.UTF8);
+    sw.Write(result_html);
+    sw.Close();
+
+    // Chromeで表示。引数部分空白入ってるかもなので" "で囲む。
+    clr.System.Diagnostics.Process.Start("chrome", '"'+result_filename+'"');
+
+// なんかエラー
+} catch(e) {
+
+    // ダイアログで表示
+    hm.Macro.Var["$HmGoogleMapMultiPosError"] = e.toString();
+    hm.Macro.Eval(f => {/* message $HmGoogleMapMultiPosError; */});
+}
+
+)V8"
+);
+
+freedll(#V8);
