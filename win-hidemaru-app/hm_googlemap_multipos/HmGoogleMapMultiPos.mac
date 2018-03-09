@@ -42,15 +42,15 @@ try {
     sr.Close();
 
     // 最終的に表示するHTML。テンプレートテキストの"%location_list%"の部分を、場所の文字列リストで置換え
-    let result_html = tmpl_text.replace(/%location_list%/g, encoded_text);
+    let result_html = tmpl_text.replace(/%location_list%/, encoded_text);
 
-    // ファイルとして出力。
+    // ファイルとしてマクロと同じディレクトリに出力。
     let result_filename = clr.System.IO.Path.ChangeExtension(currentmacrofilename, ".html");
     let sw = new clr.System.IO.StreamWriter(result_filename, false, clr.System.Text.Encoding.UTF8);
     sw.Write(result_html);
     sw.Close();
 
-    // Chromeで表示。引数部分空白入ってるかもなので" "で囲む。
+    // それをChromeで表示。引数部分空白入ってるかもなので" "で囲む。
     clr.System.Diagnostics.Process.Start("chrome", '"'+result_filename+'"');
 
 // なんかエラー
