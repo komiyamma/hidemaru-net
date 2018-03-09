@@ -13,26 +13,29 @@ if (!#V8) {
 #r = dllfuncw(#V8, "DoString", R"V8(
 
 try {
-    // このマクロファイルを開いた状態（アクティブにした状態）でマクロを実行している。 → エラー
-    if (hm.Macro.Var["filename"] == hm.Macro.Var["currentmacrofilename"]) {
-        throw "GoogleMapで表示すべき文字列が含まれた秀丸タブを対象として下さい。\nこのマクロ自体を対象にはできません。\n";
+    // このマクロのファイルのフルパス
+    let currentmacrofilename = hm.Macro.Var["currentmacrofilename"];
+
+    // このマクロファイル自体を対象にマクロを実行している。 → 意味がないのでエラー＆誘導
+    if (currentmacrofilename == hm.Macro.Var["filename"] ) {
+        throw "GoogleMapで表示すべき文字列リストが含まれている秀丸タブを\n" +
+              "アクティブにした状態でマクロを実行して下さい。\n\n" +
+              "このマクロ自体を対象にはできません。\n";
     }
 
     // 対象のテキスト。選択ありなら選択、なしなら全体
     let target_text = hm.Edit.SelectedText || hm.Edit.TotalText;
 
-    // テキスト内容が空 → エラー
+    // テキスト内容が空 → エラー＆警告
     if (!target_text) {
         throw "GoogleMapで表示すべき対象の文字列が存在しません。";
     }
 
     // 駄目文字が入っている場合用の対策として軽くHTMLエンコード等や改行対策しておく。
-    let weblib = host.lib("System.Web");
-    let html_encoder = weblib.System.Web.HttpUtility.HtmlEncode;
-    let encoded_text = html_encoder(target_text);
+    host.lib(clr, "System.Web");
+    let encoded_text = clr.System.Web.HttpUtility.HtmlEncode(target_text);
 
     // テンプレートファイルをテキストとして取得。
-    let currentmacrofilename = hm.Macro.Var["currentmacrofilename"];
     let tmpl_filename = clr.System.IO.Path.ChangeExtension(currentmacrofilename, ".tmpl");
     let sr = new clr.System.IO.StreamReader(tmpl_filename, clr.System.Text.Encoding.UTF8);
     let tmpl_text = sr.ReadToEnd();
@@ -53,7 +56,7 @@ try {
 // なんかエラー
 } catch(e) {
 
-    // ダイアログで表示
+    // ダイアログでエラー内容表示
     hm.Macro.Var["$HmGoogleMapMultiPosError"] = e.toString();
     hm.Macro.Eval(f => {/* message $HmGoogleMapMultiPosError; */});
 }
