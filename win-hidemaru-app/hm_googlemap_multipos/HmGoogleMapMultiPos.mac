@@ -50,8 +50,13 @@ try {
     sw.Write(result_html);
     sw.Close();
 
-    // それをChromeで表示。引数部分空白入ってるかもなので" "で囲む。
-    clr.System.Diagnostics.Process.Start("chrome", '"'+result_filename+'"');
+    try {
+        // それをChromeで表示。引数部分空白入ってるかもなので" "で囲む。
+        clr.System.Diagnostics.Process.Start("chrome", '"'+result_filename+'"');
+    } catch(e) {
+        // Chromeが無いのかな？ なんかhtmlに関連付けられているもので表示。多分ブラウザでしょ。
+        clr.System.Diagnostics.Process.Start('"'+result_filename+'"');
+    }
 
 // なんかエラー
 } catch(e) {
