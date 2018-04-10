@@ -18,7 +18,7 @@ using System.Runtime.InteropServices;
 #else
 [assembly: AssemblyProduct("HmChromeBrowserMode for .NET 4.5.2 x86 版")]
 #endif
-[assembly: AssemblyCopyright("Copyright © 2017 Akitsugu Komiyama")]
+[assembly: AssemblyCopyright("Copyright © 2017-2018 Akitsugu Komiyama")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -39,5 +39,5 @@ using System.Runtime.InteropServices;
 // すべての値を指定するか、次を使用してビルド番号とリビジョン番号を既定に設定できます
 // 以下のように '*' を使用します:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.3.0.1")]
-[assembly: AssemblyFileVersion("1.3.0.1")]
+[assembly: AssemblyVersion("1.4.0.1")]
+[assembly: AssemblyFileVersion("1.4.0.1")]
