@@ -1,5 +1,5 @@
 ﻿/* 
- * Copyright (c) 2016-2017 Akitsugu Komiyama
+ * Copyright (c) 2016-2018 Akitsugu Komiyama
  * under the Apache License Version 2.0
  */
 
@@ -218,7 +218,9 @@ public sealed partial class hmPyDynamicLib
                 pe = Python.CreateEngine();
                 ss = pe.CreateScope();
                 hm = new Hidemaru();
-                ss.SetVariable("hm", hm);
+                // __builtin__モジュールの変数として、これをセッティング。グローバル変数として参照可能となる。
+                pe.GetBuiltinModule().SetVariable("hm", hm);
+                // ss.SetVariable("hm", hm);
 
                 // マクロのパスを足す
                 SetCurrentMacroDirectory();
