@@ -214,35 +214,16 @@ namespace HmEverything {
 				// あほみたいだが秀丸が何かビジーになっていないかチェック。
 				// あほみたいな処理だと目立たせるため、あえて、「激しくコピー感」を残しておく。
 				// 最大0.3秒程度だが細かく
-				if (CHidemaruExeExport::Hidemaru_CheckQueueStatus()) {
-					Threading::Thread::Sleep(50);
-					if (CHidemaruExeExport::Hidemaru_CheckQueueStatus()) {
-						Threading::Thread::Sleep(50);
-						if (CHidemaruExeExport::Hidemaru_CheckQueueStatus()) {
-							Threading::Thread::Sleep(50);
-							if (CHidemaruExeExport::Hidemaru_CheckQueueStatus()) {
-								Threading::Thread::Sleep(50);
-								if (CHidemaruExeExport::Hidemaru_CheckQueueStatus()) {
-									Threading::Thread::Sleep(50);
-									if (CHidemaruExeExport::Hidemaru_CheckQueueStatus()) {
-										Threading::Thread::Sleep(50);
-									}
-								}
-							}
-						}
-					}
-				}
 
 				// 大丈夫そうなら書き込み
-				if ( ! CHidemaruExeExport::Hidemaru_CheckQueueStatus()) {
-					CHidemaruExeExport::SetTotalText(data);
+				CHidemaruExeExport::SetTotalText(data);
 
-					// TSVモードにする
-					CHidemaruExeExport::EvalMacro(LR"(
-						movetolineno 1, 0;
-						config "xTabMode:0x0001";
-					)");
-				}
+				// TSVモードにする
+				CHidemaruExeExport::EvalMacro(LR"(
+					movetolineno 1, 0;
+					config "xTabMode:0x0001";
+				)");
+
 				// ロック解放
 				mut->ReleaseMutex();
 			}

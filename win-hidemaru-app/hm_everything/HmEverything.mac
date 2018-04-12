@@ -47,3 +47,9 @@ SHOW_FORM_AND_EXEC_EVERYTHING:
     #DLL = loaddll( currentmacrodirectory + @"\HmEverything.dll" );
     #_ = dllfuncw( #DLL, "Show", hidemaruhandle(0), #OPTION_FLAGS );
     freedll(#DLL);
+
+
+CLEAR_UPDATED:
+
+    // 更新状態は解除
+    clearupdated;
