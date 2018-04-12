@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2017 Akitsugu Komiyama
+ * Copyright (c) 2017-2018 Akitsugu Komiyama
  * under the MIT License
  */
 
