@@ -70,7 +70,7 @@ class _TMacro:
         def __setitem__(self, varname, value):
             if not varname.startswith("#") and not varname.startswith("$"):
                 hm.debuginfo(varname + " <= " + str(value) )
-                hm.debuginfo("cant set attribute: ファイクデータ構築とみなします。本来のhmPython3ではこの代入は認められません。")
+                hm.debuginfo("cant set attribute: フェイクデータ構築とみなします。本来のhmPyではこの代入は認められません。")
 
             self.__map[varname] = value
     #--------------------------------------------------
