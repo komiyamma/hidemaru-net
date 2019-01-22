@@ -8,14 +8,14 @@ class _TEdit:
 
     #--------------------------------------------------
     # 編集中のテキスト全体
-    TotalText = "abcdefg\nhijklmn\nopqrstu\nvwxyz"
+    TotalText: str = "abcdefg\nhijklmn\nopqrstu\nvwxyz"
 
     # 選択中のテキスト。通常選択もしくは行選択のみ（矩形選択は対象としない）
-    SelectedText = "ijklm"
+    SelectedText: str = "ijklm"
     #--------------------------------------------------
 
     # カーソルがある行のテキスト
-    LineText = "nopqrstu"
+    LineText: str = "nopqrstu"
     #--------------------------------------------------
 
     #--------------------------------------------------
@@ -23,9 +23,9 @@ class _TEdit:
     #--------------------------------------------------
     class CursorPos:
 
-        def __lineno(self):
+        def __lineno(self) -> int:
             return 3;
-        def __column(self):
+        def __column(self) -> int:
             return 5;
         lineno = property(__lineno)
         column = property(__column)
@@ -37,13 +37,13 @@ class _TEdit:
     #--------------------------------------------------
     class MousePos:
 
-        def __lineno(self):
+        def __lineno(self) -> int:
             return 3;
-        def __column(self):
+        def __column(self) -> int:
             return 5;
-        def __x(self):
+        def __x(self) -> int:
             return 300;
-        def __y(self):
+        def __y(self) -> int:
             return 200;
         lineno = property(__lineno)
         column = property(__column)
@@ -57,15 +57,15 @@ class _TMacro:
     """
     #--------------------------------------------------
     class _TVar:
-        __map = {}
+        __map: dict = {}
         """
         秀丸マクロ関連のうち、マクロシンボル（マクロ変数）を扱うクラス
         """
 
-        def __getitem__(self, varname):
+        def __getitem__(self, varname: str):
             return self.__map[varname]
 
-        def __setitem__(self, varname, value):
+        def __setitem__(self, varname: str, value):
             if not varname.startswith("#") and not varname.startswith("$"):
                 hm.debuginfo(varname + " <= " + str(value) )
                 hm.debuginfo("cant set attribute: フェイクデータ構築とみなします。本来のhmPython3ではこの代入は認められません。")
@@ -80,9 +80,9 @@ class _TMacro:
         """
 
         def __init__(self, Result, Message, ErrorMsg):
-            self.Result = Result
-            self.Message = Message
-            self.Error = None
+            self.Result: int = Result
+            self.Message: str = Message
+            self.Error: str = None
     #--------------------------------------------------
 
     #--------------------------------------------------
@@ -92,7 +92,7 @@ class _TMacro:
 
     #--------------------------------------------------
     # マクロの実行
-    def Eval(self, expression_text):
+    def Eval(self, expression_text: str):
         res, msg, errmsg = 1, "", ""
         ret = _TMacro._TResult(res, msg, errmsg)
         return ret
@@ -111,13 +111,13 @@ class _THidemaru:
 
     #--------------------------------------------------
     # デバッグモニターに出力
-    def debuginfo(self, obj):
+    def debuginfo(self, obj) -> None:
         print(obj)
         return
     #--------------------------------------------------
 
     #--------------------------------------------------
-    def __GetVersion(self):
+    def __GetVersion(self) -> float:
         return 866.99
 
     # 秀丸のバージョンを 866.05 のような形で取得。
