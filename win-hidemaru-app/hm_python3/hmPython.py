@@ -12,10 +12,10 @@ class _TEdit:
     """
     
     #--------------------------------------------------
-    def __GetTotalText(self) -> str:
+    def __GetTotalText(self):
         return hidemaru.edit.get_totaltext()
 
-    def __SetTotalText(self, text) -> int:
+    def __SetTotalText(self, text):
         return hidemaru.edit.set_totaltext(text)
 
     # 編集中のテキスト全体
@@ -23,10 +23,10 @@ class _TEdit:
     #--------------------------------------------------
 
     #--------------------------------------------------
-    def __GetSelectedText(self) -> str:
+    def __GetSelectedText(self):
         return hidemaru.edit.get_selectedtext()
 
-    def __SetSelectedText(self, text) -> int:
+    def __SetSelectedText(self, text):
         return hidemaru.edit.set_selectedtext(text)
 
     # 選択中のテキスト。通常選択もしくは行選択のみ（矩形選択は対象としない）
@@ -34,10 +34,10 @@ class _TEdit:
     #--------------------------------------------------
 
     #--------------------------------------------------
-    def __GetLineText(self) -> str:
+    def __GetLineText(self):
         return hidemaru.edit.get_linetext()
 
-    def __SetLineText(self, text) -> int:
+    def __SetLineText(self, text):
         return hidemaru.edit.set_linetext(text)
 
     # カーソルがある行のテキスト
@@ -47,12 +47,12 @@ class _TEdit:
     #--------------------------------------------------
     class _TCursorPos:
 
-        def __init__(self, lineno: int, column: int):
-            self.lineno: int = lineno
-            self.column: int = column
+        def __init__(self, lineno, column):
+            self.lineno = lineno
+            self.column = column
             
     def __GetCursorPos(self):
-        lineno: int, column: int = hidemaru.edit.get_cursorpos()
+        lineno, column = hidemaru.edit.get_cursorpos()
         return _TEdit._TCursorPos(lineno, column)
 
     # カーソルの位置情報。linenoとcolumn（マクロのlinenoとcolumnと同じ値）
@@ -62,14 +62,14 @@ class _TEdit:
     #--------------------------------------------------
     class _TMousePos:
 
-        def __init__(self, lineno: int, column: int, x :int, y: int):
-            self.lineno: int = lineno
-            self.column: int = column
-            self.x: int = x
-            self.y: int = y
+        def __init__(self, lineno, column, x, y):
+            self.lineno = lineno
+            self.column = column
+            self.x = x
+            self.y = y
 
     def __GetMousePos(self):
-        lineno: int, column: int, x: int, y: int = hidemaru.edit.get_mousepos()
+        lineno, column, x, y = hidemaru.edit.get_mousepos()
         return _TEdit._TMousePos(lineno, column, x, y)
 
     # マウスの位置に対応するカーソルの情報。
@@ -88,10 +88,10 @@ class _TMacro:
         秀丸マクロ関連のうち、マクロシンボル（マクロ変数）を扱うクラス
         """
 
-        def __getitem__(self, varname: str):
+        def __getitem__(self, varname):
             return hidemaru.macro.get_var(varname)
 
-        def __setitem__(self, varname: str, value):
+        def __setitem__(self, varname, value):
             if not varname.startswith("#") and not varname.startswith("$"):
                 hidemaru.debug_info("指定のマクロ変数への値の代入は出来ません: " + varname)
                 hidemaru.macro.set_var(varname, value)
@@ -106,13 +106,13 @@ class _TMacro:
         秀丸マクロ関連のうち、マクロ実行結果情報を扱うクラス
         """
 
-        def __init__(self, Result: int, Message: str, ErrorMsg: str):
-            self.Result: int = Result
-            self.Message: str = Message
+        def __init__(self, Result, Message, ErrorMsg):
+            self.Result = Result
+            self.Message = Message
             if Result >= 1:
-                self.Error: str = None
+                self.Error = None
             else:
-                self.Error: str = RuntimeError(ErrorMsg)
+                self.Error = RuntimeError(ErrorMsg)
     #--------------------------------------------------
 
     #--------------------------------------------------
@@ -123,7 +123,7 @@ class _TMacro:
     #--------------------------------------------------
     # マクロの実行
     def Eval(self, expression_text):
-        res: int, msg: str, errmsg: str = hidemaru.macro.do_eval(expression_text)
+        res, msg, errmsg = hidemaru.macro.do_eval(expression_text)
         ret = _TMacro._TResult(res, msg, errmsg)
         return ret
     #--------------------------------------------------
@@ -146,7 +146,7 @@ class _THidemaru:
     #--------------------------------------------------
 
     #--------------------------------------------------
-    def __GetVersion(self) -> float:
+    def __GetVersion(self):
         return hidemaru.get_version()
 
     # 秀丸のバージョンを 866.05 のような形で取得。
