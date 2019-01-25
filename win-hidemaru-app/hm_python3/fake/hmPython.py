@@ -1,6 +1,6 @@
 #--------------------------------------------------------------
-# hmPython3 1.5.7.5用 フェイクライブラリ
-# Copyright (c) 2017-2018 Akitsugu Komiyama
+# hmPython3 1.5.8.1用 フェイクライブラリ
+# Copyright (c) 2017-2019 Akitsugu Komiyama
 # under the Apache License Version 2.0
 #--------------------------------------------------------------
 
