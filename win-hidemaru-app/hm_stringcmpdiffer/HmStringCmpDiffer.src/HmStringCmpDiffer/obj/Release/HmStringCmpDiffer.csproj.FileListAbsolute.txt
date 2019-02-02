@@ -1,0 +1,2 @@
+c:\users\admin\documents\visual studio 2017\Projects\HmStringCmpDiffer\HmStringCmpDiffer\bin\Release\HmStringCmpDiffer.dll
+c:\users\admin\documents\visual studio 2017\Projects\HmStringCmpDiffer\HmStringCmpDiffer\obj\Release\HmStringCmpDiffer.dll

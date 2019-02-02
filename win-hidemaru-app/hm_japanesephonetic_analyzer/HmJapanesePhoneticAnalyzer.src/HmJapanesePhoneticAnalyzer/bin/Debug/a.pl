@@ -1,0 +1,1 @@
+print `PowerShell .\\HmDivideWordAndRubyChar.ps1 "今日はあかん"`;

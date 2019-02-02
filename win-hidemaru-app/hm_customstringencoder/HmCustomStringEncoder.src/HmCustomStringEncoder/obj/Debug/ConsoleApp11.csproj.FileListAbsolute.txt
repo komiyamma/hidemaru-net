@@ -1,0 +1,5 @@
+c:\users\0300002167\documents\visual studio 2017\Projects\ConsoleApp11\ConsoleApp11\bin\Debug\ConsoleApp11.pdb
+c:\users\0300002167\documents\visual studio 2017\Projects\ConsoleApp11\ConsoleApp11\obj\Debug\ConsoleApp11.pdb
+c:\users\0300002167\documents\visual studio 2017\Projects\ConsoleApp11\ConsoleApp11\bin\Debug\ConsoleApp11.dll.config
+c:\users\0300002167\documents\visual studio 2017\Projects\ConsoleApp11\ConsoleApp11\bin\Debug\ConsoleApp11.dll
+c:\users\0300002167\documents\visual studio 2017\Projects\ConsoleApp11\ConsoleApp11\obj\Debug\ConsoleApp11.dll

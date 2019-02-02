@@ -1,0 +1,12 @@
+c:\users\0300002167\documents\visual studio 2017\Projects\ConsoleApp45\ConsoleApp45\bin\Release\ConsoleApp45.dll.config
+c:\users\0300002167\documents\visual studio 2017\Projects\ConsoleApp45\ConsoleApp45\bin\Release\ConsoleApp45.dll
+c:\users\0300002167\documents\visual studio 2017\Projects\ConsoleApp45\ConsoleApp45\bin\Release\ConsoleApp45.pdb
+c:\users\0300002167\documents\visual studio 2017\Projects\ConsoleApp45\ConsoleApp45\bin\Release\hm.NET.dll
+c:\users\0300002167\documents\visual studio 2017\Projects\ConsoleApp45\ConsoleApp45\obj\Release\ConsoleApp45.dll
+c:\users\0300002167\documents\visual studio 2017\Projects\ConsoleApp45\ConsoleApp45\obj\Release\ConsoleApp45.pdb
+C:\Users\admin\OneDrive\●３\ConsoleApp45\bin\Release\ConsoleApp45.dll.config
+C:\Users\admin\OneDrive\●３\ConsoleApp45\bin\Release\ConsoleApp45.dll
+C:\Users\admin\OneDrive\●３\ConsoleApp45\bin\Release\ConsoleApp45.pdb
+C:\Users\admin\OneDrive\●３\ConsoleApp45\bin\Release\hm.NET.dll
+C:\Users\admin\OneDrive\●３\ConsoleApp45\obj\Release\ConsoleApp45.dll
+C:\Users\admin\OneDrive\●３\ConsoleApp45\obj\Release\ConsoleApp45.pdb

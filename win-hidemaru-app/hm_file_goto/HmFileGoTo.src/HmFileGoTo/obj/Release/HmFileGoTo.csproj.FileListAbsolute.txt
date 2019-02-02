@@ -1,0 +1,8 @@
+c:\users\admin\documents\visual studio 2015\Projects\HmFileGoTo\HmFileGoTo\obj\Release\HmFileGoTo.csprojResolveAssemblyReference.cache
+c:\users\admin\documents\visual studio 2015\Projects\HmFileGoTo\HmFileGoTo\bin\Release\HmFileGoTo.exe
+c:\users\admin\documents\visual studio 2015\Projects\HmFileGoTo\HmFileGoTo\obj\Release\HmFileGoTo.exe
+C:\Users\admin\Documents\Visual Studio 2015\Projects\HmFileGoTo\HmFileGoTo\bin\Release\HmFileGoTo.exe.config
+C:\usr\web\hidemaru-net\win-hidemaru-app\hm_file_goto\HmFileGoTo.src\HmFileGoTo\bin\Release\HmFileGoTo.exe.config
+C:\usr\web\hidemaru-net\win-hidemaru-app\hm_file_goto\HmFileGoTo.src\HmFileGoTo\obj\Release\HmFileGoTo.exe
+C:\usr\web\hidemaru-net\win-hidemaru-app\hm_file_goto\HmFileGoTo.src\HmFileGoTo\obj\Release\HmFileGoTo.csprojResolveAssemblyReference.cache
+C:\usr\web\hidemaru-net\win-hidemaru-app\hm_file_goto\HmFileGoTo.src\HmFileGoTo\bin\Release\HmFileGoTo.exe

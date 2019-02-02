@@ -1,0 +1,92 @@
+ImageRuntimeVersion: v4.0.30319
+Assembly hm.NET, Version=1.2.*, Culture=ロケールに依存しない言語 (ロケールに依存しない国): 
+	hash=SHA1, flags=PublicKey
+Assembly mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Class Hidemaru.Lib: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Hidemaru.Hm: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
+  Properties:
+    IntPtr WindowHandle 'get ' : 
+    Double Version 'get ' : 
+  Methods:
+    get_WindowHandle(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_Version(): PrivateScope, Public, Static, HideBySig, SpecialName
+Class Hidemaru.Lib+UnManagedDll: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    System.IDisposable
+  Properties:
+    IntPtr ModuleHandle 'get ' : 
+  Methods:
+    get_ModuleHandle(): PrivateScope, Public, HideBySig, SpecialName
+    GetProcDelegate(String): PrivateScope, Public, HideBySig
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+Class Hidemaru.Hm+Macro: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
+  Fields:
+    IExec Exec : Public, Static
+    IVar Var : Public, Static
+  Properties:
+    Boolean IsExecuting 'get ' : 
+  Methods:
+    get_IsExecuting(): PrivateScope, Public, Static, HideBySig, SpecialName
+    Eval(String): PrivateScope, Public, Static, HideBySig
+Class Hidemaru.Hm+Edit: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
+  Properties:
+    System.String FilePath 'get ' : 
+    Boolean QueueStatus 'get ' : 
+    System.String TotalText 'get set' : 
+    System.String SelectedText 'get set' : 
+    System.String LineText 'get set' : 
+    ICursorPos CursorPos 'get ' : 
+    IMousePos MousePos 'get ' : 
+  Methods:
+    get_FilePath(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_QueueStatus(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_TotalText(): PrivateScope, Public, Static, HideBySig, SpecialName
+    set_TotalText(String): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_SelectedText(): PrivateScope, Public, Static, HideBySig, SpecialName
+    set_SelectedText(String): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_LineText(): PrivateScope, Public, Static, HideBySig, SpecialName
+    set_LineText(String): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_CursorPos(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_MousePos(): PrivateScope, Public, Static, HideBySig, SpecialName
+Interface Hidemaru.Hm+Macro+IResult: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
+  Properties:
+    Int32 Result 'get ' : 
+    System.String Message 'get ' : 
+    System.Exception Error 'get ' : 
+  Methods:
+    get_Result(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Message(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Error(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Interface Hidemaru.Hm+Macro+IExec: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
+  Methods:
+    File(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    Eval(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Interface Hidemaru.Hm+Macro+IVar: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
+  Properties:
+    System.Object Item [System.String] 'get set' : 
+  Methods:
+    get_Item(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    set_Item(String, Object): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Interface Hidemaru.Hm+Edit+ICursorPos: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
+  Properties:
+    Int32 LineNo 'get ' : 
+    Int32 Column 'get ' : 
+  Methods:
+    get_LineNo(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Column(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Interface Hidemaru.Hm+Edit+IMousePos: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
+  Properties:
+    Int32 LineNo 'get ' : 
+    Int32 Column 'get ' : 
+    Int32 X    'get ' : 
+    Int32 Y    'get ' : 
+  Methods:
+    get_LineNo(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Column(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_X(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Y(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName

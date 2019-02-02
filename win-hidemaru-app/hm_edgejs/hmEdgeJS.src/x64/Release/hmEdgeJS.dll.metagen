@@ -1,0 +1,94 @@
+ImageRuntimeVersion: v4.0.30319
+Assembly hmEdgeJS, Version=1.0.*, Culture=ロケールに依存しない言語 (ロケールに依存しない国): 
+	hash=SHA1, flags=PublicKey
+Assembly mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly EdgeJs, Version=9.3.*, Culture=ロケールに依存しない言語 (ロケールに依存しない国): 
+	hash=None, flags=None
+Class IEdgeJSStaticLib: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    OutputDebugStream(String): PrivateScope, Public, Static, HideBySig
+    CreateScope(): PrivateScope, Public, Static, HideBySig
+    BindDllHandle(IntPtr): PrivateScope, Public, Static, HideBySig
+    SetTmpVar(Object): PrivateScope, Public, Static, HideBySig
+    PopTmpVar(): PrivateScope, Public, Static, HideBySig
+    DoFile(String): PrivateScope, Public, Static, HideBySig
+    DestroyScope(): PrivateScope, Public, Static, HideBySig
+Class hmEdgeJSDynamicLib: AutoLayout, AnsiClass, Class, Public, Sealed
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Hidemaru hm : Public, Static
+  Methods:
+    InitExpression(String): PrivateScope, Public, Static, HideBySig
+    OutputDebugStream(String): PrivateScope, Public, Static, HideBySig
+    BindDllHandle(IntPtr): PrivateScope, Public, Static, HideBySig
+    ModifyFuncCallByDllType(String): PrivateScope, Public, Static, HideBySig
+    SetTmpVar(Object): PrivateScope, Public, Static, HideBySig
+    PopTmpVar(): PrivateScope, Public, Static, HideBySig
+    CreateScope(): PrivateScope, Public, Static, HideBySig
+    DoFile(String): PrivateScope, Public, Static, HideBySig
+    DestroyScope(): PrivateScope, Public, Static, HideBySig
+Class hmEdgeJSDynamicLib+Hidemaru: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Double version 'get ' : 
+  Methods:
+    debuginfo(Object): PrivateScope, Public, Static, HideBySig
+    get_version(): PrivateScope, Public, Static, HideBySig, SpecialName
+Class hmEdgeJSDynamicLib+Hidemaru+ErrorMsg: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String NoDllBindHandle866 : Public, Static, InitOnly
+    System.String MethodNeed866 = このメソッドは秀丸エディタ v8.66 正式版以降で利用可能です。 : Public, Static, Literal, HasDefault
+    System.String MethodNeed873 = このメソッドは秀丸エディタ v8.73 正式版以降で利用可能です。 : Public, Static, Literal, HasDefault
+Class hmEdgeJSDynamicLib+Hidemaru+Edit: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    GetCursorPos(): PrivateScope, Public, Static, HideBySig
+    GetCursorPosFromMousePos(): PrivateScope, Public, Static, HideBySig
+    GetTotalText(): PrivateScope, Public, Static, HideBySig
+    SetTotalText(String): PrivateScope, Public, Static, HideBySig
+    GetSelectedText(): PrivateScope, Public, Static, HideBySig
+    SetSelectedText(String): PrivateScope, Public, Static, HideBySig
+    GetLineText(): PrivateScope, Public, Static, HideBySig
+    SetLineText(String): PrivateScope, Public, Static, HideBySig
+Class hmEdgeJSDynamicLib+Hidemaru+Macro: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Eval(Object): PrivateScope, Public, Static, HideBySig
+    GetVar(String): PrivateScope, Public, Static, HideBySig
+    SetVar(String, Object): PrivateScope, Public, Static, HideBySig
+Struct hmEdgeJSDynamicLib+Hidemaru+Edit+HmCursurPos: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+    Void .ctor(Int32, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Int32 column 'get ' : 
+    Int32 lineno 'get ' : 
+  Methods:
+    get_column(): PrivateScope, Public, HideBySig, SpecialName
+    get_lineno(): PrivateScope, Public, HideBySig, SpecialName
+Struct hmEdgeJSDynamicLib+Hidemaru+Edit+HmMousePos: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+    Void .ctor(Int32, Int32, Int32, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Int32 x    'get ' : 
+    Int32 y    'get ' : 
+    Int32 column 'get ' : 
+    Int32 lineno 'get ' : 
+  Methods:
+    get_x(): PrivateScope, Public, HideBySig, SpecialName
+    get_y(): PrivateScope, Public, HideBySig, SpecialName
+    get_column(): PrivateScope, Public, HideBySig, SpecialName
+    get_lineno(): PrivateScope, Public, HideBySig, SpecialName
+Interface hmEdgeJSDynamicLib+Hidemaru+Macro+IResult: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
+  Properties:
+    Int32 Result 'get ' : 
+    System.String Message 'get ' : 
+    System.Exception Error 'get ' : 
+  Methods:
+    get_Result(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Message(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Error(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName

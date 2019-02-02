@@ -1,0 +1,3 @@
+C:\usr\web\hidemaru-net\win-hidemaru-app\hm_copypathname\HmCopyPathName.src\HmCopyPathName\bin\Release\HmCopyPathName.exe.config
+C:\usr\web\hidemaru-net\win-hidemaru-app\hm_copypathname\HmCopyPathName.src\HmCopyPathName\bin\Release\HmCopyPathName.exe
+C:\usr\web\hidemaru-net\win-hidemaru-app\hm_copypathname\HmCopyPathName.src\HmCopyPathName\obj\Release\HmCopyPathName.exe

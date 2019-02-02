@@ -1,0 +1,14 @@
+C:\新しいフォルダー (7)\desktop-toasts-master\desktop-toasts-master\CS\bin\Release\toastImageAndText.png
+C:\新しいフォルダー (7)\desktop-toasts-master\desktop-toasts-master\CS\bin\Release\DesktopToastsSample.exe.config
+C:\新しいフォルダー (7)\desktop-toasts-master\desktop-toasts-master\CS\bin\Release\DesktopToastsSample.exe
+C:\新しいフォルダー (7)\desktop-toasts-master\desktop-toasts-master\CS\bin\Release\DesktopToastsSample.pdb
+C:\新しいフォルダー (7)\desktop-toasts-master\desktop-toasts-master\CS\obj\Release\MainWindow.baml
+C:\新しいフォルダー (7)\desktop-toasts-master\desktop-toasts-master\CS\obj\Release\MainWindow.g.cs
+C:\新しいフォルダー (7)\desktop-toasts-master\desktop-toasts-master\CS\obj\Release\App.g.cs
+C:\新しいフォルダー (7)\desktop-toasts-master\desktop-toasts-master\CS\obj\Release\DesktopToastsSample_Content.g.cs
+C:\新しいフォルダー (7)\desktop-toasts-master\desktop-toasts-master\CS\obj\Release\DesktopToastsSample_MarkupCompile.cache
+C:\新しいフォルダー (7)\desktop-toasts-master\desktop-toasts-master\CS\obj\Release\DesktopToastsSample.g.resources
+C:\新しいフォルダー (7)\desktop-toasts-master\desktop-toasts-master\CS\obj\Release\DesktopToastsSample.Properties.Resources.resources
+C:\新しいフォルダー (7)\desktop-toasts-master\desktop-toasts-master\CS\obj\Release\DesktopToastsSample.csproj.GenerateResource.Cache
+C:\新しいフォルダー (7)\desktop-toasts-master\desktop-toasts-master\CS\obj\Release\DesktopToastsSample.exe
+C:\新しいフォルダー (7)\desktop-toasts-master\desktop-toasts-master\CS\obj\Release\DesktopToastsSample.pdb

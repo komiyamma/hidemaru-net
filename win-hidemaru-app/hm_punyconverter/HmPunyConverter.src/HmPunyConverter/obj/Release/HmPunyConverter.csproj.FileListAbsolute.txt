@@ -1,0 +1,6 @@
+C:\usr\web\hidemaru-net\win-hidemaru-app\hm_punyconverter\HmPunyConverter.src\HmPunnyConverter\HmPunyConverter\bin\Release\HmPunyConverter.exe.config
+C:\usr\web\hidemaru-net\win-hidemaru-app\hm_punyconverter\HmPunyConverter.src\HmPunnyConverter\HmPunyConverter\bin\Release\HmPunyConverter.exe
+C:\usr\web\hidemaru-net\win-hidemaru-app\hm_punyconverter\HmPunyConverter.src\HmPunnyConverter\HmPunyConverter\bin\Release\HmPunyConverter.pdb
+C:\usr\web\hidemaru-net\win-hidemaru-app\hm_punyconverter\HmPunyConverter.src\HmPunnyConverter\HmPunyConverter\obj\Release\HmPunyConverter.csprojResolveAssemblyReference.cache
+C:\usr\web\hidemaru-net\win-hidemaru-app\hm_punyconverter\HmPunyConverter.src\HmPunnyConverter\HmPunyConverter\obj\Release\HmPunyConverter.exe
+C:\usr\web\hidemaru-net\win-hidemaru-app\hm_punyconverter\HmPunyConverter.src\HmPunnyConverter\HmPunyConverter\obj\Release\HmPunyConverter.pdb

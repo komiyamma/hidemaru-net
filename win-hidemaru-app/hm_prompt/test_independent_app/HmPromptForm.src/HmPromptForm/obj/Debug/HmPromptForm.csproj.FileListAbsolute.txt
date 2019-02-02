@@ -1,0 +1,5 @@
+c:\users\admin\documents\visual studio 2017\Projects\HmPromptForm\HmPromptForm\bin\Debug\HmPromptForm.exe.config
+c:\users\admin\documents\visual studio 2017\Projects\HmPromptForm\HmPromptForm\bin\Debug\HmPromptForm.exe
+c:\users\admin\documents\visual studio 2017\Projects\HmPromptForm\HmPromptForm\bin\Debug\HmPromptForm.pdb
+c:\users\admin\documents\visual studio 2017\Projects\HmPromptForm\HmPromptForm\obj\Debug\HmPromptForm.exe
+c:\users\admin\documents\visual studio 2017\Projects\HmPromptForm\HmPromptForm\obj\Debug\HmPromptForm.pdb

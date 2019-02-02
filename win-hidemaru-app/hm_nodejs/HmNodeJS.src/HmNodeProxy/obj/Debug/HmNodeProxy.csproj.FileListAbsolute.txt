@@ -1,0 +1,8 @@
+C:\Users\0300002167\OneDrive\node\MultiIPCConnect\IPCConnectServer\bin\Debug\HmNodeProxy.exe.config
+C:\Users\0300002167\OneDrive\node\MultiIPCConnect\IPCConnectServer\bin\Debug\HmNodeProxy.exe
+C:\Users\0300002167\OneDrive\node\MultiIPCConnect\IPCConnectServer\bin\Debug\HmNodeProxy.pdb
+C:\Users\0300002167\OneDrive\node\MultiIPCConnect\IPCConnectServer\obj\Debug\HmNodeProxy.resource.resources
+C:\Users\0300002167\OneDrive\node\MultiIPCConnect\IPCConnectServer\obj\Debug\WaitForm.resources
+C:\Users\0300002167\OneDrive\node\MultiIPCConnect\IPCConnectServer\obj\Debug\HmNodeProxy.csproj.GenerateResource.Cache
+C:\Users\0300002167\OneDrive\node\MultiIPCConnect\IPCConnectServer\obj\Debug\HmNodeProxy.exe
+C:\Users\0300002167\OneDrive\node\MultiIPCConnect\IPCConnectServer\obj\Debug\HmNodeProxy.pdb

@@ -1,0 +1,7 @@
+C:\hm_wordpopup_demo\HmWordPopupDemo.src\HmWordPopupDemo\obj\Debug\HmWordPopupDemo.csprojResolveAssemblyReference.cache
+C:\hm_wordpopup_demo\HmWordPopupDemo.src\HmWordPopupDemo\bin\Debug\HmWordPopupDemo.dll.config
+C:\hm_wordpopup_demo\HmWordPopupDemo.src\HmWordPopupDemo\bin\Debug\HmWordPopupDemo.dll
+C:\hm_wordpopup_demo\HmWordPopupDemo.src\HmWordPopupDemo\bin\Debug\HmWordPopupDemo.pdb
+C:\hm_wordpopup_demo\HmWordPopupDemo.src\HmWordPopupDemo\bin\Debug\hm.NET.dll
+C:\hm_wordpopup_demo\HmWordPopupDemo.src\HmWordPopupDemo\obj\Debug\HmWordPopupDemo.dll
+C:\hm_wordpopup_demo\HmWordPopupDemo.src\HmWordPopupDemo\obj\Debug\HmWordPopupDemo.pdb

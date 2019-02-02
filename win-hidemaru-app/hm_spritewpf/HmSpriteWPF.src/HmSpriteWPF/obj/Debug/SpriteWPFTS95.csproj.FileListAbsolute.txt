@@ -1,0 +1,14 @@
+C:\Users\admin\Documents\Visual Studio 2017\Projects\SpriteWPFTS95\SpriteWPFTS95\obj\Debug\MainWindow.g.cs
+C:\Users\admin\Documents\Visual Studio 2017\Projects\SpriteWPFTS95\SpriteWPFTS95\obj\Debug\App.g.cs
+C:\Users\admin\Documents\Visual Studio 2017\Projects\SpriteWPFTS95\SpriteWPFTS95\obj\Debug\SpriteWPFTS95_MarkupCompile.cache
+C:\Users\admin\Documents\Visual Studio 2017\Projects\SpriteWPFTS95\SpriteWPFTS95\obj\Debug\SpriteWPFTS95_MarkupCompile.lref
+C:\Users\admin\Documents\Visual Studio 2017\Projects\SpriteWPFTS95\SpriteWPFTS95\bin\Debug\SpriteWPFTS95.exe.config
+C:\Users\admin\Documents\Visual Studio 2017\Projects\SpriteWPFTS95\SpriteWPFTS95\bin\Debug\SpriteWPFTS95.exe
+C:\Users\admin\Documents\Visual Studio 2017\Projects\SpriteWPFTS95\SpriteWPFTS95\bin\Debug\SpriteWPFTS95.pdb
+C:\Users\admin\Documents\Visual Studio 2017\Projects\SpriteWPFTS95\SpriteWPFTS95\obj\Debug\MainWindow.baml
+C:\Users\admin\Documents\Visual Studio 2017\Projects\SpriteWPFTS95\SpriteWPFTS95\obj\Debug\SpriteWPFTS95.g.resources
+C:\Users\admin\Documents\Visual Studio 2017\Projects\SpriteWPFTS95\SpriteWPFTS95\obj\Debug\SpriteWPFTS95.Properties.Resources.resources
+C:\Users\admin\Documents\Visual Studio 2017\Projects\SpriteWPFTS95\SpriteWPFTS95\obj\Debug\SpriteWPFTS95.csproj.GenerateResource.Cache
+C:\Users\admin\Documents\Visual Studio 2017\Projects\SpriteWPFTS95\SpriteWPFTS95\obj\Debug\SpriteWPFTS95.csproj.CoreCompileInputs.cache
+C:\Users\admin\Documents\Visual Studio 2017\Projects\SpriteWPFTS95\SpriteWPFTS95\obj\Debug\SpriteWPFTS95.exe
+C:\Users\admin\Documents\Visual Studio 2017\Projects\SpriteWPFTS95\SpriteWPFTS95\obj\Debug\SpriteWPFTS95.pdb

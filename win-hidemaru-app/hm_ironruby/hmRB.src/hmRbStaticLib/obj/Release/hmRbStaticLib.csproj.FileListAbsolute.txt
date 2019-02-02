@@ -1,0 +1,8 @@
+C:\usr\github\tenshoukijp\xn--rssu31gj1g.jp\other_soft\hm_ironruby\hmRB.src\hmRbStaticLib\bin\Release\hmRbStaticLib.netmodule
+C:\usr\github\tenshoukijp\xn--rssu31gj1g.jp\other_soft\hm_ironruby\hmRB.src\hmRbStaticLib\bin\Release\IronRuby.Libraries.dll
+C:\usr\github\tenshoukijp\xn--rssu31gj1g.jp\other_soft\hm_ironruby\hmRB.src\hmRbStaticLib\obj\Release\hmRbStaticLib.netmodule
+C:\usr\github\tenshoukijp\xn--rssu31gj1g.jp\other_soft\hm_ironruby\hmRB.src\hmRbStaticLib\obj\Release\hmRbStaticLib.csprojResolveAssemblyReference.cache
+C:\usr\web\hidemaru-net\win-hidemaru-app\hm_ironruby\hmRB.src\hmRbStaticLib\bin\Release\hmRbStaticLib.netmodule
+C:\usr\web\hidemaru-net\win-hidemaru-app\hm_ironruby\hmRB.src\hmRbStaticLib\bin\Release\IronRuby.Libraries.dll
+C:\usr\web\hidemaru-net\win-hidemaru-app\hm_ironruby\hmRB.src\hmRbStaticLib\obj\Release\hmRbStaticLib.netmodule
+C:\usr\web\hidemaru-net\win-hidemaru-app\hm_ironruby\hmRB.src\hmRbStaticLib\obj\Release\hmRbStaticLib.csprojResolveAssemblyReference.cache

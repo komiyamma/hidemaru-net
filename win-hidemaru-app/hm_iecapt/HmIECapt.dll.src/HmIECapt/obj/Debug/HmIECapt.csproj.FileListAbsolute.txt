@@ -1,0 +1,4 @@
+C:\Users\admin\documents\visual studio 2015\Projects\HmIECapt\HmIECapt\bin\Debug\HmIECapt.dll
+C:\Users\admin\documents\visual studio 2015\Projects\HmIECapt\HmIECapt\bin\Debug\HmIECapt.pdb
+C:\Users\admin\documents\visual studio 2015\Projects\HmIECapt\HmIECapt\obj\Debug\HmIECapt.dll
+C:\Users\admin\documents\visual studio 2015\Projects\HmIECapt\HmIECapt\obj\Debug\HmIECapt.pdb

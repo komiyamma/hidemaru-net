@@ -1,0 +1,15 @@
+\\wexfs\users\micgou\samples\DesktopToasts\CS\bin\Debug\DesktopToastsSample.exe.config
+C:\新しいフォルダー (7)\desktop-toasts-master\desktop-toasts-master\CS\bin\Debug\DesktopToastsSample.exe.config
+C:\新しいフォルダー (7)\desktop-toasts-master\desktop-toasts-master\CS\bin\Debug\toastImageAndText.png
+C:\新しいフォルダー (7)\desktop-toasts-master\desktop-toasts-master\CS\bin\Debug\DesktopToastsSample.exe
+C:\新しいフォルダー (7)\desktop-toasts-master\desktop-toasts-master\CS\bin\Debug\DesktopToastsSample.pdb
+C:\新しいフォルダー (7)\desktop-toasts-master\desktop-toasts-master\CS\obj\Debug\MainWindow.baml
+C:\新しいフォルダー (7)\desktop-toasts-master\desktop-toasts-master\CS\obj\Debug\MainWindow.g.cs
+C:\新しいフォルダー (7)\desktop-toasts-master\desktop-toasts-master\CS\obj\Debug\App.g.cs
+C:\新しいフォルダー (7)\desktop-toasts-master\desktop-toasts-master\CS\obj\Debug\DesktopToastsSample_Content.g.cs
+C:\新しいフォルダー (7)\desktop-toasts-master\desktop-toasts-master\CS\obj\Debug\DesktopToastsSample_MarkupCompile.cache
+C:\新しいフォルダー (7)\desktop-toasts-master\desktop-toasts-master\CS\obj\Debug\DesktopToastsSample.g.resources
+C:\新しいフォルダー (7)\desktop-toasts-master\desktop-toasts-master\CS\obj\Debug\DesktopToastsSample.Properties.Resources.resources
+C:\新しいフォルダー (7)\desktop-toasts-master\desktop-toasts-master\CS\obj\Debug\DesktopToastsSample.csproj.GenerateResource.Cache
+C:\新しいフォルダー (7)\desktop-toasts-master\desktop-toasts-master\CS\obj\Debug\DesktopToastsSample.exe
+C:\新しいフォルダー (7)\desktop-toasts-master\desktop-toasts-master\CS\obj\Debug\DesktopToastsSample.pdb

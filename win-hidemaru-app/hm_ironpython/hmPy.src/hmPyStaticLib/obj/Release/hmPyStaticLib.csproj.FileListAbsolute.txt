@@ -1,0 +1,5 @@
+C:\usr\github\tenshoukijp\xn--rssu31gj1g.jp\other_soft\hm_ironpython\hmPy.src\hmPYStaticLib\bin\Release\hmPyStaticLib.netmodule
+C:\usr\github\tenshoukijp\xn--rssu31gj1g.jp\other_soft\hm_ironpython\hmPy.src\hmPYStaticLib\obj\Release\hmPyStaticLib.netmodule
+C:\usr\github\tenshoukijp\xn--rssu31gj1g.jp\other_soft\hm_ironpython\hmPy.src\hmPYStaticLib\obj\Release\hmPyStaticLib.csprojResolveAssemblyReference.cache
+C:\usr\web\hidemaru-net\win-hidemaru-app\hm_ironpython\hmPy.src\hmPYStaticLib\bin\Release\hmPyStaticLib.netmodule
+C:\usr\web\hidemaru-net\win-hidemaru-app\hm_ironpython\hmPy.src\hmPYStaticLib\obj\Release\hmPyStaticLib.netmodule

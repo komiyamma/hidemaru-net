@@ -1,0 +1,5 @@
+C:\hm_webbrowsermode\HmWebBrowserMode.src\HmWebBrowserMode\bin\Debug\HmWebBrowserMode.dll
+C:\hm_webbrowsermode\HmWebBrowserMode.src\HmWebBrowserMode\bin\Debug\HmWebBrowserMode.pdb
+C:\hm_webbrowsermode\HmWebBrowserMode.src\HmWebBrowserMode\bin\Debug\hm.NET.dll
+C:\hm_webbrowsermode\HmWebBrowserMode.src\HmWebBrowserMode\obj\Debug\HmWebBrowserMode.dll
+C:\hm_webbrowsermode\HmWebBrowserMode.src\HmWebBrowserMode\obj\Debug\HmWebBrowserMode.pdb
