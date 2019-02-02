@@ -1,3 +1,14 @@
+0. V8Update.cmd については、
+pythonのところで、Windows SDK の bin 以下にあるpgort140.dllを見に行ってしまい、
+これが見つからずにエラーが返ってくる。
+
+pythonがさがしにいくSDK以下に、bin以下をコピーするのがよい。
+具体的な場所としては、
+C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC
+以下など。
+pythonが古いバージョンの方をさがしにいって、
+bin以下は新しい方にしかないなど
+
 1. If the ClearScript solution is open in Visual Studio, close it.
 
 2. Generate a cryptographic key pair in your ClearScript root directory:
