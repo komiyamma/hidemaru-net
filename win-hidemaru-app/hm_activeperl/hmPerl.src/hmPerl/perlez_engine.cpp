@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2017 Akitsugu Komiyama
+ * Copyright (c) 2016-2019 Akitsugu Komiyama
  * under the Apache License Version 2.0
  */
 
@@ -195,7 +195,8 @@ CPerlEzEngine::TEvalErrorInfo CPerlEzEngine::GetEvalErrorInfo(wstring strAllSrcC
 
 		std::wsmatch wmt; // match_results
 
-		auto result = std::regex_search(utf8_to_utf16(utf8_buffer), wmt, wre);
+		const wstring wstrbuffer = utf8_to_utf16(utf8_buffer);
+		auto result = std::regex_search(wstrbuffer, wmt, wre);
 		wstring w1 = wmt[1];
 		wstring w2 = wmt[2];
 

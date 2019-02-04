@@ -1,8 +1,8 @@
 ﻿#--------------------------------------------------------------
-# hmPerl 1.5.6.1用 カスタムファイル
+# hmPerl 1.5.6.2用 カスタムファイル
 #                 ActivePerl x86版 v5.10 ～ v5.26
 #
-# Copyright (c) 2016-2017 Akitsugu Komiyama
+# Copyright (c) 2016-2019 Akitsugu Komiyama
 #                 under the Apache License Version 2.0
 #
 #--------------------------------------------------------------

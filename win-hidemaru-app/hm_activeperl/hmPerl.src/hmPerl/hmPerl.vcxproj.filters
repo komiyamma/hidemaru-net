@@ -45,9 +45,6 @@
     <ClCompile Include="self_dll_info.cpp">
       <Filter>このhmPerl.dll自身の情報</Filter>
     </ClCompile>
-    <ClCompile Include="hidemaruexe_expot.cpp">
-      <Filter>秀丸本体のexeの関数やバージョン</Filter>
-    </ClCompile>
     <ClCompile Include="dllfunc_interface.cpp">
       <Filter>秀丸マクロとのAPI Interface</Filter>
     </ClCompile>
@@ -77,6 +74,9 @@
     </ClCompile>
     <ClCompile Include="perlez_engine_path.cpp">
       <Filter>ActivePerlのPerlEzのコネクト部分</Filter>
+    </ClCompile>
+    <ClCompile Include="hidemaruexe_export.cpp">
+      <Filter>秀丸マクロとのAPI Interface</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
