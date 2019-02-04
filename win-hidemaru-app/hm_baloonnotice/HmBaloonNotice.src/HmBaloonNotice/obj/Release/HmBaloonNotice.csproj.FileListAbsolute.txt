@@ -1,6 +1,7 @@
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_baloonnotice\HmBaloonNotice.src\HmBaloonNotice\bin\Release\HmBaloonNotice.exe.config
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_baloonnotice\HmBaloonNotice.src\HmBaloonNotice\bin\Release\HmBaloonNotice.exe
-C:\usr\web\hidemaru-net\win-hidemaru-app\hm_baloonnotice\HmBaloonNotice.src\HmBaloonNotice\obj\Release\HmBaloonNotice.csprojResolveAssemblyReference.cache
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_baloonnotice\HmBaloonNotice.src\HmBaloonNotice\obj\Release\HmBaloonNotice.Properties.Resources.resources
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_baloonnotice\HmBaloonNotice.src\HmBaloonNotice\obj\Release\HmBaloonNotice.csproj.GenerateResource.Cache
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_baloonnotice\HmBaloonNotice.src\HmBaloonNotice\obj\Release\HmBaloonNotice.exe
+C:\usr\web\hidemaru-net\win-hidemaru-app\hm_baloonnotice\HmBaloonNotice.src\HmBaloonNotice\obj\Release\HmBaloonNotice.csprojAssemblyReference.cache
+C:\usr\web\hidemaru-net\win-hidemaru-app\hm_baloonnotice\HmBaloonNotice.src\HmBaloonNotice\obj\Release\HmBaloonNotice.csproj.CoreCompileInputs.cache
