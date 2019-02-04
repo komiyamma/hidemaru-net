@@ -7,5 +7,6 @@ C:\usr\web\hidemaru-net\win-hidemaru-app\hm_customstringencoder\HmCustomStringEn
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_customstringencoder\HmCustomStringEncoder.src\HmCustomStringEncoder\bin\Release\HmCustomStringEncoder.dll
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_customstringencoder\HmCustomStringEncoder.src\HmCustomStringEncoder\obj\Release\HmCustomStringEncoder.dll
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_customstringencoder\HmCustomStringEncoder.src\HmCustomStringEncoder\bin\Release\hm.NET.dll
-C:\usr\web\hidemaru-net\win-hidemaru-app\hm_customstringencoder\HmCustomStringEncoder.src\HmCustomStringEncoder\obj\Release\HmCustomStringEncoder.csprojResolveAssemblyReference.cache
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_customstringencoder\HmCustomStringEncoder.src\HmCustomStringEncoder\obj\Release\HmCustomStringEncoder.csproj.CoreCompileInputs.cache
+C:\usr\web\hidemaru-net\win-hidemaru-app\hm_customstringencoder\HmCustomStringEncoder.src\HmCustomStringEncoder\obj\Release\HmCustomStringEncoder.csprojAssemblyReference.cache
+C:\usr\web\hidemaru-net\win-hidemaru-app\hm_customstringencoder\HmCustomStringEncoder.src\HmCustomStringEncoder\obj\Release\HmCustomStringEncoder.csproj.CopyComplete
