@@ -1,5 +1,5 @@
 - hm.NET
-   Copyright (C) 2017-2018 Akitsugu Komiyama
+   Copyright (C) 2017-2019 Akitsugu Komiyama
 
 
    The MIT License (MIT)

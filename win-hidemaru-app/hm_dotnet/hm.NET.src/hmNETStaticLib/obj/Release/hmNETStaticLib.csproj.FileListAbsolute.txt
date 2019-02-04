@@ -3,3 +3,5 @@ C:\Users\0300002167\OneDrive\hm_dotnet\hm.NET.src\hmNETStaticLib\obj\Release\hmN
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_dotnet\hm.NET.src\hmNETStaticLib\bin\Release\hmNETStaticLib.netmodule.config
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_dotnet\hm.NET.src\hmNETStaticLib\bin\Release\hmNETStaticLib.netmodule
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_dotnet\hm.NET.src\hmNETStaticLib\obj\Release\hmNETStaticLib.netmodule
+C:\usr\web\hidemaru-net\win-hidemaru-app\hm_dotnet\hm.NET.src\hmNETStaticLib\obj\Release\hmNETStaticLib.csprojAssemblyReference.cache
+C:\usr\web\hidemaru-net\win-hidemaru-app\hm_dotnet\hm.NET.src\hmNETStaticLib\obj\Release\hmNETStaticLib.csproj.CoreCompileInputs.cache
