@@ -85,5 +85,5 @@ C:\usr\web\hidemaru-net\win-hidemaru-app\hm_chromebrowsermode\HmChromeBrowserMod
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_chromebrowsermode\HmChromeBrowserMode.src\HmChromeBrowserMode\bin\x64\Release\CefSharp.BrowserSubprocess.Core.pdb
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_chromebrowsermode\HmChromeBrowserMode.src\HmChromeBrowserMode\bin\x64\Release\CefSharp.BrowserSubprocess.exe
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_chromebrowsermode\HmChromeBrowserMode.src\HmChromeBrowserMode\bin\x64\Release\CefSharp.BrowserSubprocess.pdb
-C:\usr\web\hidemaru-net\win-hidemaru-app\hm_chromebrowsermode\HmChromeBrowserMode.src\HmChromeBrowserMode\obj\x64\Release\HmChromeBrowserMode.csprojResolveAssemblyReference.cache
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_chromebrowsermode\HmChromeBrowserMode.src\HmChromeBrowserMode\obj\x64\Release\HmChromeBrowserMode.csproj.CopyComplete
+C:\usr\web\hidemaru-net\win-hidemaru-app\hm_chromebrowsermode\HmChromeBrowserMode.src\HmChromeBrowserMode\obj\x64\Release\HmChromeBrowserMode.csprojAssemblyReference.cache
