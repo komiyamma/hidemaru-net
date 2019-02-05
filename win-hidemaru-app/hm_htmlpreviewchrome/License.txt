@@ -1,5 +1,5 @@
 - HmHtmlPreviewChrome
-   Copyright (C) 2016-2017 Akitsugu Komiyama
+   Copyright (C) 2016-2019 Akitsugu Komiyama
 
 
                                  Apache License

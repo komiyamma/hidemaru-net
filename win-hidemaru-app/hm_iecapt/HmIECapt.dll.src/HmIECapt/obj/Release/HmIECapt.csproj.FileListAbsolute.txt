@@ -4,4 +4,5 @@ C:\usr\github\tenshoukijp\xn--rssu31gj1g.jp\other_soft\hm_iecapt\HmIECapt.dll.sr
 C:\usr\github\tenshoukijp\xn--rssu31gj1g.jp\other_soft\hm_iecapt\HmIECapt.dll.src\HmIECapt\bin\Release\HmIECapt.dll
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_iecapt\HmIECapt.dll.src\HmIECapt\bin\Release\HmIECapt.dll
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_iecapt\HmIECapt.dll.src\HmIECapt\obj\Release\HmIECapt.dll
-C:\usr\web\hidemaru-net\win-hidemaru-app\hm_iecapt\HmIECapt.dll.src\HmIECapt\obj\Release\HmIECapt.csprojResolveAssemblyReference.cache
+C:\usr\web\hidemaru-net\win-hidemaru-app\hm_iecapt\HmIECapt.dll.src\HmIECapt\obj\Release\HmIECapt.csprojAssemblyReference.cache
+C:\usr\web\hidemaru-net\win-hidemaru-app\hm_iecapt\HmIECapt.dll.src\HmIECapt\obj\Release\HmIECapt.csproj.CoreCompileInputs.cache

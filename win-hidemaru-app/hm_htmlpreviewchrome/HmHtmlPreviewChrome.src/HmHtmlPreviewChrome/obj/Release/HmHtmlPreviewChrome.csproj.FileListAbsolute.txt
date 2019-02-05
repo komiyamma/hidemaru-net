@@ -13,3 +13,5 @@ C:\Users\admin\OneDrive\●１\HmHtmlPreviewChrome\HmHtmlPreviewChrome\obj\Relea
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_htmlpreviewchrome\HmHtmlPreviewChrome.src\HmHtmlPreviewChrome\bin\Release\HmHtmlPreviewChrome.dll
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_htmlpreviewchrome\HmHtmlPreviewChrome.src\HmHtmlPreviewChrome\obj\Release\HmHtmlPreviewChrome.dll
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_htmlpreviewchrome\HmHtmlPreviewChrome.src\HmHtmlPreviewChrome\obj\Release\HmHtmlPreviewChrome.csproj.CoreCompileInputs.cache
+C:\usr\web\hidemaru-net\win-hidemaru-app\hm_htmlpreviewchrome\HmHtmlPreviewChrome.src\HmHtmlPreviewChrome\obj\Release\HmHtmlPreviewChrome.csprojAssemblyReference.cache
+C:\usr\web\hidemaru-net\win-hidemaru-app\hm_htmlpreviewchrome\HmHtmlPreviewChrome.src\HmHtmlPreviewChrome\obj\Release\HmHtmlPreviewChrome.csproj.CopyComplete

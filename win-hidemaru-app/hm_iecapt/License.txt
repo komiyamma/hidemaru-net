@@ -1,5 +1,5 @@
 - HmIECapt.dll, HmIECapt.mac
-   Copyright (C) 2017 Akitsugu Komiyama
+   Copyright (C) 2017-2019 Akitsugu Komiyama
 
 
                        GNU GENERAL PUBLIC LICENSE
