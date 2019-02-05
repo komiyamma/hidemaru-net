@@ -1,5 +1,5 @@
 - HmExcelFileLoader
-   Copyright (C) 2017 VSCode.life
+   Copyright (C) 2017-2019 VSCode.life
 
 
                                  Apache License
