@@ -7,7 +7,7 @@
 //
 // Generated from the TEXTINCLUDE 2 resource.
 //
-#include "afxres.h"
+#include "winres.h"
 
 /////////////////////////////////////////////////////////////////////////////
 #undef APSTUDIO_READONLY_SYMBOLS
@@ -62,8 +62,8 @@ IDI_ICON1               ICON                    "icon.ico"
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,0,1,1
- PRODUCTVERSION 1,0,1,1
+ FILEVERSION 1,0,1,2
+ PRODUCTVERSION 1,0,1,2
  FILEFLAGSMASK 0x17L
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -79,12 +79,12 @@ BEGIN
         BLOCK "041104b0"
         BEGIN
             VALUE "FileDescription", "秀丸エディタからHavokScriptDebuggerを開く"
-            VALUE "FileVersion", "1.0.1.1"
+            VALUE "FileVersion", "1.0.1.2"
             VALUE "InternalName", "HmHavokScriptDebuggerOpen"
-            VALUE "LegalCopyright", "Copyright (C) 2014-2017 Akitsugu Komiyama"
+            VALUE "LegalCopyright", "Copyright (C) 2014-2019 Akitsugu Komiyama"
             VALUE "OriginalFilename", "HmHavokScriptDebuggerOpen.exe"
             VALUE "ProductName", "HmHavokScriptDebuggerOpen"
-            VALUE "ProductVersion", "1.0.1.1"
+            VALUE "ProductVersion", "1.0.1.2"
         END
     END
     BLOCK "VarFileInfo"

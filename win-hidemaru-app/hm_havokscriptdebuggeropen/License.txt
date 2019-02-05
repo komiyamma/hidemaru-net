@@ -1,5 +1,5 @@
 - HmHavokScriptDebuggerOpen
-   Copyright (C) 2014-2017 Akitsugu Komiyama
+   Copyright (C) 2014-2019 Akitsugu Komiyama
 
 
    The MIT License (MIT)
