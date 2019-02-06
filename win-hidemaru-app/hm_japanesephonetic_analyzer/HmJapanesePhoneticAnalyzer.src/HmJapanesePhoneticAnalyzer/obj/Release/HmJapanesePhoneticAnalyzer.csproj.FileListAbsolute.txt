@@ -12,6 +12,6 @@ C:\usr\web\hidemaru-net\win-hidemaru-app\hm_divideword_and_rubychar\HmJapanesePh
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_japanesephonetic_analyzer\HmJapanesePhoneticAnalyzer.src\HmJapanesePhoneticAnalyzer\bin\Release\HmJapanesePhoneticAnalyzer.dll.config
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_japanesephonetic_analyzer\HmJapanesePhoneticAnalyzer.src\HmJapanesePhoneticAnalyzer\bin\Release\HmJapanesePhoneticAnalyzer.dll
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_japanesephonetic_analyzer\HmJapanesePhoneticAnalyzer.src\HmJapanesePhoneticAnalyzer\bin\Release\Windows.winmd
-C:\usr\web\hidemaru-net\win-hidemaru-app\hm_japanesephonetic_analyzer\HmJapanesePhoneticAnalyzer.src\HmJapanesePhoneticAnalyzer\bin\Release\Windows.xml
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_japanesephonetic_analyzer\HmJapanesePhoneticAnalyzer.src\HmJapanesePhoneticAnalyzer\obj\Release\HmJapanesePhoneticAnalyzer.dll
-C:\usr\web\hidemaru-net\win-hidemaru-app\hm_japanesephonetic_analyzer\HmJapanesePhoneticAnalyzer.src\HmJapanesePhoneticAnalyzer\obj\Release\HmJapanesePhoneticAnalyzer.csprojResolveAssemblyReference.cache
+C:\usr\web\hidemaru-net\win-hidemaru-app\hm_japanesephonetic_analyzer\HmJapanesePhoneticAnalyzer.src\HmJapanesePhoneticAnalyzer\obj\Release\HmJapanesePhoneticAnalyzer.csproj.CoreCompileInputs.cache
+C:\usr\web\hidemaru-net\win-hidemaru-app\hm_japanesephonetic_analyzer\HmJapanesePhoneticAnalyzer.src\HmJapanesePhoneticAnalyzer\obj\Release\HmJapanesePhoneticAnalyzer.csproj.CopyComplete

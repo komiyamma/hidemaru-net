@@ -10,5 +10,5 @@ C:\usr\web\hidemaru-net\win-hidemaru-app\hm_ts_intellisense\HmTSHintPopup.src\Hm
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_ts_intellisense\HmTSHintPopup.src\HmTSDefineJump\bin\Release\HmTSDefineJump.dll
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_ts_intellisense\HmTSHintPopup.src\HmTSDefineJump\bin\Release\hm.NET.dll
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_ts_intellisense\HmTSHintPopup.src\HmTSDefineJump\obj\Release\HmTSDefineJump.dll
-C:\usr\web\hidemaru-net\win-hidemaru-app\hm_ts_intellisense\HmTSHintPopup.src\HmTSDefineJump\obj\Release\HmTSDefineJump.csprojResolveAssemblyReference.cache
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_ts_intellisense\HmTSHintPopup.src\HmTSDefineJump\obj\Release\HmTSDefineJump.csproj.CoreCompileInputs.cache
+C:\usr\web\hidemaru-net\win-hidemaru-app\hm_ts_intellisense\HmTSHintPopup.src\HmTSDefineJump\obj\Release\HmTSDefineJump.csproj.CopyComplete

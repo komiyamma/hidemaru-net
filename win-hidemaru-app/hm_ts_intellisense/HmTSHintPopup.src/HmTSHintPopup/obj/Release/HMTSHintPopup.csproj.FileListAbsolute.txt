@@ -16,5 +16,5 @@ C:\usr\web\hidemaru-net\win-hidemaru-app\hm_ts_intellisense\HmTSHintPopup.src\HM
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_ts_intellisense\HmTSHintPopup.src\HMTSHintPopup\bin\Release\hm.NET.dll
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_ts_intellisense\HmTSHintPopup.src\HMTSHintPopup\obj\Release\HmTSHintPopup.dll
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_ts_intellisense\HmTSHintPopup.src\HMTSHintPopup\obj\Release\HmTSHintPopup.pdb
-C:\usr\web\hidemaru-net\win-hidemaru-app\hm_ts_intellisense\HmTSHintPopup.src\HMTSHintPopup\obj\Release\HmTSHintPopup.csprojResolveAssemblyReference.cache
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_ts_intellisense\HmTSHintPopup.src\HMTSHintPopup\obj\Release\HmTSHintPopup.csproj.CoreCompileInputs.cache
+C:\usr\web\hidemaru-net\win-hidemaru-app\hm_ts_intellisense\HmTSHintPopup.src\HMTSHintPopup\obj\Release\HmTSHintPopup.csproj.CopyComplete

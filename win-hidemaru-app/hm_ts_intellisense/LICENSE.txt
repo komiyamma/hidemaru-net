@@ -1,5 +1,5 @@
 - HmTSIntelliSense
-   Copyright (C) 2017 Akitsugu Komiyama
+   Copyright (C) 2017-2019 Akitsugu Komiyama
 
 
                                  Apache License
