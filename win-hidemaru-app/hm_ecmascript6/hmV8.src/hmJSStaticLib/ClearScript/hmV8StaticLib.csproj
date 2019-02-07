@@ -56,9 +56,9 @@
     <AssemblyOriginatorKeyFile>$(SolutionDir)ClearScript.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ClearScript, Version=5.5.2.0, Culture=neutral, PublicKeyToken=960a7608304be6a9, processorArchitecture=MSIL">
+    <Reference Include="ClearScript, Version=5.5.4.0, Culture=neutral, PublicKeyToken=960a7608304be6a9, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\ClearWork\ClearScript.5.5.4\bin\Release\ClearScript.dll</HintPath>
+      <HintPath>..\..\..\ClearWork\ClearScript.5.5.5\bin\Release\ClearScript.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
