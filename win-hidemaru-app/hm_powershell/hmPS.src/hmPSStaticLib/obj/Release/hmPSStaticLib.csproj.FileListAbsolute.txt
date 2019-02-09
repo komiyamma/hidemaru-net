@@ -16,7 +16,6 @@ C:\hmPS.src\hmPSStaticLib\obj\Release\hmPSStaticLib.pdb
 C:\hmPS.src\hmPSStaticLib\obj\Release\hmPSStaticLib.csprojResolveAssemblyReference.cache
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_powershell\hmPS.src\hmPSStaticLib\bin\Release\hmPSStaticLib.netmodule.config
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_powershell\hmPS.src\hmPSStaticLib\bin\Release\hmPSStaticLib.netmodule
-C:\usr\web\hidemaru-net\win-hidemaru-app\hm_powershell\hmPS.src\hmPSStaticLib\bin\Release\hmPSStaticLib.pdb
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_powershell\hmPS.src\hmPSStaticLib\obj\Release\hmPSStaticLib.netmodule
-C:\usr\web\hidemaru-net\win-hidemaru-app\hm_powershell\hmPS.src\hmPSStaticLib\obj\Release\hmPSStaticLib.pdb
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_powershell\hmPS.src\hmPSStaticLib\bin\Release\System.Management.Automation.dll
+C:\usr\web\hidemaru-net\win-hidemaru-app\hm_powershell\hmPS.src\hmPSStaticLib\obj\Release\hmPSStaticLib.csprojResolveAssemblyReference.cache
