@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2017 Akitsugu Komiyama
+ * Copyright (c) 2017-2019 Akitsugu Komiyama
  * under the MIT License
  *
  * 要 mathjax-node : (npm install mathjax-node)

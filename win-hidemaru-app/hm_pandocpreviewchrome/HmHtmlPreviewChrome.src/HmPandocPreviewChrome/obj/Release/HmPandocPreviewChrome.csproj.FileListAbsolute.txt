@@ -8,3 +8,10 @@ C:\Users\0300002167\OneDrive\最新\hm_pandocpreviewchrome\HmHtmlPreviewChrome.s
 C:\Users\0300002167\OneDrive\最新\hm_pandocpreviewchrome\HmHtmlPreviewChrome.src\HmPandocPreviewChrome\bin\Release\WebDriver.dll
 C:\Users\0300002167\OneDrive\最新\hm_pandocpreviewchrome\HmHtmlPreviewChrome.src\HmPandocPreviewChrome\obj\Release\HmPandocPreviewChrome.csproj.CoreCompileInputs.cache
 C:\Users\0300002167\OneDrive\最新\hm_pandocpreviewchrome\HmHtmlPreviewChrome.src\HmPandocPreviewChrome\obj\Release\HmPandocPreviewChrome.dll
+C:\usr\web\hidemaru-net\win-hidemaru-app\hm_pandocpreviewchrome\HmHtmlPreviewChrome.src\HmPandocPreviewChrome\bin\Release\HmPandocPreviewChrome.dll
+C:\usr\web\hidemaru-net\win-hidemaru-app\hm_pandocpreviewchrome\HmHtmlPreviewChrome.src\HmPandocPreviewChrome\bin\Release\hm.NET.dll
+C:\usr\web\hidemaru-net\win-hidemaru-app\hm_pandocpreviewchrome\HmHtmlPreviewChrome.src\HmPandocPreviewChrome\bin\Release\WebDriver.dll
+C:\usr\web\hidemaru-net\win-hidemaru-app\hm_pandocpreviewchrome\HmHtmlPreviewChrome.src\HmPandocPreviewChrome\obj\Release\HmPandocPreviewChrome.csprojAssemblyReference.cache
+C:\usr\web\hidemaru-net\win-hidemaru-app\hm_pandocpreviewchrome\HmHtmlPreviewChrome.src\HmPandocPreviewChrome\obj\Release\HmPandocPreviewChrome.csproj.CoreCompileInputs.cache
+C:\usr\web\hidemaru-net\win-hidemaru-app\hm_pandocpreviewchrome\HmHtmlPreviewChrome.src\HmPandocPreviewChrome\obj\Release\HmPandocPreviewChrome.csproj.CopyComplete
+C:\usr\web\hidemaru-net\win-hidemaru-app\hm_pandocpreviewchrome\HmHtmlPreviewChrome.src\HmPandocPreviewChrome\obj\Release\HmPandocPreviewChrome.dll

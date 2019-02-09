@@ -1,5 +1,5 @@
 - HmLinkedTextPreview
-   Copyright (C) 2017 Akitsugu Komiyama
+   Copyright (C) 2019 Akitsugu Komiyama
 
 
    The MIT License (MIT)
