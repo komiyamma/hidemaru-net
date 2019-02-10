@@ -12,6 +12,7 @@ C:\Users\0300002167\OneDrive\●１\HmTextSynChrome\HmTextSynChrome\obj\Release\
 C:\Users\0300002167\OneDrive\●１\HmTextSynChrome\HmTextSynChrome\obj\Release\HmTextSynChrome.dll
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_textsynchrome\HmTextSynChrome\HmTextSynChrome\bin\Release\HmTextSynChrome.dll
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_textsynchrome\HmTextSynChrome\HmTextSynChrome\bin\Release\hm.NET.dll
-C:\usr\web\hidemaru-net\win-hidemaru-app\hm_textsynchrome\HmTextSynChrome\HmTextSynChrome\obj\Release\HmTextSynChrome.csprojResolveAssemblyReference.cache
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_textsynchrome\HmTextSynChrome\HmTextSynChrome\obj\Release\HmTextSynChrome.dll
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_textsynchrome\HmTextSynChrome\HmTextSynChrome\obj\Release\HmTextSynChrome.csproj.CoreCompileInputs.cache
+C:\usr\web\hidemaru-net\win-hidemaru-app\hm_textsynchrome\HmTextSynChrome\HmTextSynChrome\obj\Release\HmTextSynChrome.csprojAssemblyReference.cache
+C:\usr\web\hidemaru-net\win-hidemaru-app\hm_textsynchrome\HmTextSynChrome\HmTextSynChrome\obj\Release\HmTextSynChrome.csproj.CopyComplete
