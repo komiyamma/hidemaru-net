@@ -31,7 +31,6 @@ class IterableRensoRuigoElementList {
         // １つずつ抽出して、IRensoRuigoElement型にして IRensoRuigoElement配列へと足し込み
         while (resultExecArray = resultTextRegexp.exec(joinedRensoWordText)) {
 
-            let modifiedTextRegexp = /<ruby/g;
             let modified_word = resultExecArray[2]
             modified_word = modified_word.replace(/<rp>（<\/rp><rt>.+?<\/rt><rp>）<\/rp>/g, "");
             modified_word = modified_word.replace(/<\/?ruby>/g, "");

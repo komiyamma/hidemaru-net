@@ -14,8 +14,6 @@ class GoogleTranslatorQueryStrategy extends AbstractTranslatorQueryStrategy {
         this.QueryParams.Add("text", this.SrcText);
         // 何語から何語へ翻訳するのか
         this.QueryParams.Add("source", this.TargetLanguages.src);
-        // 結果ページで使用される言語
-        // (翻訳内容とは無関係で、GUIインターフェイスの言語。日本語で良い)
         this.QueryParams.Add("target", this.TargetLanguages.dst);
     }
     get Method() {
@@ -30,7 +28,7 @@ class GoogleTranslatorQueryStrategy extends AbstractTranslatorQueryStrategy {
      * @param result_page
      */
     FilterResultText(result_page) {
-		if (result_page) {
+        if (result_page) {
             return result_page;
         }
         else {
