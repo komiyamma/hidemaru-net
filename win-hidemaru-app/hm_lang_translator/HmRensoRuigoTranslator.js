@@ -2,7 +2,7 @@
 ///<reference path="HmAbstractTranslator.ts"/>
 /**
  * HmRensoRuigoTranslator v1.02
- * Copyright (C) 2017 Akitsugu Komiyama
+ * Copyright (C) 2017-2019 Akitsugu Komiyama
  * under the MIT License
  */
 class IterableRensoRuigoElementList {
@@ -26,12 +26,17 @@ class IterableRensoRuigoElementList {
         let joinedRensoWordText = resultAroundExecArray[0];
         let resultStructArray = [];
         // 結果パターンの繰り返し
-        let resultTextRegexp = /　・　<a href="([\s\S]+?)">([\s\S]+?)<\/a>/g;
+        let resultTextRegexp = /(?:　・　)?<a href="([\s\S]+?)">([\s\S]+?)<\/a>/g;
         let resultExecArray;
         // １つずつ抽出して、IRensoRuigoElement型にして IRensoRuigoElement配列へと足し込み
         while (resultExecArray = resultTextRegexp.exec(joinedRensoWordText)) {
+
+            let modifiedTextRegexp = /<ruby/g;
+            let modified_word = resultExecArray[2]
+            modified_word = modified_word.replace(/<rp>（<\/rp><rt>.+?<\/rt><rp>）<\/rp>/g, "");
+            modified_word = modified_word.replace(/<\/?ruby>/g, "");
             // この形にして格納しておく。
-            let element = { word: resultExecArray[2], href: resultExecArray[1] };
+            let element = { word: modified_word, href: resultExecArray[1] };
             resultStructArray.push(element);
         }
         return resultStructArray;
