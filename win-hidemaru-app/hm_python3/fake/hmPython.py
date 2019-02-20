@@ -24,9 +24,9 @@ class _TEdit:
     class CursorPos:
 
         def __lineno(self) -> int:
-            return 3;
+            return 3
         def __column(self) -> int:
-            return 5;
+            return 5
         lineno = property(__lineno)
         column = property(__column)
     #--------------------------------------------------
@@ -38,13 +38,13 @@ class _TEdit:
     class MousePos:
 
         def __lineno(self) -> int:
-            return 3;
+            return 3
         def __column(self) -> int:
-            return 5;
+            return 5
         def __x(self) -> int:
-            return 300;
+            return 300
         def __y(self) -> int:
-            return 200;
+            return 200
         lineno = property(__lineno)
         column = property(__column)
         x = property(__x)
