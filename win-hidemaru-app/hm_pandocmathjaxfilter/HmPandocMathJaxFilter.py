@@ -1,6 +1,6 @@
 # Copyright (c) 2017-2019 Akitsugu Komiyama
 # under the MIT License
-# 
+#
 # 要 panflute : (python -m pip install panfulate)
 
 from panflute import *
@@ -60,18 +60,18 @@ def mathjax_to_png(elem, doc):
         mathtext = elem.text
         modified_mathtext = get_math_string_modify(mathtext)
         sys.stderr.write(modified_mathtext)
-        
+
         # テキストからハッシュ作成。これにより同じテキストなら同じ画像となるということも踏襲出来る
         hash_mathtext = hashlib.md5(modified_mathtext.encode('utf-8')).hexdigest()
-        
+
         # ハッシュにもとづいたファイル作成
         create_mathtext_file(hash_mathtext, modified_mathtext)
-        
+
         # サブプロセスで、ファイルに基いて画像作成
         exec_cmd_mathjax_to_png(hash_mathtext)
-        
-        return_json = "";
-        
+
+        return_json = ""
+
         if elem.format == "DisplayMath":
             # To-Do 実際にはここで「HmMathjaxToSvg.node.js」でイメージを生成
             result_json = RawInline("<img style=\"display:block; zoom:.5\" src = \"%s.png\">" % (hash_mathtext,), format='html')
@@ -79,12 +79,12 @@ def mathjax_to_png(elem, doc):
         if elem.format == "InlineMath":
             # To-Do 実際にはここで「HmMathjaxToSvg.node.js」でイメージを生成
             result_json = RawInline("<img style=\"display:inline; zoom:.5; vertical-align:-20%%;\"  src = \"%s.png\">" % (hash_mathtext,), format='html')
-        
+
         # ハッシュにもとづいたファイル削除
         delete_mathtext_file(hash_mathtext)
-        
+
         return result_json
-        
+
     return elem
 
 # このスクリプトファイルや.jsファイルがあるディレクトリ
@@ -108,13 +108,13 @@ def get_task_folder():
     return currenttargetfiledir;
 
 # １回使ったらタスクフォルダの絶対パスのファイルは消す
-def det_task_folder_settingfile():
+def delete_task_folder_settingfile():
     scriptdir = get_self_script_dirname()
     try:
         os.remove(get_task_folder_settingfile())
     except:
         pass
-    
+
 def main(doc=None):
     return run_filter(mathjax_to_png, doc=doc)
 
@@ -125,6 +125,6 @@ if __name__ == "__main__":
     target_file_folder = get_task_folder()
     sys.stderr.write(target_file_folder)
     main()
-    det_task_folder_settingfile()
+    delete_task_folder_settingfile()
     os.chdir(current_dir)
 
