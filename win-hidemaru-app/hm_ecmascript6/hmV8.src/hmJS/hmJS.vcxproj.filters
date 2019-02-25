@@ -15,9 +15,6 @@
     <Filter Include="本体">
       <UniqueIdentifier>{24836cee-e54c-4598-9e08-f0a482aa8550}</UniqueIdentifier>
     </Filter>
-    <Filter Include="秀丸フィルター">
-      <UniqueIdentifier>{12e7817b-53c2-48c7-88ab-0a25cdf967bc}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="hidemaruexe_export.cpp">
@@ -28,12 +25,6 @@
     </ClCompile>
     <ClCompile Include="hmV8.cpp">
       <Filter>本体</Filter>
-    </ClCompile>
-    <ClCompile Include="hm_filter.cpp">
-      <Filter>秀丸フィルター</Filter>
-    </ClCompile>
-    <ClCompile Include="hm_filter_implements.cpp">
-      <Filter>秀丸フィルター</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -51,9 +42,6 @@
     </ClInclude>
     <ClInclude Include="hmV8StatlcLib.h">
       <Filter>本体</Filter>
-    </ClInclude>
-    <ClInclude Include="hm_filter.h">
-      <Filter>秀丸フィルター</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

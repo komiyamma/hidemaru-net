@@ -158,18 +158,12 @@
   <ItemGroup>
     <ClCompile Include="hidemaruexe_export.cpp" />
     <ClCompile Include="hmV8.cpp" />
-    <ClCompile Include="hm_filter.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="hm_filter_implements.cpp" />
     <ClCompile Include="string_converter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="hidemaruexe_export.h" />
     <ClInclude Include="hmV8StatlcLib.h" />
     <ClInclude Include="hmV8.h" />
-    <ClInclude Include="hm_filter.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="string_converter.h" />
   </ItemGroup>
