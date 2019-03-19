@@ -1,0 +1,14 @@
+{
+  "ProjectFilePath": "c:\\usr\\web\\hidemaru-net-private\\hm_google_lang_translator_cs\\src\\HmGoogleLangTranslate\\HmGoogleLangTranslate.csproj",
+  "TargetFramework": "v4.5",
+  "TagHelpers": [],
+  "Configuration": {
+    "ConfigurationName": "UnsupportedRazor",
+    "LanguageVersion": "1.0",
+    "Extensions": [
+      {
+        "ExtensionName": "UnsupportedRazorExtension"
+      }
+    ]
+  }
+}

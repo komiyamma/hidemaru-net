@@ -1,0 +1,53 @@
+﻿/*
+ * This codes is licensed under CC0 1.0 Universal
+ */
+
+if(selecting) {
+    $text=gettext(seltopx, seltopy, selendx, selendy);
+} 
+
+if ($text=="") {
+    message("翻訳対象のテキストを選択してください。");
+    endmacro;
+}
+
+
+if (filename == currentmacrofilename) {
+    // このマクロ自身に対して実行するのは、
+    // マクロのソース中に文字列を挿入してしまうため
+    // 意図せずマクロを破壊してしまう可能性が高い。
+    // 
+    // ほぼ確実に意図しない操作とみなして、止める
+    message("HmGoogleLangTranslator.mac 自身を対象にはできません。");
+    endmacro;
+}
+
+$url = "https://script.google.com/macros/s/" + getenv("GOOGLE_SCRIPT_TRANSLATION_API") + "/exec";
+
+$source=getarg(0);
+$target=getarg(1);
+
+if(selecting) {
+    $text=gettext(seltopx, seltopy, selendx, selendy);
+} 
+
+
+#DLL = loaddll(hidemarudir + @"\hm.NET.dll");
+$answer = dllfuncstrw(
+    #DLL,
+    "CallMethod",
+    currentmacrodirectory + @"\HmGoogleLangTranslate.dll",
+    "HmGoogleLangTranslate.HmGoogleLangTranslate",
+    "Translate", 
+    $text,
+    $url,
+    $source,
+    $target
+);
+
+// 翻訳した文字列は$answerという変数に入ってるので、
+// 好きにして… 💔
+escape;
+moveto selendx, selendy; // 選択してたら解除しつつも選択範囲の最後尾に
+insert "\n" + $answer;
+
