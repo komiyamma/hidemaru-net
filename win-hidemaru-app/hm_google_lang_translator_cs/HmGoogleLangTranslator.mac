@@ -11,7 +11,6 @@ if ($text=="") {
     endmacro;
 }
 
-
 if (filename == currentmacrofilename) {
     // このマクロ自身に対して実行するのは、
     // マクロのソース中に文字列を挿入してしまうため
@@ -30,7 +29,6 @@ $target=getarg(1);
 if(selecting) {
     $text=gettext(seltopx, seltopy, selendx, selendy);
 } 
-
 
 #DLL = loaddll(hidemarudir + @"\hm.NET.dll");
 $answer = dllfuncstrw(

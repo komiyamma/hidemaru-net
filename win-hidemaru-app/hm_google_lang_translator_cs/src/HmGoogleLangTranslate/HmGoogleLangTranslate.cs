@@ -4,7 +4,6 @@ using System.Net.Http.Headers;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
-using Hidemaru;
 
 namespace HmGoogleLangTranslate
 {

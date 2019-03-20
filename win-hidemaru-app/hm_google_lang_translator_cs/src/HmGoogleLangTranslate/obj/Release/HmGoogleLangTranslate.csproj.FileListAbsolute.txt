@@ -14,3 +14,7 @@ C:\usr\web\hidemaru-net-private\hm_google_lang_translator_cs\src\HmGoogleLangTra
 C:\usr\web\hidemaru-net-private\hm_google_lang_translator_cs\src\HmGoogleLangTranslate\obj\Release\HmGoogleLangTranslate.csproj.CoreCompileInputs.cache
 C:\usr\web\hidemaru-net-private\hm_google_lang_translator_cs\src\HmGoogleLangTranslate\obj\Release\HmGoogleLangTranslate.csproj.CopyComplete
 C:\usr\web\hidemaru-net-private\hm_google_lang_translator_cs\src\HmGoogleLangTranslate\obj\Release\HmGoogleLangTranslate.dll
+C:\usr\web\hidemaru-net\win-hidemaru-app\hm_google_lang_translator_cs\src\HmGoogleLangTranslate\bin\Release\HmGoogleLangTranslate.dll.config
+C:\usr\web\hidemaru-net\win-hidemaru-app\hm_google_lang_translator_cs\src\HmGoogleLangTranslate\bin\Release\HmGoogleLangTranslate.dll
+C:\usr\web\hidemaru-net\win-hidemaru-app\hm_google_lang_translator_cs\src\HmGoogleLangTranslate\obj\Release\HmGoogleLangTranslate.csproj.CoreCompileInputs.cache
+C:\usr\web\hidemaru-net\win-hidemaru-app\hm_google_lang_translator_cs\src\HmGoogleLangTranslate\obj\Release\HmGoogleLangTranslate.dll
