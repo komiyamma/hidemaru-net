@@ -13,9 +13,9 @@ from hmPython import hm
 import json
 import urllib.request
 
-def TranslateByGet(text, source, target):
+def TranslateByGet(text, source, target, url):
 
-    script_url = hm.Macro.Var["$url"]
+    script_url = url
 
     params = {
         "text": text,
@@ -46,10 +46,10 @@ def TranslateByGet(text, source, target):
 # }
 
 
-def TranslateByPost(text, source, target):
+def TranslateByPost(text, source, target, url):
     headers = {"Content-Type": "application/json"}
 
-    script_url = hm.Macro.Var["$url"]
+    script_url = url
 
     data = {
         "text": text,

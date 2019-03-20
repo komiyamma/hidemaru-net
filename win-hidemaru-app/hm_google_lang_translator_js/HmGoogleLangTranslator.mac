@@ -6,11 +6,6 @@ if(selecting) {
     $text=gettext(seltopx, seltopy, selendx, selendy);
 } 
 
-if ($text=="") {
-    message("翻訳対象のテキストを選択してください。");
-    endmacro;
-}
-
 if (filename == currentmacrofilename) {
     // このマクロ自身に対して実行するのは、
     // マクロのソース中に文字列を挿入してしまうため
@@ -26,21 +21,24 @@ $url = "https://script.google.com/macros/s/" + getenv("GOOGLE_SCRIPT_TRANSLATION
 $source=getarg(0);
 $target=getarg(1);
 
-if(selecting) {
-    $text=gettext(seltopx, seltopy, selendx, selendy);
-} 
+if (!#DLL) { #DLL = loaddll(hidemarudir + @"\hmV8.dll"); }
+if (!#DLL) { #DLL = loaddll(hidemarudir + @"\hmJS.dll"); }
+#r = dllfuncw( #DLL, "DoString", R"JS(
 
-#DLL = loaddll(hidemarudir + @"\hm.NET.dll");
-$answer = dllfuncstrw(
-    #DLL,
-    "CallMethod",
-    currentmacrodirectory + @"\HmGoogleLangTranslate.dll",
-    "HmGoogleLangTranslate.HmGoogleLangTranslate",
-    "Translate", 
-    $text,
-    $url,
-    $source,
-    $target
+currentmacrodirectory = hm.Macro.Var("currentmacrodirectory");
+var lib = host.lib(currentmacrodirectory + "/HmGoogleLangTranslate.dll");
+
+var text   = hm.Edit.SelectedText || hm.Edit.TotalText
+
+var url    = hm.Macro.Var("$url");
+var source = hm.Macro.Var("$source");
+var target = hm.Macro.Var("$target");
+
+var Translator = lib.HmGoogleLangTranslate.HmGoogleLangTranslate;
+var answer = Translator.Translate(text, url, source, target);
+hm.Macro.Var('$answer', answer);
+
+)JS"
 );
 
 // 翻訳した文字列は$answerという変数に入ってるので、

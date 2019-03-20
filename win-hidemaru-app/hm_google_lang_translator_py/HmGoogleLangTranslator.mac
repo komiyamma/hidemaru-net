@@ -1,6 +1,6 @@
-﻿/*
- * This codes is licensed under CC0 1.0 Universal
- */
+﻿// HmGoogleLangTranslator.mac v1.0.0.1
+// Copyright (c) 2019 Akitsugu Komiyama
+// under the MIT License
 
 if (strstr(filename, "hmgooglelangtranslator") >= 0) {
     // このマクロ自身に対して実行するのは、
@@ -24,11 +24,12 @@ import HmGoogleLangTranslator
 
 text = hm.Edit.SelectedText or hm.Edit.TotalText
 
+url=hm.Macro.Var["$url"]
 source=hm.Macro.Var["$source"]
 target=hm.Macro.Var["$target"]
 
 try:
-    hm.Macro.Var["$answer"] = HmGoogleLangTranslator.TranslateByPost(text, source, target)
+    hm.Macro.Var["$answer"] = HmGoogleLangTranslator.TranslateByPost(text, source, target, url)
 except:
     hm.Macro.Var["$answer"] = "翻訳エラー"
 
