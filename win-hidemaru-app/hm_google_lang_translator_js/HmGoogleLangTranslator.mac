@@ -4,6 +4,12 @@
  * under the MIT License
  */
 
+// 環境変数から、Google Apps Script の翻訳APIへのURLアドレスを取得。
+$url = getenv("GOOGLE_SCRIPT_TRANSLATION_API");
+
+// 環境変数ではなく、直接ファイルに書いてしまうなら以下を書き換えて、コメントアウトも外す
+// $url = "https://script.google.com/macros/s/********************************************/exec";
+
 if(selecting) {
     $text=gettext(seltopx, seltopy, selendx, selendy);
 } 
@@ -17,8 +23,6 @@ if (filename == currentmacrofilename) {
     message("HmGoogleLangTranslator.mac 自身を対象にはできません。");
     endmacro;
 }
-
-$url = "https://script.google.com/macros/s/" + getenv("GOOGLE_SCRIPT_TRANSLATION_API") + "/exec";
 
 $source=getarg(0);
 $target=getarg(1);
