@@ -1,6 +1,8 @@
-﻿// HmGoogleLangTranslator.mac v1.0.0.1
-// Copyright (c) 2019 Akitsugu Komiyama
-// under the MIT License
+﻿/*
+ * HmGoogleLangTranslator.mac(by Python) v1.0.0.1
+ * Copyright (c) 2019 Akitsugu Komiyama
+ * under the MIT License
+ */
 
 if (strstr(filename, "hmgooglelangtranslator") >= 0) {
     // このマクロ自身に対して実行するのは、

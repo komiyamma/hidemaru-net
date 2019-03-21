@@ -1,6 +1,8 @@
-﻿// HmGoogleLangTranslator.mac v1.0.0.1
-// Copyright (c) 2019 Akitsugu Komiyama
-// under the MIT License
+﻿/*
+ * HmGoogleLangTranslator.mac(by JavaScript) v1.0.0.1
+ * Copyright (c) 2019 Akitsugu Komiyama
+ * under the MIT License
+ */
 
 if(selecting) {
     $text=gettext(seltopx, seltopy, selendx, selendy);
@@ -46,4 +48,3 @@ hm.Macro.Var('$answer', answer);
 escape;
 moveto selendx, selendy; // 選択してたら解除しつつも選択範囲の最後尾に
 insert "\n" + $answer;
-

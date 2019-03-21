@@ -1,6 +1,8 @@
-﻿// HmGoogleLangTranslator.mac v1.0.0.1
-// Copyright (c) 2019 Akitsugu Komiyama
-// under the MIT License
+﻿/*
+ * HmGoogleLangTranslator.mac(by CSharp) v1.0.0.1
+ * Copyright (c) 2019 Akitsugu Komiyama
+ * under the MIT License
+ */
 
 if(selecting) {
     $text=gettext(seltopx, seltopy, selendx, selendy);
