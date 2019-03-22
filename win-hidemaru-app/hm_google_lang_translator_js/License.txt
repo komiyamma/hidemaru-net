@@ -1,4 +1,4 @@
-- HmGoogleLangTranslator(by JavaScript)
+- HmGoogleLangTranslatorJS
    Copyright (C) 2019 Akitsugu Komiyama
 
 

@@ -12,4 +12,4 @@ if (filename == currentmacrofilename) {
     endmacro;
 }
 
-execmacro currentmacrodirectory + @"\HmGoogleLangTranslator.mac", "", "en";
+execmacro currentmacrodirectory + @"\HmGoogleLangTranslatorJS.mac", "", "en";

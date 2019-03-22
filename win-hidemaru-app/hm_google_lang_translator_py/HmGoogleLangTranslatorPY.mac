@@ -1,5 +1,5 @@
 ﻿/*
- * HmGoogleLangTranslator.mac(by JavaScript) v1.0.0.1
+ * HmGoogleLangTranslatorPY.mac v1.0.0.1
  * Copyright (c) 2019 Akitsugu Komiyama
  * under the MIT License
  */
@@ -10,41 +10,36 @@ $url = getenv("GOOGLE_SCRIPT_TRANSLATION_API");
 // 環境変数ではなく、直接ファイルに書いてしまうなら以下を書き換えて、コメントアウトも外す
 // $url = "https://script.google.com/macros/s/********************************************/exec";
 
-if(selecting) {
-    $text=gettext(seltopx, seltopy, selendx, selendy);
-} 
-
-if (filename == currentmacrofilename) {
+if (strstr(filename, "hmgooglelangtranslator") >= 0) {
     // このマクロ自身に対して実行するのは、
     // マクロのソース中に文字列を挿入してしまうため
     // 意図せずマクロを破壊してしまう可能性が高い。
     // 
     // ほぼ確実に意図しない操作とみなして、止める
-    message("HmGoogleLangTranslator.mac 自身を対象にはできません。");
+    message("「HmGoogleLangTranslator自身」を翻訳対象にはできません。");
     endmacro;
 }
 
 $source=getarg(0);
 $target=getarg(1);
 
-if (!#DLL) { #DLL = loaddll(hidemarudir + @"\hmV8.dll"); }
-if (!#DLL) { #DLL = loaddll(hidemarudir + @"\hmJS.dll"); }
-#r = dllfuncw( #DLL, "DoString", R"JS(
+#DLL = loaddll(hidemarudir + @"\hmPython3.dll");
+#_ = dllfuncw(#DLL, "DoString", R"PY3(
+from hmPython import hm
+import HmGoogleLangTranslator
 
-currentmacrodirectory = hm.Macro.Var("currentmacrodirectory");
-var lib = host.lib(currentmacrodirectory + "/HmGoogleLangTranslate.dll");
+text = hm.Edit.SelectedText or hm.Edit.TotalText
 
-var text   = hm.Edit.SelectedText || hm.Edit.TotalText
+url=hm.Macro.Var["$url"]
+source=hm.Macro.Var["$source"]
+target=hm.Macro.Var["$target"]
 
-var url    = hm.Macro.Var("$url");
-var source = hm.Macro.Var("$source");
-var target = hm.Macro.Var("$target");
+try:
+    hm.Macro.Var["$answer"] = HmGoogleLangTranslator.TranslateByPost(text, source, target, url)
+except:
+    hm.Macro.Var["$answer"] = "翻訳エラー"
 
-var Translator = lib.HmGoogleLangTranslate.HmGoogleLangTranslate;
-var answer = Translator.Translate(text, url, source, target);
-hm.Macro.Var('$answer', answer);
-
-)JS"
+)PY3"
 );
 
 // 翻訳した文字列は$answerという変数に入ってるので、
@@ -52,3 +47,5 @@ hm.Macro.Var('$answer', answer);
 escape;
 moveto selendx, selendy; // 選択してたら解除しつつも選択範囲の最後尾に
 insert "\n" + $answer;
+
+freedll( #DLL );
