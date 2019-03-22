@@ -10,10 +10,6 @@ $url = getenv("GOOGLE_SCRIPT_TRANSLATION_API");
 // 環境変数ではなく、直接ファイルに書いてしまうなら以下を書き換えて、コメントアウトも外す
 // $url = "https://script.google.com/macros/s/********************************************/exec";
 
-if(selecting) {
-    $text=gettext(seltopx, seltopy, selendx, selendy);
-} 
-
 if (filename == currentmacrofilename) {
     // このマクロ自身に対して実行するのは、
     // マクロのソース中に文字列を挿入してしまうため
