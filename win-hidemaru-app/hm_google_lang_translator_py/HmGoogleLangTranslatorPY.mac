@@ -30,9 +30,9 @@ import HmGoogleLangTranslator
 
 text = hm.Edit.SelectedText or hm.Edit.TotalText
 
-url=hm.Macro.Var["$url"]
-source=hm.Macro.Var["$source"]
-target=hm.Macro.Var["$target"]
+url = hm.Macro.Var["$url"]
+source = hm.Macro.Var["$source"]
+target = hm.Macro.Var["$target"]
 
 try:
     hm.Macro.Var["$answer"] = HmGoogleLangTranslator.TranslateByPost(text, source, target, url)

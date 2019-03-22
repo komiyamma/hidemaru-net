@@ -34,7 +34,7 @@ $target=getarg(1);
 
 if(selecting) {
     $text=gettext(seltopx, seltopy, selendx, selendy);
-} 
+}
 
 #DLL = loaddll(hidemarudir + @"\hm.NET.dll");
 $answer = dllfuncstrw(
@@ -42,7 +42,7 @@ $answer = dllfuncstrw(
     "CallMethod",
     currentmacrodirectory + @"\HmGoogleLangTranslate.dll",
     "HmGoogleLangTranslate.HmGoogleLangTranslate",
-    "Translate", 
+    "Translate",
     $text,
     $url,
     $source,
