@@ -38,7 +38,7 @@ var target = hm.Macro.Var("$target");
 
 var Translator = lib.HmGoogleLangTranslate.HmGoogleLangTranslate;
 var answer = Translator.Translate(text, url, source, target);
-hm.Macro.Var('$answer', answer);
+hm.Macro.Var("$answer", answer);
 
 )JS"
 );
