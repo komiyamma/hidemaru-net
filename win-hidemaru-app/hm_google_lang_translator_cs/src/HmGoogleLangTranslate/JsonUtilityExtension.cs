@@ -1,4 +1,9 @@
-﻿using System.IO;
+﻿/* 
+ * Copyright (c) 2019 Akitsugu Komiyama
+ * under the MIT License
+ */
+
+using System.IO;
 using System.Runtime.Serialization.Json;
 using System.Text;
 

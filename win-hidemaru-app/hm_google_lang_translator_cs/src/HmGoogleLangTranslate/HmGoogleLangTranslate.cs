@@ -1,4 +1,10 @@
-﻿using System;
+﻿/* 
+ * Copyright (c) 2019 Akitsugu Komiyama
+ * under the MIT License
+ */
+
+
+using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Runtime.Serialization;
@@ -82,9 +88,10 @@ namespace HmGoogleLangTranslate
                 t.Wait();
                 return t.Result;
             }
-            catch {; }
+            catch {
+            }
 
-            return "";
+            return "翻訳エラー";
         }
 
         private static async Task<string> TranslateAsync(string text, string url, string lang_src, string lang_dst)
