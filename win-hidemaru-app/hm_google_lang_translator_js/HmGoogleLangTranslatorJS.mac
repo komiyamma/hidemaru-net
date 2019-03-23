@@ -45,6 +45,10 @@ hm.Macro.Var("$answer", answer);
 
 // 翻訳した文字列は$answerという変数に入ってるので、
 // 好きにして… 💔
-escape;
-moveto selendx, selendy; // 選択してたら解除しつつも選択範囲の最後尾に
+if (selecting) {
+    escape;
+    moveto selendx, selendy; // 選択してたら解除しつつも選択範囲の最後尾に
+} else {
+    gofileend; // 最後尾に
+}
 insert "\n" + $answer;
