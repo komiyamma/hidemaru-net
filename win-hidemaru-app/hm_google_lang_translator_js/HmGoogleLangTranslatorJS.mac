@@ -23,8 +23,8 @@ if (filename == currentmacrofilename) {
 $source=getarg(0);
 $target=getarg(1);
 
-if (!#DLL) { #DLL = loaddll(hidemarudir + @"\hmV8.dll"); }
 if (!#DLL) { #DLL = loaddll(hidemarudir + @"\hmJS.dll"); }
+if (!#DLL) { #DLL = loaddll(hidemarudir + @"\hmV8.dll"); }
 #r = dllfuncw( #DLL, "DoString", R"JS(
 
 currentmacrodirectory = hm.Macro.Var("currentmacrodirectory");
