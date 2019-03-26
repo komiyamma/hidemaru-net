@@ -1,5 +1,5 @@
-- HmAbstractTranslator.js, HmGoogleTranslator.js, HmBaiduTranslator.js, HmRensoRuigoTranslator.js, HmRensoTaigigoTranslator.js,
-  HmAbstractTranslator.ts, HmGoogleTranslator.ts, HmBaiduTranslator.ts, HmRensoRuigoTranslator.ts, HmRensoTaigigoTranslator.ts,
+- HmAbstractTranslator.js, HmGoogleTranslator.js, HmRensoRuigoTranslator.js, HmRensoTaigigoTranslator.js,
+  HmAbstractTranslator.ts, HmGoogleTranslator.ts, HmRensoRuigoTranslator.ts, HmRensoTaigigoTranslator.ts,
   HmV8.d.ts
    Copyright (C) 2017-2019 Akitsugu Komiyama
 
