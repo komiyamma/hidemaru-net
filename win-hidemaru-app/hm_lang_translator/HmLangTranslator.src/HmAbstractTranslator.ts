@@ -1,8 +1,8 @@
 ///<reference path="HmV8.d.ts"/>
 
 /**
- * HmAbstractTranslator v1.02
- * Copyright (C) 2017 Akitsugu Komiyama
+ * HmAbstractTranslator v1.03
+ * Copyright (C) 2017-2019 Akitsugu Komiyama
  * under the MIT License
  */
 

@@ -20,6 +20,7 @@ class GoogleTranslatorQueryStrategy extends AbstractTranslatorQueryStrategy {
         return "GET"; // GETは動作するがPOSTはGoogle側が受け付けなくなった？
     }
     get Url(): string {
+        // Google Apps Script で自分で得たURLを取得
         return "https://script.google.com/macros/s/**********************************************/exec";
     }
     /**

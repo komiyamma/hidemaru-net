@@ -1,7 +1,7 @@
 ///<reference path="HmV8.d.ts"/>
 ///<reference path="HmAbstractTranslator.ts"/>
 /**
- * HmRensoRuigoTranslator v1.02
+ * HmRensoRuigoTranslator v1.03
  * Copyright (C) 2017-2019 Akitsugu Komiyama
  * under the MIT License
  */

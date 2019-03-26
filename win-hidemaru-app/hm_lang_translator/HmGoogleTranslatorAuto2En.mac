@@ -7,7 +7,7 @@
 #_ = dllfuncw( #JS, "DoFile", currentmacrodirectory + @"\HmAbstractTranslator.js");
 #_ = dllfuncw( #JS, "DoFile", currentmacrodirectory + @"\HmGoogleTranslator.js");
 #_ = dllfuncw( #JS, "DoString", R"JS(
-    // Google翻訳を利用して、言語自動判別 ⇒ 英語へ
+    // Google Apps Script 翻訳を利用して、言語自動判別 ⇒ 英語へ
     let result_words = ContextTranslator.Translate(GoogleTranslatorQueryStrategy, { src: "", dst: "en" });
 
 )JS"

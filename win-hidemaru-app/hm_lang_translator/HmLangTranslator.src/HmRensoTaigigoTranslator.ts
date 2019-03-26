@@ -1,8 +1,8 @@
 ///<reference path="HmV8.d.ts"/>
 ///<reference path="HmAbstractTranslator.ts"/>
 /**
- * HmRensoTaigigoTranslator v1.02
- * Copyright (C) 2017 Akitsugu Komiyama
+ * HmRensoTaigigoTranslator v1.03
+ * Copyright (C) 2017-2019 Akitsugu Komiyama
  * under the MIT License
  */
 

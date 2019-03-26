@@ -1,10 +1,13 @@
 ///<reference path="HmV8.d.ts"/>
 ///<reference path="HmAbstractTranslator.ts"/>
 /**
- * HmGoogleTranslator v1.02
+ * HmGoogleTranslator v1.03
  * Copyright (C) 2017-2019 Akitsugu Komiyama
  * under the MIT License
  */
+
+
+
 /**
  * Google用に導出されたクラス
  */
@@ -17,9 +20,10 @@ class GoogleTranslatorQueryStrategy extends AbstractTranslatorQueryStrategy {
         this.QueryParams.Add("target", this.TargetLanguages.dst);
     }
     get Method() {
-        return "GET"; // GETは動作するがPOSTはGoogle側が受け付けなくなった？
+        return "POST"; // 動作を簡単にするためGET
     }
     get Url() {
+        // Google Apps Script で自分で得たURLを取得
         return "https://script.google.com/macros/s/**********************************************/exec";
     }
     /**
