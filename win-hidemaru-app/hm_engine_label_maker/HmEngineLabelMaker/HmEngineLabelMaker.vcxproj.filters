@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="③文字コード変換">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="②秀丸Filterライブラリ">
+      <UniqueIdentifier>{2151a153-ab8f-40bb-a705-20ea5edd7592}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="①自分で編集する">
+      <UniqueIdentifier>{452a15fa-daed-402e-a3c8-f3d275e92dea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="④デバッグ出力">
+      <UniqueIdentifier>{b3da5143-f709-4a57-9508-5b1456633c8e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="convert_string.cpp">
+      <Filter>③文字コード変換</Filter>
+    </ClCompile>
+    <ClCompile Include="hm_filter.cpp">
+      <Filter>②秀丸Filterライブラリ</Filter>
+    </ClCompile>
+    <ClCompile Include="hm_filter_sample.cpp">
+      <Filter>①自分で編集する</Filter>
+    </ClCompile>
+    <ClCompile Include="output_debugstream.cpp">
+      <Filter>④デバッグ出力</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="convert_string.h">
+      <Filter>③文字コード変換</Filter>
+    </ClInclude>
+    <ClInclude Include="hm_filter.h">
+      <Filter>②秀丸Filterライブラリ</Filter>
+    </ClInclude>
+    <ClInclude Include="output_debugstream.h">
+      <Filter>④デバッグ出力</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
