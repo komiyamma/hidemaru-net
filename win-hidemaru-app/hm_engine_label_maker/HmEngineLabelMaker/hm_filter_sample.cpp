@@ -26,7 +26,7 @@ HIDEMARUFILTERINFO* EnumHidemaruFilter() {
 	// ⑤ メニューのショートカットキー
 	//---------------------------------------------------------------------------------------------------
 	static HIDEMARUFILTERINFO aFilterInfo[14] = {
-		{ sizeof(HIDEMARUFILTERINFO), "HmEngineLabelMaker", "エンジンレベル化", "Make Engine Label", 'T', 0, 0, 0 },
+		{ sizeof(HIDEMARUFILTERINFO), "HmEngineLabelMaker", "エンジンラベル化", "Make Engine Label", 'T', 0, 0, 0 },
 		{ 0, NULL, NULL, NULL, NULL, 0, 0, 0 }
 	};
 	return aFilterInfo;
