@@ -65,6 +65,8 @@ try:
     answer = answer.replace("]", "_I")
     answer = answer.replace("…", "")
     answer = answer.replace("__", "_")
+    answer = answer.replace("\"", "I")
+    answer = answer.replace("'", "I")
     hm.Macro.Var["$answer"] = answer
 except:
     hm.Macro.Var["$answer"] = "翻訳エラー"
