@@ -37,36 +37,44 @@ target = hm.Macro.Var["$target"]
 try:
     answer = HmGoogleLangTranslator.TranslateByPost(text, source, target, url)
     answer = answer.lstrip().rstrip().upper()
-    answer = answer.replace(" ", "_")
-    answer = answer.replace("'", "")
-    answer = answer.replace(",", "")
-    answer = answer.replace(".", "")
-    answer = answer.replace(":", "_I_")
-    answer = answer.replace("-", "I")
-    answer = answer.replace("+", "P")
-    answer = answer.replace("/", "_")
-    answer = answer.replace("〇", "O")
-    answer = answer.replace("×", "X")
-    answer = answer.replace("□", "S")
-    answer = answer.replace("△", "T")
-    answer = answer.replace(".", "")
-    answer = answer.replace("!", "EX")
-    answer = answer.replace("【", "I_")
-    answer = answer.replace("】", "_I")
-    answer = answer.replace("（", "I_")
-    answer = answer.replace("）", "_I")
-    answer = answer.replace("(", "I_")
-    answer = answer.replace(")", "_I")
-    answer = answer.replace("<", "I_")
-    answer = answer.replace(">", "_I")
-    answer = answer.replace("＜", "I_")
-    answer = answer.replace("＞", "_I")
-    answer = answer.replace("[", "I_")
-    answer = answer.replace("]", "_I")
-    answer = answer.replace("…", "")
-    answer = answer.replace("__", "_")
-    answer = answer.replace("\"", "I")
-    answer = answer.replace("'", "I")
+    modify_pair_list = [
+        [ " ", "_" ],
+        [ ",", "" ],
+        [ ".", "" ],
+        [ ":", "_I_" ],
+        [ "-", "I" ],
+        [ "+", "P" ],
+        [ "*", "M" ],
+        [ "/", "_" ],
+        [ "〇", "O" ],
+        [ "×", "X" ],
+        [ "□", "S" ],
+        [ "△", "T" ],
+        [ ".", "" ],
+        [ "!", "EX" ],
+        [ "【", "I_" ],
+        [ "】", "_I" ],
+        [ "（", "I_" ],
+        [ "）", "_I" ],
+        [ "(", "I_" ],
+        [ ")", "_I" ],
+        [ "<", "I_" ],
+        [ ">", "_I" ],
+        [ "＜", "I_" ],
+        [ "＞", "_I" ],
+        [ "[", "I_" ],
+        [ "]", "_I" ],
+        [ "…", "" ],
+        [ "@", "AT" ],
+        [ "＠", "AT" ],
+        [ "\"", "I" ],
+        [ "'", "I" ],
+        [ "__", "_" ]
+    ]
+
+    for mod in modify_pair_list:
+        answer = answer.replace(mod[0], mod[1])
+
     hm.Macro.Var["$answer"] = answer
 except:
     hm.Macro.Var["$answer"] = "翻訳エラー"
