@@ -7,3 +7,5 @@ C:\usr\web\hidemaru-net\win-hidemaru-app\hm_file_goto\HmFileGoTo.src\HmFileGoTo\
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_file_goto\HmFileGoTo.src\HmFileGoTo\bin\Release\HmFileGoTo.exe
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_file_goto\HmFileGoTo.src\HmFileGoTo\obj\Release\HmFileGoTo.csprojAssemblyReference.cache
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_file_goto\HmFileGoTo.src\HmFileGoTo\obj\Release\HmFileGoTo.csproj.CoreCompileInputs.cache
+D:\hidemaru-net\win-hidemaru-app\hm_file_goto\HmFileGoTo.src\HmFileGoTo\bin\Release\HmFileGoTo.exe.config
+D:\hidemaru-net\win-hidemaru-app\hm_file_goto\HmFileGoTo.src\HmFileGoTo\obj\Release\HmFileGoTo.exe

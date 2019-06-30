@@ -3,7 +3,8 @@
  * under the Apache License Version 2.0
  */
 
- using CefSharp;
+using CefSharp;
+using CefSharp.WinForms;
 using Hidemaru;
 using System;
 using System.Drawing;
@@ -99,7 +100,7 @@ internal partial class HmChromeBrowserModeForm : Form
             {
                 if (!Cef.IsInitialized)
                 {
-                    var settings = new CefSharp.CefSettings();
+                    var settings = new CefSharp.WinForms.CefSettings();
 
                     // By default CEF uses an in memory cache, to save cached data e.g. passwords you need to specify a cache path
                     // NOTE: The executing user must have sufficient privileges to write to this folder.
