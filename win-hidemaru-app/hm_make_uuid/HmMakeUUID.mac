@@ -1,0 +1,22 @@
+﻿/*
+ * This codes is licensed under CC0 1.0 Universal
+ */
+
+#DLL = loaddll(hidemarudir + @"\hmPython3.dll");
+
+#_ = dllfuncw(#DLL, "DoString", R"PY3(
+from hmPython import hm
+import uuid
+
+hm.Macro.Var["$UUID"] = str(uuid.uuid1())
+)PY3"
+);
+
+freedll( #DLL );
+
+#OP = loaddll("HmOutputPane.dll");
+#ret = dllfunc(#OP, "Output", hidemaruhandle(0), $UUID);
+freedll(#OP);
+
+
+
