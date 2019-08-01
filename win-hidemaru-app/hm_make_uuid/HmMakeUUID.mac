@@ -15,7 +15,7 @@ hm.Macro.Var["$UUID"] = str(uuid.uuid1())
 freedll( #DLL );
 
 #OP = loaddll("HmOutputPane.dll");
-#ret = dllfunc(#OP, "Output", hidemaruhandle(0), $UUID);
+#ret = dllfunc(#OP, "Output", hidemaruhandle(0), $UUID + "\r\n");
 freedll(#OP);
 
 
