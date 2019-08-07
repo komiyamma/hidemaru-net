@@ -19,3 +19,10 @@ C:\usr\web\hidemaru-net\win-hidemaru-app\hm_powershell\hmPS.src\hmPSStaticLib\bi
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_powershell\hmPS.src\hmPSStaticLib\obj\Release\hmPSStaticLib.netmodule
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_powershell\hmPS.src\hmPSStaticLib\bin\Release\System.Management.Automation.dll
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_powershell\hmPS.src\hmPSStaticLib\obj\Release\hmPSStaticLib.csprojResolveAssemblyReference.cache
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_powershell\hmPS.src\hmPSStaticLib\bin\Release\hmPSStaticLib.netmodule.config
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_powershell\hmPS.src\hmPSStaticLib\bin\Release\hmPSStaticLib.netmodule
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_powershell\hmPS.src\hmPSStaticLib\bin\Release\System.Management.Automation.dll
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_powershell\hmPS.src\hmPSStaticLib\obj\Release\hmPSStaticLib.csprojAssemblyReference.cache
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_powershell\hmPS.src\hmPSStaticLib\obj\Release\hmPSStaticLib.csproj.CoreCompileInputs.cache
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_powershell\hmPS.src\hmPSStaticLib\obj\Release\hmPSStaticLib.csproj.CopyComplete
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_powershell\hmPS.src\hmPSStaticLib\obj\Release\hmPSStaticLib.netmodule
