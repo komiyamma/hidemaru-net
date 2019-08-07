@@ -58,57 +58,6 @@ Class hmLmDynamicLib: AutoLayout, AnsiClass, Class, Public, Sealed
     DoString(String, String(Optional, HasDefault)): PrivateScope, Public, Static, HideBySig
     DoFile(String): PrivateScope, Public, Static, HideBySig
     DestroyScope(): PrivateScope, Public, Static, HideBySig
-Class hmLmDynamicLib+DllPathResolver: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
-    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
-Class hmLmDynamicLib+Hidemaru: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
-    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
-  Properties:
-    Double version 'get ' : 
-  Methods:
-    debuginfo(Object): PrivateScope, Public, Static, HideBySig
-    get_version(): PrivateScope, Public, Static, HideBySig, SpecialName
-Class hmLmDynamicLib+Hidemaru+Edit: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
-    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
-  Properties:
-    Neo.IronLua.LuaTable CursorPos 'get ' : 
-    Neo.IronLua.LuaTable MousePos 'get ' : 
-    System.String TotalText 'get set' : 
-    System.String SelectedText 'get set' : 
-    System.String LineText 'get set' : 
-  Methods:
-    get_CursorPos(): PrivateScope, Public, Static, HideBySig, SpecialName
-    get_MousePos(): PrivateScope, Public, Static, HideBySig, SpecialName
-    get_TotalText(): PrivateScope, Public, Static, HideBySig, SpecialName
-    set_TotalText(String): PrivateScope, Public, Static, HideBySig, SpecialName
-    GetTotalText(): PrivateScope, Public, Static, HideBySig
-    get_SelectedText(): PrivateScope, Public, Static, HideBySig, SpecialName
-    set_SelectedText(String): PrivateScope, Public, Static, HideBySig, SpecialName
-    GetSelectedText(): PrivateScope, Public, Static, HideBySig
-    get_LineText(): PrivateScope, Public, Static, HideBySig, SpecialName
-    set_LineText(String): PrivateScope, Public, Static, HideBySig, SpecialName
-    GetLineText(): PrivateScope, Public, Static, HideBySig
-Class hmLmDynamicLib+Hidemaru+Macro: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
-    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
-  Fields:
-    TMacroVar Var : Public, Static
-  Methods:
-    Eval(String): PrivateScope, Public, Static, HideBySig
-Interface hmLmDynamicLib+Hidemaru+Macro+IResult: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
-  Properties:
-    Int32 Result 'get ' : 
-    System.String Message 'get ' : 
-    System.Exception Error 'get ' : 
-  Methods:
-    get_Result(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
-    get_Message(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
-    get_Error(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
-Class hmLmDynamicLib+Hidemaru+Macro+TMacroVar: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
-    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
-  Properties:
-    System.Object Item [System.String] 'get set' : 
-  Methods:
-    get_Item(String): PrivateScope, Public, HideBySig, SpecialName
-    set_Item(String, Object): PrivateScope, Public, HideBySig, SpecialName
 Class Neo.IronLua.LuaException: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
   :System.Exception
   Properties:
@@ -415,22 +364,6 @@ Class Neo.IronLua.LuaStackTraceDebugger: AutoLayout, AnsiClass, Class, Public, S
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Interfaces:
     Neo.IronLua.ILuaDebug
-Class Neo.IronLua.LuaChunk: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
-  Properties:
-    Neo.IronLua.Lua Lua 'get ' : 
-    System.String ChunkName 'get ' : 
-    Boolean IsCompiled 'get ' : 
-    Boolean HasDebugInfo 'get ' : 
-    System.Reflection.MethodInfo Method 'get ' : 
-    Int32 Size 'get ' : 
-  Methods:
-    Run(LuaTable, Object[]): PrivateScope, Public, HideBySig
-    get_Lua(): PrivateScope, Public, HideBySig, SpecialName
-    get_ChunkName(): PrivateScope, Public, HideBySig, SpecialName
-    get_IsCompiled(): PrivateScope, Public, HideBySig, SpecialName
-    get_HasDebugInfo(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, SpecialName
-    get_Method(): PrivateScope, Public, HideBySig, SpecialName
-    get_Size(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, SpecialName
 Class Neo.IronLua.LuaResult: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
     Void .ctor(System.Object): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
@@ -438,8 +371,8 @@ Class Neo.IronLua.LuaResult: AutoLayout, AnsiClass, Class, Public, Sealed, Befor
   Interfaces:
     System.Dynamic.IDynamicMetaObjectProvider
     System.IConvertible
-    System.Collections.ICollection
     System.Collections.IEnumerable
+    System.Collections.ICollection
   Properties:
     System.Object Item [Int32] 'get ' : 
     System.Object[] Values 'get ' : 
@@ -609,6 +542,49 @@ Class Neo.IronLua.LuaFile: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
     get_TextReader(): PrivateScope, Public, HideBySig, SpecialName
     get_TextWriter(): PrivateScope, Public, HideBySig, SpecialName
     get_Length(): PrivateScope, Public, HideBySig, SpecialName
+Class Neo.IronLua.LuaGlobal: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Neo.IronLua.LuaTable
+    Void .ctor(Neo.IronLua.Lua): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String VersionString = NeoLua 5.3 : Public, Static, Literal, HasDefault
+  Properties:
+    System.String Version 'get ' : 
+    System.Object LuaLibraryIO 'get ' : 
+    System.Object LuaPackage 'get ' : 
+    Neo.IronLua.Lua Lua 'get ' : 
+  Methods:
+    RegisterPackage(String, Type): PrivateScope, Public, HideBySig
+    DoChunk(String, KeyValuePair`2[]): PrivateScope, Public, HideBySig
+    DoChunk(TextReader, String, KeyValuePair`2[]): PrivateScope, Public, HideBySig
+    DoChunk(String, String, KeyValuePair`2[]): PrivateScope, Public, HideBySig
+    DoChunk(LuaChunk, Object[]): PrivateScope, Public, HideBySig
+    get_Version(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_LuaLibraryIO(): PrivateScope, Public, HideBySig, SpecialName
+    get_LuaPackage(): PrivateScope, Public, HideBySig, SpecialName
+    get_Lua(): PrivateScope, Public, HideBySig, SpecialName
+Class Neo.IronLua.LuaMemberAttribute: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Attribute
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String Name 'get ' : 
+  Methods:
+    get_Name(): PrivateScope, Public, HideBySig, SpecialName
+Class Neo.IronLua.LuaChunk: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Properties:
+    Neo.IronLua.Lua Lua 'get ' : 
+    System.String ChunkName 'get ' : 
+    Boolean IsCompiled 'get ' : 
+    Boolean HasDebugInfo 'get ' : 
+    System.Reflection.MethodInfo Method 'get ' : 
+    Int32 Size 'get ' : 
+  Methods:
+    Run(LuaTable, Object[]): PrivateScope, Public, HideBySig
+    get_Lua(): PrivateScope, Public, HideBySig, SpecialName
+    get_ChunkName(): PrivateScope, Public, HideBySig, SpecialName
+    get_IsCompiled(): PrivateScope, Public, HideBySig, SpecialName
+    get_HasDebugInfo(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_Method(): PrivateScope, Public, HideBySig, SpecialName
+    get_Size(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, SpecialName
 Class Neo.IronLua.LuaTable: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Interfaces:
@@ -721,6 +697,15 @@ Class Neo.IronLua.LuaTable: AutoLayout, AnsiClass, Class, Public, BeforeFieldIni
     CallMember(String, Object[]): PrivateScope, Public, HideBySig
     CallMemberDirect(String, Object[], Boolean(Optional, HasDefault), Boolean(Optional, HasDefault), Boolean(Optional, HasDefault)): PrivateScope, Public, HideBySig
     SetObjectMember(Object): PrivateScope, Public, HideBySig
+Class hmLmDynamicLib+DllPathResolver: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class hmLmDynamicLib+Hidemaru: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Double version 'get ' : 
+  Methods:
+    debuginfo(Object): PrivateScope, Public, Static, HideBySig
+    get_version(): PrivateScope, Public, Static, HideBySig, SpecialName
 Class Neo.IronLua.LuaTable+LuaTableStringKeyCollection: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
   Interfaces:
     System.Collections.Generic.ICollection`1[System.String]
@@ -777,30 +762,45 @@ Class Neo.IronLua.LuaTable+LuaTableHashValueCollection: AutoLayout, AnsiClass, C
     GetEnumerator(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
     get_Count(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
     get_IsReadOnly(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
-Class Neo.IronLua.LuaGlobal: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
-  :Neo.IronLua.LuaTable
-    Void .ctor(Neo.IronLua.Lua): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class hmLmDynamicLib+Hidemaru+Edit: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Neo.IronLua.LuaTable CursorPos 'get ' : 
+    Neo.IronLua.LuaTable MousePos 'get ' : 
+    System.String TotalText 'get set' : 
+    System.String SelectedText 'get set' : 
+    System.String LineText 'get set' : 
+  Methods:
+    get_CursorPos(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_MousePos(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_TotalText(): PrivateScope, Public, Static, HideBySig, SpecialName
+    set_TotalText(String): PrivateScope, Public, Static, HideBySig, SpecialName
+    GetTotalText(): PrivateScope, Public, Static, HideBySig
+    get_SelectedText(): PrivateScope, Public, Static, HideBySig, SpecialName
+    set_SelectedText(String): PrivateScope, Public, Static, HideBySig, SpecialName
+    GetSelectedText(): PrivateScope, Public, Static, HideBySig
+    get_LineText(): PrivateScope, Public, Static, HideBySig, SpecialName
+    set_LineText(String): PrivateScope, Public, Static, HideBySig, SpecialName
+    GetLineText(): PrivateScope, Public, Static, HideBySig
+Class hmLmDynamicLib+Hidemaru+Macro: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Fields:
-    System.String VersionString = NeoLua 5.3 : Public, Static, Literal, HasDefault
-  Properties:
-    System.String Version 'get ' : 
-    System.Object LuaLibraryIO 'get ' : 
-    System.Object LuaPackage 'get ' : 
-    Neo.IronLua.Lua Lua 'get ' : 
+    TMacroVar Var : Public, Static
   Methods:
-    RegisterPackage(String, Type): PrivateScope, Public, HideBySig
-    DoChunk(String, KeyValuePair`2[]): PrivateScope, Public, HideBySig
-    DoChunk(TextReader, String, KeyValuePair`2[]): PrivateScope, Public, HideBySig
-    DoChunk(String, String, KeyValuePair`2[]): PrivateScope, Public, HideBySig
-    DoChunk(LuaChunk, Object[]): PrivateScope, Public, HideBySig
-    get_Version(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, SpecialName
-    get_LuaLibraryIO(): PrivateScope, Public, HideBySig, SpecialName
-    get_LuaPackage(): PrivateScope, Public, HideBySig, SpecialName
-    get_Lua(): PrivateScope, Public, HideBySig, SpecialName
-Class Neo.IronLua.LuaMemberAttribute: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
-  :System.Attribute
-    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Eval(String): PrivateScope, Public, Static, HideBySig
+Interface hmLmDynamicLib+Hidemaru+Macro+IResult: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
   Properties:
-    System.String Name 'get ' : 
+    Int32 Result 'get ' : 
+    System.String Message 'get ' : 
+    System.Exception Error 'get ' : 
   Methods:
-    get_Name(): PrivateScope, Public, HideBySig, SpecialName
+    get_Result(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Message(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Error(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Class hmLmDynamicLib+Hidemaru+Macro+TMacroVar: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.Object Item [System.String] 'get set' : 
+  Methods:
+    get_Item(String): PrivateScope, Public, HideBySig, SpecialName
+    set_Item(String, Object): PrivateScope, Public, HideBySig, SpecialName
