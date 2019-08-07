@@ -6,3 +6,8 @@ C:\usr\web\hidemaru-net\win-hidemaru-app\hm_ironruby\hmRB.src\hmRbStaticLib\bin\
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_ironruby\hmRB.src\hmRbStaticLib\bin\Release\IronRuby.Libraries.dll
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_ironruby\hmRB.src\hmRbStaticLib\obj\Release\hmRbStaticLib.netmodule
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_ironruby\hmRB.src\hmRbStaticLib\obj\Release\hmRbStaticLib.csprojResolveAssemblyReference.cache
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_ironruby\hmRB.src\hmRbStaticLib\bin\Release\hmRbStaticLib.netmodule
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_ironruby\hmRB.src\hmRbStaticLib\bin\Release\IronRuby.Libraries.dll
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_ironruby\hmRB.src\hmRbStaticLib\obj\Release\hmRbStaticLib.csproj.CoreCompileInputs.cache
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_ironruby\hmRB.src\hmRbStaticLib\obj\Release\hmRbStaticLib.csproj.CopyComplete
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_ironruby\hmRB.src\hmRbStaticLib\obj\Release\hmRbStaticLib.netmodule
