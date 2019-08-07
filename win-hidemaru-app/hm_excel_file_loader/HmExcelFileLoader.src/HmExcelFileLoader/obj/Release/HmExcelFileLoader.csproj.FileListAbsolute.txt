@@ -10,3 +10,9 @@ C:\usr\web\hidemaru-net\win-hidemaru-app\hm_excel_file_loader\HmExcelFileLoader.
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_excel_file_loader\HmExcelFileLoader.src\HmExcelFileLoader\bin\Release\NPOI.dll
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_excel_file_loader\HmExcelFileLoader.src\HmExcelFileLoader\obj\Release\HmExcelFileLoader.dll
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_excel_file_loader\HmExcelFileLoader.src\HmExcelFileLoader\obj\Release\HmExcelFileLoader.csprojResolveAssemblyReference.cache
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_excel_file_loader\HmExcelFileLoader.src\HmExcelFileLoader\bin\Release\HmExcelFileLoader.dll
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_excel_file_loader\HmExcelFileLoader.src\HmExcelFileLoader\bin\Release\NPOI.dll
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_excel_file_loader\HmExcelFileLoader.src\HmExcelFileLoader\obj\Release\HmExcelFileLoader.csprojAssemblyReference.cache
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_excel_file_loader\HmExcelFileLoader.src\HmExcelFileLoader\obj\Release\HmExcelFileLoader.csproj.CoreCompileInputs.cache
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_excel_file_loader\HmExcelFileLoader.src\HmExcelFileLoader\obj\Release\HmExcelFileLoader.csproj.CopyComplete
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_excel_file_loader\HmExcelFileLoader.src\HmExcelFileLoader\obj\Release\HmExcelFileLoader.dll
