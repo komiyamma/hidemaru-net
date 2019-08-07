@@ -18,3 +18,13 @@ C:\usr\web\hidemaru-net\win-hidemaru-app\hm_edgejs\hmEdgeJS.src\hmEdgeJSStaticLi
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_edgejs\hmEdgeJS.src\hmEdgeJSStaticLib\bin\Release\EdgeJs.dll
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_edgejs\hmEdgeJS.src\hmEdgeJSStaticLib\obj\Release\hmEdgeJSStaticLib.netmodule
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_edgejs\hmEdgeJS.src\hmEdgeJSStaticLib\obj\Release\hmEdgeJSStaticLib.csprojResolveAssemblyReference.cache
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_edgejs\hmEdgeJS.src\hmEdgeJSStaticLib\bin\Release\edge\double_edge.js
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_edgejs\hmEdgeJS.src\hmEdgeJSStaticLib\bin\Release\edge\edge.js
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_edgejs\hmEdgeJS.src\hmEdgeJSStaticLib\bin\Release\edge\x64\node.dll
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_edgejs\hmEdgeJS.src\hmEdgeJSStaticLib\bin\Release\edge\x86\node.dll
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_edgejs\hmEdgeJS.src\hmEdgeJSStaticLib\bin\Release\edge\x64\edge_nativeclr.node
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_edgejs\hmEdgeJS.src\hmEdgeJSStaticLib\bin\Release\edge\x86\edge_nativeclr.node
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_edgejs\hmEdgeJS.src\hmEdgeJSStaticLib\bin\Release\hmEdgeJSStaticLib.netmodule
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_edgejs\hmEdgeJS.src\hmEdgeJSStaticLib\bin\Release\EdgeJs.dll
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_edgejs\hmEdgeJS.src\hmEdgeJSStaticLib\obj\Release\hmEdgeJSStaticLib.netmodule
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_edgejs\hmEdgeJS.src\hmEdgeJSStaticLib\bin\Release\hmEdgeJSStaticLib.netmodule.config
