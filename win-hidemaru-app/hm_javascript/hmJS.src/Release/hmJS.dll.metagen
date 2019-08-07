@@ -35,62 +35,6 @@ Class IJSStaticLib: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
     DoString(String): PrivateScope, Public, Static, HideBySig
     DoFile(String): PrivateScope, Public, Static, HideBySig
     DestroyScope(): PrivateScope, Public, Static, HideBySig
-Interface Microsoft.ClearScript.IPropertyBag: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
-  Interfaces:
-    System.Collections.Generic.IDictionary`2[System.String,System.Object]
-    System.Collections.Generic.ICollection`1[System.Collections.Generic.KeyValuePair`2[System.String,System.Object]]
-    System.Collections.Generic.IEnumerable`1[System.Collections.Generic.KeyValuePair`2[System.String,System.Object]]
-    System.Collections.IEnumerable
-Interface Microsoft.ClearScript.IScriptableObject: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
-  Methods:
-    OnExposedToScriptCode(ScriptEngine): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
-Class Microsoft.ClearScript.PropertyBag: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
-    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
-    Void .ctor(Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
-  Interfaces:
-    Microsoft.ClearScript.IPropertyBag
-    System.Collections.Generic.IDictionary`2[System.String,System.Object]
-    System.Collections.Generic.ICollection`1[System.Collections.Generic.KeyValuePair`2[System.String,System.Object]]
-    System.Collections.Generic.IEnumerable`1[System.Collections.Generic.KeyValuePair`2[System.String,System.Object]]
-    System.Collections.IEnumerable
-    System.ComponentModel.INotifyPropertyChanged
-    Microsoft.ClearScript.IScriptableObject
-  Properties:
-    System.Object Item [System.String] 'get set' : 
-    System.Collections.Generic.ICollection`1[System.String] Keys 'get ' : 
-    System.Collections.Generic.ICollection`1[System.Object] Values 'get ' : 
-  Events:
-    System.ComponentModel.PropertyChangedEventHandler PropertyChanged: 
-  Methods:
-    SetPropertyNoCheck(String, Object): PrivateScope, Public, HideBySig
-    RemovePropertyNoCheck(String): PrivateScope, Public, HideBySig
-    ClearNoCheck(): PrivateScope, Public, HideBySig
-    ContainsKey(String): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
-    Add(String, Object): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
-    Remove(String): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
-    TryGetValue(String, Object&(Out)): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
-    get_Item(String): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
-    set_Item(String, Object): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
-    get_Keys(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
-    get_Values(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
-    add_PropertyChanged(PropertyChangedEventHandler): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
-    remove_PropertyChanged(PropertyChangedEventHandler): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
-Class Microsoft.ClearScript.HostTypeCollection: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
-  :Microsoft.ClearScript.PropertyBag
-    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
-    Void .ctor(System.Reflection.Assembly[]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
-    Void .ctor(System.String[]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
-    Void .ctor(System.Predicate`1[System.Type], System.Reflection.Assembly[]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
-    Void .ctor(System.Predicate`1[System.Type], System.String[]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
-  Methods:
-    AddAssembly(String): PrivateScope, Public, HideBySig
-    AddAssembly(Assembly): PrivateScope, Public, HideBySig
-    AddAssembly(Assembly, Predicate`1): PrivateScope, Public, HideBySig
-    AddAssembly(String, Predicate`1): PrivateScope, Public, HideBySig
-    AddType(Type): PrivateScope, Public, HideBySig
-    AddType(String, Type[]): PrivateScope, Public, HideBySig
-    AddType(String, String, Type[]): PrivateScope, Public, HideBySig
-    GetNamespaceNode(String): PrivateScope, Public, HideBySig
 Class hmJSDynamicLib: AutoLayout, AnsiClass, Class, Public, Sealed
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Fields:
@@ -120,87 +64,22 @@ Class hmJSDynamicLib: AutoLayout, AnsiClass, Class, Public, Sealed
     DoString(String, String(Optional, HasDefault)): PrivateScope, Public, Static, HideBySig
     DoFile(String): PrivateScope, Public, Static, HideBySig
     DestroyScope(): PrivateScope, Public, Static, HideBySig
-Class hmJSDynamicLib+hmJSConsole: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+Class Microsoft.ClearScript.HostTypeCollection: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.ClearScript.PropertyBag
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Reflection.Assembly[]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String[]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Predicate`1[System.Type], System.Reflection.Assembly[]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.Predicate`1[System.Type], System.String[]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Methods:
-    log(Object[]): PrivateScope, Public, Static, HideBySig
-    dir(Object[]): PrivateScope, Public, Static, HideBySig
-    debug(Object[]): PrivateScope, Public, Static, HideBySig
-    error(Object[]): PrivateScope, Public, Static, HideBySig
-    clear(Object[]): PrivateScope, Public, Static, HideBySig
-    info(Object[]): PrivateScope, Public, Static, HideBySig
-    trace(Object[]): PrivateScope, Public, Static, HideBySig
-    warn(Object[]): PrivateScope, Public, Static, HideBySig
-    assert(): PrivateScope, Public, Static, HideBySig
-    assert(Object, Object[]): PrivateScope, Public, Static, HideBySig
-Class hmJSDynamicLib+DllPathResolver: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
-    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
-Class hmJSDynamicLib+Hidemaru: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
-    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
-  Properties:
-    Double version 'get ' : 
-  Methods:
-    debuginfo(Object[]): PrivateScope, Public, Static, HideBySig
-    get_version(): PrivateScope, Public, Static, HideBySig, SpecialName
-Class hmJSDynamicLib+Hidemaru+ErrorMsg: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
-    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
-  Fields:
-    System.String NoDllBindHandle866 : Public, Static, InitOnly
-    System.String MethodNeed866 = このメソッドは秀丸エディタ v8.66 正式版以降で利用可能です。 : Public, Static, Literal, HasDefault
-    System.String MethodNeed873 = このメソッドは秀丸エディタ v8.73 正式版以降で利用可能です。 : Public, Static, Literal, HasDefault
-Class hmJSDynamicLib+Hidemaru+Edit: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
-    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
-  Properties:
-    HmCursurPos CursorPos 'get ' : 
-    HmMousePos MousePos 'get ' : 
-    System.String TotalText 'get set' : 
-    System.String SelectedText 'get set' : 
-    System.String LineText 'get set' : 
-  Methods:
-    get_CursorPos(): PrivateScope, Public, Static, HideBySig, SpecialName
-    get_MousePos(): PrivateScope, Public, Static, HideBySig, SpecialName
-    get_TotalText(): PrivateScope, Public, Static, HideBySig, SpecialName
-    set_TotalText(String): PrivateScope, Public, Static, HideBySig, SpecialName
-    get_SelectedText(): PrivateScope, Public, Static, HideBySig, SpecialName
-    set_SelectedText(String): PrivateScope, Public, Static, HideBySig, SpecialName
-    get_LineText(): PrivateScope, Public, Static, HideBySig, SpecialName
-    set_LineText(String): PrivateScope, Public, Static, HideBySig, SpecialName
-Struct hmJSDynamicLib+Hidemaru+Edit+HmCursurPos: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
-  :System.ValueType
-    Void .ctor(Int32, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
-  Properties:
-    Int32 column 'get ' : 
-    Int32 lineno 'get ' : 
-  Methods:
-    get_column(): PrivateScope, Public, HideBySig, SpecialName
-    get_lineno(): PrivateScope, Public, HideBySig, SpecialName
-Struct hmJSDynamicLib+Hidemaru+Edit+HmMousePos: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
-  :System.ValueType
-    Void .ctor(Int32, Int32, Int32, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
-  Properties:
-    Int32 x    'get ' : 
-    Int32 y    'get ' : 
-    Int32 column 'get ' : 
-    Int32 lineno 'get ' : 
-  Methods:
-    get_x(): PrivateScope, Public, HideBySig, SpecialName
-    get_y(): PrivateScope, Public, HideBySig, SpecialName
-    get_column(): PrivateScope, Public, HideBySig, SpecialName
-    get_lineno(): PrivateScope, Public, HideBySig, SpecialName
-Class hmJSDynamicLib+Hidemaru+Macro: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
-    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
-  Methods:
-    Eval(Object): PrivateScope, Public, Static, HideBySig
-    Var(String, Object(Optional, HasDefault)): PrivateScope, Public, Static, HideBySig
-Interface hmJSDynamicLib+Hidemaru+Macro+IResult: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
-  Properties:
-    Int32 Result 'get ' : 
-    System.String Message 'get ' : 
-    System.Exception Error 'get ' : 
-  Methods:
-    get_Result(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
-    get_Message(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
-    get_Error(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    AddAssembly(String): PrivateScope, Public, HideBySig
+    AddAssembly(Assembly): PrivateScope, Public, HideBySig
+    AddAssembly(Assembly, Predicate`1): PrivateScope, Public, HideBySig
+    AddAssembly(String, Predicate`1): PrivateScope, Public, HideBySig
+    AddType(Type): PrivateScope, Public, HideBySig
+    AddType(String, Type[]): PrivateScope, Public, HideBySig
+    AddType(String, String, Type[]): PrivateScope, Public, HideBySig
+    GetNamespaceNode(String): PrivateScope, Public, HideBySig
 Class Microsoft.ClearScript.ContinuationCallback: AutoLayout, AnsiClass, Class, Public, Sealed
   :System.MulticastDelegate
     Void .ctor(System.Object, IntPtr): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
@@ -220,6 +99,9 @@ Struct Microsoft.ClearScript.HostItemFlags: AutoLayout, AnsiClass, Class, Public
     Microsoft.ClearScript.HostItemFlags PrivateAccess = 2 : Public, Static, Literal, HasDefault
     Microsoft.ClearScript.HostItemFlags HideDynamicMembers = 4 : Public, Static, Literal, HasDefault
     Microsoft.ClearScript.HostItemFlags DirectAccess = 8 : Public, Static, Literal, HasDefault
+Interface Microsoft.ClearScript.IScriptableObject: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Methods:
+    OnExposedToScriptCode(ScriptEngine): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
 Interface Microsoft.ClearScript.IScriptEngineException: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
   Properties:
     System.String Message 'get ' : 
@@ -245,56 +127,9 @@ Class Microsoft.ClearScript.DefaultScriptUsageAttribute: AutoLayout, AnsiClass, 
     Microsoft.ClearScript.ScriptAccess Access 'get ' : 
   Methods:
     get_Access(): PrivateScope, Public, HideBySig, SpecialName
-Interface Microsoft.ClearScript.JavaScript.IArrayBuffer: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
-  Properties:
-    UInt64 Size 'get ' : 
-  Methods:
-    get_Size(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
-    GetBytes(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
-    ReadBytes(UInt64, UInt64, Byte[], UInt64): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
-    WriteBytes(Byte[], UInt64, UInt64, UInt64): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
-Interface Microsoft.ClearScript.JavaScript.IArrayBufferView: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
-  Properties:
-    Microsoft.ClearScript.JavaScript.IArrayBuffer ArrayBuffer 'get ' : 
-    UInt64 Offset 'get ' : 
-    UInt64 Size 'get ' : 
-  Methods:
-    get_ArrayBuffer(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
-    get_Offset(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
-    get_Size(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
-    GetBytes(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
-    ReadBytes(UInt64, UInt64, Byte[], UInt64): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
-    WriteBytes(Byte[], UInt64, UInt64, UInt64): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
-Interface Microsoft.ClearScript.JavaScript.IDataView: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
-  Interfaces:
-    Microsoft.ClearScript.JavaScript.IArrayBufferView
-Interface Microsoft.ClearScript.JavaScript.ITypedArray: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
-  Interfaces:
-    Microsoft.ClearScript.JavaScript.IArrayBufferView
-  Properties:
-    UInt64 Length 'get ' : 
-  Methods:
-    get_Length(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
-Interface Microsoft.ClearScript.JavaScript.ITypedArray`1[T]: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
-  Type parameter: T
-  Interfaces:
-    Microsoft.ClearScript.JavaScript.ITypedArray
-    Microsoft.ClearScript.JavaScript.IArrayBufferView
-  Methods:
-    ToArray(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
-    Read(UInt64, UInt64, T[], UInt64): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
-    Write(T[], UInt64, UInt64, UInt64): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
 Class Microsoft.ClearScript.NoDefaultScriptAccessAttribute: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
   :Microsoft.ClearScript.DefaultScriptUsageAttribute
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
-Class Microsoft.ClearScript.ScriptUsageAttribute: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
-  :System.Attribute
-    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
-    Void .ctor(Microsoft.ClearScript.ScriptAccess): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
-  Properties:
-    Microsoft.ClearScript.ScriptAccess Access 'get ' : 
-  Methods:
-    get_Access(): PrivateScope, Public, HideBySig, SpecialName
 Class Microsoft.ClearScript.NoScriptAccessAttribute: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
   :Microsoft.ClearScript.ScriptUsageAttribute
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
@@ -366,25 +201,14 @@ Class Microsoft.ClearScript.ScriptMemberAttribute: AutoLayout, AnsiClass, Class,
     set_Name(String): PrivateScope, Public, HideBySig, SpecialName
     get_Flags(): PrivateScope, Public, HideBySig, SpecialName
     set_Flags(ScriptMemberFlags): PrivateScope, Public, HideBySig, SpecialName
-Interface Microsoft.ClearScript.Windows.IHostWindow: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+Class Microsoft.ClearScript.ScriptUsageAttribute: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Attribute
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Microsoft.ClearScript.ScriptAccess): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Properties:
-    IntPtr OwnerHandle 'get ' : 
+    Microsoft.ClearScript.ScriptAccess Access 'get ' : 
   Methods:
-    get_OwnerHandle(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
-    EnableModeless(Boolean): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
-Struct Microsoft.ClearScript.Windows.WindowsScriptEngineFlags: AutoLayout, AnsiClass, Class, Public, Sealed
-  :System.Enum
-  Fields:
-    Int32 value__ : Public, SpecialName, RTSpecialName
-    Microsoft.ClearScript.Windows.WindowsScriptEngineFlags None = 0 : Public, Static, Literal, HasDefault
-    Microsoft.ClearScript.Windows.WindowsScriptEngineFlags EnableDebugging = 1 : Public, Static, Literal, HasDefault
-    Microsoft.ClearScript.Windows.WindowsScriptEngineFlags EnableJITDebugging = 2 : Public, Static, Literal, HasDefault
-    Microsoft.ClearScript.Windows.WindowsScriptEngineFlags DisableSourceManagement = 4 : Public, Static, Literal, HasDefault
-    Microsoft.ClearScript.Windows.WindowsScriptEngineFlags EnableStandardsMode = 8 : Public, Static, Literal, HasDefault
-    Microsoft.ClearScript.Windows.WindowsScriptEngineFlags MarshalNullAsDispatch = 16 : Public, Static, Literal, HasDefault
-    Microsoft.ClearScript.Windows.WindowsScriptEngineFlags MarshalDecimalAsCurrency = 32 : Public, Static, Literal, HasDefault
-    Microsoft.ClearScript.Windows.WindowsScriptEngineFlags MarshalArraysByValue = 64 : Public, Static, Literal, HasDefault
-    Microsoft.ClearScript.Windows.WindowsScriptEngineFlags DoNotEnableVTablePatching = 128 : Public, Static, Literal, HasDefault
+    get_Access(): PrivateScope, Public, HideBySig, SpecialName
 Class Microsoft.ClearScript.ScriptEngine: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
   Interfaces:
     System.IDisposable
@@ -536,6 +360,77 @@ Class Microsoft.ClearScript.EventConnection`1[T]: AutoLayout, AnsiClass, Class, 
   Type parameter: T
   Methods:
     disconnect(): PrivateScope, Public, HideBySig
+Interface Microsoft.ClearScript.IPropertyBag: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    System.Collections.Generic.IDictionary`2[System.String,System.Object]
+    System.Collections.Generic.ICollection`1[System.Collections.Generic.KeyValuePair`2[System.String,System.Object]]
+    System.Collections.Generic.IEnumerable`1[System.Collections.Generic.KeyValuePair`2[System.String,System.Object]]
+    System.Collections.IEnumerable
+Class Microsoft.ClearScript.PropertyBag: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Boolean): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    Microsoft.ClearScript.IPropertyBag
+    System.Collections.Generic.IDictionary`2[System.String,System.Object]
+    System.Collections.Generic.ICollection`1[System.Collections.Generic.KeyValuePair`2[System.String,System.Object]]
+    System.Collections.Generic.IEnumerable`1[System.Collections.Generic.KeyValuePair`2[System.String,System.Object]]
+    System.Collections.IEnumerable
+    System.ComponentModel.INotifyPropertyChanged
+    Microsoft.ClearScript.IScriptableObject
+  Properties:
+    System.Object Item [System.String] 'get set' : 
+    System.Collections.Generic.ICollection`1[System.String] Keys 'get ' : 
+    System.Collections.Generic.ICollection`1[System.Object] Values 'get ' : 
+  Events:
+    System.ComponentModel.PropertyChangedEventHandler PropertyChanged: 
+  Methods:
+    SetPropertyNoCheck(String, Object): PrivateScope, Public, HideBySig
+    RemovePropertyNoCheck(String): PrivateScope, Public, HideBySig
+    ClearNoCheck(): PrivateScope, Public, HideBySig
+    ContainsKey(String): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    Add(String, Object): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    Remove(String): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    TryGetValue(String, Object&(Out)): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    get_Item(String): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    set_Item(String, Object): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_Keys(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_Values(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    add_PropertyChanged(PropertyChangedEventHandler): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    remove_PropertyChanged(PropertyChangedEventHandler): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+Class Microsoft.ClearScript.Undefined: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Methods:
+    ToString(): PrivateScope, Public, Virtual, HideBySig
+Class Microsoft.ClearScript.VoidResult: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+Interface Microsoft.ClearScript.Windows.IHostWindow: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Properties:
+    IntPtr OwnerHandle 'get ' : 
+  Methods:
+    get_OwnerHandle(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    EnableModeless(Boolean): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Struct Microsoft.ClearScript.Windows.WindowsScriptEngineFlags: AutoLayout, AnsiClass, Class, Public, Sealed
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    Microsoft.ClearScript.Windows.WindowsScriptEngineFlags None = 0 : Public, Static, Literal, HasDefault
+    Microsoft.ClearScript.Windows.WindowsScriptEngineFlags EnableDebugging = 1 : Public, Static, Literal, HasDefault
+    Microsoft.ClearScript.Windows.WindowsScriptEngineFlags EnableJITDebugging = 2 : Public, Static, Literal, HasDefault
+    Microsoft.ClearScript.Windows.WindowsScriptEngineFlags DisableSourceManagement = 4 : Public, Static, Literal, HasDefault
+    Microsoft.ClearScript.Windows.WindowsScriptEngineFlags EnableStandardsMode = 8 : Public, Static, Literal, HasDefault
+    Microsoft.ClearScript.Windows.WindowsScriptEngineFlags MarshalNullAsDispatch = 16 : Public, Static, Literal, HasDefault
+    Microsoft.ClearScript.Windows.WindowsScriptEngineFlags MarshalDecimalAsCurrency = 32 : Public, Static, Literal, HasDefault
+    Microsoft.ClearScript.Windows.WindowsScriptEngineFlags MarshalArraysByValue = 64 : Public, Static, Literal, HasDefault
+    Microsoft.ClearScript.Windows.WindowsScriptEngineFlags DoNotEnableVTablePatching = 128 : Public, Static, Literal, HasDefault
+Class Microsoft.ClearScript.Windows.JScriptEngine: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :Microsoft.ClearScript.Windows.WindowsScriptEngine
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Microsoft.ClearScript.Windows.WindowsScriptEngineFlags): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String, Microsoft.ClearScript.Windows.WindowsScriptEngineFlags): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String FileNameExtension 'get ' : 
+  Methods:
+    get_FileNameExtension(): PrivateScope, Public, Virtual, HideBySig, SpecialName
+    ExecuteCommand(String): PrivateScope, Public, Virtual, HideBySig
 Class Microsoft.ClearScript.Windows.WindowsScriptEngine: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
   :Microsoft.ClearScript.ScriptEngine
   Properties:
@@ -552,18 +447,123 @@ Class Microsoft.ClearScript.Windows.WindowsScriptEngine: AutoLayout, AnsiClass, 
     GetStackTrace(): PrivateScope, Public, Virtual, HideBySig
     Interrupt(): PrivateScope, Public, Virtual, HideBySig
     CollectGarbage(Boolean): PrivateScope, Public, Virtual, HideBySig
-Class Microsoft.ClearScript.Windows.JScriptEngine: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
-  :Microsoft.ClearScript.Windows.WindowsScriptEngine
-    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
-    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
-    Void .ctor(Microsoft.ClearScript.Windows.WindowsScriptEngineFlags): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
-    Void .ctor(System.String, Microsoft.ClearScript.Windows.WindowsScriptEngineFlags): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Interface Microsoft.ClearScript.JavaScript.IArrayBuffer: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
   Properties:
-    System.String FileNameExtension 'get ' : 
+    UInt64 Size 'get ' : 
   Methods:
-    get_FileNameExtension(): PrivateScope, Public, Virtual, HideBySig, SpecialName
-    ExecuteCommand(String): PrivateScope, Public, Virtual, HideBySig
-Class Microsoft.ClearScript.Undefined: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    get_Size(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    GetBytes(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    ReadBytes(UInt64, UInt64, Byte[], UInt64): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    WriteBytes(Byte[], UInt64, UInt64, UInt64): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Interface Microsoft.ClearScript.JavaScript.IArrayBufferView: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Properties:
+    Microsoft.ClearScript.JavaScript.IArrayBuffer ArrayBuffer 'get ' : 
+    UInt64 Offset 'get ' : 
+    UInt64 Size 'get ' : 
   Methods:
-    ToString(): PrivateScope, Public, Virtual, HideBySig
-Class Microsoft.ClearScript.VoidResult: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    get_ArrayBuffer(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Offset(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Size(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    GetBytes(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    ReadBytes(UInt64, UInt64, Byte[], UInt64): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    WriteBytes(Byte[], UInt64, UInt64, UInt64): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Interface Microsoft.ClearScript.JavaScript.IDataView: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    Microsoft.ClearScript.JavaScript.IArrayBufferView
+Interface Microsoft.ClearScript.JavaScript.ITypedArray: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Interfaces:
+    Microsoft.ClearScript.JavaScript.IArrayBufferView
+  Properties:
+    UInt64 Length 'get ' : 
+  Methods:
+    get_Length(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Interface Microsoft.ClearScript.JavaScript.ITypedArray`1[T]: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract
+  Type parameter: T
+  Interfaces:
+    Microsoft.ClearScript.JavaScript.ITypedArray
+    Microsoft.ClearScript.JavaScript.IArrayBufferView
+  Methods:
+    ToArray(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    Read(UInt64, UInt64, T[], UInt64): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    Write(T[], UInt64, UInt64, UInt64): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class hmJSDynamicLib+hmJSConsole: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    log(Object[]): PrivateScope, Public, Static, HideBySig
+    dir(Object[]): PrivateScope, Public, Static, HideBySig
+    debug(Object[]): PrivateScope, Public, Static, HideBySig
+    error(Object[]): PrivateScope, Public, Static, HideBySig
+    clear(Object[]): PrivateScope, Public, Static, HideBySig
+    info(Object[]): PrivateScope, Public, Static, HideBySig
+    trace(Object[]): PrivateScope, Public, Static, HideBySig
+    warn(Object[]): PrivateScope, Public, Static, HideBySig
+    assert(): PrivateScope, Public, Static, HideBySig
+    assert(Object, Object[]): PrivateScope, Public, Static, HideBySig
+Class hmJSDynamicLib+DllPathResolver: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class hmJSDynamicLib+Hidemaru: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Double version 'get ' : 
+  Methods:
+    debuginfo(Object[]): PrivateScope, Public, Static, HideBySig
+    get_version(): PrivateScope, Public, Static, HideBySig, SpecialName
+Class hmJSDynamicLib+Hidemaru+ErrorMsg: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String NoDllBindHandle866 : Public, Static, InitOnly
+    System.String MethodNeed866 = このメソッドは秀丸エディタ v8.66 正式版以降で利用可能です。 : Public, Static, Literal, HasDefault
+    System.String MethodNeed873 = このメソッドは秀丸エディタ v8.73 正式版以降で利用可能です。 : Public, Static, Literal, HasDefault
+Class hmJSDynamicLib+Hidemaru+Edit: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    HmCursurPos CursorPos 'get ' : 
+    HmMousePos MousePos 'get ' : 
+    System.String TotalText 'get set' : 
+    System.String SelectedText 'get set' : 
+    System.String LineText 'get set' : 
+  Methods:
+    get_CursorPos(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_MousePos(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_TotalText(): PrivateScope, Public, Static, HideBySig, SpecialName
+    set_TotalText(String): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_SelectedText(): PrivateScope, Public, Static, HideBySig, SpecialName
+    set_SelectedText(String): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_LineText(): PrivateScope, Public, Static, HideBySig, SpecialName
+    set_LineText(String): PrivateScope, Public, Static, HideBySig, SpecialName
+Class hmJSDynamicLib+Hidemaru+Macro: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Eval(Object): PrivateScope, Public, Static, HideBySig
+    Var(String, Object(Optional, HasDefault)): PrivateScope, Public, Static, HideBySig
+Struct hmJSDynamicLib+Hidemaru+Edit+HmCursurPos: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+    Void .ctor(Int32, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Int32 column 'get ' : 
+    Int32 lineno 'get ' : 
+  Methods:
+    get_column(): PrivateScope, Public, HideBySig, SpecialName
+    get_lineno(): PrivateScope, Public, HideBySig, SpecialName
+Struct hmJSDynamicLib+Hidemaru+Edit+HmMousePos: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+    Void .ctor(Int32, Int32, Int32, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Int32 x    'get ' : 
+    Int32 y    'get ' : 
+    Int32 column 'get ' : 
+    Int32 lineno 'get ' : 
+  Methods:
+    get_x(): PrivateScope, Public, HideBySig, SpecialName
+    get_y(): PrivateScope, Public, HideBySig, SpecialName
+    get_column(): PrivateScope, Public, HideBySig, SpecialName
+    get_lineno(): PrivateScope, Public, HideBySig, SpecialName
+Interface hmJSDynamicLib+Hidemaru+Macro+IResult: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
+  Properties:
+    Int32 Result 'get ' : 
+    System.String Message 'get ' : 
+    System.Exception Error 'get ' : 
+  Methods:
+    get_Result(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Message(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Error(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
