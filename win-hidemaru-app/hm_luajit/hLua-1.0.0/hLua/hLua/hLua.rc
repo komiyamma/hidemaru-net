@@ -7,7 +7,7 @@
 //
 // Generated from the TEXTINCLUDE 2 resource.
 //
-#include "afxres.h"
+#include "windows.h"
 
 /////////////////////////////////////////////////////////////////////////////
 #undef APSTUDIO_READONLY_SYMBOLS
@@ -72,7 +72,7 @@ BEGIN
             VALUE "FileDescription", "秀丸マクロ・組み込み用 hLua"
             VALUE "FileVersion", "1.1.0.0"
             VALUE "InternalName", "hLua"
-            VALUE "LegalCopyright", "Copyright (C) 2016-2017 VSCode.life"
+            VALUE "LegalCopyright", "Copyright (C) 2016-2019 Akitsugu Komiyama"
             VALUE "OriginalFilename", "hLua.dll"
             VALUE "ProductName", "秀丸マクロ・組み込み用 hLua"
             VALUE "ProductVersion", "1.1.0.0"
