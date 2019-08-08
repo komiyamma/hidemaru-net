@@ -1,2 +1,2 @@
-srcの msvcbuild.bat を VS2015コンパイルで実行する。
+srcの msvcbuild.bat を VS2017 console でコンパイル実行する。
 すでにオプションやリソースなど、カスタマイズしてある。
