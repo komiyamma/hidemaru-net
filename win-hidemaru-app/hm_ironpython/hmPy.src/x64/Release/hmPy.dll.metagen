@@ -5,11 +5,11 @@ Assembly mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934
 	hash=None, flags=None
 Assembly System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
 	hash=None, flags=None
-Assembly Microsoft.Scripting, Version=1.1.2.22, Culture=neutral, PublicKeyToken=7f709c5b713576e1: 
-	hash=None, flags=None
-Assembly IronPython, Version=2.7.7.0, Culture=neutral, PublicKeyToken=7f709c5b713576e1: 
+Assembly Microsoft.Scripting, Version=1.2.2.0, Culture=neutral, PublicKeyToken=7f709c5b713576e1: 
 	hash=None, flags=None
 Assembly System.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly IronPython, Version=2.7.9.0, Culture=neutral, PublicKeyToken=7f709c5b713576e1: 
 	hash=None, flags=None
 Assembly Microsoft.CSharp, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a: 
 	hash=None, flags=None
@@ -64,6 +64,24 @@ Class hmPyDynamicLib: AutoLayout, AnsiClass, Class, Public, Sealed
     DoString(String, String(Optional, HasDefault)): PrivateScope, Public, Static, HideBySig
     DoFile(String): PrivateScope, Public, Static, HideBySig
     DestroyScope(): PrivateScope, Public, Static, HideBySig
+Class IronPytnonErrorListener: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :Microsoft.Scripting.Hosting.ErrorListener
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String Message 'get set' : 
+    Int32 ErrorCode 'get set' : 
+    Microsoft.Scripting.Severity sev 'get set' : 
+    Microsoft.Scripting.SourceSpan Span 'get set' : 
+  Methods:
+    get_Message(): PrivateScope, Public, HideBySig, SpecialName
+    set_Message(String): PrivateScope, Public, HideBySig, SpecialName
+    get_ErrorCode(): PrivateScope, Public, HideBySig, SpecialName
+    set_ErrorCode(Int32): PrivateScope, Public, HideBySig, SpecialName
+    get_sev(): PrivateScope, Public, HideBySig, SpecialName
+    set_sev(Severity): PrivateScope, Public, HideBySig, SpecialName
+    get_Span(): PrivateScope, Public, HideBySig, SpecialName
+    set_Span(SourceSpan): PrivateScope, Public, HideBySig, SpecialName
+    ErrorReported(ScriptSource, String, SourceSpan, Int32, Severity): PrivateScope, Public, Virtual, HideBySig
 Class hmPyDynamicLib+Hidemaru: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Properties:
@@ -77,22 +95,6 @@ Class hmPyDynamicLib+Hidemaru+Macro: AutoLayout, AnsiClass, Class, NestedPublic,
     TMacroVar Var : Public, Static
   Methods:
     Eval(String): PrivateScope, Public, Static, HideBySig
-Interface hmPyDynamicLib+Hidemaru+Macro+IResult: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
-  Properties:
-    Int32 Result 'get ' : 
-    System.String Message 'get ' : 
-    System.Exception Error 'get ' : 
-  Methods:
-    get_Result(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
-    get_Message(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
-    get_Error(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
-Class hmPyDynamicLib+Hidemaru+Macro+TMacroVar: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
-    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
-  Properties:
-    System.Object Item [System.String] 'get set' : 
-  Methods:
-    get_Item(String): PrivateScope, Public, HideBySig, SpecialName
-    set_Item(String, Object): PrivateScope, Public, HideBySig, SpecialName
 Class hmPyDynamicLib+Hidemaru+Edit: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Properties:
@@ -110,6 +112,22 @@ Class hmPyDynamicLib+Hidemaru+Edit: AutoLayout, AnsiClass, Class, NestedPublic, 
     set_SelectedText(String): PrivateScope, Public, Static, HideBySig, SpecialName
     get_LineText(): PrivateScope, Public, Static, HideBySig, SpecialName
     set_LineText(String): PrivateScope, Public, Static, HideBySig, SpecialName
+Interface hmPyDynamicLib+Hidemaru+Macro+IResult: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
+  Properties:
+    Int32 Result 'get ' : 
+    System.String Message 'get ' : 
+    System.Exception Error 'get ' : 
+  Methods:
+    get_Result(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Message(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Error(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Class hmPyDynamicLib+Hidemaru+Macro+TMacroVar: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.Object Item [System.String] 'get set' : 
+  Methods:
+    get_Item(String): PrivateScope, Public, HideBySig, SpecialName
+    set_Item(String, Object): PrivateScope, Public, HideBySig, SpecialName
 Struct hmPyDynamicLib+Hidemaru+Edit+HmCursurPos: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
   :System.ValueType
     Void .ctor(Int32, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
@@ -132,21 +150,3 @@ Struct hmPyDynamicLib+Hidemaru+Edit+HmMousePos: AutoLayout, AnsiClass, Class, Ne
     get_y(): PrivateScope, Public, HideBySig, SpecialName
     get_column(): PrivateScope, Public, HideBySig, SpecialName
     get_lineno(): PrivateScope, Public, HideBySig, SpecialName
-Class IronPytnonErrorListener: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
-  :Microsoft.Scripting.Hosting.ErrorListener
-    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
-  Properties:
-    System.String Message 'get set' : 
-    Int32 ErrorCode 'get set' : 
-    Microsoft.Scripting.Severity sev 'get set' : 
-    Microsoft.Scripting.SourceSpan Span 'get set' : 
-  Methods:
-    get_Message(): PrivateScope, Public, HideBySig, SpecialName
-    set_Message(String): PrivateScope, Public, HideBySig, SpecialName
-    get_ErrorCode(): PrivateScope, Public, HideBySig, SpecialName
-    set_ErrorCode(Int32): PrivateScope, Public, HideBySig, SpecialName
-    get_sev(): PrivateScope, Public, HideBySig, SpecialName
-    set_sev(Severity): PrivateScope, Public, HideBySig, SpecialName
-    get_Span(): PrivateScope, Public, HideBySig, SpecialName
-    set_Span(SourceSpan): PrivateScope, Public, HideBySig, SpecialName
-    ErrorReported(ScriptSource, String, SourceSpan, Int32, Severity): PrivateScope, Public, Virtual, HideBySig
