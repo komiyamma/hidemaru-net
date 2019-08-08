@@ -1,0 +1,157 @@
+diff --git a/BUILD.gn b/BUILD.gn
+index 8640517ae5..d002d67cc4 100644
+--- a/BUILD.gn
++++ b/BUILD.gn
+@@ -198,6 +198,12 @@ if (host_cpu == "x64" &&
+   v8_generator_toolchain = "//build/toolchain/linux:clang_x64"
+ }
+ 
++if (v8_current_cpu == "x86") {
++  clearscript_v8_platform = "ia32"
++} else {
++  clearscript_v8_platform = v8_current_cpu
++}
++
+ # Derived defaults.
+ if (v8_enable_verify_heap == "") {
+   v8_enable_verify_heap = v8_enable_debugging_features
+@@ -3438,6 +3444,7 @@ v8_source_set("torque_ls_base") {
+ }
+ 
+ v8_component("v8_libbase") {
++  output_name = "v8-base-${clearscript_v8_platform}"
+   sources = [
+     "src/base/adapters.h",
+     "src/base/address-region.h",
+@@ -3629,6 +3636,7 @@ v8_component("v8_libbase") {
+ }
+ 
+ v8_component("v8_libplatform") {
++  output_name = "v8-platform-${clearscript_v8_platform}"
+   sources = [
+     "//base/trace_event/common/trace_event_common.h",
+     "include/libplatform/libplatform-export.h",
+@@ -4039,6 +4047,7 @@ group("v8_fuzzers") {
+ 
+ if (is_component_build) {
+   v8_component("v8") {
++    output_name = "v8-${clearscript_v8_platform}"
+     sources = [
+       "src/utils/v8dll-main.cc",
+     ]
+diff --git a/include/v8-inspector.h b/include/v8-inspector.h
+index b96a6e29ac..22453501e1 100644
+--- a/include/v8-inspector.h
++++ b/include/v8-inspector.h
+@@ -242,6 +242,7 @@ struct V8_EXPORT V8StackTraceId {
+ class V8_EXPORT V8Inspector {
+  public:
+   static std::unique_ptr<V8Inspector> create(v8::Isolate*, V8InspectorClient*);
++  static V8Inspector* createPtr(v8::Isolate*, V8InspectorClient*);
+   virtual ~V8Inspector() = default;
+ 
+   // Contexts instrumentation.
+diff --git a/include/v8.h b/include/v8.h
+index c54b088404..3ceacf76d8 100644
+--- a/include/v8.h
++++ b/include/v8.h
+@@ -1385,6 +1385,7 @@ class V8_EXPORT ScriptCompiler {
+     // (with delete[]) when the CachedData object is destroyed.
+     CachedData(const uint8_t* data, int length,
+                BufferPolicy buffer_policy = BufferNotOwned);
++    void Delete();
+     ~CachedData();
+     // TODO(marja): Async compilation; add constructors which take a callback
+     // which will be called when V8 no longer needs the data.
+diff --git a/src/api/api.cc b/src/api/api.cc
+index 399aca7eb6..3458466b4f 100644
+--- a/src/api/api.cc
++++ b/src/api/api.cc
+@@ -2017,6 +2017,10 @@ ScriptCompiler::CachedData::CachedData(const uint8_t* data_, int length_,
+       rejected(false),
+       buffer_policy(buffer_policy_) {}
+ 
++void ScriptCompiler::CachedData::Delete() {
++  delete this;
++}
++
+ ScriptCompiler::CachedData::~CachedData() {
+   if (buffer_policy == BufferOwned) {
+     delete[] data;
+diff --git a/src/codegen/code-stub-assembler.cc b/src/codegen/code-stub-assembler.cc
+index d967d84874..dc0af2e13a 100644
+--- a/src/codegen/code-stub-assembler.cc
++++ b/src/codegen/code-stub-assembler.cc
+@@ -12710,6 +12710,11 @@ Node* CodeStubAssembler::Typeof(Node* value) {
+ 
+   GotoIf(InstanceTypeEqual(instance_type, ODDBALL_TYPE), &if_oddball);
+ 
++  Label resume_default(this);
++  GotoIfNot(Word32And(LoadMapBitField(map), Int32Constant(Map::HasNamedInterceptorBit::kMask)), &resume_default);
++  Branch(Word32And(LoadMapBitField3(map), Int32Constant(Map::IsImmutablePrototypeBit::kMask)), &return_function, &return_object);
++  BIND(&resume_default);
++
+   Node* callable_or_undetectable_mask = Word32And(
+       LoadMapBitField(map),
+       Int32Constant(Map::IsCallableBit::kMask | Map::IsUndetectableBit::kMask));
+diff --git a/src/execution/execution.cc b/src/execution/execution.cc
+index 285b4b2134..edb2e6c9c2 100644
+--- a/src/execution/execution.cc
++++ b/src/execution/execution.cc
+@@ -581,8 +581,10 @@ bool StackGuard::ThreadLocal::Initialize(Isolate* isolate) {
+   bool should_set_stack_limits = false;
+   if (real_climit_ == kIllegalLimit) {
+     const uintptr_t kLimitSize = FLAG_stack_size * KB;
+-    DCHECK_GT(GetCurrentStackPosition(), kLimitSize);
+     uintptr_t limit = GetCurrentStackPosition() - kLimitSize;
++    if (GetCurrentStackPosition() < kLimitSize) {
++      limit = 0;
++    }
+     real_jslimit_ = SimulatorStack::JsLimitFromCLimit(isolate, limit);
+     set_jslimit(SimulatorStack::JsLimitFromCLimit(isolate, limit));
+     real_climit_ = limit;
+diff --git a/src/init/v8.cc b/src/init/v8.cc
+index 19ad57038f..80e7f09100 100644
+--- a/src/init/v8.cc
++++ b/src/init/v8.cc
+@@ -111,7 +111,6 @@ void V8::InitializeOncePerProcess() {
+ }
+ 
+ void V8::InitializePlatform(v8::Platform* platform) {
+-  CHECK(!platform_);
+   CHECK(platform);
+   platform_ = platform;
+   v8::base::SetPrintStackTrace(platform_->GetStackTracePrinter());
+diff --git a/src/inspector/v8-inspector-impl.cc b/src/inspector/v8-inspector-impl.cc
+index b764118079..658b7dfcec 100644
+--- a/src/inspector/v8-inspector-impl.cc
++++ b/src/inspector/v8-inspector-impl.cc
+@@ -54,6 +54,11 @@ std::unique_ptr<V8Inspector> V8Inspector::create(v8::Isolate* isolate,
+   return std::unique_ptr<V8Inspector>(new V8InspectorImpl(isolate, client));
+ }
+ 
++V8Inspector* V8Inspector::createPtr(v8::Isolate* isolate,
++                                    V8InspectorClient* client) {
++  return create(isolate, client).release();
++}
++
+ V8InspectorImpl::V8InspectorImpl(v8::Isolate* isolate,
+                                  V8InspectorClient* client)
+     : m_isolate(isolate),
+diff --git a/src/objects/objects.cc b/src/objects/objects.cc
+index 8cc22fa0e5..3ee28d9e3b 100644
+--- a/src/objects/objects.cc
++++ b/src/objects/objects.cc
+@@ -806,6 +806,12 @@ Handle<String> Object::TypeOf(Isolate* isolate, Handle<Object> object) {
+   if (object->IsString()) return isolate->factory()->string_string();
+   if (object->IsSymbol()) return isolate->factory()->symbol_string();
+   if (object->IsBigInt()) return isolate->factory()->bigint_string();
++  if (object->IsJSObject()) {
++    Handle<JSObject> obj = Handle<JSObject>::cast(object);
++    if (obj->HasNamedInterceptor()) {
++      return obj->map().is_immutable_proto() ? isolate->factory()->function_string() : isolate->factory()->object_string();
++    }
++  }
+   if (object->IsCallable()) return isolate->factory()->function_string();
+   return isolate->factory()->object_string();
+ }
