@@ -4,6 +4,11 @@
 
 
 
+
+
+
+
+
 using System;
 using System.Reflection;
 using System.Diagnostics.CodeAnalysis;
@@ -15,6 +20,7 @@ namespace Microsoft.ClearScript
         private const int maxArgCount = 16;
 
         
+
         [ExcludeFromCodeCoverage]
         private class ProcShim<TDelegate> : ProcShim
         {
@@ -64,6 +70,7 @@ namespace Microsoft.ClearScript
             #endregion
         }
         
+
         [ExcludeFromCodeCoverage]
         private class ProcShim<T1, TDelegate> : ProcShim
         {
@@ -113,6 +120,7 @@ namespace Microsoft.ClearScript
             #endregion
         }
         
+
         [ExcludeFromCodeCoverage]
         private class ProcShim<T1, T2, TDelegate> : ProcShim
         {
@@ -164,6 +172,7 @@ namespace Microsoft.ClearScript
             #endregion
         }
         
+
         [ExcludeFromCodeCoverage]
         private class ProcShim<T1, T2, T3, TDelegate> : ProcShim
         {
@@ -217,6 +226,7 @@ namespace Microsoft.ClearScript
             #endregion
         }
         
+
         [ExcludeFromCodeCoverage]
         private class ProcShim<T1, T2, T3, T4, TDelegate> : ProcShim
         {
@@ -272,6 +282,7 @@ namespace Microsoft.ClearScript
             #endregion
         }
         
+
         [ExcludeFromCodeCoverage]
         private class ProcShim<T1, T2, T3, T4, T5, TDelegate> : ProcShim
         {
@@ -329,6 +340,7 @@ namespace Microsoft.ClearScript
             #endregion
         }
         
+
         [ExcludeFromCodeCoverage]
         private class ProcShim<T1, T2, T3, T4, T5, T6, TDelegate> : ProcShim
         {
@@ -388,6 +400,7 @@ namespace Microsoft.ClearScript
             #endregion
         }
         
+
         [ExcludeFromCodeCoverage]
         private class ProcShim<T1, T2, T3, T4, T5, T6, T7, TDelegate> : ProcShim
         {
@@ -449,6 +462,7 @@ namespace Microsoft.ClearScript
             #endregion
         }
         
+
         [ExcludeFromCodeCoverage]
         private class ProcShim<T1, T2, T3, T4, T5, T6, T7, T8, TDelegate> : ProcShim
         {
@@ -512,6 +526,7 @@ namespace Microsoft.ClearScript
             #endregion
         }
         
+
         [ExcludeFromCodeCoverage]
         private class ProcShim<T1, T2, T3, T4, T5, T6, T7, T8, T9, TDelegate> : ProcShim
         {
@@ -577,6 +592,7 @@ namespace Microsoft.ClearScript
             #endregion
         }
         
+
         [ExcludeFromCodeCoverage]
         private class ProcShim<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TDelegate> : ProcShim
         {
@@ -644,6 +660,7 @@ namespace Microsoft.ClearScript
             #endregion
         }
         
+
         [ExcludeFromCodeCoverage]
         private class ProcShim<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TDelegate> : ProcShim
         {
@@ -713,6 +730,7 @@ namespace Microsoft.ClearScript
             #endregion
         }
         
+
         [ExcludeFromCodeCoverage]
         private class ProcShim<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TDelegate> : ProcShim
         {
@@ -784,6 +802,7 @@ namespace Microsoft.ClearScript
             #endregion
         }
         
+
         [ExcludeFromCodeCoverage]
         private class ProcShim<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TDelegate> : ProcShim
         {
@@ -857,6 +876,7 @@ namespace Microsoft.ClearScript
             #endregion
         }
         
+
         [ExcludeFromCodeCoverage]
         private class ProcShim<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TDelegate> : ProcShim
         {
@@ -932,6 +952,7 @@ namespace Microsoft.ClearScript
             #endregion
         }
         
+
         [ExcludeFromCodeCoverage]
         private class ProcShim<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TDelegate> : ProcShim
         {
@@ -1009,6 +1030,7 @@ namespace Microsoft.ClearScript
             #endregion
         }
         
+
         [ExcludeFromCodeCoverage]
         private class ProcShim<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TDelegate> : ProcShim
         {
@@ -1088,7 +1110,9 @@ namespace Microsoft.ClearScript
             #endregion
         }
         
+
         
+
         [ExcludeFromCodeCoverage]
         private class FuncShim<TResult, TDelegate> : FuncShim<TResult>
         {
@@ -1136,6 +1160,7 @@ namespace Microsoft.ClearScript
             #endregion
         }
         
+
         [ExcludeFromCodeCoverage]
         private class FuncShim<T1, TResult, TDelegate> : FuncShim<TResult>
         {
@@ -1183,6 +1208,7 @@ namespace Microsoft.ClearScript
             #endregion
         }
         
+
         [ExcludeFromCodeCoverage]
         private class FuncShim<T1, T2, TResult, TDelegate> : FuncShim<TResult>
         {
@@ -1232,6 +1258,7 @@ namespace Microsoft.ClearScript
             #endregion
         }
         
+
         [ExcludeFromCodeCoverage]
         private class FuncShim<T1, T2, T3, TResult, TDelegate> : FuncShim<TResult>
         {
@@ -1283,6 +1310,7 @@ namespace Microsoft.ClearScript
             #endregion
         }
         
+
         [ExcludeFromCodeCoverage]
         private class FuncShim<T1, T2, T3, T4, TResult, TDelegate> : FuncShim<TResult>
         {
@@ -1336,6 +1364,7 @@ namespace Microsoft.ClearScript
             #endregion
         }
         
+
         [ExcludeFromCodeCoverage]
         private class FuncShim<T1, T2, T3, T4, T5, TResult, TDelegate> : FuncShim<TResult>
         {
@@ -1391,6 +1420,7 @@ namespace Microsoft.ClearScript
             #endregion
         }
         
+
         [ExcludeFromCodeCoverage]
         private class FuncShim<T1, T2, T3, T4, T5, T6, TResult, TDelegate> : FuncShim<TResult>
         {
@@ -1448,6 +1478,7 @@ namespace Microsoft.ClearScript
             #endregion
         }
         
+
         [ExcludeFromCodeCoverage]
         private class FuncShim<T1, T2, T3, T4, T5, T6, T7, TResult, TDelegate> : FuncShim<TResult>
         {
@@ -1507,6 +1538,7 @@ namespace Microsoft.ClearScript
             #endregion
         }
         
+
         [ExcludeFromCodeCoverage]
         private class FuncShim<T1, T2, T3, T4, T5, T6, T7, T8, TResult, TDelegate> : FuncShim<TResult>
         {
@@ -1568,6 +1600,7 @@ namespace Microsoft.ClearScript
             #endregion
         }
         
+
         [ExcludeFromCodeCoverage]
         private class FuncShim<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult, TDelegate> : FuncShim<TResult>
         {
@@ -1631,6 +1664,7 @@ namespace Microsoft.ClearScript
             #endregion
         }
         
+
         [ExcludeFromCodeCoverage]
         private class FuncShim<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult, TDelegate> : FuncShim<TResult>
         {
@@ -1696,6 +1730,7 @@ namespace Microsoft.ClearScript
             #endregion
         }
         
+
         [ExcludeFromCodeCoverage]
         private class FuncShim<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult, TDelegate> : FuncShim<TResult>
         {
@@ -1763,6 +1798,7 @@ namespace Microsoft.ClearScript
             #endregion
         }
         
+
         [ExcludeFromCodeCoverage]
         private class FuncShim<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult, TDelegate> : FuncShim<TResult>
         {
@@ -1832,6 +1868,7 @@ namespace Microsoft.ClearScript
             #endregion
         }
         
+
         [ExcludeFromCodeCoverage]
         private class FuncShim<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult, TDelegate> : FuncShim<TResult>
         {
@@ -1903,6 +1940,7 @@ namespace Microsoft.ClearScript
             #endregion
         }
         
+
         [ExcludeFromCodeCoverage]
         private class FuncShim<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult, TDelegate> : FuncShim<TResult>
         {
@@ -1976,6 +2014,7 @@ namespace Microsoft.ClearScript
             #endregion
         }
         
+
         [ExcludeFromCodeCoverage]
         private class FuncShim<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult, TDelegate> : FuncShim<TResult>
         {
@@ -2051,6 +2090,7 @@ namespace Microsoft.ClearScript
             #endregion
         }
         
+
         [ExcludeFromCodeCoverage]
         private class FuncShim<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult, TDelegate> : FuncShim<TResult>
         {
@@ -2128,160 +2168,233 @@ namespace Microsoft.ClearScript
             #endregion
         }
         
+
         private static readonly Type[] procTemplates =
         {
             
+
             typeof(Action),
             
+
             typeof(Action</*T1*/>),
             
+
             typeof(Action</*T1*/, /*T2*/>),
             
+
             typeof(Action</*T1*/, /*T2*/, /*T3*/>),
             
+
             typeof(Action</*T1*/, /*T2*/, /*T3*/, /*T4*/>),
             
+
             typeof(Action</*T1*/, /*T2*/, /*T3*/, /*T4*/, /*T5*/>),
             
+
             typeof(Action</*T1*/, /*T2*/, /*T3*/, /*T4*/, /*T5*/, /*T6*/>),
             
+
             typeof(Action</*T1*/, /*T2*/, /*T3*/, /*T4*/, /*T5*/, /*T6*/, /*T7*/>),
             
+
             typeof(Action</*T1*/, /*T2*/, /*T3*/, /*T4*/, /*T5*/, /*T6*/, /*T7*/, /*T8*/>),
             
+
             typeof(Action</*T1*/, /*T2*/, /*T3*/, /*T4*/, /*T5*/, /*T6*/, /*T7*/, /*T8*/, /*T9*/>),
             
+
             typeof(Action</*T1*/, /*T2*/, /*T3*/, /*T4*/, /*T5*/, /*T6*/, /*T7*/, /*T8*/, /*T9*/, /*T10*/>),
             
+
             typeof(Action</*T1*/, /*T2*/, /*T3*/, /*T4*/, /*T5*/, /*T6*/, /*T7*/, /*T8*/, /*T9*/, /*T10*/, /*T11*/>),
             
+
             typeof(Action</*T1*/, /*T2*/, /*T3*/, /*T4*/, /*T5*/, /*T6*/, /*T7*/, /*T8*/, /*T9*/, /*T10*/, /*T11*/, /*T12*/>),
             
+
             typeof(Action</*T1*/, /*T2*/, /*T3*/, /*T4*/, /*T5*/, /*T6*/, /*T7*/, /*T8*/, /*T9*/, /*T10*/, /*T11*/, /*T12*/, /*T13*/>),
             
+
             typeof(Action</*T1*/, /*T2*/, /*T3*/, /*T4*/, /*T5*/, /*T6*/, /*T7*/, /*T8*/, /*T9*/, /*T10*/, /*T11*/, /*T12*/, /*T13*/, /*T14*/>),
             
+
             typeof(Action</*T1*/, /*T2*/, /*T3*/, /*T4*/, /*T5*/, /*T6*/, /*T7*/, /*T8*/, /*T9*/, /*T10*/, /*T11*/, /*T12*/, /*T13*/, /*T14*/, /*T15*/>),
             
+
             typeof(Action</*T1*/, /*T2*/, /*T3*/, /*T4*/, /*T5*/, /*T6*/, /*T7*/, /*T8*/, /*T9*/, /*T10*/, /*T11*/, /*T12*/, /*T13*/, /*T14*/, /*T15*/, /*T16*/>),
             
+
         };
 
         private static readonly Type[] funcTemplates =
         {
             
+
             typeof(Func</*TResult*/>),
             
+
             typeof(Func</*T1*/, /*TResult*/>),
             
+
             typeof(Func</*T1*/, /*T2*/, /*TResult*/>),
             
+
             typeof(Func</*T1*/, /*T2*/, /*T3*/, /*TResult*/>),
             
+
             typeof(Func</*T1*/, /*T2*/, /*T3*/, /*T4*/, /*TResult*/>),
             
+
             typeof(Func</*T1*/, /*T2*/, /*T3*/, /*T4*/, /*T5*/, /*TResult*/>),
             
+
             typeof(Func</*T1*/, /*T2*/, /*T3*/, /*T4*/, /*T5*/, /*T6*/, /*TResult*/>),
             
+
             typeof(Func</*T1*/, /*T2*/, /*T3*/, /*T4*/, /*T5*/, /*T6*/, /*T7*/, /*TResult*/>),
             
+
             typeof(Func</*T1*/, /*T2*/, /*T3*/, /*T4*/, /*T5*/, /*T6*/, /*T7*/, /*T8*/, /*TResult*/>),
             
+
             typeof(Func</*T1*/, /*T2*/, /*T3*/, /*T4*/, /*T5*/, /*T6*/, /*T7*/, /*T8*/, /*T9*/, /*TResult*/>),
             
+
             typeof(Func</*T1*/, /*T2*/, /*T3*/, /*T4*/, /*T5*/, /*T6*/, /*T7*/, /*T8*/, /*T9*/, /*T10*/, /*TResult*/>),
             
+
             typeof(Func</*T1*/, /*T2*/, /*T3*/, /*T4*/, /*T5*/, /*T6*/, /*T7*/, /*T8*/, /*T9*/, /*T10*/, /*T11*/, /*TResult*/>),
             
+
             typeof(Func</*T1*/, /*T2*/, /*T3*/, /*T4*/, /*T5*/, /*T6*/, /*T7*/, /*T8*/, /*T9*/, /*T10*/, /*T11*/, /*T12*/, /*TResult*/>),
             
+
             typeof(Func</*T1*/, /*T2*/, /*T3*/, /*T4*/, /*T5*/, /*T6*/, /*T7*/, /*T8*/, /*T9*/, /*T10*/, /*T11*/, /*T12*/, /*T13*/, /*TResult*/>),
             
+
             typeof(Func</*T1*/, /*T2*/, /*T3*/, /*T4*/, /*T5*/, /*T6*/, /*T7*/, /*T8*/, /*T9*/, /*T10*/, /*T11*/, /*T12*/, /*T13*/, /*T14*/, /*TResult*/>),
             
+
             typeof(Func</*T1*/, /*T2*/, /*T3*/, /*T4*/, /*T5*/, /*T6*/, /*T7*/, /*T8*/, /*T9*/, /*T10*/, /*T11*/, /*T12*/, /*T13*/, /*T14*/, /*T15*/, /*TResult*/>),
             
+
             typeof(Func</*T1*/, /*T2*/, /*T3*/, /*T4*/, /*T5*/, /*T6*/, /*T7*/, /*T8*/, /*T9*/, /*T10*/, /*T11*/, /*T12*/, /*T13*/, /*T14*/, /*T15*/, /*T16*/, /*TResult*/>),
             
+
         };
 
         private static readonly Type[] procShimTemplates =
         {
             
+
             typeof(ProcShim</*TDelegate*/>),
             
+
             typeof(ProcShim</*T1*/, /*TDelegate*/>),
             
+
             typeof(ProcShim</*T1*/, /*T2*/, /*TDelegate*/>),
             
+
             typeof(ProcShim</*T1*/, /*T2*/, /*T3*/, /*TDelegate*/>),
             
+
             typeof(ProcShim</*T1*/, /*T2*/, /*T3*/, /*T4*/, /*TDelegate*/>),
             
+
             typeof(ProcShim</*T1*/, /*T2*/, /*T3*/, /*T4*/, /*T5*/, /*TDelegate*/>),
             
+
             typeof(ProcShim</*T1*/, /*T2*/, /*T3*/, /*T4*/, /*T5*/, /*T6*/, /*TDelegate*/>),
             
+
             typeof(ProcShim</*T1*/, /*T2*/, /*T3*/, /*T4*/, /*T5*/, /*T6*/, /*T7*/, /*TDelegate*/>),
             
+
             typeof(ProcShim</*T1*/, /*T2*/, /*T3*/, /*T4*/, /*T5*/, /*T6*/, /*T7*/, /*T8*/, /*TDelegate*/>),
             
+
             typeof(ProcShim</*T1*/, /*T2*/, /*T3*/, /*T4*/, /*T5*/, /*T6*/, /*T7*/, /*T8*/, /*T9*/, /*TDelegate*/>),
             
+
             typeof(ProcShim</*T1*/, /*T2*/, /*T3*/, /*T4*/, /*T5*/, /*T6*/, /*T7*/, /*T8*/, /*T9*/, /*T10*/, /*TDelegate*/>),
             
+
             typeof(ProcShim</*T1*/, /*T2*/, /*T3*/, /*T4*/, /*T5*/, /*T6*/, /*T7*/, /*T8*/, /*T9*/, /*T10*/, /*T11*/, /*TDelegate*/>),
             
+
             typeof(ProcShim</*T1*/, /*T2*/, /*T3*/, /*T4*/, /*T5*/, /*T6*/, /*T7*/, /*T8*/, /*T9*/, /*T10*/, /*T11*/, /*T12*/, /*TDelegate*/>),
             
+
             typeof(ProcShim</*T1*/, /*T2*/, /*T3*/, /*T4*/, /*T5*/, /*T6*/, /*T7*/, /*T8*/, /*T9*/, /*T10*/, /*T11*/, /*T12*/, /*T13*/, /*TDelegate*/>),
             
+
             typeof(ProcShim</*T1*/, /*T2*/, /*T3*/, /*T4*/, /*T5*/, /*T6*/, /*T7*/, /*T8*/, /*T9*/, /*T10*/, /*T11*/, /*T12*/, /*T13*/, /*T14*/, /*TDelegate*/>),
             
+
             typeof(ProcShim</*T1*/, /*T2*/, /*T3*/, /*T4*/, /*T5*/, /*T6*/, /*T7*/, /*T8*/, /*T9*/, /*T10*/, /*T11*/, /*T12*/, /*T13*/, /*T14*/, /*T15*/, /*TDelegate*/>),
             
+
             typeof(ProcShim</*T1*/, /*T2*/, /*T3*/, /*T4*/, /*T5*/, /*T6*/, /*T7*/, /*T8*/, /*T9*/, /*T10*/, /*T11*/, /*T12*/, /*T13*/, /*T14*/, /*T15*/, /*T16*/, /*TDelegate*/>),
             
+
         };
 
         private static readonly Type[] funcShimTemplates =
         {
             
+
             typeof(FuncShim</*TResult*/, /*TDelegate*/>),
             
+
             typeof(FuncShim</*T1*/, /*TResult*/, /*TDelegate*/>),
             
+
             typeof(FuncShim</*T1*/, /*T2*/, /*TResult*/, /*TDelegate*/>),
             
+
             typeof(FuncShim</*T1*/, /*T2*/, /*T3*/, /*TResult*/, /*TDelegate*/>),
             
+
             typeof(FuncShim</*T1*/, /*T2*/, /*T3*/, /*T4*/, /*TResult*/, /*TDelegate*/>),
             
+
             typeof(FuncShim</*T1*/, /*T2*/, /*T3*/, /*T4*/, /*T5*/, /*TResult*/, /*TDelegate*/>),
             
+
             typeof(FuncShim</*T1*/, /*T2*/, /*T3*/, /*T4*/, /*T5*/, /*T6*/, /*TResult*/, /*TDelegate*/>),
             
+
             typeof(FuncShim</*T1*/, /*T2*/, /*T3*/, /*T4*/, /*T5*/, /*T6*/, /*T7*/, /*TResult*/, /*TDelegate*/>),
             
+
             typeof(FuncShim</*T1*/, /*T2*/, /*T3*/, /*T4*/, /*T5*/, /*T6*/, /*T7*/, /*T8*/, /*TResult*/, /*TDelegate*/>),
             
+
             typeof(FuncShim</*T1*/, /*T2*/, /*T3*/, /*T4*/, /*T5*/, /*T6*/, /*T7*/, /*T8*/, /*T9*/, /*TResult*/, /*TDelegate*/>),
             
+
             typeof(FuncShim</*T1*/, /*T2*/, /*T3*/, /*T4*/, /*T5*/, /*T6*/, /*T7*/, /*T8*/, /*T9*/, /*T10*/, /*TResult*/, /*TDelegate*/>),
             
+
             typeof(FuncShim</*T1*/, /*T2*/, /*T3*/, /*T4*/, /*T5*/, /*T6*/, /*T7*/, /*T8*/, /*T9*/, /*T10*/, /*T11*/, /*TResult*/, /*TDelegate*/>),
             
+
             typeof(FuncShim</*T1*/, /*T2*/, /*T3*/, /*T4*/, /*T5*/, /*T6*/, /*T7*/, /*T8*/, /*T9*/, /*T10*/, /*T11*/, /*T12*/, /*TResult*/, /*TDelegate*/>),
             
+
             typeof(FuncShim</*T1*/, /*T2*/, /*T3*/, /*T4*/, /*T5*/, /*T6*/, /*T7*/, /*T8*/, /*T9*/, /*T10*/, /*T11*/, /*T12*/, /*T13*/, /*TResult*/, /*TDelegate*/>),
             
+
             typeof(FuncShim</*T1*/, /*T2*/, /*T3*/, /*T4*/, /*T5*/, /*T6*/, /*T7*/, /*T8*/, /*T9*/, /*T10*/, /*T11*/, /*T12*/, /*T13*/, /*T14*/, /*TResult*/, /*TDelegate*/>),
             
+
             typeof(FuncShim</*T1*/, /*T2*/, /*T3*/, /*T4*/, /*T5*/, /*T6*/, /*T7*/, /*T8*/, /*T9*/, /*T10*/, /*T11*/, /*T12*/, /*T13*/, /*T14*/, /*T15*/, /*TResult*/, /*TDelegate*/>),
             
+
             typeof(FuncShim</*T1*/, /*T2*/, /*T3*/, /*T4*/, /*T5*/, /*T6*/, /*T7*/, /*T8*/, /*T9*/, /*T10*/, /*T11*/, /*T12*/, /*T13*/, /*T14*/, /*T15*/, /*T16*/, /*TResult*/, /*TDelegate*/>),
             
+
         };
     }
 }
