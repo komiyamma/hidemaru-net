@@ -1,0 +1,10 @@
+﻿#HMNET = loaddll( hidemarudir + @"\hm.NET.dll" );
+
+#ret = dllfuncw( #HMNET, "CallMethod", currentmacrodirectory + @"\HmMakePngSeqReport.exe", "HmMakePngSeqReport.MakePngSeqReport", "GetAnimationList");
+newfile;
+
+insert $RESULT_LIST;
+
+clearupdated;
+
+

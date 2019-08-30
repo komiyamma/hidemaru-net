@@ -1,0 +1,8 @@
+C:\Users\admin\source\repos\HmMakePngSeqReport\HmMakePngSeqReport\bin\Release\HmMakePngSeqReport.exe.config
+C:\Users\admin\source\repos\HmMakePngSeqReport\HmMakePngSeqReport\bin\Release\HmMakePngSeqReport.exe
+C:\Users\admin\source\repos\HmMakePngSeqReport\HmMakePngSeqReport\bin\Release\HmMakePngSeqReport.pdb
+C:\Users\admin\source\repos\HmMakePngSeqReport\HmMakePngSeqReport\bin\Release\hm.NET.dll
+C:\Users\admin\source\repos\HmMakePngSeqReport\HmMakePngSeqReport\obj\Release\HmMakePngSeqReport.csproj.CoreCompileInputs.cache
+C:\Users\admin\source\repos\HmMakePngSeqReport\HmMakePngSeqReport\obj\Release\HmMakePngSeqReport.csproj.CopyComplete
+C:\Users\admin\source\repos\HmMakePngSeqReport\HmMakePngSeqReport\obj\Release\HmMakePngSeqReport.exe
+C:\Users\admin\source\repos\HmMakePngSeqReport\HmMakePngSeqReport\obj\Release\HmMakePngSeqReport.pdb

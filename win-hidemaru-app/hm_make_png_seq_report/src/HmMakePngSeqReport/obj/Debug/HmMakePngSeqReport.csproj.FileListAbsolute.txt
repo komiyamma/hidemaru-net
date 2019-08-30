@@ -1,0 +1,9 @@
+C:\Users\admin\source\repos\HmMakePngSeqReport\HmMakePngSeqReport\obj\Debug\HmMakePngSeqReport.csproj.CoreCompileInputs.cache
+C:\Users\admin\source\repos\HmMakePngSeqReport\HmMakePngSeqReport\bin\Debug\HmMakePngSeqReport.exe.config
+C:\Users\admin\source\repos\HmMakePngSeqReport\HmMakePngSeqReport\bin\Debug\HmMakePngSeqReport.exe
+C:\Users\admin\source\repos\HmMakePngSeqReport\HmMakePngSeqReport\bin\Debug\HmMakePngSeqReport.pdb
+C:\Users\admin\source\repos\HmMakePngSeqReport\HmMakePngSeqReport\obj\Debug\HmMakePngSeqReport.exe
+C:\Users\admin\source\repos\HmMakePngSeqReport\HmMakePngSeqReport\obj\Debug\HmMakePngSeqReport.pdb
+C:\Users\admin\source\repos\HmMakePngSeqReport\HmMakePngSeqReport\bin\Debug\hm.NET.dll
+C:\Users\admin\source\repos\HmMakePngSeqReport\HmMakePngSeqReport\obj\Debug\HmMakePngSeqReport.csproj.CopyComplete
+C:\Users\admin\source\repos\HmMakePngSeqReport\HmMakePngSeqReport\obj\Debug\HmMakePngSeqReport.csprojAssemblyReference.cache
