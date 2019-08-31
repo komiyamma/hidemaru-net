@@ -101,6 +101,7 @@ namespace HmMakePngSeqReport
                 return ("", 0);
             }
 
+            // 数値と桁数。一般的にPNGの連番は桁数を０埋めで維持したまま、番号が増えていくため。
             return (m.Groups[1].Value, length);
         }
 
@@ -222,7 +223,7 @@ namespace HmMakePngSeqReport
                 int num = key_list[i];
                 var items = dic[num];
                 var basename = Path.GetFileName(items.Item2);
-                System.Console.WriteLine('"' + basename + '"');
+                System.Console.WriteLine($"\"{basename}\"");
                 // System.Console.WriteLine(items.Item1 + "/" + items.Item2 + "/" + items.Item3.ToString());
                 // System.Console.WriteLine("------------------------------------");
             }
@@ -315,6 +316,7 @@ namespace HmMakePngSeqReport
             return result;
         }
 
+        // 秀丸からの読み取り口
         public static IntPtr GetAnimationList()
         {
             dic.Clear();
@@ -329,10 +331,8 @@ namespace HmMakePngSeqReport
             MakeDictionary(target_filename);
             DeduDictionary();
             var result_list = GetResultStringList();
-            for(int i=0; i< result_list.Count; i++)
-            {
-                result_list[i] = '"' + result_list[i] + '"';
-            }
+            // ダブルコーテーションで挟む
+            result_list = result_list.ConvertAll((s) => { return $"\"{s}\""; });
 
             // 改行しつつ...
             Hm.Macro.Var["$RESULT_LIST"] = String.Join("\n", result_list);
