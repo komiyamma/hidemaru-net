@@ -7,3 +7,11 @@ C:\Users\admin\source\repos\HmMakePngSeqReport\HmMakePngSeqReport\obj\Debug\HmMa
 C:\Users\admin\source\repos\HmMakePngSeqReport\HmMakePngSeqReport\bin\Debug\hm.NET.dll
 C:\Users\admin\source\repos\HmMakePngSeqReport\HmMakePngSeqReport\obj\Debug\HmMakePngSeqReport.csproj.CopyComplete
 C:\Users\admin\source\repos\HmMakePngSeqReport\HmMakePngSeqReport\obj\Debug\HmMakePngSeqReport.csprojAssemblyReference.cache
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_make_png_seq_report\src\HmMakePngSeqReport\bin\Debug\HmMakePngSeqReport.exe.config
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_make_png_seq_report\src\HmMakePngSeqReport\bin\Debug\HmMakePngSeqReport.exe
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_make_png_seq_report\src\HmMakePngSeqReport\bin\Debug\HmMakePngSeqReport.pdb
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_make_png_seq_report\src\HmMakePngSeqReport\obj\Debug\HmMakePngSeqReport.csprojAssemblyReference.cache
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_make_png_seq_report\src\HmMakePngSeqReport\obj\Debug\HmMakePngSeqReport.csproj.CoreCompileInputs.cache
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_make_png_seq_report\src\HmMakePngSeqReport\obj\Debug\HmMakePngSeqReport.csproj.CopyComplete
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_make_png_seq_report\src\HmMakePngSeqReport\obj\Debug\HmMakePngSeqReport.exe
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_make_png_seq_report\src\HmMakePngSeqReport\obj\Debug\HmMakePngSeqReport.pdb

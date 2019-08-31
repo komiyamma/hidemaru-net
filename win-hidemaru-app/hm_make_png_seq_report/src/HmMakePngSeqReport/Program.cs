@@ -92,7 +92,7 @@ namespace HmMakePngSeqReport
 
             // 数値
             string strnum = m.Groups[2].Value;
-            System.Console.WriteLine(strnum);
+            // System.Console.WriteLine(strnum);
             int length = strnum.Length;
             int inum = 0;
             bool success = int.TryParse(strnum, out inum);
@@ -116,6 +116,10 @@ namespace HmMakePngSeqReport
             }
 
             int sub_length = num_of_digits - icurrent_ix.ToString().Length;
+            if (sub_length < 0)
+            {
+                sub_length = 0;
+            }
             string key2 = (new string('0', sub_length)).ToString() + icurrent_ix.ToString(); // 与えられた桁数で数値を埋める。Formatで0埋めした方が自然かも
             string name2 = filebase + key2 + ".png";
 
@@ -153,7 +157,7 @@ namespace HmMakePngSeqReport
                     // 多少の連番飛びは許すが、飛びすぎは変なので、ファイルが無いというエラーが嵩むようなら終了
                     if (error_cnt > 20)
                     {
-                        System.Console.WriteLine("10カウントで終了");
+                        // System.Console.WriteLine("10カウントで終了");
                         break;
                     }
                     else
@@ -162,7 +166,7 @@ namespace HmMakePngSeqReport
                     }
                 }
 
-                System.Console.WriteLine(filename);
+                // System.Console.WriteLine(filename);
                 var image = Image.FromFile(filename);
                 var md5hash = GetImageMD5Hash(image);
 
@@ -213,12 +217,14 @@ namespace HmMakePngSeqReport
             key_list.Sort();
             for (int i = 0; i < key_list.Count; i++)
             {
-                System.Console.WriteLine("------------------------------------");
-                System.Console.Write(i + " ");
+                // System.Console.WriteLine("------------------------------------");
+                // System.Console.Write(i + " ");
                 int num = key_list[i];
                 var items = dic[num];
-                System.Console.WriteLine(items.Item1 + "/" + items.Item2 + "/" + items.Item3.ToString());
-                System.Console.WriteLine("------------------------------------");
+                var basename = Path.GetFileName(items.Item2);
+                System.Console.WriteLine('"' + basename + '"');
+                // System.Console.WriteLine(items.Item1 + "/" + items.Item2 + "/" + items.Item3.ToString());
+                // System.Console.WriteLine("------------------------------------");
             }
         }
 
