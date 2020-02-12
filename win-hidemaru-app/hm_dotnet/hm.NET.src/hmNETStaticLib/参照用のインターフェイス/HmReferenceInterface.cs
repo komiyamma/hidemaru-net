@@ -214,6 +214,27 @@ namespace Hidemaru
             }
 
         }
+
+
+        public static class File
+        {
+            // ファイルエンコードの問い合わせ結果
+            public interface IEncode
+            {
+                int CodePage { get; }
+                int HidemaruEncode { get; }
+            }
+
+            public static IEncode AnalyzeEncodinge(string filename)
+            {
+                IEncode result = hmNETDynamicLib.Hidemaru.File.AnalyzeEncoding(filename);
+
+                return result;
+            }
+
+        }
+
+
     }
 }
 

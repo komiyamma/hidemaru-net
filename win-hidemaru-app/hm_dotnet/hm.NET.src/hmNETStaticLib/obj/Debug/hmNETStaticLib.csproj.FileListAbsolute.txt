@@ -3,3 +3,9 @@ C:\usr\web\hidemaru-net\win-hidemaru-app\hm_dotnet\hm.NET.src\hmNETStaticLib\bin
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_dotnet\hm.NET.src\hmNETStaticLib\bin\Debug\hmNETStaticLib.pdb
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_dotnet\hm.NET.src\hmNETStaticLib\obj\Debug\hmNETStaticLib.netmodule
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_dotnet\hm.NET.src\hmNETStaticLib\obj\Debug\hmNETStaticLib.pdb
+G:\repository\hidemaru-net\win-hidemaru-app\hm_dotnet\hm.NET.src\hmNETStaticLib\bin\Debug\hmNETStaticLib.netmodule.config
+G:\repository\hidemaru-net\win-hidemaru-app\hm_dotnet\hm.NET.src\hmNETStaticLib\bin\Debug\hmNETStaticLib.netmodule
+G:\repository\hidemaru-net\win-hidemaru-app\hm_dotnet\hm.NET.src\hmNETStaticLib\bin\Debug\hmNETStaticLib.pdb
+G:\repository\hidemaru-net\win-hidemaru-app\hm_dotnet\hm.NET.src\hmNETStaticLib\obj\Debug\hmNETStaticLib.csproj.CoreCompileInputs.cache
+G:\repository\hidemaru-net\win-hidemaru-app\hm_dotnet\hm.NET.src\hmNETStaticLib\obj\Debug\hmNETStaticLib.netmodule
+G:\repository\hidemaru-net\win-hidemaru-app\hm_dotnet\hm.NET.src\hmNETStaticLib\obj\Debug\hmNETStaticLib.pdb

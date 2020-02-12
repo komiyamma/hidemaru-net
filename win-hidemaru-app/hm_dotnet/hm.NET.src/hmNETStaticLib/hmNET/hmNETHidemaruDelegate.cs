@@ -37,6 +37,9 @@ internal sealed partial class hmNETDynamicLib
         delegate int TEvalMacro([MarshalAs(UnmanagedType.LPWStr)] String pwsz);
         delegate int TCheckQueueStatus();
 
+        delegate int AnalyzeEncoding([MarshalAs(UnmanagedType.LPWStr)] String pwszFileName, IntPtr lParam1, IntPtr lParam2);
+
+
         // 秀丸本体から出ている関数群
         static TGetCurrentWindowHandle pGetCurrentWindowHandle;
         static TGetTotalTextUnicode pGetTotalTextUnicode;
@@ -46,6 +49,7 @@ internal sealed partial class hmNETDynamicLib
         static TGetCursorPosUnicodeFromMousePos pGetCursorPosUnicodeFromMousePos;
         static TEvalMacro pEvalMacro;
         static TCheckQueueStatus pCheckQueueStatus;
+        static AnalyzeEncoding pAnalyzeEncoding;
 
         [DllImport("kernel32.dll", SetLastError = true)]
         private static extern IntPtr GlobalLock(IntPtr hMem);
@@ -82,6 +86,11 @@ internal sealed partial class hmNETDynamicLib
                     if (version >= 873) { 
                         pGetCursorPosUnicodeFromMousePos = hmExeHandle.GetProcDelegate<TGetCursorPosUnicodeFromMousePos>("Hidemaru_GetCursorPosUnicodeFromMousePos");
                         pGetCurrentWindowHandle = hmExeHandle.GetProcDelegate<TGetCurrentWindowHandle>("Hidemaru_GetCurrentWindowHandle");
+                    }
+
+                    if (version >= 890)
+                    {
+                        pAnalyzeEncoding = hmExeHandle.GetProcDelegate<AnalyzeEncoding>("Hidemaru_AnalyzeEncoding");
                     }
                 }
             }
