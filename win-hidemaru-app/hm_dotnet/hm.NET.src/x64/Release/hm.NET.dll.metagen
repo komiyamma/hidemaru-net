@@ -1,5 +1,5 @@
 ImageRuntimeVersion: v4.0.30319
-Assembly hm.NET, Version=1.2.*, Culture=ロケールに依存しない言語 (ロケールに依存しない国): 
+Assembly hm.NET, Version=1.3.*, Culture=ロケールに依存しない言語 (ロケールに依存しない国): 
 	hash=SHA1, flags=PublicKey
 Assembly mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
 	hash=None, flags=None
@@ -55,7 +55,8 @@ Class Hidemaru.Hm+Edit: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Se
     get_MousePos(): PrivateScope, Public, Static, HideBySig, SpecialName
 Class Hidemaru.Hm+File: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
   Methods:
-    AnalyzeEncodinge(String): PrivateScope, Public, Static, HideBySig
+    GetHmEncode(String): PrivateScope, Public, Static, HideBySig
+    GetMsCodePage(String): PrivateScope, Public, Static, HideBySig
 Interface Hidemaru.Hm+Macro+IResult: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
   Properties:
     Int32 Result 'get ' : 
@@ -93,10 +94,3 @@ Interface Hidemaru.Hm+Edit+IMousePos: AutoLayout, AnsiClass, Class, NestedPublic
     get_Column(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
     get_X(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
     get_Y(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
-Interface Hidemaru.Hm+File+IEncode: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
-  Properties:
-    Int32 CodePage 'get ' : 
-    Int32 HidemaruEncode 'get ' : 
-  Methods:
-    get_CodePage(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
-    get_HidemaruEncode(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName

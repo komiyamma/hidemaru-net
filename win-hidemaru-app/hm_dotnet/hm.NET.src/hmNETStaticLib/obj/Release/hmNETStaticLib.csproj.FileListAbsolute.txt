@@ -13,4 +13,3 @@ G:\repository\hidemaru-net\win-hidemaru-app\hm_dotnet\hm.NET.src\hmNETStaticLib\
 G:\repository\hidemaru-net\win-hidemaru-app\hm_dotnet\hm.NET.src\hmNETStaticLib\bin\Release\hmNETStaticLib.netmodule
 G:\repository\hidemaru-net\win-hidemaru-app\hm_dotnet\hm.NET.src\hmNETStaticLib\obj\Release\hmNETStaticLib.csproj.CoreCompileInputs.cache
 G:\repository\hidemaru-net\win-hidemaru-app\hm_dotnet\hm.NET.src\hmNETStaticLib\obj\Release\hmNETStaticLib.netmodule
-G:\repository\hidemaru-net\win-hidemaru-app\hm_dotnet\hm.NET.src\hmNETStaticLib\obj\Release\hmNETStaticLib.csprojAssemblyReference.cache

@@ -4,9 +4,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("hmNETStaticLib")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Copyright © 2017-2019 Akitsugu Komiyama")]
+[assembly: AssemblyCompany("Copyright © 2017-2020 Akitsugu Komiyama")]
 [assembly: AssemblyProduct("hmNETStaticLib")]
-[assembly: AssemblyCopyright("Copyright © 2017-2019 Akitsugu Komiyama")]
+[assembly: AssemblyCopyright("Copyright © 2017-2020 Akitsugu Komiyama")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -14,5 +14,5 @@ using System.Runtime.InteropServices;
 
 [assembly: Guid("28ba55ef-4d63-48db-b91c-e5ac1a59e06e")]
 
-[assembly: AssemblyVersion("1.2.2.4")]
-[assembly: AssemblyFileVersion("1.2.2.4")]
+[assembly: AssemblyVersion("1.3.0.1")]
+[assembly: AssemblyFileVersion("1.3.0.1")]

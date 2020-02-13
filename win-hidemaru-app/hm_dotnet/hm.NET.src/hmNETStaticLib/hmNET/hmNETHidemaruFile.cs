@@ -22,16 +22,6 @@ internal sealed partial class hmNETDynamicLib
                 SetUnManagedDll();
             }
 
-            public struct HmEncodeStruct : global::Hidemaru.Hm.File.IEncode
-            {
-                public int m_codepage;
-                public int m_hidemaru_encode;
-
-                public int CodePage { get { return m_codepage; } }
-                public int HidemaruEncode { get { return m_hidemaru_encode; }
-}
-            }
-
             static int[] key_encode_value_codepage_array = {
                 0,      // Unknown
                 932,    // encode = 1 ANSI/OEM Japanese; Japanese (Shift-JIS)
@@ -56,29 +46,55 @@ internal sealed partial class hmNETDynamicLib
                 1256,   // encode =20 アラビア語 ANSI Arabic; Arabic (Windows)
                 874,    // encode =21 タイ語 ANSI/OEM Thai (same as 28605, ISO 8859-15); Thai (Windows)
                 1258,   // encode =22 ベトナム語 ANSI/OEM Vietnamese; Vietnamese (Windows)
-                10000,  // encode =23 Macintosh
-                0,      // encode =24 OEM/DOS
+                10001,  // encode =23 x-mac-japanese Japanese (Mac)
+                850,    // encode =24 OEM/DOS
                 0,      // encode =25 その他
-                12000,   // encode =26 Unicode (UTF-32) little-endian
-                12001,   // encode =27 Unicode (UTF-32) big-endian
+                12000,  // encode =26 Unicode (UTF-32) little-endian
+                12001,  // encode =27 Unicode (UTF-32) big-endian
 
             };
 
-            // columnやlinenoはエディタ的な座標である。
-            public static HmEncodeStruct AnalyzeEncoding(string filename)
+            public static int GetHmEncode(string filename)
             {
-                HmEncodeStruct result = new HmEncodeStruct();
-                result.m_hidemaru_encode = 0;
-                result.m_codepage = 0;
+                if (version < 890)
+                {
+                    OutputDebugStream(ErrorMsg.MethodNeed890);
+
+                    return -1;
+                }
+
+                if (pAnalyzeEncoding == null)
+                {
+                    OutputDebugStream(ErrorMsg.MethodNeed890);
+
+                    return -1;
+                }
+
+                return pAnalyzeEncoding(filename, IntPtr.Zero, IntPtr.Zero);
+            }
+
+            // columnやlinenoはエディタ的な座標である。
+            public static int GetMsCodePage(string filename)
+            {
+
+                int result_codepage = 0;
 
                 if (version < 890)
                 {
                     OutputDebugStream(ErrorMsg.MethodNeed890);
 
-                    return result;
+                    return result_codepage;
                 }
 
-                result.m_hidemaru_encode = pAnalyzeEncoding(filename, IntPtr.Zero, IntPtr.Zero);
+                if (pAnalyzeEncoding == null)
+                {
+                    OutputDebugStream(ErrorMsg.MethodNeed890);
+
+                    return result_codepage;
+                }
+
+
+                int hidemaru_encode = pAnalyzeEncoding(filename, IntPtr.Zero, IntPtr.Zero);
 
                 /*
                  *
@@ -110,20 +126,20 @@ internal sealed partial class hmNETDynamicLib
                     UTF-32 encode=27 codepage=12000
                     UTF-32 (Big-Endian) encode=28 codepage=12001
                 */
-                if (result.m_hidemaru_encode <= 0)
+                if (hidemaru_encode <= 0)
                 {
-                    return result;
+                    return result_codepage;
                 }
 
-                if (result.m_hidemaru_encode < key_encode_value_codepage_array.Length)
+                if (hidemaru_encode < key_encode_value_codepage_array.Length)
                 {
                     // 把握しているコードページなので入れておく
-                    result.m_codepage = key_encode_value_codepage_array[result.m_hidemaru_encode];
-                    return result;
+                    result_codepage = key_encode_value_codepage_array[hidemaru_encode];
+                    return result_codepage;
                 }
                 else // 長さ以上なら、予期せぬ未来のencode番号対応
                 {
-                    return result;
+                    return result_codepage;
                 }
             }
         }

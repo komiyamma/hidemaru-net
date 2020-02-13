@@ -219,19 +219,20 @@ namespace Hidemaru
         public static class File
         {
             // ファイルエンコードの問い合わせ結果
-            public interface IEncode
+            public static int GetHmEncode(string filename)
             {
-                int CodePage { get; }
-                int HidemaruEncode { get; }
-            }
-
-            public static IEncode AnalyzeEncodinge(string filename)
-            {
-                IEncode result = hmNETDynamicLib.Hidemaru.File.AnalyzeEncoding(filename);
+                int result = hmNETDynamicLib.Hidemaru.File.GetHmEncode(filename);
 
                 return result;
             }
 
+            // ファイルエンコードの問い合わせ結果
+            public static int GetMsCodePage(string filename)
+            {
+                int result = hmNETDynamicLib.Hidemaru.File.GetMsCodePage(filename);
+
+                return result;
+            }
         }
 
 
