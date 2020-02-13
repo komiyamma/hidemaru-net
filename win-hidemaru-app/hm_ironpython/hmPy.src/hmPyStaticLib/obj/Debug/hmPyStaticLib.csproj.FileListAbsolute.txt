@@ -8,3 +8,6 @@ C:\usr\github\tenshoukijp\xn--rssu31gj1g.jp\other_soft\hm_ironpython\hmPy.src\hm
 C:\usr\github\tenshoukijp\xn--rssu31gj1g.jp\other_soft\hm_ironpython\hmPy.src\hmPYStaticLib\obj\Debug\hmPyStaticLib.csprojResolveAssemblyReference.cache
 C:\usr\github\tenshoukijp\xn--rssu31gj1g.jp\other_soft\hm_ironpython\hmPy.src\hmPYStaticLib\obj\Debug\hmPyStaticLib.netmodule
 C:\usr\github\tenshoukijp\xn--rssu31gj1g.jp\other_soft\hm_ironpython\hmPy.src\hmPYStaticLib\obj\Debug\hmPyStaticLib.pdb
+G:\repository\hidemaru-net\win-hidemaru-app\hm_ironpython\hmPy.src\hmPYStaticLib\obj\Debug\hmPyStaticLib.csprojAssemblyReference.cache
+G:\repository\hidemaru-net\win-hidemaru-app\hm_ironpython\hmPy.src\hmPYStaticLib\obj\Debug\hmPyStaticLib.csproj.CoreCompileInputs.cache
+G:\repository\hidemaru-net\win-hidemaru-app\hm_ironpython\hmPy.src\hmPYStaticLib\obj\Debug\hmPyStaticLib.netmodule

@@ -79,6 +79,7 @@
     <Compile Include="hmPyHidemaruDelegate.cs" />
     <Compile Include="hmPyHidemaruMacro.cs" />
     <Compile Include="hmPyHidemaruEdit.cs" />
+    <Compile Include="hmPyHidemrauFile.cs" />
     <Compile Include="hmPyStaticLib.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnManagedDll.cs" />
