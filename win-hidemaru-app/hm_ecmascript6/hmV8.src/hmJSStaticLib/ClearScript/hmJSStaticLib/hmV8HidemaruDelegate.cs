@@ -84,7 +84,6 @@ public sealed partial class hmV8DynamicLib
                     {
                         pAnalyzeEncoding = hmExeHandle.GetProcDelegate<TAnalyzeEncoding>("Hidemaru_AnalyzeEncoding");
                     }
-
                 }
             }
         }

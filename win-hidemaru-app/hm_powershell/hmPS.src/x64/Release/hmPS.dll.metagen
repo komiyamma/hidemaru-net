@@ -50,6 +50,7 @@ Class hmPSDynamicLib+Hidemaru: AutoLayout, AnsiClass, Class, NestedPublic, Seale
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Fields:
     TEdit Edit : Public, Static
+    TFile File : Public, Static
     TMacro Macro : Public, Static
   Properties:
     Double version 'get ' : 
@@ -75,6 +76,8 @@ Class hmPSDynamicLib+Hidemaru+TEdit: AutoLayout, AnsiClass, Class, NestedPublic,
     set_SelectedText(String): PrivateScope, Public, Static, HideBySig, SpecialName
     get_LineText(): PrivateScope, Public, Static, HideBySig, SpecialName
     set_LineText(String): PrivateScope, Public, Static, HideBySig, SpecialName
+Class hmPSDynamicLib+Hidemaru+TFile: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
 Class hmPSDynamicLib+Hidemaru+TMacro: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Fields:
@@ -87,6 +90,8 @@ Class hmPSDynamicLib+Hidemaru+ErrorMsg: AutoLayout, AnsiClass, Class, NestedPubl
     System.String NoDllBindHandle866 : Public, Static, InitOnly
     System.String MethodNeed866 = このメソッドは秀丸エディタ v8.66 正式版以降で利用可能です。 : Public, Static, Literal, HasDefault
     System.String MethodNeed873 = このメソッドは秀丸エディタ v8.73 正式版以降で利用可能です。 : Public, Static, Literal, HasDefault
+    System.String MethodNeed875 = このメソッドは秀丸エディタ v8.75 正式版以降で利用可能です。 : Public, Static, Literal, HasDefault
+    System.String MethodNeed890 = このメソッドは秀丸エディタ v8.90 正式版以降で利用可能です。 : Public, Static, Literal, HasDefault
 Struct hmPSDynamicLib+Hidemaru+TEdit+HmCursurPos: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
   :System.ValueType
     Void .ctor(Int32, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName

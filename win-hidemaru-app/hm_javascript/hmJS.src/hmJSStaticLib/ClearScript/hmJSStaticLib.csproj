@@ -63,6 +63,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="hmJSStaticLib\hmJSHidemaruFile.cs" />
     <Compile Include="hmJSStaticLib\ClearScriptExtension.cs" />
     <Compile Include="hmJSStaticLib\hmJSConsole.cs" />
     <Compile Include="hmJSStaticLib\hmJSDllPathResolver.cs" />

@@ -486,6 +486,13 @@ Interface Microsoft.ClearScript.JavaScript.ITypedArray`1[T]: AutoLayout, AnsiCla
     ToArray(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
     Read(UInt64, UInt64, T[], UInt64): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
     Write(T[], UInt64, UInt64, UInt64): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class hmJSDynamicLib+Hidemaru: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Double version 'get ' : 
+  Methods:
+    debuginfo(Object[]): PrivateScope, Public, Static, HideBySig
+    get_version(): PrivateScope, Public, Static, HideBySig, SpecialName
 Class hmJSDynamicLib+hmJSConsole: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Methods:
@@ -501,19 +508,19 @@ Class hmJSDynamicLib+hmJSConsole: AutoLayout, AnsiClass, Class, NestedPublic, Se
     assert(Object, Object[]): PrivateScope, Public, Static, HideBySig
 Class hmJSDynamicLib+DllPathResolver: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
-Class hmJSDynamicLib+Hidemaru: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+Class hmJSDynamicLib+Hidemaru+File: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
-  Properties:
-    Double version 'get ' : 
   Methods:
-    debuginfo(Object[]): PrivateScope, Public, Static, HideBySig
-    get_version(): PrivateScope, Public, Static, HideBySig, SpecialName
+    GetHmEncode(String): PrivateScope, Public, Static, HideBySig
+    GetMsCodePage(String): PrivateScope, Public, Static, HideBySig
 Class hmJSDynamicLib+Hidemaru+ErrorMsg: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Fields:
     System.String NoDllBindHandle866 : Public, Static, InitOnly
     System.String MethodNeed866 = このメソッドは秀丸エディタ v8.66 正式版以降で利用可能です。 : Public, Static, Literal, HasDefault
     System.String MethodNeed873 = このメソッドは秀丸エディタ v8.73 正式版以降で利用可能です。 : Public, Static, Literal, HasDefault
+    System.String MethodNeed875 = このメソッドは秀丸エディタ v8.75 正式版以降で利用可能です。 : Public, Static, Literal, HasDefault
+    System.String MethodNeed890 = このメソッドは秀丸エディタ v8.90 正式版以降で利用可能です。 : Public, Static, Literal, HasDefault
 Class hmJSDynamicLib+Hidemaru+Edit: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Properties:

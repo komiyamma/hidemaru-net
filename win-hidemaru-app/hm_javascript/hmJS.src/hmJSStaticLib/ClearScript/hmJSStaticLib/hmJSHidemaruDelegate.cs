@@ -35,6 +35,8 @@ public sealed partial class hmJSDynamicLib
         delegate int TEvalMacro([MarshalAs(UnmanagedType.LPWStr)] String pwsz);
         delegate int TCheckQueueStatus();
 
+        delegate int TAnalyzeEncoding([MarshalAs(UnmanagedType.LPWStr)] String pwszFileName, IntPtr lParam1, IntPtr lParam2);
+
         // 秀丸本体から出ている関数群
         static TGetTotalTextUnicode pGetTotalTextUnicode;
         static TGetLineTextUnicode pGetLineTextUnicode;
@@ -43,6 +45,7 @@ public sealed partial class hmJSDynamicLib
         static TGetCursorPosUnicodeFromMousePos pGetCursorPosUnicodeFromMousePos;
         static TEvalMacro pEvalMacro;
         static TCheckQueueStatus pCheckQueueStatus;
+        static TAnalyzeEncoding pAnalyzeEncoding;
 
         [DllImport("kernel32.dll", SetLastError = true)]
         private static extern IntPtr GlobalLock(IntPtr hMem);
@@ -79,6 +82,11 @@ public sealed partial class hmJSDynamicLib
                     if (_ver >= 873)
                     {
                         pGetCursorPosUnicodeFromMousePos = hmExeHandle.GetProcDelegate<TGetCursorPosUnicodeFromMousePos>("Hidemaru_GetCursorPosUnicodeFromMousePos");
+                    }
+
+                    if (_ver >= 890)
+                    {
+                        pAnalyzeEncoding = hmExeHandle.GetProcDelegate<TAnalyzeEncoding>("Hidemaru_AnalyzeEncoding");
                     }
                 }
             }
