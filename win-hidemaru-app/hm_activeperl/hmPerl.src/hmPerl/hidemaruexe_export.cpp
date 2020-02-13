@@ -163,5 +163,11 @@ BOOL CHidemaruExeExport::EvalMacro(wstring cmd) {
 }
 
 int CHidemaruExeExport::AnalyzeEncoding(wstring filename) {
-	return Hidemaru_AnalyzeEncoding(filename.data(), NULL, NULL);
+	// ŠY“–‚ÌŠÖ”‚ª‘¶İ‚µ‚Ä‚¢‚é‚¾‚¯’l‚ğXV(GŠÛ 8.90ˆÈã)
+	if (Hidemaru_AnalyzeEncoding) {
+		return Hidemaru_AnalyzeEncoding(filename.data(), NULL, NULL);
+	}
+	else {
+		return 0;
+	}
 }

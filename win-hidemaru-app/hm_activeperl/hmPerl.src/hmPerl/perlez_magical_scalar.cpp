@@ -20,7 +20,8 @@ wstring CPerlEzMagicalScalar::stocked_macro_var_simbol = L"";
 // LPCSTRを返すので実体を残すため、必ず、utf8_getvarofreturn.data()をリターンする。
 string CPerlEzMagicalScalar::utf8_getvarofreturn = "";
 
-extern string utf8_lastEvalResult = "";
+string utf8_lastEvalResult = "";
+string utf8_lastHmEncodeResult = "";
 
 LPCSTR CPerlEzMagicalScalar::GetHmComposedMagicScalarFunctions(LPVOID obj, LPCSTR p_utf8_SelfName)
 {
@@ -53,8 +54,15 @@ LPCSTR CPerlEzMagicalScalar::GetHmComposedMagicScalarFunctions(LPVOID obj, LPCST
 
 	// hm->Macro->Evalの結果
 	else if (utf8_SelfName == szMagicalVarMacroEvalResult) {
-		string ret = utf8_lastEvalResult;
+		string ret = utf8_lastEvalResult.data();
 		utf8_lastEvalResult.clear();
+		utf8_getvarofreturn = ret;
+	}
+
+	// hm->File->HmEncodeの結果
+	else if (utf8_SelfName == szMagicalVarFileHmEncodeResult) {
+		string ret = utf8_lastHmEncodeResult.data();
+		utf8_lastHmEncodeResult.clear();
 		utf8_getvarofreturn = ret;
 	}
 
@@ -131,10 +139,12 @@ LPCSTR CPerlEzMagicalScalar::SetHmComposedMagicScalarFunctions(LPVOID obj, LPCST
 
 	// hm->File->HmEncode(...)へと代入
 	else if (utf8_SelfName == szMagicalVarFileHmEncode) {
-		int ret = CPerlEzMagicalScalar::Hm::File::Get::HmEncode(utf16_value);
+		utf8_lastHmEncodeResult.clear();
+
+		int ret = CHidemaruExeExport::AnalyzeEncoding(utf16_value);
 		// 関数抜けてポインタ消えないように、グローバルに乗っける
-		utf8_setvarofreturn = to_string(ret);
-		return utf8_setvarofreturn.data();
+		utf8_lastHmEncodeResult = to_string(ret);
+		return p_utf8_Value;
 	}
 
 	// hm->Macro->Eval(...)を実行
@@ -183,10 +193,6 @@ LPCSTR CPerlEzMagicalScalar::SetHmComposedMagicScalarFunctions(LPVOID obj, LPCST
 	return p_utf8_Value;
 }
 
-int CPerlEzMagicalScalar::Hm::File::Get::HmEncode(wstring utf16_value) {
-	int hm_encode = CHidemaruExeExport::AnalyzeEncoding(utf16_value);
-	return hm_encode;
-}
 
 BOOL CPerlEzMagicalScalar::Hm::debuginfo(wstring utf16_value) {
 	OutputDebugStream(utf16_value);
@@ -300,6 +306,7 @@ void CPerlEzMagicalScalar::BindMagicalScalarFunctions(CPerlEzEngine* module) {
 		szMagicalVarDebugInfo,
 		szMagicalVarVersion,
 		szMagicalVarFileHmEncode,
+		szMagicalVarFileHmEncodeResult,
 		szMagicalVarEditTotalText,
 		szMagicalVarEditSelectedText,
 		szMagicalVarEditLineText,

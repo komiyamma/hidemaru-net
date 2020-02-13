@@ -7,17 +7,18 @@
 
 #include "perlez_engine.h"
 
-#define szMagicalVarDebugInfo		 "hm_debuginfo"
-#define szMagicalVarVersion			 "hm_version"
-#define szMagicalVarMacroVarSimbol   "hm_Macro_Var_Simbol"
-#define szMagicalVarMacroVarValue    "hm_Macro_Var_Value"
-#define szMagicalVarMacroEval		 "hm_Macro_Eval"
-#define szMagicalVarMacroEvalResult	 "hm_Macro_Eval_Result"
-#define szMagicalVarEditTotalText	 "hm_Edit_TotalText"
-#define szMagicalVarEditSelectedText "hm_Edit_SelectedText"
-#define szMagicalVarEditLineText     "hm_Edit_LineText"
-#define szMagicalVarFileHmEncode     "hm_File_HmEncode"
-#define szMagicalVarEditCursorPos    "hm_Edit_CursorPos"
+#define szMagicalVarDebugInfo		    "hm_debuginfo"
+#define szMagicalVarVersion			    "hm_version"
+#define szMagicalVarMacroVarSimbol      "hm_Macro_Var_Simbol"
+#define szMagicalVarMacroVarValue       "hm_Macro_Var_Value"
+#define szMagicalVarMacroEval		    "hm_Macro_Eval"
+#define szMagicalVarMacroEvalResult	    "hm_Macro_Eval_Result"
+#define szMagicalVarEditTotalText	    "hm_Edit_TotalText"
+#define szMagicalVarEditSelectedText    "hm_Edit_SelectedText"
+#define szMagicalVarEditLineText        "hm_Edit_LineText"
+#define szMagicalVarFileHmEncode        "hm_File_HmEncode"
+#define szMagicalVarFileHmEncodeResult  "hm_File_HmEncode_Result"
+#define szMagicalVarEditCursorPos       "hm_Edit_CursorPos"
 #define szMagicalVarEditCursorPosFromMousePos    "hm_Edit_CursorPosFromMousePos"
 
 
@@ -66,6 +67,9 @@ private:
 
 		struct File {
 			struct Get {
+				static int HmEncode();
+			};
+			struct Set {
 				static int HmEncode(wstring utf16_value);
 			};
 		};
