@@ -46,6 +46,13 @@ public:
 	static PFNGetLineTextUnicode Hidemaru_GetLineTextUnicode;
 
 	//-------------------------------------------------------------------------
+	// 指定対象のファイルの秀丸encodeを得る。秀丸自体の「動作環境」-「ファイル」ー「エンコード1」の設定に従うので注意。
+	// 汎用のエンコード取得機能ではなく、使用者が使っている秀丸の設定の元、その該当の秀丸でファイルを開いたとしたら、
+	// 何のエンコードで開かれるのかを取得する機能となる。
+	using PFNAnalyzeEncoding = int(WINAPI *)(const WCHAR* pwszFileName, DWORD_PTR lParam1, DWORD_PTR lParam2);
+	static PFNAnalyzeEncoding Hidemaru_AnalyzeEncoding;
+
+	//-------------------------------------------------------------------------
 	// 現在編集中のテキストのカーソルの位置を取得する。マクロのcolumnとlineno相当
 	using PFNGetCursorPosUnicode = BOOL(WINAPI *)(int* pnLineNo, int* pnColumn);
 	static PFNGetCursorPosUnicode Hidemaru_GetCursorPosUnicode;
@@ -120,6 +127,11 @@ public:
 	// Hidemaru_GetLineTextUnicode関数のラップしたもの
 	//-------------------------------------------------------------------------
 	static wstring GetLineText(int lineno = 0);
+
+	//-------------------------------------------------------------------------
+	// Hidemaru_AnalyzeEncoding関数のラップしたもの
+	//-------------------------------------------------------------------------
+	static int AnalyzeEncoding(wstring filename);
 
 	//-------------------------------------------------------------------------
 	// Hidemaru_GetCursorPosUnicode関数のラップしたもの

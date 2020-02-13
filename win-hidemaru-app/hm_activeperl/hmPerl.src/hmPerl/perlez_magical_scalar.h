@@ -16,6 +16,7 @@
 #define szMagicalVarEditTotalText	 "hm_Edit_TotalText"
 #define szMagicalVarEditSelectedText "hm_Edit_SelectedText"
 #define szMagicalVarEditLineText     "hm_Edit_LineText"
+#define szMagicalVarFileHmEncode     "hm_File_HmEncode"
 #define szMagicalVarEditCursorPos    "hm_Edit_CursorPos"
 #define szMagicalVarEditCursorPosFromMousePos    "hm_Edit_CursorPosFromMousePos"
 
@@ -62,6 +63,12 @@ private:
 
 		static BOOL debuginfo(wstring utf16_value);
 		static string version();
+
+		struct File {
+			struct Get {
+				static int HmEncode(wstring utf16_value);
+			};
+		};
 
 		struct Edit {
 			struct Get {

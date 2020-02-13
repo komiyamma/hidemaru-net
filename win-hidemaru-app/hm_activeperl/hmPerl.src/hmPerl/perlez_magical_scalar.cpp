@@ -129,6 +129,14 @@ LPCSTR CPerlEzMagicalScalar::SetHmComposedMagicScalarFunctions(LPVOID obj, LPCST
 		return p_utf8_Value;
 	}
 
+	// hm->File->HmEncode(...)へと代入
+	else if (utf8_SelfName == szMagicalVarFileHmEncode) {
+		int ret = CPerlEzMagicalScalar::Hm::File::Get::HmEncode(utf16_value);
+		// 関数抜けてポインタ消えないように、グローバルに乗っける
+		utf8_setvarofreturn = to_string(ret);
+		return utf8_setvarofreturn.data();
+	}
+
 	// hm->Macro->Eval(...)を実行
 	else if (utf8_SelfName == szMagicalVarMacroEval) {
 		// 結果のクリア
@@ -175,6 +183,10 @@ LPCSTR CPerlEzMagicalScalar::SetHmComposedMagicScalarFunctions(LPVOID obj, LPCST
 	return p_utf8_Value;
 }
 
+int CPerlEzMagicalScalar::Hm::File::Get::HmEncode(wstring utf16_value) {
+	int hm_encode = CHidemaruExeExport::AnalyzeEncoding(utf16_value);
+	return hm_encode;
+}
 
 BOOL CPerlEzMagicalScalar::Hm::debuginfo(wstring utf16_value) {
 	OutputDebugStream(utf16_value);
@@ -287,6 +299,7 @@ void CPerlEzMagicalScalar::BindMagicalScalarFunctions(CPerlEzEngine* module) {
 	auto list = {
 		szMagicalVarDebugInfo,
 		szMagicalVarVersion,
+		szMagicalVarFileHmEncode,
 		szMagicalVarEditTotalText,
 		szMagicalVarEditSelectedText,
 		szMagicalVarEditLineText,

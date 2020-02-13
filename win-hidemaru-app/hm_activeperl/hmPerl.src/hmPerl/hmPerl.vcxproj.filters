@@ -76,7 +76,7 @@
       <Filter>ActivePerlのPerlEzのコネクト部分</Filter>
     </ClCompile>
     <ClCompile Include="hidemaruexe_export.cpp">
-      <Filter>秀丸マクロとのAPI Interface</Filter>
+      <Filter>秀丸本体のexeの関数やバージョン</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -1,8 +1,8 @@
 ﻿#--------------------------------------------------------------
-# hmPerl 1.5.6.2用 カスタムファイル
+# hmPerl 1.6.0.1用 カスタムファイル
 #                 ActivePerl x86版 v5.10 ～ v5.26
 #
-# Copyright (c) 2016-2019 Akitsugu Komiyama
+# Copyright (c) 2016-2020 Akitsugu Komiyama
 #                 under the Apache License Version 2.0
 #
 #--------------------------------------------------------------
@@ -24,6 +24,21 @@ sub debuginfo {
 sub version {
     return $::hm_version + 0;
 }
+
+# 編集中の秀丸のテキストを得たり、テキストを変更したりする
+#--------------------------------------------------------------
+sub File {
+    my ($class) = @_;
+    return bless {}, $class;
+}
+
+        #--------------------------------------------------------------
+        sub GetHmEncode {
+            my ($self, $value) = @_;
+            my $hm_encode = $::hm_File_HmEncode = $value;
+            return $hm_encode;
+        }
+
 
 # 編集中の秀丸のテキストを得たり、テキストを変更したりする
 #--------------------------------------------------------------
