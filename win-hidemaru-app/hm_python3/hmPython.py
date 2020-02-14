@@ -22,18 +22,6 @@ class _TFile:
         py_encoding, ms_codepage, hm_encode = hidemaru.file.get_encoding(filefullpath)
         return _TFile._TEncoding(py_encoding, ms_codepage, hm_encode)
 
-    class _TLoad:
-
-        def __init__(self, text, count, hm_encode):
-            self.text = text     # 文字列
-            self.count = count          # 変換文字数
-            self.hm_encode = hm_encode  # 
-
-    # 対象のファイルを秀丸のファイル用APIを使って読み込む
-    def Load(self, filefullpath, hm_encode=-1):
-        text, count, hm_encode = hidemaru.file.get_readalltext(filefullpath, hm_encode)
-        return _TFile._TLoad(text, count, hm_encode)
-
 
 class _TEdit:
     """
