@@ -105,7 +105,7 @@ namespace Hidemaru {
 		return ret;
 	}
 	
-	std::string File_GetEncodingAlias(const std::string utf8_filename) {
+	py::tuple File_GetEncodingAlias(const std::string utf8_filename) {
 		/*
 		0,      // Unknown
 		932,    // encode = 1 ANSI/OEM Japanese; Japanese (Shift-JIS)
@@ -138,6 +138,10 @@ namespace Hidemaru {
 		*/
 
 		int hm_encode = File_GetHmEncode(utf8_filename);
+		// 範囲チェック(秀丸が返したencode値が個数をはみ出していたら...)
+		if (hm_encode <= 0) {
+			return py::make_tuple( 0, "" );
+		}
 
 		static const int code_arr[] = {
 			0,
@@ -172,98 +176,98 @@ namespace Hidemaru {
 
 		// コードページの一覧表の個数
 		const int code_arr_length = sizeof(code_arr) / sizeof(int);
-		// 範囲チェック(秀丸が返したencode値が個数をはみ出していたら...)
-		if (hm_encode <= 0) {
-			return "";
-		}
 		if (hm_encode >= code_arr_length) {
-			return "";
+			return py::make_tuple(0, "");
 		}
 
 		int codepage = code_arr[hm_encode];
 		switch (codepage) {
 		case 0: {
-			return "";
+			return py::make_tuple(0, "");
 		}
 		case 932: {
-			return "cp932";
+			return py::make_tuple(codepage, "cp932");
 		}
 		case 1200: {
-			return "utf_16_le";
+			return py::make_tuple(codepage, "utf_16_le");
 		}
 		case 51932: {
-			return "euc_jp";
+			return py::make_tuple(codepage, "euc_jp");
 		}
 		case 50221: {
-			return "iso2022_jp";
+			return py::make_tuple(codepage, "iso2022_jp");
 		}
 		case 65000: {
-			return "utf_7";
+			return py::make_tuple(codepage, "utf_7");
 		}
 		case 65001: {
-			return "utf_8";
+			return py::make_tuple(codepage, "utf_8");
 		}
 		case 1201: {
-			return "utf_16_be";
+			return py::make_tuple(codepage, "utf_16_be");
 		}
 		case 1252: {
-			return "cp1252";
+			return py::make_tuple(codepage, "cp1252");
 		}
 		case 936: {
-			return "gb2312";
+			return py::make_tuple(codepage, "gb2312");
 		}
 		case 950: {
-			return "big5";
+			return py::make_tuple(codepage, "big5");
 		}
 		case 949: {
-			return "cp949";
+			return py::make_tuple(codepage, "cp949");
 		}
 		case 1361: {
-			return "cp1361";
+			return py::make_tuple(codepage, "cp1361");
 		}
 		case 1250: {
-			return "cp1250";
+			return py::make_tuple(codepage, "cp1250");
 		}
 		case 1257: {
-			return "cp1257";
+			return py::make_tuple(codepage, "cp1257");
 		}
 		case 1253: {
-			return "cp1253";
+			return py::make_tuple(codepage, "cp1253");
 		}
 		case 1251: {
-			return "cp1251";
+			return py::make_tuple(codepage, "cp1251");
 		}
 		case 42: {
-			return "";
+			return py::make_tuple(codepage, "symbol");
 		}
 		case 1254: {
-			return "cp1254";
+			return py::make_tuple(codepage, "cp1254");
 		}
 		case 1255: {
-			return "cp1255";
+			return py::make_tuple(codepage, "cp1255");
 		}
 		case 1256: {
-			return "cp1256";
+			return py::make_tuple(codepage, "cp1256");
 		}
 		case 874: {
-			return "iso8859_15";
+			return py::make_tuple(codepage, "iso8859_15");
 		}
 		case 1258: {
-			return "cp1258";
+			return py::make_tuple(codepage, "cp1258");
 		}
 		case 10001: {
-			return "x_mac_japanese";
+			return py::make_tuple(codepage, "x_mac_japanese");
 		}
 		case 850: {
-			return "cp850";
+			return py::make_tuple(codepage, "cp850");
 		}
 		case 12000: {
-			return "utf_32_le";
+			return py::make_tuple(codepage, "utf_32_le");
 		}
 		case 12001: {
-			return "utf_32_be";
+			return py::make_tuple(codepage, "utf_32_be");
 		}
 		}
+
+		// なぜか該当していないのに配列内
+		return py::make_tuple(0, "");
+
 	}
 
 	// カーソルの位置。扱いやすいのでpythonのタプル(lineno, column)で返しておく

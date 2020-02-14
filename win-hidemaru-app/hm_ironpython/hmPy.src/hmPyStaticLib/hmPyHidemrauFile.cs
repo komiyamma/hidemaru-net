@@ -72,6 +72,124 @@ public sealed partial class hmPyDynamicLib
                 return pAnalyzeEncoding(filename, IntPtr.Zero, IntPtr.Zero);
             }
 
+            public static string GetPyEncoding(string filename)
+            {
+                int mscodepage = GetMsCodePage(filename);
+                switch (codepage)
+                {
+                    case 0:
+                        {
+                            return "";
+                        }
+                    case 932:
+                        {
+                            return "cp932";
+                        }
+                    case 1200:
+                        {
+                            return "utf_16_le";
+                        }
+                    case 51932:
+                        {
+                            return "euc_jp";
+                        }
+                    case 50221:
+                        {
+                            return "iso2022_jp";
+                        }
+                    case 65000:
+                        {
+                            return "utf_7";
+                        }
+                    case 65001:
+                        {
+                            return "utf_8";
+                        }
+                    case 1201:
+                        {
+                            return "utf_16_be";
+                        }
+                    case 1252:
+                        {
+                            return "cp1252";
+                        }
+                    case 936:
+                        {
+                            return "gb2312";
+                        }
+                    case 950:
+                        {
+                            return "big5";
+                        }
+                    case 949:
+                        {
+                            return "cp949";
+                        }
+                    case 1361:
+                        {
+                            return "cp1361";
+                        }
+                    case 1250:
+                        {
+                            return "cp1250";
+                        }
+                    case 1257:
+                        {
+                            return "cp1257";
+                        }
+                    case 1253:
+                        {
+                            return "cp1253";
+                        }
+                    case 1251:
+                        {
+                            return "cp1251";
+                        }
+                    case 42:
+                        {
+                            return "symbol";
+                        }
+                    case 1254:
+                        {
+                            return "cp1254";
+                        }
+                    case 1255:
+                        {
+                            return "cp1255";
+                        }
+                    case 1256:
+                        {
+                            return "cp1256";
+                        }
+                    case 874:
+                        {
+                            return "iso8859_15";
+                        }
+                    case 1258:
+                        {
+                            return "cp1258";
+                        }
+                    case 10001:
+                        {
+                            return "x_mac_japanese";
+                        }
+                    case 850:
+                        {
+                            return "cp850";
+                        }
+                    case 12000:
+                        {
+                            return "utf_32_le";
+                        }
+                    case 12001:
+                        {
+                            return "utf_32_be";
+                        }
+                }
+
+                return "";
+            }
+
             // columnやlinenoはエディタ的な座標である。
             public static int GetMsCodePage(string filename)
             {
