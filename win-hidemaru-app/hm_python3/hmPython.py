@@ -16,12 +16,23 @@ class _TFile:
             self.py_encoding = py_encoding  # Pythonでファイルを開く際にエンコードとして指定できる文字列( "cp932" や "utf8" など )
             self.ms_codepage = ms_codepage  # マイクロソフトコードページの番号が入っている (932 や 65001 など)
             self.hm_encode = hm_encode      # 秀丸の encode としての値が入っている ( 1 や 6 など )
-    
+
     # 対象のファイルの encode (秀丸マクロの encode 変数の表を参照) を得る。
     def GetEncode(self, filefullpath):
-        py_encoding, ms_codepage, hm_encode = hidemaru.file.get_pyencoding(filefullpath)
+        py_encoding, ms_codepage, hm_encode = hidemaru.file.get_encoding(filefullpath)
         return _TFile._TEncoding(py_encoding, ms_codepage, hm_encode)
 
+    class _TLoad:
+
+        def __init__(self, text, count, hm_encode):
+            self.text = text     # 文字列
+            self.count = count          # 変換文字数
+            self.hm_encode = hm_encode  # 
+
+    # 対象のファイルを秀丸のファイル用APIを使って読み込む
+    def Load(self, filefullpath, hm_encode=-1):
+        text, count, hm_encode = hidemaru.file.get_readalltext(filefullpath, hm_encode)
+        return _TFile._TLoad(text, count, hm_encode)
 
 
 class _TEdit:
@@ -153,6 +164,7 @@ class _THidemaru:
     """
     #--------------------------------------------------
     def __init__(self):
+        self.File = _TFile()
         self.Edit = _TEdit()
         self.Macro = _TMacro()
     #--------------------------------------------------

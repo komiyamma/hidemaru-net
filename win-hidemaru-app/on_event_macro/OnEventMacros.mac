@@ -156,7 +156,6 @@ OnPrev_FileSave:
 
 //-----------------------------------------------------------
 OnPost_FileSave:
-return;
 
     call MacFile_EncodeNormalize;
 

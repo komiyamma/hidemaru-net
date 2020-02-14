@@ -1,6 +1,6 @@
 #--------------------------------------------------------------
-# hmPython3 1.5.8.1用 フェイクライブラリ
-# Copyright (c) 2017-2019 Akitsugu Komiyama
+# hmPython3 1.6.0.1用 フェイクライブラリ
+# Copyright (c) 2017-2020 Akitsugu Komiyama
 # under the Apache License Version 2.0
 #--------------------------------------------------------------
 
@@ -19,6 +19,18 @@ class _TFile:
     def GetEncode(self, filefullpath):
         py_encoding, ms_codepage, hm_encode = "utf_8", 65001, 6
         return _TFile._TEncoding(py_encoding, ms_codepage, hm_encode)
+
+    class _TLoad:
+
+        def __init__(self, text, count, hm_encode):
+            self.text = text     # 文字列
+            self.count = count          # 変換文字数
+            self.hm_encode = hm_encode  # 
+
+    # 対象のファイルを秀丸のファイル用APIを使って読み込む
+    def Load(self, filefullpath, hm_encode=-1):
+        text, count, hm_encode = "aaaaa", 5, 6
+        return _TFile._TLoad(text, count, hm_encode)
 
 
 class _TEdit:
@@ -122,6 +134,7 @@ class _THidemaru:
     """
     #--------------------------------------------------
     def __init__(self):
+        self.File = _TFile()
         self.Edit = _TEdit()
         self.Macro = _TMacro()
     #--------------------------------------------------

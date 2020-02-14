@@ -270,6 +270,18 @@ namespace Hidemaru {
 
 	}
 
+	// 指定の文字コードを開く
+	py::tuple File_ReadAllText(const std::string utf8_filename, int hm_encode) {
+		wstring utf16_filename = utf8_to_utf16(utf8_filename);
+		if (hm_encode == -1) {
+			hm_encode = File_GetHmEncode(utf8_filename);
+		}
+
+		UINT encoded_character_count = 0;
+		wstring utf16_value = CHidemaruExeExport::LoadFileUnicode(utf16_filename, hm_encode, &encoded_character_count, NULL, NULL);
+		return py::make_tuple(utf16_to_utf8(utf16_value), encoded_character_count, hm_encode);
+	}
+
 	// カーソルの位置。扱いやすいのでpythonのタプル(lineno, column)で返しておく
 	py::tuple Edit_GetCursorPos() {
 		auto ret = CHidemaruExeExport::GetCursorPos();
@@ -416,6 +428,7 @@ PyMODINIT_FUNC PyInit_hidemaru() {
 
 	py::module file = m.def_submodule("file", "Hidemaru File python module");
 	file.def("get_encoding", &Hidemaru::File_GetEncoding);
+	file.def("get_readalltext", &Hidemaru::File_ReadAllText);
 
 	py::module edit = m.def_submodule("edit", "Hidemaru Edit python module");
 	edit.def("get_totaltext", &Hidemaru::Edit_GetTotalText);
