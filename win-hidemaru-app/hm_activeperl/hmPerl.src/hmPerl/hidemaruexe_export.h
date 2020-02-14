@@ -53,6 +53,11 @@ public:
 	static PFNAnalyzeEncoding Hidemaru_AnalyzeEncoding;
 
 	//-------------------------------------------------------------------------
+	// 指定の秀丸のencodeを指定して、ファイル内容を読み込む
+	using PFNLoadFileUnicode = HGLOBAL(WINAPI *)(const WCHAR* pwszFileName, int nEncode, UINT* pcwchOut, DWORD_PTR lParam1, DWORD_PTR lParam2);
+	static PFNLoadFileUnicode Hidemaru_LoadFileUnicode;
+
+	//-------------------------------------------------------------------------
 	// 現在編集中のテキストのカーソルの位置を取得する。マクロのcolumnとlineno相当
 	using PFNGetCursorPosUnicode = BOOL(WINAPI *)(int* pnLineNo, int* pnColumn);
 	static PFNGetCursorPosUnicode Hidemaru_GetCursorPosUnicode;
@@ -132,6 +137,11 @@ public:
 	// Hidemaru_AnalyzeEncoding関数のラップしたもの
 	//-------------------------------------------------------------------------
 	static int AnalyzeEncoding(wstring filename);
+
+	//-------------------------------------------------------------------------
+	// Hidemaru_LoadFileUnicode関数のラップしたもの
+	//-------------------------------------------------------------------------
+	static wstring LoadFileUnicode(wstring filename, int nHmEncode, UINT* pcwchOut, DWORD_PTR lParam1, DWORD_PTR lParam2);
 
 	//-------------------------------------------------------------------------
 	// Hidemaru_GetCursorPosUnicode関数のラップしたもの

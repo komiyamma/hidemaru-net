@@ -22,6 +22,7 @@ string CPerlEzMagicalScalar::utf8_getvarofreturn = "";
 
 string utf8_lastEvalResult = "";
 string utf8_lastHmEncodeResult = "";
+string utf8_lastHmLoadFileName = "";
 
 LPCSTR CPerlEzMagicalScalar::GetHmComposedMagicScalarFunctions(LPVOID obj, LPCSTR p_utf8_SelfName)
 {
@@ -66,6 +67,11 @@ LPCSTR CPerlEzMagicalScalar::GetHmComposedMagicScalarFunctions(LPVOID obj, LPCST
 		utf8_getvarofreturn = ret;
 	}
 
+	// hm->File->ReadAllTextの結果
+	else if (utf8_SelfName == szMagicalVarFileLoadResult) {
+		utf8_getvarofreturn = CPerlEzMagicalScalar::Hm::File::Get::ReadAllText();
+	}
+
 	return utf8_getvarofreturn.data();
 }
 
@@ -87,6 +93,20 @@ string CPerlEzMagicalScalar::Hm::Edit::Get::SelectedText() {
 string CPerlEzMagicalScalar::Hm::Edit::Get::LineText() {
 	wstring utf16_Text = CHidemaruExeExport::GetLineText();
 	return utf16_to_utf8(utf16_Text);
+}
+
+string CPerlEzMagicalScalar::Hm::File::Get::ReadAllText() {
+	string str_hmencode = utf8_lastHmEncodeResult.data();
+	utf8_lastHmEncodeResult.clear();
+
+	string filename = utf8_lastHmLoadFileName.data();
+	utf8_lastHmLoadFileName.clear();
+
+	UINT cnt;
+	int hmencode = std::stoi(str_hmencode);
+	wstring text = CHidemaruExeExport::LoadFileUnicode(utf8_to_utf16(filename), hmencode, &cnt, NULL, NULL);
+
+	return utf16_to_utf8(text);
 }
 
 string CPerlEzMagicalScalar::Hm::Edit::Get::CursorPos() {
@@ -137,13 +157,31 @@ LPCSTR CPerlEzMagicalScalar::SetHmComposedMagicScalarFunctions(LPVOID obj, LPCST
 		return p_utf8_Value;
 	}
 
-	// hm->File->HmEncode(...)へと代入
+	// hm->File->HmEncode(...)へと代入（ファイル名を引数として渡す行為）
 	else if (utf8_SelfName == szMagicalVarFileHmEncode) {
 		utf8_lastHmEncodeResult.clear();
 
 		int ret = CHidemaruExeExport::AnalyzeEncoding(utf16_value);
 		// 関数抜けてポインタ消えないように、グローバルに乗っける
 		utf8_lastHmEncodeResult = to_string(ret);
+		return p_utf8_Value;
+	}
+
+	// hm->File->LoadEncode(...)へと代入 (秀丸のencode値を引数として渡す行為）
+	else if (utf8_SelfName == szMagicalVarFileLoadEncode) {
+		utf8_lastHmEncodeResult.clear();
+
+		// 関数抜けてポインタ消えないように、グローバルに乗っける
+		utf8_lastHmEncodeResult = p_utf8_Value;
+		return p_utf8_Value;
+	}
+
+	// hm->File->LoadFileName(...)へと代入 (秀丸のファイル名を引数として渡す行為）
+	else if (utf8_SelfName == szMagicalVarFileLoadFileName) {
+		utf8_lastHmLoadFileName.clear();
+
+		// 関数抜けてポインタ消えないように、グローバルに乗っける
+		utf8_lastHmLoadFileName = p_utf8_Value;
 		return p_utf8_Value;
 	}
 
@@ -307,6 +345,9 @@ void CPerlEzMagicalScalar::BindMagicalScalarFunctions(CPerlEzEngine* module) {
 		szMagicalVarVersion,
 		szMagicalVarFileHmEncode,
 		szMagicalVarFileHmEncodeResult,
+		szMagicalVarFileLoadEncode,
+		szMagicalVarFileLoadFileName,
+		szMagicalVarFileLoadResult,
 		szMagicalVarEditTotalText,
 		szMagicalVarEditSelectedText,
 		szMagicalVarEditLineText,

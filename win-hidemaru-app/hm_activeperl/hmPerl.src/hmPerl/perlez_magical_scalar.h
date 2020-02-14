@@ -18,6 +18,9 @@
 #define szMagicalVarEditLineText        "hm_Edit_LineText"
 #define szMagicalVarFileHmEncode        "hm_File_HmEncode"
 #define szMagicalVarFileHmEncodeResult  "hm_File_HmEncode_Result"
+#define szMagicalVarFileLoadEncode      "hm_File_Load_Encode"
+#define szMagicalVarFileLoadFileName    "hm_File_Load_FileName"
+#define szMagicalVarFileLoadResult      "hm_File_Load_Result"
 #define szMagicalVarEditCursorPos       "hm_Edit_CursorPos"
 #define szMagicalVarEditCursorPosFromMousePos    "hm_Edit_CursorPosFromMousePos"
 
@@ -68,6 +71,7 @@ private:
 		struct File {
 			struct Get {
 				static int HmEncode();
+				static string ReadAllText();
 			};
 			struct Set {
 				static int HmEncode(wstring utf16_value);

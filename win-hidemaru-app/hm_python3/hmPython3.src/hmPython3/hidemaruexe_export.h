@@ -52,6 +52,8 @@ public:
 	using PFNAnalyzeEncoding = int(WINAPI *)(const WCHAR* pwszFileName, DWORD_PTR lParam1, DWORD_PTR lParam2);
 	static PFNAnalyzeEncoding Hidemaru_AnalyzeEncoding;
 
+	//-------------------------------------------------------------------------
+	// 指定の秀丸のencodeを指定して、ファイル内容を読み込む
 	using PFNLoadFileUnicode = HGLOBAL (WINAPI *)(const WCHAR* pwszFileName, int nEncode, UINT* pcwchOut, DWORD_PTR lParam1, DWORD_PTR lParam2);
 	static PFNLoadFileUnicode Hidemaru_LoadFileUnicode;
 

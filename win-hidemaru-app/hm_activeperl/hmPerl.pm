@@ -39,6 +39,18 @@ sub File {
             return $::hm_File_HmEncode_Result;
         }
 
+        #--------------------------------------------------------------
+        sub ReadAllText {
+            my ($self, $filename, $value) = @_;
+            if ($value eq "") {
+                $::hm_File_HmEncode = $filename;
+                $value = $::hm_File_HmEncode_Result;
+            }
+            $::hm_File_Load_Encode = $value;
+            $::hm_File_Load_FileName = $filename;
+            return $::hm_File_Load_Result;
+        }
+
 
 # 編集中の秀丸のテキストを得たり、テキストを変更したりする
 #--------------------------------------------------------------
