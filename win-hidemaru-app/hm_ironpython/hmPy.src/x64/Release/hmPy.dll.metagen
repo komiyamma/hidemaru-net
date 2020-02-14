@@ -1,5 +1,5 @@
 ImageRuntimeVersion: v4.0.30319
-Assembly hmPy, Version=1.5.*, Culture=ロケールに依存しない言語 (ロケールに依存しない国): 
+Assembly hmPy, Version=1.7.*, Culture=ロケールに依存しない言語 (ロケールに依存しない国): 
 	hash=SHA1, flags=PublicKey
 Assembly mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
 	hash=None, flags=None
@@ -112,6 +112,12 @@ Class hmPyDynamicLib+Hidemaru+Edit: AutoLayout, AnsiClass, Class, NestedPublic, 
     set_SelectedText(String): PrivateScope, Public, Static, HideBySig, SpecialName
     get_LineText(): PrivateScope, Public, Static, HideBySig, SpecialName
     set_LineText(String): PrivateScope, Public, Static, HideBySig, SpecialName
+Class hmPyDynamicLib+Hidemaru+File: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    GetHmEncode(String): PrivateScope, Public, Static, HideBySig
+    GetPyEncoding(String): PrivateScope, Public, Static, HideBySig
+    GetMsCodePage(String): PrivateScope, Public, Static, HideBySig
 Interface hmPyDynamicLib+Hidemaru+Macro+IResult: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
   Properties:
     Int32 Result 'get ' : 

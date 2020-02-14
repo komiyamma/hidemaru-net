@@ -1,15 +1,15 @@
 ImageRuntimeVersion: v4.0.30319
-Assembly hmPy, Version=1.6.*, Culture=ロケールに依存しない言語 (ロケールに依存しない国): 
+Assembly hmPy, Version=1.7.*, Culture=ロケールに依存しない言語 (ロケールに依存しない国): 
 	hash=SHA1, flags=PublicKey
 Assembly mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
 	hash=None, flags=None
 Assembly System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
 	hash=None, flags=None
-Assembly Microsoft.Scripting, Version=1.2.0.0, Culture=neutral, PublicKeyToken=7f709c5b713576e1: 
+Assembly Microsoft.Scripting, Version=1.2.2.0, Culture=neutral, PublicKeyToken=7f709c5b713576e1: 
 	hash=None, flags=None
 Assembly System.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
 	hash=None, flags=None
-Assembly IronPython, Version=2.7.8.0, Culture=neutral, PublicKeyToken=7f709c5b713576e1: 
+Assembly IronPython, Version=2.7.9.0, Culture=neutral, PublicKeyToken=7f709c5b713576e1: 
 	hash=None, flags=None
 Assembly Microsoft.CSharp, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a: 
 	hash=None, flags=None

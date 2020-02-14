@@ -1,0 +1,8 @@
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_ironruby\hmRB.src\hmRbStaticLib\bin\Debug\hmRbStaticLib.netmodule
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_ironruby\hmRB.src\hmRbStaticLib\bin\Debug\hmRbStaticLib.pdb
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_ironruby\hmRB.src\hmRbStaticLib\bin\Debug\IronRuby.Libraries.dll
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_ironruby\hmRB.src\hmRbStaticLib\obj\Debug\hmRbStaticLib.csprojAssemblyReference.cache
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_ironruby\hmRB.src\hmRbStaticLib\obj\Debug\hmRbStaticLib.csproj.CoreCompileInputs.cache
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_ironruby\hmRB.src\hmRbStaticLib\obj\Debug\hmRbStaticLib.csproj.CopyComplete
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_ironruby\hmRB.src\hmRbStaticLib\obj\Debug\hmRbStaticLib.netmodule
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_ironruby\hmRB.src\hmRbStaticLib\obj\Debug\hmRbStaticLib.pdb

@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 // ★秀丸クラス
 public sealed partial class hmV8DynamicLib
 {
-    internal sealed partial class Hidemaru
+    public sealed partial class Hidemaru
     {
         public sealed class File
         {
