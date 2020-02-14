@@ -782,6 +782,11 @@ Class hmLmDynamicLib+Hidemaru+Edit: AutoLayout, AnsiClass, Class, NestedPublic, 
     get_LineText(): PrivateScope, Public, Static, HideBySig, SpecialName
     set_LineText(String): PrivateScope, Public, Static, HideBySig, SpecialName
     GetLineText(): PrivateScope, Public, Static, HideBySig
+Class hmLmDynamicLib+Hidemaru+File: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    GetHmEncode(String): PrivateScope, Public, Static, HideBySig
+    GetMsCodePage(String): PrivateScope, Public, Static, HideBySig
 Class hmLmDynamicLib+Hidemaru+Macro: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Fields:
