@@ -25,7 +25,7 @@ sub version {
     return $::hm_version + 0;
 }
 
-# 編集中の秀丸のテキストを得たり、テキストを変更したりする
+# 秀丸のオプションに従ったエンコードを得る
 #--------------------------------------------------------------
 sub File {
     my ($class) = @_;
@@ -35,8 +35,8 @@ sub File {
         #--------------------------------------------------------------
         sub GetHmEncode {
             my ($self, $value) = @_;
-            my $hm_encode = $::hm_File_HmEncode = $value;
-            return $hm_encode;
+            $::hm_File_HmEncode = $value;
+            return $::hm_File_HmEncode_Result;
         }
 
 
