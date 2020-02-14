@@ -105,7 +105,13 @@ namespace Hidemaru {
 		return ret;
 	}
 
-	py::tuple File_GetEncoding(const std::string utf8_filename) {
+	struct TEncodingParam {
+		int ms_codepage;
+		int hm_encode;
+		string py_encoding;
+	};
+
+	TEncodingParam _GetEncodingParamFromHmEncode(const int hm_encode) {
 		/*
 		0,      // Unknown
 		932,    // encode = 1 ANSI/OEM Japanese; Japanese (Shift-JIS)
@@ -136,12 +142,16 @@ namespace Hidemaru {
 		12000,  // encode =26 Unicode (UTF-32) little-endian
 		12001,  // encode =27 Unicode (UTF-32) big-endian
 		*/
-		int hm_encode = File_GetHmEncode(utf8_filename);
-		// 範囲チェック(秀丸が返したencode値が個数をはみ出していたら...)
-		if (hm_encode <= 0) {
-			return py::make_tuple("", 0, hm_encode);
-		}
+		TEncodingParam param;
 
+		if (hm_encode <= 0) {
+			param.hm_encode = hm_encode;
+			param.ms_codepage = 0;
+			param.py_encoding = "";
+
+			return param;
+		}
+			
 		static const int code_arr[] = {
 			0,
 			932,
@@ -175,99 +185,121 @@ namespace Hidemaru {
 
 		// コードページの一覧表の個数
 		const int code_arr_length = sizeof(code_arr) / sizeof(int);
+
+		// 範囲チェック(秀丸が返したencode値が個数をはみ出していたら...)
 		if (hm_encode >= code_arr_length) {
-			return py::make_tuple("", 0, hm_encode);
+			param.hm_encode = hm_encode;
+			param.ms_codepage = 0;
+			param.py_encoding = "";
+
+			return param;
+		}
+		else {
+			param.hm_encode = hm_encode;
+			param.ms_codepage = code_arr[hm_encode];
 		}
 
-		int codepage = code_arr[hm_encode];
 
-		switch (codepage) {
+
+		switch (param.ms_codepage) {
 		case 0: {
-			return py::make_tuple("", 0, hm_encode);
+			param.py_encoding = "";
 		}
 		case 932: {
-			return py::make_tuple("cp932", codepage, hm_encode);
+			param.py_encoding = "cp932";
 		}
 		case 1200: {
-			return py::make_tuple("utf_16_le", codepage, hm_encode);
+			param.py_encoding = "utf_16_le";
 		}
 		case 51932: {
-			return py::make_tuple("euc_jp", codepage, hm_encode);
+			param.py_encoding = "euc_jp";
 		}
 		case 50221: {
-			return py::make_tuple("iso2022_jp", codepage, hm_encode);
+			param.py_encoding = "iso2022_jp";
 		}
 		case 65000: {
-			return py::make_tuple("utf_7", codepage, hm_encode);
+			param.py_encoding = "utf_7";
 		}
 		case 65001: {
-			return py::make_tuple("utf_8", codepage, hm_encode);
+			param.py_encoding = "utf_8";
 		}
 		case 1201: {
-			return py::make_tuple("utf_16_be", codepage, hm_encode);
+			param.py_encoding = "utf_16_be";
 		}
 		case 1252: {
-			return py::make_tuple("cp1252", codepage, hm_encode);
+			param.py_encoding = "cp1252";
 		}
 		case 936: {
-			return py::make_tuple("gb2312", codepage, hm_encode);
+			param.py_encoding = "gb2312";
 		}
 		case 950: {
-			return py::make_tuple("big5", codepage, hm_encode);
+			param.py_encoding = "big5";
 		}
 		case 949: {
-			return py::make_tuple("cp949", codepage, hm_encode);
+			param.py_encoding = "cp949";
 		}
 		case 1361: {
-			return py::make_tuple("cp1361", codepage, hm_encode);
+			param.py_encoding = "cp1361";
 		}
 		case 1250: {
-			return py::make_tuple("cp1250", codepage, hm_encode);
+			param.py_encoding = "cp1250";
 		}
 		case 1257: {
-			return py::make_tuple("cp1257", codepage, hm_encode);
+			param.py_encoding = "cp1257";
 		}
 		case 1253: {
-			return py::make_tuple("cp1253", codepage, hm_encode);
+			param.py_encoding = "cp1253";
 		}
 		case 1251: {
-			return py::make_tuple("cp1251", codepage, hm_encode);
+			param.py_encoding = "cp1251";
 		}
 		case 42: {
-			return py::make_tuple("symbol", codepage, hm_encode);
+			param.py_encoding = "symbol";
 		}
 		case 1254: {
-			return py::make_tuple("cp1254", codepage, hm_encode);
+			param.py_encoding = "cp1254";
 		}
 		case 1255: {
-			return py::make_tuple("cp1255", codepage, hm_encode);
+			param.py_encoding = "cp1255";
 		}
 		case 1256: {
-			return py::make_tuple("cp1256", codepage, hm_encode);
+			param.py_encoding = "cp1256";
 		}
 		case 874: {
-			return py::make_tuple("iso8859_15", codepage, hm_encode);
+			param.py_encoding = "iso8859_15";
 		}
 		case 1258: {
-			return py::make_tuple("cp1258", codepage, hm_encode);
+			param.py_encoding = "cp1258";
 		}
 		case 10001: {
-			return py::make_tuple("x_mac_japanese", codepage, hm_encode);
+			param.py_encoding = "x_mac_japanese";
 		}
 		case 850: {
-			return py::make_tuple("cp850", codepage, hm_encode);
+			param.py_encoding = "cp850";
 		}
 		case 12000: {
-			return py::make_tuple("utf_32_le", codepage, hm_encode);
+			param.py_encoding = "utf_32_le";
 		}
 		case 12001: {
-			return py::make_tuple("utf_32_be", codepage, hm_encode);;
+			param.py_encoding = "utf_32_be";
 		}
 		}
 
-		// なぜか該当していないのに配列内
-		return py::make_tuple("", 0, hm_encode);
+		return param;
+	}
 
+	py::tuple File_GetEncodingFromHmEncode(const int hm_encode) {
+		auto param = _GetEncodingParamFromHmEncode(hm_encode);
+
+		return py::make_tuple(param.py_encoding, param.ms_codepage, param.hm_encode);
+	}
+
+	py::tuple File_GetEncodingFromFile(const std::string utf8_filename) {
+		int hm_encode = File_GetHmEncode(utf8_filename);
+
+		auto param = _GetEncodingParamFromHmEncode(hm_encode);
+
+		return py::make_tuple(param.py_encoding, param.ms_codepage, param.hm_encode);
 	}
 
 	// 指定の文字コードを開く
@@ -423,7 +455,8 @@ PyMODINIT_FUNC PyInit_hidemaru() {
 	m.def("debug_info", &Hidemaru::DebugInfo);
 
 	py::module file = m.def_submodule("file", "Hidemaru File python module");
-	file.def("get_encoding", &Hidemaru::File_GetEncoding);
+	file.def("get_encodingfromfile", &Hidemaru::File_GetEncodingFromFile);
+	file.def("get_encodingfromhmencode", &Hidemaru::File_GetEncodingFromHmEncode);
 	file.def("get_readalltext", &Hidemaru::File_ReadAllText);
 
 	py::module edit = m.def_submodule("edit", "Hidemaru Edit python module");

@@ -19,7 +19,7 @@ class _TFile:
 
     # 対象のファイルの encode (秀丸マクロの encode 変数の表を参照) を得る。
     def GetEncode(self, filefullpath):
-        py_encoding, ms_codepage, hm_encode = hidemaru.file.get_encoding(filefullpath)
+        py_encoding, ms_codepage, hm_encode = hidemaru.file.get_encodingfromfile(filefullpath)
         return _TFile._TEncoding(py_encoding, ms_codepage, hm_encode)
 
 
