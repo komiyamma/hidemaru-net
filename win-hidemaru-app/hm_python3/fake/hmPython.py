@@ -4,6 +4,23 @@
 # under the Apache License Version 2.0
 #--------------------------------------------------------------
 
+class _TFile:
+    """
+    秀丸でファイル関連のクラス
+    """
+    class _TEncoding:
+
+        def __init__(self, py_encoding, ms_codepage, hm_encode):
+            self.py_encoding = py_encoding  # Pythonでファイルを開く際にエンコードとして指定できる文字列( "cp932" や "utf8" など )
+            self.ms_codepage = ms_codepage  # マイクロソフトコードページの番号が入っている (932 や 65001 など)
+            self.hm_encode = hm_encode      # 秀丸の encode としての値が入っている ( 1 や 6 など )
+    
+    # 対象のファイルの encode (秀丸マクロの encode 変数の表を参照) を得る。
+    def GetEncode(self, filefullpath):
+        py_encoding, ms_codepage, hm_encode = "utf_8", 65001, 6
+        return _TFile._TEncoding(py_encoding, ms_codepage, hm_encode)
+
+
 class _TEdit:
 
     #--------------------------------------------------

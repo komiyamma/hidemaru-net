@@ -104,8 +104,8 @@ namespace Hidemaru {
 		int ret = CHidemaruExeExport::AnalyzeEncoding(utf16_filename);
 		return ret;
 	}
-	
-	py::tuple File_GetEncodingAlias(const std::string utf8_filename) {
+
+	py::tuple File_GetEncoding(const std::string utf8_filename) {
 		/*
 		0,      // Unknown
 		932,    // encode = 1 ANSI/OEM Japanese; Japanese (Shift-JIS)
@@ -136,11 +136,10 @@ namespace Hidemaru {
 		12000,  // encode =26 Unicode (UTF-32) little-endian
 		12001,  // encode =27 Unicode (UTF-32) big-endian
 		*/
-
 		int hm_encode = File_GetHmEncode(utf8_filename);
 		// 範囲チェック(秀丸が返したencode値が個数をはみ出していたら...)
 		if (hm_encode <= 0) {
-			return py::make_tuple( 0, "" );
+			return py::make_tuple("", 0, hm_encode);
 		}
 
 		static const int code_arr[] = {
@@ -177,96 +176,97 @@ namespace Hidemaru {
 		// コードページの一覧表の個数
 		const int code_arr_length = sizeof(code_arr) / sizeof(int);
 		if (hm_encode >= code_arr_length) {
-			return py::make_tuple(0, "");
+			return py::make_tuple("", 0, hm_encode);
 		}
 
 		int codepage = code_arr[hm_encode];
+
 		switch (codepage) {
 		case 0: {
-			return py::make_tuple(0, "");
+			return py::make_tuple("", 0, hm_encode);
 		}
 		case 932: {
-			return py::make_tuple(codepage, "cp932");
+			return py::make_tuple("cp932", codepage, hm_encode);
 		}
 		case 1200: {
-			return py::make_tuple(codepage, "utf_16_le");
+			return py::make_tuple("utf_16_le", codepage, hm_encode);
 		}
 		case 51932: {
-			return py::make_tuple(codepage, "euc_jp");
+			return py::make_tuple("euc_jp", codepage, hm_encode);
 		}
 		case 50221: {
-			return py::make_tuple(codepage, "iso2022_jp");
+			return py::make_tuple("iso2022_jp", codepage, hm_encode);
 		}
 		case 65000: {
-			return py::make_tuple(codepage, "utf_7");
+			return py::make_tuple("utf_7", codepage, hm_encode);
 		}
 		case 65001: {
-			return py::make_tuple(codepage, "utf_8");
+			return py::make_tuple("utf_8", codepage, hm_encode);
 		}
 		case 1201: {
-			return py::make_tuple(codepage, "utf_16_be");
+			return py::make_tuple("utf_16_be", codepage, hm_encode);
 		}
 		case 1252: {
-			return py::make_tuple(codepage, "cp1252");
+			return py::make_tuple("cp1252", codepage, hm_encode);
 		}
 		case 936: {
-			return py::make_tuple(codepage, "gb2312");
+			return py::make_tuple("gb2312", codepage, hm_encode);
 		}
 		case 950: {
-			return py::make_tuple(codepage, "big5");
+			return py::make_tuple("big5", codepage, hm_encode);
 		}
 		case 949: {
-			return py::make_tuple(codepage, "cp949");
+			return py::make_tuple("cp949", codepage, hm_encode);
 		}
 		case 1361: {
-			return py::make_tuple(codepage, "cp1361");
+			return py::make_tuple("cp1361", codepage, hm_encode);
 		}
 		case 1250: {
-			return py::make_tuple(codepage, "cp1250");
+			return py::make_tuple("cp1250", codepage, hm_encode);
 		}
 		case 1257: {
-			return py::make_tuple(codepage, "cp1257");
+			return py::make_tuple("cp1257", codepage, hm_encode);
 		}
 		case 1253: {
-			return py::make_tuple(codepage, "cp1253");
+			return py::make_tuple("cp1253", codepage, hm_encode);
 		}
 		case 1251: {
-			return py::make_tuple(codepage, "cp1251");
+			return py::make_tuple("cp1251", codepage, hm_encode);
 		}
 		case 42: {
-			return py::make_tuple(codepage, "symbol");
+			return py::make_tuple("symbol", codepage, hm_encode);
 		}
 		case 1254: {
-			return py::make_tuple(codepage, "cp1254");
+			return py::make_tuple("cp1254", codepage, hm_encode);
 		}
 		case 1255: {
-			return py::make_tuple(codepage, "cp1255");
+			return py::make_tuple("cp1255", codepage, hm_encode);
 		}
 		case 1256: {
-			return py::make_tuple(codepage, "cp1256");
+			return py::make_tuple("cp1256", codepage, hm_encode);
 		}
 		case 874: {
-			return py::make_tuple(codepage, "iso8859_15");
+			return py::make_tuple("iso8859_15", codepage, hm_encode);
 		}
 		case 1258: {
-			return py::make_tuple(codepage, "cp1258");
+			return py::make_tuple("cp1258", codepage, hm_encode);
 		}
 		case 10001: {
-			return py::make_tuple(codepage, "x_mac_japanese");
+			return py::make_tuple("x_mac_japanese", codepage, hm_encode);
 		}
 		case 850: {
-			return py::make_tuple(codepage, "cp850");
+			return py::make_tuple("cp850", codepage, hm_encode);
 		}
 		case 12000: {
-			return py::make_tuple(codepage, "utf_32_le");
+			return py::make_tuple("utf_32_le", codepage, hm_encode);
 		}
 		case 12001: {
-			return py::make_tuple(codepage, "utf_32_be");
+			return py::make_tuple("utf_32_be", codepage, hm_encode);;
 		}
 		}
 
 		// なぜか該当していないのに配列内
-		return py::make_tuple(0, "");
+		return py::make_tuple("", 0, hm_encode);
 
 	}
 
@@ -413,6 +413,9 @@ PyMODINIT_FUNC PyInit_hidemaru() {
 
 	m.def("get_version", &Hidemaru::GetVersion);
 	m.def("debug_info", &Hidemaru::DebugInfo);
+
+	py::module file = m.def_submodule("file", "Hidemaru File python module");
+	file.def("get_encoding", &Hidemaru::File_GetEncoding);
 
 	py::module edit = m.def_submodule("edit", "Hidemaru Edit python module");
 	edit.def("get_totaltext", &Hidemaru::Edit_GetTotalText);
