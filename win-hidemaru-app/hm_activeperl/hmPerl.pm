@@ -50,7 +50,7 @@ sub File {
             $::hm_File_Load_FileName = $filename;
             my $result = $::hm_File_Load_Result;
             if ($result eq '-*-*-LoadFileUnicodeError-*-*-') {
-                return -1;
+                return undef;
             } else {
                 reutrn $result;
             }
