@@ -22,6 +22,81 @@ internal sealed partial class hmNETDynamicLib
                 SetUnManagedDll();
             }
 
+            // 途中でエラーが出るかもしれないので、相応しいUnlockやFreeが出来るように内部管理用
+            private enum HGlobalStatus { None, Lock, Unlock, Free };
+
+            static String ReadAllText(String filename, int hm_encode = -1)
+            {
+                if (version < 890)
+                {
+                    OutputDebugStream(ErrorMsg.MethodNeed890);
+                    return "";
+                }
+                if (pLoadFileUnicode == null)
+                {
+                    OutputDebugStream(ErrorMsg.MethodNeed890);
+
+                    return "";
+                }
+
+                if (hm_encode == -1)
+                {
+                    hm_encode = GetHmEncode(filename);
+                }
+
+                if (!System.IO.File.Exists(filename))
+                {
+                    throw new System.IO.FileNotFoundException(filename);
+                }
+
+                String curstr = "";
+                int read_count = 0;
+                IntPtr hGlobal = pLoadFileUnicode(filename, hm_encode, ref read_count, IntPtr.Zero, IntPtr.Zero);
+                HGlobalStatus hgs = HGlobalStatus.None;
+                if (hGlobal != null)
+                {
+                    try
+                    {
+                        IntPtr ret = GlobalLock(hGlobal);
+                        hgs = HGlobalStatus.Lock;
+                        curstr = Marshal.PtrToStringUni(ret);
+                        GlobalUnlock(hGlobal);
+                        hgs = HGlobalStatus.Unlock;
+                        GlobalFree(hGlobal);
+                        hgs = HGlobalStatus.Free;
+                    }
+                    catch (Exception e)
+                    {
+                        OutputDebugStream(e.Message);
+                    }
+                    finally
+                    {
+                        switch (hgs)
+                        {
+                            // ロックだけ成功した
+                            case HGlobalStatus.Lock:
+                                {
+                                    GlobalUnlock(hGlobal);
+                                    GlobalFree(hGlobal);
+                                    break;
+                                }
+                            // アンロックまで成功した
+                            case HGlobalStatus.Unlock:
+                                {
+                                    GlobalFree(hGlobal);
+                                    break;
+                                }
+                            // フリーまで成功した
+                            case HGlobalStatus.Free:
+                                {
+                                    break;
+                                }
+                        }
+                    }
+                }
+                throw new System.IO.IOException(filename);
+            }
+
             static int[] key_encode_value_codepage_array = {
                 0,      // Unknown
                 932,    // encode = 1 ANSI/OEM Japanese; Japanese (Shift-JIS)
