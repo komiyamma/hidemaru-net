@@ -104,8 +104,11 @@ string CPerlEzMagicalScalar::Hm::File::Get::ReadAllText() {
 
 	UINT cnt;
 	int hmencode = std::stoi(str_hmencode);
-	wstring text = CHidemaruExeExport::LoadFileUnicode(utf8_to_utf16(filename), hmencode, &cnt, NULL, NULL);
-
+	bool success = false;
+	wstring text = CHidemaruExeExport::LoadFileUnicode(utf8_to_utf16(filename), hmencode, &cnt, NULL, NULL, &success);
+	if (!success) {
+		text = wstring(L"-*-*-LoadFileUnicodeError-*-*-");
+	}
 	return utf16_to_utf8(text);
 }
 

@@ -174,7 +174,7 @@ int CHidemaruExeExport::AnalyzeEncoding(wstring filename) {
 	}
 }
 
-wstring CHidemaruExeExport::LoadFileUnicode(wstring filename, int nHmEncode, UINT* pcwchOut, DWORD_PTR lParam1, DWORD_PTR lParam2) {
+wstring CHidemaruExeExport::LoadFileUnicode(wstring filename, int nHmEncode, UINT* pcwchOut, DWORD_PTR lParam1, DWORD_PTR lParam2, bool* success) {
 
 	if (Hidemaru_LoadFileUnicode) {
 		HGLOBAL hGlobal = CHidemaruExeExport::Hidemaru_LoadFileUnicode(filename.data(), nHmEncode, pcwchOut, lParam1, lParam2);
@@ -183,9 +183,12 @@ wstring CHidemaruExeExport::LoadFileUnicode(wstring filename, int nHmEncode, UIN
 			wstring text(pwsz); // コピー
 			GlobalUnlock(hGlobal);
 			GlobalFree(hGlobal); // 元のは解放
+			*success = true;
 			return text;
 		}
 	}
+
+	*success = false;
 
 	// ここからは下だということは、読み込みに失敗している
 
