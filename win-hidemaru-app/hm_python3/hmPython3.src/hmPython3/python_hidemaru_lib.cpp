@@ -204,84 +204,111 @@ namespace Hidemaru {
 		switch (param.ms_codepage) {
 		case 0: {
 			param.py_encoding = "";
+			break;
 		}
 		case 932: {
 			param.py_encoding = "cp932";
+			break;
 		}
 		case 1200: {
 			param.py_encoding = "utf_16_le";
+			break;
 		}
 		case 51932: {
 			param.py_encoding = "euc_jp";
+			break;
 		}
 		case 50221: {
 			param.py_encoding = "iso2022_jp";
+			break;
 		}
 		case 65000: {
 			param.py_encoding = "utf_7";
+			break;
 		}
 		case 65001: {
 			param.py_encoding = "utf_8";
+			break;
 		}
 		case 1201: {
 			param.py_encoding = "utf_16_be";
+			break;
 		}
 		case 1252: {
 			param.py_encoding = "cp1252";
+			break;
 		}
 		case 936: {
 			param.py_encoding = "gb2312";
+			break;
 		}
 		case 950: {
 			param.py_encoding = "big5";
+			break;
 		}
 		case 949: {
 			param.py_encoding = "cp949";
+			break;
 		}
 		case 1361: {
 			param.py_encoding = "cp1361";
+			break;
 		}
 		case 1250: {
 			param.py_encoding = "cp1250";
+			break;
 		}
 		case 1257: {
 			param.py_encoding = "cp1257";
+			break;
 		}
 		case 1253: {
 			param.py_encoding = "cp1253";
+			break;
 		}
 		case 1251: {
 			param.py_encoding = "cp1251";
+			break;
 		}
 		case 42: {
 			param.py_encoding = "symbol";
+			break;
 		}
 		case 1254: {
 			param.py_encoding = "cp1254";
+			break;
 		}
 		case 1255: {
 			param.py_encoding = "cp1255";
+			break;
 		}
 		case 1256: {
 			param.py_encoding = "cp1256";
+			break;
 		}
 		case 874: {
 			param.py_encoding = "iso8859_15";
+			break;
 		}
 		case 1258: {
 			param.py_encoding = "cp1258";
+			break;
 		}
 		case 10001: {
 			param.py_encoding = "x_mac_japanese";
+			break;
 		}
 		case 850: {
 			param.py_encoding = "cp850";
+			break;
 		}
 		case 12000: {
 			param.py_encoding = "utf_32_le";
+			break;
 		}
 		case 12001: {
 			param.py_encoding = "utf_32_be";
+			break;
 		}
 		}
 
