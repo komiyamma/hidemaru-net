@@ -36,7 +36,7 @@ sub File {
         sub GetHmEncode {
             my ($self, $value) = @_;
             $::hm_File_HmEncode = $value;
-            return $::hm_File_HmEncode_Result;
+            return $::hm_File_HmEncode_Result + 0;
         }
 
         #--------------------------------------------------------------

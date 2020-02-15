@@ -173,7 +173,7 @@ int CHidemaruExeExport::AnalyzeEncoding(wstring filename) {
 	}
 }
 
-wstring CHidemaruExeExport::LoadFileUnicode(wstring filename, int nHmEncode, UINT* pcwchOut, DWORD_PTR lParam1, DWORD_PTR lParam2) {
+wstring CHidemaruExeExport::LoadFileUnicode(wstring filename, int nHmEncode, UINT* pcwchOut, DWORD_PTR lParam1, DWORD_PTR lParam2, bool* success) {
 
 	if (Hidemaru_LoadFileUnicode) {
 		HGLOBAL hGlobal = CHidemaruExeExport::Hidemaru_LoadFileUnicode(filename.data(), nHmEncode, pcwchOut, lParam1, lParam2);
@@ -182,6 +182,7 @@ wstring CHidemaruExeExport::LoadFileUnicode(wstring filename, int nHmEncode, UIN
 			wstring text(pwsz); // ÉRÉsÅ[
 			GlobalUnlock(hGlobal);
 			GlobalFree(hGlobal); // å≥ÇÃÇÕâï˙
+			*success = true;
 			return text;
 		}
 	}
@@ -192,5 +193,6 @@ wstring CHidemaruExeExport::LoadFileUnicode(wstring filename, int nHmEncode, UIN
 		*pcwchOut = 0;
 	}
 
+	*success = false;
 	return L"";
 }

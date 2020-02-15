@@ -303,11 +303,12 @@ namespace Hidemaru {
 	}
 
 	// 指定の文字コードを開く
-	string File_ReadAllText(const std::string utf8_filename, int hm_encode) {
+	py::tuple  File_ReadAllText(const std::string utf8_filename, int hm_encode) {
 		wstring utf16_filename = utf8_to_utf16(utf8_filename);
 		UINT encoded_character_count = 0;
-		wstring utf16_value = CHidemaruExeExport::LoadFileUnicode(utf16_filename, hm_encode, &encoded_character_count, NULL, NULL);
-		return utf16_to_utf8(utf16_value);
+		bool success = 0;
+		wstring utf16_value = CHidemaruExeExport::LoadFileUnicode(utf16_filename, hm_encode, &encoded_character_count, NULL, NULL, &success);
+		return py::make_tuple(success, utf16_to_utf8(utf16_value));
 	}
 
 	// カーソルの位置。扱いやすいのでpythonのタプル(lineno, column)で返しておく

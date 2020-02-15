@@ -144,7 +144,7 @@ public:
 	//-------------------------------------------------------------------------
 	// Hidemaru_LoadFileUnicode関数のラップしたもの
 	//-------------------------------------------------------------------------
-	static wstring LoadFileUnicode(wstring filename, int nHmEncode, UINT* pcwchOut, DWORD_PTR lParam1, DWORD_PTR lParam2);
+	static wstring LoadFileUnicode(wstring filename, int nHmEncode, UINT* pcwchOut, DWORD_PTR lParam1, DWORD_PTR lParam2, bool* success);
 
 	//-------------------------------------------------------------------------
 	// Hidemaru_GetCursorPosUnicode関数のラップしたもの
