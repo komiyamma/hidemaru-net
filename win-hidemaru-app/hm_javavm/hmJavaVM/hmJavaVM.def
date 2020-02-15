@@ -19,4 +19,7 @@ EXPORTS
 	Java_hidemaru_Hm_IsMacroExecuting
 	Java_hidemaru_Hm_ExecMacroFromFile
 	Java_hidemaru_Hm_ExecMacroFromString
+	Java_hidemaru_Hm_GetHmEncodeFromFile
+	Java_hidemaru_Hm_GetMsCodePageFromHmEncode
+	Java_hidemaru_Hm_GetJavaEncodingAliasFromHmEncode
 

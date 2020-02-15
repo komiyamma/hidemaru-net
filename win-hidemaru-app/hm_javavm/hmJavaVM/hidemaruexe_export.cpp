@@ -24,6 +24,8 @@ CHidemaruExeExport::PFNGetDllFuncCalledType CHidemaruExeExport::Hidemaru_GetDllF
 CHidemaruExeExport::PFNGetTotalTextUnicode CHidemaruExeExport::Hidemaru_GetTotalTextUnicode = NULL;
 CHidemaruExeExport::PFNGetSelectedTextUnicode CHidemaruExeExport::Hidemaru_GetSelectedTextUnicode = NULL;
 CHidemaruExeExport::PFNGetLineTextUnicode CHidemaruExeExport::Hidemaru_GetLineTextUnicode = NULL;
+CHidemaruExeExport::PFNAnalyzeEncoding CHidemaruExeExport::Hidemaru_AnalyzeEncoding = NULL;
+CHidemaruExeExport::PFNLoadFileUnicode CHidemaruExeExport::Hidemaru_LoadFileUnicode = NULL;
 CHidemaruExeExport::PFNGetCursorPosUnicode CHidemaruExeExport::Hidemaru_GetCursorPosUnicode = NULL;
 CHidemaruExeExport::PFNGetCursorPosUnicodeFromMousePos CHidemaruExeExport::Hidemaru_GetCursorPosUnicodeFromMousePos = NULL;
 CHidemaruExeExport::PFNEvalMacro CHidemaruExeExport::Hidemaru_EvalMacro = NULL;
@@ -255,4 +257,38 @@ CHidemaruExeExport::HmMousePos CHidemaruExeExport::GetCursorPosFromMousePos() {
 
 BOOL CHidemaruExeExport::EvalMacro(wstring cmd) {
 	return Hidemaru_EvalMacro(cmd.data());
+}
+
+int CHidemaruExeExport::AnalyzeEncoding(wstring filename) {
+	// 該当の関数が存在している時だけ値を更新(秀丸 8.90以上)
+	if (Hidemaru_AnalyzeEncoding) {
+		return Hidemaru_AnalyzeEncoding(filename.data(), NULL, NULL);
+	}
+	else {
+		return 0;
+	}
+}
+
+wstring CHidemaruExeExport::LoadFileUnicode(wstring filename, int nHmEncode, UINT* pcwchOut, DWORD_PTR lParam1, DWORD_PTR lParam2, bool* success) {
+
+	if (Hidemaru_LoadFileUnicode) {
+		HGLOBAL hGlobal = CHidemaruExeExport::Hidemaru_LoadFileUnicode(filename.data(), nHmEncode, pcwchOut, lParam1, lParam2);
+		if (hGlobal) {
+			wchar_t* pwsz = (wchar_t*)GlobalLock(hGlobal);
+			wstring text(pwsz); // コピー
+			GlobalUnlock(hGlobal);
+			GlobalFree(hGlobal); // 元のは解放
+			*success = true;
+			return text;
+		}
+	}
+
+	// ここからは下だということは、読み込みに失敗している
+
+	if (pcwchOut) {
+		*pcwchOut = 0;
+	}
+
+	*success = false;
+	return L"";
 }

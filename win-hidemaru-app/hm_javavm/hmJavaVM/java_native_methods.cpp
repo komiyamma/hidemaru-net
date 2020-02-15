@@ -14,6 +14,7 @@
 #include "self_dll_info.h"
 #include "dllfunc_interface.h"
 #include "dllfunc_interface_internal.h"
+#include "java_native_method_encode.h"
 
 intptr_t GetMacroVarNum(wstring key_name) {
 
@@ -310,5 +311,36 @@ JNIEXPORT jstring JNICALL Java_hidemaru_Hm_GetCursorPosFromMousePos(JNIEnv *env,
 	wstring str_pos = std::to_wstring(pos.x) + L"," + std::to_wstring(pos.y) + L"," + std::to_wstring(pos.lineno) + L"," + std::to_wstring(pos.column);
 
 	return utf16_to_jstring(env, str_pos);
+}
+
+
+// GetHmEncodeFromFile
+JNIEXPORT jint JNICALL Java_hidemaru_Hm_GetHmEncodeFromFile(JNIEnv *env, jobject obj, jstring value) {
+
+	// ƒtƒ@ƒCƒ‹–¼
+	wstring utf16_value = jstring_to_utf16(env, value);
+
+	jint hm_encode = CHidemaruExeExport::AnalyzeEncoding(utf16_value);
+
+	return hm_encode;
+}
+
+
+// GetMsCodePageFromHmEncode
+JNIEXPORT jint JNICALL Java_hidemaru_Hm_GetMsCodePageFromHmEncode(JNIEnv *env, jobject obj, jint value) {
+
+	TEncodingParam encode_params = _GetEncodingParamFromHmEncode(value);
+
+	return encode_params.ms_codepage;
+}
+
+
+
+// GetJavaEncodingAliasFromHmEncode
+JNIEXPORT jstring JNICALL Java_hidemaru_Hm_GetJavaEncodingAliasFromHmEncode(JNIEnv *env, jobject obj, jint value) {
+
+	TEncodingParam encode_params = _GetEncodingParamFromHmEncode(value);
+
+	return utf16_to_jstring(env, encode_params.java_encoding_alias);
 }
 

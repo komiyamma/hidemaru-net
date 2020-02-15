@@ -96,6 +96,9 @@
     <ClCompile Include="hidemaruexe_export.cpp">
       <Filter>秀丸本体のexeの関数やバージョン</Filter>
     </ClCompile>
+    <ClCompile Include="java_native_method_encode.cpp">
+      <Filter>JavaとのAPI Interface</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="hmJavaVM.def">
@@ -162,6 +165,9 @@
     </ClInclude>
     <ClInclude Include="hidemaruexe_handle.h">
       <Filter>秀丸本体のexeの関数やバージョン</Filter>
+    </ClInclude>
+    <ClInclude Include="java_native_method_encode.h">
+      <Filter>JavaとのAPI Interface</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
