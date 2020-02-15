@@ -5,11 +5,9 @@
 #--------------------------------------------------------------
 
 import hidemaru
+import os
 
-class _TFile:
-    """
-    秀丸でファイル関連のクラス
-    """
+class _TText:
     class _TEncoding:
 
         def __init__(self, py_encoding, ms_codepage, hm_encode):
@@ -17,10 +15,69 @@ class _TFile:
             self.ms_codepage = ms_codepage  # マイクロソフトコードページの番号が入っている (932 や 65001 など)
             self.hm_encode = hm_encode      # 秀丸の encode としての値が入っている ( 1 や 6 など )
 
+class _TFile:
+    """
+    秀丸でファイル関連のクラス
+    """
+
+    class _TStreamReader:
+
+        def __init__(self, filefullpath, hm_encode=-1):
+            try:
+                if not os.path.exists(path):
+                    raise FileNotFoundError
+
+                if hm_encode == -1:
+                    py_encoding, ms_codepage, hm_encode = hidemaru.file.get_encodingfromfile(filefullpath)
+                else:
+                    py_encoding, ms_codepage, hm_encode = hidemaru.file.get_encodingfromhmcode(hm_encode)
+                self.__encoding = _TText._TEncoding(py_encoding, ms_codepage, hm_encode)
+                self.__filefullpath = filefullpath
+            except:
+                raise
+        
+        def __enter__(self):
+            pass
+            
+        def __GetEncoding(self):
+            return self.__encoding
+        
+        # 開いたファイルのエンコーディング情報の取得
+        Encoding = property(__GetEncoding)
+                
+        # 開いたファイルのテキストの取得
+        def Read(self):
+            try:
+                if self.__filefullpath:
+                    text, success = hidemaru.file.get_readalltext(self.__filefullpath, self.__encoding.hm_encode)
+                    if success:
+                        return text
+                    else:
+                        raise IOError
+            except:
+                raise
+
+        def Close():
+            self.__encoding = None
+            self.__filefullpath = None
+
+        def __exit__(self, exception_type, exception_value, traceback):
+            print('END')            
+
+    # ファイルを開く。
+    def Open(self, filefullpath, hm_encode=-1):
+        return _TFile._TStreamReader(filefullpath, hm_encode)
+
     # 対象のファイルの encode (秀丸マクロの encode 変数の表を参照) を得る。
     def GetEncode(self, filefullpath):
-        py_encoding, ms_codepage, hm_encode = hidemaru.file.get_encodingfromfile(filefullpath)
-        return _TFile._TEncoding(py_encoding, ms_codepage, hm_encode)
+        try:
+            if not os.path.exists(path):
+                raise FileNotFoundError
+
+            py_encoding, ms_codepage, hm_encode = hidemaru.file.get_encodingfromhmcode(hm_encode)
+            return _TText._TEncoding(py_encoding, ms_codepage, hm_encode)
+        except:
+            raise
 
 
 class _TEdit:
