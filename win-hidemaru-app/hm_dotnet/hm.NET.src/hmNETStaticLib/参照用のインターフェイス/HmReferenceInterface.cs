@@ -239,10 +239,14 @@ namespace Hidemaru
                 void Close();
             }
 
-            public static IHidemaruStreamReader Open(String filepath, int hidemaru_encode)
+            public static IHidemaruStreamReader Open(String filepath, int hm_encode)
             {
-                IHidemaruStreamReader a = null;
-                return a;
+                return hmNETDynamicLib.Hidemaru.File.Open(filepath, hm_encode);
+            }
+
+            public static IEncoding GetEncoding(String filepath)
+            {
+                return hmNETDynamicLib.Hidemaru.File.GetEncoding(filepath);
             }
         }
     }
