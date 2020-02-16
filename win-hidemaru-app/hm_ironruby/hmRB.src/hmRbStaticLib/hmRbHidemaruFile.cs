@@ -1,22 +1,23 @@
-﻿/*
+﻿/* 
  * Copyright (c) 2016-2017 Akitsugu Komiyama
  * under the Apache License Version 2.0
  */
 
+
 using System;
 using System.Runtime.InteropServices;
 
-using Neo.IronLua;
 
 
-// ★クラス実装内のメソッドの中でdynamic型を利用したもの。これを直接利用しないのは、内部でdynamic型を利用していると、クラスに自動的にメソッドが追加されてしまい、C++とはヘッダのメソッドの個数が合わなくなりリンクできなくなるため。
-public sealed partial class hmLmDynamicLib
+// ★秀丸クラス
+public sealed partial class hmRbDynamicLib
 {
     public sealed partial class Hidemaru
     {
-        public sealed class File
+        public HmFile File = new HmFile();
+        public sealed class HmFile
         {
-            static File()
+            public HmFile()
             {
                 SetUnManagedDll();
             }
@@ -47,7 +48,7 @@ public sealed partial class hmLmDynamicLib
 
             private static String ReadAllText(String filepath, int hm_encode = -1)
             {
-                if (version < 890)
+                if (_ver < 890)
                 {
                     OutputDebugStream(ErrorMsg.MethodNeed890);
                     return "";
@@ -164,13 +165,13 @@ public sealed partial class hmLmDynamicLib
             {
                 int hm_encode = GetHmEncode(filepath);
                 int ms_codepage = GetMsCodePage(hm_encode);
-                IEncoding encoding = new Hidemaru.File.Encoding(hm_encode, ms_codepage);
+                IEncoding encoding = new Hidemaru.HmFile.Encoding(hm_encode, ms_codepage);
                 return encoding;
             }
 
             private static int GetHmEncode(string filepath)
             {
-                if (version < 890)
+                if (_ver < 890)
                 {
                     OutputDebugStream(ErrorMsg.MethodNeed890);
 
@@ -191,7 +192,7 @@ public sealed partial class hmLmDynamicLib
             {
                 int result_codepage = 0;
 
-                if (version < 890)
+                if (_ver < 890)
                 {
                     OutputDebugStream(ErrorMsg.MethodNeed890);
 
@@ -259,7 +260,7 @@ public sealed partial class hmLmDynamicLib
 
                 int result_codepage = 0;
 
-                if (version < 890)
+                if (_ver < 890)
                 {
                     OutputDebugStream(ErrorMsg.MethodNeed890);
 
@@ -355,7 +356,7 @@ public sealed partial class hmLmDynamicLib
                         hm_encode = GetHmEncode(path);
                     }
                     int ms_codepage = GetMsCodePage(hm_encode);
-                    this.m_encoding = new Hidemaru.File.Encoding(hm_encode, ms_codepage);
+                    this.m_encoding = new Hidemaru.HmFile.Encoding(hm_encode, ms_codepage);
                 }
 
                 ~HidemaruStreamReader()
@@ -363,7 +364,7 @@ public sealed partial class hmLmDynamicLib
                     Close();
                 }
 
-                String File.IHidemaruStreamReader.Read()
+                String HmFile.IHidemaruStreamReader.Read()
                 {
                     if (System.IO.File.Exists(this.m_path) == false)
                     {
@@ -372,7 +373,7 @@ public sealed partial class hmLmDynamicLib
 
                     try
                     {
-                        String text = Hidemaru.File.ReadAllText(this.m_path, this.m_encoding.HmEncode);
+                        String text = Hidemaru.HmFile.ReadAllText(this.m_path, this.m_encoding.HmEncode);
                         return text;
                     }
                     catch (Exception e)
@@ -402,7 +403,7 @@ public sealed partial class hmLmDynamicLib
                 {
                     throw new System.IO.FileNotFoundException(filepath);
                 }
-                IHidemaruStreamReader sr = new File.HidemaruStreamReader(filepath, hm_encode);
+                IHidemaruStreamReader sr = new HmFile.HidemaruStreamReader(filepath, hm_encode);
                 return sr;
             }
 

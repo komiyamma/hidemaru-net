@@ -785,14 +785,64 @@ Class hmLmDynamicLib+Hidemaru+Edit: AutoLayout, AnsiClass, Class, NestedPublic, 
 Class hmLmDynamicLib+Hidemaru+File: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Methods:
-    GetHmEncode(String): PrivateScope, Public, Static, HideBySig
-    GetMsCodePage(String): PrivateScope, Public, Static, HideBySig
+    GetEncoding(String): PrivateScope, Public, Static, HideBySig
+    Open(String, Int32(Optional, HasDefault)): PrivateScope, Public, Static, HideBySig
 Class hmLmDynamicLib+Hidemaru+Macro: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Fields:
     TMacroVar Var : Public, Static
   Methods:
     Eval(String): PrivateScope, Public, Static, HideBySig
+Interface hmLmDynamicLib+Hidemaru+File+IHidemaruEncoding: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
+  Properties:
+    Int32 HmEncode 'get ' : 
+  Methods:
+    get_HmEncode(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Interface hmLmDynamicLib+Hidemaru+File+IMicrosoftEncoding: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
+  Properties:
+    Int32 MsCodePage 'get ' : 
+  Methods:
+    get_MsCodePage(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Interface hmLmDynamicLib+Hidemaru+File+IEncoding: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
+  Interfaces:
+    hmLmDynamicLib+Hidemaru+File+IHidemaruEncoding
+    hmLmDynamicLib+Hidemaru+File+IMicrosoftEncoding
+Interface hmLmDynamicLib+Hidemaru+File+IHidemaruStreamReader: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
+  Interfaces:
+    System.IDisposable
+  Properties:
+    IEncoding Encoding 'get ' : 
+    System.String FilePath 'get ' : 
+  Methods:
+    get_Encoding(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    Read(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    get_FilePath(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    Close(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class hmLmDynamicLib+Hidemaru+File+Encoding: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(Int32, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    hmLmDynamicLib+Hidemaru+File+IEncoding
+    hmLmDynamicLib+Hidemaru+File+IHidemaruEncoding
+    hmLmDynamicLib+Hidemaru+File+IMicrosoftEncoding
+  Properties:
+    Int32 HmEncode 'get ' : 
+    Int32 MsCodePage 'get ' : 
+  Methods:
+    get_HmEncode(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_MsCodePage(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+Class hmLmDynamicLib+Hidemaru+File+HidemaruStreamReader: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(System.String, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    hmLmDynamicLib+Hidemaru+File+IHidemaruStreamReader
+    System.IDisposable
+  Properties:
+    IEncoding Encoding 'get ' : 
+    System.String FilePath 'get ' : 
+  Methods:
+    get_Encoding(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_FilePath(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    Close(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
 Interface hmLmDynamicLib+Hidemaru+Macro+IResult: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
   Properties:
     Int32 Result 'get ' : 

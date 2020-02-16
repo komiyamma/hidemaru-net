@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="hmRbHidemaruDelegate.cs" />
     <Compile Include="hmRbHidemaruEdit.cs" />
+    <Compile Include="hmRbHidemaruFile.cs" />
     <Compile Include="hmRbHidemaruMacro.cs" />
     <Compile Include="hmRbHidemaru.cs" />
     <Compile Include="hmRbStaticLIb.cs" />
