@@ -22,7 +22,114 @@ public sealed partial class hmJSDynamicLib
                 SetUnManagedDll();
             }
 
-            static int[] key_encode_value_codepage_array = {
+            public interface IHidemaruEncoding
+            {
+                int HmEncode { get; }
+            }
+            public interface IMicrosoftEncoding
+            {
+                int MsCodePage { get; }
+            }
+
+            public interface IEncoding : IHidemaruEncoding, IMicrosoftEncoding
+            {
+            }
+
+            public interface IHidemaruStreamReader : IDisposable
+            {
+                IEncoding Encoding { get; }
+                String Read();
+                String FilePath { get; }
+                void Close();
+            }
+
+            // 途中でエラーが出るかもしれないので、相応しいUnlockやFreeが出来るように内部管理用
+            private enum HGlobalStatus { None, Lock, Unlock, Free };
+
+            private static String ReadAllText(String filepath, int hm_encode = -1)
+            {
+                if (version < 890)
+                {
+                    OutputDebugStream(ErrorMsg.MethodNeed890);
+                    return "";
+                }
+                if (pLoadFileUnicode == null)
+                {
+                    OutputDebugStream(ErrorMsg.MethodNeed890);
+
+                    return "";
+                }
+
+                if (hm_encode == -1)
+                {
+                    hm_encode = GetHmEncode(filepath);
+                }
+
+                if (!System.IO.File.Exists(filepath))
+                {
+                    throw new System.IO.FileNotFoundException(filepath);
+                }
+
+                String curstr = "";
+                int read_count = 0;
+                IntPtr hGlobal = pLoadFileUnicode(filepath, hm_encode, ref read_count, IntPtr.Zero, IntPtr.Zero);
+                HGlobalStatus hgs = HGlobalStatus.None;
+                if (hGlobal == null)
+                {
+                    throw new System.IO.IOException(filepath);
+                }
+                if (hGlobal != null)
+                {
+                    try
+                    {
+                        IntPtr ret = GlobalLock(hGlobal);
+                        hgs = HGlobalStatus.Lock;
+                        curstr = Marshal.PtrToStringUni(ret);
+                        GlobalUnlock(hGlobal);
+                        hgs = HGlobalStatus.Unlock;
+                        GlobalFree(hGlobal);
+                        hgs = HGlobalStatus.Free;
+                    }
+                    catch (Exception e)
+                    {
+                        OutputDebugStream(e.Message);
+                    }
+                    finally
+                    {
+                        switch (hgs)
+                        {
+                            // ロックだけ成功した
+                            case HGlobalStatus.Lock:
+                                {
+                                    GlobalUnlock(hGlobal);
+                                    GlobalFree(hGlobal);
+                                    break;
+                                }
+                            // アンロックまで成功した
+                            case HGlobalStatus.Unlock:
+                                {
+                                    GlobalFree(hGlobal);
+                                    break;
+                                }
+                            // フリーまで成功した
+                            case HGlobalStatus.Free:
+                                {
+                                    break;
+                                }
+                        }
+                    }
+                }
+                if (hgs == HGlobalStatus.Free)
+                {
+                    return curstr;
+                }
+                else
+                {
+                    throw new System.IO.IOException(filepath);
+                }
+            }
+
+            private static int[] key_encode_value_codepage_array = {
                 0,      // Unknown
                 932,    // encode = 1 ANSI/OEM Japanese; Japanese (Shift-JIS)
                 1200,   // encode = 2 Unicode UTF-16, little-endian
@@ -54,7 +161,15 @@ public sealed partial class hmJSDynamicLib
 
             };
 
-            public static int GetHmEncode(string filename)
+            public static IEncoding GetEncoding(string filepath)
+            {
+                int hm_encode = GetHmEncode(filepath);
+                int ms_codepage = GetMsCodePage(hm_encode);
+                IEncoding encoding = new Hidemaru.File.Encoding(hm_encode, ms_codepage);
+                return encoding;
+            }
+
+            private static int GetHmEncode(string filepath)
             {
                 if (version < 890)
                 {
@@ -70,11 +185,77 @@ public sealed partial class hmJSDynamicLib
                     return -1;
                 }
 
-                return pAnalyzeEncoding(filename, IntPtr.Zero, IntPtr.Zero);
+                return pAnalyzeEncoding(filepath, IntPtr.Zero, IntPtr.Zero);
             }
 
-            // columnやlinenoはエディタ的な座標である。
-            public static int GetMsCodePage(string filename)
+            private static int GetMsCodePage(int hidemaru_encode)
+            {
+                int result_codepage = 0;
+
+                if (version < 890)
+                {
+                    OutputDebugStream(ErrorMsg.MethodNeed890);
+
+                    return result_codepage;
+                }
+
+                if (pAnalyzeEncoding == null)
+                {
+                    OutputDebugStream(ErrorMsg.MethodNeed890);
+
+                    return result_codepage;
+                }
+
+                /*
+                 *
+                    Shift-JIS encode=1 codepage=932
+                    Unicode encode=2 codepage=1200
+                    EUC encode=3 codepage=51932
+                    JIS encode=4 codepage=50221
+                    UTF-7 encode=5 codepage=65000
+                    UTF-8 encode=6 codepage=65001
+                    Unicode (Big-Endian) encode=7 codepage=1201
+                    欧文 encode=8 codepage=1252
+                    簡体字中国語 encode=9 codepage=936
+                    繁体字中国語 encode=10 codepage=950
+                    韓国語 encode=11 codepage=949
+                    韓国語(Johab) encode=12 codepage=1361
+                    中央ヨーロッパ言語 encode=13 codepage=1250
+                    バルト語 encode=14 codepage=1257
+                    ギリシャ語 encode=15 codepage=1253
+                    キリル言語 encode=16 codepage=1251
+                    シンボル encode=17 codepage=42
+                    トルコ語 encode=18 codepage=1254
+                    ヘブライ語 encode=19 codepage=1255
+                    アラビア語 encode=20 codepage=1256
+                    タイ語 encode=21 codepage=874
+                    ベトナム語 encode=22 codepage=1258
+                    Macintosh encode=23 codepage=0
+                    OEM/DOS encode=24 codepage=0
+                    その他 encode=25 codepage=0
+                    UTF-32 encode=27 codepage=12000
+                    UTF-32 (Big-Endian) encode=28 codepage=12001
+                */
+                if (hidemaru_encode <= 0)
+                {
+                    return result_codepage;
+                }
+
+                if (hidemaru_encode < key_encode_value_codepage_array.Length)
+                {
+                    // 把握しているコードページなので入れておく
+                    result_codepage = key_encode_value_codepage_array[hidemaru_encode];
+                    return result_codepage;
+                }
+                else // 長さ以上なら、予期せぬ未来のencode番号対応
+                {
+                    return result_codepage;
+                }
+
+            }
+
+            // コードページを得る
+            private static int GetMsCodePage(string filepath)
             {
 
                 int result_codepage = 0;
@@ -94,7 +275,7 @@ public sealed partial class hmJSDynamicLib
                 }
 
 
-                int hidemaru_encode = pAnalyzeEncoding(filename, IntPtr.Zero, IntPtr.Zero);
+                int hidemaru_encode = pAnalyzeEncoding(filepath, IntPtr.Zero, IntPtr.Zero);
 
                 /*
                  *
@@ -142,7 +323,92 @@ public sealed partial class hmJSDynamicLib
                     return result_codepage;
                 }
             }
+
+            public class Encoding : IEncoding
+            {
+                private int m_hm_encode;
+                private int m_ms_codepage;
+                public Encoding(int hmencode, int mscodepage)
+                {
+                    this.m_hm_encode = hmencode;
+                    this.m_ms_codepage = mscodepage;
+                }
+                public int HmEncode { get { return this.m_hm_encode; } }
+                public int MsCodePage { get { return this.m_ms_codepage; } }
+            }
+
+            public class HidemaruStreamReader : IHidemaruStreamReader
+            {
+                String m_path;
+
+                IEncoding m_encoding;
+
+                public IEncoding Encoding { get { return this.m_encoding; } }
+
+                public string FilePath { get { return this.m_path; } }
+
+                public HidemaruStreamReader(String path, int hm_encode = -1)
+                {
+                    this.m_path = path;
+                    // 指定されていなければ、
+                    if (hm_encode == -1)
+                    {
+                        hm_encode = GetHmEncode(path);
+                    }
+                    int ms_codepage = GetMsCodePage(hm_encode);
+                    this.m_encoding = new Hidemaru.File.Encoding(hm_encode, ms_codepage);
+                }
+
+                ~HidemaruStreamReader()
+                {
+                    Close();
+                }
+
+                String File.IHidemaruStreamReader.Read()
+                {
+                    if (System.IO.File.Exists(this.m_path) == false)
+                    {
+                        throw new System.IO.FileNotFoundException(this.m_path);
+                    }
+
+                    try
+                    {
+                        String text = Hidemaru.File.ReadAllText(this.m_path, this.m_encoding.HmEncode);
+                        return text;
+                    }
+                    catch (Exception e)
+                    {
+                        throw e;
+                    }
+                }
+
+                public void Close()
+                {
+                    if (this.m_path != null)
+                    {
+                        this.m_encoding = null;
+                        this.m_path = null;
+                    }
+                }
+
+                public void Dispose()
+                {
+                    this.Close();
+                }
+            }
+            // ファイルを開いて情報を得る
+            public static IHidemaruStreamReader Open(string filepath, int hm_encode = -1)
+            {
+                if (System.IO.File.Exists(filepath) == false)
+                {
+                    throw new System.IO.FileNotFoundException(filepath);
+                }
+                IHidemaruStreamReader sr = new File.HidemaruStreamReader(filepath, hm_encode);
+                return sr;
+            }
+
         }
     }
 }
+
 
