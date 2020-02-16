@@ -218,18 +218,42 @@ namespace Hidemaru
 
         public static class File
         {
-            // ファイルエンコードの問い合わせ結果
-            public static int GetHmEncode(string filename)
+            public interface IHidemaruEncoding
             {
-                int result = hmNETDynamicLib.Hidemaru.File.GetHmEncode(filename);
+                int HmEncode { get; }
+            }
+            public interface IMicrosoftEncoding
+            {
+                int MsCodePage { get; }
+            }
+
+            public interface IEncoding : IHidemaruEncoding, IMicrosoftEncoding
+            {
+
+            }
+
+            public interface IHidemaruStreamReader : IDisposable
+            {
+                IEncoding Encoding { get; }
+                String Read();
+
+                void Close();
+            }
+
+            public Open(String path, )
+
+            // ファイルエンコードの問い合わせ結果
+            public static int GetHmEncode(string path)
+            {
+                int result = hmNETDynamicLib.Hidemaru.File.GetHmEncode(path);
 
                 return result;
             }
 
             // ファイルエンコードの問い合わせ結果
-            public static int GetMsCodePage(string filename)
+            public static int GetMsCodePage(string path)
             {
-                int result = hmNETDynamicLib.Hidemaru.File.GetMsCodePage(filename);
+                int result = hmNETDynamicLib.Hidemaru.File.GetMsCodePage(path);
 
                 return result;
             }

@@ -25,7 +25,7 @@ internal sealed partial class hmNETDynamicLib
             // 途中でエラーが出るかもしれないので、相応しいUnlockやFreeが出来るように内部管理用
             private enum HGlobalStatus { None, Lock, Unlock, Free };
 
-            static String ReadAllText(String filename, int hm_encode = -1)
+            static String ReadAllText(String path, int hm_encode = -1)
             {
                 if (version < 890)
                 {
@@ -41,17 +41,17 @@ internal sealed partial class hmNETDynamicLib
 
                 if (hm_encode == -1)
                 {
-                    hm_encode = GetHmEncode(filename);
+                    hm_encode = GetHmEncode(path);
                 }
 
-                if (!System.IO.File.Exists(filename))
+                if (!System.IO.File.Exists(path))
                 {
-                    throw new System.IO.FileNotFoundException(filename);
+                    throw new System.IO.FileNotFoundException(path);
                 }
 
                 String curstr = "";
                 int read_count = 0;
-                IntPtr hGlobal = pLoadFileUnicode(filename, hm_encode, ref read_count, IntPtr.Zero, IntPtr.Zero);
+                IntPtr hGlobal = pLoadFileUnicode(path, hm_encode, ref read_count, IntPtr.Zero, IntPtr.Zero);
                 HGlobalStatus hgs = HGlobalStatus.None;
                 if (hGlobal != null)
                 {
@@ -94,7 +94,7 @@ internal sealed partial class hmNETDynamicLib
                         }
                     }
                 }
-                throw new System.IO.IOException(filename);
+                throw new System.IO.IOException(path);
             }
 
             static int[] key_encode_value_codepage_array = {
@@ -129,7 +129,7 @@ internal sealed partial class hmNETDynamicLib
 
             };
 
-            public static int GetHmEncode(string filename)
+            public static int GetHmEncode(string path)
             {
                 if (version < 890)
                 {
@@ -145,11 +145,11 @@ internal sealed partial class hmNETDynamicLib
                     return -1;
                 }
 
-                return pAnalyzeEncoding(filename, IntPtr.Zero, IntPtr.Zero);
+                return pAnalyzeEncoding(path, IntPtr.Zero, IntPtr.Zero);
             }
 
             // columnやlinenoはエディタ的な座標である。
-            public static int GetMsCodePage(string filename)
+            public static int GetMsCodePage(string path)
             {
 
                 int result_codepage = 0;
@@ -169,7 +169,7 @@ internal sealed partial class hmNETDynamicLib
                 }
 
 
-                int hidemaru_encode = pAnalyzeEncoding(filename, IntPtr.Zero, IntPtr.Zero);
+                int hidemaru_encode = pAnalyzeEncoding(path, IntPtr.Zero, IntPtr.Zero);
 
                 /*
                  *
