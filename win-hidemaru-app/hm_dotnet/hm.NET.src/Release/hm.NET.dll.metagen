@@ -55,7 +55,7 @@ Class Hidemaru.Hm+Edit: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Se
     get_MousePos(): PrivateScope, Public, Static, HideBySig, SpecialName
 Class Hidemaru.Hm+File: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
   Methods:
-    Open(String, Int32): PrivateScope, Public, Static, HideBySig
+    Open(String, Int32(Optional, HasDefault)): PrivateScope, Public, Static, HideBySig
     GetEncoding(String): PrivateScope, Public, Static, HideBySig
 Interface Hidemaru.Hm+Macro+IResult: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
   Properties:

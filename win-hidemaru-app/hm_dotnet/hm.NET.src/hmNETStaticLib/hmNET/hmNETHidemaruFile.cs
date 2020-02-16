@@ -26,7 +26,7 @@ internal sealed partial class hmNETDynamicLib
             // 途中でエラーが出るかもしれないので、相応しいUnlockやFreeが出来るように内部管理用
             private enum HGlobalStatus { None, Lock, Unlock, Free };
 
-            static String ReadAllText(String filepath, int hm_encode = -1)
+            private static String ReadAllText(String filepath, int hm_encode = -1)
             {
                 if (version < 890)
                 {
@@ -54,6 +54,10 @@ internal sealed partial class hmNETDynamicLib
                 int read_count = 0;
                 IntPtr hGlobal = pLoadFileUnicode(filepath, hm_encode, ref read_count, IntPtr.Zero, IntPtr.Zero);
                 HGlobalStatus hgs = HGlobalStatus.None;
+                if (hGlobal == null)
+                {
+                    throw new System.IO.IOException(filepath);
+                }
                 if (hGlobal != null)
                 {
                     try
@@ -95,10 +99,17 @@ internal sealed partial class hmNETDynamicLib
                         }
                     }
                 }
-                throw new System.IO.IOException(filepath);
+                if (hgs == HGlobalStatus.Free)
+                {
+                    return curstr;
+                }
+                else
+                {
+                    throw new System.IO.IOException(filepath);
+                }
             }
 
-            static int[] key_encode_value_codepage_array = {
+            private static int[] key_encode_value_codepage_array = {
                 0,      // Unknown
                 932,    // encode = 1 ANSI/OEM Japanese; Japanese (Shift-JIS)
                 1200,   // encode = 2 Unicode UTF-16, little-endian
@@ -138,7 +149,7 @@ internal sealed partial class hmNETDynamicLib
                 return encoding;
             }
 
-            public static int GetHmEncode(string filepath)
+            private static int GetHmEncode(string filepath)
             {
                 if (version < 890)
                 {
@@ -157,7 +168,7 @@ internal sealed partial class hmNETDynamicLib
                 return pAnalyzeEncoding(filepath, IntPtr.Zero, IntPtr.Zero);
             }
 
-            public static int GetMsCodePage(int hidemaru_encode)
+            private static int GetMsCodePage(int hidemaru_encode)
             {
                 int result_codepage = 0;
 
@@ -224,7 +235,7 @@ internal sealed partial class hmNETDynamicLib
             }
 
             // コードページを得る
-            public static int GetMsCodePage(string filepath)
+            private static int GetMsCodePage(string filepath)
             {
 
                 int result_codepage = 0;
@@ -328,8 +339,12 @@ internal sealed partial class hmNETDynamicLib
                     this.m_encoding = new Hidemaru.File.Encoding(hm_encode, ms_codepage);
                 }
 
+                ~HidemaruStreamReader()
+                {
+                    Close();
+                }
 
-                public String Read()
+                String Hm.File.IHidemaruStreamReader.Read()
                 {
                     if (System.IO.File.Exists(this.m_path) == false)
                     {
@@ -349,18 +364,15 @@ internal sealed partial class hmNETDynamicLib
 
                 public void Close()
                 {
-                    this.m_encoding = null;
-                    this.m_path = null;
+                    if (this.m_path != null) { 
+                        this.m_encoding = null;
+                        this.m_path = null;
+                    }
                 }
 
                 public void Dispose()
                 {
                     this.Close();
-                }
-
-                string Hm.File.IHidemaruStreamReader.Read()
-                {
-                    throw new NotImplementedException();
                 }
             }
             // ファイルを開いて情報を得る

@@ -34,6 +34,7 @@ public sealed partial class hmV8DynamicLib
         delegate int TCheckQueueStatus();
 
         delegate int TAnalyzeEncoding([MarshalAs(UnmanagedType.LPWStr)] String pwszFileName, IntPtr lParam1, IntPtr lParam2);
+        delegate IntPtr TLoadFileUnicode([MarshalAs(UnmanagedType.LPWStr)] String pwszFileName, int nEncode, ref int pcwchOut, IntPtr lParam1, IntPtr lParam2);
 
         // 秀丸本体から出ている関数群
         static TGetTotalTextUnicode pGetTotalTextUnicode;
@@ -44,6 +45,7 @@ public sealed partial class hmV8DynamicLib
         static TEvalMacro pEvalMacro;
         static TCheckQueueStatus pCheckQueueStatus;
         static TAnalyzeEncoding pAnalyzeEncoding;
+        static TLoadFileUnicode pLoadFileUnicode;
 
         [DllImport("kernel32.dll", SetLastError = true)]
         private static extern IntPtr GlobalLock(IntPtr hMem);
@@ -83,6 +85,7 @@ public sealed partial class hmV8DynamicLib
                     if (_ver >= 890)
                     {
                         pAnalyzeEncoding = hmExeHandle.GetProcDelegate<TAnalyzeEncoding>("Hidemaru_AnalyzeEncoding");
+                        pLoadFileUnicode = hmExeHandle.GetProcDelegate<TLoadFileUnicode>("Hidemaru_LoadFileUnicode");
                     }
                 }
             }

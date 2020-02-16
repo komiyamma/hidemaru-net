@@ -511,8 +511,8 @@ Class hmJSDynamicLib+DllPathResolver: AutoLayout, AnsiClass, Class, NestedPublic
 Class hmJSDynamicLib+Hidemaru+File: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Methods:
-    GetHmEncode(String): PrivateScope, Public, Static, HideBySig
-    GetMsCodePage(String): PrivateScope, Public, Static, HideBySig
+    GetEncoding(String): PrivateScope, Public, Static, HideBySig
+    Open(String, Int32(Optional, HasDefault)): PrivateScope, Public, Static, HideBySig
 Class hmJSDynamicLib+Hidemaru+ErrorMsg: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Fields:
@@ -543,6 +543,56 @@ Class hmJSDynamicLib+Hidemaru+Macro: AutoLayout, AnsiClass, Class, NestedPublic,
   Methods:
     Eval(Object): PrivateScope, Public, Static, HideBySig
     Var(String, Object(Optional, HasDefault)): PrivateScope, Public, Static, HideBySig
+Interface hmJSDynamicLib+Hidemaru+File+IHidemaruEncoding: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
+  Properties:
+    Int32 HmEncode 'get ' : 
+  Methods:
+    get_HmEncode(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Interface hmJSDynamicLib+Hidemaru+File+IMicrosoftEncoding: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
+  Properties:
+    Int32 MsCodePage 'get ' : 
+  Methods:
+    get_MsCodePage(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Interface hmJSDynamicLib+Hidemaru+File+IEncoding: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
+  Interfaces:
+    hmJSDynamicLib+Hidemaru+File+IHidemaruEncoding
+    hmJSDynamicLib+Hidemaru+File+IMicrosoftEncoding
+Interface hmJSDynamicLib+Hidemaru+File+IHidemaruStreamReader: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
+  Interfaces:
+    System.IDisposable
+  Properties:
+    IEncoding Encoding 'get ' : 
+    System.String FilePath 'get ' : 
+  Methods:
+    get_Encoding(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    Read(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    get_FilePath(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    Close(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class hmJSDynamicLib+Hidemaru+File+Encoding: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(Int32, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    hmJSDynamicLib+Hidemaru+File+IEncoding
+    hmJSDynamicLib+Hidemaru+File+IHidemaruEncoding
+    hmJSDynamicLib+Hidemaru+File+IMicrosoftEncoding
+  Properties:
+    Int32 HmEncode 'get ' : 
+    Int32 MsCodePage 'get ' : 
+  Methods:
+    get_HmEncode(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_MsCodePage(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+Class hmJSDynamicLib+Hidemaru+File+HidemaruStreamReader: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(System.String, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    hmJSDynamicLib+Hidemaru+File+IHidemaruStreamReader
+    System.IDisposable
+  Properties:
+    IEncoding Encoding 'get ' : 
+    System.String FilePath 'get ' : 
+  Methods:
+    get_Encoding(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_FilePath(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    Close(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
 Struct hmJSDynamicLib+Hidemaru+Edit+HmCursurPos: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
   :System.ValueType
     Void .ctor(Int32, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
