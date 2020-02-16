@@ -35,18 +35,15 @@ public sealed partial class hmRbDynamicLib
             {
             }
 
-            public interface IHidemaruStreamReader : IDisposable
-            {
-                IEncoding Encoding { get; }
-                String Read();
-                String FilePath { get; }
-                void Close();
-            }
-
             // 途中でエラーが出るかもしれないので、相応しいUnlockやFreeが出来るように内部管理用
             private enum HGlobalStatus { None, Lock, Unlock, Free };
 
-            private static String ReadAllText(String filepath, int hm_encode = -1)
+            // IronRuby で外から見る場合、static であってはならない。
+            public String ReadAllText(String filepath, int hm_encode = -1)
+            {
+                return _ReadAllText(filepath, hm_encode);
+            }
+            private static String _ReadAllText(String filepath, int hm_encode = -1)
             {
                 if (_ver < 890)
                 {
@@ -161,7 +158,9 @@ public sealed partial class hmRbDynamicLib
 
             };
 
-            public static IEncoding GetEncoding(string filepath)
+            // ★ IronRuby で外から見えるやつは、static であってはならない。
+            // Encoding系情報を得る
+            public IEncoding GetEncoding(string filepath)
             {
                 int hm_encode = GetHmEncode(filepath);
                 int ms_codepage = GetMsCodePage(hm_encode);
@@ -335,76 +334,6 @@ public sealed partial class hmRbDynamicLib
                 }
                 public int HmEncode { get { return this.m_hm_encode; } }
                 public int MsCodePage { get { return this.m_ms_codepage; } }
-            }
-
-            public class HidemaruStreamReader : IHidemaruStreamReader
-            {
-                String m_path;
-
-                IEncoding m_encoding;
-
-                public IEncoding Encoding { get { return this.m_encoding; } }
-
-                public string FilePath { get { return this.m_path; } }
-
-                public HidemaruStreamReader(String path, int hm_encode = -1)
-                {
-                    this.m_path = path;
-                    // 指定されていなければ、
-                    if (hm_encode == -1)
-                    {
-                        hm_encode = GetHmEncode(path);
-                    }
-                    int ms_codepage = GetMsCodePage(hm_encode);
-                    this.m_encoding = new Hidemaru.HmFile.Encoding(hm_encode, ms_codepage);
-                }
-
-                ~HidemaruStreamReader()
-                {
-                    Close();
-                }
-
-                String HmFile.IHidemaruStreamReader.Read()
-                {
-                    if (System.IO.File.Exists(this.m_path) == false)
-                    {
-                        throw new System.IO.FileNotFoundException(this.m_path);
-                    }
-
-                    try
-                    {
-                        String text = Hidemaru.HmFile.ReadAllText(this.m_path, this.m_encoding.HmEncode);
-                        return text;
-                    }
-                    catch (Exception e)
-                    {
-                        throw e;
-                    }
-                }
-
-                public void Close()
-                {
-                    if (this.m_path != null)
-                    {
-                        this.m_encoding = null;
-                        this.m_path = null;
-                    }
-                }
-
-                public void Dispose()
-                {
-                    this.Close();
-                }
-            }
-            // ファイルを開いて情報を得る
-            public static IHidemaruStreamReader Open(string filepath, int hm_encode = -1)
-            {
-                if (System.IO.File.Exists(filepath) == false)
-                {
-                    throw new System.IO.FileNotFoundException(filepath);
-                }
-                IHidemaruStreamReader sr = new HmFile.HidemaruStreamReader(filepath, hm_encode);
-                return sr;
             }
 
         }
