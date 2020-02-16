@@ -65,7 +65,7 @@ namespace Hidemaru
             // 実行系
             public interface IExec
             {
-                IResult File(String filename);
+                IResult File(String filepath);
                 IResult Eval(String expression);
             }
 
@@ -79,9 +79,9 @@ namespace Hidemaru
                     return result;
                 }
 
-                public IResult File(string filename)
+                public IResult File(string filepath)
                 {
-                    var ret = hmNETDynamicLib.Hidemaru.Macro.ExecFile(filename);
+                    var ret = hmNETDynamicLib.Hidemaru.Macro.ExecFile(filepath);
                     var result = new TResult(ret.Result, ret.Message, ret.Error);
                     return result;
                 }
@@ -229,37 +229,22 @@ namespace Hidemaru
 
             public interface IEncoding : IHidemaruEncoding, IMicrosoftEncoding
             {
-
             }
 
             public interface IHidemaruStreamReader : IDisposable
             {
                 IEncoding Encoding { get; }
                 String Read();
-
+                String FilePath { get; }
                 void Close();
             }
 
-            public Open(String path, )
-
-            // ファイルエンコードの問い合わせ結果
-            public static int GetHmEncode(string path)
+            public static IHidemaruStreamReader Open(String filepath, int hidemaru_encode)
             {
-                int result = hmNETDynamicLib.Hidemaru.File.GetHmEncode(path);
-
-                return result;
-            }
-
-            // ファイルエンコードの問い合わせ結果
-            public static int GetMsCodePage(string path)
-            {
-                int result = hmNETDynamicLib.Hidemaru.File.GetMsCodePage(path);
-
-                return result;
+                IHidemaruStreamReader a = null;
+                return a;
             }
         }
-
-
     }
 }
 

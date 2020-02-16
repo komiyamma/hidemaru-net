@@ -55,8 +55,7 @@ Class Hidemaru.Hm+Edit: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Se
     get_MousePos(): PrivateScope, Public, Static, HideBySig, SpecialName
 Class Hidemaru.Hm+File: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
   Methods:
-    GetHmEncode(String): PrivateScope, Public, Static, HideBySig
-    GetMsCodePage(String): PrivateScope, Public, Static, HideBySig
+    Open(String, Int32): PrivateScope, Public, Static, HideBySig
 Interface Hidemaru.Hm+Macro+IResult: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
   Properties:
     Int32 Result 'get ' : 
@@ -94,3 +93,28 @@ Interface Hidemaru.Hm+Edit+IMousePos: AutoLayout, AnsiClass, Class, NestedPublic
     get_Column(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
     get_X(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
     get_Y(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Interface Hidemaru.Hm+File+IHidemaruEncoding: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
+  Properties:
+    Int32 HmEncode 'get ' : 
+  Methods:
+    get_HmEncode(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Interface Hidemaru.Hm+File+IMicrosoftEncoding: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
+  Properties:
+    Int32 MsCodePage 'get ' : 
+  Methods:
+    get_MsCodePage(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Interface Hidemaru.Hm+File+IEncoding: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
+  Interfaces:
+    Hidemaru.Hm+File+IHidemaruEncoding
+    Hidemaru.Hm+File+IMicrosoftEncoding
+Interface Hidemaru.Hm+File+IHidemaruStreamReader: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
+  Interfaces:
+    System.IDisposable
+  Properties:
+    IEncoding Encoding 'get ' : 
+    System.String FilePath 'get ' : 
+  Methods:
+    get_Encoding(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    Read(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    get_FilePath(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    Close(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract

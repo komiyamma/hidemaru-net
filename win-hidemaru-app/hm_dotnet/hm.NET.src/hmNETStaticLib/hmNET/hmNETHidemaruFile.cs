@@ -7,6 +7,7 @@
 using System;
 using System.Text;
 using System.Runtime.InteropServices;
+using Hidemaru;
 
 
 
@@ -148,7 +149,73 @@ internal sealed partial class hmNETDynamicLib
                 return pAnalyzeEncoding(path, IntPtr.Zero, IntPtr.Zero);
             }
 
-            // columnやlinenoはエディタ的な座標である。
+            public static int GetMsCodePage(int hidemaru_encode)
+            {
+                int result_codepage = 0;
+
+                if (version < 890)
+                {
+                    OutputDebugStream(ErrorMsg.MethodNeed890);
+
+                    return result_codepage;
+                }
+
+                if (pAnalyzeEncoding == null)
+                {
+                    OutputDebugStream(ErrorMsg.MethodNeed890);
+
+                    return result_codepage;
+                }
+
+                /*
+                 *
+                    Shift-JIS encode=1 codepage=932
+                    Unicode encode=2 codepage=1200
+                    EUC encode=3 codepage=51932
+                    JIS encode=4 codepage=50221
+                    UTF-7 encode=5 codepage=65000
+                    UTF-8 encode=6 codepage=65001
+                    Unicode (Big-Endian) encode=7 codepage=1201
+                    欧文 encode=8 codepage=1252
+                    簡体字中国語 encode=9 codepage=936
+                    繁体字中国語 encode=10 codepage=950
+                    韓国語 encode=11 codepage=949
+                    韓国語(Johab) encode=12 codepage=1361
+                    中央ヨーロッパ言語 encode=13 codepage=1250
+                    バルト語 encode=14 codepage=1257
+                    ギリシャ語 encode=15 codepage=1253
+                    キリル言語 encode=16 codepage=1251
+                    シンボル encode=17 codepage=42
+                    トルコ語 encode=18 codepage=1254
+                    ヘブライ語 encode=19 codepage=1255
+                    アラビア語 encode=20 codepage=1256
+                    タイ語 encode=21 codepage=874
+                    ベトナム語 encode=22 codepage=1258
+                    Macintosh encode=23 codepage=0
+                    OEM/DOS encode=24 codepage=0
+                    その他 encode=25 codepage=0
+                    UTF-32 encode=27 codepage=12000
+                    UTF-32 (Big-Endian) encode=28 codepage=12001
+                */
+                if (hidemaru_encode <= 0)
+                {
+                    return result_codepage;
+                }
+
+                if (hidemaru_encode < key_encode_value_codepage_array.Length)
+                {
+                    // 把握しているコードページなので入れておく
+                    result_codepage = key_encode_value_codepage_array[hidemaru_encode];
+                    return result_codepage;
+                }
+                else // 長さ以上なら、予期せぬ未来のencode番号対応
+                {
+                    return result_codepage;
+                }
+
+            }
+
+            // コードページを得る
             public static int GetMsCodePage(string path)
             {
 
@@ -217,6 +284,86 @@ internal sealed partial class hmNETDynamicLib
                     return result_codepage;
                 }
             }
+
+            public class Encoding : global::Hidemaru.Hm.File.IEncoding
+            {
+                private int m_hm_encode;
+                private int m_ms_codepage;
+                public Encoding(int hmencode, int mscodepage)
+                {
+                    this.m_hm_encode = hmencode;
+                    this.m_ms_codepage = mscodepage;
+                }
+                public int HmEncode { get { return this.m_hm_encode; } }
+                public int MsCodePage { get { return this.m_ms_codepage; } }
+            }
+
+            public class HidemaruStreamReader : global::Hidemaru.Hm.File.IHidemaruStreamReader
+            {
+                String m_path;
+
+                global::Hidemaru.Hm.File.IEncoding m_encoding;
+
+                Hm.File.IEncoding Hm.File.IHidemaruStreamReader.Encoding { get { return this.m_encoding;  } }
+
+                public string FilePath { get { return this.m_path; } }
+
+                public HidemaruStreamReader(String path, int hm_encode=-1)
+                {
+                    this.m_path = path;
+                    // 指定されていなければ、
+                    if (hm_encode == -1)
+                    {
+                        hm_encode = GetHmEncode(path);
+                    }
+                    int ms_codepage = GetMsCodePage(hm_encode);
+                    this.m_encoding = new Hidemaru.File.Encoding(hm_encode, ms_codepage);
+                }
+
+
+                public String Read()
+                {
+                    if (System.IO.File.Exists(this.m_path) == false)
+                    {
+                        throw new System.IO.FileNotFoundException(this.m_path);
+                    }
+
+                    try
+                    {
+                        String text = Hidemaru.File.ReadAllText(this.m_path, this.m_encoding.HmEncode);
+                        return text;
+                    } catch(Exception e) {
+                        throw e;
+                    }
+                }
+
+                public void Close()
+                {
+                    this.m_encoding = null;
+                    this.m_path = null;
+                }
+
+                public void Dispose()
+                {
+                    this.Close();
+                }
+
+                string Hm.File.IHidemaruStreamReader.Read()
+                {
+                    throw new NotImplementedException();
+                }
+            }
+            // ファイルを開いて情報を得る
+            public static global::Hidemaru.Hm.File.IHidemaruStreamReader Open(string path, int hm_encode=-1)
+            {
+                if (System.IO.File.Exists(path) == false)
+                {
+                    throw new System.IO.FileNotFoundException(path);
+                }
+                global::Hidemaru.Hm.File.IHidemaruStreamReader sr = new File.HidemaruStreamReader(path, hm_encode);
+                return sr;
+            }
+
         }
     }
 }
