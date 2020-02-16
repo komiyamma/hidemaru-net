@@ -158,9 +158,27 @@ public sealed partial class hmRbDynamicLib
 
             };
 
+            private class Encoding : IEncoding
+            {
+                private int m_hm_encode;
+                private int m_ms_codepage;
+                public Encoding(int hmencode, int mscodepage)
+                {
+                    this.m_hm_encode = hmencode;
+                    this.m_ms_codepage = mscodepage;
+                }
+                public int HmEncode { get { return this.m_hm_encode; } }
+                public int MsCodePage { get { return this.m_ms_codepage; } }
+            }
+
             // ★ IronRuby で外から見えるやつは、static であってはならない。
             // Encoding系情報を得る
             public IEncoding GetEncoding(string filepath)
+            {
+                return _GetEncoding(filepath);
+            }
+
+            private static IEncoding _GetEncoding(string filepath)
             {
                 int hm_encode = GetHmEncode(filepath);
                 int ms_codepage = GetMsCodePage(hm_encode);
@@ -321,19 +339,6 @@ public sealed partial class hmRbDynamicLib
                 {
                     return result_codepage;
                 }
-            }
-
-            public class Encoding : IEncoding
-            {
-                private int m_hm_encode;
-                private int m_ms_codepage;
-                public Encoding(int hmencode, int mscodepage)
-                {
-                    this.m_hm_encode = hmencode;
-                    this.m_ms_codepage = mscodepage;
-                }
-                public int HmEncode { get { return this.m_hm_encode; } }
-                public int MsCodePage { get { return this.m_ms_codepage; } }
             }
 
         }
