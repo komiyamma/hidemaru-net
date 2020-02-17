@@ -1,11 +1,71 @@
 # coding: utf-8
 
 #--------------------------------------------------------------
-# hmPy 1.5.6.1用 フェイクライブラリ
-# Copyright (c) 2016-2018 Akitsugu Komiyama
+# hmPy 1.7.0.1用 フェイクライブラリ
+# Copyright (c) 2016-2020 Akitsugu Komiyama
 # under the Apache License Version 2.0
 #--------------------------------------------------------------
+import os
 
+class _TText:
+    class _TEncoding:
+        def __init__(self, pyencodingname, codepage, hm_encode):
+            self.PyEncodingName = pyencodingname  # Pythonでファイルを開く際にエンコードとして指定できる文字列( "cp932" や "utf8" など )
+            self.MsCodePage = codepage  # マイクロソフトコードページの番号が入っている (932 や 65001 など)
+            self.HmEncode = hm_encode      # 秀丸の encode としての値が入っている ( 1 や 6 など )
+
+
+class _TFile:
+    class _TStreamReader:
+
+        def __init__(self, filepath, hm_encode=-1):
+            try:
+                if not os.path.exists(filepath):
+                    raise FileNotFoundError
+
+                self.Encoding = _TText._TEncoding("utf-8", 65001, 6)
+                self.FilePath = filepath
+            except:
+                raise
+        
+        def __enter__(self):
+            return self
+            
+        # 開いたファイルのテキストの取得
+        def Read(self):
+            try:
+                if self.__filepath:
+                    success, text = true, "aaaaaそうですね!"
+                    if success:
+                        return text
+                    else:
+                        raise IOError
+            except:
+                raise
+
+        def Close(self):
+            self.__encoding = None
+            self.__filepath = None
+
+        def __exit__(self, exception_type, exception_value, traceback):
+            self.Close()
+
+
+    #--------------------------------------------------
+    # 編集中のテキスト全体
+    def Open(self, filepath, hm_encode=-1):
+        return _TFile._TStreamReader(filepath, hm_encode)
+    
+    def GetEncoding(self, filepath):
+        try:
+            if not os.path.exists(filepath):
+                raise FileNotFoundError
+
+            encoding_name, codepage, hm_encode = hidemaru.file.get_encodingfromfile(filepath)
+            return _TText._TEncoding(encoding_name, codepage, hm_encode)
+        except:
+            raise
+    
 
 class _TEdit:
 
@@ -107,6 +167,7 @@ class _THidemaru:
     """
     #--------------------------------------------------
     def __init__(self):
+        self.File = _TFile()
         self.Edit = _TEdit()
         self.Macro = _TMacro()
     #--------------------------------------------------
