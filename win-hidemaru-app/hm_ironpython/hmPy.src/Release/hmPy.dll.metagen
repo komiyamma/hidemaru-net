@@ -165,10 +165,16 @@ Interface hmPyDynamicLib+Hidemaru+File+IMicrosoftEncoding: AutoLayout, AnsiClass
     Int32 MsCodePage 'get ' : 
   Methods:
     get_MsCodePage(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Interface hmPyDynamicLib+Hidemaru+File+IPythonEncoding: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
+  Properties:
+    System.String PyEncodingName 'get ' : 
+  Methods:
+    get_PyEncodingName(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
 Interface hmPyDynamicLib+Hidemaru+File+IEncoding: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
   Interfaces:
     hmPyDynamicLib+Hidemaru+File+IHidemaruEncoding
     hmPyDynamicLib+Hidemaru+File+IMicrosoftEncoding
+    hmPyDynamicLib+Hidemaru+File+IPythonEncoding
 Interface hmPyDynamicLib+Hidemaru+File+IHidemaruStreamReader: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
   Interfaces:
     System.IDisposable
@@ -181,17 +187,20 @@ Interface hmPyDynamicLib+Hidemaru+File+IHidemaruStreamReader: AutoLayout, AnsiCl
     get_FilePath(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
     Close(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
 Class hmPyDynamicLib+Hidemaru+File+Encoding: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
-    Void .ctor(Int32, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Int32, Int32, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Interfaces:
     hmPyDynamicLib+Hidemaru+File+IEncoding
     hmPyDynamicLib+Hidemaru+File+IHidemaruEncoding
     hmPyDynamicLib+Hidemaru+File+IMicrosoftEncoding
+    hmPyDynamicLib+Hidemaru+File+IPythonEncoding
   Properties:
     Int32 HmEncode 'get ' : 
     Int32 MsCodePage 'get ' : 
+    System.String PyEncodingName 'get ' : 
   Methods:
     get_HmEncode(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
     get_MsCodePage(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_PyEncodingName(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
 Class hmPyDynamicLib+Hidemaru+File+HidemaruStreamReader: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
     Void .ctor(System.String, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Interfaces:

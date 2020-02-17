@@ -12,13 +12,13 @@ G:\repogitory\hidemaru-net\win-hidemaru-app\hm_ironpython\hmPy.src\hmPYStaticLib
 G:\repogitory\hidemaru-net\win-hidemaru-app\hm_ironpython\hmPy.src\hmPYStaticLib\bin\Release\Microsoft.Scripting.dll
 G:\repogitory\hidemaru-net\win-hidemaru-app\hm_ironpython\hmPy.src\hmPYStaticLib\obj\Release\hmPyStaticLib.csproj.CopyComplete
 G:\repogitory\hidemaru-net\win-hidemaru-app\hm_ironpython\hmPy.src\hmPYStaticLib\obj\Release\hmPyStaticLib.netmodule
-G:\repository\hidemaru-net\win-hidemaru-app\hm_ironpython\hmPy.src\hmPYStaticLib\obj\Release\hmPyStaticLib.csproj.CoreCompileInputs.cache
-G:\repository\hidemaru-net\win-hidemaru-app\hm_ironpython\hmPy.src\hmPYStaticLib\obj\Release\hmPyStaticLib.netmodule
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_ironpython\hmPy.src\hmPYStaticLib\obj\Release\hmPyStaticLib.csprojAssemblyReference.cache
 G:\repository\hidemaru-net\win-hidemaru-app\hm_ironpython\hmPy.src\hmPYStaticLib\bin\Release\hmPyStaticLib.netmodule.config
 G:\repository\hidemaru-net\win-hidemaru-app\hm_ironpython\hmPy.src\hmPYStaticLib\bin\Release\hmPyStaticLib.netmodule
 G:\repository\hidemaru-net\win-hidemaru-app\hm_ironpython\hmPy.src\hmPYStaticLib\bin\Release\IronPython.dll
 G:\repository\hidemaru-net\win-hidemaru-app\hm_ironpython\hmPy.src\hmPYStaticLib\bin\Release\IronPython.Modules.dll
 G:\repository\hidemaru-net\win-hidemaru-app\hm_ironpython\hmPy.src\hmPYStaticLib\bin\Release\Microsoft.Dynamic.dll
 G:\repository\hidemaru-net\win-hidemaru-app\hm_ironpython\hmPy.src\hmPYStaticLib\bin\Release\Microsoft.Scripting.dll
+G:\repository\hidemaru-net\win-hidemaru-app\hm_ironpython\hmPy.src\hmPYStaticLib\obj\Release\hmPyStaticLib.csproj.CoreCompileInputs.cache
 G:\repository\hidemaru-net\win-hidemaru-app\hm_ironpython\hmPy.src\hmPYStaticLib\obj\Release\hmPyStaticLib.csproj.CopyComplete
-G:\repogitory\hidemaru-net\win-hidemaru-app\hm_ironpython\hmPy.src\hmPYStaticLib\obj\Release\hmPyStaticLib.csprojAssemblyReference.cache
+G:\repository\hidemaru-net\win-hidemaru-app\hm_ironpython\hmPy.src\hmPYStaticLib\obj\Release\hmPyStaticLib.netmodule
