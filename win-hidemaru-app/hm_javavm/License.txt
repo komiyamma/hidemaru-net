@@ -1,5 +1,5 @@
-- hmJavaVMについて
-   Copyright (C) 2016-2019 Akitsugu Komiyama
+﻿- hmJavaVMについて
+   Copyright (C) 2016-2020 Akitsugu Komiyama
 
 
                                  Apache License

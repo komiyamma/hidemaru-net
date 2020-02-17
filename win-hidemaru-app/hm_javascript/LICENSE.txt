@@ -1,5 +1,5 @@
-- hmJSについて、
-   Copyright (c) 2016-2019 Akitsugu Komiyama
+﻿- hmJSについて、
+   Copyright (c) 2016-2020 Akitsugu Komiyama
 
 
                                  Apache License
