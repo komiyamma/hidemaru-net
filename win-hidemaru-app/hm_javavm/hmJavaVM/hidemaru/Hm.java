@@ -60,7 +60,7 @@ public class Hm {
 	protected static native int GetMsCodePageFromHmEncode(int hm_encode);
 	protected static native String GetJavaEncodingAliasFromHmEncode(int hm_encode);
 
-	protected static native String GetLoadFile(String filepath, int hm_encode);
+	protected static native String LoadFile(String filepath, int hm_encode);
 
 
 	public static double getVersion() {
@@ -132,7 +132,7 @@ public class Hm {
 			return enc;
 		}
 
-		public class HidemaruFileReader implements IHidemaruFileReader {
+		private static class HidemaruFileReader implements IHidemaruFileReader {
 
 			private String m_path;
 			private IEncoding m_encoding;
@@ -168,7 +168,7 @@ public class Hm {
 					throw new java.io.FileNotFoundException(this.m_path);
 				}
 
-				String text = GetLoadFile(this.m_path, this.m_encoding.getHmEncode());
+				String text = LoadFile(this.m_path, this.m_encoding.getHmEncode());
 				if (text == null) {
 					throw new java.io.IOException(this.m_path);
 				}
@@ -186,6 +186,22 @@ public class Hm {
 				}
 			}
 		}
+
+		public static IHidemaruFileReader Open(String filepath) throws java.io.FileNotFoundException, IOException {
+			return Open(filepath, -1);
+		}
+
+		public static IHidemaruFileReader Open(String filepath, int hm_encode) throws java.io.FileNotFoundException, IOException {
+			java.io.File file = new java.io.File(filepath);
+
+			if (!file.exists()) {
+				throw new java.io.FileNotFoundException(filepath);
+			}
+
+			IHidemaruFileReader hfr = new HidemaruFileReader(filepath, hm_encode);
+			return hfr;
+		}
+	
 	}
 
 	public static class Edit {
