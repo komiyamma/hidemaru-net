@@ -35,7 +35,7 @@ public sealed partial class hmPyDynamicLib
             }
 
             public interface IEncoding : IHidemaruEncoding, IMicrosoftEncoding, IPythonEncoding
-        {
+            {
             }
 
             public interface IHidemaruStreamReader : IDisposable

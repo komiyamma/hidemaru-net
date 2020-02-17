@@ -6,6 +6,7 @@
  package hidemaru;
 
 import java.io.File;
+import java.io.Closeable;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -50,8 +51,15 @@ public class Hm {
 	protected static native String GetCursorPosFromMousePos();
 
 	protected static native boolean IsMacroExecuting();
-	protected static native String ExecMacroFromFile(String filename);
+	protected static native String ExecMacroFromFile(String filepath);
 	protected static native String ExecMacroFromString(String expression);
+
+	protected static native int GetHmEncodeFromFile(String filepath);
+	protected static native int GetMsCodePageFromHmEncode(int hm_encode);
+	protected static native String GetJavaEncodingAliasFromHmEncode(int hm_encode);
+
+	protected static native String GetLoadFile(Strinf filepath, int hm_encode);
+
 
 	public static double getVersion() {
 		return GetVersion();
@@ -70,11 +78,116 @@ public class Hm {
 		DebugInfo(begin);
 	}
 
+	public static class File {
+
+		public interface IHidemaruEncoding
+		{
+			int getHmEncode();
+		}
+		public interface IMicrosoftEncoding
+		{
+			int getMsCodePage();
+		}
+		public interface IJavaEncoding
+		{ 
+			String getJavaEncodingName();
+		}
+
+		public interface IEncoding extends IHidemaruEncoding, IMicrosoftEncoding, IJavaEncoding
+		{
+		}
+
+		public interface IHidemaruFileReader
+		{
+			IEncoding getEncoding();
+			String read();
+			String getFilePath();
+			void close();
+		}
+
+		private static class Encoding implements IEncoding
+		{
+			private int m_hm_encode;
+			private int m_ms_codepage;
+			private String m_java_encoding_name;
+
+			public Encoding(int hm_encode, int ms_codepage, String java_encoding_name)
+			{
+				this.m_hm_encode = hm_encode;
+				this.m_ms_codepage = ms_codepage;
+				this.m_java_encoding_name = java_encoding_name;
+			}
+			public int getHmEncode() { return this.m_hm_encode; }
+			public int getMsCodePage() { return this.m_ms_codepage; }
+			public String getJavaEncodingName() { return this.m_java_encoding_name; }
+		}
+
+		public static IEncoding getEncoding(String filepath) {
+			int hm_encode = GetHmEncodeFromFile(filepath);
+			int ms_codepage = GetMsCodePageFromHmEncode(hm_encode);
+			String java_encoding_name = GetJavaEncodingAliasFromHmEncode(hm_encode);
+			IEncoding enc = new Encoding(hm_encode, ms_codepage, java_encoding_name);
+			return enc;
+		}
+
+		public class HidemaruFileReader implements IHidemaruFileReader {
+
+			private String m_path;
+			private IEncoding m_encoding;
+
+			public HidemaruFileReader(String filepath) {
+				HidemaruFileReader_Init(filepath, -1);
+			}
+
+			public HidemaruFileReader(String filepath, int hm_encode) {
+				HidemaruFileReader_Init(filepath, hm_encode);
+			}
+
+			private void HidemaruFileReader_Init(String filepath, int hm_encode) {
+				this.m_path = filepath;
+
+				if (hm_encode == -1) {
+					hm_encode = GetHmEncodeFromFile(filepath);
+				}
+
+				int ms_codepage = GetMsCodePageFromHmEncode(hm_encode);
+				String java_encoding_name = GetJavaEncodingAliasFromHmEncode(hm_encode);
+				this.m_encoding = new Encoding(hm_encode, ms_codepage, java_encoding_name);
+			}
+
+			public IEncoding getEncoding() {
+				return this.m_encoding;
+			}
+
+			public String read() {
+				java.io.File file = new java.io.File(this.m_path);
+
+				if (!file.exists()) {
+					throw new java.io.FileNotFoundException(this.m_path);
+				}
+
+				String text = Read
+
+				return "";
+			}
+			public String getFilePath() {
+				return this.m_path;
+			}
+			public void close() {
+				if (this.m_path != null)
+				{
+					this.m_encoding = null;
+					this.m_path = null;
+				}
+			}
+		}
+	}
+
 	public static class Edit {
-		public static File getFile() {
+		public static java.io.File getFile() {
 			String path = GetFileFullPath();
 			if (path.length() > 0) {
-			    return new File(path);
+			    return new java.io.File(path);
 			} else {
 			    return null;
 			}
@@ -186,7 +299,7 @@ public class Hm {
 			return IsMacroExecuting();
 		}
 		
-		public static Map<String, Object> doExec(File file) {
+		public static Map<String, Object> doExec(java.io.File file) {
 			String filename = file.getAbsolutePath();
 		    String str_result = ExecMacroFromFile(filename);
 			String[] splited_result = str_result.split(",", 3);
@@ -322,8 +435,8 @@ public class Hm {
 		_AddClassPath(currentmacrodirectory);
 
         // ディレクトリ配下を探索
-        File[] filelist = new File(currentmacrodirectory).listFiles();
-        for (File file : filelist) {
+        java.io.File[] filelist = new java.io.File(currentmacrodirectory).listFiles();
+        for (java.io.File file : filelist) {
 			if (file.isFile()) {
 				String suffix = _GetFiNameSuffix(file.getName());
 				// 見つかったファイルがJARの場合は追加
@@ -344,7 +457,7 @@ public class Hm {
 		URLClassLoader loader = (URLClassLoader)ClassLoader.getSystemClassLoader(); // Java9ではエラー
 
 		try {
-			URL u = new File(path).toURI().toURL();
+			URL u = new java.io.File(path).toURI().toURL();
  			Method m = URLClassLoader.class.getDeclaredMethod("addURL", new Class[]{ URL.class }); // Java9ではエラー
 			m.setAccessible(true);
 			m.invoke(loader, new Object[]{u});

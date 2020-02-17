@@ -344,3 +344,21 @@ JNIEXPORT jstring JNICALL Java_hidemaru_Hm_GetJavaEncodingAliasFromHmEncode(JNIE
 	return utf16_to_jstring(env, encode_params.java_encoding_alias);
 }
 
+
+// GetLoadFile
+JNIEXPORT jstring JNICALL Java_hidemaru_Hm_LoadFile(JNIEnv *env, jobject obj, jstring filepath, jint value) {
+
+	wstring utf16_filepath = jstring_to_utf16(env, filepath);
+
+	bool success = false;
+	UINT character_count = 0;
+	wstring result_text = CHidemaruExeExport::LoadFileUnicode(utf16_filepath, value, &character_count, NULL, NULL, &success);
+
+	if (success) {
+		return utf16_to_jstring(env, result_text);
+	}
+	else {
+		return NULL;
+	}
+}
+

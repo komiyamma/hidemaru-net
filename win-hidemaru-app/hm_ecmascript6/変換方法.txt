@@ -1,3 +1,15 @@
+エラーでてる時は、
+https://developer.microsoft.com/ja-jp/windows/downloads/windows-10-sdk/
+にいく。
+
+V8Update.cmd でラベルが無いって時は、:ProcessArgsDone
+を :ProcessArgsDone2 とかに２カ所書き換える（もしくは追加する）でOK
+
+https://developer.microsoft.com/ja-jp/windows/downloads/windows-10-sdk/ を
+debug tools for windows のチェックを付けた状態でインストールしてあることは必須。
+してないとエラー（よくV8Update時のエラーみて、これをインストールする必要があると書いてある)
+
+
 0. V8Update.cmd については、
 pythonのところで、Windows SDK の bin 以下にあるpgort140.dllを見に行ってしまい、
 これが見つからずにエラーが返ってくる。
