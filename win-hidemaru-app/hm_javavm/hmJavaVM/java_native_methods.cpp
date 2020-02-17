@@ -358,7 +358,7 @@ JNIEXPORT jstring JNICALL Java_hidemaru_Hm_LoadFile(JNIEnv *env, jobject obj, js
 		return utf16_to_jstring(env, result_text);
 	}
 	else {
-		return NULL;
+		return nullptr;
 	}
 }
 

@@ -6,6 +6,8 @@
  package hidemaru;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.Closeable;
 import java.lang.reflect.Method;
 import java.net.URL;
@@ -58,7 +60,7 @@ public class Hm {
 	protected static native int GetMsCodePageFromHmEncode(int hm_encode);
 	protected static native String GetJavaEncodingAliasFromHmEncode(int hm_encode);
 
-	protected static native String GetLoadFile(Strinf filepath, int hm_encode);
+	protected static native String GetLoadFile(String filepath, int hm_encode);
 
 
 	public static double getVersion() {
@@ -100,7 +102,7 @@ public class Hm {
 		public interface IHidemaruFileReader
 		{
 			IEncoding getEncoding();
-			String read();
+			String read() throws FileNotFoundException, IOException;
 			String getFilePath();
 			void close();
 		}
@@ -159,16 +161,19 @@ public class Hm {
 				return this.m_encoding;
 			}
 
-			public String read() {
+			public String read() throws FileNotFoundException, IOException {
 				java.io.File file = new java.io.File(this.m_path);
 
 				if (!file.exists()) {
 					throw new java.io.FileNotFoundException(this.m_path);
 				}
 
-				String text = Read
+				String text = GetLoadFile(this.m_path, this.m_encoding.getHmEncode());
+				if (text == null) {
+					throw new java.io.IOException(this.m_path);
+				}
 
-				return "";
+				return text;
 			}
 			public String getFilePath() {
 				return this.m_path;
