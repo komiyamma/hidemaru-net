@@ -535,8 +535,8 @@ Class HmCustomLivePreviewDynamicLib+DllPathResolver: AutoLayout, AnsiClass, Clas
 Class HmCustomLivePreviewDynamicLib+Hidemaru+File: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Methods:
-    GetHmEncode(String): PrivateScope, Public, Static, HideBySig
-    GetMsCodePage(String): PrivateScope, Public, Static, HideBySig
+    GetEncoding(String): PrivateScope, Public, Static, HideBySig
+    Open(String, Int32(Optional, HasDefault)): PrivateScope, Public, Static, HideBySig
 Class HmCustomLivePreviewDynamicLib+Hidemaru+Edit: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Properties:
@@ -567,6 +567,56 @@ Class HmCustomLivePreviewDynamicLib+Hidemaru+ErrorMsg: AutoLayout, AnsiClass, Cl
     System.String MethodNeed873 = このメソッドは秀丸エディタ v8.73 正式版以降で利用可能です。 : Public, Static, Literal, HasDefault
     System.String MethodNeed875 = このメソッドは秀丸エディタ v8.75 正式版以降で利用可能です。 : Public, Static, Literal, HasDefault
     System.String MethodNeed890 = このメソッドは秀丸エディタ v8.90 正式版以降で利用可能です。 : Public, Static, Literal, HasDefault
+Interface HmCustomLivePreviewDynamicLib+Hidemaru+File+IHidemaruEncoding: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
+  Properties:
+    Int32 HmEncode 'get ' : 
+  Methods:
+    get_HmEncode(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Interface HmCustomLivePreviewDynamicLib+Hidemaru+File+IMicrosoftEncoding: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
+  Properties:
+    Int32 MsCodePage 'get ' : 
+  Methods:
+    get_MsCodePage(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Interface HmCustomLivePreviewDynamicLib+Hidemaru+File+IEncoding: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
+  Interfaces:
+    HmCustomLivePreviewDynamicLib+Hidemaru+File+IHidemaruEncoding
+    HmCustomLivePreviewDynamicLib+Hidemaru+File+IMicrosoftEncoding
+Interface HmCustomLivePreviewDynamicLib+Hidemaru+File+IHidemaruStreamReader: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
+  Interfaces:
+    System.IDisposable
+  Properties:
+    IEncoding Encoding 'get ' : 
+    System.String FilePath 'get ' : 
+  Methods:
+    get_Encoding(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    Read(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    get_FilePath(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    Close(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class HmCustomLivePreviewDynamicLib+Hidemaru+File+Encoding: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(Int32, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    HmCustomLivePreviewDynamicLib+Hidemaru+File+IEncoding
+    HmCustomLivePreviewDynamicLib+Hidemaru+File+IHidemaruEncoding
+    HmCustomLivePreviewDynamicLib+Hidemaru+File+IMicrosoftEncoding
+  Properties:
+    Int32 HmEncode 'get ' : 
+    Int32 MsCodePage 'get ' : 
+  Methods:
+    get_HmEncode(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_MsCodePage(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+Class HmCustomLivePreviewDynamicLib+Hidemaru+File+HidemaruStreamReader: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(System.String, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    HmCustomLivePreviewDynamicLib+Hidemaru+File+IHidemaruStreamReader
+    System.IDisposable
+  Properties:
+    IEncoding Encoding 'get ' : 
+    System.String FilePath 'get ' : 
+  Methods:
+    get_Encoding(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_FilePath(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    Close(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
 Struct HmCustomLivePreviewDynamicLib+Hidemaru+Edit+HmCursurPos: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
   :System.ValueType
     Void .ctor(Int32, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
