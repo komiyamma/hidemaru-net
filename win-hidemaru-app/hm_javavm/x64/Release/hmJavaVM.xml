@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <appSettings>
+    <add key="JavaVM_PATH" value="C:\Program Files\Java\jdk1.8.0_241\jre\bin\server\jvm.dll"/>
+  </appSettings>
+</configuration>
