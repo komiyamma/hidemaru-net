@@ -1,0 +1,17 @@
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT license.
+
+<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ output extension=".cs" #>
+<#@ include file="..\..\Version.tt" #>
+
+using System.Reflection;
+using System.Runtime.InteropServices;
+
+[assembly: AssemblyTitle("ClearScript Benchmark Application")]
+[assembly: AssemblyProduct("ClearScript")]
+[assembly: AssemblyCopyright("(c) Microsoft Corporation")]
+
+[assembly: ComVisible(false)]
+[assembly: AssemblyVersion("<#= version #>")]
+[assembly: AssemblyFileVersion("<#= version #>")]
