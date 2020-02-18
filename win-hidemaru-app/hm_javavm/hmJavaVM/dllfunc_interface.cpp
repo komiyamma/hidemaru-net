@@ -38,8 +38,7 @@ static int CreateScope() {
 
 
 
-
-MACRO_DLL intHM_t CallMethod(const TCHAR *class_name, TCHAR *method_name) {
+MACRO_DLL intHM_t CallMethod(const TCHAR *class_name, TCHAR *method_name, void *arg0, void *arg1, void *arg2, void *arg3) {
 	if (CreateScope() == 0)
 	{
 		return 0;
@@ -66,6 +65,60 @@ MACRO_DLL intHM_t CallMethod(const TCHAR *class_name, TCHAR *method_name) {
 		return 0;
 	}
 
+	int pt0 = CHidemaruExeExport::Hidemaru_GetDllFuncCalledType(3); // 引数３番目
+	int pt1 = CHidemaruExeExport::Hidemaru_GetDllFuncCalledType(4); // 引数４番目
+	int pt2 = CHidemaruExeExport::Hidemaru_GetDllFuncCalledType(5); // 引数５番目
+	int pt3 = CHidemaruExeExport::Hidemaru_GetDllFuncCalledType(6); // 引数６番目
+
+	string java_args = "";
+	string java_args_types = "";
+
+	int pt = 0;
+	java_args += "(";
+	for (int i = 3; true; i++) {
+
+		void *arg = nullptr;
+		int pt = 0;
+		switch (i) {
+		case 3: {
+			arg = arg0;
+			pt = pt0;
+			break;
+		}
+		case 4: {
+			arg = arg1;
+			pt = pt1;
+			break;
+		}
+		case 5: {
+			arg = arg2;
+			pt = pt2;
+			break;
+		}
+		case 6: {
+			arg = arg3;
+			pt = pt3;
+			break;
+		}
+		}
+
+		// arg0のチェック
+		if (pt == DLLFUNCPARAM_NOPARAM) {
+			break;
+		}
+		else if (pt == DLLFUNCPARAM_INT) {
+			java_args += "J";
+			java_args_types += "long, ";
+		}
+		else if (pt == DLLFUNCPARAM_WCHAR_PTR) {
+			java_args += "Ljava/lang/String;";
+			java_args_types += "String, ";
+		}
+	}
+	java_args += ")V";
+	java_args_types += ")";
+
+	MessageBoxA(NULL, java_args.c_str(), java_args.c_str(), NULL);
 	// このプロセスで最初の１回
 	if (!CJavaVMEngine::HmCalled) {
 		bool success = CJavaVMEngine::CallStaticEntryMethod(L"hidemaru/Hm", L"_Init");
@@ -82,7 +135,7 @@ MACRO_DLL intHM_t CallMethod(const TCHAR *class_name, TCHAR *method_name) {
 	wstring wstr_class_name = class_name;
 	std::replace(wstr_class_name.begin(), wstr_class_name.end(), '.', '/');
 
-	bool success = CJavaVMEngine::CallStaticEntryMethod(wstr_class_name.c_str(), method_name);
+	bool success = CJavaVMEngine::CallStaticEntryMethod(wstr_class_name.c_str(), method_name, java_args);
 	return success;
 }
 

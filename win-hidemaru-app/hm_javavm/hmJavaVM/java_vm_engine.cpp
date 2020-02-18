@@ -149,7 +149,7 @@ bool CJavaVMEngine::IsValid() {
 }
 
 
-bool CJavaVMEngine::CallStaticEntryMethod(wstring class_name, wstring method_name) {
+bool CJavaVMEngine::CallStaticEntryMethod(wstring class_name, wstring method_name, string arg_string) {
 
 	// utf16→utf8への変換
 	string utf8_class_name = utf16_to_utf8(class_name);
@@ -164,11 +164,11 @@ bool CJavaVMEngine::CallStaticEntryMethod(wstring class_name, wstring method_nam
 	}
 	// 指定クラスの指定メソッド取得
 	// http://setohide.blogspot.com/2014/01/jni.html
-	jmethodID mid = env->GetStaticMethodID(clazz, utf8_method_name.c_str(), "([Ljava/lang/String;)V" );
+	jmethodID mid = env->GetStaticMethodID(clazz, utf8_method_name.c_str(), arg_string.c_str());
 	if (mid == 0) {
-		mid = env->GetStaticMethodID(clazz, utf8_method_name.c_str(), "()V");
+		mid = env->GetStaticMethodID(clazz, utf8_method_name.c_str(), "([Ljava/lang/String;)V");
 		if (mid == 0) {
-			wstring message = wstring(L"GetStaticMethodID Error for `static void ") + method_name + wstring(L"(String args[])`") + L" or " + method_name + wstring(L"()");
+			wstring message = wstring(L"GetStaticMethodID Error for `static void ") + method_name + wstring(L"(String args[])`") + L" or " + method_name + utf8_to_utf16(arg_string);
 			MessageBox(NULL, message.c_str(), message.c_str(), NULL);
 			return false;
 		}
