@@ -163,11 +163,15 @@ bool CJavaVMEngine::CallStaticEntryMethod(wstring class_name, wstring method_nam
 		return false;
 	}
 	// 指定クラスの指定メソッド取得
+	// http://setohide.blogspot.com/2014/01/jni.html
 	jmethodID mid = env->GetStaticMethodID(clazz, utf8_method_name.c_str(), "([Ljava/lang/String;)V" );
 	if (mid == 0) {
-		wstring message = wstring(L"GetStaticMethodID Error for `static void ") + method_name + wstring(L"(String args[])`");
-		MessageBox(NULL, message.c_str(), message.c_str(), NULL);
-		return false;
+		mid = env->GetStaticMethodID(clazz, utf8_method_name.c_str(), "()V");
+		if (mid == 0) {
+			wstring message = wstring(L"GetStaticMethodID Error for `static void ") + method_name + wstring(L"(String args[])`") + L" or " + method_name + wstring(L"()");
+			MessageBox(NULL, message.c_str(), message.c_str(), NULL);
+			return false;
+		}
 	}
 	// mainメソッド実行
 	env->CallStaticVoidMethod(clazz, mid, NULL);
