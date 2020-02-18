@@ -75,6 +75,8 @@ MACRO_DLL intHM_t CallMethod(const TCHAR *class_name, TCHAR *method_name, void *
 
 	int pt = 0;
 	java_args += "(";
+	java_args_types += "(";
+
 	for (int i = 3; true; i++) {
 
 		void *arg = nullptr;
@@ -118,7 +120,6 @@ MACRO_DLL intHM_t CallMethod(const TCHAR *class_name, TCHAR *method_name, void *
 	java_args += ")V";
 	java_args_types += ")";
 
-	MessageBoxA(NULL, java_args.c_str(), java_args.c_str(), NULL);
 	// このプロセスで最初の１回
 	if (!CJavaVMEngine::HmCalled) {
 		bool success = CJavaVMEngine::CallStaticEntryMethod(L"hidemaru/Hm", L"_Init");
@@ -135,7 +136,7 @@ MACRO_DLL intHM_t CallMethod(const TCHAR *class_name, TCHAR *method_name, void *
 	wstring wstr_class_name = class_name;
 	std::replace(wstr_class_name.begin(), wstr_class_name.end(), '.', '/');
 
-	bool success = CJavaVMEngine::CallStaticEntryMethod(wstr_class_name.c_str(), method_name, java_args);
+	bool success = CJavaVMEngine::CallStaticEntryMethod(wstr_class_name.c_str(), method_name, java_args, java_args_types);
 	return success;
 }
 

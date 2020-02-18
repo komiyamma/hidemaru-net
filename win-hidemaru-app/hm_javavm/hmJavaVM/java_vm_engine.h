@@ -49,7 +49,7 @@ public:
 	static bool HmCalled;
 
 	// 該当クラスの該当staticメソッドを実行してみよう。
-	static bool CallStaticEntryMethod(wstring class_name, wstring method_name, string arg_string= "([Ljava / lang / String;)V");
+	static bool CallStaticEntryMethod(wstring class_name, wstring method_name, string arg_string= "([Ljava / lang / String;)V", string arg_string_on_error="String[]");
 	static void GC();
 
 private:
