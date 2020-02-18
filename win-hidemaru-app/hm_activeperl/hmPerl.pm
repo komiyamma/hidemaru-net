@@ -52,7 +52,7 @@ sub File {
             if ($result eq '-*-*-LoadFileUnicodeError-*-*-') {
                 return undef;
             } else {
-                reutrn $result;
+                return $result;
             }
         }
 
