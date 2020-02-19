@@ -99,6 +99,9 @@
     <ClCompile Include="java_native_method_encode.cpp">
       <Filter>JavaとのAPI Interface</Filter>
     </ClCompile>
+    <ClCompile Include="java_CallStaticStringMethod.cpp">
+      <Filter>JavaVMの生成や破棄</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="hmJavaVM.def">
@@ -168,6 +171,9 @@
     </ClInclude>
     <ClInclude Include="java_native_method_encode.h">
       <Filter>JavaとのAPI Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="java_CallStaticStringMethod.h">
+      <Filter>JavaVMの生成や破棄</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

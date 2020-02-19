@@ -37,7 +37,7 @@ static int CreateScope() {
 }
 
 
-
+static wstring strcallmethod;
 MACRO_DLL intHM_t CallMethod(const TCHAR *class_name, TCHAR *method_name, void *arg0, void *arg1, void *arg2, void *arg3) {
 	if (CreateScope() == 0)
 	{
@@ -47,9 +47,11 @@ MACRO_DLL intHM_t CallMethod(const TCHAR *class_name, TCHAR *method_name, void *
 	// DoStringされる度にdllのBindの在り方を確認更新する。
 	CSelfDllInfo::SetBindDllHandle();
 
+	strcallmethod.clear();
+
 	auto rtn_type = (CHidemaruExeExport::DLLFUNCRETURN)CHidemaruExeExport::Hidemaru_GetDllFuncCalledType(0); // 0は返り値の型
-	if (rtn_type == CHidemaruExeExport::DLLFUNCRETURN::CHAR_PTR || rtn_type == CHidemaruExeExport::DLLFUNCRETURN::WCHAR_PTR) {
-		MessageBox(NULL, L"返り値の型が異なります。\ndllfuncstrではなく、dllfuncw文を利用してください。", L"返り値の型が異なります", MB_ICONERROR);
+	if (rtn_type != CHidemaruExeExport::DLLFUNCRETURN::INT && rtn_type != CHidemaruExeExport::DLLFUNCRETURN::WCHAR_PTR) {
+		MessageBox(NULL, L"返り値の型が異なります。\n「dllfuncstrw」、もしくは「dllfuncw」文を利用してください。\n「w」が付きます。", L"返り値の型が異なります", MB_ICONERROR);
 		return 0;
 	}
 
@@ -70,12 +72,12 @@ MACRO_DLL intHM_t CallMethod(const TCHAR *class_name, TCHAR *method_name, void *
 	int pt2 = CHidemaruExeExport::Hidemaru_GetDllFuncCalledType(5); // 引数５番目
 	int pt3 = CHidemaruExeExport::Hidemaru_GetDllFuncCalledType(6); // 引数６番目
 
-	string java_args = "";
-	string java_args_types = "";
+	string method_args_typedef_string = "";
+	string method_args_declare_string = "";
 
 	int pt = 0;
-	java_args += "(";
-	java_args_types += "(";
+	method_args_typedef_string += "(";
+	method_args_declare_string += "(";
 
 	for (int i = 3; true; i++) {
 
@@ -109,22 +111,32 @@ MACRO_DLL intHM_t CallMethod(const TCHAR *class_name, TCHAR *method_name, void *
 			break;
 		}
 		else if (pt == DLLFUNCPARAM_INT) {
-			java_args += "J";
-			java_args_types += "long, ";
+			method_args_typedef_string += "J";
+			method_args_declare_string += "long, ";
 		}
 		else if (pt == DLLFUNCPARAM_WCHAR_PTR) {
-			java_args += "Ljava/lang/String;";
-			java_args_types += "String, ";
+			method_args_typedef_string += "Ljava/lang/String;";
+			method_args_declare_string += "String, ";
 		}
 	}
-	java_args += ")V";
-	java_args_types += ")";
+	method_args_typedef_string += ")V";
+	method_args_declare_string += ")";
 
 	// このプロセスで最初の１回
 	if (!CJavaVMEngine::HmCalled) {
 		bool success = CJavaVMEngine::CallStaticEntryMethod(L"hidemaru/Hm", L"_Init");
 		if (!success) {
-			return false;
+			if (rtn_type == CHidemaruExeExport::DLLFUNCRETURN::INT) {
+				return (intHM_t)0;
+
+			}
+			else if (rtn_type == CHidemaruExeExport::DLLFUNCRETURN::WCHAR_PTR) {
+				strcallmethod = wstring(L"aaa");
+				return (intHM_t)strcallmethod.data();
+
+			}
+			MessageBox(NULL, L"返り値の型が異なります。\n「dllfuncstrw」、もしくは「dllfuncw」文を利用してください。\n「w」が付きます。", L"返り値の型が異なります", MB_ICONERROR);
+			return (intHM_t)0;
 		}
 		CJavaVMEngine::HmCalled = true;
 	}
@@ -136,7 +148,7 @@ MACRO_DLL intHM_t CallMethod(const TCHAR *class_name, TCHAR *method_name, void *
 	wstring wstr_class_name = class_name;
 	std::replace(wstr_class_name.begin(), wstr_class_name.end(), '.', '/');
 
-	bool success = CJavaVMEngine::CallStaticEntryMethod(wstr_class_name.c_str(), method_name, java_args, java_args_types);
+	bool success = CJavaVMEngine::CallStaticEntryMethod(wstr_class_name.c_str(), method_name, method_args_typedef_string, method_args_declare_string);
 	return success;
 }
 

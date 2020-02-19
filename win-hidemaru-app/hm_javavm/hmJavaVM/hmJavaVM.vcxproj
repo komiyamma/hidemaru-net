@@ -176,6 +176,7 @@
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="hidemaruexe_export.cpp" />
     <ClCompile Include="hidemaruexe_handle.cpp" />
+    <ClCompile Include="java_CallStaticStringMethod.cpp" />
     <ClCompile Include="java_native_method_encode.cpp" />
     <ClCompile Include="java_vm_engine.cpp" />
     <ClCompile Include="java_vm_engine_error.cpp" />
@@ -204,6 +205,7 @@
     <ClInclude Include="dllfunc_interface_internal.h" />
     <ClInclude Include="hidemaruexe_export.h" />
     <ClInclude Include="hidemaruexe_handle.h" />
+    <ClInclude Include="java_CallStaticStringMethod.h" />
     <ClInclude Include="java_native_methods.h" />
     <ClInclude Include="java_native_method_encode.h" />
     <ClInclude Include="java_vm_engine.h" />

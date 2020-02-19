@@ -11,6 +11,7 @@
 #include "convert_string.h"
 #include "output_debugstream.h"
 
+#include "java_CallStaticStringMethod.h"
 
 
 using namespace std;
@@ -149,7 +150,9 @@ bool CJavaVMEngine::IsValid() {
 }
 
 
-bool CJavaVMEngine::CallStaticEntryMethod(wstring class_name, wstring method_name, string arg_string, string java_args_types) {
+
+
+bool CJavaVMEngine::CallStaticEntryMethod(wstring class_name, wstring method_name, string method_args_typedef_string, string method_args_declare_string) {
 
 	// utf16→utf8への変換
 	string utf8_class_name = utf16_to_utf8(class_name);
@@ -164,15 +167,16 @@ bool CJavaVMEngine::CallStaticEntryMethod(wstring class_name, wstring method_nam
 	}
 	// 指定クラスの指定メソッド取得
 	// http://setohide.blogspot.com/2014/01/jni.html
-	jmethodID mid = env->GetStaticMethodID(clazz, utf8_method_name.c_str(), arg_string.c_str());
+	jmethodID mid = env->GetStaticMethodID(clazz, utf8_method_name.c_str(), method_args_typedef_string.c_str());
 	if (mid == 0) {
 		mid = env->GetStaticMethodID(clazz, utf8_method_name.c_str(), "([Ljava/lang/String;)V");
 		if (mid == 0) {
-			wstring message = wstring(L"GetStaticMethodID Error for `static void ") + method_name + wstring(L"(String args[])`") + L" or " + method_name + utf8_to_utf16(java_args_types);
+			wstring message = wstring(L"GetStaticMethodID Error for `static void ") + method_name + wstring(L"(String args[])`") + L" or " + method_name + utf8_to_utf16(method_args_declare_string);
 			MessageBox(NULL, message.c_str(), message.c_str(), NULL);
 			return false;
 		}
 	}
+
 	// mainメソッド実行
 	env->CallStaticVoidMethod(clazz, mid, NULL);
 
@@ -183,5 +187,86 @@ bool CJavaVMEngine::CallStaticEntryMethod(wstring class_name, wstring method_nam
 	GC();
 
 	return true;
+}
+
+
+jlong CJavaVMEngine::CallStaticEntryMethodOfLong(wstring class_name, wstring method_name, string method_args_typedef_string, string method_args_declare_string) {
+
+	// utf16→utf8への変換
+	string utf8_class_name = utf16_to_utf8(class_name);
+	string utf8_method_name = utf16_to_utf8(method_name);
+
+	// Helloクラスのロード
+	jclass clazz = env->FindClass(utf8_class_name.c_str());
+	if (clazz == 0) {
+		wstring message = wstring(L"FindClass Error for `") + class_name + wstring(L"`");
+		MessageBox(NULL, message.c_str(), message.c_str(), NULL);
+		return 0;
+	}
+	// 指定クラスの指定メソッド取得
+	// http://setohide.blogspot.com/2014/01/jni.html
+	jmethodID mid = env->GetStaticMethodID(clazz, utf8_method_name.c_str(), method_args_typedef_string.c_str());
+	if (mid == 0) {
+		mid = env->GetStaticMethodID(clazz, utf8_method_name.c_str(), "([Ljava/lang/String;)V");
+		if (mid == 0) {
+			wstring message = wstring(L"GetStaticMethodID Error for `static void ") + method_name + wstring(L"(String args[])`") + L" or " + method_name + utf8_to_utf16(method_args_declare_string);
+			MessageBox(NULL, message.c_str(), message.c_str(), NULL);
+			return 0;
+		}
+	}
+
+	// mainメソッド実行
+	jlong ret = env->CallStaticLongMethod(clazz, mid, NULL);
+
+	wstring errormsg = GetErrorMessage();
+	if (errormsg.size() > 0) {
+		OutputDebugStream(errormsg);
+	}
+	GC();
+
+	return ret;
+}
+
+
+
+wstring CJavaVMEngine::CallStaticEntryMethodOfString(wstring class_name, wstring method_name, string method_args_typedef_string, string method_args_declare_string) {
+
+	// utf16→utf8への変換
+	string utf8_class_name = utf16_to_utf8(class_name);
+	string utf8_method_name = utf16_to_utf8(method_name);
+
+	// Helloクラスのロード
+	jclass clazz = env->FindClass(utf8_class_name.c_str());
+	if (clazz == 0) {
+		wstring message = wstring(L"FindClass Error for `") + class_name + wstring(L"`");
+		MessageBox(NULL, message.c_str(), message.c_str(), NULL);
+		return L"";
+	}
+	// 指定クラスの指定メソッド取得
+	// http://setohide.blogspot.com/2014/01/jni.html
+	jmethodID mid = env->GetStaticMethodID(clazz, utf8_method_name.c_str(), method_args_typedef_string.c_str());
+	if (mid == 0) {
+		mid = env->GetStaticMethodID(clazz, utf8_method_name.c_str(), "([Ljava/lang/String;)V");
+		if (mid == 0) {
+			wstring message = wstring(L"GetStaticMethodID Error for `static void ") + method_name + wstring(L"(String args[])`") + L" or " + method_name + utf8_to_utf16(method_args_declare_string);
+			MessageBox(NULL, message.c_str(), message.c_str(), NULL);
+			return L"";
+		}
+	}
+
+	std::string result{};
+	auto jstr = static_cast<jstring>(env->CallStaticObjectMethod(clazz, mid, NULL));
+	const char *chars = env->GetStringUTFChars(jstr, nullptr);
+	result = chars;
+	env->ReleaseStringUTFChars(jstr, chars);
+	env->DeleteLocalRef(jstr);
+
+	wstring errormsg = GetErrorMessage();
+	if (errormsg.size() > 0) {
+		OutputDebugStream(errormsg);
+	}
+	GC();
+
+	return utf8_to_utf16(result);
 }
 
