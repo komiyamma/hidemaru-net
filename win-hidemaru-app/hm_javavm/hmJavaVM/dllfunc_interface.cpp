@@ -150,16 +150,15 @@ MACRO_DLL intHM_t CallMethod(const TCHAR *class_name, TCHAR *method_name, void *
 	if (rtn_type == DLLFUNCRETURN_INT) {
 		method_args_typedef_string += "J";
 		jlong ret_long = 0;
-		ret_long = CJavaVMEngine::CallStaticEntryMethodOfLong(wstr_class_name.c_str(), method_name, method_args_typedef_string, method_args_declare_string);
+		ret_long = CJavaVMEngine::CallStaticEntryMethodOfLong(wstr_class_name.c_str(), method_name, 0, method_args_typedef_string, method_args_declare_string);
 		// CJavaVMEngine::CallStaticEntryMethod(wstr_class_name.c_str(), method_name);
 		return (intHM_t)ret_long; // 秀丸の受け取れる範囲に縮小
 	}
 	else if (rtn_type == DLLFUNCRETURN_WCHAR_PTR) {
 		method_args_typedef_string += "Ljava/lang/String;";
 		strcallmethod.clear();
-		strcallmethod = CJavaVMEngine::CallStaticEntryMethodOfString(wstr_class_name.c_str(), method_name, method_args_typedef_string, method_args_declare_string);
+		strcallmethod = CJavaVMEngine::CallStaticEntryMethodOfString(wstr_class_name.c_str(), method_name, 0, method_args_typedef_string, method_args_declare_string);
 		// CJavaVMEngine::CallStaticEntryMethod(wstr_class_name.c_str(), method_name);
-		strcallmethod = L"abcc";
 		return (intHM_t)strcallmethod.data();
 
 	}

@@ -149,9 +149,6 @@ bool CJavaVMEngine::IsValid() {
 	return env != NULL;
 }
 
-
-
-
 bool CJavaVMEngine::CallStaticEntryMethod(wstring class_name, wstring method_name) {
 
 	// utf16→utf8への変換
@@ -165,6 +162,7 @@ bool CJavaVMEngine::CallStaticEntryMethod(wstring class_name, wstring method_nam
 		MessageBox(NULL, message.c_str(), message.c_str(), NULL);
 		return false;
 	}
+
 	// 指定クラスの指定メソッド取得
 	// http://setohide.blogspot.com/2014/01/jni.html
 	jmethodID mid = env->GetStaticMethodID(clazz, utf8_method_name.c_str(), "([Ljava/lang/String;)V");
@@ -212,8 +210,8 @@ jlong CJavaVMEngine::CallStaticEntryMethodOfLong(wstring class_name, wstring met
 		}
 	}
 
-	// mainメソッド実行
-	jlong ret = env->CallStaticLongMethod(clazz, mid, NULL);
+	// mainメソッド実行 ★この行が違うだけ
+	jlong ret = env->CallStaticLongMethod(clazz, mid);
 
 	wstring errormsg = GetErrorMessage();
 	if (errormsg.size() > 0) {
@@ -225,9 +223,98 @@ jlong CJavaVMEngine::CallStaticEntryMethodOfLong(wstring class_name, wstring met
 }
 
 
+jlong CJavaVMEngine::CallStaticEntryMethodOfLong(wstring class_name, wstring method_name, jlong a1, string method_args_typedef_string, string method_args_declare_string) {
+
+	// utf16→utf8への変換
+	string utf8_class_name = utf16_to_utf8(class_name);
+	string utf8_method_name = utf16_to_utf8(method_name);
+
+	// Helloクラスのロード
+	jclass clazz = env->FindClass(utf8_class_name.c_str());
+	if (clazz == 0) {
+		wstring message = wstring(L"FindClass Error for `") + class_name + wstring(L"`");
+		MessageBox(NULL, message.c_str(), message.c_str(), NULL);
+		return 0;
+	}
+	// 指定クラスの指定メソッド取得
+	// http://setohide.blogspot.com/2014/01/jni.html
+	jmethodID mid = env->GetStaticMethodID(clazz, utf8_method_name.c_str(), method_args_typedef_string.c_str());
+	if (mid == 0) {
+		mid = env->GetStaticMethodID(clazz, utf8_method_name.c_str(), "([Ljava/lang/String;)V");
+		if (mid == 0) {
+			wstring message = wstring(L"型が一致する static メソッドが見つかりません。\n`static long ") + method_name + utf8_to_utf16(method_args_declare_string);
+			MessageBox(NULL, message.c_str(), L"java.lang.NoSuchMethodError", NULL);
+			return 0;
+		}
+	}
+
+	// mainメソッド実行 ★この行が違うだけ
+	jlong ret = env->CallStaticLongMethod(clazz, mid, a1);
+
+	wstring errormsg = GetErrorMessage();
+	if (errormsg.size() > 0) {
+		OutputDebugStream(errormsg);
+	}
+	GC();
+
+	return ret;
+}
+
+jlong CJavaVMEngine::CallStaticEntryMethodOfLong(wstring class_name, wstring method_name, wstring s1, string method_args_typedef_string, string method_args_declare_string) {
+
+	// utf16→utf8への変換
+	string utf8_class_name = utf16_to_utf8(class_name);
+	string utf8_method_name = utf16_to_utf8(method_name);
+
+	// Helloクラスのロード
+	jclass clazz = env->FindClass(utf8_class_name.c_str());
+	if (clazz == 0) {
+		wstring message = wstring(L"FindClass Error for `") + class_name + wstring(L"`");
+		MessageBox(NULL, message.c_str(), message.c_str(), NULL);
+		return 0;
+	}
+	// 指定クラスの指定メソッド取得
+	// http://setohide.blogspot.com/2014/01/jni.html
+	jmethodID mid = env->GetStaticMethodID(clazz, utf8_method_name.c_str(), method_args_typedef_string.c_str());
+	if (mid == 0) {
+		mid = env->GetStaticMethodID(clazz, utf8_method_name.c_str(), "([Ljava/lang/String;)V");
+		if (mid == 0) {
+			wstring message = wstring(L"型が一致する static メソッドが見つかりません。\n`static long ") + method_name + utf8_to_utf16(method_args_declare_string);
+			MessageBox(NULL, message.c_str(), L"java.lang.NoSuchMethodError", NULL);
+			return 0;
+		}
+	}
+
+	string utf8 = utf16_to_utf8(s1);
+	jstring js_arg1 =  env->NewStringUTF(utf8.data());
+
+	// mainメソッド実行 ★この行が違うだけ
+	jlong ret = env->CallStaticLongMethod(clazz, mid, js_arg1);
+
+	wstring errormsg = GetErrorMessage();
+	if (errormsg.size() > 0) {
+		OutputDebugStream(errormsg);
+	}
+	GC();
+
+	return ret;
+}
+
+
+/*
+	Java側がStringの引数で、C++層から文字列を渡す場合...
+	 // Signature: (Ljava/lang/String;)Ljava/lang/String;
+	 jmethodID mid3 = (*env)->GetMethodID(env,cls,"c_to_java3","(Ljava/lang/String;)Ljava/lang/String;");
+	 jstring s = (*env)->CallObjectMethod(env,obj,mid3,(*env)->NewStringUTF(env,str));
+	 const char* c = (*env)->GetStringUTFChars(env,s,0);
+	 __android_log_print(ANDROID_LOG_INFO,"HelloJni","%s",c);
+	 (*env)->ReleaseStringUTFChars(env,s,c);
+ */
+
 extern std::wstring jstring_to_utf16(JNIEnv *env, jstring& jtext);
 
 wstring CJavaVMEngine::CallStaticEntryMethodOfString(wstring class_name, wstring method_name, string method_args_typedef_string, string method_args_declare_string) {
+
 
 	// utf16→utf8への変換
 	string utf8_class_name = utf16_to_utf8(class_name);
@@ -240,32 +327,109 @@ wstring CJavaVMEngine::CallStaticEntryMethodOfString(wstring class_name, wstring
 		MessageBox(NULL, message.c_str(), message.c_str(), NULL);
 		return L"";
 	}
+
 	// 指定クラスの指定メソッド取得
 	// http://setohide.blogspot.com/2014/01/jni.html
 	jmethodID mid = env->GetStaticMethodID(clazz, utf8_method_name.c_str(), method_args_typedef_string.c_str());
-	MessageBoxA(NULL, "1", "1", NULL);
 	if (mid == 0) {
 		wstring message = wstring(L"型が一致する static メソッドが見つかりません。\n`static String ") + method_name + utf8_to_utf16(method_args_declare_string);
 		MessageBox(NULL, message.c_str(), L"java.lang.NoSuchMethodError", NULL);
 		return L"";
 	}
 
-	MessageBoxA(NULL, "1", "1", NULL);
+	// mainメソッド実行 ★この行が違うだけ
 	auto jstr = static_cast<jstring>(env->CallStaticObjectMethod(clazz, mid));
-	MessageBoxA(NULL, "2", "2", NULL);
 	std::wstring result = jstring_to_utf16(env, jstr);
-	MessageBoxA(NULL, "3", "3", NULL);
 	env->DeleteLocalRef(jstr);
-	MessageBoxA(NULL, "4", "4", NULL);
 
 	wstring errormsg = GetErrorMessage();
 	if (errormsg.size() > 0) {
 		OutputDebugStream(errormsg);
 	}
-	MessageBoxA(NULL, "5", "5", NULL);
 	GC();
-	MessageBoxA(NULL, "6", "6", NULL);
 
 	return result;
 }
+
+
+wstring CJavaVMEngine::CallStaticEntryMethodOfString(wstring class_name, wstring method_name, jlong a1, string method_args_typedef_string, string method_args_declare_string) {
+
+
+	// utf16→utf8への変換
+	string utf8_class_name = utf16_to_utf8(class_name);
+	string utf8_method_name = utf16_to_utf8(method_name);
+
+	// Helloクラスのロード
+	jclass clazz = env->FindClass(utf8_class_name.c_str());
+	if (clazz == 0) {
+		wstring message = wstring(L"FindClass Error for `") + class_name + wstring(L"`");
+		MessageBox(NULL, message.c_str(), message.c_str(), NULL);
+		return L"";
+	}
+
+	// 指定クラスの指定メソッド取得
+	// http://setohide.blogspot.com/2014/01/jni.html
+	jmethodID mid = env->GetStaticMethodID(clazz, utf8_method_name.c_str(), method_args_typedef_string.c_str());
+	if (mid == 0) {
+		wstring message = wstring(L"型が一致する static メソッドが見つかりません。\n`static String ") + method_name + utf8_to_utf16(method_args_declare_string);
+		MessageBox(NULL, message.c_str(), L"java.lang.NoSuchMethodError", NULL);
+		return L"";
+	}
+
+	// mainメソッド実行 ★この行が違うだけ
+	auto jstr = static_cast<jstring>(env->CallStaticObjectMethod(clazz, mid, a1));
+	std::wstring result = jstring_to_utf16(env, jstr);
+	env->DeleteLocalRef(jstr);
+
+	wstring errormsg = GetErrorMessage();
+	if (errormsg.size() > 0) {
+		OutputDebugStream(errormsg);
+	}
+	GC();
+
+	return result;
+}
+
+
+wstring CJavaVMEngine::CallStaticEntryMethodOfString(wstring class_name, wstring method_name, wstring s1, string method_args_typedef_string, string method_args_declare_string) {
+
+
+	// utf16→utf8への変換
+	string utf8_class_name = utf16_to_utf8(class_name);
+	string utf8_method_name = utf16_to_utf8(method_name);
+
+	// Helloクラスのロード
+	jclass clazz = env->FindClass(utf8_class_name.c_str());
+	if (clazz == 0) {
+		wstring message = wstring(L"FindClass Error for `") + class_name + wstring(L"`");
+		MessageBox(NULL, message.c_str(), message.c_str(), NULL);
+		return L"";
+	}
+
+	// 指定クラスの指定メソッド取得
+	// http://setohide.blogspot.com/2014/01/jni.html
+	jmethodID mid = env->GetStaticMethodID(clazz, utf8_method_name.c_str(), method_args_typedef_string.c_str());
+	if (mid == 0) {
+		wstring message = wstring(L"型が一致する static メソッドが見つかりません。\n`static String ") + method_name + utf8_to_utf16(method_args_declare_string);
+		MessageBox(NULL, message.c_str(), L"java.lang.NoSuchMethodError", NULL);
+		return L"";
+	}
+
+	string utf8 = utf16_to_utf8(s1);
+	jstring js_arg1 = env->NewStringUTF(utf8.data());
+
+	// mainメソッド実行 ★この行が違うだけ
+	auto jstr = static_cast<jstring>(env->CallStaticObjectMethod(clazz, mid, s1));
+	std::wstring result = jstring_to_utf16(env, jstr);
+	env->DeleteLocalRef(jstr);
+
+	wstring errormsg = GetErrorMessage();
+	if (errormsg.size() > 0) {
+		OutputDebugStream(errormsg);
+	}
+	GC();
+
+	return result;
+}
+
 
