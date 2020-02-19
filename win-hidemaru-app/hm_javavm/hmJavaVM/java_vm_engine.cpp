@@ -170,7 +170,7 @@ bool CJavaVMEngine::CallStaticEntryMethod(wstring class_name, wstring method_nam
 	jmethodID mid = env->GetStaticMethodID(clazz, utf8_method_name.c_str(), "([Ljava/lang/String;)V");
 	if (mid == 0) {
 		wstring message = wstring(L"型が一致する static メソッドが見つかりません。\n`static void ") + method_name + wstring(L"(String args[])`");
-		MessageBox(NULL, message.c_str(), L"Method Call Error", NULL);
+		MessageBox(NULL, message.c_str(), L"java.lang.NoSuchMethodError", NULL);
 		return false;
 	}
 
@@ -206,8 +206,8 @@ jlong CJavaVMEngine::CallStaticEntryMethodOfLong(wstring class_name, wstring met
 	if (mid == 0) {
 		mid = env->GetStaticMethodID(clazz, utf8_method_name.c_str(), "([Ljava/lang/String;)V");
 		if (mid == 0) {
-			wstring message = wstring(L"型が一致する static メソッドが見つかりません。\n`static void ") + method_name + utf8_to_utf16(method_args_declare_string);
-			MessageBox(NULL, message.c_str(), L"Method Call Error", NULL);
+			wstring message = wstring(L"型が一致する static メソッドが見つかりません。\n`static long ") + method_name + utf8_to_utf16(method_args_declare_string);
+			MessageBox(NULL, message.c_str(), L"java.lang.NoSuchMethodError", NULL);
 			return 0;
 		}
 	}
@@ -244,7 +244,7 @@ wstring CJavaVMEngine::CallStaticEntryMethodOfString(wstring class_name, wstring
 	jmethodID mid = env->GetStaticMethodID(clazz, utf8_method_name.c_str(), method_args_typedef_string.c_str());
 	if (mid == 0) {
 		wstring message = wstring(L"型が一致する static メソッドが見つかりません。\n`static String ") + method_name + utf8_to_utf16(method_args_declare_string);
-		MessageBox(NULL, message.c_str(), L"Method Call Error", NULL);
+		MessageBox(NULL, message.c_str(), L"java.lang.NoSuchMethodError", NULL);
 		return L"";
 	}
 
