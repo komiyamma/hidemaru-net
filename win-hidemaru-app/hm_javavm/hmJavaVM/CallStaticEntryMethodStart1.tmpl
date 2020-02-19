@@ -1,0 +1,11 @@
+	// utf16→utf8への変換
+	string utf8_class_name = utf16_to_utf8(class_name);
+	string utf8_method_name = utf16_to_utf8(method_name);
+
+	// Helloクラスのロード
+	jclass clazz = env->FindClass(utf8_class_name.c_str());
+	if (clazz == 0) {
+		wstring message = wstring(L"FindClass Error for `") + class_name + wstring(L"`");
+		MessageBox(NULL, message.c_str(), message.c_str(), NULL);
+		return false;
+	}

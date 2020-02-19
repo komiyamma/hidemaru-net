@@ -1,0 +1,5 @@
+	wstring errormsg = GetErrorMessage();
+	if (errormsg.size() > 0) {
+		OutputDebugStream(errormsg);
+	}
+	GC();

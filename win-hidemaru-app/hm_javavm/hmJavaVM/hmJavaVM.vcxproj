@@ -190,6 +190,10 @@
     <ClCompile Include="tinyxmlparser.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="CallStaticEntryMethodEnd.tmpl" />
+    <None Include="CallStaticEntryMethodStart1.tmpl" />
+    <None Include="CallStaticEntryMethodStartReturnLong.tmpl" />
+    <None Include="CallStaticEntryMethodStartReturnString.tmpl" />
     <None Include="Hidemaru\Hm.java" />
     <None Include="hmJavaVM.def" />
     <None Include="java_class_loader_future\Java9ClassLoaderSample.java" />

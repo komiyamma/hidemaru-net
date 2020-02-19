@@ -50,12 +50,36 @@ public:
 
 	// 該当クラスの該当staticメソッドを実行してみよう。
 	static bool CallStaticEntryMethod(wstring class_name, wstring method_name);
+
+	// ---------- LONG を返す --------------
+	// 引数なし、かつデフォルトの数値返し （過去の互換のために static void funcname(String[] args) 型が素で呼び出せる
 	static jlong CallStaticEntryMethodOfLong(wstring class_name, wstring method_name, string method_args_typedef_string = "([Ljava / lang / String;)V", string method_args_declare_string = "String[]");
+	// 数値の引数１つ
 	static jlong CallStaticEntryMethodOfLong(wstring class_name, wstring method_name, jlong a1, string method_args_typedef_string, string method_args_declare_string);
+	// 文字列の引数１つ
 	static jlong CallStaticEntryMethodOfLong(wstring class_name, wstring method_name, wstring s1, string method_args_typedef_string, string method_args_declare_string);
-	static wstring CallStaticEntryMethodOfString(wstring class_name, wstring method_name, string method_args_typedef_string = "([Ljava / lang / String;)V", string method_args_declare_string = "String[]");
+	// 数値の引数２つ
+	static jlong CallStaticEntryMethodOfLong(wstring class_name, wstring method_name, jlong a1, jlong a2, string method_args_typedef_string, string method_args_declare_string);
+	// 文字列１つと、数値１つ
+	static jlong CallStaticEntryMethodOfLong(wstring class_name, wstring method_name, wstring s1, jlong a2, string method_args_typedef_string, string method_args_declare_string);
+	// 数値１つと文字列１つ
+	static jlong CallStaticEntryMethodOfLong(wstring class_name, wstring method_name, jlong a1, wstring s2, string method_args_typedef_string, string method_args_declare_string);
+
+	// ---------- STRING を返す --------------
+	// 引数なし
+	static wstring CallStaticEntryMethodOfString(wstring class_name, wstring method_name, string method_args_typedef_string, string method_args_declare_string);
+	// 数値の引数１つ
 	static wstring CallStaticEntryMethodOfString(wstring class_name, wstring method_name, jlong a1, string method_args_typedef_string, string method_args_declare_string);
+	// 文字列の引数１つ
 	static wstring CallStaticEntryMethodOfString(wstring class_name, wstring method_name, wstring s1, string method_args_typedef_string, string method_args_declare_string);
+	// 数値の引数２つ
+	static wstring CallStaticEntryMethodOfString(wstring class_name, wstring method_name, jlong a1, jlong a2, string method_args_typedef_string, string method_args_declare_string);
+	// 文字列１つと、数値１つ
+	static wstring CallStaticEntryMethodOfString(wstring class_name, wstring method_name, wstring a1, jlong a2, string method_args_typedef_string, string method_args_declare_string);
+	// 数値１つと、文字列１つ
+	static wstring CallStaticEntryMethodOfString(wstring class_name, wstring method_name, jlong a1, wstring s2, string method_args_typedef_string, string method_args_declare_string);
+
+
 
 	static void GC();
 

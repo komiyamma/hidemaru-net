@@ -131,6 +131,18 @@
     <None Include="java_class_loader_future\SpclClassLoader.java">
       <Filter>Javaファイル\参考ファイル</Filter>
     </None>
+    <None Include="CallStaticEntryMethodStart1.tmpl">
+      <Filter>JavaVMの生成や破棄</Filter>
+    </None>
+    <None Include="CallStaticEntryMethodEnd.tmpl">
+      <Filter>JavaVMの生成や破棄</Filter>
+    </None>
+    <None Include="CallStaticEntryMethodStartReturnString.tmpl">
+      <Filter>JavaVMの生成や破棄</Filter>
+    </None>
+    <None Include="CallStaticEntryMethodStartReturnLong.tmpl">
+      <Filter>JavaVMの生成や破棄</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="convert_string.h">
