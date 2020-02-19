@@ -33,10 +33,54 @@ sub File {
 }
 
         #--------------------------------------------------------------
-        sub GetHmEncode {
+        sub GetEncoding {
             my ($self, $value) = @_;
             $::hm_File_HmEncode = $value;
-            return $::hm_File_HmEncode_Result + 0;
+            my $hm_encode = $::hm_File_HmEncode_Result + 0;
+            my $ms_codepage = 0;
+            my @ms_codepage_list = (
+                0,      # Unknown
+                932,    # encode = 1 ANSI/OEM Japanese; Japanese (Shift-JIS)
+                1200,   # encode = 2 Unicode UTF-16, little-endian
+                51932,  # encode = 3 EUC
+                50221,  # encode = 4 JIS
+                65000,  # encode = 5 UTF-7
+                65001,  # encode = 6 UTF-8
+                1201,   # encode = 7 Unicode UTF-16, big-endian
+                1252,   # encode = 8 欧文 ANSI Latin 1; Western European (Windows)
+                936,    # encode = 9 簡体字中国語 ANSI/OEM Simplified Chinese (PRC, Singapore); Chinese Simplified (GB2312)
+                950,    # encode =10 繁体字中国語 ANSI/OEM Traditional Chinese (Taiwan; Hong Kong SAR, PRC); Chinese Traditional (Big5)
+                949,    # encode =11 韓国語 ANSI/OEM Korean (Unified Hangul Code)
+                1361,   # encode =12 韓国語 Korean (Johab)
+                1250,   # encode =13 中央ヨーロッパ言語 ANSI Central European; Central European (Windows)
+                1257,   # encode =14 バルト語 ANSI Baltic; Baltic (Windows)
+                1253,   # encode =15 ギリシャ語 ANSI Greek; Greek (Windows)
+                1251,   # encode =16 キリル言語 ANSI Cyrillic; Cyrillic (Windows)
+                42,     # encode =17 シンボル
+                1254,   # encode =18 トルコ語 ANSI Turkish; Turkish (Windows)
+                1255,   # encode =19 ヘブライ語 ANSI Hebrew; Hebrew (Windows)
+                1256,   # encode =20 アラビア語 ANSI Arabic; Arabic (Windows)
+                874,    # encode =21 タイ語 ANSI/OEM Thai (same as 28605, ISO 8859-15); Thai (Windows)
+                1258,   # encode =22 ベトナム語 ANSI/OEM Vietnamese; Vietnamese (Windows)
+                10001,  # encode =23 x-mac-japanese Japanese (Mac)
+                850,    # encode =24 OEM/DOS
+                0,      # encode =25 その他
+                12000,  # encode =26 Unicode (UTF-32) little-endian
+                12001,  # encode =27 Unicode (UTF-32) big-endian
+            );
+            # 最小範囲以下
+            if ($hm_encode <=0 ) {
+                $ms_codepage = 0;
+            }
+            # 最大範囲以上
+            my $ms_codepage_list_length = @ms_codepage_list;
+            if ($hm_encode >= $ms_codepage_list_length) {
+                $ms_codepage = 0;
+            }
+
+            $ms_codepage = $ms_codepage_list[$hm_encode];
+
+            return {'HmEncode'=>$hm_encode, 'MsCodePage'=>$ms_codepage };
         }
 
         #--------------------------------------------------------------
