@@ -148,8 +148,19 @@ MACRO_DLL intHM_t CallMethod(const TCHAR *class_name, TCHAR *method_name, void *
 	wstring wstr_class_name = class_name;
 	std::replace(wstr_class_name.begin(), wstr_class_name.end(), '.', '/');
 
-	bool success = CJavaVMEngine::CallStaticEntryMethod(wstr_class_name.c_str(), method_name, method_args_typedef_string, method_args_declare_string);
-	return success;
+	if (rtn_type == CHidemaruExeExport::DLLFUNCRETURN::INT) {
+		jlong ret_long = CJavaVMEngine::CallStaticEntryMethodOfLong(wstr_class_name.c_str(), method_name, method_args_typedef_string, method_args_declare_string);
+		return (intHM_t)ret_long; // 秀丸の受け取れる範囲に縮小
+	}
+	else if (rtn_type == CHidemaruExeExport::DLLFUNCRETURN::WCHAR_PTR) {
+		strcallmethod.clear();
+		strcallmethod = CJavaVMEngine::CallStaticEntryMethodOfString(wstr_class_name.c_str(), method_name, method_args_typedef_string, method_args_declare_string);
+		return (intHM_t)strcallmethod.data();
+
+	}
+	else {
+		MessageBox(NULL, L"返り値の型が異なります。\n「dllfuncstrw」、もしくは「dllfuncw」文を利用してください。\n「w」が付きます。", L"返り値の型が異なります", MB_ICONERROR);
+	}
 }
 
 
