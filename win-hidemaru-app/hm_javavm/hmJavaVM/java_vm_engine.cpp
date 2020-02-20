@@ -331,9 +331,66 @@ jlong CJavaVMEngine::CallStaticEntryMethodOfLong(wstring class_name, wstring met
 
 
 
+jlong CJavaVMEngine::CallStaticEntryMethodOfLong(wstring class_name, wstring method_name, jlong a1, wstring s2, wstring s3, string method_args_typedef_string, string method_args_declare_string) {
+
+#include "CallStaticEntryMethodStart1.tmpl"
+#include "CallStaticEntryMethodStartReturnLong.tmpl"
+
+
+	string utf8_2 = utf16_to_utf8(s2);
+	jstring js_arg2 = env->NewStringUTF(utf8_2.data());
+	string utf8_3 = utf16_to_utf8(s3);
+	jstring js_arg3 = env->NewStringUTF(utf8_3.data());
+
+	// mainメソッド実行 ★この行が違うだけ
+	jlong ret = env->CallStaticLongMethod(clazz, mid, a1, js_arg2, js_arg3);
+
+#include "CallStaticEntryMethodEnd.tmpl"
+
+	return ret;
+}
 
 
 
+jlong CJavaVMEngine::CallStaticEntryMethodOfLong(wstring class_name, wstring method_name, wstring s1, jlong a2, wstring s3, string method_args_typedef_string, string method_args_declare_string) {
+
+#include "CallStaticEntryMethodStart1.tmpl"
+#include "CallStaticEntryMethodStartReturnLong.tmpl"
+
+
+	string utf8_1 = utf16_to_utf8(s1);
+	jstring js_arg1 = env->NewStringUTF(utf8_1.data());
+	string utf8_3 = utf16_to_utf8(s3);
+	jstring js_arg3 = env->NewStringUTF(utf8_3.data());
+
+	// mainメソッド実行 ★この行が違うだけ
+	jlong ret = env->CallStaticLongMethod(clazz, mid, js_arg1, a2, js_arg3);
+
+#include "CallStaticEntryMethodEnd.tmpl"
+
+	return ret;
+}
+
+
+
+jlong CJavaVMEngine::CallStaticEntryMethodOfLong(wstring class_name, wstring method_name, wstring s1, wstring s2, jlong a3, string method_args_typedef_string, string method_args_declare_string) {
+
+#include "CallStaticEntryMethodStart1.tmpl"
+#include "CallStaticEntryMethodStartReturnLong.tmpl"
+
+
+	string utf8_1 = utf16_to_utf8(s1);
+	jstring js_arg1 = env->NewStringUTF(utf8_1.data());
+	string utf8_2 = utf16_to_utf8(s2);
+	jstring js_arg2 = env->NewStringUTF(utf8_2.data());
+
+	// mainメソッド実行 ★この行が違うだけ
+	jlong ret = env->CallStaticLongMethod(clazz, mid, js_arg1, js_arg2, a3);
+
+#include "CallStaticEntryMethodEnd.tmpl"
+
+	return ret;
+}
 
 
 
@@ -516,6 +573,74 @@ wstring CJavaVMEngine::CallStaticEntryMethodOfString(wstring class_name, wstring
 
 	return result;
 }
+
+wstring CJavaVMEngine::CallStaticEntryMethodOfString(wstring class_name, wstring method_name, jlong a1, wstring s2, wstring s3, string method_args_typedef_string, string method_args_declare_string) {
+
+
+#include "CallStaticEntryMethodStart1.tmpl"
+#include "CallStaticEntryMethodStartReturnString.tmpl"
+
+	string utf8_2 = utf16_to_utf8(s2);
+	jstring js_arg2 = env->NewStringUTF(utf8_2.data());
+	string utf8_3 = utf16_to_utf8(s3);
+	jstring js_arg3 = env->NewStringUTF(utf8_3.data());
+
+	// mainメソッド実行 ★この行が違うだけ
+	auto jstr = static_cast<jstring>(env->CallStaticObjectMethod(clazz, mid, a1, js_arg2, js_arg3));
+	std::wstring result = jstring_to_utf16(env, jstr);
+	env->DeleteLocalRef(jstr);
+
+#include "CallStaticEntryMethodEnd.tmpl"
+
+	return result;
+}
+
+wstring CJavaVMEngine::CallStaticEntryMethodOfString(wstring class_name, wstring method_name, wstring s1, jlong a2, wstring s3, string method_args_typedef_string, string method_args_declare_string) {
+
+
+#include "CallStaticEntryMethodStart1.tmpl"
+#include "CallStaticEntryMethodStartReturnString.tmpl"
+
+	string utf8_1 = utf16_to_utf8(s1);
+	jstring js_arg1 = env->NewStringUTF(utf8_1.data());
+	string utf8_2 = utf16_to_utf8(s2);
+	jstring js_arg2 = env->NewStringUTF(utf8_2.data());
+	string utf8_3 = utf16_to_utf8(s3);
+	jstring js_arg3 = env->NewStringUTF(utf8_3.data());
+
+	// mainメソッド実行 ★この行が違うだけ
+	auto jstr = static_cast<jstring>(env->CallStaticObjectMethod(clazz, mid, js_arg1, a2, js_arg3));
+	std::wstring result = jstring_to_utf16(env, jstr);
+	env->DeleteLocalRef(jstr);
+
+#include "CallStaticEntryMethodEnd.tmpl"
+
+	return result;
+}
+
+wstring CJavaVMEngine::CallStaticEntryMethodOfString(wstring class_name, wstring method_name, wstring s1, wstring s2, jlong a3, string method_args_typedef_string, string method_args_declare_string) {
+
+
+#include "CallStaticEntryMethodStart1.tmpl"
+#include "CallStaticEntryMethodStartReturnString.tmpl"
+
+	string utf8_1 = utf16_to_utf8(s1);
+	jstring js_arg1 = env->NewStringUTF(utf8_1.data());
+	string utf8_2 = utf16_to_utf8(s2);
+	jstring js_arg2 = env->NewStringUTF(utf8_2.data());
+
+	// mainメソッド実行 ★この行が違うだけ
+	auto jstr = static_cast<jstring>(env->CallStaticObjectMethod(clazz, mid, js_arg1, js_arg2, a3));
+	std::wstring result = jstring_to_utf16(env, jstr);
+	env->DeleteLocalRef(jstr);
+
+#include "CallStaticEntryMethodEnd.tmpl"
+
+	return result;
+}
+
+
+
 
 /*
 	Java側がStringの引数で、C++層から文字列を渡す場合...
