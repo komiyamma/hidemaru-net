@@ -169,6 +169,10 @@ MACRO_DLL intHM_t CallMethod(const TCHAR *class_name, TCHAR *method_name, void *
 			ret_long = CJavaVMEngine::CallStaticEntryMethodOfLong(wstr_class_name.c_str(), method_name, (wchar_t*)arg0, (jlong)arg1, method_args_typedef_string, method_args_declare_string);
 		} if (arg_count == 2 && pt0 == DLLFUNCRETURN_WCHAR_PTR && pt1 == DLLFUNCRETURN_WCHAR_PTR) {
 			ret_long = CJavaVMEngine::CallStaticEntryMethodOfLong(wstr_class_name.c_str(), method_name, (wchar_t*)arg0, (wchar_t*)arg1, method_args_typedef_string, method_args_declare_string);
+		} if (arg_count == 3 && pt0 == DLLFUNCRETURN_INT && pt1 == DLLFUNCRETURN_INT && pt2 == DLLFUNCRETURN_INT) {
+			ret_long = CJavaVMEngine::CallStaticEntryMethodOfLong(wstr_class_name.c_str(), method_name, (jlong)arg0, (jlong)arg1, (jlong)arg2, method_args_typedef_string, method_args_declare_string);
+		} if (arg_count == 3 && pt0 == DLLFUNCRETURN_WCHAR_PTR && pt1 == DLLFUNCRETURN_WCHAR_PTR && pt2 == DLLFUNCRETURN_WCHAR_PTR) {
+			ret_long = CJavaVMEngine::CallStaticEntryMethodOfLong(wstr_class_name.c_str(), method_name, (wchar_t*)arg0, (wchar_t*)arg1, (wchar_t*)arg2, method_args_typedef_string, method_args_declare_string);
 		}
 		// CJavaVMEngine::CallStaticEntryMethod(wstr_class_name.c_str(), method_name);
 		return (intHM_t)ret_long; // 秀丸の受け取れる範囲に縮小
@@ -190,6 +194,10 @@ MACRO_DLL intHM_t CallMethod(const TCHAR *class_name, TCHAR *method_name, void *
 			strcallmethod = CJavaVMEngine::CallStaticEntryMethodOfString(wstr_class_name.c_str(), method_name, (wchar_t*)arg0, (jlong)arg1, method_args_typedef_string, method_args_declare_string);
 		} if (arg_count == 2 && pt0 == DLLFUNCRETURN_WCHAR_PTR && pt1 == DLLFUNCRETURN_WCHAR_PTR) {
 			strcallmethod = CJavaVMEngine::CallStaticEntryMethodOfString(wstr_class_name.c_str(), method_name, (wchar_t*)arg0, (wchar_t*)arg1, method_args_typedef_string, method_args_declare_string);
+		} if (arg_count == 3 && pt0 == DLLFUNCRETURN_INT && pt1 == DLLFUNCRETURN_INT && pt2 == DLLFUNCRETURN_INT) {
+			strcallmethod = CJavaVMEngine::CallStaticEntryMethodOfString(wstr_class_name.c_str(), method_name, (jlong)arg0, (jlong)arg1, (jlong)arg2, method_args_typedef_string, method_args_declare_string);
+		} if (arg_count == 3 && pt0 == DLLFUNCRETURN_WCHAR_PTR && pt1 == DLLFUNCRETURN_WCHAR_PTR && pt2 == DLLFUNCRETURN_WCHAR_PTR) {
+			strcallmethod = CJavaVMEngine::CallStaticEntryMethodOfString(wstr_class_name.c_str(), method_name, (wchar_t*)arg0, (wchar_t*)arg1, (wchar_t*)arg2, method_args_typedef_string, method_args_declare_string);
 		}
 		// CJavaVMEngine::CallStaticEntryMethod(wstr_class_name.c_str(), method_name);
 		return (intHM_t)strcallmethod.data();
