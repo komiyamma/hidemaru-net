@@ -71,6 +71,16 @@ public:
 	// •¶š—ñ‚P‚Â‚Æ•¶š—ñ‚Q‚Â‚Æ•¶š—ñ‚R‚Â
 	static jlong CallStaticEntryMethodOfLong(wstring class_name, wstring method_name, wstring s1, wstring s2, wstring s3, string method_args_typedef_string, string method_args_declare_string);
 
+	// ˆÈ‰º‚R‚Â‚Í•¶š—ñ‡ŒJ‚è
+	static jlong CallStaticEntryMethodOfLong(wstring class_name, wstring method_name, wstring s1, jlong a2, jlong a3, string method_args_typedef_string, string method_args_declare_string);
+	static jlong CallStaticEntryMethodOfLong(wstring class_name, wstring method_name, jlong a1, wstring s2, jlong a3, string method_args_typedef_string, string method_args_declare_string);
+	static jlong CallStaticEntryMethodOfLong(wstring class_name, wstring method_name, jlong a1, jlong a2, wstring s3, string method_args_typedef_string, string method_args_declare_string);
+
+	// ˆÈ‰º‚R‚Â‚Í”’l‡ŒJ‚è
+	static jlong CallStaticEntryMethodOfLong(wstring class_name, wstring method_name, jlong a1, wstring s2, wstring s3, string method_args_typedef_string, string method_args_declare_string);
+	static jlong CallStaticEntryMethodOfLong(wstring class_name, wstring method_name, wstring s1, jlong a2, wstring s3, string method_args_typedef_string, string method_args_declare_string);
+	static jlong CallStaticEntryMethodOfLong(wstring class_name, wstring method_name, wstring s1, wstring s2, jlong a3, string method_args_typedef_string, string method_args_declare_string);
+
 	// ---------- STRING ‚ğ•Ô‚· --------------
 	// ˆø”‚È‚µ
 	static wstring CallStaticEntryMethodOfString(wstring class_name, wstring method_name, string method_args_typedef_string, string method_args_declare_string);
@@ -91,7 +101,15 @@ public:
 	// •¶š—ñ‚P‚ÂA•¶š—ñ‚Q‚ÂA•¶š—ñ‚R‚Â
 	static wstring CallStaticEntryMethodOfString(wstring class_name, wstring method_name, wstring a1, wstring s2, wstring s3, string method_args_typedef_string, string method_args_declare_string);
 
+	// ˆÈ‰º‚R‚Â‚Í•¶š—ñ‡ŒJ‚è
+	static wstring CallStaticEntryMethodOfString(wstring class_name, wstring method_name, wstring s1, jlong a2, jlong a3, string method_args_typedef_string, string method_args_declare_string);
+	static wstring CallStaticEntryMethodOfString(wstring class_name, wstring method_name, jlong a1, wstring s2, jlong a3, string method_args_typedef_string, string method_args_declare_string);
+	static wstring CallStaticEntryMethodOfString(wstring class_name, wstring method_name, jlong a1, jlong a2, wstring s3, string method_args_typedef_string, string method_args_declare_string);
 
+	// ˆÈ‰º‚R‚Â‚Í”’l‡ŒJ‚è
+	static wstring CallStaticEntryMethodOfString(wstring class_name, wstring method_name, jlong a1, wstring s2, wstring s3, string method_args_typedef_string, string method_args_declare_string);
+	static wstring CallStaticEntryMethodOfString(wstring class_name, wstring method_name, wstring s1, jlong a2, wstring s3, string method_args_typedef_string, string method_args_declare_string);
+	static wstring CallStaticEntryMethodOfString(wstring class_name, wstring method_name, wstring s1, wstring s2, jlong a3, string method_args_typedef_string, string method_args_declare_string);
 
 	static void GC();
 
