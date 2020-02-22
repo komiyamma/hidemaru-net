@@ -4,21 +4,67 @@
 # under the Apache License Version 2.0
 #--------------------------------------------------------------
 
-class _TFile:
-    """
-    秀丸でファイル関連のクラス
-    """
-    class _TEncoding:
 
-        def __init__(self, py_encoding, ms_codepage, hm_encode):
-            self.py_encoding = py_encoding  # Pythonでファイルを開く際にエンコードとして指定できる文字列( "cp932" や "utf8" など )
+
+class _TText:
+    class _TEncoding:
+        def __init__(self, pyencodingname, codepage, hm_encode):
+            self.name = name                # Pythonでファイルを開く際にエンコードとして指定できる文字列( "cp932" や "utf8" など )
             self.ms_codepage = ms_codepage  # マイクロソフトコードページの番号が入っている (932 や 65001 など)
             self.hm_encode = hm_encode      # 秀丸の encode としての値が入っている ( 1 や 6 など )
+
+
+class _TFile:
+    class _TStreamReader:
+
+        def __init__(self, filepath, hm_encode=-1):
+            try:
+                if not os.path.exists(filepath):
+                    raise FileNotFoundError
+
+                self.Encoding = _TText._TEncoding("utf-8", 65001, 6)
+                self.FilePath = filepath
+            except:
+                raise
+        
+        def __enter__(self):
+            return self
+            
+        # 開いたファイルのテキストの取得
+        def Read(self):
+            try:
+                if self.__filepath:
+                    success, text = true, "aaaaaそうですね!"
+                    if success:
+                        return text
+                    else:
+                        raise IOError
+            except:
+                raise
+
+        def Close(self):
+            self.__encoding = None
+            self.__filepath = None
+
+        def __exit__(self, exception_type, exception_value, traceback):
+            self.Close()
+
+
+    #--------------------------------------------------
+    # 編集中のテキスト全体
+    def Open(self, filepath, hm_encode=-1):
+        return _TFile._TStreamReader(filepath, hm_encode)
     
-    # 対象のファイルの encode (秀丸マクロの encode 変数の表を参照) を得る。
-    def GetEncode(self, filefullpath):
-        py_encoding, ms_codepage, hm_encode = "utf_8", 65001, 6
-        return _TFile._TEncoding(py_encoding, ms_codepage, hm_encode)
+    def GetEncoding(self, filepath):
+        try:
+            if not os.path.exists(filepath):
+                raise FileNotFoundError
+
+            encoding_name, codepage, hm_encode = hidemaru.file.get_encodingfromfile(filepath)
+            return _TText._TEncoding(encoding_name, codepage, hm_encode)
+        except:
+            raise
+
 
 
 class _TEdit:
