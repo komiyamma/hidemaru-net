@@ -20,6 +20,5 @@ hm.version = 3
 hm.debuginfo(hm.version)
 
 
-lineno = hm.debuginfo(hm.Macro.Var['lineno'])
-
+lineno = hm.Macro.Var['lineno']
 hm.debuginfo(lineno, type(lineno))

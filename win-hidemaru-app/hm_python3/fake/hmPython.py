@@ -1,29 +1,28 @@
-#--------------------------------------------------------------
+#-------------------- encoding utf8 ---------------------------
 # hmPython3 1.6.0.1用 フェイクライブラリ
 # Copyright (c) 2017-2020 Akitsugu Komiyama
 # under the Apache License Version 2.0
 #--------------------------------------------------------------
 
 
-
 class _TText:
     class _TEncoding:
-        def __init__(self, pyencodingname, codepage, hm_encode):
-            self.name = name                # Pythonでファイルを開く際にエンコードとして指定できる文字列( "cp932" や "utf8" など )
-            self.ms_codepage = ms_codepage  # マイクロソフトコードページの番号が入っている (932 や 65001 など)
-            self.hm_encode = hm_encode      # 秀丸の encode としての値が入っている ( 1 や 6 など )
+        def __init__(self, name: str, codepage: str, hm_encode):
+            self.name: str = name  # Pythonでファイルを開く際にエンコードとして指定できる文字列( "cp932" や "utf8" など )
+            self.codepage: int = codepage  # マイクロソフトコードページの番号が入っている (932 や 65001 など)
+            self.hm_encode: int = hm_encode      # 秀丸の encode としての値が入っている ( 1 や 6 など )
 
 
 class _TFile:
     class _TStreamReader:
 
-        def __init__(self, filepath, hm_encode=-1):
+        def __init__(self, filepath: str, hm_encode: int=-1):
             try:
                 if not os.path.exists(filepath):
                     raise FileNotFoundError
 
-                self.Encoding = _TText._TEncoding("utf-8", 65001, 6)
-                self.FilePath = filepath
+                self.Encoding: _TText._TEncoding = _TText._TEncoding("utf-8", 65001, 6)
+                self.FilePath: str = filepath
             except:
                 raise
         
@@ -31,7 +30,7 @@ class _TFile:
             return self
             
         # 開いたファイルのテキストの取得
-        def Read(self):
+        def Read(self) -> str:
             try:
                 if self.__filepath:
                     success, text = true, "aaaaaそうですね!"
@@ -52,10 +51,10 @@ class _TFile:
 
     #--------------------------------------------------
     # 編集中のテキスト全体
-    def Open(self, filepath, hm_encode=-1):
-        return _TFile._TStreamReader(filepath, hm_encode)
+    def Open(self, filepath: str, hm_encode: int=-1) -> _TStreamReader:
+        return _TStreamReader(filepath, hm_encode)
     
-    def GetEncoding(self, filepath):
+    def GetEncoding(self, filepath: str) -> _TText._TEncoding:
         try:
             if not os.path.exists(filepath):
                 raise FileNotFoundError
@@ -142,7 +141,7 @@ class _TMacro:
         秀丸マクロ関連のうち、マクロ実行結果情報を扱うクラス
         """
 
-        def __init__(self, Result, Message, ErrorMsg):
+        def __init__(self, Result: int, Message: str, ErrorMsg: str):
             self.Result: int = Result
             self.Message: str = Message
             self.Error: str = None
@@ -155,9 +154,11 @@ class _TMacro:
 
     #--------------------------------------------------
     # マクロの実行
-    def Eval(self, expression_text: str):
-        res, msg, errmsg = 1, "", ""
-        ret = _TMacro._TResult(res, msg, errmsg)
+    def Eval(self, expression_text: str) -> _TResult:
+        res: int = 1
+        msg: str = ""
+        errmsg: str = ""
+        ret: _TResult = _TMacro._TResult(res, msg, errmsg)
         return ret
     #--------------------------------------------------
 
@@ -168,9 +169,9 @@ class _THidemaru:
     """
     #--------------------------------------------------
     def __init__(self):
-        self.File = _TFile()
-        self.Edit = _TEdit()
-        self.Macro = _TMacro()
+        self.File: _TFile = _TFile()
+        self.Edit: _TEdit = _TEdit()
+        self.Macro: _TMacro = _TMacro()
     #--------------------------------------------------
 
     #--------------------------------------------------
@@ -191,4 +192,4 @@ class _THidemaru:
     #--------------------------------------------------
 
 
-hm = _THidemaru()
+hm: _THidemaru = _THidemaru()
