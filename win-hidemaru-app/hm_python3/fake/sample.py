@@ -1,3 +1,4 @@
+#-------------------- coding: utf-8 ---------------------------
 from hmPython import *
 
 if not "hidemaru" in globals():
@@ -15,10 +16,13 @@ ret = hm.Macro.Eval(r'''
 ''')
 
 
-date = hm.Macro.Var['date']
-hm.version = 3
-hm.debuginfo(hm.version)
+try:
+    date = hm.Macro.Var['date']
+    hm.version = 3
+    hm.debuginfo(hm.version)
+except:
+    pass
 
 
 lineno = hm.Macro.Var['lineno']
-hm.debuginfo(lineno, type(lineno))
+hm.debuginfo(lineno)

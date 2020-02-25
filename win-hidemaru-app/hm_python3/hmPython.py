@@ -1,4 +1,4 @@
-#--------------------------------------------------------------
+#-------------------- coding: utf-8 ---------------------------
 # hmPython3 1.7.0.1用 ライブラリ
 # Copyright (c) 2017-2020 Akitsugu Komiyama
 # under the Apache License Version 2.0
