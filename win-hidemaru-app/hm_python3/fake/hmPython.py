@@ -25,10 +25,10 @@ class _TFile:
                 self.FilePath: str = filepath
             except:
                 raise
-        
+
         def __enter__(self):
             return self
-            
+
         # 開いたファイルのテキストの取得
         def Read(self) -> str:
             try:
@@ -53,7 +53,7 @@ class _TFile:
     # 編集中のテキスト全体
     def Open(self, filepath: str, hm_encode: int=-1) -> _TStreamReader:
         return _TStreamReader(filepath, hm_encode)
-    
+
     def GetEncoding(self, filepath: str) -> _TText._TEncoding:
         try:
             if not os.path.exists(filepath):

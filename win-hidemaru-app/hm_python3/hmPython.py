@@ -35,23 +35,23 @@ class _TFile:
                 self.__filepath = filepath
             except:
                 raise
-        
+
         def __enter__(self):
             return self
-            
+
         def __GetEncoding(self):
             return self.__encoding
-        
+
         # 開いたファイルのエンコーディング情報の取得
         Encoding = property(__GetEncoding)
-        
-        
+
+
         def __GetFilePath(self):
             return self.__filepath
 
         # ファイルパス
         FilePath = property(__GetFilePath)
-                
+
         # 開いたファイルのテキストの取得
         def Read(self):
             try:
@@ -91,7 +91,7 @@ class _TEdit:
     """
     秀丸で編集中のドキュメント関連のクラス
     """
-    
+
     #--------------------------------------------------
     def __GetTotalText(self):
         return hidemaru.edit.get_totaltext()
@@ -131,7 +131,7 @@ class _TEdit:
         def __init__(self, lineno, column):
             self.lineno = lineno
             self.column = column
-            
+
     def __GetCursorPos(self):
         lineno, column = hidemaru.edit.get_cursorpos()
         return _TEdit._TCursorPos(lineno, column)
