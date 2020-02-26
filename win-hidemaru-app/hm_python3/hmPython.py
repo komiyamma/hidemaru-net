@@ -44,6 +44,13 @@ class _TFile:
         
         # 開いたファイルのエンコーディング情報の取得
         Encoding = property(__GetEncoding)
+        
+        
+        def __GetFilePath(self):
+            return self.__filepath
+
+        # ファイルパス
+        FilePath = property(__GetFilePath)
                 
         # 開いたファイルのテキストの取得
         def Read(self):
