@@ -3,7 +3,7 @@
 # Copyright (c) 2017-2020 Akitsugu Komiyama
 # under the Apache License Version 2.0
 #--------------------------------------------------------------
-
+import os
 
 class _TText:
     class _TEncoding:
@@ -33,7 +33,7 @@ class _TFile:
         def Read(self) -> str:
             try:
                 if self.__filepath:
-                    success, text = true, "aaaaaそうですね!"
+                    success, text = True, "aaaaaそうですね!"
                     if success:
                         return text
                     else:
@@ -59,7 +59,7 @@ class _TFile:
             if not os.path.exists(filepath):
                 raise FileNotFoundError
 
-            encoding_name, codepage, hm_encode = hidemaru.file.get_encodingfromfile(filepath)
+            encoding_name, codepage, hm_encode = "utf-8", 65001, 6
             return _TText._TEncoding(encoding_name, codepage, hm_encode)
         except:
             raise
