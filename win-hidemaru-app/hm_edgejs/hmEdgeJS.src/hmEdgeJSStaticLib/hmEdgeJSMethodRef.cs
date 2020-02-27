@@ -31,9 +31,7 @@ public sealed partial class hmEdgeJSDynamicLib
     static Func<object, Task<object>> refFileGetMsCodePage;
     static Func<object, Task<object>> refFileGetJsEncoding;
 
-    static int nSetHmEncode = -1;
-    static Func<object, Task<object>> refFileSetHmEncode;
-    static Func<object, Task<object>> refFileReadAllText;
+    static Func<dynamic, Task<object>> refFileReadAllText;
 
     static void InitMethodReference()
     {
@@ -133,15 +131,9 @@ public sealed partial class hmEdgeJSDynamicLib
             return ret;
         });
 
-        refFileSetHmEncode = (Func<object, Task<object>>)(async (obj) =>
+        refFileReadAllText = (Func<dynamic, Task<object>>)(async (obj) =>
         {
-            nSetHmEncode = (int)obj;
-            return true;
-        });
-
-        refFileReadAllText = (Func<object, Task<object>>)(async (obj) =>
-        {
-            var ret = Hidemaru.File.ReadAllText((String)obj, nSetHmEncode);
+            var ret = Hidemaru.File.ReadAllText((String)obj.FilePath, (int)obj.HmEncode);
             return ret;
         });
     }
@@ -273,12 +265,6 @@ public sealed partial class hmEdgeJSDynamicLib
                     return ret;
                 }
 
-                function _hm_refFileSetHmEncode(obj) {
-                    let ret = false;
-                    let dumm = _TransRefObj.refFileSetHmEncode(obj, function(error, result) { ret = result; } );
-                    return ret;
-                }
-
                 function _hm_refFileReadAllText(obj) {
                     let text = """";
                     let dumm = _TransRefObj.refFileReadAllText(obj, function(error, result) { text = result; } );
@@ -287,8 +273,7 @@ public sealed partial class hmEdgeJSDynamicLib
 
                 class _hm_file_ {
                     static ReadAllText(filepath, hm_encode = -1) {
-                        // let success = _TransRefObj._hm_refFileSetHmEncode(hm_encode);
-                        return _hm_refFileReadAllText(filepath, -1);
+                        return _hm_refFileReadAllText({FilePath:filepath, HmEncode:hm_encode});
                     }
 
                     static GetEncoding(filepath) {
@@ -449,7 +434,6 @@ public sealed partial class hmEdgeJSDynamicLib
                 refFileGetHmEncode = refFileGetHmEncode,
                 refFileGetMsCodePage = refFileGetMsCodePage,
                 refFileGetJsEncoding = refFileGetJsEncoding,
-                refFileSetHmEncode = refFileSetHmEncode,
                 refFileReadAllText = refFileReadAllText
             });
 
