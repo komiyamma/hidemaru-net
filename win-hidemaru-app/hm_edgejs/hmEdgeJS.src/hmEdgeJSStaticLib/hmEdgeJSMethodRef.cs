@@ -30,6 +30,14 @@ public sealed partial class hmEdgeJSDynamicLib
     static Func<object, Task<object>> refMacroSetVarName;
     static Func<object, Task<object>> refMacroSetVarValue;
 
+    static Func<object, Task<object>> refFileGetHmEncode;
+    static Func<object, Task<object>> refFileGetMsCodePage;
+    static Func<object, Task<object>> refFileGetJsEncoding;
+
+    static int nSetHmEncode = -1;
+    static Func<object, Task<object>> refFileSetHmEncode;
+    static Func<object, Task<object>> refFileReadAllText;
+
     static void InitMethodReference()
     {
         refDebugInfo = (Func<object, Task<object>>)(async (obj) =>
@@ -113,6 +121,36 @@ public sealed partial class hmEdgeJSDynamicLib
         refMacroSetVarValue = (Func<object, Task<object>>)(async (obj) =>
         {
             var ret = Hidemaru.Macro.SetVar(strSetVarName, obj);
+            return ret;
+        });
+
+        refFileGetHmEncode = (Func<object, Task<object>>)(async (obj) =>
+        {
+            var ret = Hidemaru.File.GetHmEncode((String)obj);
+            return ret;
+        });
+
+        refFileGetMsCodePage = (Func<object, Task<object>>)(async (obj) =>
+        {
+            var ret = Hidemaru.File.GetMsCodePage((int)obj);
+            return ret;
+        });
+
+        refFileGetJsEncoding = (Func<object, Task<object>>)(async (obj) =>
+        {
+            var ret = Hidemaru.File.GetJsEncoding((int)obj);
+            return ret;
+        });
+
+        refFileSetHmEncode = (Func<object, Task<object>>)(async (obj) =>
+        {
+            nSetHmEncode = (int)obj;
+            return true;
+        });
+
+        refFileReadAllText = (Func<object, Task<object>>)(async (obj) =>
+        {
+            var ret = Hidemaru.File.ReadAllText((String)obj, nSetHmEncode);
             return ret;
         });
     }
@@ -232,6 +270,51 @@ public sealed partial class hmEdgeJSDynamicLib
                     return ret;
                 }
 
+                function _hm_refFileGetHmEncode(obj) {
+                    let ret = 0;
+                    let dumm = _TransRefObj.refFileGetHmEncode(obj, function(error, result) { ret = result; } );
+                    return ret;
+                }
+
+                function _hm_refFileGetMsCodePage(obj) {
+                    let ret = 0;
+                    let dumm = _TransRefObj.refFileGetMsCodePage(obj, function(error, result) { ret = result; } );
+                    return ret;
+                }
+
+                function _hm_refFileGetJsEncoding(obj) {
+                    let ret = """";
+                    let dumm = _TransRefObj.refFileGetJsEncoding(obj, function(error, result) { ret = result; } );
+                    return ret;
+                }
+
+                function _hm_refFileSetHmEncode(obj) {
+                    let ret = false;
+                    let dumm = _TransRefObj.refFileSetHmEncode(obj, function(error, result) { ret = result; } );
+                    return ret;
+                }
+
+                function _hm_refFileReadAllText(obj) {
+                    let text = """";
+                    let dumm = _TransRefObj.refFileReadAllText(obj, function(error, result) { text = result; } );
+                    return text;
+                }
+
+                class _hm_file_ {
+                    static ReadAllText(filepath, hm_encode = -1) {
+                        // let success = _TransRefObj._hm_refFileSetHmEncode(hm_encode);
+                        return _hm_refFileReadAllText(filepath, -1);
+                    }
+
+                    static GetEncoding(filepath) {
+                        let hm_code = _hm_refFileGetHmEncode(filepath);
+                        let codepage = _hm_refFileGetMsCodePage(hm_code);
+                        let name = _hm_refFileGetJsEncoding(hm_code);
+                        return { HmEncode: hm_code, MsCodePage: codepage, JsEncodingName: name };
+                    }
+
+               }
+
                 class _hm_edit_ {
                     static get TotalText() {
                         return _hm_refEditGetTotalText();
@@ -316,6 +399,10 @@ public sealed partial class hmEdgeJSDynamicLib
                         return _hm_refDebugInfo(...args);
                     }
 
+                    static get File() {
+                        return _hm_file_;
+                    }
+
                     static get Edit() {
                         return _hm_edit_;
                     }
@@ -377,7 +464,12 @@ public sealed partial class hmEdgeJSDynamicLib
                 refMacroGetVar = refMacroGetVar,
                 refMacroSetVarName = refMacroSetVarName,
                 refMacroSetVarValue = refMacroSetVarValue,
-                refManualResetEvent = refManualResetEvent
+                refManualResetEvent = refManualResetEvent,
+                refFileGetHmEncode = refFileGetHmEncode,
+                refFileGetMsCodePage = refFileGetMsCodePage,
+                refFileGetJsEncoding = refFileGetJsEncoding,
+                refFileSetHmEncode = refFileSetHmEncode,
+                refFileReadAllText = refFileReadAllText
             });
 
         }

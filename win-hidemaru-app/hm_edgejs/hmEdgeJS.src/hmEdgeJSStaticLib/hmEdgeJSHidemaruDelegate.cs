@@ -32,6 +32,8 @@ public sealed partial class hmEdgeJSDynamicLib
 
         delegate int TEvalMacro([MarshalAs(UnmanagedType.LPWStr)] String pwsz);
         delegate int TCheckQueueStatus();
+        delegate int TAnalyzeEncoding([MarshalAs(UnmanagedType.LPWStr)] String pwszFileName, IntPtr lParam1, IntPtr lParam2);
+        delegate IntPtr TLoadFileUnicode([MarshalAs(UnmanagedType.LPWStr)] String pwszFileName, int nEncode, ref int pcwchOut, IntPtr lParam1, IntPtr lParam2);
 
         // 秀丸本体から出ている関数群
         static TGetTotalTextUnicode pGetTotalTextUnicode;
@@ -41,6 +43,8 @@ public sealed partial class hmEdgeJSDynamicLib
         static TGetCursorPosUnicode pGetCursorPosUnicode;
         static TEvalMacro pEvalMacro;
         static TCheckQueueStatus pCheckQueueStatus;
+        static TAnalyzeEncoding pAnalyzeEncoding;
+        static TLoadFileUnicode pLoadFileUnicode;
 
         [DllImport("kernel32.dll", SetLastError = true)]
         private static extern IntPtr GlobalLock(IntPtr hMem);
@@ -75,6 +79,12 @@ public sealed partial class hmEdgeJSDynamicLib
                     if (_ver >= 873)
                     {
                         pGetCursorPosUnicodeFromMousePos = hmExeHandle.GetProcDelegate<TGetCursorPosUnicodeFromMousePos>("Hidemaru_GetCursorPosUnicodeFromMousePos");
+                    }
+
+                    if (_ver >= 890)
+                    {
+                        pAnalyzeEncoding = hmExeHandle.GetProcDelegate<TAnalyzeEncoding>("Hidemaru_AnalyzeEncoding");
+                        pLoadFileUnicode = hmExeHandle.GetProcDelegate<TLoadFileUnicode>("Hidemaru_LoadFileUnicode");
                     }
                 }
             }

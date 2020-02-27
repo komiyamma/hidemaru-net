@@ -1,5 +1,5 @@
 ImageRuntimeVersion: v4.0.30319
-Assembly hmEdgeJS, Version=1.1.*, Culture=ロケールに依存しない言語 (ロケールに依存しない国): 
+Assembly hmEdgeJS, Version=1.6.*, Culture=ロケールに依存しない言語 (ロケールに依存しない国): 
 	hash=SHA1, flags=PublicKey
 Assembly mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
 	hash=None, flags=None
@@ -44,6 +44,8 @@ Class hmEdgeJSDynamicLib+Hidemaru+ErrorMsg: AutoLayout, AnsiClass, Class, Nested
     System.String NoDllBindHandle866 : Public, Static, InitOnly
     System.String MethodNeed866 = このメソッドは秀丸エディタ v8.66 正式版以降で利用可能です。 : Public, Static, Literal, HasDefault
     System.String MethodNeed873 = このメソッドは秀丸エディタ v8.73 正式版以降で利用可能です。 : Public, Static, Literal, HasDefault
+    System.String MethodNeed875 = このメソッドは秀丸エディタ v8.75 正式版以降で利用可能です。 : Public, Static, Literal, HasDefault
+    System.String MethodNeed890 = このメソッドは秀丸エディタ v8.90 正式版以降で利用可能です。 : Public, Static, Literal, HasDefault
 Class hmEdgeJSDynamicLib+Hidemaru+Edit: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Methods:
@@ -55,6 +57,14 @@ Class hmEdgeJSDynamicLib+Hidemaru+Edit: AutoLayout, AnsiClass, Class, NestedPubl
     SetSelectedText(String): PrivateScope, Public, Static, HideBySig
     GetLineText(): PrivateScope, Public, Static, HideBySig
     SetLineText(String): PrivateScope, Public, Static, HideBySig
+Class hmEdgeJSDynamicLib+Hidemaru+File: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    ReadAllText(String, Int32(Optional, HasDefault)): PrivateScope, Public, Static, HideBySig
+    GetEncoding(String): PrivateScope, Public, Static, HideBySig
+    GetHmEncode(String): PrivateScope, Public, Static, HideBySig
+    GetJsEncoding(Int32): PrivateScope, Public, Static, HideBySig
+    GetMsCodePage(Int32): PrivateScope, Public, Static, HideBySig
 Class hmEdgeJSDynamicLib+Hidemaru+Macro: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Methods:
@@ -83,6 +93,41 @@ Struct hmEdgeJSDynamicLib+Hidemaru+Edit+HmMousePos: AutoLayout, AnsiClass, Class
     get_y(): PrivateScope, Public, HideBySig, SpecialName
     get_column(): PrivateScope, Public, HideBySig, SpecialName
     get_lineno(): PrivateScope, Public, HideBySig, SpecialName
+Interface hmEdgeJSDynamicLib+Hidemaru+File+IHidemaruEncoding: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
+  Properties:
+    Int32 HmEncode 'get ' : 
+  Methods:
+    get_HmEncode(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Interface hmEdgeJSDynamicLib+Hidemaru+File+IMicrosoftEncoding: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
+  Properties:
+    Int32 MsCodePage 'get ' : 
+  Methods:
+    get_MsCodePage(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Interface hmEdgeJSDynamicLib+Hidemaru+File+IPythonEncoding: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
+  Properties:
+    System.String PyEncodingName 'get ' : 
+  Methods:
+    get_PyEncodingName(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Interface hmEdgeJSDynamicLib+Hidemaru+File+IEncoding: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
+  Interfaces:
+    hmEdgeJSDynamicLib+Hidemaru+File+IHidemaruEncoding
+    hmEdgeJSDynamicLib+Hidemaru+File+IMicrosoftEncoding
+    hmEdgeJSDynamicLib+Hidemaru+File+IPythonEncoding
+Class hmEdgeJSDynamicLib+Hidemaru+File+Encoding: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(Int32, Int32, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    hmEdgeJSDynamicLib+Hidemaru+File+IEncoding
+    hmEdgeJSDynamicLib+Hidemaru+File+IHidemaruEncoding
+    hmEdgeJSDynamicLib+Hidemaru+File+IMicrosoftEncoding
+    hmEdgeJSDynamicLib+Hidemaru+File+IPythonEncoding
+  Properties:
+    Int32 HmEncode 'get ' : 
+    Int32 MsCodePage 'get ' : 
+    System.String PyEncodingName 'get ' : 
+  Methods:
+    get_HmEncode(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_MsCodePage(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_PyEncodingName(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
 Interface hmEdgeJSDynamicLib+Hidemaru+Macro+IResult: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
   Properties:
     Int32 Result 'get ' : 
