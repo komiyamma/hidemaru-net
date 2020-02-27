@@ -25,10 +25,7 @@ public sealed partial class hmEdgeJSDynamicLib
 
     static Func<object, Task<object>> refMacroEval;
     static Func<object, Task<object>> refMacroGetVar;
-
-    static string strSetVarName = "";
-    static Func<object, Task<object>> refMacroSetVarName;
-    static Func<object, Task<object>> refMacroSetVarValue;
+    static Func<dynamic, Task<object>> refMacroSetVar;
 
     static Func<object, Task<object>> refFileGetHmEncode;
     static Func<object, Task<object>> refFileGetMsCodePage;
@@ -112,15 +109,9 @@ public sealed partial class hmEdgeJSDynamicLib
             return ret;
         });
 
-        refMacroSetVarName = (Func<object, Task<object>>)(async (obj) =>
+        refMacroSetVar = (Func<dynamic, Task<object>>)(async (obj) =>
         {
-            strSetVarName = (String)obj;
-            return true;
-        });
-
-        refMacroSetVarValue = (Func<object, Task<object>>)(async (obj) =>
-        {
-            var ret = Hidemaru.Macro.SetVar(strSetVarName, obj);
+            var ret = Hidemaru.Macro.SetVar((String)obj.VarName, obj.VarValue);
             return ret;
         });
 
@@ -258,15 +249,9 @@ public sealed partial class hmEdgeJSDynamicLib
                     return ret;
                 }
 
-                function _hm_refMacroSetVarName(obj) {
+                function _hm_refMacroSetVar(obj) {
                     let ret = null;
-                    let dumm = _TransRefObj.refMacroSetVarName(obj, function(error, result) { ret = result; } );
-                    return ret;
-                }
-
-                function _hm_refMacroSetVarValue(obj) {
-                    let ret = null;
-                    let dumm = _TransRefObj.refMacroSetVarValue(obj, function(error, result) { ret = result; } );
+                    let dumm = _TransRefObj.refMacroSetVar(obj, function(error, result) { ret = result; } );
                     return ret;
                 }
 
@@ -359,8 +344,7 @@ public sealed partial class hmEdgeJSDynamicLib
                         if (value == null) {
                             return _hm_refMacroGetVar(key);
                         } else {
-                            _hm_refMacroSetVarName(key);
-                            return _hm_refMacroSetVarValue(value);
+                            _hm_refMacroSetVar( {key:prop, value:val} );
                         }
                     }
 */
@@ -373,8 +357,7 @@ public sealed partial class hmEdgeJSDynamicLib
                 _hm_macro_.Var = new Proxy(()=>{}, {
                     apply: function(target, that, args) {
                         if (args.length > 1 ) {
-                            _hm_refMacroSetVarName(args[0]);
-                            return _hm_refMacroSetVarValue(args[1]);
+                            return _hm_refMacroSetVar( {VarName:args[0], VarValue:args[1]} );
                         }
                         else if (args.length == 1 ) {
                             return _hm_refMacroGetVar(args[0]);
@@ -384,8 +367,7 @@ public sealed partial class hmEdgeJSDynamicLib
                         return _hm_refMacroGetVar(prop);
                     },
                     set(target, prop, val, receiver) {
-                        _hm_refMacroSetVarName(prop);
-                        return _hm_refMacroSetVarValue(val);
+                        return _hm_refMacroSetVar( {VarName:prop, VarValue:val} );
                     }
                 }
                 );
@@ -462,8 +444,7 @@ public sealed partial class hmEdgeJSDynamicLib
                 refEditGetMousePos = refEditGetMousePos,
                 refMacroEval = refMacroEval,
                 refMacroGetVar = refMacroGetVar,
-                refMacroSetVarName = refMacroSetVarName,
-                refMacroSetVarValue = refMacroSetVarValue,
+                refMacroSetVar = refMacroSetVar,
                 refManualResetEvent = refManualResetEvent,
                 refFileGetHmEncode = refFileGetHmEncode,
                 refFileGetMsCodePage = refFileGetMsCodePage,
