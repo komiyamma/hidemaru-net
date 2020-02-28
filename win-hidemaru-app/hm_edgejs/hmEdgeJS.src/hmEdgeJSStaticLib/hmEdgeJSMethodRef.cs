@@ -287,7 +287,7 @@ public sealed partial class hmEdgeJSDynamicLib
                         return {
                             Encoding: encoding,
                             FilePath: filepath,
-                            Read: function() { _hm_refFileReadAllText({FilePath:filepath, HmEncode:hm_encode}); },
+                            Read: function() { return _hm_refFileReadAllText({FilePath:filepath, HmEncode:hm_encode}); },
                             Close: function() { this.Encoding = null; this.FilePath = null; }
                         };
                     }
