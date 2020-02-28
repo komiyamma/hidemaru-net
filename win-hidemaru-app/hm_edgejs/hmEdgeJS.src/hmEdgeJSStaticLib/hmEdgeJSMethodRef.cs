@@ -272,15 +272,31 @@ public sealed partial class hmEdgeJSDynamicLib
                 }
 
                 class _hm_file_ {
-                    static ReadAllText(filepath, hm_encode = -1) {
-                        return _hm_refFileReadAllText({FilePath:filepath, HmEncode:hm_encode});
+                    static Open(filepath, hm_encode_override = -1) {
+
+                        let hm_encode = -1;
+                        if (hm_encode_override == -1) {
+                            hm_encode = _hm_refFileGetHmEncode(filepath);
+                        } else {
+                            hm_encode = hm_encode_override;
+                        }
+                        let codepage = _hm_refFileGetMsCodePage(hm_encode);
+                        let name = _hm_refFileGetJsEncoding(hm_encode);
+                        let encoding = { HmEncode: hm_encode, MsCodePage: codepage, JsEncodingName: name };
+
+                        return {
+                            Encoding: encoding,
+                            FilePath: filepath,
+                            Read: function() { _hm_refFileReadAllText({FilePath:filepath, HmEncode:hm_encode}); },
+                            Close: function() { this.Encoding = null; this.FilePath = null; }
+                        };
                     }
 
                     static GetEncoding(filepath) {
-                        let hm_code = _hm_refFileGetHmEncode(filepath);
-                        let codepage = _hm_refFileGetMsCodePage(hm_code);
-                        let name = _hm_refFileGetJsEncoding(hm_code);
-                        return { HmEncode: hm_code, MsCodePage: codepage, JsEncodingName: name };
+                        let hm_encode = _hm_refFileGetHmEncode(filepath);
+                        let codepage = _hm_refFileGetMsCodePage(hm_encode);
+                        let name = _hm_refFileGetJsEncoding(hm_encode);
+                        return { HmEncode: hm_encode, MsCodePage: codepage, JsEncodingName: name };
                     }
 
                }
@@ -378,9 +394,9 @@ public sealed partial class hmEdgeJSDynamicLib
                         return _hm_macro_;
                     }
                 };
-        
+
                 console.log = hm.debuginfo
-                
+
                 global.hm = hm;
 
                 return function(data, callback) {
