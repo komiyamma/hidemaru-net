@@ -98,6 +98,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.6.1"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.6.1 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.6.1"
+                    }
+                }
             }
         }
         "Release"
@@ -122,6 +130,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.6.1"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.6.1 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.6.1"
+                    }
+                }
             }
         }
     }
@@ -187,7 +203,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:hmEdgeJS, Version=1.0.1.1, Culture=neutral, processorArchitecture=AMD64"
+            "AssemblyAsmDisplayName" = "8:hmEdgeJS, Version=1.6.0.1, Culture=neutral, processorArchitecture=AMD64"
                 "ScatterAssemblies"
                 {
                     "_0AD7942C246445FBBB5B8A6AD261D226"
@@ -402,24 +418,24 @@
         "Product"
         {
         "Name" = "8:Microsoft Visual Studio"
-        "ProductName" = "8:hmEdgeJSSetup_x64"
-        "ProductCode" = "8:{5F448D79-819B-41B3-9DD6-B28208446323}"
-        "PackageCode" = "8:{5FB8BA25-05B7-4A52-86EE-6209181131CA}"
+        "ProductName" = "8:hmEdgeJS x64 版"
+        "ProductCode" = "8:{42433C94-052D-4BD7-A5F1-CC88926B2523}"
+        "PackageCode" = "8:{AC7D1699-4E9E-4CBB-A6B9-E4B30FB5A477}"
         "UpgradeCode" = "8:{F2C86FB9-3FF7-44DE-9DE2-8B12595EE05C}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
-        "RemovePreviousVersions" = "11:FALSE"
+        "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.1"
+        "ProductVersion" = "8:1.7.0"
         "Manufacturer" = "8:Akitsugu Komiyama"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
-        "Title" = "8:hmEdgeJS for .NET 4.5 x64 版 インストーラ"
+        "Title" = "8:hmEdgeJS x64 版"
         "Subject" = "8:"
         "ARPCONTACT" = "8:Akitsugu Komiyama"
         "Keywords" = "8:"
-        "ARPCOMMENTS" = "8:hmEdgeJS for .NET 4.5 x64 版 インストーラ"
+        "ARPCOMMENTS" = "8:hmEdgeJS x64 版"
         "ARPURLINFOABOUT" = "8:"
         "ARPPRODUCTICON" = "8:"
         "ARPIconIndex" = "3:0"
