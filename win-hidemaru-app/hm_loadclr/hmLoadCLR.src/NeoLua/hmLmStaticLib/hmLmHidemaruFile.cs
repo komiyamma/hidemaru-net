@@ -363,7 +363,7 @@ public sealed partial class hmLmDynamicLib
                     Close();
                 }
 
-                String File.IHidemaruStreamReader.Read()
+                public String Read()
                 {
                     if (System.IO.File.Exists(this.m_path) == false)
                     {

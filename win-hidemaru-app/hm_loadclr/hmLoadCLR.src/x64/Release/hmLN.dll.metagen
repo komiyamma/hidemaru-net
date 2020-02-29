@@ -841,6 +841,7 @@ Class hmLmDynamicLib+Hidemaru+File+HidemaruStreamReader: AutoLayout, AnsiClass, 
   Methods:
     get_Encoding(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
     get_FilePath(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    Read(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
     Close(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
     Dispose(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
 Interface hmLmDynamicLib+Hidemaru+Macro+IResult: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
