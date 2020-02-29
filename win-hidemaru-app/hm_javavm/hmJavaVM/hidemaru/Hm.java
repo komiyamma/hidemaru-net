@@ -187,11 +187,11 @@ public class Hm {
 			}
 		}
 
-		public static IHidemaruFileReader Open(String filepath) throws java.io.FileNotFoundException, IOException {
-			return Open(filepath, -1);
+		public static IHidemaruFileReader open(String filepath) throws java.io.FileNotFoundException, IOException {
+			return open(filepath, -1);
 		}
 
-		public static IHidemaruFileReader Open(String filepath, int hm_encode) throws java.io.FileNotFoundException, IOException {
+		public static IHidemaruFileReader open(String filepath, int hm_encode) throws java.io.FileNotFoundException, IOException {
 			java.io.File file = new java.io.File(filepath);
 
 			if (!file.exists()) {
