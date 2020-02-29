@@ -1,4 +1,4 @@
-﻿- hmLoadCLR
+﻿- hmLN
    Copyright (c) 2016-2020 Akitsugu Komiyama
 
 
@@ -206,7 +206,7 @@
 
 
 
-- NeoLua embedded in hmLoadCLR
+- NeoLua embedded in hmLN
 	Copyright (C) 2016-2017 neolithos, TecWare Gesellschaft für Softwareentwicklung mbH
 
 
