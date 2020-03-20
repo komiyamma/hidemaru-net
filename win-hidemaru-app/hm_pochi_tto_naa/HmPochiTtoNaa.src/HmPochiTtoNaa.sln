@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26430.15
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HmPochiTtoNaa", "HmPochiTtoNaa\HmPochiTtoNaa.csproj", "{CB58A872-CE4D-445C-8329-50A95949FA09}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HmBookMark", "HmPochiTtoNaa\HmBookMark.csproj", "{CB58A872-CE4D-445C-8329-50A95949FA09}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +18,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C5559044-028F-4DFF-9076-B79C3CE83CD7}
 	EndGlobalSection
 EndGlobal

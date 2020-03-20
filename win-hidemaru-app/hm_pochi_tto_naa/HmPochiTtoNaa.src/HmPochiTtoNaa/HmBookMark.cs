@@ -11,7 +11,7 @@ using System.Xml.Serialization;
 using System.IO;
 using System.Threading;
 
-namespace HmPochiTtoNaa
+namespace HmBookMark
 {
     [Serializable]
     public class DataType
@@ -30,7 +30,7 @@ namespace HmPochiTtoNaa
         public List<DataType> list = new List<DataType>();
     }
 
-    public class HmPochiTtoNaa
+    public class HmBookMark
     {
         static DataTypeList dtl = new DataTypeList();
 
@@ -52,7 +52,7 @@ namespace HmPochiTtoNaa
                 DataType d = new DataType();
                 d.key = key.ToInt64();
 
-                using (Mutex mut = new Mutex(false, "HmPochiTtoNaa"))
+                using (Mutex mut = new Mutex(false, "HmBookMark"))
                 {
                     Hm.Macro.Var["#RTN_key"] = (Int32)(-1);
 
@@ -119,7 +119,7 @@ namespace HmPochiTtoNaa
                 d.filename2 = (String)Hm.Macro.Var["filename2"];
                 d.splitmode = (Int64)(dynamic)Hm.Macro.Var["splitmode"];
 
-                using (Mutex mut = new Mutex(false, "HmPochiTtoNaa"))
+                using (Mutex mut = new Mutex(false, "HmBookMark"))
                 {
                     if (mut.WaitOne(500))
                     {

@@ -1,5 +1,5 @@
-- HmPochiTtoNaa
-   Copyright (C) 2016-2019 Akitsugu Komiyama
+- HmBookMark
+   Copyright (C) 2016-2020 Akitsugu Komiyama
 
 
    The MIT License (MIT)
