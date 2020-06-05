@@ -26,11 +26,11 @@ namespace hmV8DynamicNS
             // デバッグありモード
             if (iDebuggingPort > 0)
             {
-                engine = new V8ScriptEngine(V8ScriptEngineFlags.EnableDebugging, iDebuggingPort);
+                engine = new V8ScriptEngine(V8ScriptEngineFlags.EnableDebugging|V8ScriptEngineFlags.EnableDynamicModuleImports, iDebuggingPort);
             }
             else
             {
-                engine = new V8ScriptEngine();
+                engine = new V8ScriptEngine(V8ScriptEngineFlags.EnableDynamicModuleImports);
             }
 
             engine.DefaultAccess = ScriptAccess.Full;
