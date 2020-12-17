@@ -95,7 +95,21 @@ Object^ SubCallMethod(String^ assm_path, String^ class_name, String^ method_name
 			TraceMethodInfo( assm_path, class_name, method_name);
 			return nullptr;
 		}
-		MethodInfo^ m = t->GetMethod(method_name);
+
+		// メソッドの定義タイプを探る。
+		MethodInfo^ m;
+		try {
+			m = t->GetMethod(method_name);
+		}
+		catch (Exception^) {
+			List<Type^>^ args_types = gcnew List<Type^>();
+			for each (auto arg in args)
+			{
+				args_types->Add(arg->GetType());
+			}
+			m = t->GetMethod(method_name, args_types->ToArray());
+		}
+
 		Object^ o = nullptr;
 		try {
 			// デタッチ関数の時に、引数が無いパターンを許す
