@@ -69,9 +69,11 @@ void TraceExceptionInfo(Exception^ e) {
 
 
 Object^ SubCallMethod(String^ assm_path, String^ class_name, String^ method_name, List<Object^>^ args, bool isDetathFuncMode = false) {
+	Exception^ method_ex = nullptr;
 	try {
 		Assembly^ assm = nullptr;
 		Type^ t = nullptr;
+
 		if (assm_path->Length > 0) {
 			assm = Assembly::LoadFile(assm_path);
 			if (assm == nullptr) {
@@ -101,7 +103,12 @@ Object^ SubCallMethod(String^ assm_path, String^ class_name, String^ method_name
 		try {
 			m = t->GetMethod(method_name);
 		}
-		catch (Exception^) {
+		catch (Exception^ ex) {
+			// 基本コースだと一致してない系の可能性やオーバーロードなど未解決エラーを控えておく
+			// t->GetMethod(...)は論理的には不要だが、「エラー情報のときにわかりやすい情報を.NETに自動で出力してもらう」ためにダミーで呼び出しておく
+			method_ex = ex;
+
+			// オーバーロードなら1つに解決できるように型情報も含めてmは上書き
 			List<Type^>^ args_types = gcnew List<Type^>();
 			for each (auto arg in args)
 			{
@@ -139,6 +146,9 @@ Object^ SubCallMethod(String^ assm_path, String^ class_name, String^ method_name
 	catch (Exception ^e) {
 		System::Diagnostics::Trace::WriteLine("指定のアセンブリやメソッドを特定する前に、例外が発生しました。");
 		TraceMethodInfo(assm_path, class_name, method_name);
+		if (method_ex != nullptr) {
+			TraceExceptionInfo(method_ex);
+		}
 		TraceExceptionInfo(e);
 	}
 
