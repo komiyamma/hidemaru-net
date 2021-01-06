@@ -7,6 +7,7 @@ using System;
 using System.Text;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Reflection;
 
 
 // ★内部でdynamic型を利用しないもの。C++リンク用途のため「だけの」「コンパイルによってメソッド数が変化しない」インターフェイス。
@@ -16,6 +17,16 @@ internal class INETStaticLib
     public static void OutputDebugStream(String error)
     {
         hmNETDynamicLib.OutputDebugStream(error);
+    }
+
+    public static void TraceMethodInfo(String assm_path, String class_name, String method_name)
+    {
+        hmNETDynamicLib.TraceMethodInfo(assm_path, class_name, method_name);
+    }
+
+    public static void TraceExceptionInfo(Exception e)
+    {
+        hmNETDynamicLib.TraceExceptionInfo(e);
     }
 
     public static IntPtr AttachScope()
@@ -45,11 +56,15 @@ internal class INETStaticLib
         return hmNETDynamicLib.CallMethod(expression);
     }
 
+    public static Object SubCallMethod(String assm_path, String class_name, String method_name, List<Object> args, String func_mode)
+    {
+        return hmNETDynamicLib.SubCallMethod(assm_path, class_name, method_name, args, func_mode);
+    }
+
     public static IntPtr DetachScope(IntPtr status)
     {
         return hmNETDynamicLib.DetachScope(status);
     }
-
 }
 
 
@@ -73,6 +88,18 @@ internal partial class hmNETDynamicLib
     public static void OutputDebugStream(String error)
     {
         System.Diagnostics.Trace.WriteLine(error);
+    }
+    public static void TraceMethodInfo(String assm_path, String class_name, String method_name)
+    {
+        System.Diagnostics.Trace.WriteLine("アセンブリパス   :" + assm_path);
+        System.Diagnostics.Trace.WriteLine("名前空間.クラス名:" + class_name);
+        System.Diagnostics.Trace.WriteLine("メソッド名       :" + method_name);
+    }
+    public static void TraceExceptionInfo(Exception e)
+    {
+        System.Diagnostics.Trace.WriteLine(e.GetType());
+        System.Diagnostics.Trace.WriteLine(e.Message);
+        System.Diagnostics.Trace.WriteLine(e.StackTrace);
     }
 
     [DllImport("user32.dll", EntryPoint = "SendMessage", CharSet = CharSet.Auto)]
@@ -166,6 +193,113 @@ internal partial class hmNETDynamicLib
         }
 
         return (IntPtr)1;
+    }
+
+    public static Object SubCallMethod(String assm_path, String class_name, String method_name, List<Object> args, String func_mode)
+    {
+        Exception method_ex = null;
+        try
+        {
+            Assembly assm = null;
+            Type t = null;
+
+            if (assm_path.Length > 0)
+            {
+                assm = Assembly.LoadFile(assm_path);
+                if (assm == null)
+                {
+                    System.Diagnostics.Trace.WriteLine("ロード出来ない");
+                }
+                else
+                {
+                    // System::Diagnostics::Trace::WriteLine(assm->FullName);
+                }
+                int i = 0;
+                foreach (Type t2 in assm.GetExportedTypes())
+                {
+                    if (t2.ToString() == class_name)
+                    {
+                        t = assm.GetType(class_name);
+                    }
+                }
+            }
+            else
+            {
+                t = Type.GetType(class_name);
+            }
+            if (t == null)
+            {
+                System.Diagnostics.Trace.WriteLine("MissingMethodException(クラスもしくはメソッドを見つけることが出来ない):");
+                TraceMethodInfo(assm_path, class_name, method_name);
+                return null;
+            }
+
+            // メソッドの定義タイプを探る。
+            MethodInfo m;
+            try
+            {
+                m = t.GetMethod(method_name);
+            }
+            catch (Exception ex)
+            {
+                // 基本コースだと一致してない系の可能性やオーバーロードなど未解決エラーを控えておく
+                // t->GetMethod(...)は論理的には不要だが、「エラー情報のときにわかりやすい情報を.NETに自動で出力してもらう」ためにダミーで呼び出しておく
+                method_ex = ex;
+
+                // オーバーロードなら1つに解決できるように型情報も含めてmは上書き
+                List<Type> args_types = new List<Type>();
+                foreach (var arg in args)
+                {
+                    args_types.Add(arg.GetType());
+                }
+                m = t.GetMethod(method_name, args_types.ToArray());
+            }
+
+            Object o = null;
+            try
+            {
+                // デタッチ関数の時に、引数が無いパターンを許す
+                if (func_mode == "detach_func_mode")
+                {
+                    var paramInfo = m.GetParameters();
+                    // 受け側の破棄メソッドの「引数が無い」ならば
+                    if (paramInfo.Length == 0)
+                    {
+                        o = m.Invoke(null, null);
+                        // System::Diagnostics::Trace::WriteLine("引数無し");
+                    }
+                    // 引数があるならば、一応その値を渡す。とは言っても基本的にアセンブリなのでアプリ終了時にしかこれは実行されないハズであるが…
+                    else
+                    {
+                        o = m.Invoke(null, args.ToArray());
+                        // System::Diagnostics::Trace::WriteLine("引数有り");
+                    }
+                }
+                else
+                {
+                    o = m.Invoke(null, args.ToArray());
+                }
+            }
+            catch (Exception)
+            {
+                System.Diagnostics.Trace.WriteLine("指定のメソッドの実行時、例外が発生しました。");
+                throw;
+            }
+            return o;
+        }
+        catch (Exception e)
+        {
+            System.Diagnostics.Trace.WriteLine("指定のアセンブリやメソッドを特定する前に、例外が発生しました。");
+            TraceMethodInfo(assm_path, class_name, method_name);
+            if (method_ex != null)
+            {
+                TraceExceptionInfo(method_ex);
+            }
+            TraceExceptionInfo(e);
+        }
+
+
+        return null;
     }
 
     public static IntPtr DetachScope(IntPtr status)

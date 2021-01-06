@@ -163,14 +163,12 @@
   <ItemGroup>
     <ClCompile Include="hidemaruexe_export.cpp" />
     <ClCompile Include="hmNET.cpp" />
-    <ClCompile Include="output_debugstream.cpp" />
     <ClCompile Include="string_converter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="hidemaruexe_export.h" />
     <ClInclude Include="hmNET.h" />
     <ClInclude Include="hmNETStatlcLib.h" />
-    <ClInclude Include="output_debugstream.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="string_converter.h" />
   </ItemGroup>

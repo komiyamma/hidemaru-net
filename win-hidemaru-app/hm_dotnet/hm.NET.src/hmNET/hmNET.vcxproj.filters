@@ -26,9 +26,6 @@
     <ClCompile Include="hmNET.cpp">
       <Filter>本体</Filter>
     </ClCompile>
-    <ClCompile Include="output_debugstream.cpp">
-      <Filter>本体</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="string_converter.h">
@@ -44,9 +41,6 @@
       <Filter>本体</Filter>
     </ClInclude>
     <ClInclude Include="hmNETStatlcLib.h">
-      <Filter>本体</Filter>
-    </ClInclude>
-    <ClInclude Include="output_debugstream.h">
       <Filter>本体</Filter>
     </ClInclude>
   </ItemGroup>

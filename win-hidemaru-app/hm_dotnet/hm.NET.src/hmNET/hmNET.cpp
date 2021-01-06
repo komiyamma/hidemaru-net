@@ -11,7 +11,6 @@
 #include "hmNET.h"
 #include "hmNETStatlcLib.h"
 
-#include "output_debugstream.h"
 
 using namespace std;
 using namespace System;
@@ -55,106 +54,6 @@ MACRO_DLL const TCHAR * PopStrVar() {
 	return strvarsopop.data();
 }
 
-void TraceMethodInfo(String^ assm_path, String^ class_name, String^ method_name) {
-	System::Diagnostics::Trace::WriteLine("アセンブリパス   :" + assm_path);
-	System::Diagnostics::Trace::WriteLine("名前空間.クラス名:" + class_name);
-	System::Diagnostics::Trace::WriteLine("メソッド名       :" + method_name);
-}
-
-void TraceExceptionInfo(Exception^ e) {
-	System::Diagnostics::Trace::WriteLine(e->GetType());
-	System::Diagnostics::Trace::WriteLine(e->Message);
-	System::Diagnostics::Trace::WriteLine(e->StackTrace);
-}
-
-
-Object^ SubCallMethod(String^ assm_path, String^ class_name, String^ method_name, List<Object^>^ args, bool isDetathFuncMode = false) {
-	Exception^ method_ex = nullptr;
-	try {
-		Assembly^ assm = nullptr;
-		Type^ t = nullptr;
-
-		if (assm_path->Length > 0) {
-			assm = Assembly::LoadFile(assm_path);
-			if (assm == nullptr) {
-				System::Diagnostics::Trace::WriteLine("ロード出来ない");
-			}
-			else {
-				// System::Diagnostics::Trace::WriteLine(assm->FullName);
-			}
-			int i = 0;
-			for each(Type^ t2 in assm->GetExportedTypes() ) {
-				if (t2->ToString() == class_name) {
-					t = assm->GetType(class_name);
-				}
-			}
-		}
-		else {
-			t = Type::GetType(class_name);
-		}
-		if (t == nullptr) {
-			System::Diagnostics::Trace::WriteLine("MissingMethodException(クラスもしくはメソッドを見つけることが出来ない):");
-			TraceMethodInfo( assm_path, class_name, method_name);
-			return nullptr;
-		}
-
-		// メソッドの定義タイプを探る。
-		MethodInfo^ m;
-		try {
-			m = t->GetMethod(method_name);
-		}
-		catch (Exception^ ex) {
-			// 基本コースだと一致してない系の可能性やオーバーロードなど未解決エラーを控えておく
-			// t->GetMethod(...)は論理的には不要だが、「エラー情報のときにわかりやすい情報を.NETに自動で出力してもらう」ためにダミーで呼び出しておく
-			method_ex = ex;
-
-			// オーバーロードなら1つに解決できるように型情報も含めてmは上書き
-			List<Type^>^ args_types = gcnew List<Type^>();
-			for each (auto arg in args)
-			{
-				args_types->Add(arg->GetType());
-			}
-			m = t->GetMethod(method_name, args_types->ToArray());
-		}
-
-		Object^ o = nullptr;
-		try {
-			// デタッチ関数の時に、引数が無いパターンを許す
-			if (isDetathFuncMode) {
-				auto paramInfo = m->GetParameters();
-				// 受け側の破棄メソッドの「引数が無い」ならば
-				if (paramInfo->Length == 0) {
-					o = m->Invoke(nullptr, nullptr);
-					// System::Diagnostics::Trace::WriteLine("引数無し");
-				}
-				// 引数があるならば、一応その値を渡す。とは言っても基本的にアセンブリなのでアプリ終了時にしかこれは実行されないハズであるが…
-				else {
-					o = m->Invoke(nullptr, args->ToArray());
-					// System::Diagnostics::Trace::WriteLine("引数有り");
-				}
-			}
-			else {
-				o = m->Invoke(nullptr, args->ToArray());
-			}
-		}
-		catch (Exception^) {
-			System::Diagnostics::Trace::WriteLine("指定のメソッドの実行時、例外が発生しました。");
-			throw;
-		}
-		return o;
-	}
-	catch (Exception ^e) {
-		System::Diagnostics::Trace::WriteLine("指定のアセンブリやメソッドを特定する前に、例外が発生しました。");
-		TraceMethodInfo(assm_path, class_name, method_name);
-		if (method_ex != nullptr) {
-			TraceExceptionInfo(method_ex);
-		}
-		TraceExceptionInfo(e);
-	}
-
-
-	return nullptr;
-}
 
 intHM_t ConvertObjectToIntPtr(Object^ o) {
 	// Boolean型であれば、True:1 Flase:0にマッピングする
@@ -288,7 +187,7 @@ MACRO_DLL intHM_t CallMethod(const wchar_t* assm_path, const wchar_t* class_name
 
 		INETStaticLib::CallMethod(L"init");
 
-		Object^ o = SubCallMethod(wstring_to_String(assm_path), wstring_to_String(class_name), wstring_to_String(method_name), args);
+		Object^ o = INETStaticLib::SubCallMethod(wstring_to_String(assm_path), wstring_to_String(class_name), wstring_to_String(method_name), args, "normal_func_mode");
 
 		GC::Collect();
 
@@ -319,7 +218,7 @@ MACRO_DLL intHM_t CallMethod(const wchar_t* assm_path, const wchar_t* class_name
 
 	}
 	catch (Exception^ ex) {
-		TraceExceptionInfo(ex);
+		INETStaticLib::TraceExceptionInfo(ex);
 		if (rty == DLLFUNCRETURN_INT) {
 			return (intHM_t)0;
 		}
@@ -365,7 +264,7 @@ MACRO_DLL intHM_t DetachScope(intHM_t n) {
 		List<Object^>^ args = gcnew List<Object^>();
 		args->Add((IntPtr)n); // 終了時のパラメータを付け足し
 		for each(auto v in detach_func_list) {
-			SubCallMethod(wstring_to_String(v.assm_path), wstring_to_String(v.class_name), wstring_to_String(v.method_name), args, true);
+			INETStaticLib::SubCallMethod(wstring_to_String(v.assm_path), wstring_to_String(v.class_name), wstring_to_String(v.method_name), args, "detach_func_mode");
 		}
 
 		ret = (intHM_t)INETStaticLib::DetachScope(System::IntPtr(n));
@@ -374,7 +273,7 @@ MACRO_DLL intHM_t DetachScope(intHM_t n) {
 	}
 
 	catch (Exception^ ex) {
-		TraceExceptionInfo(ex);
+		INETStaticLib::TraceExceptionInfo(ex);
 	}
 
 	return ret;
@@ -385,7 +284,7 @@ MACRO_DLL intHM_t DllDetachFunc_After_Hm866(intHM_t n) {
 	intHM_t ret = DetachScope(n);
 	// v8.77未満だと、nは常に0
 	if (n == 0) {
-		// OutputDebugStream(L"v8.66未満\n");
+		// INETStaticLib::OutputDebugStream(L"v8.66未満\n");
 	}
 	else if (n == 1) {
 		MessageBox(NULL, L"hm.NET.dllをマクロ制御下で解放をしてはいけません。\n"
@@ -399,7 +298,7 @@ MACRO_DLL intHM_t DllDetachFunc_After_Hm866(intHM_t n) {
 		// loaddll文による入れ替え
 	}
 	else if (n == 3) {
-		// OutputDebugStream(L"プロセス終了時\n");
+		//  INETStaticLib::OutputDebugStream(L"プロセス終了時\n");
 		// プロセス終了時
 	}
 	else {
