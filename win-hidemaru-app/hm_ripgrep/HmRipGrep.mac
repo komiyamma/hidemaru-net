@@ -18,7 +18,7 @@ SET_OPTION_FLAGS:
 
 LOAD_PREVIOUS_WINDOW:
 
-    // 共用メモリから最後にHmEverything用途に使ったウィンドウハンドルを得る
+    // 共用メモリから最後にHmRipGrep用途に使ったウィンドウハンドルを得る
     #DLL = loaddll( currentmacrodirectory + @"\HmRipGrep.dll" );
     #hPrevWndHidemaru = dllfuncw( #DLL, "GetSharedWndHidemaru" );
     freedll(#DLL);
