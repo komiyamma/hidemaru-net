@@ -1,5 +1,5 @@
 ImageRuntimeVersion: v4.0.30319
-Assembly hmEdgeJS, Version=1.6.*, Culture=ロケールに依存しない言語 (ロケールに依存しない国): 
+Assembly hmEdgeJS, Version=1.7.*, Culture=ロケールに依存しない言語 (ロケールに依存しない国): 
 	hash=SHA1, flags=PublicKey
 Assembly mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
 	hash=None, flags=None
@@ -7,7 +7,7 @@ Assembly System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e0
 	hash=None, flags=None
 Assembly System.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
 	hash=None, flags=None
-Assembly EdgeJs, Version=9.3.*, Culture=ロケールに依存しない言語 (ロケールに依存しない国): 
+Assembly EdgeJs, Version=0.0.*, Culture=ロケールに依存しない言語 (ロケールに依存しない国): 
 	hash=None, flags=None
 Assembly Microsoft.CSharp, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a: 
 	hash=None, flags=None
