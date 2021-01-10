@@ -4,10 +4,13 @@ var fs = require('fs')
     , edge;
 
 var versionMap = [
+    [ /^6\./, '6.15.0' ],
+    [ /^7\./, '7.10.1' ],
+    [ /^8\./, '8.14.0' ],
+    [ /^9\./, '9.11.2' ],
     [ /^10\./, '10.14.0' ],
-    [ /^12\./, '12.13.0' ],
-    [ /^14\./, '14.3.0' ],
-    [ /^15\./, '15.5.0' ],
+    [ /^11\./, '11.3.0' ],
+    [ /^12\./, '12.3.1' ],
 ];
 
 function determineVersion() {
@@ -18,7 +21,7 @@ function determineVersion() {
     }
 
     throw new Error('The edge module has not been pre-compiled for node.js version ' + process.version +
-        '. You must build a custom version of edge.node. Please refer to https://github.com/agracio/edge-js ' +
+        '. You must build a custom version of edge.node. Please refer to https://github.com/tjanczuk/edge ' +
         'for building instructions.');
 }
 var edgeNative;
@@ -34,7 +37,7 @@ else if (process.platform === 'win32') {
 else {
     throw new Error('The edge native module is not available at ' + builtEdge 
         + '. You can use EDGE_NATIVE environment variable to provide alternate location of edge.node. '
-        + 'If you need to build edge.node, follow build instructions for your platform at https://github.com/agracio/edge-js');
+        + 'If you need to build edge.node, follow build instructions for your platform at https://github.com/tjanczuk/edge');
 }
 if (process.env.EDGE_DEBUG) {
     console.log('Load edge native library from: ' + edgeNative);
