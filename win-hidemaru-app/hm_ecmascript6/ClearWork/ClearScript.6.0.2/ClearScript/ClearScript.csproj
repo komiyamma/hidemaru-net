@@ -37,12 +37,13 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <OutputPath>..\bin\Release\</OutputPath>
     <UseVSHostingProcess>false</UseVSHostingProcess>
-    <DocumentationFile>bin\Release\ClearScript.XML</DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
     <DefineConstants>TRACE;NETFRAMEWORK</DefineConstants>
     <Optimize>true</Optimize>
     <ErrorReport>prompt</ErrorReport>
-    <DebugType>pdbonly</DebugType>
-    <DebugSymbols>true</DebugSymbols>
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Prefer32Bit>false</Prefer32Bit>
@@ -209,7 +210,6 @@
     <Compile Include="Windows\ActiveXScripting.cs" />
     <Compile Include="HostItem.cs" />
     <Compile Include="HostVariable.cs" />
-    <Compile Include="Windows\JScriptEngine.cs" />
     <None Include="Exports\CallbackManager.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>CallbackManager.h</LastGenOutput>
@@ -233,7 +233,6 @@
     <Compile Include="Util\UniqueNameManager.cs" />
     <Compile Include="VoidResult.cs" />
     <Compile Include="Util\ConcurrentWeakSet.cs" />
-    <Compile Include="Windows\VBScriptEngine.cs" />
     <Compile Include="V8\IV8Object.cs" />
     <Compile Include="V8\V8ContextProxy.cs" />
     <Compile Include="V8\V8ProxyHelpers.cs" />
