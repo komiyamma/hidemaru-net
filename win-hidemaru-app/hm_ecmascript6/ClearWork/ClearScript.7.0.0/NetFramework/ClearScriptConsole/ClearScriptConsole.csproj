@@ -5,6 +5,7 @@
         <TargetFrameworks>net45;net471</TargetFrameworks>
         <RootNamespace>Microsoft.ClearScript.Test</RootNamespace>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+        <AssemblyName>iv8</AssemblyName>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
