@@ -100,15 +100,7 @@
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
             <Visible>false</Visible>
         </None>
-        <None Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Windows)))' And ('$([System.Runtime.InteropServices.RuntimeInformation]::ProcessArchitecture)'=='X86' Or '$([System.Runtime.InteropServices.RuntimeInformation]::ProcessArchitecture)'=='X64')" Include="..\..\bin\$(Configuration)\ClearScriptV8.win-x86.pdb" Link="ClearScriptV8.win-x86.pdb">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-            <Visible>false</Visible>
-        </None>
         <None Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Windows)))' And ('$([System.Runtime.InteropServices.RuntimeInformation]::ProcessArchitecture)'=='X86' Or '$([System.Runtime.InteropServices.RuntimeInformation]::ProcessArchitecture)'=='X64')" Include="..\..\bin\$(Configuration)\ClearScriptV8.win-x64.dll" Link="ClearScriptV8.win-x64.dll">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-            <Visible>false</Visible>
-        </None>
-        <None Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Windows)))' And ('$([System.Runtime.InteropServices.RuntimeInformation]::ProcessArchitecture)'=='X86' Or '$([System.Runtime.InteropServices.RuntimeInformation]::ProcessArchitecture)'=='X64')" Include="..\..\bin\$(Configuration)\ClearScriptV8.win-x64.pdb" Link="ClearScriptV8.win-x64.pdb">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
             <Visible>false</Visible>
         </None>

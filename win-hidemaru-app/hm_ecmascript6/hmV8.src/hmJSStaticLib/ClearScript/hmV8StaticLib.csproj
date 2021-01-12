@@ -56,9 +56,14 @@
     <AssemblyOriginatorKeyFile>$(SolutionDir)ClearScript.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ClearScript, Version=5.6.0.0, Culture=neutral, PublicKeyToken=960a7608304be6a9, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\ClearWork\ClearScript.5.6.0\bin\Release\ClearScript.dll</HintPath>
+    <Reference Include="ClearScript.Core">
+      <HintPath>..\..\..\ClearWork\ClearScript.7.0.0\bin\Release\net45\ClearScript.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="ClearScript.V8">
+      <HintPath>..\..\..\ClearWork\ClearScript.7.0.0\bin\Release\net45\ClearScript.V8.dll</HintPath>
+    </Reference>
+    <Reference Include="ClearScript.Windows">
+      <HintPath>..\..\..\ClearWork\ClearScript.7.0.0\bin\Release\net45\ClearScript.Windows.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

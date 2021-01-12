@@ -1,2 +1,2 @@
-#TargetFrameworkVersion=v4.5:PlatformToolSet=v141:EnableManagedIncrementalBuild=true:VCToolArchitecture=Native32Bit:WindowsTargetPlatformVersion=10.0.18362.0
+#TargetFrameworkVersion=v4.5:PlatformToolSet=v141:EnableManagedIncrementalBuild=true:VCToolArchitecture=Native32Bit:WindowsTargetPlatformVersion=10.0.19041.0
 Release|x64|G:\repogitory\hidemaru-net\win-hidemaru-app\hm_ecmascript6\hmV8.src\|
