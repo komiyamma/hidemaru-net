@@ -30,11 +30,12 @@ C:\usr\web\hidemaru-net\win-hidemaru-app\hm_loadclr\hmLoadCLR.src\NeoLua\bin\Rel
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_loadclr\hmLoadCLR.src\NeoLua\bin\Release\Neo.Lua.netmodule
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_loadclr\hmLoadCLR.src\NeoLua\obj\Release\Neo.Lua.netmodule
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_loadclr\hmLoadCLR.src\NeoLua\obj\Release\NeoLua.csprojResolveAssemblyReference.cache
-G:\repogitory\hidemaru-net\win-hidemaru-app\hm_loadclr\hmLoadCLR.src\NeoLua\bin\Release\Neo.Lua.netmodule.config
-G:\repogitory\hidemaru-net\win-hidemaru-app\hm_loadclr\hmLoadCLR.src\NeoLua\bin\Release\Neo.Lua.netmodule
-G:\repogitory\hidemaru-net\win-hidemaru-app\hm_loadclr\hmLoadCLR.src\NeoLua\obj\Release\NeoLua.csproj.CoreCompileInputs.cache
-G:\repogitory\hidemaru-net\win-hidemaru-app\hm_loadclr\hmLoadCLR.src\NeoLua\obj\Release\Neo.Lua.netmodule
 G:\repository\hidemaru-net\win-hidemaru-app\hm_loadclr\hmLoadCLR.src\NeoLua\bin\Release\Neo.Lua.netmodule.config
 G:\repository\hidemaru-net\win-hidemaru-app\hm_loadclr\hmLoadCLR.src\NeoLua\bin\Release\Neo.Lua.netmodule
 G:\repository\hidemaru-net\win-hidemaru-app\hm_loadclr\hmLoadCLR.src\NeoLua\obj\Release\NeoLua.csproj.CoreCompileInputs.cache
 G:\repository\hidemaru-net\win-hidemaru-app\hm_loadclr\hmLoadCLR.src\NeoLua\obj\Release\Neo.Lua.netmodule
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_loadclr\hmLoadCLR.src\NeoLua\bin\Release\Neo.Lua.netmodule.config
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_loadclr\hmLoadCLR.src\NeoLua\bin\Release\Neo.Lua.netmodule
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_loadclr\hmLoadCLR.src\NeoLua\obj\Release\NeoLua.csproj.CoreCompileInputs.cache
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_loadclr\hmLoadCLR.src\NeoLua\obj\Release\Neo.Lua.netmodule
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_loadclr\hmLoadCLR.src\NeoLua\obj\Release\NeoLua.csprojAssemblyReference.cache
