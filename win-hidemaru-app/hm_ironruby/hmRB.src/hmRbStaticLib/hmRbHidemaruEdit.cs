@@ -172,7 +172,7 @@ public sealed partial class hmRbDynamicLib
                 String curstr = "";
                 IntPtr hGlobal = pGetTotalTextUnicode();
                 HGlobalStatus hgs = HGlobalStatus.None;
-                if (hGlobal != null)
+                if (hGlobal != IntPtr.Zero)
                 {
                     try
                     {
@@ -272,7 +272,7 @@ public sealed partial class hmRbDynamicLib
                 String curstr = "";
                 IntPtr hGlobal = pGetSelectedTextUnicode();
                 HGlobalStatus hgs = HGlobalStatus.None;
-                if (hGlobal != null)
+                if (hGlobal != IntPtr.Zero)
                 {
                     try
                     {
@@ -379,7 +379,7 @@ public sealed partial class hmRbDynamicLib
                 String curstr = "";
                 IntPtr hGlobal = pGetLineTextUnicode(p.lineno);
                 HGlobalStatus hgs = HGlobalStatus.None;
-                if (hGlobal != null)
+                if (hGlobal != IntPtr.Zero)
                 {
                     try
                     {

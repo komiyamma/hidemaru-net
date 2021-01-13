@@ -71,11 +71,11 @@ public sealed partial class hmRbDynamicLib
                 int read_count = 0;
                 IntPtr hGlobal = pLoadFileUnicode(filepath, hm_encode, ref read_count, IntPtr.Zero, IntPtr.Zero);
                 HGlobalStatus hgs = HGlobalStatus.None;
-                if (hGlobal == null)
+                if (hGlobal == IntPtr.Zero)
                 {
                     throw new System.IO.IOException(filepath);
                 }
-                if (hGlobal != null)
+                if (hGlobal != IntPtr.Zero)
                 {
                     try
                     {
