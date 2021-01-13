@@ -214,7 +214,7 @@ internal partial class hmNETDynamicLib
                 {
                     // System::Diagnostics::Trace::WriteLine(assm->FullName);
                 }
-                int i = 0;
+
                 foreach (Type t2 in assm.GetExportedTypes())
                 {
                     if (t2.ToString() == class_name)

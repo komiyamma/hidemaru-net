@@ -201,7 +201,7 @@ internal sealed partial class hmNETDynamicLib
                 String curstr = "";
                 IntPtr hGlobal = pGetTotalTextUnicode();
                 HGlobalStatus hgs = HGlobalStatus.None;
-                if (hGlobal != null)
+                if (hGlobal != IntPtr.Zero)
                 {
                     try
                     {
@@ -300,7 +300,7 @@ internal sealed partial class hmNETDynamicLib
                 String curstr = "";
                 IntPtr hGlobal = pGetSelectedTextUnicode();
                 HGlobalStatus hgs = HGlobalStatus.None;
-                if (hGlobal != null)
+                if (hGlobal != IntPtr.Zero)
                 {
                     try
                     {
@@ -406,7 +406,7 @@ internal sealed partial class hmNETDynamicLib
                 String curstr = "";
                 IntPtr hGlobal = pGetLineTextUnicode(p.LineNo);
                 HGlobalStatus hgs = HGlobalStatus.None;
-                if (hGlobal != null)
+                if (hGlobal != IntPtr.Zero)
                 {
                     try
                     {
