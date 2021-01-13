@@ -154,7 +154,8 @@ public sealed partial class HmCustomLivePreviewDynamicLib
             }
 
             // 途中でエラーが出るかもしれないので、相応しいUnlockやFreeが出来るように内部管理用
-            private enum HGlobalStatus { None, Lock, Unlock, Free };
+            private enum 
+                Status { None, Lock, Unlock, Free };
 
             // 現在の秀丸の編集中のテキスト全て。元が何の文字コードでも関係なく秀丸がwchar_tのユニコードで返してくれるので、
             // String^型に入れておけば良い。
@@ -169,7 +170,7 @@ public sealed partial class HmCustomLivePreviewDynamicLib
                 String curstr = "";
                 IntPtr hGlobal = pGetTotalTextUnicode();
                 HGlobalStatus hgs = HGlobalStatus.None;
-                if (hGlobal != null)
+                if (hGlobal != IntPtr.Zero)
                 {
                     try
                     {
@@ -268,7 +269,7 @@ public sealed partial class HmCustomLivePreviewDynamicLib
                 String curstr = "";
                 IntPtr hGlobal = pGetSelectedTextUnicode();
                 HGlobalStatus hgs = HGlobalStatus.None;
-                if (hGlobal != null)
+                if (hGlobal != IntPtr.Zero)
                 {
                     try
                     {
@@ -374,7 +375,7 @@ public sealed partial class HmCustomLivePreviewDynamicLib
                 String curstr = "";
                 IntPtr hGlobal = pGetLineTextUnicode(p.lineno);
                 HGlobalStatus hgs = HGlobalStatus.None;
-                if (hGlobal != null)
+                if (hGlobal != IntPtr.Zero)
                 {
                     try
                     {
