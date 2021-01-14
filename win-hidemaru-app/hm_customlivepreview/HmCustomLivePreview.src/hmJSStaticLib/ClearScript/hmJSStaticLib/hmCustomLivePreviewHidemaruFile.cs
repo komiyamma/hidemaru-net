@@ -379,7 +379,7 @@ public partial class HmCustomLivePreviewDynamicLib
                     }
                     catch (Exception e)
                     {
-                        throw e;
+                        throw;
                     }
                 }
 

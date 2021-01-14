@@ -374,7 +374,7 @@ public sealed partial class hmV8DynamicLib
                     }
                     catch (Exception e)
                     {
-                        throw e;
+                        throw;
                     }
                 }
 

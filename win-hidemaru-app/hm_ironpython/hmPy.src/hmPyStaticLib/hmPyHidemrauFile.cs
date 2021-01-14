@@ -486,7 +486,7 @@ public sealed partial class hmPyDynamicLib
                     }
                     catch (Exception e)
                     {
-                        throw e;
+                        throw;
                     }
                 }
 

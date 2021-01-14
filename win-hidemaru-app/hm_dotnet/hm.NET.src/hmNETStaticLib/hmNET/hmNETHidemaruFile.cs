@@ -358,7 +358,7 @@ internal sealed partial class hmNETDynamicLib
                     }
                     catch (Exception e)
                     {
-                        throw e;
+                        throw;
                     }
                 }
 

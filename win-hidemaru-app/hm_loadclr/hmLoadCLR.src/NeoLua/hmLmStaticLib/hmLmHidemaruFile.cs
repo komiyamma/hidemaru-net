@@ -377,7 +377,7 @@ public sealed partial class hmLmDynamicLib
                     }
                     catch (Exception e)
                     {
-                        throw e;
+                        throw;
                     }
                 }
 

@@ -378,7 +378,7 @@ public sealed partial class hmJSDynamicLib
                     }
                     catch (Exception e)
                     {
-                        throw e;
+                        throw;
                     }
                 }
 

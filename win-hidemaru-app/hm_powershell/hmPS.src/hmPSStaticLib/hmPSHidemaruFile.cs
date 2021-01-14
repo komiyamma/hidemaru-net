@@ -379,7 +379,7 @@ public sealed partial class hmPSDynamicLib
                     }
                     catch (Exception e)
                     {
-                        throw e;
+                        throw;
                     }
                 }
 
