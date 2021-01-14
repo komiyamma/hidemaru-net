@@ -6,10 +6,6 @@ C:\usr\web\hidemaru-net\win-hidemaru-app\hm_ironpython\hmPy.src\hmPYStaticLib\ob
 G:\repogitory\hidemaru-net\win-hidemaru-app\hm_ironpython\hmPy.src\hmPYStaticLib\obj\Release\hmPyStaticLib.csproj.CoreCompileInputs.cache
 G:\repogitory\hidemaru-net\win-hidemaru-app\hm_ironpython\hmPy.src\hmPYStaticLib\bin\Release\hmPyStaticLib.netmodule.config
 G:\repogitory\hidemaru-net\win-hidemaru-app\hm_ironpython\hmPy.src\hmPYStaticLib\bin\Release\hmPyStaticLib.netmodule
-G:\repogitory\hidemaru-net\win-hidemaru-app\hm_ironpython\hmPy.src\hmPYStaticLib\bin\Release\IronPython.dll
-G:\repogitory\hidemaru-net\win-hidemaru-app\hm_ironpython\hmPy.src\hmPYStaticLib\bin\Release\IronPython.Modules.dll
-G:\repogitory\hidemaru-net\win-hidemaru-app\hm_ironpython\hmPy.src\hmPYStaticLib\bin\Release\Microsoft.Dynamic.dll
-G:\repogitory\hidemaru-net\win-hidemaru-app\hm_ironpython\hmPy.src\hmPYStaticLib\bin\Release\Microsoft.Scripting.dll
 G:\repogitory\hidemaru-net\win-hidemaru-app\hm_ironpython\hmPy.src\hmPYStaticLib\obj\Release\hmPyStaticLib.csproj.CopyComplete
 G:\repogitory\hidemaru-net\win-hidemaru-app\hm_ironpython\hmPy.src\hmPYStaticLib\obj\Release\hmPyStaticLib.netmodule
 G:\repogitory\hidemaru-net\win-hidemaru-app\hm_ironpython\hmPy.src\hmPYStaticLib\obj\Release\hmPyStaticLib.csprojAssemblyReference.cache

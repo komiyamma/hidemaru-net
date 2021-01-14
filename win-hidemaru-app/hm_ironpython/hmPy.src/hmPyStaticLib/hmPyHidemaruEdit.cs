@@ -154,7 +154,7 @@ public sealed partial class hmPyDynamicLib
             }
 
             // 途中でエラーが出るかもしれないので、相応しいUnlockやFreeが出来るように内部管理用
-            private enum hGlobalStatus { None, Lock, Unlock, Free };
+            private enum HGlobalStatus { None, Lock, Unlock, Free };
 
             // 現在の秀丸の編集中のテキスト全て。元が何の文字コードでも関係なく秀丸がwchar_tのユニコードで返してくれるので、
             // String^型に入れておけば良い。
