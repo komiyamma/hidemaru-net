@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26430.16
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "hmPython3_setup_x64", "hmPython3_setup_x64\hmPython3_setup_x64.vdproj", "{B2865BA9-672F-476B-9D62-BB38875D9F5A}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "hmPython3_setup_x64", "hmPython3_setup_x64\hmPython3_setup_x64.vdproj", "{286CB308-D1A3-4A57-8919-34E80BA48793}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "hmPython3_setup_x86", "hmPython3_setup_x86\hmPython3_setup_x86.vdproj", "{DCA43DE1-80E3-4B28-9760-97A90ED95F86}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "hmPython3_setup_x86", "hmPython3_setup_x86\hmPython3_setup_x86.vdproj", "{F124ED16-E611-44E3-893E-645DF8F91BDC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,10 +13,10 @@ Global
 		Release|Default = Release|Default
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B2865BA9-672F-476B-9D62-BB38875D9F5A}.Debug|Default.ActiveCfg = Debug
-		{B2865BA9-672F-476B-9D62-BB38875D9F5A}.Release|Default.ActiveCfg = Release
-		{DCA43DE1-80E3-4B28-9760-97A90ED95F86}.Debug|Default.ActiveCfg = Debug
-		{DCA43DE1-80E3-4B28-9760-97A90ED95F86}.Release|Default.ActiveCfg = Release
+		{286CB308-D1A3-4A57-8919-34E80BA48793}.Debug|Default.ActiveCfg = Debug
+		{286CB308-D1A3-4A57-8919-34E80BA48793}.Release|Default.ActiveCfg = Release
+		{F124ED16-E611-44E3-893E-645DF8F91BDC}.Debug|Default.ActiveCfg = Debug
+		{F124ED16-E611-44E3-893E-645DF8F91BDC}.Release|Default.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
