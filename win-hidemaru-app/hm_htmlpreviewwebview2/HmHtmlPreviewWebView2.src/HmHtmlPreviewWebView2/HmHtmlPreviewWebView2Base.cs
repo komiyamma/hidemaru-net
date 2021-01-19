@@ -1,5 +1,5 @@
 ﻿/* 
- * Copyright (c) 2016-2017 Akitsugu Komiyama
+ * Copyright (c) 2021-2021 Akitsugu Komiyama
  * under the Apache License Version 2.0
  */
 
@@ -8,6 +8,7 @@ using Microsoft.Web.WebView2.WinForms;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Threading.Tasks;
 using Hidemaru;
 
 /// やたらめったらtry_catchなのは、「いつ不意に秀丸本体が閉じても可能な限り黙って終了できるようにするため」
@@ -38,10 +39,20 @@ internal abstract partial class HmHtmlBaseForm : System.Windows.Forms.Form
         SetTimerAttribute();
     }
 
+    private string GetStartTitle()
+    {
+        string start_path = Hm.Edit.FilePath;
+        if (start_path == null)
+        {
+            start_path = "about:blank";
+        }
+        return start_path;
+    }
+
     /// <summary>フォームの属性設定</summary>
     protected void SetFormAttribute()
     {
-        this.Text = "秀丸用 HmHtmlPreview";
+        this.Text = GetStartTitle();
 
         // このフォームサイズ
         this.Width = 800;
@@ -57,14 +68,10 @@ internal abstract partial class HmHtmlBaseForm : System.Windows.Forms.Form
     /// <summary>Webブラウザ属性設定</summary>
     protected void SetWebBrowserAttribute()
     {
-        string start_path = Hm.Edit.FilePath;
-        if (start_path == null) {
-            start_path = "about:blank";
-        }
         // WebBrowserオブジェクトを配置
         wb = wb = new WebView2
         {
-            Source = new Uri(start_path)
+            Source = new Uri(GetStartTitle())
         };
         wb.Anchor = (AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Right | AnchorStyles.Bottom);
         wb.NavigationCompleted += wb_NavigationCompleted;
@@ -160,21 +167,45 @@ internal abstract partial class HmHtmlBaseForm : System.Windows.Forms.Form
         }
     }
 
+
     /// <summary> wbのドキュメントの更新が完全に完了した時(最初の読み込み時も完了するとここに来る) </summary>
     protected async void wb_NavigationCompleted(object sender, CoreWebView2NavigationCompletedEventArgs e)
+    {
+        await ScrollToPreviousPotision();
+    }
+
+    private async Task ScrollToPreviousPotision()
     {
         try
         {
             if (isDocumentChanged)
             {
                 isDocumentChanged = false;
-                System.Diagnostics.Trace.WriteLine($"window.scrollTo({webBrowserScroll.X}, {webBrowserScroll.Y})");
                 // 保持していた座標へとスクロール
                 await wb.ExecuteScriptAsync($"window.scrollTo({webBrowserScroll.X}, {webBrowserScroll.Y})");
+
+                try
+                {
+                    // Document->Bodyが取れるパターン。これでは失敗するときもある。
+                    int X = int.Parse(await wb.ExecuteScriptAsync("document.body.scrollLeft"));
+                    int Y = int.Parse(await wb.ExecuteScriptAsync("document.body.scrollTop"));
+
+                    if (X != webBrowserScroll.X || Y != webBrowserScroll.Y)
+                    {
+                        await Task.Delay(300);
+                        await wb.ExecuteScriptAsync($"window.scrollTo({webBrowserScroll.X}, {webBrowserScroll.Y})");
+                    }
+                }
+                catch (Exception)
+                {
+                }
+
+
             }
         }
         catch (Exception)
         {
         }
     }
+
 }

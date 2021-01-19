@@ -1,12 +1,10 @@
 ﻿/* 
- * Copyright (c) 2016-2017 Akitsugu Komiyama
+ * Copyright (c) 2021-2021 Akitsugu Komiyama
  * under the Apache License Version 2.0
  */
 
-using System;
-using System.Net;
-using System.Windows.Forms;
 using Hidemaru;
+using System;
 using System.IO;
 
 internal partial class HmHtmlLiveForm : HmHtmlBaseForm
@@ -42,9 +40,16 @@ internal partial class HmHtmlLiveForm : HmHtmlBaseForm
             // 現在の編集の内容を取得
             string curHmEditTotalText = Hm.Edit.TotalText;
 
+
             // テキストが変化した時、もしくは、ファイル名が変化した時に更新
             if (strPrvHmEditTotalText != curHmEditTotalText || strCurFileFullPath != strPrvFileFullPath)
             {
+                // タイトルが食い違ってる場合は更新
+                if (strCurFileFullPath != strPrvFileFullPath)
+                {
+                    this.Text = strCurFileFullPath;
+                }
+
                 strPrvFileFullPath = strCurFileFullPath;
                 strPrvHmEditTotalText = curHmEditTotalText;
 
@@ -53,9 +58,7 @@ internal partial class HmHtmlLiveForm : HmHtmlBaseForm
                     // 手段その①．
                     // Document->Bodyが取れるパターン。これでは失敗するときもある。
                     webBrowserScroll.X = int.Parse( await wb.ExecuteScriptAsync("document.body.scrollLeft") );
-                    System.Diagnostics.Trace.WriteLine(webBrowserScroll.X);
                     webBrowserScroll.Y = int.Parse( await wb.ExecuteScriptAsync("document.body.scrollTop") );
-                    System.Diagnostics.Trace.WriteLine(webBrowserScroll.Y);
 
                     // 手段その②．
                     // HTMLエレメントのScroll位置を見に行くパターン。こちらも失敗するときもある。

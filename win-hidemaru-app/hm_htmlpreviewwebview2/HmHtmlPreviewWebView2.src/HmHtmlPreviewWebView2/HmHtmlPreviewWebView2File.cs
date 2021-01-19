@@ -1,13 +1,13 @@
 ﻿/* 
- * Copyright (c) 2016-2017 Akitsugu Komiyama
+ * Copyright (c) 2021-2021 Akitsugu Komiyama
  * under the Apache License Version 2.0
  */
 
-using System;
-using System.Windows.Forms;
-using System.IO;
-
 using Hidemaru;
+using System;
+using System.IO;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 internal class HmHtmlFileForm : HmHtmlBaseForm
 {
@@ -32,6 +32,7 @@ internal class HmHtmlFileForm : HmHtmlBaseForm
                 // URLで読み直し
                 Uri u = new Uri(strCurFileFullPath);
                 wb.Source = u;
+                this.Text = u.ToString();
 
                 if (strPrvFileFullPath != strCurFileFullPath)
                 {
@@ -61,6 +62,7 @@ internal class HmHtmlFileForm : HmHtmlBaseForm
                 {
                     strPrvFileFullPath = strCurFileFullPath;
                     SetWatcherAttribute();
+                    this.Text = strCurFileFullPath;
                 }
             }
             else
@@ -131,9 +133,7 @@ internal class HmHtmlFileForm : HmHtmlBaseForm
                         // 手段その①．
                         // Document->Bodyが取れるパターン。これでは失敗するときもある。
                         webBrowserScroll.X = int.Parse(await wb.ExecuteScriptAsync("document.body.scrollLeft"));
-                        System.Diagnostics.Trace.WriteLine(webBrowserScroll.X);
                         webBrowserScroll.Y = int.Parse(await wb.ExecuteScriptAsync("document.body.scrollTop"));
-                        System.Diagnostics.Trace.WriteLine(webBrowserScroll.Y);
 
                         // 手段その②．
                         // HTMLエレメントのScroll位置を見に行くパターン。こちらも失敗するときもある。
@@ -144,12 +144,12 @@ internal class HmHtmlFileForm : HmHtmlBaseForm
                         }
                     }
 
+                    System.Diagnostics.Trace.WriteLine("変更した");
                     // URLで読み直し
                     Uri u = new Uri(strCurFileFullPath);
                     wb.Source = u;
                     wb.NavigateToString(Hm.Edit.TotalText);
                     isDocumentChanged = true;
-
                 }
             }
         }
