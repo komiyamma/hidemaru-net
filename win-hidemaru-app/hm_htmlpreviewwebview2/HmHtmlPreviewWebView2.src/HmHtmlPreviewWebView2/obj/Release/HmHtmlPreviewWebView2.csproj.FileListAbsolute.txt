@@ -24,3 +24,4 @@ G:\repogitory\hidemaru-net\win-hidemaru-app\hm_htmlpreviewwebview2\HmHtmlPreview
 G:\repogitory\hidemaru-net\win-hidemaru-app\hm_htmlpreviewwebview2\HmHtmlPreviewWebView2.src\HmHtmlPreviewWebView2\obj\Release\HmHtmlPreviewWebView2.csproj.CoreCompileInputs.cache
 G:\repogitory\hidemaru-net\win-hidemaru-app\hm_htmlpreviewwebview2\HmHtmlPreviewWebView2.src\HmHtmlPreviewWebView2\obj\Release\HmHtmlPreviewWebView2.csproj.CopyComplete
 G:\repogitory\hidemaru-net\win-hidemaru-app\hm_htmlpreviewwebview2\HmHtmlPreviewWebView2.src\HmHtmlPreviewWebView2\obj\Release\HmHtmlPreviewWebView2.dll
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_htmlpreviewwebview2\HmHtmlPreviewWebView2.src\HmHtmlPreviewWebView2\obj\Release\HmHtmlPreviewWebView2.csprojAssemblyReference.cache
