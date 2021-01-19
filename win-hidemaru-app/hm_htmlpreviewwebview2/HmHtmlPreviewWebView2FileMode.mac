@@ -1,0 +1,17 @@
+/* 
+ * Copyright (c) 2017-2019 Akitsugu Komiyama
+ * under the Apache License Version 2.0
+ */
+
+#HMNET = loaddll( hidemarudir + @"\hm.NET.dll");
+
+if (#HMNET) {
+	#_ = dllfuncw(#HMNET, "SetDetachMethod", currentmacrodirectory + @"\HmHtmlPreviewWebView2.dll", "HmHtmlPreviewWebView2", "OnDetachMethod");
+
+	##mode = 1; // 1: FileÉÇÅ[Éh
+    #_ = dllfuncw(#HMNET, "CallMethod", currentmacrodirectory + @"\HmHtmlPreviewWebView2.dll", "HmHtmlPreviewWebView2", "Show", hidemaruhandle(0), ##mode );
+} else {
+    message("Hm.NET.dllÇì«Ç›çûÇﬁÇ±Ç∆Ç™èoóàÇ‹ÇπÇÒ");
+}
+
+
