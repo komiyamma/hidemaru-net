@@ -11,3 +11,16 @@ G:\repogitory\hidemaru-net\win-hidemaru-app\hm_htmlwebview2\HmHtmlPreview.src\Hm
 G:\repogitory\hidemaru-net\win-hidemaru-app\hm_htmlwebview2\HmHtmlPreview.src\HmHtmlPreview\obj\Release\HmHtmlPreviewWebView2.csproj.CoreCompileInputs.cache
 G:\repogitory\hidemaru-net\win-hidemaru-app\hm_htmlwebview2\HmHtmlPreview.src\HmHtmlPreview\obj\Release\HmHtmlPreviewWebView2.csproj.CopyComplete
 G:\repogitory\hidemaru-net\win-hidemaru-app\hm_htmlwebview2\HmHtmlPreview.src\HmHtmlPreview\obj\Release\HmHtmlPreviewWebView2.dll
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_htmlpreviewwebview2\HmHtmlPreviewWebView2.src\HmHtmlPreviewWebView2\bin\Release\x86\WebView2Loader.dll
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_htmlpreviewwebview2\HmHtmlPreviewWebView2.src\HmHtmlPreviewWebView2\bin\Release\x64\WebView2Loader.dll
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_htmlpreviewwebview2\HmHtmlPreviewWebView2.src\HmHtmlPreviewWebView2\bin\Release\arm64\WebView2Loader.dll
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_htmlpreviewwebview2\HmHtmlPreviewWebView2.src\HmHtmlPreviewWebView2\bin\Release\HmHtmlPreviewWebView2.dll
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_htmlpreviewwebview2\HmHtmlPreviewWebView2.src\HmHtmlPreviewWebView2\bin\Release\Microsoft.Web.WebView2.Core.dll
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_htmlpreviewwebview2\HmHtmlPreviewWebView2.src\HmHtmlPreviewWebView2\bin\Release\Microsoft.Web.WebView2.WinForms.dll
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_htmlpreviewwebview2\HmHtmlPreviewWebView2.src\HmHtmlPreviewWebView2\bin\Release\Microsoft.Web.WebView2.Wpf.dll
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_htmlpreviewwebview2\HmHtmlPreviewWebView2.src\HmHtmlPreviewWebView2\bin\Release\Microsoft.Web.WebView2.Core.xml
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_htmlpreviewwebview2\HmHtmlPreviewWebView2.src\HmHtmlPreviewWebView2\bin\Release\Microsoft.Web.WebView2.WinForms.xml
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_htmlpreviewwebview2\HmHtmlPreviewWebView2.src\HmHtmlPreviewWebView2\bin\Release\Microsoft.Web.WebView2.Wpf.xml
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_htmlpreviewwebview2\HmHtmlPreviewWebView2.src\HmHtmlPreviewWebView2\obj\Release\HmHtmlPreviewWebView2.csproj.CoreCompileInputs.cache
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_htmlpreviewwebview2\HmHtmlPreviewWebView2.src\HmHtmlPreviewWebView2\obj\Release\HmHtmlPreviewWebView2.csproj.CopyComplete
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_htmlpreviewwebview2\HmHtmlPreviewWebView2.src\HmHtmlPreviewWebView2\obj\Release\HmHtmlPreviewWebView2.dll

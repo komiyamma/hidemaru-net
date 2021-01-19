@@ -44,8 +44,8 @@ internal abstract partial class HmHtmlBaseForm : System.Windows.Forms.Form
         this.Text = "秀丸用 HmHtmlPreview";
 
         // このフォームサイズ
-        this.Width = 1500;
-        this.Height = 900;
+        this.Width = 800;
+        this.Height = 600;
 
         // 効果なさそうだが、一応Waitカーソルは使わない
         Application.UseWaitCursor = false;
@@ -74,11 +74,12 @@ internal abstract partial class HmHtmlBaseForm : System.Windows.Forms.Form
         // wb.ScriptErrorsSuppressed = true;
 
         // フォームのサイズ変化した時追従
-       //  this.SizeChanged += new EventHandler(form_SizeChanged);
+        this.SizeChanged += new EventHandler(form_SizeChanged);
         this.Controls.Add(wb);
 
         wb_DocumentInit();
     }
+
 
     /// <summary>タイマー属性設定。データ更新の必要性があるかどうかの基礎更新。
     /// Liveモードでは、このタイミングがデータ更新のタイミング。
@@ -95,7 +96,7 @@ internal abstract partial class HmHtmlBaseForm : System.Windows.Forms.Form
         update_Tick(null, null);
     }
 
-    protected void update_Tick(object sender, EventArgs e)
+    protected async void update_Tick(object sender, EventArgs e)
     {
         update_Tick_Implements(sender, e);
     }
@@ -160,20 +161,20 @@ internal abstract partial class HmHtmlBaseForm : System.Windows.Forms.Form
     }
 
     /// <summary> wbのドキュメントの更新が完全に完了した時(最初の読み込み時も完了するとここに来る) </summary>
-    protected void wb_NavigationCompleted(object sender, CoreWebView2NavigationCompletedEventArgs e)
+    protected async void wb_NavigationCompleted(object sender, CoreWebView2NavigationCompletedEventArgs e)
     {
         try
         {
             if (isDocumentChanged)
             {
                 isDocumentChanged = false;
+                System.Diagnostics.Trace.WriteLine($"window.scrollTo({webBrowserScroll.X}, {webBrowserScroll.Y})");
                 // 保持していた座標へとスクロール
-                wb.ExecuteScriptAsync($"window.scrollTo(${webBrowserScroll.X}, ${webBrowserScroll.Y})");
+                await wb.ExecuteScriptAsync($"window.scrollTo({webBrowserScroll.X}, {webBrowserScroll.Y})");
             }
         }
         catch (Exception)
         {
         }
     }
-
 }

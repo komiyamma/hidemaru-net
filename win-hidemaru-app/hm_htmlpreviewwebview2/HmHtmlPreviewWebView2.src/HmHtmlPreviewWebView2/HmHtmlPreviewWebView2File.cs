@@ -49,7 +49,7 @@ internal class HmHtmlFileForm : HmHtmlBaseForm
     /// Fileモードでは、このタイミングはユーザーが「なんのファイル」を開いているのか、の情報の更新。
     /// 前回と食い違っていたら、監視対象のフォルダ等を再度設定し直す
     ///</summary>
-    protected override void update_Tick_Implements(object sender, EventArgs e)
+    protected override async void update_Tick_Implements(object sender, EventArgs e)
     {
         try
         {
@@ -115,7 +115,7 @@ internal class HmHtmlFileForm : HmHtmlBaseForm
     /// 秀丸がファイル名を変更したり、ディレクトリを変更したりしても追跡できるようにするため。
     /// 又、ファイルの保存時は、webBrowserの内容を更新する。
     /// </summary>
-    protected void watcher_Changed(object o, FileSystemEventArgs e)
+    protected async void watcher_Changed(object o, FileSystemEventArgs e)
     {
         try
         {
@@ -126,43 +126,28 @@ internal class HmHtmlFileForm : HmHtmlBaseForm
                 // 今、秀丸で編集中のテキストファイル名と一致
                 if (String.Compare(e.FullPath, strOpenFileFullPath, true) == 0)
                 {
-                    /*
-
-                    // 今のスクロールの位置を後で復元するので保存しておく
-                    if (wb.Document != null)
+                    if (true)
                     {
-                        try
-                        {
-                            if (wb.Document.Body != null)
-                            {
-                                // 手段その①．
-                                // Document->Bodyが取れるパターン。これでは失敗するときもある。
-                                webBrowserScroll.X = wb.Document.Body.ScrollLeft;
-                                webBrowserScroll.Y = wb.Document.Body.ScrollTop;
-                            }
-                            // 手段その②．
-                            // HTMLエレメントのScroll位置を見に行くパターン。こちらも失敗するときもある。
-                            if (wb.Document.GetElementsByTagName("HTML") != null)
-                            {
-                                if (wb.Document.GetElementsByTagName("HTML")[0] != null)
-                                {
-                                    webBrowserScroll.X = wb.Document.GetElementsByTagName("HTML")[0].ScrollLeft;
-                                    webBrowserScroll.Y = wb.Document.GetElementsByTagName("HTML")[0].ScrollTop;
-                                }
+                        // 手段その①．
+                        // Document->Bodyが取れるパターン。これでは失敗するときもある。
+                        webBrowserScroll.X = int.Parse(await wb.ExecuteScriptAsync("document.body.scrollLeft"));
+                        System.Diagnostics.Trace.WriteLine(webBrowserScroll.X);
+                        webBrowserScroll.Y = int.Parse(await wb.ExecuteScriptAsync("document.body.scrollTop"));
+                        System.Diagnostics.Trace.WriteLine(webBrowserScroll.Y);
 
-                            }
-                        }
-                        catch (Exception)
+                        // 手段その②．
+                        // HTMLエレメントのScroll位置を見に行くパターン。こちらも失敗するときもある。
+                        if (webBrowserScroll.Y == 0)
                         {
+                            webBrowserScroll.X = int.Parse(await wb.ExecuteScriptAsync(@"document.getElementsByTagName('HTML')[0].scrollLeft"));
+                            webBrowserScroll.Y = int.Parse(await wb.ExecuteScriptAsync(@"document.getElementsByTagName('HTML')[0].scrollTop"));
                         }
                     }
-                    */
 
                     // URLで読み直し
                     Uri u = new Uri(strCurFileFullPath);
                     wb.Source = u;
                     wb.NavigateToString(Hm.Edit.TotalText);
-
                     isDocumentChanged = true;
 
                 }

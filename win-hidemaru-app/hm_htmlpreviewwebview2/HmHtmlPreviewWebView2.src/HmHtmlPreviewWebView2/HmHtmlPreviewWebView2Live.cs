@@ -33,7 +33,7 @@ internal partial class HmHtmlLiveForm : HmHtmlBaseForm
     /// 座標を保存、相対ディレクトリの内容を絶対ディレクトリへと修正、音を消して、テキストを更新する。
     /// テキストが更新された後は、webBrowser_Compo
     ///</summary>
-    protected override void update_Tick_Implements(object sender, EventArgs e)
+    protected override async void update_Tick_Implements(object sender, EventArgs e)
     {
         try
         {
@@ -48,23 +48,23 @@ internal partial class HmHtmlLiveForm : HmHtmlBaseForm
                 strPrvFileFullPath = strCurFileFullPath;
                 strPrvHmEditTotalText = curHmEditTotalText;
 
-                /*
-                if (wb.Document != null)
+                if (true)
                 {
                     // 手段その①．
                     // Document->Bodyが取れるパターン。これでは失敗するときもある。
-                    webBrowserScroll.X = wb.Document.Body.ScrollLeft;
-                    webBrowserScroll.Y = wb.Document.Body.ScrollTop;
+                    webBrowserScroll.X = int.Parse( await wb.ExecuteScriptAsync("document.body.scrollLeft") );
+                    System.Diagnostics.Trace.WriteLine(webBrowserScroll.X);
+                    webBrowserScroll.Y = int.Parse( await wb.ExecuteScriptAsync("document.body.scrollTop") );
+                    System.Diagnostics.Trace.WriteLine(webBrowserScroll.Y);
 
                     // 手段その②．
                     // HTMLエレメントのScroll位置を見に行くパターン。こちらも失敗するときもある。
                     if (webBrowserScroll.Y == 0)
                     {
-                        webBrowserScroll.X = wb.Document.GetElementsByTagName("HTML")[0].ScrollLeft;
-                        webBrowserScroll.Y = wb.Document.GetElementsByTagName("HTML")[0].ScrollTop;
+                        webBrowserScroll.X = int.Parse(await wb.ExecuteScriptAsync(@"document.getElementsByTagName('HTML')[0].scrollLeft") );
+                        webBrowserScroll.Y = int.Parse(await wb.ExecuteScriptAsync(@"document.getElementsByTagName('HTML')[0].scrollTop"));
                     }
                 }
-                */
 
                 // ファイル名が有効であるならば、相対を変換する
                 if (strCurFileFullPath.Length > 0)
@@ -82,6 +82,8 @@ internal partial class HmHtmlLiveForm : HmHtmlBaseForm
         catch (Exception)
         {
         }
+
+
     }
 
 
