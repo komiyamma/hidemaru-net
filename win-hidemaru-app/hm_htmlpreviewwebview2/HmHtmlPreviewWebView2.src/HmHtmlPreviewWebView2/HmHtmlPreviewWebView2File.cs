@@ -144,7 +144,6 @@ internal class HmHtmlFileForm : HmHtmlBaseForm
                         }
                     }
 
-                    System.Diagnostics.Trace.WriteLine("変更した");
                     // URLで読み直し
                     Uri u = new Uri(strCurFileFullPath);
                     wb.Source = u;
