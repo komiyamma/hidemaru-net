@@ -1,4 +1,4 @@
-- HmWebView2WebBrowserMode
+- HmWebView2BrowserMode
    Copyright (c) 2021-2021 Akitsugu Komiyama
 
 

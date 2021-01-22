@@ -3,17 +3,16 @@
  * under the Apache License Version 2.0
  */
 
+using Hidemaru;
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 
-using Hidemaru;
-using System.Collections.Generic;
-using System.Diagnostics;
-
-internal partial class HmWebView2WebBrowserModeForm : Form
+internal partial class HmWebView2BrowserModeForm : Form
 {
     [DllImport("user32.dll")]
     static extern IntPtr GetActiveWindow();

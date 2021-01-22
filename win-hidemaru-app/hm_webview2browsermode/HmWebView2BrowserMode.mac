@@ -9,7 +9,7 @@ AnalyzeArgument:
     $url = getarg(0);
     // 引数があるなら、そこにきっと飛びたいのだろう。
     if ($url != "") {
-        // ローカルにファイルが存在するなら、バイナリで開いて警告を回避しつつ、そのままHmWebView2WebBrowserへと流していく。
+        // ローカルにファイルが存在するなら、バイナリで開いて警告を回避しつつ、そのままHmWebView2Browserへと流していく。
         if (existfile($url)) {
             openfile "/h " + $url, binary;
         // ローカルに存在しないなら、URLと自動的にみなす。
@@ -29,25 +29,25 @@ AnalyzeArgument:
         endmacro;
     }
 
-HmWebView2WebBrowser:
+HmWebView2Browser:
     #HMNET = loaddll( hidemarudir + @"\hm.NET.dll" );
 
     if (#HMNET) {
 
-        #_ = dllfuncw(#HMNET, "SetDetachMethod", currentmacrodirectory + @"\HmWebView2WebBrowserMode.dll", "HmWebView2WebBrowserMode", "OnDetachMethod");
+        #_ = dllfuncw(#HMNET, "SetDetachMethod", currentmacrodirectory + @"\HmWebView2BrowserMode.dll", "HmWebView2BrowserMode", "OnDetachMethod");
 
         // マクロを手動実行ならスイッチ。拡張子等の条件はなし。即ち、「実行されてないなら、実行」「実行されてるなら、閉じる」
         if (event == 0) {
-            #WebBrowserIsNull = dllfuncw( #HMNET, "CallMethod", currentmacrodirectory + @"\HmWebView2WebBrowserMode.dll", "HmWebView2WebBrowserMode", "IsNull" );
+            #WebBrowserIsNull = dllfuncw( #HMNET, "CallMethod", currentmacrodirectory + @"\HmWebView2BrowserMode.dll", "HmWebView2BrowserMode", "IsNull" );
             if (#WebBrowserIsNull) {
-                #_ = dllfuncw( #HMNET, "CallMethod", currentmacrodirectory + @"\HmWebView2WebBrowserMode.dll", "HmWebView2WebBrowserMode", "Create" );
+                #_ = dllfuncw( #HMNET, "CallMethod", currentmacrodirectory + @"\HmWebView2BrowserMode.dll", "HmWebView2BrowserMode", "Create" );
             } else {
-                #_ = dllfuncw( #HMNET, "CallMethod", currentmacrodirectory + @"\HmWebView2WebBrowserMode.dll", "HmWebView2WebBrowserMode", "Destroy" );
+                #_ = dllfuncw( #HMNET, "CallMethod", currentmacrodirectory + @"\HmWebView2BrowserMode.dll", "HmWebView2BrowserMode", "Destroy" );
             }
 
         // ファイル読込時。拡張子の条件がマッチするなら。
         } else if (event == 1) {
-            #_ = dllfuncw( #HMNET, "CallMethod", currentmacrodirectory + @"\HmWebView2WebBrowserMode.dll", "HmWebView2WebBrowserMode", "Create" );
+            #_ = dllfuncw( #HMNET, "CallMethod", currentmacrodirectory + @"\HmWebView2BrowserMode.dll", "HmWebView2BrowserMode", "Create" );
         }
 
     } else {

@@ -2,23 +2,21 @@
  * Copyright (c) 2021 Akitsugu Komiyama
  * under the Apache License Version 2.0
  */
- 
+
 using Hidemaru;
+using Microsoft.Web.WebView2.WinForms;
 using System;
 using System.Drawing;
-using System.IO;
-using System.Text;
 using System.Windows.Forms;
-using Microsoft.Web.WebView2.WinForms;
 
-internal partial class HmWebView2WebBrowserModeForm : Form
+internal partial class HmWebView2BrowserModeForm : Form
 {
-    public static HmWebView2WebBrowserModeForm form { get; set; }
+    public static HmWebView2BrowserModeForm form { get; set; }
 
     private WebView2 wb;
     private String fontname;
 
-    public HmWebView2WebBrowserModeForm(String fontname)
+    public HmWebView2BrowserModeForm(String fontname)
     {
         this.fontname = fontname;
         SetFormAttr();
@@ -54,22 +52,30 @@ internal partial class HmWebView2WebBrowserModeForm : Form
 
     private string GetStartTitle()
     {
-        string start_path = Hm.Edit.FilePath;
-        if (start_path == null)
+        string start_path = Hm.Edit.FilePath ?? "";
+        if (start_path == "")
         {
             start_path = "about:blank";
         }
         return start_path;
     }
+
     private void SetWebBrowserAttr()
     {
         wb = new WebView2
         {
-            Source = new Uri(GetStartTitle())
+            Source = new Uri(GetStartTitle()),
         };
         // wb.ScriptErrorsSuppressed = true;
+        wb.CoreWebView2Ready += wb_CoreWebView2Ready;
         wb.Dock = DockStyle.Fill;
         this.Controls.Add(wb);
+    }
+
+    private bool isCoreWebView2Ready = false;
+    private void wb_CoreWebView2Ready(object sender, EventArgs e)
+    {
+        isCoreWebView2Ready = true;
     }
 
     public String GetWebBrowserDocumentText()
@@ -243,13 +249,15 @@ internal partial class HmWebView2WebBrowserModeForm : Form
         // 名前が無いのならテキスト内容をそのまま
         else
         {
-            var strCurTotalText = Hm.Edit.TotalText;
-            if (strPrevTotalText != strCurTotalText)
-            {
-                strPrevTotalText = strCurTotalText;
-                if (wb != null)
+            if (isCoreWebView2Ready) { 
+                var strCurTotalText = Hm.Edit.TotalText;
+                if (strPrevTotalText != strCurTotalText)
                 {
-                    wb.NavigateToString(strCurTotalText);
+                    strPrevTotalText = strCurTotalText;
+                    if (wb != null)
+                    {
+                        wb.NavigateToString(strCurTotalText);
+                    }
                 }
             }
         }
@@ -261,7 +269,7 @@ internal partial class HmWebView2WebBrowserModeForm : Form
         if (wb != null)
         {
             string url = wb.Source.ToString();
-            if ( String.IsNullOrEmpty(url))
+            if ( url != null )
             {
                 if (url.ToLower().Contains("close_hmwebbrowsermode"))
                 {

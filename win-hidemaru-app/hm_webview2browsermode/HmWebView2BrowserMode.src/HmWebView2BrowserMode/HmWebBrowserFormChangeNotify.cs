@@ -6,15 +6,12 @@
 using Hidemaru;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Runtime.InteropServices;
-using System.Text.RegularExpressions;
-using System.Threading;
 using System.Windows.Forms;
 
 // ファイルの変更を検知すると、原則的には閉じるのであるが、
 // ファイルの変更直前に、秀丸マクロ側から、新たなるファイルの命令があった場合には継続することとなる。
-internal partial class HmWebView2WebBrowserModeForm : Form
+internal partial class HmWebView2BrowserModeForm : Form
 {
     class NotifyData : ICloneable
     {

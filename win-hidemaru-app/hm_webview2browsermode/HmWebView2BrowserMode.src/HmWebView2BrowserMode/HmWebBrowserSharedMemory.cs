@@ -8,7 +8,7 @@ using System.Diagnostics;
 using System.IO.MemoryMappedFiles;
 using System.Windows.Forms;
 
-internal partial class HmWebView2WebBrowserModeForm : Form
+internal partial class HmWebView2BrowserModeForm : Form
 {
     private static MemoryMappedFile m_Mmf = null;
     private static MemoryMappedViewAccessor m_Accessor = null;
@@ -18,7 +18,7 @@ internal partial class HmWebView2WebBrowserModeForm : Form
         if (m_Mmf == null)
         {
             // 共有メモリ生成
-            m_Mmf = MemoryMappedFile.CreateOrOpen(@"HmWebView2WebBrowserModeShared", sizeof(Int64));
+            m_Mmf = MemoryMappedFile.CreateOrOpen(@"HmWebView2BrowserModeShared", sizeof(Int64));
             m_Accessor = m_Mmf.CreateViewAccessor();
         }
     }

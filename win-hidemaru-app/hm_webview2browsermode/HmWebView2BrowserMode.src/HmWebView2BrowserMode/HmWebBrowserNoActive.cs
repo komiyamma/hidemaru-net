@@ -7,7 +7,7 @@ using System;
 using System.Windows.Forms;
 
 // これらはアクティブ化しないための特殊な施策。
-internal partial class HmWebView2WebBrowserModeForm : Form
+internal partial class HmWebView2BrowserModeForm : Form
 {
     private void SetFormNoBorderAttr()
     {

@@ -8,18 +8,18 @@ using Hidemaru;
 using System;
 using System.Text;
 
-public class HmWebView2WebBrowserMode
+public class HmWebView2BrowserMode
 {
     private static bool HmWebBrowserModeFormClosed()
     {
-        return HmWebView2WebBrowserModeForm.form == null || HmWebView2WebBrowserModeForm.form.IsClosed();
+        return HmWebView2BrowserModeForm.form == null || HmWebView2BrowserModeForm.form.IsClosed();
     }
 
     public static IntPtr Create()
     {
         try
         {
-            HmWebView2WebBrowserModeForm.SetContinueNotify();
+            HmWebView2BrowserModeForm.SetContinueNotify();
             if (HmWebBrowserModeFormClosed())
             {
                 String fontname = (String)Hm.Macro.Var["fontname"];
@@ -27,7 +27,7 @@ public class HmWebView2WebBrowserMode
                 Int32 argb = (Int32)(dynamic)Hm.Macro.Var["tcolor"];
                 Color tcolor = Color.FromArgb(argb);
                 */
-                HmWebView2WebBrowserModeForm.form = new HmWebView2WebBrowserModeForm(fontname);
+                HmWebView2BrowserModeForm.form = new HmWebView2BrowserModeForm(fontname);
             }
         }
         catch (Exception e)
@@ -55,7 +55,7 @@ public class HmWebView2WebBrowserMode
     {
         if (!HmWebBrowserModeFormClosed())
         {
-            return HmWebView2WebBrowserModeForm.form.GetWebBrowserDocumentText();
+            return HmWebView2BrowserModeForm.form.GetWebBrowserDocumentText();
         }
         return "";
     }
@@ -64,10 +64,10 @@ public class HmWebView2WebBrowserMode
     {
         try
         {
-            if (HmWebView2WebBrowserModeForm.form != null)
+            if (HmWebView2BrowserModeForm.form != null)
             {
-                HmWebView2WebBrowserModeForm.form.Close();
-                HmWebView2WebBrowserModeForm.form = null;
+                HmWebView2BrowserModeForm.form.Close();
+                HmWebView2BrowserModeForm.form = null;
             }
         }
         catch (Exception e)
