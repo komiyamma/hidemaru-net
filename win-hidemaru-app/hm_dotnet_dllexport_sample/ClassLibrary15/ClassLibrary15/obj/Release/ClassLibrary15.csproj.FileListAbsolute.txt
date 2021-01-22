@@ -7,3 +7,5 @@ G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dllexport_sample\ClassLibrary15\C
 G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dllexport_sample\ClassLibrary15\ClassLibrary15\obj\Release\ClassLibrary15.csproj.CoreCompileInputs.cache
 G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dllexport_sample\ClassLibrary15\ClassLibrary15\obj\Release\ClassLibrary15.dll
 G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dllexport_sample\ClassLibrary15\ClassLibrary15\obj\Release\ClassLibrary15.pdb
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_dllexport_sample\ClassLibrary15\ClassLibrary15\obj\Release\ClassLibrary15.csprojAssemblyReference.cache
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_dllexport_sample\ClassLibrary15\ClassLibrary15\obj\Release\ClassLibrary15.csproj.CoreCompileInputs.cache

@@ -475,13 +475,18 @@ public class Hm {
 	 */
     private static void _AddClassPath(String path) {
 
-		URLClassLoader loader = (URLClassLoader)ClassLoader.getSystemClassLoader(); // Java9ではエラー
-
 		try {
+    		URLClassLoader loader = (URLClassLoader)ClassLoader.getSystemClassLoader(); // Java9ではエラー
 			URL u = new java.io.File(path).toURI().toURL();
  			Method m = URLClassLoader.class.getDeclaredMethod("addURL", new Class[]{ URL.class }); // Java9ではエラー
 			m.setAccessible(true);
 			m.invoke(loader, new Object[]{u});
+			Hm.debugInfo("ClassPathに「" + path + "」を追加しました");
+		} catch (NoSuchMethodException e) {
+			ClassLoader classLoader = ClassLoader.getSystemClassLoader();
+    		Method method = classLoader.getClass().getDeclaredMethod("appendToClassPathForInstrumentation", String.class);
+			method.setAccessible(true);
+			method.invoke(classLoader, path);
 			Hm.debugInfo("ClassPathに「" + path + "」を追加しました");
 		} catch (Exception e){
 			// 失敗は予測されること。いちいち止めない。

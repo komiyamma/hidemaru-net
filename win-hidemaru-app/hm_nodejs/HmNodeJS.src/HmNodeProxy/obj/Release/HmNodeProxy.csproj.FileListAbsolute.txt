@@ -36,3 +36,4 @@ C:\usr\web\hidemaru-net\win-hidemaru-app\hm_nodejs\HmNodeJS.src\HmNodeProxy\bin\
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_nodejs\HmNodeJS.src\HmNodeProxy\obj\Release\HmNodeProxy.resource.resources
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_nodejs\HmNodeJS.src\HmNodeProxy\obj\Release\HmNodeProxy.csproj.GenerateResource.Cache
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_nodejs\HmNodeJS.src\HmNodeProxy\obj\Release\HmNodeProxy.exe
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_nodejs\HmNodeJS.src\HmNodeProxy\obj\Release\HmNodeProxy.exe

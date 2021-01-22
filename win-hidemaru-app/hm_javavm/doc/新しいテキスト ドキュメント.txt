@@ -1,0 +1,14 @@
+これは、新しいバージョンのJavaと互換性を持たせるためのAllainのメソッドの簡単な回避策です。
+
+ClassLoader classLoader = ClassLoader.getSystemClassLoader();
+try {
+    Method method = classLoader.getClass().getDeclaredMethod("addURL", URL.class);
+    method.setAccessible(true);
+    method.invoke(classLoader, new File(jarPath).toURI().toURL());
+} catch (NoSuchMethodException e) {
+    Method method = classLoader.getClass()
+            .getDeclaredMethod("appendToClassPathForInstrumentation", String.class);
+    method.setAccessible(true);
+    method.invoke(classLoader, jarPath);
+}
+特定のJVMの内部実装の知識に依存しているため、理想的ではなく、普遍的なソリューションではないことに注意してください。ただし、標準のOpenJDKまたはOracle JVMを使用することがわかっている場合は、すばやく簡単に回避できます。また、将来、新しいJVMバージョンがリリースされるときに破損する可能性があるため、この点に注意する必要があります。

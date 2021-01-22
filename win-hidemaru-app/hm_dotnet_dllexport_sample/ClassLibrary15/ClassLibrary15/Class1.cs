@@ -85,6 +85,11 @@ namespace ClassLibrary15
             return hWStrPtr.DangerousGetHandle();
         }
 
+        [DllExport]
+        public static IntPtr DllDetachFunc_After_Hm866(IntPtr release_status)
+        {
+            return (IntPtr)1;
+        }
 
 
     }
