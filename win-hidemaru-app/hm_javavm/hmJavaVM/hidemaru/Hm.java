@@ -482,13 +482,19 @@ public class Hm {
 			m.setAccessible(true);
 			m.invoke(loader, new Object[]{u});
 			Hm.debugInfo("ClassPathに「" + path + "」を追加しました");
-		} catch (NoSuchMethodException e) {
-			ClassLoader classLoader = ClassLoader.getSystemClassLoader();
-    		Method method = classLoader.getClass().getDeclaredMethod("appendToClassPathForInstrumentation", String.class);
-			method.setAccessible(true);
-			method.invoke(classLoader, path);
-			Hm.debugInfo("ClassPathに「" + path + "」を追加しました");
-		} catch (Exception e){
+		} catch (NoSuchMethodException ex1) {
+			// この記述ではJava9以降ではまだクラスを見つけられない
+			try {
+				ClassLoader classLoader = ClassLoader.getSystemClassLoader();
+	    		Method method = classLoader.getClass().getDeclaredMethod("appendToClassPathForInstrumentation", String.class);
+				method.setAccessible(true);
+				method.invoke(classLoader, path);
+				Hm.debugInfo("ClassPathに「" + path + "」を追加しました");
+			} catch (Exception ex2) {
+				// 失敗は予測されること。いちいち止めない。
+				Hm.debugInfo( new RuntimeException("ClassPathの追加に失敗しました。(" + path + ")" ) );
+			}
+		} catch (Exception ex3){
 			// 失敗は予測されること。いちいち止めない。
 			Hm.debugInfo( new RuntimeException("ClassPathの追加に失敗しました。(" + path + ")" ) );
 		}
