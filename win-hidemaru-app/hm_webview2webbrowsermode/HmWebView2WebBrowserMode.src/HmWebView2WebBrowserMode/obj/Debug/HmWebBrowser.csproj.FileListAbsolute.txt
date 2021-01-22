@@ -1,0 +1,5 @@
+c:\users\admin\documents\visual studio 2017\Projects\HmWebBrowser\HmWebBrowser\bin\Debug\HmWebBrowser.dll
+c:\users\admin\documents\visual studio 2017\Projects\HmWebBrowser\HmWebBrowser\bin\Debug\HmWebBrowser.pdb
+c:\users\admin\documents\visual studio 2017\Projects\HmWebBrowser\HmWebBrowser\bin\Debug\hm.NET.dll
+c:\users\admin\documents\visual studio 2017\Projects\HmWebBrowser\HmWebBrowser\obj\Debug\HmWebBrowser.dll
+c:\users\admin\documents\visual studio 2017\Projects\HmWebBrowser\HmWebBrowser\obj\Debug\HmWebBrowser.pdb
