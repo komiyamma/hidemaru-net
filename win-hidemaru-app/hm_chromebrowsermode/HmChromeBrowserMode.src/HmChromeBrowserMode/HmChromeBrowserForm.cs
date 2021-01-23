@@ -100,7 +100,11 @@ internal partial class HmChromeBrowserModeForm : Form
             {
                 if (!Cef.IsInitialized)
                 {
-                    var settings = new CefSharp.WinForms.CefSettings();
+                    var settings = new CefSharp.WinForms.CefSettings
+                    {
+                        CefCommandLineArgs = { ["disable-gpu-shader-disk-cache"] = "1" }
+                    };
+
 
                     // By default CEF uses an in memory cache, to save cached data e.g. passwords you need to specify a cache path
                     // NOTE: The executing user must have sufficient privileges to write to this folder.
