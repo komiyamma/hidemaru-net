@@ -16,11 +16,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\master\\source\\repos\\sample\\sample\\sample.csproj",
+      "projectUniqueName": "G:\\repogitory\\hidemaru-net\\win-hidemaru-app\\hm_dotnet_compatible\\sample\\sample.csproj",
       "projectName": "sample",
-      "projectPath": "C:\\Users\\master\\source\\repos\\sample\\sample\\sample.csproj",
+      "projectPath": "G:\\repogitory\\hidemaru-net\\win-hidemaru-app\\hm_dotnet_compatible\\sample\\sample.csproj",
       "packagesPath": "C:\\Users\\master\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\master\\source\\repos\\sample\\sample\\obj\\",
+      "outputPath": "G:\\repogitory\\hidemaru-net\\win-hidemaru-app\\hm_dotnet_compatible\\sample\\obj\\",
       "projectStyle": "PackageReference",
       "crossTargeting": true,
       "fallbackFolders": [
