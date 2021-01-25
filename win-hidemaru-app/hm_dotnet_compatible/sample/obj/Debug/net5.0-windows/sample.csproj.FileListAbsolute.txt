@@ -1,0 +1,12 @@
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_compatible\sample\bin\Debug\net5.0-windows\sample.deps.json
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_compatible\sample\bin\Debug\net5.0-windows\sample.dll
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_compatible\sample\bin\Debug\net5.0-windows\ref\sample.dll
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_compatible\sample\bin\Debug\net5.0-windows\sample.pdb
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_compatible\sample\obj\Debug\net5.0-windows\sample.GeneratedMSBuildEditorConfig.editorconfig
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_compatible\sample\obj\Debug\net5.0-windows\sample.AssemblyInfoInputs.cache
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_compatible\sample\obj\Debug\net5.0-windows\sample.AssemblyInfo.cs
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_compatible\sample\obj\Debug\net5.0-windows\sample.csproj.CoreCompileInputs.cache
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_compatible\sample\obj\Debug\net5.0-windows\sample.dll
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_compatible\sample\obj\Debug\net5.0-windows\ref\sample.dll
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_compatible\sample\obj\Debug\net5.0-windows\sample.pdb
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_compatible\sample\obj\Debug\net5.0-windows\sample.csprojAssemblyReference.cache

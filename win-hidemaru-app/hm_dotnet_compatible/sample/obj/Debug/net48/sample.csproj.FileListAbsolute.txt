@@ -1,0 +1,8 @@
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_compatible\sample\bin\Debug\net48\sample.dll
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_compatible\sample\bin\Debug\net48\sample.pdb
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_compatible\sample\obj\Debug\net48\sample.AssemblyInfoInputs.cache
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_compatible\sample\obj\Debug\net48\sample.AssemblyInfo.cs
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_compatible\sample\obj\Debug\net48\sample.csproj.CoreCompileInputs.cache
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_compatible\sample\obj\Debug\net48\sample.dll
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_compatible\sample\obj\Debug\net48\sample.pdb
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_compatible\sample\obj\Debug\net48\sample.csprojAssemblyReference.cache
