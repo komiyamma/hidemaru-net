@@ -1,8 +1,0 @@
-C:\Users\master\source\repos\ConsoleApp23\ConsoleApp23\bin\Release\net48\ConsoleApp23.exe.config
-C:\Users\master\source\repos\ConsoleApp23\ConsoleApp23\bin\Release\net48\ConsoleApp23.exe
-C:\Users\master\source\repos\ConsoleApp23\ConsoleApp23\bin\Release\net48\ConsoleApp23.pdb
-C:\Users\master\source\repos\ConsoleApp23\ConsoleApp23\obj\Release\net48\ConsoleApp23.AssemblyInfoInputs.cache
-C:\Users\master\source\repos\ConsoleApp23\ConsoleApp23\obj\Release\net48\ConsoleApp23.AssemblyInfo.cs
-C:\Users\master\source\repos\ConsoleApp23\ConsoleApp23\obj\Release\net48\ConsoleApp23.csproj.CoreCompileInputs.cache
-C:\Users\master\source\repos\ConsoleApp23\ConsoleApp23\obj\Release\net48\ConsoleApp23.exe
-C:\Users\master\source\repos\ConsoleApp23\ConsoleApp23\obj\Release\net48\ConsoleApp23.pdb

@@ -1,0 +1,7 @@
+C:\Users\master\source\repos\sample\sample\bin\Release\net48\sample.dll
+C:\Users\master\source\repos\sample\sample\bin\Release\net48\sample.pdb
+C:\Users\master\source\repos\sample\sample\obj\Release\net48\sample.AssemblyInfoInputs.cache
+C:\Users\master\source\repos\sample\sample\obj\Release\net48\sample.AssemblyInfo.cs
+C:\Users\master\source\repos\sample\sample\obj\Release\net48\sample.csproj.CoreCompileInputs.cache
+C:\Users\master\source\repos\sample\sample\obj\Release\net48\sample.dll
+C:\Users\master\source\repos\sample\sample\obj\Release\net48\sample.pdb

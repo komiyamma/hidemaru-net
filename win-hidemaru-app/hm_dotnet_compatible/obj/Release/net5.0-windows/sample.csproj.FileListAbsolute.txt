@@ -1,0 +1,11 @@
+C:\Users\master\source\repos\sample\sample\bin\Release\net5.0-windows\sample.deps.json
+C:\Users\master\source\repos\sample\sample\bin\Release\net5.0-windows\sample.dll
+C:\Users\master\source\repos\sample\sample\bin\Release\net5.0-windows\ref\sample.dll
+C:\Users\master\source\repos\sample\sample\bin\Release\net5.0-windows\sample.pdb
+C:\Users\master\source\repos\sample\sample\obj\Release\net5.0-windows\sample.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\master\source\repos\sample\sample\obj\Release\net5.0-windows\sample.AssemblyInfoInputs.cache
+C:\Users\master\source\repos\sample\sample\obj\Release\net5.0-windows\sample.AssemblyInfo.cs
+C:\Users\master\source\repos\sample\sample\obj\Release\net5.0-windows\sample.csproj.CoreCompileInputs.cache
+C:\Users\master\source\repos\sample\sample\obj\Release\net5.0-windows\sample.dll
+C:\Users\master\source\repos\sample\sample\obj\Release\net5.0-windows\ref\sample.dll
+C:\Users\master\source\repos\sample\sample\obj\Release\net5.0-windows\sample.pdb
