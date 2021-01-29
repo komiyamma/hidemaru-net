@@ -56,14 +56,20 @@
     <AssemblyOriginatorKeyFile>$(SolutionDir)ClearScript.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ClearScript.Core">
-      <HintPath>..\..\..\ClearWork\ClearScript.7.0.0\bin\Release\net45\ClearScript.Core.dll</HintPath>
+    <Reference Include="ClearScript.Core, Version=7.0.0.0, Culture=neutral, PublicKeyToken=960a7608304be6a9, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ClearWork\ClearScript.7.1.0\bin\Release\net45\ClearScript.Core.dll</HintPath>
     </Reference>
-    <Reference Include="ClearScript.V8">
-      <HintPath>..\..\..\ClearWork\ClearScript.7.0.0\bin\Release\net45\ClearScript.V8.dll</HintPath>
+    <Reference Include="ClearScript.V8, Version=7.0.0.0, Culture=neutral, PublicKeyToken=960a7608304be6a9, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ClearWork\ClearScript.7.1.0\bin\Release\net45\ClearScript.V8.dll</HintPath>
     </Reference>
-    <Reference Include="ClearScript.Windows">
-      <HintPath>..\..\..\ClearWork\ClearScript.7.0.0\bin\Release\net45\ClearScript.Windows.dll</HintPath>
+    <Reference Include="ClearScript.Windows, Version=7.0.0.0, Culture=neutral, PublicKeyToken=960a7608304be6a9, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ClearWork\ClearScript.7.1.0\bin\Release\net45\ClearScript.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="ClearScript.Windows.Core">
+      <HintPath>..\..\..\ClearWork\ClearScript.7.1.0\bin\Release\net45\ClearScript.Windows.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -113,21 +119,14 @@
     <Compile Include="hmJSStaticLib\hmV8HidemaruMacro.cs" />
     <Compile Include="hmJSStaticLib\hmV8StaticLib.cs" />
     <Compile Include="hmJSStaticLib\UnManagedDll.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AssemblyInfo.tt</DependentUpon>
-    </Compile>
     <None Include="app.config" />
-    <None Include="Properties\AssemblyInfo.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>AssemblyInfo.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.

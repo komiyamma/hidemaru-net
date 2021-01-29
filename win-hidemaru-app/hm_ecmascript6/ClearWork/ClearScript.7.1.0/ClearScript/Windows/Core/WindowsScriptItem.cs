@@ -164,7 +164,7 @@ namespace Microsoft.ClearScript.Windows.Core
         protected override object[] AdjustInvokeArgs(object[] args)
         {
             // WORKAROUND: JScript seems to require at least one argument to invoke a function
-            return ((engine is IJScriptEngine) && (args.Length < 1)) ? new object[] { Undefined.Value } : args;
+            return args;
         }
 
         public override string[] GetPropertyNames()

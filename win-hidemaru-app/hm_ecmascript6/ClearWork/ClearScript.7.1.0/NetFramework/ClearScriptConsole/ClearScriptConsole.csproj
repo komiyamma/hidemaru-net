@@ -25,6 +25,11 @@
         <Prefer32Bit>true</Prefer32Bit>
     </PropertyGroup>
 
+    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net471|AnyCPU'">
+      <DebugType>none</DebugType>
+      <DebugSymbols>false</DebugSymbols>
+    </PropertyGroup>
+
     <ItemGroup>
         <Compile Include="..\..\ClearScriptConsole\ClearScriptConsole.cs" Link="ClearScriptConsole.cs" />
         <Compile Include="..\..\ClearScriptConsole\ConsoleTest.cs" Link="ConsoleTest.cs" />

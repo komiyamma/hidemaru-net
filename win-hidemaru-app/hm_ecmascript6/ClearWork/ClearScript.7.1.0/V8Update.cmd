@@ -60,10 +60,8 @@ goto NextArg
 shift
 goto ProcessArg
 
-
 :ProcessArgsDone
 :ProcessArgsDone2
-
 
 ::-----------------------------------------------------------------------------
 :: check environment

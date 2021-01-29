@@ -49,7 +49,6 @@
         <Compile Include="..\..\ClearScript\Windows\IWindowsScriptObject.cs" Link="Windows\IWindowsScriptObject.cs" />
         <Compile Include="..\..\ClearScript\Windows\Core\JScriptEngine.cs" Link="Windows\Core\JScriptEngine.cs" />
         <Compile Include="..\..\ClearScript\Windows\Nothing.cs" Link="Windows\Nothing.cs" />
-        <Compile Include="..\..\ClearScript\Windows\Core\VBScriptEngine.cs" Link="Windows\Core\VBScriptEngine.cs" />
         <Compile Include="..\..\ClearScript\Windows\Core\WindowsScriptEngine.cs" Link="Windows\Core\WindowsScriptEngine.cs" />
         <Compile Include="..\..\ClearScript\Windows\Core\WindowsScriptEngine.Debug.cs" Link="Windows\Core\WindowsScriptEngine.Debug.cs" />
         <Compile Include="..\..\ClearScript\Windows\Core\WindowsScriptEngine.Site.cs" Link="Windows\Core\WindowsScriptEngine.Site.cs" />
