@@ -2,9 +2,10 @@
 
     <PropertyGroup>
         <OutputType>Exe</OutputType>
-        <TargetFrameworks>net471</TargetFrameworks>
+        <TargetFrameworks>net45</TargetFrameworks>
         <RootNamespace>Microsoft.ClearScript.Test</RootNamespace>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+        <AssemblyName>iv8</AssemblyName>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -25,14 +26,13 @@
         <Prefer32Bit>true</Prefer32Bit>
     </PropertyGroup>
 
-    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net471|AnyCPU'">
+    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net45|AnyCPU'">
       <DebugType>none</DebugType>
       <DebugSymbols>false</DebugSymbols>
     </PropertyGroup>
 
     <ItemGroup>
         <Compile Include="..\..\ClearScriptConsole\ClearScriptConsole.cs" Link="ClearScriptConsole.cs" />
-        <Compile Include="..\..\ClearScriptConsole\ConsoleTest.cs" Link="ConsoleTest.cs" />
         <Compile Include="..\..\ClearScriptConsole\Properties\AssemblyInfo.cs" Link="Properties\AssemblyInfo.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
