@@ -1,4 +1,5 @@
-﻿using System;
+﻿/***
+using System;
 using System.Runtime.ConstrainedExecution;
 using System.Runtime.InteropServices;
 using System.Security.Permissions;
@@ -13,22 +14,13 @@ internal sealed class StaticWStrPtrHandle : SafeHandle
         handle = Marshal.StringToHGlobalUni(managedString);
     }
 
-    public static implicit operator StaticWStrPtrHandle(String managedString)
-    {
-        return new StaticWStrPtrHandle(managedString);
-    }
-
-    public static implicit operator String(StaticWStrPtrHandle managedString)
-    {
-        return managedString.ToString();
-    }
-
     [ReliabilityContract(Consistency.WillNotCorruptState, Cer.MayFail)]
     protected override bool ReleaseHandle()
     {
         try
         {
             Marshal.FreeHGlobal(handle);
+            System.Console.WriteLine("ReleaseHandle");
         }
         catch (Exception ex)
         {
@@ -59,40 +51,36 @@ internal sealed class StaticWStrPtrHandle : SafeHandle
 }
 
 
-
-namespace ClassLibrary15
+namespace ConsoleApp31
 {
-    public class Class1
+    static class Program
     {
-
-       // [DllExport]
-        public static IntPtr Count(IntPtr a, IntPtr b)
+        static String rtnBufferOfGetString = "abc";
+        static unsafe char* abc()
         {
-            return a;
+            rtnBufferOfGetString = "eee";
+            fixed (char* p_str = rtnBufferOfGetString) { return p_str; }
         }
 
-       // [DllExport]
-        public static IntPtr Through(IntPtr wStringPointer)
+        static unsafe void ddd()
         {
-            String str = Marshal.PtrToStringUni(wStringPointer);
-            return (IntPtr)str.Length;
+            System.Console.WriteLine("1");
+            char* b = abc();
+            GC.Collect();
+            GC.Collect();
+            GC.Collect();
+            GC.Collect();
+            GC.Collect();
+            String c = new string(b);
+            System.Console.WriteLine(c);
         }
 
-        static StaticWStrPtrHandle hReturnWStringPointer = "テストテスト";
-       // [DllExport]
-        public static IntPtr GetString() 
+        static void Main(string[] args)
         {
-            hReturnWStringPointer = "abc";
-            return hReturnWStringPointer.DangerousGetHandle();
+
+            ddd();
+
         }
-
-      //  [DllExport]
-        public static IntPtr DllDetachFunc_After_Hm866(IntPtr release_status)
-        {
-            return (IntPtr)1;
-        }
-
-
     }
 }
-
+*/

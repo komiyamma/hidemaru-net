@@ -61,6 +61,7 @@ namespace Pattern2
         [DllExport]
         public unsafe static IntPtr DllDetachFunc_After_Hm866(IntPtr release_status)
         {
+            System.Diagnostics.Trace.WriteLine(release_status);
             return (IntPtr)1;
         }
     }
