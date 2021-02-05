@@ -1,0 +1,260 @@
+{
+  "version": 3,
+  "targets": {
+    ".NETFramework,Version=v4.8": {
+      "DllExport/1.7.4": {
+        "type": "package",
+        "compile": {
+          "lib/net20/_._": {}
+        },
+        "runtime": {
+          "lib/net20/_._": {}
+        }
+      },
+      "HtmlAgilityPack/1.11.30": {
+        "type": "package",
+        "compile": {
+          "lib/Net45/HtmlAgilityPack.dll": {}
+        },
+        "runtime": {
+          "lib/Net45/HtmlAgilityPack.dll": {}
+        }
+      }
+    },
+    ".NETFramework,Version=v4.8/win": {
+      "DllExport/1.7.4": {
+        "type": "package",
+        "compile": {
+          "lib/net20/_._": {}
+        },
+        "runtime": {
+          "lib/net20/_._": {}
+        }
+      },
+      "HtmlAgilityPack/1.11.30": {
+        "type": "package",
+        "compile": {
+          "lib/Net45/HtmlAgilityPack.dll": {}
+        },
+        "runtime": {
+          "lib/Net45/HtmlAgilityPack.dll": {}
+        }
+      }
+    },
+    ".NETFramework,Version=v4.8/win-x64": {
+      "DllExport/1.7.4": {
+        "type": "package",
+        "compile": {
+          "lib/net20/_._": {}
+        },
+        "runtime": {
+          "lib/net20/_._": {}
+        }
+      },
+      "HtmlAgilityPack/1.11.30": {
+        "type": "package",
+        "compile": {
+          "lib/Net45/HtmlAgilityPack.dll": {}
+        },
+        "runtime": {
+          "lib/Net45/HtmlAgilityPack.dll": {}
+        }
+      }
+    },
+    ".NETFramework,Version=v4.8/win-x86": {
+      "DllExport/1.7.4": {
+        "type": "package",
+        "compile": {
+          "lib/net20/_._": {}
+        },
+        "runtime": {
+          "lib/net20/_._": {}
+        }
+      },
+      "HtmlAgilityPack/1.11.30": {
+        "type": "package",
+        "compile": {
+          "lib/Net45/HtmlAgilityPack.dll": {}
+        },
+        "runtime": {
+          "lib/Net45/HtmlAgilityPack.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "DllExport/1.7.4": {
+      "sha512": "Uw00IwE/UoJV1faJCasNXpnR3DVa/0dbKjLNS1zNinu4FehQP3y88akvoky1pAjcU6b06cu1BkG9E1IFiV+6xA==",
+      "type": "package",
+      "path": "dllexport/1.7.4",
+      "hasTools": true,
+      "files": [
+        ".gitattributes",
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "3rd-party.txt",
+        "DllExport.bat",
+        "License.txt",
+        "Readme.md",
+        "build_info.txt",
+        "changelog.txt",
+        "dllexport.1.7.4.nupkg.sha512",
+        "dllexport.nuspec",
+        "hMSBuild.bat",
+        "lib/net20/_._",
+        "lib/netstandard1.1/_._",
+        "tools/Conari.dll",
+        "tools/Conari.xml",
+        "tools/Microsoft.Build.Framework.dll",
+        "tools/Microsoft.Build.Utilities.v4.0.dll",
+        "tools/Microsoft.Build.dll",
+        "tools/Mono.Cecil.dll",
+        "tools/Mono.Cecil.pdb",
+        "tools/MvsSln.dll",
+        "tools/MvsSln.pdb",
+        "tools/MvsSln.xml",
+        "tools/NSBin.dll",
+        "tools/NSBin.pdb",
+        "tools/PeViewer.exe",
+        "tools/PeViewer.pdb",
+        "tools/RGiesecke.DllExport.MSBuild.dll",
+        "tools/RGiesecke.DllExport.MSBuild.pdb",
+        "tools/RGiesecke.DllExport.dll",
+        "tools/RGiesecke.DllExport.pdb",
+        "tools/coreclr/.version.txt",
+        "tools/coreclr/LICENSE.TXT",
+        "tools/coreclr/PATENTS.TXT",
+        "tools/coreclr/README.md",
+        "tools/coreclr/changelog.txt",
+        "tools/coreclr/clrgc.dll",
+        "tools/coreclr/coreclr.dll",
+        "tools/coreclr/ilasm.exe",
+        "tools/coreclr/ildasm.exe",
+        "tools/coreclr/ildasmrc.dll",
+        "tools/coreclr/mscordaccore.dll",
+        "tools/coreclr/mscordbi.dll",
+        "tools/gnt.bat",
+        "tools/hMSBuild.bat",
+        "tools/init.ps1",
+        "tools/net.r_eg.DllExport.Wizard.dll",
+        "tools/net.r_eg.DllExport.Wizard.pdb",
+        "tools/net.r_eg.DllExport.Wizard.targets",
+        "tools/net.r_eg.DllExport.targets",
+        "tools/raw/lib/net20/DllExport.dll",
+        "tools/raw/lib/net20/DllExport.xml",
+        "tools/raw/lib/netstd/DllExport.dll",
+        "tools/raw/lib/netstd/DllExport.xml"
+      ]
+    },
+    "HtmlAgilityPack/1.11.30": {
+      "sha512": "IuOSVuuHCJKrnAjNe5rZnZCyR/NpXL6ExEL7UiM8h4fnhbt8tLqIKol9q5Lv0uoxWO8fl9Uq+1kpGfMDUdr5zA==",
+      "type": "package",
+      "path": "htmlagilitypack/1.11.30",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "htmlagilitypack.1.11.30.nupkg.sha512",
+        "htmlagilitypack.nuspec",
+        "lib/Net35/HtmlAgilityPack.dll",
+        "lib/Net35/HtmlAgilityPack.pdb",
+        "lib/Net35/HtmlAgilityPack.xml",
+        "lib/Net40-client/HtmlAgilityPack.dll",
+        "lib/Net40-client/HtmlAgilityPack.pdb",
+        "lib/Net40-client/HtmlAgilityPack.xml",
+        "lib/Net40/HtmlAgilityPack.XML",
+        "lib/Net40/HtmlAgilityPack.dll",
+        "lib/Net40/HtmlAgilityPack.pdb",
+        "lib/Net45/HtmlAgilityPack.XML",
+        "lib/Net45/HtmlAgilityPack.dll",
+        "lib/Net45/HtmlAgilityPack.pdb",
+        "lib/NetCore45/HtmlAgilityPack.XML",
+        "lib/NetCore45/HtmlAgilityPack.dll",
+        "lib/NetCore45/HtmlAgilityPack.pdb",
+        "lib/netstandard1.3/HtmlAgilityPack.deps.json",
+        "lib/netstandard1.3/HtmlAgilityPack.dll",
+        "lib/netstandard1.3/HtmlAgilityPack.pdb",
+        "lib/netstandard1.3/HtmlAgilityPack.xml",
+        "lib/netstandard1.6/HtmlAgilityPack.deps.json",
+        "lib/netstandard1.6/HtmlAgilityPack.dll",
+        "lib/netstandard1.6/HtmlAgilityPack.pdb",
+        "lib/netstandard1.6/HtmlAgilityPack.xml",
+        "lib/netstandard2.0/HtmlAgilityPack.deps.json",
+        "lib/netstandard2.0/HtmlAgilityPack.dll",
+        "lib/netstandard2.0/HtmlAgilityPack.pdb",
+        "lib/netstandard2.0/HtmlAgilityPack.xml",
+        "lib/portable-net45+netcore45+wp8+MonoAndroid+MonoTouch/HtmlAgilityPack.XML",
+        "lib/portable-net45+netcore45+wp8+MonoAndroid+MonoTouch/HtmlAgilityPack.dll",
+        "lib/portable-net45+netcore45+wp8+MonoAndroid+MonoTouch/HtmlAgilityPack.pdb",
+        "lib/portable-net45+netcore45+wpa81+wp8+MonoAndroid+MonoTouch/HtmlAgilityPack.XML",
+        "lib/portable-net45+netcore45+wpa81+wp8+MonoAndroid+MonoTouch/HtmlAgilityPack.dll",
+        "lib/portable-net45+netcore45+wpa81+wp8+MonoAndroid+MonoTouch/HtmlAgilityPack.pdb",
+        "lib/uap10.0/HtmlAgilityPack.XML",
+        "lib/uap10.0/HtmlAgilityPack.dll",
+        "lib/uap10.0/HtmlAgilityPack.pdb",
+        "lib/uap10.0/HtmlAgilityPack.pri"
+      ]
+    }
+  },
+  "projectFileDependencyGroups": {
+    ".NETFramework,Version=v4.8": [
+      "DllExport >= 1.7.4",
+      "HtmlAgilityPack >= 1.11.30"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\master\\.nuget\\packages\\": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "C:\\Users\\master\\source\\repos\\ClassLibrary36\\ClassLibrary36\\ClassLibrary36.csproj",
+      "projectName": "ClassLibrary36",
+      "projectPath": "C:\\Users\\master\\source\\repos\\ClassLibrary36\\ClassLibrary36\\ClassLibrary36.csproj",
+      "packagesPath": "C:\\Users\\master\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\master\\source\\repos\\ClassLibrary36\\ClassLibrary36\\obj\\",
+      "projectStyle": "PackageReference",
+      "skipContentFileWrite": true,
+      "configFilePaths": [
+        "C:\\Users\\master\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net48"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net48": {
+          "projectReferences": {}
+        }
+      }
+    },
+    "frameworks": {
+      "net48": {
+        "dependencies": {
+          "DllExport": {
+            "target": "Package",
+            "version": "[1.7.4, )"
+          },
+          "HtmlAgilityPack": {
+            "target": "Package",
+            "version": "[1.11.30, )"
+          }
+        }
+      }
+    },
+    "runtimes": {
+      "win": {
+        "#import": []
+      },
+      "win-x64": {
+        "#import": []
+      },
+      "win-x86": {
+        "#import": []
+      }
+    }
+  }
+}

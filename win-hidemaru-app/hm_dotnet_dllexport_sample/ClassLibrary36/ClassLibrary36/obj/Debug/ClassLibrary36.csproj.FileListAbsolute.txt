@@ -1,0 +1,8 @@
+C:\Users\master\source\repos\ClassLibrary36\ClassLibrary36\obj\Debug\ClassLibrary36.csproj.CoreCompileInputs.cache
+C:\Users\master\source\repos\ClassLibrary36\ClassLibrary36\bin\Debug\ClassLibrary36.dll
+C:\Users\master\source\repos\ClassLibrary36\ClassLibrary36\bin\Debug\ClassLibrary36.pdb
+C:\Users\master\source\repos\ClassLibrary36\ClassLibrary36\obj\Debug\ClassLibrary36.dll
+C:\Users\master\source\repos\ClassLibrary36\ClassLibrary36\obj\Debug\ClassLibrary36.pdb
+C:\Users\master\source\repos\ClassLibrary36\ClassLibrary36\bin\Debug\HtmlAgilityPack.dll
+C:\Users\master\source\repos\ClassLibrary36\ClassLibrary36\bin\Debug\HtmlAgilityPack.pdb
+C:\Users\master\source\repos\ClassLibrary36\ClassLibrary36\obj\Debug\ClassLibrary36.csproj.CopyComplete

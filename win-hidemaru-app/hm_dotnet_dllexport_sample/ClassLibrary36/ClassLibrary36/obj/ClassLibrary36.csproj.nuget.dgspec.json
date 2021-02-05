@@ -1,0 +1,61 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\master\\source\\repos\\ClassLibrary36\\ClassLibrary36\\ClassLibrary36.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\master\\source\\repos\\ClassLibrary36\\ClassLibrary36\\ClassLibrary36.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\master\\source\\repos\\ClassLibrary36\\ClassLibrary36\\ClassLibrary36.csproj",
+        "projectName": "ClassLibrary36",
+        "projectPath": "C:\\Users\\master\\source\\repos\\ClassLibrary36\\ClassLibrary36\\ClassLibrary36.csproj",
+        "packagesPath": "C:\\Users\\master\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\master\\source\\repos\\ClassLibrary36\\ClassLibrary36\\obj\\",
+        "projectStyle": "PackageReference",
+        "skipContentFileWrite": true,
+        "configFilePaths": [
+          "C:\\Users\\master\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net48"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net48": {
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "net48": {
+          "dependencies": {
+            "DllExport": {
+              "target": "Package",
+              "version": "[1.7.4, )"
+            },
+            "HtmlAgilityPack": {
+              "target": "Package",
+              "version": "[1.11.30, )"
+            }
+          }
+        }
+      },
+      "runtimes": {
+        "win": {
+          "#import": []
+        },
+        "win-x64": {
+          "#import": []
+        },
+        "win-x86": {
+          "#import": []
+        }
+      }
+    }
+  }
+}
