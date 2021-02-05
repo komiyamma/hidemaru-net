@@ -6,7 +6,7 @@ using System.Security.Permissions;
 
 
 
-
+/*
 namespace Pattern2
 {
 
@@ -66,3 +66,56 @@ namespace Pattern2
         }
     }
 }
+*/
+
+
+namespace Pattern2
+{
+
+    public class Pattern2
+    {
+        public static int counter = 0;
+
+        [DllExport]
+        public static IntPtr MyFunc3([MarshalAs(UnmanagedType.LPWStr)] string wstr)
+        {
+            System.Diagnostics.Trace.WriteLine(wstr);
+            System.Diagnostics.Trace.WriteLine(counter++);
+            // 文字列の長さを返す。
+            return (IntPtr)(wstr.Length);
+        }
+
+
+        static String rtnBufferOfGetString = "";
+
+        [DllExport]
+        [return: MarshalAs(UnmanagedType.LPWStr)]
+        public static string GetString()
+        {
+            rtnBufferOfGetString = "333";
+            System.Diagnostics.Trace.WriteLine(counter++);
+            return rtnBufferOfGetString;
+        }
+        [DllExport("DllDetachFunc_After_Hm866")]
+        public static IntPtr DllDetachFunc(IntPtr release_status)
+        {
+            System.Diagnostics.Trace.WriteLine("秀丸が閉じる:ステータス:" + release_status.ToString());
+            System.Diagnostics.Trace.WriteLine(counter++);
+            return (IntPtr)1;
+        }
+    }
+
+    [Guid("441B0811-AFFF-43D8-A586-E7D60FF5660B")]
+    public class Pattern3
+    {
+        public static IntPtr MyFunc4(string wstr)
+        {
+            System.Diagnostics.Trace.WriteLine(wstr);
+            // 文字列の長さを返す。
+            return (IntPtr)wstr.Length;
+        }
+    }
+
+}
+
+

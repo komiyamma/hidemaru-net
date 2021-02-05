@@ -3,7 +3,7 @@ using System.Runtime.ConstrainedExecution;
 using System.Runtime.InteropServices;
 using System.Security.Permissions;
 
-
+/*
 [SecurityPermission(SecurityAction.Demand, UnmanagedCode = true)]
 internal sealed class StaticWStrPtrHandle : SafeHandle
 {
@@ -11,11 +11,6 @@ internal sealed class StaticWStrPtrHandle : SafeHandle
     public StaticWStrPtrHandle(String managedString) : base(IntPtr.Zero, true)
     {
         handle = Marshal.StringToHGlobalUni(managedString);
-    }
-
-    public static implicit operator StaticWStrPtrHandle(String managedString)
-    {
-        return new StaticWStrPtrHandle(managedString);
     }
 
     public static implicit operator String(StaticWStrPtrHandle managedString)
@@ -78,11 +73,12 @@ namespace ClassLibrary15
             return (IntPtr)str.Length;
         }
 
-        static StaticWStrPtrHandle hReturnWStringPointer = "テストテスト";
+        static StaticWStrPtrHandle hReturnWStringPointer = new StaticWStrPtrHandle("");
        // [DllExport]
         public static IntPtr GetString() 
         {
-            hReturnWStringPointer = "abc";
+            hReturnWStringPointer.Dispose();
+            hReturnWStringPointer = new StaticWStrPtrHandle("abc");
             return hReturnWStringPointer.DangerousGetHandle();
         }
 
@@ -96,3 +92,4 @@ namespace ClassLibrary15
     }
 }
 
+*/
