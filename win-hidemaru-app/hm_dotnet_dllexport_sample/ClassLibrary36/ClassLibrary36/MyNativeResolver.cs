@@ -15,6 +15,7 @@ namespace ClassLibrary36
 
         NativeMethods()
         {
+            // Environment.Is64BitProcess ? "x64" : "x86" ← 解説時にはこの要素を使うことで振り分けることも多いことも盛り込む
             var dllPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), dllName);
 
             if (!(File.Exists(dllPath) && LoadLibrary(dllPath) != IntPtr.Zero))
