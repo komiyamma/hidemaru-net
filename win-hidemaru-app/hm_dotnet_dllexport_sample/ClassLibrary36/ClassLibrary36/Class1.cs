@@ -1,41 +1,51 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using HtmlAgilityPack;
+using System.Windows.Forms;
+using Microsoft.Web.WebView2.WinForms;
 
-namespace ClassLibrary36 {
+namespace ClassLibrary36
+{
 
     public class Class1
     {
-        static DllAssemblyResolver dasmr;
-        static Class1() {
+        static DllAssemblyResolver dasmr = new DllAssemblyResolver();
+        static DllNativeResolver dntvr;
 
-            dasmr = new DllAssemblyResolver();
-            System.Diagnostics.Trace.WriteLine("MyAssemblyResolver:");
+        static Class1()
+        {
+            dntvr = new DllNativeResolver();
+        }
+
+        class MyForm : Form
+        {
+            WebView2 wb = new WebView2
+            {
+                Source = new Uri("https://www.google.com")
+            };
+
+            public MyForm()
+            {
+                wb.Size = this.Size;
+                this.Controls.Add(wb);
+            }
         }
 
         [DllExport]
         static int abc(int a)
         {
-            int b = (int)a + 3;
+            IntPtr r = MyFunc((IntPtr)3);
+            int b = (int)a + 3 + (int)r;
             return (int)b;
         }
 
+        [DllImport("dll1")]
+        static extern IntPtr MyFunc(IntPtr i);
+
         [return: MarshalAs(UnmanagedType.LPWStr)]
         [DllExport]
-        static String efg([MarshalAs(UnmanagedType.LPWStr)]String a, [MarshalAs(UnmanagedType.LPWStr)] String b)
+        static String efg([MarshalAs(UnmanagedType.LPWStr)] String a, [MarshalAs(UnmanagedType.LPWStr)] String b)
         {
-            try
-            {
-                // From String
-                var doc = new HtmlDocument();
-                doc.LoadHtml("<html></html>");
-                System.Diagnostics.Trace.WriteLine(doc.ToString());
-            } catch(Exception e)
-            {
-                System.Diagnostics.Trace.WriteLine(e);
-
-            }
-            return a +b;
+            return a + b;
         }
     }
 }

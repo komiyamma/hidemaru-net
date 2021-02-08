@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\master\\source\\repos\\ClassLibrary36\\ClassLibrary36\\ClassLibrary36.csproj": {}
+    "G:\\repogitory\\hidemaru-net\\win-hidemaru-app\\hm_dotnet_dllexport_sample\\ClassLibrary36\\ClassLibrary36\\ClassLibrary36.csproj": {}
   },
   "projects": {
-    "C:\\Users\\master\\source\\repos\\ClassLibrary36\\ClassLibrary36\\ClassLibrary36.csproj": {
+    "G:\\repogitory\\hidemaru-net\\win-hidemaru-app\\hm_dotnet_dllexport_sample\\ClassLibrary36\\ClassLibrary36\\ClassLibrary36.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\master\\source\\repos\\ClassLibrary36\\ClassLibrary36\\ClassLibrary36.csproj",
+        "projectUniqueName": "G:\\repogitory\\hidemaru-net\\win-hidemaru-app\\hm_dotnet_dllexport_sample\\ClassLibrary36\\ClassLibrary36\\ClassLibrary36.csproj",
         "projectName": "ClassLibrary36",
-        "projectPath": "C:\\Users\\master\\source\\repos\\ClassLibrary36\\ClassLibrary36\\ClassLibrary36.csproj",
+        "projectPath": "G:\\repogitory\\hidemaru-net\\win-hidemaru-app\\hm_dotnet_dllexport_sample\\ClassLibrary36\\ClassLibrary36\\ClassLibrary36.csproj",
         "packagesPath": "C:\\Users\\master\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\master\\source\\repos\\ClassLibrary36\\ClassLibrary36\\obj\\",
+        "outputPath": "G:\\repogitory\\hidemaru-net\\win-hidemaru-app\\hm_dotnet_dllexport_sample\\ClassLibrary36\\ClassLibrary36\\obj\\",
         "projectStyle": "PackageReference",
         "skipContentFileWrite": true,
         "configFilePaths": [
@@ -41,6 +41,10 @@
             "HtmlAgilityPack": {
               "target": "Package",
               "version": "[1.11.30, )"
+            },
+            "Microsoft.Web.WebView2": {
+              "target": "Package",
+              "version": "[1.0.705.50, )"
             }
           }
         }
