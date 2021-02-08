@@ -53,7 +53,7 @@ internal partial class HmWebView2BrowserModeForm : Form
     private string GetStartTitle()
     {
         string start_path = Hm.Edit.FilePath ?? "";
-        if (start_path == "")
+        if (String.IsNullOrEmpty(start_path))
         {
             start_path = "about:blank";
         }
