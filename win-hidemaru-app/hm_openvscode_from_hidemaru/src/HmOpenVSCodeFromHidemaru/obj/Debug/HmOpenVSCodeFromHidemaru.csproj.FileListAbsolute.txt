@@ -1,0 +1,5 @@
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_openvscode_from_hidemaru\HmOpenVSCodeFromHidemaru\obj\Debug\HmOpenVSCodeFromHidemaru.csproj.CoreCompileInputs.cache
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_openvscode_from_hidemaru\HmOpenVSCodeFromHidemaru\bin\Debug\HmOpenVSCodeFromHidemaru.exe
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_openvscode_from_hidemaru\HmOpenVSCodeFromHidemaru\bin\Debug\HmOpenVSCodeFromHidemaru.pdb
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_openvscode_from_hidemaru\HmOpenVSCodeFromHidemaru\obj\Debug\HmOpenVSCodeFromHidemaru.exe
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_openvscode_from_hidemaru\HmOpenVSCodeFromHidemaru\obj\Debug\HmOpenVSCodeFromHidemaru.pdb
