@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Hidemaru;
+using System;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Hidemaru;
+using System.Text.RegularExpressions;
 
 namespace HmOpenVSCodeFromHidemaru
 {
@@ -13,37 +10,49 @@ namespace HmOpenVSCodeFromHidemaru
     {
         const string hm_macro_error_msg_variable = "$ERROR_MSG";
 
-        const string cmd_git = "git";
-        const string cmd_git_args_revparse_gitdir = "rev-parse --git-dir";
-        // const string cmd_git_args_revparse_is_inside_worktree = "rev-parse --is-inside-work-tree";
+        const string strCmdGit = "git";
+        const string strCmdGit_RevParse_GitDir = "rev-parse --git-dir";
+        // const string strCmdGit_Args_RevParse_IsInSideWorkTree = "rev-parse --is-inside-work-tree";
 
         static Process pCmdGit = new Process();
 
-        string targetDirectory = "";
-        HmOpenVSCodeFromHidemaru(string targetDirectory)
+        const string strGitErrorMessage = "Gitコマンドに失敗しています。";
+
+        string targetFileDirectory = "";
+
+        string strCurrentDirectory = "";
+
+        HmOpenVSCodeFromHidemaru(string targetFilePath)
         {
-            SetTargetDirectory(targetDirectory);
+            SaveTargetFileDirectory(targetFilePath);
         }
 
-        private void SetTargetDirectory(string targetFile)
+        ~HmOpenVSCodeFromHidemaru()
         {
-            if (File.Exists(targetFile))
+        }
+
+        public void SaveTargetFileDirectory(string targetFilePath)
+        {
+            if (File.Exists(targetFilePath))
             {
-                var dir = Path.GetDirectoryName(targetFile);
-                this.targetDirectory = dir;
-                Directory.SetCurrentDirectory(dir);
+                var dir = Path.GetDirectoryName(targetFilePath);
+                this.targetFileDirectory = dir;
             }
             else
             {
-                throw new FileNotFoundException(targetDirectory);
+                throw new FileNotFoundException(targetFileDirectory);
             }
         }
 
-        public string GitProcessExecute()
+        public string GetAttributeGitDirectory()
         {
+            strCurrentDirectory = Directory.GetCurrentDirectory();
+
+            Directory.SetCurrentDirectory(this.targetFileDirectory); // コマンド実行のためやむなし
+
             ProcessStartInfo pCmdGitPSInfo = new ProcessStartInfo();
-            pCmdGitPSInfo.FileName = cmd_git;
-            pCmdGitPSInfo.Arguments = cmd_git_args_revparse_gitdir;
+            pCmdGitPSInfo.FileName = strCmdGit;
+            pCmdGitPSInfo.Arguments = strCmdGit_RevParse_GitDir;
             pCmdGitPSInfo.CreateNoWindow = true; // コンソール・ウィンドウを開かない
             pCmdGitPSInfo.UseShellExecute = false; // シェル機能を使用しない
             pCmdGitPSInfo.RedirectStandardOutput = true; // 標準出力をリダイレクト
@@ -52,46 +61,51 @@ namespace HmOpenVSCodeFromHidemaru
 
             try
             {
-                bool ret_1st_command = pCmdGit.Start();
-                if (ret_1st_command)
+                bool isCommandSuccess = pCmdGit.Start();
+                if (isCommandSuccess)
                 {
-                    string result = pCmdGit.StandardOutput.ReadToEnd();
-                    result = result.Trim();
+                    string strCommandResult = pCmdGit.StandardOutput.ReadToEnd();
+                    strCommandResult = strCommandResult.Trim();
 
                     // github リポジトリ下であれば"ture"という文字が返ってくる。
-                    if (result == ".git")
+                    if (strCommandResult == ".git")
                     {
-                        return targetDirectory;
+                        return "";
                     }
 
                     try
                     {
-                        result = result.Remove(result.Length - 4);
-                        if (Directory.Exists(result))
+                        strCommandResult = Regex.Replace(strCommandResult, "/.git$", "");
+                        string strGitDirectory = Path.GetFullPath(strCommandResult);
+                        if (Directory.Exists(strGitDirectory))
                         {
-                            return Path.GetFullPath(result);
+                            return strGitDirectory;
                         }
                         else
                         {
-                            new DirectoryNotFoundException();
+                            new DirectoryNotFoundException(strGitDirectory);
                         }
                     }
                     catch (Exception)
                     {
-                        return targetDirectory;
+                        return "";
                     }
 
                 } else
                 {
-                    Hm.Macro.Var[hm_macro_error_msg_variable] = "Gitコマンドに失敗しています。";
+                    throw new InvalidOperationException(strCmdGit);
                 }
             }
             catch (Exception e)
             {
-                Hm.Macro.Var[hm_macro_error_msg_variable] = "Gitコマンドに失敗しています。";
+                Hm.Macro.Var[hm_macro_error_msg_variable] = strGitErrorMessage;
+            }
+            finally
+            {
+                Directory.SetCurrentDirectory(strCurrentDirectory);
             }
 
-            return targetDirectory;
+            return "";
         }
 
         public static IntPtr try_parse_git_dir()
@@ -100,23 +114,30 @@ namespace HmOpenVSCodeFromHidemaru
             if (String.IsNullOrEmpty(target_file))
             {
                 Hm.Macro.Var[hm_macro_error_msg_variable] = "(無題)であるためVisual Studio Codeで開くことが出来ません。";
+                return (IntPtr)0;
             }
+            if (!File.Exists(target_file))
+            {
+                Hm.Macro.Var[hm_macro_error_msg_variable] = "対象のファイルは存在しません。";
+                return (IntPtr)0;
+            }
+
             try
             {
                 HmOpenVSCodeFromHidemaru cmd = new HmOpenVSCodeFromHidemaru(target_file);
-                string result = cmd.GitProcessExecute();
+                string git_dir = cmd.GetAttributeGitDirectory();
 
-                Hm.Macro.Var["#LINENO_UNICOD"] = Hm.Edit.CursorPos.LineNo;
-                Hm.Macro.Var["#COLUMN_UNICOD"] = Hm.Edit.CursorPos.Column;
+                Hm.Macro.Var["#LINENO_UNICODE"] = Hm.Edit.CursorPos.LineNo;
+                Hm.Macro.Var["#COLUMN_UNICODE"] = Hm.Edit.CursorPos.Column;
 
-                Hm.Macro.Var["$TARGET_DIRECTORY"] = Path.GetDirectoryName(result);
+                Hm.Macro.Var["$GIT_DIRECTORY"] = git_dir;
                 return (IntPtr)1;
 
             }
             catch (Exception e)
             {
                 var args_path_dir = Path.GetDirectoryName(target_file);
-                Hm.Macro.Var[hm_macro_error_msg_variable] = "Gitコマンドに失敗しています。";
+                Hm.Macro.Var[hm_macro_error_msg_variable] = strGitErrorMessage;
                 return (IntPtr)0;
             }
         }

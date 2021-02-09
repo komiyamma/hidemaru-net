@@ -4,10 +4,16 @@ if ( !#HMNET ) { message "hm.NET.dllが読み込めない"; }
 
 #dll_result = dllfuncw( #HMNET, "CallMethod", currentmacrodirectory + @"\HmOpenVSCodeFromHidemaru.dll", "HmOpenVSCodeFromHidemaru.HmOpenVSCodeFromHidemaru", "try_parse_git_dir");
 
-// 「$TARGET_DIRECTORY」にはファイルがリポジトリに属している場合に、リポジトリのディレクトリが渡ってくる。
-// リポジトリに属していいない場合には、filenameのディレクトリ部分が渡ってくる。
-// 「#LINENO_UNICOD」「#COLUMN_UNICOD」には 「Unicodeベースでカウント」した場合のカーソルの「行」と「カラム」が渡ってくる。
+// 「$GIT_DIRECTORY」にはファイルがリポジトリに属している場合に、リポジトリのディレクトリが渡ってくる。
+// リポジトリに属していない場合には、空白が返ってくる。
+// 「#LINENO_UNICODE」「#COLUMN_UNICODE」には 「Unicodeベースでカウント」した場合のカーソルの「行」と「カラム」が渡ってくる。
 
+// リポジトリに帰属していないようであれば、このファイルがあるディレクトリをオープン対象とする。
+if ($GIT_DIRECTORY == "") {
+    $GIT_DIRECTORY = directory2;
+}
+
+// Visual Source Codeが存在するか軽くチェック(不完全ではあるがまぁザックリと)
 runex "where code.cmd"
     , 1     //sync   0:async, 1:sync
     , 0, "" //stdin  0:none, 1:auto, 2:<file, 3:(reserved),
@@ -27,7 +33,8 @@ if (getresultex(9) != 0) {
     endmacro;
 }
 
-runex sprintf(@"""%s"" -n -g ""%s"" ""%s:%d:%d"" ", @"code.cmd", $TARGET_DIRECTORY, filename, #LINENO_UNICOD, #COLUMN_UNICOD+1)
+// 対象のディレクトリを作業場として、対象のファイルをunicodeベース換算でのlinenoとcolumn
+runex sprintf(@"""%s"" -n -g ""%s"" ""%s:%d:%d"" ", @"code.cmd", $GIT_DIRECTORY, filename2, #LINENO_UNICODE, #COLUMN_UNICODE+1)
     , 0     //sync   0:async, 1:sync
     , 0, "" //stdin  0:none, 1:auto, 2:<file, 3:(reserved),
             //       4:current content, 5:selection
