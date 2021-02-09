@@ -7,7 +7,7 @@ if ( !#HMNET ) { message "hm.NET.dllが読み込めない"; }
 // 「$TARGET_DIRECTORY」にはファイルがリポジトリに属している場合に、リポジトリのディレクトリが渡ってくる。
 // リポジトリに属していいない場合には、filenameのディレクトリ部分が渡ってくる。
 // 「#LINENO_UNICOD」「#COLUMN_UNICOD」には 「Unicodeベースでカウント」した場合のカーソルの「行」と「カラム」が渡ってくる。
-message $TARGET_DIRECTORY;
+
 runex "where code.cmd"
     , 1     //sync   0:async, 1:sync
     , 0, "" //stdin  0:none, 1:auto, 2:<file, 3:(reserved),
