@@ -8,7 +8,7 @@ namespace HmOpenVSCodeFromHidemaru
 {
     public class HmOpenVSCodeFromHidemaru
     {
-        const string hm_macro_error_msg_variable = "$ERROR_MSG";
+        const string strHmMacroErrorMsgVariable = "$ERROR_MSG";
 
         const string strCmdGit = "git";
         const string strCmdGit_RevParse_GitDir = "rev-parse --git-dir";
@@ -98,7 +98,7 @@ namespace HmOpenVSCodeFromHidemaru
             }
             catch (Exception e)
             {
-                Hm.Macro.Var[hm_macro_error_msg_variable] = strGitErrorMessage;
+                Hm.Macro.Var[strHmMacroErrorMsgVariable] = strGitErrorMessage;
             }
             finally
             {
@@ -113,12 +113,12 @@ namespace HmOpenVSCodeFromHidemaru
             string target_file = Hm.Edit.FilePath ?? "";
             if (String.IsNullOrEmpty(target_file))
             {
-                Hm.Macro.Var[hm_macro_error_msg_variable] = "(無題)であるためVisual Studio Codeで開くことが出来ません。";
+                Hm.Macro.Var[strHmMacroErrorMsgVariable] = "(無題)であるためVisual Studio Codeで開くことが出来ません。";
                 return (IntPtr)0;
             }
             if (!File.Exists(target_file))
             {
-                Hm.Macro.Var[hm_macro_error_msg_variable] = "対象のファイルは存在しません。";
+                Hm.Macro.Var[strHmMacroErrorMsgVariable] = "対象のファイルは存在しません。";
                 return (IntPtr)0;
             }
 
@@ -137,7 +137,7 @@ namespace HmOpenVSCodeFromHidemaru
             catch (Exception e)
             {
                 var args_path_dir = Path.GetDirectoryName(target_file);
-                Hm.Macro.Var[hm_macro_error_msg_variable] = strGitErrorMessage;
+                Hm.Macro.Var[strHmMacroErrorMsgVariable] = strGitErrorMessage;
                 return (IntPtr)0;
             }
         }
