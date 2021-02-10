@@ -16,12 +16,7 @@ internal class DllNativeResolver
     public DllNativeResolver()
     {
         var selfdir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-
-        // Environment.Is64BitProcess ? "x64" : "x86" ← 解説時にはこの要素を使うことで振り分けることも多いことも盛り込む
-        var subDir = Environment.Is64BitProcess ? "x64" : "x86";
-        var dllPath = Path.Combine(selfdir, subDir, dllName);
-        System.Diagnostics.Trace.WriteLine(dllPath);
-        // var dllPath = Path.Combine(selfdir, dllName);
+        var dllPath = Path.Combine(selfdir, dllName);
 
         if (!(File.Exists(dllPath) && LoadLibrary(dllPath) != IntPtr.Zero))
         {

@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using System.Windows.Forms;
-using Microsoft.Web.WebView2.WinForms;
 
 namespace ClassLibrary36
 {
 
     public class Class1
-    {
+    {/*
         static DllAssemblyResolver dasmr = new DllAssemblyResolver();
         static DllNativeResolver dntvr;
 
@@ -15,27 +13,14 @@ namespace ClassLibrary36
         {
             dntvr = new DllNativeResolver();
         }
-
-        class MyForm : Form
-        {
-            WebView2 wb = new WebView2
-            {
-                Source = new Uri("https://www.google.com")
-            };
-
-            public MyForm()
-            {
-                wb.Size = this.Size;
-                this.Controls.Add(wb);
-            }
-        }
+        */
 
         [DllExport]
-        static int abc(int a)
+        static int abc(int a, int b)
         {
-            IntPtr r = MyFunc((IntPtr)3);
-            int b = (int)a + 3 + (int)r;
-            return (int)b;
+//            IntPtr r = MyFunc((IntPtr)3);
+            int c = (int)a + 3 + (int)r;
+            return (int)c;
         }
 
         [DllImport("dll1")]
