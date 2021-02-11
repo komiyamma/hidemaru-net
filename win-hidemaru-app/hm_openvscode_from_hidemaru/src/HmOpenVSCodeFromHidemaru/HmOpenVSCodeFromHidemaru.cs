@@ -129,7 +129,7 @@ namespace HmOpenVSCodeFromHidemaru
                     // github リポジトリ下であれば"ture"という文字が返ってくる。
                     if (strCommandResult == ".git")
                     {
-                        return "";
+                        return this.targetFileDirectory;
                     }
 
                     try
