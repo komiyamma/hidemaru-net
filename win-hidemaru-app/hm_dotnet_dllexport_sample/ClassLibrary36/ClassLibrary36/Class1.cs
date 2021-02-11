@@ -5,15 +5,15 @@ namespace ClassLibrary36
 {
 
     public class Class1
-    {/*
+    {
         static DllAssemblyResolver dasmr = new DllAssemblyResolver();
-        static DllNativeResolver dntvr;
+        // static DllNativeResolver dntvr;
 
         static Class1()
         {
-            dntvr = new DllNativeResolver();
+            dasmr = new DllAssemblyResolver();
+            // dntvr = new DllNativeResolver();
         }
-        */
 
         [DllExport]
         static int abc(int a, int b)

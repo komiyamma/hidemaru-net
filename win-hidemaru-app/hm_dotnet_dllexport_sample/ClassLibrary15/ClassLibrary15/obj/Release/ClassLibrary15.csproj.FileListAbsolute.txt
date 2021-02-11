@@ -12,3 +12,4 @@ G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_dllexport_sample\ClassLibr
 G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_dllexport_sample\ClassLibrary15\ClassLibrary15\bin\Release\ClassLibrary16.pdb
 G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_dllexport_sample\ClassLibrary15\ClassLibrary15\obj\Release\ClassLibrary16.dll
 G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_dllexport_sample\ClassLibrary15\ClassLibrary15\obj\Release\ClassLibrary16.pdb
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_dllexport_sample\ClassLibrary15\ClassLibrary15\obj\Release\ClassLibrary15.csprojAssemblyReference.cache

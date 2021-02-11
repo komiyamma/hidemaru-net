@@ -1,58 +1,5 @@
 ﻿using System;
-using System.Runtime.ConstrainedExecution;
 using System.Runtime.InteropServices;
-using System.Security.Permissions;
-
-/*
-[SecurityPermission(SecurityAction.Demand, UnmanagedCode = true)]
-internal sealed class StaticWStrPtrHandle : SafeHandle
-{
-    private StaticWStrPtrHandle() : base(IntPtr.Zero, true) { }
-    public StaticWStrPtrHandle(String managedString) : base(IntPtr.Zero, true)
-    {
-        handle = Marshal.StringToHGlobalUni(managedString);
-    }
-
-    public static implicit operator String(StaticWStrPtrHandle managedString)
-    {
-        return managedString.ToString();
-    }
-
-    [ReliabilityContract(Consistency.WillNotCorruptState, Cer.MayFail)]
-    protected override bool ReleaseHandle()
-    {
-        try
-        {
-            Marshal.FreeHGlobal(handle);
-        }
-        catch (Exception ex)
-        {
-            System.Diagnostics.Trace.WriteLine("文字列解放エラー:\n" + ex.Message);
-            return false;
-        }
-
-        return true;
-    }
-
-    public override bool IsInvalid
-    {
-        get { return (IntPtr.Zero == handle); }
-    }
-
-    public override string ToString()
-    {
-        if (this.IsInvalid)
-        {
-            return String.Empty;
-        }
-        else
-        {
-            return Marshal.PtrToStringUni(handle);
-        }
-    }
-
-}
-
 
 
 namespace ClassLibrary15
@@ -66,17 +13,20 @@ namespace ClassLibrary15
             return a;
         }
 
+       // 文字列を引数とする関数
        // [DllExport]
-        public static IntPtr Through(IntPtr wStringPointer)
+        public static IntPtr my_func1(IntPtr wStringPointer)
         {
             String str = Marshal.PtrToStringUni(wStringPointer);
             return (IntPtr)str.Length;
         }
 
+        // 文字列を返す関数
         static StaticWStrPtrHandle hReturnWStringPointer = new StaticWStrPtrHandle("");
        // [DllExport]
-        public static IntPtr GetString() 
+        public static IntPtr my_func1() 
         {
+            // 先にDispose()をする。１つ前の文字列を解放するため。
             hReturnWStringPointer.Dispose();
             hReturnWStringPointer = new StaticWStrPtrHandle("abc");
             return hReturnWStringPointer.DangerousGetHandle();
@@ -92,4 +42,3 @@ namespace ClassLibrary15
     }
 }
 
-*/
