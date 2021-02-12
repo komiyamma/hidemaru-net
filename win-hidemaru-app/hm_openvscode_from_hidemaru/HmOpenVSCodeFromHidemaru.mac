@@ -9,7 +9,10 @@ $VSCODE_ABSOLUTE_PATH = "";
 
 #HMNET = loaddll( hidemarudir + @"\hm.NET.dll" );
 
-if ( !#HMNET ) { message "hm.NET.dllが読み込めない"; }
+if ( !#HMNET ) {
+    message "hm.NET.dllが読み込めない";
+    endmacro;
+}
 
 #dll_result = dllfuncw( #HMNET, "CallMethod", currentmacrodirectory + @"\HmOpenVSCodeFromHidemaru.dll", "HmOpenVSCodeFromHidemaru.HmOpenVSCodeFromHidemaru", "try_parse_git_dir");
 
@@ -79,5 +82,5 @@ runex sprintf(@"""%s"" -n -g ""%s"" ""%s:%d:%d"" ", $VSCODE_ABSOLUTE_PATH, $GIT_
 // エラーというよりは警告レベルなので、アウトプット枠への表示
 if ($ERROR_MSG != "") {
     #OUTPUT = loaddll("HmOutputPane.dll");
-    #ret=dllfunc(#OUTPUT, "Output",hidemaruhandle(0), $ERROR_MSG);
+    #ret=dllfunc(#OUTPUT, "Output",hidemaruhandle(0), $ERROR_MSG + "\n");
 }
