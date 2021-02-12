@@ -9,4 +9,3 @@ G:\repogitory\hidemaru-net\win-hidemaru-app\hm_openvscode_from_hidemaru\src\HmOp
 G:\repogitory\hidemaru-net\win-hidemaru-app\hm_openvscode_from_hidemaru\src\HmOpenVSCodeFromHidemaru\obj\Release\HmOpenVSCodeFromHidemaru.csproj.CoreCompileInputs.cache
 G:\repogitory\hidemaru-net\win-hidemaru-app\hm_openvscode_from_hidemaru\src\HmOpenVSCodeFromHidemaru\obj\Release\HmOpenVSCodeFromHidemaru.csproj.CopyComplete
 G:\repogitory\hidemaru-net\win-hidemaru-app\hm_openvscode_from_hidemaru\src\HmOpenVSCodeFromHidemaru\obj\Release\HmOpenVSCodeFromHidemaru.dll
-G:\repogitory\hidemaru-net\win-hidemaru-app\hm_openvscode_from_hidemaru\src\HmOpenVSCodeFromHidemaru\obj\Release\HmOpenVSCodeFromHidemaru.csprojAssemblyReference.cache

@@ -17,7 +17,7 @@ namespace HmOpenVSCodeFromHidemaru
         const string strCmdGit_RevParse_GitDir = "rev-parse --git-dir";
         // const string strCmdGit_Args_RevParse_IsInSideWorkTree = "rev-parse --is-inside-work-tree";
 
-        static Process pCmdGit = new Process();
+        Process pCmdGit = new Process();
 
         const string strGitErrorMessage = "Gitコマンドに失敗しています。";
 
@@ -193,6 +193,8 @@ namespace HmOpenVSCodeFromHidemaru
                 string vscode_path = cmd.GetVisualStudioCodePath();
                 vscode_path = vscode_path.Replace("\"", ""); // ダブルコーテーションは削除
                 Hm.Macro.Var[strHmMacroVSCodeAbsolutePathVariable] = vscode_path;
+
+                cmd = null;
 
                 return (IntPtr)1;
 
