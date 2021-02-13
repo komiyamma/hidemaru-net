@@ -62,7 +62,7 @@ namespace HmEnglishTextWordCounter
                 // マクロは実行中ではない
                 if (is_must_update && !Hm.Macro.IsExecuting)
                 {
-                    char[] splitWordsBy = "\n\t .,:;\"'?!".ToArray();
+                    char[] splitWordsBy = splitBy.ToArray();
                     List<String> wordsArray = new List<String>(targetText.Split(splitWordsBy));
                     wordsArray = wordsArray.FindAll((s) => s.Length > 0);
                     var command = cmdFormat + ";\n\nendmacro \"EndMacro\";\n";

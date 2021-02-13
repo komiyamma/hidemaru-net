@@ -7,3 +7,4 @@ G:\repogitory\hidemaru-net\win-hidemaru-app\hm_english_text_word_counter\src\HmE
 G:\repogitory\hidemaru-net\win-hidemaru-app\hm_english_text_word_counter\src\HmEnglishTextWordCounter\obj\Release\HmEnglishTextWordCounter.csproj.CoreCompileInputs.cache
 G:\repogitory\hidemaru-net\win-hidemaru-app\hm_english_text_word_counter\src\HmEnglishTextWordCounter\obj\Release\HmEnglishTextWordCounter.csproj.CopyComplete
 G:\repogitory\hidemaru-net\win-hidemaru-app\hm_english_text_word_counter\src\HmEnglishTextWordCounter\obj\Release\HmEnglishTextWordCounter.dll
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_english_text_word_counter\src\HmEnglishTextWordCounter\obj\Release\HmEnglishTextWordCounter.csprojAssemblyReference.cache
