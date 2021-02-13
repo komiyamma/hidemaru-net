@@ -86,8 +86,6 @@ namespace HmEnglishTextWordCounter
 
         public void CreateTimer()
         {
-            // timer.Start();
-
             tokenSource = new CancellationTokenSource();
             var token = tokenSource.Token;
 
