@@ -1,4 +1,10 @@
-﻿#HMNET = loaddll( hidemarudir + @"\hm.NET.dll");
+﻿/*
+ * HmEnglishTextWordCounter ver 1.000
+ * Copyright (C) 2021 Akitsugu Komiyama
+ * under the MIT License
+ */
+
+#HMNET = loaddll( hidemarudir + @"\hm.NET.dll");
 if (!#HMNET) {
     message "hm.NET.dll が見つかりません。";
 }
@@ -8,23 +14,23 @@ if (!#HMNET) {
 
 // 負荷は高くないようなので、一旦 切り替えは無し。
 if (false && #is_count_mode) {
-	// #_ = dllfuncw( #HMNET, "CallMethod", currentmacrodirectory + @"\HmEnglishTextWordCounter.dll", "HmEnglishTextWordCounter.HmEnglishTextWordCounnter", "StopWordCounter");
+    // #_ = dllfuncw( #HMNET, "CallMethod", currentmacrodirectory + @"\HmEnglishTextWordCounter.dll", "HmEnglishTextWordCounter.HmEnglishTextWordCounnter", "StopWordCounter");
 } else {
     #_ = dllfuncw( #HMNET, "CallMethod", currentmacrodirectory + @"\HmEnglishTextWordCounter.dll", "HmEnglishTextWordCounter.HmEnglishTextWordCounnter", "StartWordCounter", R"MACRO(
-		$word_counter = "{WORD_COUNT}"; // HmEnglishTextWordCounter はここにWord数を入れるだろう。
+        $word_counter = "{WORD_COUNT}"; // HmEnglishTextWordCounter はここにWord数を入れるだろう。
 
-		if (selecting) {
-		    title "選択範囲の単語数:" + $word_counter, 1;   //スターテスバーに表示
-		    title -1, 1;	//ステータスバー表示を維持
-		} else {
-		    title "全体の単語数:" + $word_counter, 1;   //スターテスバーに表示
-		    title -1, 1;	//ステータスバー表示を維持
-		}
+        if (selecting) {
+            title "選択範囲の単語数:" + $word_counter, 1;   //スターテスバーに表示
+            title -1, 1;    //ステータスバー表示を維持
+        } else {
+            title "全体の単語数:" + $word_counter, 1;   //スターテスバーに表示
+            title -1, 1;    //ステータスバー表示を維持
+        }
 
-		)MACRO"
+        )MACRO"
 
-		, "\n\t .,:;\"'?!"  // SplitBy
-	);
+        , "\n\t .,:;\"'?!"  // SplitBy
+    );
 }
 
 
