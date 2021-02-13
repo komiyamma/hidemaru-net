@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 using Hidemaru;
 
 namespace HmEnglishTextWordCounter
 {
 
-    internal partial class CounterForm : Form
+    internal partial class WordCounter
     {
         string cmdFormat = "";
         string splitBy = " ";
@@ -17,14 +16,14 @@ namespace HmEnglishTextWordCounter
 
         Task task;
         CancellationTokenSource tokenSource;
-        public CounterForm(string cmdFormat, string splitBy)
+        public WordCounter(string cmdFormat, string splitBy)
         {
             this.cmdFormat = cmdFormat;
             this.splitBy = splitBy;
             CreateTimer();
         }
 
-        ~CounterForm()
+        ~WordCounter()
         {
             StopTimer();
         }
@@ -52,14 +51,11 @@ namespace HmEnglishTextWordCounter
                 else
                 {
                     string totalText = Hm.Edit.TotalText ?? "";
-                    if (totalText != "")
+                    targetText = totalText;
+                    if (preLastString != totalText)
                     {
-                        targetText = totalText;
-                        if (preLastString != totalText)
-                        {
-                            is_must_update = true;
-                            preLastString = totalText;
-                        }
+                        is_must_update = true;
+                        preLastString = totalText;
                     }
                 }
 
@@ -110,13 +106,13 @@ namespace HmEnglishTextWordCounter
 
     public class HmEnglishTextWordCounnter
     {
-        static CounterForm form;
+        static WordCounter form;
         public static IntPtr StartWordCounter(String cmdFormat, String splitBy)
         {
             StopWordCounter();
             if (form == null)
             {
-                form = new CounterForm(cmdFormat, splitBy);
+                form = new WordCounter(cmdFormat, splitBy);
             }
 
             return (IntPtr)1;

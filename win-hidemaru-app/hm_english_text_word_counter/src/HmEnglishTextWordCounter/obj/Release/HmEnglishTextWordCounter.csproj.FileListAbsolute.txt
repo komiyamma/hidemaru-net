@@ -4,7 +4,6 @@ C:\Users\master\source\repos\HmEnglishTextWordCounter\HmEnglishTextWordCounter\o
 C:\Users\master\source\repos\HmEnglishTextWordCounter\HmEnglishTextWordCounter\obj\Release\HmEnglishTextWordCounter.csproj.CopyComplete
 C:\Users\master\source\repos\HmEnglishTextWordCounter\HmEnglishTextWordCounter\obj\Release\HmEnglishTextWordCounter.dll
 G:\repogitory\hidemaru-net\win-hidemaru-app\hm_english_text_word_counter\src\HmEnglishTextWordCounter\bin\Release\HmEnglishTextWordCounter.dll
-G:\repogitory\hidemaru-net\win-hidemaru-app\hm_english_text_word_counter\src\HmEnglishTextWordCounter\obj\Release\HmEnglishTextWordCounter.csprojAssemblyReference.cache
 G:\repogitory\hidemaru-net\win-hidemaru-app\hm_english_text_word_counter\src\HmEnglishTextWordCounter\obj\Release\HmEnglishTextWordCounter.csproj.CoreCompileInputs.cache
 G:\repogitory\hidemaru-net\win-hidemaru-app\hm_english_text_word_counter\src\HmEnglishTextWordCounter\obj\Release\HmEnglishTextWordCounter.csproj.CopyComplete
 G:\repogitory\hidemaru-net\win-hidemaru-app\hm_english_text_word_counter\src\HmEnglishTextWordCounter\obj\Release\HmEnglishTextWordCounter.dll
