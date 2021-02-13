@@ -1,0 +1,7 @@
+C:\Users\master\source\repos\HmEnglishTextWordCounter\HmEnglishTextWordCounter\bin\Debug\HmEnglishTextWordCounter.dll
+C:\Users\master\source\repos\HmEnglishTextWordCounter\HmEnglishTextWordCounter\bin\Debug\HmEnglishTextWordCounter.pdb
+C:\Users\master\source\repos\HmEnglishTextWordCounter\HmEnglishTextWordCounter\bin\Debug\hm.NET.dll
+C:\Users\master\source\repos\HmEnglishTextWordCounter\HmEnglishTextWordCounter\obj\Debug\HmEnglishTextWordCounter.csproj.CoreCompileInputs.cache
+C:\Users\master\source\repos\HmEnglishTextWordCounter\HmEnglishTextWordCounter\obj\Debug\HmEnglishTextWordCounter.csproj.CopyComplete
+C:\Users\master\source\repos\HmEnglishTextWordCounter\HmEnglishTextWordCounter\obj\Debug\HmEnglishTextWordCounter.dll
+C:\Users\master\source\repos\HmEnglishTextWordCounter\HmEnglishTextWordCounter\obj\Debug\HmEnglishTextWordCounter.pdb
