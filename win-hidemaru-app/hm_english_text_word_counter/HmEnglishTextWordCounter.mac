@@ -1,5 +1,5 @@
 ﻿/*
- * HmEnglishTextWordCounter ver 1.001
+ * HmEnglishTextWordCounter ver 1.002
  * Copyright (C) 2021 Akitsugu Komiyama
  * under the MIT License
  */
@@ -14,7 +14,7 @@ if (!#HMNET) {
 
 // 実行する度に、「表示」と「やめ」を切り替える
 if (#is_count_mode) {
-    title 0, 1;
+    title 0, 2; // 見出しバーの表示のあり方を元へと戻す
     #_ = dllfuncw( #HMNET, "CallMethod", currentmacrodirectory + @"\HmEnglishTextWordCounter.dll", "HmEnglishTextWordCounter.HmEnglishTextWordCounnter", "StopWordCounter");
     #OUTPUT = loaddll("HmOutputPane.dll");
     #ret = dllfunc(#OUTPUT, "Output",hidemaruhandle(0),"カウントモード終了\r\n");
@@ -26,11 +26,11 @@ if (#is_count_mode) {
         $word_counter = "{WORD_COUNT}"; // HmEnglishTextWordCounter はここにWord数を入れるだろう。
 
         if (selecting) {
-            title "選択範囲の単語数:" + $word_counter, 1;   //スターテスバーに表示
-            title -1, 1;    //ステータスバー表示を維持
+            title "選択範囲の単語数:" + $word_counter, 2;   //見出しバーに表示
+            title -1, 2;    //見出しバー表示を維持
         } else {
-            title "全体の単語数:" + $word_counter, 1;   //スターテスバーに表示
-            title -1, 1;    //ステータスバー表示を維持
+            title "全体の単語数:" + $word_counter, 2;   //見出しバーに表示
+            title -1, 2;    //見出しバー表示を維持
         }
 
         )MACRO"
