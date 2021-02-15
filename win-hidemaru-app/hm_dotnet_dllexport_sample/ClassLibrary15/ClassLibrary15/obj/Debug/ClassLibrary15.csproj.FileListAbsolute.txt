@@ -1,5 +1,0 @@
-C:\Users\master\source\repos\ClassLibrary15\ClassLibrary15\bin\Debug\ClassLibrary15.dll
-C:\Users\master\source\repos\ClassLibrary15\ClassLibrary15\bin\Debug\ClassLibrary15.pdb
-C:\Users\master\source\repos\ClassLibrary15\ClassLibrary15\obj\Debug\ClassLibrary15.csproj.CoreCompileInputs.cache
-C:\Users\master\source\repos\ClassLibrary15\ClassLibrary15\obj\Debug\ClassLibrary15.dll
-C:\Users\master\source\repos\ClassLibrary15\ClassLibrary15\obj\Debug\ClassLibrary15.pdb
