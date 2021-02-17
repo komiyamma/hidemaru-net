@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><assembly manifestVersion="1.0" xmlns="urn:schemas-microsoft-com:asm.v1"><assemblyIdentity type="win32" name="ComServer.X" version="1.0.0.0" /><file name="ComServer.comhost.dll"><comClass clsid="{db1797f5-7198-4411-8563-d05f4e904956}" threadingModel="Both" progid="COMServer.Server" /></file></assembly>
