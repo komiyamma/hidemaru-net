@@ -1,4 +1,0 @@
-C:\Users\master\source\repos\ComServer\ClassLibrary1\obj\Debug\MyTestComClient.csprojAssemblyReference.cache
-C:\Users\master\source\repos\ComServer\ClassLibrary1\obj\Debug\MyTestComClient.csproj.CoreCompileInputs.cache
-C:\Users\master\source\repos\ComServer\ClassLibrary1\obj\Debug\ClassLibrary1.exe
-C:\Users\master\source\repos\ComServer\ClassLibrary1\obj\Debug\ClassLibrary1.pdb

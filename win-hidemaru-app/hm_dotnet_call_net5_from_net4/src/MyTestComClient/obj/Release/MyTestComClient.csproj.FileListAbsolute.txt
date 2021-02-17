@@ -1,5 +1,0 @@
-C:\Users\master\source\repos\ComServer\ClassLibrary1\bin\Release\ClassLibrary1.exe
-C:\Users\master\source\repos\ComServer\ClassLibrary1\bin\Release\ClassLibrary1.pdb
-C:\Users\master\source\repos\ComServer\ClassLibrary1\obj\Release\MyTestComClient.csproj.CoreCompileInputs.cache
-C:\Users\master\source\repos\ComServer\ClassLibrary1\obj\Release\ClassLibrary1.exe
-C:\Users\master\source\repos\ComServer\ClassLibrary1\obj\Release\ClassLibrary1.pdb
