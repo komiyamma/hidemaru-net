@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\master\\source\\repos\\ComServer\\MyTestComServer\\MyTestComServer.csproj": {}
+    "G:\\repogitory\\hidemaru-net\\win-hidemaru-app\\hm_dotnet_call_net5_from_net4\\src\\MyTestComServer\\MyTestComServer.csproj": {}
   },
   "projects": {
-    "C:\\Users\\master\\source\\repos\\ComServer\\MyTestComServer\\MyTestComServer.csproj": {
+    "G:\\repogitory\\hidemaru-net\\win-hidemaru-app\\hm_dotnet_call_net5_from_net4\\src\\MyTestComServer\\MyTestComServer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\master\\source\\repos\\ComServer\\MyTestComServer\\MyTestComServer.csproj",
+        "projectUniqueName": "G:\\repogitory\\hidemaru-net\\win-hidemaru-app\\hm_dotnet_call_net5_from_net4\\src\\MyTestComServer\\MyTestComServer.csproj",
         "projectName": "MyTestComServer",
-        "projectPath": "C:\\Users\\master\\source\\repos\\ComServer\\MyTestComServer\\MyTestComServer.csproj",
+        "projectPath": "G:\\repogitory\\hidemaru-net\\win-hidemaru-app\\hm_dotnet_call_net5_from_net4\\src\\MyTestComServer\\MyTestComServer.csproj",
         "packagesPath": "C:\\Users\\master\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\master\\source\\repos\\ComServer\\MyTestComServer\\obj\\",
+        "outputPath": "G:\\repogitory\\hidemaru-net\\win-hidemaru-app\\hm_dotnet_call_net5_from_net4\\src\\MyTestComServer\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

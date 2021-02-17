@@ -2,9 +2,7 @@
 using System.Runtime.InteropServices;
 
 
-
-
-namespace COMClient
+namespace MyTestCOMClient
 {
     public class Program
     {
@@ -12,7 +10,7 @@ namespace COMClient
         {
             try
             {
-                var server = new MyComActivation.MyTestComInterface();
+                var server = new MyTestComActivation.IMyTestComInterface();
 
                 var add = server.AddString("あいうえお", "かきくけこ");
                 return add;
@@ -27,7 +25,7 @@ namespace COMClient
         {
             try
             {
-                var server = new MyComActivation.MyTestComInterface();
+                var server = new MyTestComActivation.IMyTestComInterface();
 
                 var add = server.AddString("あいうえお", "かきくけこ");
                 Console.WriteLine(add);
@@ -43,7 +41,7 @@ namespace COMClient
 
     //次のクラスは通常PIAで定義されていますが、この例では
     //シナリオを単純化するためにここで定義されています。
-    namespace MyComActivation
+    namespace MyTestComActivation
     {
         /// <summary>
         /// CoClass のマネージドの定義
@@ -51,7 +49,7 @@ namespace COMClient
         [ComImport]
         [CoClass(typeof(MyTestComServer))]
         [Guid(ContractGuids.ServerInterface)] // TlbImp規則により、これを親インターフェイスのGUIDに設定します
-        internal interface MyTestComInterface : IMyTestCOMServer
+        internal interface IMyTestComInterface : IMyTestCOMServer
         {
         }
 

@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyTestComClient", "MyTestCo
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "MyTestComServerSetup", "MyTestComServerSetup\MyTestComServerSetup.vdproj", "{F632C3A1-462C-4F80-99DE-F6A967CD9AA3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyTestComClassAutoDual", "MyTestComClassAutoDual\MyTestComClassAutoDual.csproj", "{3CD4DD60-CD44-47EE-9500-59E38C94DE77}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,10 +25,6 @@ Global
 		{965C4621-C56A-424C-A52F-A317C039C8A2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F632C3A1-462C-4F80-99DE-F6A967CD9AA3}.Debug|Any CPU.ActiveCfg = Debug
 		{F632C3A1-462C-4F80-99DE-F6A967CD9AA3}.Release|Any CPU.ActiveCfg = Release
-		{3CD4DD60-CD44-47EE-9500-59E38C94DE77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3CD4DD60-CD44-47EE-9500-59E38C94DE77}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3CD4DD60-CD44-47EE-9500-59E38C94DE77}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3CD4DD60-CD44-47EE-9500-59E38C94DE77}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
