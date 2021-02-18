@@ -6,32 +6,19 @@ namespace MyTestCOMClient
 {
     public class Program
     {
-        public static string abc(string args)
+        public static string abc(string str)
         {
             try
             {
                 var server = new MyTestComActivation.IMyTestComInterface();
                 string[] list = { "aaa", "bbb", "ccc" };
-                var add = server.AddString("あいうえお", "かきくけこ", list);
+                var add = server.AddString(str, "かきくけこ", list);
                 return add;
             } catch(Exception e)
             {
                 System.Diagnostics.Trace.WriteLine(e.Message);
             }
             return "";
-        }
-
-        public static void Main(string[] args)
-        {
-            try
-            {
-                string ret = abc("dummy");
-                Console.WriteLine(ret);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
         }
     }
 
