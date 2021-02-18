@@ -11,8 +11,8 @@ namespace MyTestCOMClient
             try
             {
                 var server = new MyTestComActivation.IMyTestComInterface();
-
-                var add = server.AddString("あいうえお", "かきくけこ");
+                string[] list = { "aaa", "bbb", "ccc" };
+                var add = server.AddString("あいうえお", "かきくけこ", list);
                 return add;
             } catch(Exception e)
             {
@@ -25,11 +25,8 @@ namespace MyTestCOMClient
         {
             try
             {
-                var server = new MyTestComActivation.IMyTestComInterface();
-
-                var add = server.AddString("あいうえお", "かきくけこ");
-                Console.WriteLine(add);
-                
+                string ret = abc("dummy");
+                Console.WriteLine(ret);
             }
             catch (Exception e)
             {

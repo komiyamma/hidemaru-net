@@ -6,11 +6,12 @@ namespace MyTestCOMServer
 {
     [ComVisible(true)]
     [Guid(ContractGuids.ServerClass)]
-    public class Server : IMyTestCOMServer
+    public class MyTestCOMServer : IMyTestCOMServer
     {
-        string IMyTestCOMServer.AddString(string str1, string str2)
+
+        string IMyTestCOMServer.AddString(string str1, string str2, string[] list)
         {
-            return str1 + str2;
+            return str1 + str2 + list.Length.ToString(); ;
         }
     }
 }

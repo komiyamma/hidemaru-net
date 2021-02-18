@@ -3,19 +3,19 @@ using System.Runtime.InteropServices;
 
 internal sealed class ContractGuids
 {
-    public const string ServerClass = "DB1797F5-7198-4411-8563-D05F4E904956";
-    public const string ServerInterface = "BA9AC84B-C7FC-41CF-8B2F-1764EB773D4B";
+    public const string ServerClass = "35453D63-CC4C-467F-BD2B-457C417B15A5";
+    public const string ServerInterface = "473100CB-2110-4264-BCEB-8394C487D891";
 }
 
 [ComVisible(true)]
 [Guid(ContractGuids.ServerInterface)]
-[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+[InterfaceType(ComInterfaceType.InterfaceIsDual)]
 public interface IMyTestCOMServer
 {
     /// <summary>
     /// 文字列を足す
     /// </summary>
-    string AddString(string str1, string str2);
+    string AddString(string str1, string str2, string[] list);
 }
 
 
