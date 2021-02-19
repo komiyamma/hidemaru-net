@@ -27,9 +27,7 @@ namespace MyTestCOMClient
     //シナリオを単純化するためにここで定義されています。
     namespace MyTestComActivation
     {
-        /// <summary>
-        /// CoClass のマネージドの定義
-        /// </summary>
+        // CoClass のマネージドの定義
         [ComImport]
         [CoClass(typeof(MyTestComServer))]
         [Guid(ContractGuids.ServerInterface)] // TlbImp規則により、これを親インターフェイスのGUIDに設定します
@@ -37,9 +35,7 @@ namespace MyTestCOMClient
         {
         }
 
-        /// <summary>
-        /// CoClassのマネージドアクティベーション
-        /// </summary>
+        // CoClassのマネージドアクティベーション
         [ComImport]
         [Guid(ContractGuids.ServerClass)]
         internal class MyTestComServer
