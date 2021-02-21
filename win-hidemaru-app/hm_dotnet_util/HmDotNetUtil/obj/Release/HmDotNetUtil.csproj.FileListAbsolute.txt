@@ -1,0 +1,5 @@
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_util\HmDotNetUtil\bin\Release\HmDotNetUtil.dll
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_util\HmDotNetUtil\bin\Release\HmDotNetUtil.pdb
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_util\HmDotNetUtil\obj\Release\HmDotNetUtil.csproj.CoreCompileInputs.cache
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_util\HmDotNetUtil\obj\Release\HmDotNetUtil.dll
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_util\HmDotNetUtil\obj\Release\HmDotNetUtil.pdb

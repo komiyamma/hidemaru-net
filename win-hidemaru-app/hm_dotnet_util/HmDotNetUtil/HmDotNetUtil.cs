@@ -1,10 +1,11 @@
 ﻿using System;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.IO;
 
 
-namespace test {
+namespace test
+{
     using HmDotNetUtil;
 
     public class abc
@@ -80,7 +81,7 @@ namespace HmDotNetUtil
                         IntPtr hGlobal = Hidemaru_GetTotalTextUnicode();
                         if (hGlobal == IntPtr.Zero)
                         {
-                            new InvalidOperationException("Hidemaru_GetTotalTextUnicode");
+                            new InvalidOperationException("Hidemaru_GetTotalTextUnicode_Exception");
                         }
 
                         var pwsz = GlobalLock(hGlobal);
@@ -115,7 +116,7 @@ namespace HmDotNetUtil
                             IntPtr hGlobal = Hidemaru_GetSelectedTextUnicode();
                             if (hGlobal == IntPtr.Zero)
                             {
-                                new InvalidOperationException("Hidemaru_GetSelectedTextUnicode");
+                                new InvalidOperationException("Hidemaru_GetSelectedTextUnicode_Exception");
                             }
 
                             var pwsz = GlobalLock(hGlobal);
@@ -158,7 +159,7 @@ namespace HmDotNetUtil
                             IntPtr hGlobal = Hidemaru_GetLineTextUnicode((int)lineno);
                             if (hGlobal == IntPtr.Zero)
                             {
-                                new InvalidOperationException("Hidemaru_GetLineTextUnicode");
+                                new InvalidOperationException("Hidemaru_GetLineTextUnicode_Exception");
                             }
 
                             var pwsz = GlobalLock(hGlobal);
@@ -316,7 +317,7 @@ namespace HmDotNetUtil
                 }
                 if (success == 0)
                 {
-                    Exception e = new InvalidOperationException("HidemaruMacroEvalException");
+                    Exception e = new InvalidOperationException("Hidemaru_Macro_Eval_Exception");
                     TResult result = new TResult(0, "", e);
                     return result;
                 }
@@ -335,7 +336,7 @@ namespace HmDotNetUtil
                     TResult result;
                     if (IsExecuting)
                     {
-                        Exception e = new InvalidOperationException("HidemaruMacroIsExecutingException");
+                        Exception e = new InvalidOperationException("Hidemaru_Macro_IsExecuting_Exception");
                         result = new TResult(-1, "", e);
                         return result;
                     }
@@ -359,7 +360,7 @@ namespace HmDotNetUtil
                     }
                     else
                     {
-                        Exception e = new InvalidOperationException("HidemaruMacroEvalException");
+                        Exception e = new InvalidOperationException("Hidemaru_Macro_Eval_Exception");
                         result = new TResult(0, sbRet.ToString(), e);
                     }
                     return result;
@@ -370,7 +371,7 @@ namespace HmDotNetUtil
                     TResult result;
                     if (IsExecuting)
                     {
-                        Exception e = new InvalidOperationException("HidemaruMacroIsExecutingException");
+                        Exception e = new InvalidOperationException("Hidemaru_Macro_IsExecuting_Exception");
                         result = new TResult(-1, "", e);
                         return result;
                     }
@@ -388,15 +389,13 @@ namespace HmDotNetUtil
                     }
                     else
                     {
-                        Exception e = new InvalidOperationException("HidemaruMacroEvalException");
+                        Exception e = new InvalidOperationException("Hidemaru_Macro_Eval_Exception");
                         result = new TResult(0, sbRet.ToString(), e);
                     }
                     return result;
                 }
-
             }
         }
-
     }
 }
 
