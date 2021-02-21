@@ -1,0 +1,5 @@
+C:\Users\master\source\repos\HmDotNetUtil\HmDotNetUtil\bin\Debug\HmDotNetUtil.dll
+C:\Users\master\source\repos\HmDotNetUtil\HmDotNetUtil\bin\Debug\HmDotNetUtil.pdb
+C:\Users\master\source\repos\HmDotNetUtil\HmDotNetUtil\obj\Debug\HmDotNetUtil.csproj.CoreCompileInputs.cache
+C:\Users\master\source\repos\HmDotNetUtil\HmDotNetUtil\obj\Debug\HmDotNetUtil.dll
+C:\Users\master\source\repos\HmDotNetUtil\HmDotNetUtil\obj\Debug\HmDotNetUtil.pdb
