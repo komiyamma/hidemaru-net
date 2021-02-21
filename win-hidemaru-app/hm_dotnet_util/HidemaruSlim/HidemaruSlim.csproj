@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFrameworks>net48;net5;netcoreapp3.1</TargetFrameworks>
+    <AssemblyName>HidemaruSlim</AssemblyName>
+    <RootNamespace>HidemaruSlim</RootNamespace>
+    <AssemblyVersion>1.0.0.1</AssemblyVersion>
+    <FileVersion>1.0.0.1</FileVersion>
+    <Version>1.0.0.1</Version>
+  </PropertyGroup>
+
+</Project>

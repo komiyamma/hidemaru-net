@@ -1,0 +1,11 @@
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_util\HidemaruSlim\bin\Release\net5\HidemaruSlim.deps.json
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_util\HidemaruSlim\bin\Release\net5\HidemaruSlim.dll
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_util\HidemaruSlim\bin\Release\net5\ref\HidemaruSlim.dll
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_util\HidemaruSlim\bin\Release\net5\HidemaruSlim.pdb
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_util\HidemaruSlim\obj\Release\net5\HidemaruSlim.GeneratedMSBuildEditorConfig.editorconfig
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_util\HidemaruSlim\obj\Release\net5\HidemaruSlim.AssemblyInfoInputs.cache
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_util\HidemaruSlim\obj\Release\net5\HidemaruSlim.AssemblyInfo.cs
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_util\HidemaruSlim\obj\Release\net5\HidemaruSlim.csproj.CoreCompileInputs.cache
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_util\HidemaruSlim\obj\Release\net5\HidemaruSlim.dll
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_util\HidemaruSlim\obj\Release\net5\ref\HidemaruSlim.dll
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_util\HidemaruSlim\obj\Release\net5\HidemaruSlim.pdb

@@ -1,9 +1,0 @@
-G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_util\HmDotNetUtil\bin\Release\netcoreapp3.1\HmDotNetUtil.deps.json
-G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_util\HmDotNetUtil\bin\Release\netcoreapp3.1\HmDotNetUtil.dll
-G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_util\HmDotNetUtil\bin\Release\netcoreapp3.1\HmDotNetUtil.pdb
-G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_util\HmDotNetUtil\obj\Release\netcoreapp3.1\HmDotNetUtil.csprojAssemblyReference.cache
-G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_util\HmDotNetUtil\obj\Release\netcoreapp3.1\HmDotNetUtil.AssemblyInfoInputs.cache
-G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_util\HmDotNetUtil\obj\Release\netcoreapp3.1\HmDotNetUtil.AssemblyInfo.cs
-G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_util\HmDotNetUtil\obj\Release\netcoreapp3.1\HmDotNetUtil.csproj.CoreCompileInputs.cache
-G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_util\HmDotNetUtil\obj\Release\netcoreapp3.1\HmDotNetUtil.dll
-G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_util\HmDotNetUtil\obj\Release\netcoreapp3.1\HmDotNetUtil.pdb
