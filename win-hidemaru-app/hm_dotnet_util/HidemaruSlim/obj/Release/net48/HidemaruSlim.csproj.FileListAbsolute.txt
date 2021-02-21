@@ -1,7 +1,0 @@
-G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_util\HidemaruSlim\bin\Release\net48\HidemaruSlim.dll
-G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_util\HidemaruSlim\bin\Release\net48\HidemaruSlim.pdb
-G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_util\HidemaruSlim\obj\Release\net48\HidemaruSlim.AssemblyInfoInputs.cache
-G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_util\HidemaruSlim\obj\Release\net48\HidemaruSlim.AssemblyInfo.cs
-G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_util\HidemaruSlim\obj\Release\net48\HidemaruSlim.csproj.CoreCompileInputs.cache
-G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_util\HidemaruSlim\obj\Release\net48\HidemaruSlim.dll
-G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_util\HidemaruSlim\obj\Release\net48\HidemaruSlim.pdb
