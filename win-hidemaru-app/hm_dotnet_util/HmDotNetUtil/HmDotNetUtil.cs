@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.IO;
 
 
 namespace test {
@@ -315,14 +316,82 @@ namespace HmDotNetUtil
                 }
                 if (success == 0)
                 {
-                    Exception e = new InvalidOperationException("Hidemaru_EvalMacro");
-                    TResult r = new TResult(0, "", e);
-                    return r;
+                    Exception e = new InvalidOperationException("HidemaruMacroEvalException");
+                    TResult result = new TResult(0, "", e);
+                    return result;
                 }
                 else
                 {
-                    TResult r = new TResult(success, "", null);
-                    return r;
+                    TResult result = new TResult(success, "", null);
+                    return result;
+                }
+
+            }
+
+            public class Exec
+            {
+                public static IResult File(string filepath)
+                {
+                    TResult result;
+                    if (IsExecuting)
+                    {
+                        Exception e = new InvalidOperationException("HidemaruMacroIsExecutingException");
+                        result = new TResult(-1, "", e);
+                        return result;
+                    }
+                    if (!System.IO.File.Exists(filepath))
+                    {
+                        Exception e = new FileNotFoundException(filepath);
+                        result = new TResult(-1, "", e);
+                        return result;
+                    }
+
+                    const int WM_USER = 0x400;
+                    const int WM_REMOTE_EXECMACRO_FILE = WM_USER + 271;
+                    IntPtr hWndHidemaru = WindowHandle;
+
+                    StringBuilder sbFileName = new StringBuilder(filepath);
+                    StringBuilder sbRet = new StringBuilder("\x0f0f", 0x0f0f + 1); // 最初の値は帰り値のバッファー
+                    bool cwch = SendMessage(hWndHidemaru, WM_REMOTE_EXECMACRO_FILE, sbRet, sbFileName);
+                    if (cwch)
+                    {
+                        result = new TResult(1, sbRet.ToString(), null);
+                    }
+                    else
+                    {
+                        Exception e = new InvalidOperationException("HidemaruMacroEvalException");
+                        result = new TResult(0, sbRet.ToString(), e);
+                    }
+                    return result;
+                }
+
+                public static IResult Eval(string expression)
+                {
+                    TResult result;
+                    if (IsExecuting)
+                    {
+                        Exception e = new InvalidOperationException("HidemaruMacroIsExecutingException");
+                        result = new TResult(-1, "", e);
+                        return result;
+                    }
+
+                    const int WM_USER = 0x400;
+                    const int WM_REMOTE_EXECMACRO_MEMORY = WM_USER + 272;
+                    IntPtr hWndHidemaru = WindowHandle;
+
+                    StringBuilder sbExpression = new StringBuilder(expression);
+                    StringBuilder sbRet = new StringBuilder("\x0f0f", 0x0f0f + 1); // 最初の値は帰り値のバッファー
+                    bool cwch = SendMessage(hWndHidemaru, WM_REMOTE_EXECMACRO_MEMORY, sbRet, sbExpression);
+                    if (cwch)
+                    {
+                        result = new TResult(1, sbRet.ToString(), null);
+                    }
+                    else
+                    {
+                        Exception e = new InvalidOperationException("HidemaruMacroEvalException");
+                        result = new TResult(0, sbRet.ToString(), e);
+                    }
+                    return result;
                 }
 
             }
