@@ -1,43 +1,53 @@
 ﻿using System;
-using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace HmDotNetUtil
-{
+
+namespace test {
+    using HmDotNetUtil;
 
     public class abc
     {
         static abc()
         {
             String str = Hm.Edit.TotalText;
-            var pos = Hm.Edit.CursorPos;
-            if (pos.LineNo > 0)
-            {
-
-            }
+            var pos = Hm.Macro.Eval(@"message(""abc"");");
         }
     }
-    public partial class Hm
+}
+
+
+namespace HmDotNetUtil
+{
+    internal partial class Hm
     {
         private static double _version = 0;
         /// <summary>
         /// 秀丸バージョンの取得
         /// </summary>
-        /// <returns>秀丸バージョン。Decimal型なので、判定の浮動小数を　if (Hm.Version > (Decimal)8.98) {...} といったようにキャストすること</returns>
+        /// <returns>秀丸バージョン</returns>
         public static double Version
         {
             get
             {
-
                 if (_version == 0)
                 {
-                    System.Diagnostics.FileVersionInfo vi = System.Diagnostics.FileVersionInfo.GetVersionInfo(Application.ExecutablePath);
+                    string hidemaru_fullpath = GetHidemaruExeFullPath();
+                    System.Diagnostics.FileVersionInfo vi = System.Diagnostics.FileVersionInfo.GetVersionInfo(hidemaru_fullpath);
                     _version = 100 * vi.FileMajorPart + 10 * vi.FileMinorPart + 1 * vi.FileBuildPart + 0.01 * vi.FilePrivatePart;
                 }
 
                 return _version;
             }
+        }
+
+        private static string GetHidemaruExeFullPath()
+        {
+            const int PATH_MAX = 512;
+            var sb = new System.Text.StringBuilder(PATH_MAX);
+            GetModuleFileName(IntPtr.Zero, sb, PATH_MAX);
+            string hidemaru_fullpath = sb.ToString();
+            return hidemaru_fullpath;
         }
 
         /// <summary>
@@ -52,7 +62,7 @@ namespace HmDotNetUtil
             }
         }
 
-        public partial class Edit
+        internal partial class Edit
         {
             /// <summary>
             /// 現在アクティブな編集領域のテキスト全体を返す。
@@ -251,7 +261,7 @@ namespace HmDotNetUtil
             }
         }
 
-        class Macro
+        internal class Macro
         {
             public static bool IsExecuting
             {
@@ -323,7 +333,8 @@ namespace HmDotNetUtil
 
 namespace HmDotNetUtil
 {
-    partial class Hm
+
+    internal partial class Hm
     {
         [DllImport("Hidemaru.exe", CallingConvention = CallingConvention.Winapi)]
         private extern static IntPtr Hidemaru_GetTotalTextUnicode();
@@ -353,8 +364,11 @@ namespace HmDotNetUtil
 
 namespace HmDotNetUtil
 {
-    partial class Hm
+    internal partial class Hm
     {
+        [DllImport("kernel32.dll")]
+        private extern static uint GetModuleFileName(IntPtr hModule, System.Text.StringBuilder lpFilename, int nSize);
+
         [DllImport("kernel32.dll")]
         private extern static IntPtr GlobalLock(IntPtr hMem);
 
