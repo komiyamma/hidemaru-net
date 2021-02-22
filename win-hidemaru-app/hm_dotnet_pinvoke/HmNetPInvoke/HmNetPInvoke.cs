@@ -371,6 +371,13 @@ namespace HmNetPInvoke
 
             public static IResult Eval(String expression)
             {
+                TResult result;
+                if (!IsExecuting)
+                {
+                    Exception e = new InvalidOperationException("Hidemaru_Macro_IsNotExecuting_Exception");
+                    result = new TResult(-1, "", e);
+                    return result;
+                }
                 int success = 0;
                 try
                 {
@@ -383,12 +390,12 @@ namespace HmNetPInvoke
                 if (success == 0)
                 {
                     Exception e = new InvalidOperationException("Hidemaru_Macro_Eval_Exception");
-                    TResult result = new TResult(0, "", e);
+                    result = new TResult(0, "", e);
                     return result;
                 }
                 else
                 {
-                    TResult result = new TResult(success, "", null);
+                    result = new TResult(success, "", null);
                     return result;
                 }
 
