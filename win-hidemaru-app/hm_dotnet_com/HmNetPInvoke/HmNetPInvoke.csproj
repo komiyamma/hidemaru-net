@@ -2,11 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyName>hm.NetCOM</AssemblyName>
+    <AssemblyName>HmNetPInvoke</AssemblyName>
     <RootNamespace>Hidemaru</RootNamespace>
     <Version>1.0.0.1</Version>
     <Copyright>Copyright © 2021 Akitsugu Komiyama</Copyright>
     <NeutralLanguage>ja-JP</NeutralLanguage>
+    <PackageId>HmNetPInvoke</PackageId>
+    <Authors>HmNetPInvoke</Authors>
+    <Company>HmNetPInvoke</Company>
+    <Product>HmNetPInvoke</Product>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
