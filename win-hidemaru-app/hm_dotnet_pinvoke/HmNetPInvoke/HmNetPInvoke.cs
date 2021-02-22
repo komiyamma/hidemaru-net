@@ -41,7 +41,7 @@ namespace HmNetPInvoke
 
         private static string GetHidemaruExeFullPath()
         {
-            var sb = new System.Text.StringBuilder(filePathMaxLength);
+            var sb = new StringBuilder(filePathMaxLength);
             GetModuleFileName(IntPtr.Zero, sb, filePathMaxLength);
             string hidemaru_fullpath = sb.ToString();
             return hidemaru_fullpath;
@@ -518,7 +518,7 @@ namespace HmNetPInvoke
 #endif
     {
         [DllImport("kernel32.dll")]
-        private extern static uint GetModuleFileName(IntPtr hModule, System.Text.StringBuilder lpFilename, int nSize);
+        private extern static uint GetModuleFileName(IntPtr hModule, StringBuilder lpFilename, int nSize);
 
         [DllImport("kernel32.dll", SetLastError = true)]
         private extern static IntPtr GlobalLock(IntPtr hMem);

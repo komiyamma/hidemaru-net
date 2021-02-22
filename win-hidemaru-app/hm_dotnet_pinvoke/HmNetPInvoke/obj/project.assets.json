@@ -186,11 +186,11 @@
   "project": {
     "version": "1.0.0.1",
     "restore": {
-      "projectUniqueName": "G:\\repogitory\\hidemaru-net\\win-hidemaru-app\\hm_dotnet_com\\HmNetPInvoke\\HmNetPInvoke.csproj",
+      "projectUniqueName": "G:\\repogitory\\hidemaru-net\\win-hidemaru-app\\hm_dotnet_pinvoke\\HmNetPInvoke\\HmNetPInvoke.csproj",
       "projectName": "HmNetPInvoke",
-      "projectPath": "G:\\repogitory\\hidemaru-net\\win-hidemaru-app\\hm_dotnet_com\\HmNetPInvoke\\HmNetPInvoke.csproj",
+      "projectPath": "G:\\repogitory\\hidemaru-net\\win-hidemaru-app\\hm_dotnet_pinvoke\\HmNetPInvoke\\HmNetPInvoke.csproj",
       "packagesPath": "C:\\Users\\master\\.nuget\\packages\\",
-      "outputPath": "G:\\repogitory\\hidemaru-net\\win-hidemaru-app\\hm_dotnet_com\\HmNetPInvoke\\obj\\",
+      "outputPath": "G:\\repogitory\\hidemaru-net\\win-hidemaru-app\\hm_dotnet_pinvoke\\HmNetPInvoke\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
