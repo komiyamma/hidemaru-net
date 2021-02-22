@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HidemaruSlim", "HidemaruSlim\HidemaruSlim.csproj", "{E8624908-9859-473F-9DA3-1EB38F39ACFC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hm.NetCOM", "hm.NetCOM\hm.NetCOM.csproj", "{BC0184C5-F01B-40EE-8349-86383A69DF0E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E8624908-9859-473F-9DA3-1EB38F39ACFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E8624908-9859-473F-9DA3-1EB38F39ACFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E8624908-9859-473F-9DA3-1EB38F39ACFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E8624908-9859-473F-9DA3-1EB38F39ACFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC0184C5-F01B-40EE-8349-86383A69DF0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC0184C5-F01B-40EE-8349-86383A69DF0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC0184C5-F01B-40EE-8349-86383A69DF0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC0184C5-F01B-40EE-8349-86383A69DF0E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {94D6F8F1-042E-4B2D-B2FE-3ED4263108D1}
+		SolutionGuid = {C46A8E07-AECF-4CED-A2EA-D24E5D5DFD12}
 	EndGlobalSection
 EndGlobal
