@@ -9,7 +9,7 @@ namespace MyTestCOMServer
     public class MyTestCOMServer : IMyTestCOMServer
     {
 
-        string IMyTestCOMServer.AddString(string str1, string str2, string[] list)
+        public string AddString(string str1, string str2, string[] list)
         {
             return str1 + str2 + list.Length.ToString(); ;
         }
