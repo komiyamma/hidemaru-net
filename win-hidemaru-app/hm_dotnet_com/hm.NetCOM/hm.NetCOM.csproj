@@ -4,6 +4,14 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>hm.NetCOM</AssemblyName>
     <RootNamespace>Hidemaru</RootNamespace>
+    <Version>1.0.0.1</Version>
+    <Copyright>Copyright © 2021 Akitsugu Komiyama</Copyright>
+    <NeutralLanguage>ja-JP</NeutralLanguage>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
   </PropertyGroup>
 
 </Project>

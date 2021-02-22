@@ -1,0 +1,6 @@
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_com\hm.NetCOM\bin\Release\netstandard2.0\hm.NetCOM.deps.json
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_com\hm.NetCOM\bin\Release\netstandard2.0\hm.NetCOM.dll
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_com\hm.NetCOM\obj\Release\netstandard2.0\hm.NetCOM.AssemblyInfoInputs.cache
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_com\hm.NetCOM\obj\Release\netstandard2.0\hm.NetCOM.AssemblyInfo.cs
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_com\hm.NetCOM\obj\Release\netstandard2.0\hm.NetCOM.csproj.CoreCompileInputs.cache
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_com\hm.NetCOM\obj\Release\netstandard2.0\hm.NetCOM.dll
