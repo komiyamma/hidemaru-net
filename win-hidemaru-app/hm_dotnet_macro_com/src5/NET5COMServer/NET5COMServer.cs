@@ -1,11 +1,12 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Runtime.InteropServices;
 
-namespace NET4COMServer
+namespace NET5COMServer
 {
-    [Guid("BD55F2A6-9ED0-4F4F-9D37-E6B84BE63272")]
-    public class NET4COMServer
+
+    [ComVisible(true)]
+    [Guid("C144B4C1-27CB-401F-ABE8-55378564E18D")]
+    public class NET5COMServer
     {
         public string str_add(string a, string b)
         {

@@ -1,5 +1,0 @@
-C:\Users\master\source\repos\NET4COMServer\NET4COMServer\obj\Debug\NET4COMServer.csproj.CoreCompileInputs.cache
-C:\Users\master\source\repos\NET4COMServer\NET4COMServer\bin\Debug\NET4COMServer.dll
-C:\Users\master\source\repos\NET4COMServer\NET4COMServer\bin\Debug\NET4COMServer.pdb
-C:\Users\master\source\repos\NET4COMServer\NET4COMServer\obj\Debug\NET4COMServer.dll
-C:\Users\master\source\repos\NET4COMServer\NET4COMServer\obj\Debug\NET4COMServer.pdb

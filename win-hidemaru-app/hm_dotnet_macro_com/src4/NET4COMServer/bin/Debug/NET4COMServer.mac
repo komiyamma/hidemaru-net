@@ -1,9 +1,0 @@
-﻿#obj = createobject( currentmacrodirectory + @"\NET4COMServer.dll", "NET4COMServer.NET4COMServer");
-
-$str_add = member(#obj, "str_add", "あいう", "かきく");
-message($str_add);
-
-#int_add = member(#obj, "int_add", 10, 20);
-message(str(#int_add));
-
-// freeobject(#obj); 機能しない
