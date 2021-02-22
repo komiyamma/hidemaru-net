@@ -59,7 +59,7 @@ namespace HmNetPInvoke
             }
         }
 
-        public partial class Edit
+        public static class Edit
         {
             /// <summary>
             /// 現在アクティブな編集領域のテキスト全体を返す。
@@ -313,7 +313,7 @@ namespace HmNetPInvoke
             }
         }
 
-        public class Macro
+        public static class Macro
         {
             /// <summary>
             /// マクロを実行中か否かを判定する
@@ -401,7 +401,7 @@ namespace HmNetPInvoke
 
             }
 
-            public class Exec
+            public static class Exec
             {
                 /// <summary>
                 /// マクロを実行していない時に、プログラム中で、マクロファイルを与えて新たなマクロを実行。
@@ -556,5 +556,30 @@ namespace HmNetPInvoke
         [DllImport("user32.dll", EntryPoint = "SendMessage", CharSet = CharSet.Auto)]
         private static extern bool SendMessage(IntPtr hWnd, uint Msg, StringBuilder wParam, StringBuilder lParam);
 
+    }
+}
+
+namespace HmNetPInvoke
+{
+
+#if BUILD_DLL
+    public static class HmExtentensions
+#else
+    internal static class HmExtentensions
+#endif
+    {
+        public static void Deconstruct(this Hm.Edit.ICursorPos pos, out int LineNo, out int Column)
+        {
+            LineNo = pos.LineNo;
+            Column = pos.Column;
+        }
+
+        public static void Deconstruct(this Hm.Edit.IMousePos pos, out int LineNo, out int Column, out int X, out int Y)
+        {
+            LineNo = pos.LineNo;
+            Column = pos.Column;
+            X = pos.X;
+            Y = pos.Y;
+        }
     }
 }
