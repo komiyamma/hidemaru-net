@@ -50,6 +50,7 @@
     <Compile Include="hmNET\hmNETHidemaruFile.cs" />
     <Compile Include="hmNET\hmNETHidemaruOutputPane.cs" />
     <Compile Include="hmNET\HmOriginalEncodeMap.cs" />
+    <Compile Include="hmNET\HmOriginalEncodeFunc.cs" />
     <Compile Include="hmNET\HmWndHandleSearcher.cs" />
     <Compile Include="hmNET\hmNETDllPathResolver.cs" />
     <Compile Include="hmNET\hmNETHidemaru.cs" />

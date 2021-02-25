@@ -285,6 +285,11 @@ namespace Hidemaru
             {
                 return hmNETDynamicLib.Hidemaru.OutputPane.SendMessge(command_id);
             }
+
+            public static int SetBaseDir(String dirpath)
+            {
+                return hmNETDynamicLib.Hidemaru.OutputPane.SetBaseDir(dirpath);
+            }
         }
     }
 }
