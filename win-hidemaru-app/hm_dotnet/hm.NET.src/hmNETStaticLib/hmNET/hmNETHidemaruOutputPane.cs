@@ -1,10 +1,9 @@
 ﻿/*
- * Copyright (c) 2017 Akitsugu Komiyama
+ * Copyright (c) 2021 Akitsugu Komiyama
  * under the MIT License
  */
 
 
-/*
 using System;
 using System.Text;
 using System.Runtime.InteropServices;
@@ -30,7 +29,8 @@ internal sealed partial class hmNETDynamicLib
             {
                 List<Byte> r = new List<byte>();
 
-                foreach(char ch in original_string) {
+                foreach (char ch in original_string)
+                {
                     // 文字コードがそんまま、マップでのIndexになっている。
                     int ix = (int)ch;
 
@@ -46,9 +46,14 @@ internal sealed partial class hmNETDynamicLib
                     else
                     {
                         byte[] bytes4 = BitConverter.GetBytes(encode_code);
-                        r.AddRange(bytes4);
+                        foreach (byte b in bytes4)
+                        {
+                            if (b == 0) { break; }
+                            r.Add(b);
+                        }
                     }
                 }
+
                 r.Add(0);
                 return r.ToArray();
             }
@@ -56,11 +61,14 @@ internal sealed partial class hmNETDynamicLib
             // Output枠へと出力する
             public static int Output(string message)
             {
-                try {
+                try
+                {
                     byte[] encode_data = EncodeWStringToOriginalEncodeVector(message);
-                    int result = pOutputPane_Output(WindowHandle, encode_data);
+                    int result = pOutputPane_Output(Hidemaru.WindowHandle, encode_data);
                     return result;
-                } catch(Exception e) {
+                }
+                catch (Exception e)
+                {
                     OutputDebugStream(ErrorMsg.MethodNeedOutputOperation + ":\n" + e.Message);
                 }
 
@@ -70,13 +78,13 @@ internal sealed partial class hmNETDynamicLib
             // Output枠でのPush
             public static int Push()
             {
-                return pOutputPane_Push(WindowHandle); ;
+                return pOutputPane_Push(Hidemaru.WindowHandle); ;
             }
 
             // Output枠でのPush
             public static int Pop()
             {
-                return pOutputPane_Pop(WindowHandle); ;
+                return pOutputPane_Pop(Hidemaru.WindowHandle); ;
             }
 
             public static IntPtr WindowHandle
@@ -101,4 +109,3 @@ internal sealed partial class hmNETDynamicLib
     }
 }
 
-*/
