@@ -45,14 +45,14 @@ internal sealed partial class hmNETDynamicLib
                     else
                     {
                         byte[] bytes4 = BitConverter.GetBytes(encode_code);
-                        r.AddRange (bytes4);
+                        r.AddRange(bytes4);
                     }
                 }
                 r.Add(0);
                 return r.ToArray();
             }
 
-            // ファイルを開いて情報を得る
+            // Output枠へと出力する
             public static int Output(string message)
             {
                 try {
@@ -66,6 +66,36 @@ internal sealed partial class hmNETDynamicLib
                 return 0;
             }
 
+            // Output枠でのPush
+            public static int Push()
+            {
+                return pOutputPane_Push(WindowHandle); ;
+            }
+
+            // Output枠でのPush
+            public static int Pop()
+            {
+                return pOutputPane_Pop(WindowHandle); ;
+            }
+
+            public static IntPtr WindowHandle
+            {
+                get
+                {
+                    return pGetWinndowHandle(Hidemaru.WindowHandle);
+                }
+            }
+
+            public static IntPtr SendMessge(int commandID)
+            {
+                //
+                // loaddll "HmOutputPane.dll";
+                // #h=dllfunc("GetWindowHandle",hidemaruhandle(0));
+                // #ret=sendmessage(#h,0x111 WM_COMMAND*/,1009,0);//1009=クリア
+                //
+                IntPtr result = SendMessage(OutputPane.WindowHandle, 0x111, commandID, IntPtr.Zero);
+                return result;
+            }
         }
     }
 }
