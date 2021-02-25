@@ -52,6 +52,11 @@ internal sealed partial class hmNETDynamicLib
         static TAnalyzeEncoding pAnalyzeEncoding;
         static TLoadFileUnicode pLoadFileUnicode;
 
+        // OutputPaneから出ている関数群
+        delegate int TOutputPane_Output(IntPtr hHidemaruWindow, byte[] encode_data);
+
+        static TOutputPane_Output pOutputPane_Output;
+
         [DllImport("kernel32.dll", SetLastError = true)]
         private static extern IntPtr GlobalLock(IntPtr hMem);
 
@@ -64,6 +69,7 @@ internal sealed partial class hmNETDynamicLib
 
         // 秀丸本体のexeを指すモジュールハンドル
         static UnManagedDll hmExeHandle;
+        static UnManagedDll hmOutputPaneHandle;
 
         // 秀丸本体のExport関数を使えるようにポインタ設定。
         static void SetUnManagedDll()
@@ -93,6 +99,16 @@ internal sealed partial class hmNETDynamicLib
                     {
                         pAnalyzeEncoding = hmExeHandle.GetProcDelegate<TAnalyzeEncoding>("Hidemaru_AnalyzeEncoding");
                         pLoadFileUnicode = hmExeHandle.GetProcDelegate<TLoadFileUnicode>("Hidemaru_LoadFileUnicode");
+                    }
+
+                    try { 
+                        string exedir = System.IO.Path.GetDirectoryName(strExecuteFullpath);
+                        hmOutputPaneHandle = new UnManagedDll(exedir + @"\HmOutputPane.dll");
+                        pOutputPane_Output = hmOutputPaneHandle.GetProcDelegate<TOutputPane_Output>("Output");
+                    }
+                    catch (Exception e)
+                    {
+                        OutputDebugStream(ErrorMsg.MethodNeedOutputNotFound + ":\n" + e.Message);
                     }
                 }
             }
