@@ -7,7 +7,7 @@ using namespace std;
 
 extern unsigned int encode_map[];
 
-// この結果のバイト列(vector.data)を
+// この結果のバイト列(vector.data())を HmOutputPane.dllのOutput関数になげれば、Unicodeでも再現できる
 vector<BYTE> EncodeWStringToOriginalEncodeVector(wstring original_string) {
 	vector<BYTE> r;
 	for (wchar_t ch : original_string) {
