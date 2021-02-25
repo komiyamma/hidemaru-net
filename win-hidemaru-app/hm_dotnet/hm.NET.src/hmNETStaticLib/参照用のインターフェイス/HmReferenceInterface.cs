@@ -268,6 +268,11 @@ namespace Hidemaru
                 return hmNETDynamicLib.Hidemaru.OutputPane.Pop();
             }
 
+            public static int Clear()
+            {
+                return hmNETDynamicLib.Hidemaru.OutputPane.Clear();
+            }
+
             public static IntPtr WindowHandle
             {
                 get
