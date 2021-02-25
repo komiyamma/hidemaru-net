@@ -30,6 +30,7 @@ internal sealed partial class hmNETDynamicLib
             public const String MethodNeed866 = "このメソッドは秀丸エディタ v8.66 正式版以降で利用可能です。";
             public const String MethodNeed873 = "このメソッドは秀丸エディタ v8.73 正式版以降で利用可能です。";
             public const String MethodNeed875 = "このメソッドは秀丸エディタ v8.75 正式版以降で利用可能です。";
+            public const String MethodNeed877 = "このメソッドは秀丸エディタ v8.77 正式版以降で利用可能です。";
             public const String MethodNeed890 = "このメソッドは秀丸エディタ v8.90 正式版以降で利用可能です。";
             public const String MethodNeedOutputNotFound = "HmOutputPaneの対象関数を発見できません。";
             public const String MethodNeedOutputOperation = "HmOutputPaneへの操作中にエラーが発生しました。";

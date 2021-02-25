@@ -90,6 +90,12 @@ internal sealed partial class hmNETDynamicLib
             // Output枠へと出力する
             public static int SetBaseDir(string dirpath)
             {
+                if (version < 877)
+                {
+                    OutputDebugStream(ErrorMsg.MethodNeed877);
+                    return 0;
+                }
+
                 try
                 {
                     if (pOutputPane_SetBaseDir != null) { 

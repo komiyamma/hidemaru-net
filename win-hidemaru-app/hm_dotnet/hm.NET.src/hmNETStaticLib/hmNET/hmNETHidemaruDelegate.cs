@@ -109,21 +109,17 @@ internal sealed partial class hmNETDynamicLib
                         pLoadFileUnicode = hmExeHandle.GetProcDelegate<TLoadFileUnicode>("Hidemaru_LoadFileUnicode");
                     }
 
-                    try { 
+                    try
+                    {
                         string exedir = System.IO.Path.GetDirectoryName(strExecuteFullpath);
                         hmOutputPaneHandle = new UnManagedDll(exedir + @"\HmOutputPane.dll");
                         pOutputPane_Output = hmOutputPaneHandle.GetProcDelegate<TOutputPane_Output>("Output");
                         pOutputPane_Push = hmOutputPaneHandle.GetProcDelegate<TOutputPane_Push>("Push");
                         pOutputPane_Pop = hmOutputPaneHandle.GetProcDelegate<TOutputPane_Pop>("Pop");
                         pGetWinndowHandle = hmOutputPaneHandle.GetProcDelegate<TOutputPane_GetWindowHandle>("GetWindowHandle");
-                        pOutputPane_SetBaseDir = hmOutputPaneHandle.GetProcDelegate<TOutputPane_SetBaseDir>("SetBaseDir");
 
-                        
-
-
-                        if (version >= 877)
-                        {
-
+                        if (version >= 877) { 
+                            pOutputPane_SetBaseDir = hmOutputPaneHandle.GetProcDelegate<TOutputPane_SetBaseDir>("SetBaseDir");
                         }
                     }
                     catch (Exception e)
