@@ -258,6 +258,30 @@ namespace Hidemaru
                 return hmNETDynamicLib.Hidemaru.OutputPane.Output(message);
             }
 
+            public static int Push()
+            {
+                return hmNETDynamicLib.Hidemaru.OutputPane.Push();
+            }
+
+            public static int Pop()
+            {
+                return hmNETDynamicLib.Hidemaru.OutputPane.Pop();
+            }
+
+            public static IntPtr WindowHandle
+            {
+                get
+                {
+                    return hmNETDynamicLib.Hidemaru.OutputPane.WindowHandle;
+                }
+            }
+
+            public static IntPtr SendMessage(int command_id)
+            {
+                return hmNETDynamicLib.Hidemaru.OutputPane.SendMessge(command_id);
+            }
+
+
         }
     }
 }

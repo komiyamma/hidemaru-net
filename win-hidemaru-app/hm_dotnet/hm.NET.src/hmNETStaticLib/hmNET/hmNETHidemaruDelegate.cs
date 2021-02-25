@@ -54,8 +54,14 @@ internal sealed partial class hmNETDynamicLib
 
         // OutputPaneから出ている関数群
         delegate int TOutputPane_Output(IntPtr hHidemaruWindow, byte[] encode_data);
+        delegate int TOutputPane_Push(IntPtr hHidemaruWindow);
+        delegate int TOutputPane_Pop(IntPtr hHidemaruWindow);
+        delegate IntPtr TOutputPane_GetWindowHandle(IntPtr hHidemaruWindow);
 
         static TOutputPane_Output pOutputPane_Output;
+        static TOutputPane_Push pOutputPane_Push;
+        static TOutputPane_Pop pOutputPane_Pop;
+        static TOutputPane_GetWindowHandle pGetWinndowHandle;
 
         [DllImport("kernel32.dll", SetLastError = true)]
         private static extern IntPtr GlobalLock(IntPtr hMem);
@@ -105,6 +111,14 @@ internal sealed partial class hmNETDynamicLib
                         string exedir = System.IO.Path.GetDirectoryName(strExecuteFullpath);
                         hmOutputPaneHandle = new UnManagedDll(exedir + @"\HmOutputPane.dll");
                         pOutputPane_Output = hmOutputPaneHandle.GetProcDelegate<TOutputPane_Output>("Output");
+                        pOutputPane_Push = hmOutputPaneHandle.GetProcDelegate<TOutputPane_Push>("Push");
+                        pOutputPane_Pop = hmOutputPaneHandle.GetProcDelegate<TOutputPane_Pop>("Pop");
+                        pGetWinndowHandle = hmOutputPaneHandle.GetProcDelegate<TOutputPane_GetWindowHandle>("GetWindowHandle");
+
+                        if (version >= 877)
+                        {
+
+                        }
                     }
                     catch (Exception e)
                     {

@@ -58,8 +58,14 @@ Class Hidemaru.Hm+File: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Se
     Open(String, Int32(Optional, HasDefault)): PrivateScope, Public, Static, HideBySig
     GetEncoding(String): PrivateScope, Public, Static, HideBySig
 Class Hidemaru.Hm+OutputPane: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
+  Properties:
+    IntPtr WindowHandle 'get ' : 
   Methods:
     Output(String): PrivateScope, Public, Static, HideBySig
+    Push(): PrivateScope, Public, Static, HideBySig
+    Pop(): PrivateScope, Public, Static, HideBySig
+    get_WindowHandle(): PrivateScope, Public, Static, HideBySig, SpecialName
+    SendMessage(Int32): PrivateScope, Public, Static, HideBySig
 Interface Hidemaru.Hm+Macro+IResult: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
   Properties:
     Int32 Result 'get ' : 
