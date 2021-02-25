@@ -454,6 +454,63 @@ namespace Hidemaru {
 		return FALSE;
 	}
 
+	// アウトプット枠表示物の一時退避
+	BOOL OutputPane_Push() {
+
+		// ちゃんと関数がある時だけ
+		if (CHidemaruExeExport::Hidemaru_GetCurrentWindowHandle) {
+			HWND hHidemaruWindow = CHidemaruExeExport::Hidemaru_GetCurrentWindowHandle();
+			if (CHidemaruExeExport::HmOutputPane_Push) {
+				BOOL result = CHidemaruExeExport::HmOutputPane_Push(hHidemaruWindow);
+				return result;
+			}
+		}
+
+		return FALSE;
+	}
+
+	// アウトプット枠表示物の一時退避してたものを戻す
+	BOOL OutputPane_Pop() {
+
+		// ちゃんと関数がある時だけ
+		if (CHidemaruExeExport::Hidemaru_GetCurrentWindowHandle) {
+			HWND hHidemaruWindow = CHidemaruExeExport::Hidemaru_GetCurrentWindowHandle();
+			if (CHidemaruExeExport::HmOutputPane_Pop) {
+				BOOL result = CHidemaruExeExport::HmOutputPane_Pop(hHidemaruWindow);
+				return result;
+			}
+		}
+
+		return FALSE;
+	}
+
+	// ハンドルの取得  (この関数はPython層へは公開していない)
+	HWND OutputPane_GetWindowHanndle() {
+
+		// ちゃんと関数がある時だけ
+		if (CHidemaruExeExport::Hidemaru_GetCurrentWindowHandle) {
+			HWND hHidemaruWindow = CHidemaruExeExport::Hidemaru_GetCurrentWindowHandle();
+			if (CHidemaruExeExport::HmOutputPane_GetWindowHandle) {
+				return CHidemaruExeExport::HmOutputPane_GetWindowHandle(hHidemaruWindow);
+			}
+		}
+
+		return NULL;
+	}
+
+	LRESULT OutputPane_SendMessage(const int command_id) {
+		HWND OutputWindowHandle = OutputPane_GetWindowHanndle();
+		if (OutputWindowHandle) {
+			// (#h,0x111/*WM_COMMAND*/,1009,0);//1009=クリア
+			// 0x111 = WM_COMMAND
+			LRESULT r = SendMessageW(OutputWindowHandle, 0x111, command_id, 0);
+			return r;
+
+		}
+		return FALSE;
+	}
+
+
 
 #pragma region
 	/*
@@ -528,6 +585,9 @@ PyMODINIT_FUNC PyInit_hidemaru() {
 
 	py::module outputpane = m.def_submodule("outputpane", "Hidemaru OutputPane python module");
 	outputpane.def("output", &Hidemaru::OutputPane_Output);
+	outputpane.def("push", &Hidemaru::OutputPane_Push);
+	outputpane.def("pop", &Hidemaru::OutputPane_Pop);
+	outputpane.def("sendmessage", &Hidemaru::OutputPane_SendMessage);
 
 #pragma region
 	/*

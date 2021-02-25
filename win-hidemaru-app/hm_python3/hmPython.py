@@ -216,11 +216,19 @@ class _TOutputPane:
     """
     # アウトプットパネルへの出力
     def Output(self, message):
-        success = hidemaru.outputpane.output(message)
-        if success:
-            return True
-        else:
-            return False
+        return hidemaru.outputpane.output(message)
+            
+    # アウトプット枠情報の一時退避
+    def Push(self):
+        return hidemaru.outputpane.push()
+
+    # アウトプット枠情報の一時退避したものを復元
+    def Push(self):
+        return hidemaru.outputpane.pop()
+
+    # アウトプット枠にメッセージを送る
+    def SendMessage(self, command_id):
+        return hidemaru.outputpane.sendmessage(command_id)
 
 
 class _THidemaru:

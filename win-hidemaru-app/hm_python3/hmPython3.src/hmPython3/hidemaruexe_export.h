@@ -202,9 +202,14 @@ public:
 	//-------------------------------------------------------------------------
 	// アウトプットパネル
 	//-------------------------------------------------------------------------
-	using PFNHmOutputPane_OUTPUT = int(_cdecl*)(HWND hwnd, BYTE *);
-	static PFNHmOutputPane_OUTPUT HmOutputPane_Output;
-
+	using PFNHmOutputPane_Output = int(_cdecl*)(HWND hwnd, BYTE *);
+	static PFNHmOutputPane_Output HmOutputPane_Output;
+	using PFNHmOutputPane_Push = int(_cdecl*)(HWND hwnd);
+	static PFNHmOutputPane_Push HmOutputPane_Push;
+	using PFNHmOutputPane_Pop = int(_cdecl*)(HWND hwnd);
+	static PFNHmOutputPane_Pop HmOutputPane_Pop;
+	using PFNHmOutputPane_GetWindowHandle = HWND(_cdecl*)(HWND hwnd);
+	static PFNHmOutputPane_GetWindowHandle HmOutputPane_GetWindowHandle;
 };
 
 
