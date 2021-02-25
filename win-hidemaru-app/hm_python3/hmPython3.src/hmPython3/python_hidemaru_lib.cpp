@@ -510,6 +510,22 @@ namespace Hidemaru {
 		return FALSE;
 	}
 
+	// アウトプット枠への出力
+	BOOL OutputPane_SetBaseDir(const std::string utf8_value) {
+		wstring utf16_value = utf8_to_utf16(utf8_value);
+		auto encode_byte_data = EncodeWStringToOriginalEncodeVector(utf16_value);
+
+		// ちゃんと関数がある時だけ
+		if (CHidemaruExeExport::Hidemaru_GetCurrentWindowHandle) {
+			HWND hHidemaruWindow = CHidemaruExeExport::Hidemaru_GetCurrentWindowHandle();
+			if (CHidemaruExeExport::HmOutputPane_SetBaseDir) {
+				BOOL result = CHidemaruExeExport::HmOutputPane_SetBaseDir(hHidemaruWindow, encode_byte_data.data());
+				return result;
+			}
+		}
+
+		return FALSE;
+	}
 
 
 #pragma region
@@ -588,6 +604,8 @@ PyMODINIT_FUNC PyInit_hidemaru() {
 	outputpane.def("push", &Hidemaru::OutputPane_Push);
 	outputpane.def("pop", &Hidemaru::OutputPane_Pop);
 	outputpane.def("sendmessage", &Hidemaru::OutputPane_SendMessage);
+	outputpane.def("setbasedir", &Hidemaru::OutputPane_SetBaseDir);
+	
 
 #pragma region
 	/*

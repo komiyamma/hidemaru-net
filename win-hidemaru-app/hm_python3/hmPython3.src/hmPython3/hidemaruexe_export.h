@@ -210,6 +210,8 @@ public:
 	static PFNHmOutputPane_Pop HmOutputPane_Pop;
 	using PFNHmOutputPane_GetWindowHandle = HWND(_cdecl*)(HWND hwnd);
 	static PFNHmOutputPane_GetWindowHandle HmOutputPane_GetWindowHandle;
+	using PFNHmOutputPane_SetBaseDir = int(_cdecl*)(HWND hwnd, BYTE *);
+	static PFNHmOutputPane_SetBaseDir HmOutputPane_SetBaseDir;
 };
 
 

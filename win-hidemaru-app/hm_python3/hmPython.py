@@ -1,6 +1,6 @@
 #-------------------- coding: utf-8 ---------------------------
-# hmPython3 1.7.0.1用 ライブラリ
-# Copyright (c) 2017-2020 Akitsugu Komiyama
+# hmPython3 1.7.4.1用 ライブラリ
+# Copyright (c) 2017-2021 Akitsugu Komiyama
 # under the Apache License Version 2.0
 #--------------------------------------------------------------
 
@@ -229,6 +229,10 @@ class _TOutputPane:
     # アウトプット枠にメッセージを送る
     def SendMessage(self, command_id):
         return hidemaru.outputpane.sendmessage(command_id)
+
+    # アウトプット枠の基底ディレクトリを設定する
+    def SetBaseDir(self, dirpath):
+        return hidemaru.outputpane.setbasedir(dirpath)
 
 
 class _THidemaru:
