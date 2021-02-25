@@ -1,0 +1,13 @@
+﻿#dll = loaddll( currentmacrodirectory + @"\HmMakeUniqueUnicodeMapFile.dll");
+
+while(true) {
+    $char = dllfuncstrw(#dll, "GetUnincodeNext");
+    if ($char == "END") {
+        break;
+    }
+    #_ = dllfunc(#dll, "ConvertWStrToHmUniqueUnicodeCode",  $char);
+}
+
+freedll(#dll);
+
+endmacro;
