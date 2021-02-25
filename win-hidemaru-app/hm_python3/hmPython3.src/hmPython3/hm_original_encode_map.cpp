@@ -1,4 +1,3 @@
-/*
 extern unsigned int encode_map[];
 
 unsigned int encode_map[] = {
@@ -65539,5 +65538,3 @@ unsigned int encode_map[] = {
 134217242,
 134217498
 };
-
-*/

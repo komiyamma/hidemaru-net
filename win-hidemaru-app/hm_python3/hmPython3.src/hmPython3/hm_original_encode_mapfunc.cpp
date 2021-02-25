@@ -1,4 +1,3 @@
-/*
 
 #include <windows.h>
 #include <string>
@@ -28,10 +27,12 @@ vector<BYTE> EncodeWStringToOriginalEncodeVector(wstring original_string) {
 
 			EncodeCodeUnion ecu;
 			ecu.code = encode_code;
-			r.push_back(ecu.ch[0]);
-			r.push_back(ecu.ch[1]);
-			r.push_back(ecu.ch[2]);
-			r.push_back(ecu.ch[3]);
+			for (BYTE b : ecu.ch) {
+				if (b == 0) {
+					break;
+				}
+				r.push_back(b);
+			}
 		}
 	}
 
@@ -39,4 +40,3 @@ vector<BYTE> EncodeWStringToOriginalEncodeVector(wstring original_string) {
 	return r;
 }
 
-*/
