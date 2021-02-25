@@ -82,6 +82,7 @@ BOOL CHidemaruExeExport::init() {
 		Hidemaru_GetCursorPosUnicodeFromMousePos = (PFNGetCursorPosUnicodeFromMousePos)GetProcAddress(hHideExeHandle, "Hidemaru_GetCursorPosUnicodeFromMousePos");
 		Hidemaru_EvalMacro = (PFNEvalMacro)GetProcAddress(hHideExeHandle, "Hidemaru_EvalMacro");
 
+		/*
 		Hidemaru_GetCurrentWindowHandle = (PFNNGetCurrentWindowHandle)GetProcAddress(hHideExeHandle, "Hidemaru_GetCurrentWindowHandle");
 		
 		// è≠Ç»Ç≠Ç∆Ç‡GetWindowsCurrentHandleÇ™ñ≥Ç¢Ç∆ÅAñÇ…óßÇΩÇ»Ç¢
@@ -102,6 +103,8 @@ BOOL CHidemaruExeExport::init() {
 				}
 			}
 		}
+		*/
+
 		return TRUE;
 	}
 

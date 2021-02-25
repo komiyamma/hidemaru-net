@@ -209,7 +209,7 @@ class _TMacro:
         return ret
     #--------------------------------------------------
 
-
+"""
 class _TOutputPane:
     """
     秀丸アウトプットパネル関連のクラス
@@ -221,7 +221,7 @@ class _TOutputPane:
             return True
         else:
             return False
-        
+"""
 
 class _THidemaru:
     """
@@ -232,7 +232,7 @@ class _THidemaru:
         self.File = _TFile()
         self.Edit = _TEdit()
         self.Macro = _TMacro()
-        self.OutputPane = _TOutputPane()
+        # self.OutputPane = _TOutputPane()
     #--------------------------------------------------
 
     #--------------------------------------------------

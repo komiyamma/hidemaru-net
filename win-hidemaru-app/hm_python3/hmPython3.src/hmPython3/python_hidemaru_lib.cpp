@@ -437,6 +437,7 @@ namespace Hidemaru {
 
 
 
+	/*
 	// アウトプット枠への出力
 	BOOL OutputPane_Output(const std::string utf8_value) {
 		wstring utf16_value = utf8_to_utf16(utf8_value);
@@ -453,6 +454,7 @@ namespace Hidemaru {
 
 		return FALSE;
 	}
+	*/
 
 
 #pragma region
@@ -526,8 +528,10 @@ PyMODINIT_FUNC PyInit_hidemaru() {
 	macro.def("set_var", &Hidemaru::Macro_SetVar);
 	macro.def("do_eval", &Hidemaru::Macro_Eval);
 
+	/*
 	py::module outputpane = m.def_submodule("outputpane", "Hidemaru OutputPane python module");
 	outputpane.def("output", &Hidemaru::OutputPane_Output);
+	*/
 
 #pragma region
 	/*

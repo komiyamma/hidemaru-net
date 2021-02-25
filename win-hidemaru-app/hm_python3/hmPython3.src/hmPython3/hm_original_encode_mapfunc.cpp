@@ -1,3 +1,5 @@
+/*
+
 #include <windows.h>
 #include <string>
 #include <vector>
@@ -36,3 +38,5 @@ vector<BYTE> EncodeWStringToOriginalEncodeVector(wstring original_string) {
 	r.push_back(0);
 	return r;
 }
+
+*/
