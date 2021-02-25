@@ -39,6 +39,9 @@
     <Filter Include="システム例外変換">
       <UniqueIdentifier>{1679ce89-55ae-4f5f-be94-e460d4ee5821}</UniqueIdentifier>
     </Filter>
+    <Filter Include="秀丸独自のChar渡しでのUnicode扱い">
+      <UniqueIdentifier>{4f2a1ec0-53a0-438f-9ca9-b7175e20ffc4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="self_dll_info.cpp">
@@ -85,6 +88,12 @@
     </ClCompile>
     <ClCompile Include="exception_translator.cpp">
       <Filter>システム例外変換</Filter>
+    </ClCompile>
+    <ClCompile Include="hm_original_encode_map.cpp">
+      <Filter>秀丸独自のChar渡しでのUnicode扱い</Filter>
+    </ClCompile>
+    <ClCompile Include="hm_original_encode_mapfunc.cpp">
+      <Filter>秀丸独自のChar渡しでのUnicode扱い</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -250,6 +250,7 @@ namespace Hidemaru
             }
         }
 
+        /*
         // アウトプットペイン系
         public static class OutputPane
         {
@@ -280,9 +281,8 @@ namespace Hidemaru
             {
                 return hmNETDynamicLib.Hidemaru.OutputPane.SendMessge(command_id);
             }
-
-
         }
+        */
     }
 }
 

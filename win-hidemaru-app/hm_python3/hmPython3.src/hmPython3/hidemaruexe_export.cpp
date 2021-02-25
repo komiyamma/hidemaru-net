@@ -4,6 +4,7 @@
  */
 
 #include <windows.h>
+#include <shlwapi.h>
 
 #include "hidemaruexe_export.h"
 
@@ -21,6 +22,9 @@ CHidemaruExeExport::PFNLoadFileUnicode CHidemaruExeExport::Hidemaru_LoadFileUnic
 CHidemaruExeExport::PFNGetCursorPosUnicode CHidemaruExeExport::Hidemaru_GetCursorPosUnicode = NULL;
 CHidemaruExeExport::PFNGetCursorPosUnicodeFromMousePos CHidemaruExeExport::Hidemaru_GetCursorPosUnicodeFromMousePos = NULL;
 CHidemaruExeExport::PFNEvalMacro CHidemaruExeExport::Hidemaru_EvalMacro = NULL;
+CHidemaruExeExport::PFNNGetCurrentWindowHandle CHidemaruExeExport::Hidemaru_GetCurrentWindowHandle = NULL;
+// アウトプットパネル
+CHidemaruExeExport::PFNHmOutputPane_OUTPUT CHidemaruExeExport::HmOutputPane_Output = NULL;
 
 double CHidemaruExeExport::hm_version = 0;
 double CHidemaruExeExport::QueryFileVersion(wchar_t* path){
@@ -77,6 +81,27 @@ BOOL CHidemaruExeExport::init() {
 		Hidemaru_GetCursorPosUnicode = (PFNGetCursorPosUnicode)GetProcAddress(hHideExeHandle, "Hidemaru_GetCursorPosUnicode");
 		Hidemaru_GetCursorPosUnicodeFromMousePos = (PFNGetCursorPosUnicodeFromMousePos)GetProcAddress(hHideExeHandle, "Hidemaru_GetCursorPosUnicodeFromMousePos");
 		Hidemaru_EvalMacro = (PFNEvalMacro)GetProcAddress(hHideExeHandle, "Hidemaru_EvalMacro");
+
+		Hidemaru_GetCurrentWindowHandle = (PFNNGetCurrentWindowHandle)GetProcAddress(hHideExeHandle, "Hidemaru_GetCurrentWindowHandle");
+		
+		// 少なくともGetWindowsCurrentHandleが無いと、役に立たない
+		if (Hidemaru_GetCurrentWindowHandle) {
+			// hidemaru.exeのディレクトリを求める
+			wchar_t hidemarudir[512] = L"";
+			wcscpy_s(hidemarudir, szHidemaruFullPath);
+			PathRemoveFileSpec(hidemarudir);
+
+			// ディレクトリある？ （まぁあるよね）
+			if (PathFileExists(hidemarudir)) {
+				// HmOutputPane.dllがあるかどうか。
+				wstring hmoutputpane_fullpath = wstring(hidemarudir) + wstring(L"\\HmOutputPane.dll");
+				HMODULE hHmOutputPaneDLL = LoadLibrary(hmoutputpane_fullpath.data());
+				// あれば、Output関数をセッティングしておく
+				if (hHmOutputPaneDLL) {
+					HmOutputPane_Output = (PFNHmOutputPane_OUTPUT)GetProcAddress(hHmOutputPaneDLL, "Output");
+				}
+			}
+		}
 		return TRUE;
 	}
 

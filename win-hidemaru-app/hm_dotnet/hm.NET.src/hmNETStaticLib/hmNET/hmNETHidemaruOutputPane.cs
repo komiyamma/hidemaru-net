@@ -4,6 +4,7 @@
  */
 
 
+/*
 using System;
 using System.Text;
 using System.Runtime.InteropServices;
@@ -91,7 +92,7 @@ internal sealed partial class hmNETDynamicLib
                 //
                 // loaddll "HmOutputPane.dll";
                 // #h=dllfunc("GetWindowHandle",hidemaruhandle(0));
-                // #ret=sendmessage(#h,0x111 WM_COMMAND*/,1009,0);//1009=クリア
+                // #ret=sendmessage(#h,0x111,1009,0);//1009=クリア 0x111=WM_COMMAND
                 //
                 IntPtr result = SendMessage(OutputPane.WindowHandle, 0x111, commandID, IntPtr.Zero);
                 return result;
@@ -100,3 +101,4 @@ internal sealed partial class hmNETDynamicLib
     }
 }
 
+*/

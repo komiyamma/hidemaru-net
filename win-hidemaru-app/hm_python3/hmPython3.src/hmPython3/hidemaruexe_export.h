@@ -52,6 +52,10 @@ public:
 	using PFNAnalyzeEncoding = int(WINAPI *)(const WCHAR* pwszFileName, DWORD_PTR lParam1, DWORD_PTR lParam2);
 	static PFNAnalyzeEncoding Hidemaru_AnalyzeEncoding;
 
+	// 秀丸のウィンドウハンドル
+	using PFNNGetCurrentWindowHandle = HWND (WINAPI *)();
+	static PFNNGetCurrentWindowHandle Hidemaru_GetCurrentWindowHandle;
+
 	//-------------------------------------------------------------------------
 	// 指定の秀丸のencodeを指定して、ファイル内容を読み込む
 	using PFNLoadFileUnicode = HGLOBAL (WINAPI *)(const WCHAR* pwszFileName, int nEncode, UINT* pcwchOut, DWORD_PTR lParam1, DWORD_PTR lParam2);
@@ -192,6 +196,14 @@ public:
 	//-------------------------------------------------------------------------
 	static BOOL EvalMacro(wstring);
 
+
+
+
+	//-------------------------------------------------------------------------
+	// アウトプットパネル
+	//-------------------------------------------------------------------------
+	using PFNHmOutputPane_OUTPUT = int(_cdecl*)(HWND hwnd, BYTE *);
+	static PFNHmOutputPane_OUTPUT HmOutputPane_Output;
 
 };
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿/*
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,7 @@ internal sealed partial class hmNETDynamicLib
     internal class HmOriginalEncodeMap
     {
 
-        public static UInt32[] encode_map = {
+        public static readonly UInt32[] encode_map = {
 0,
 1,
 2,
@@ -65552,3 +65553,4 @@ internal sealed partial class hmNETDynamicLib
     }
     
 }
+*/
