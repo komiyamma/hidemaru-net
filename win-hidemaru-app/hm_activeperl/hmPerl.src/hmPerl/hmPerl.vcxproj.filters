@@ -34,6 +34,9 @@
     <Filter Include="TinyXML">
       <UniqueIdentifier>{d6840e4e-0c01-4881-8d6f-2a190b1d43af}</UniqueIdentifier>
     </Filter>
+    <Filter Include="秀丸独自のChar渡しでのUnicode扱い">
+      <UniqueIdentifier>{ca03a34f-026c-47c5-b10c-6686ea03c0f3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="convert_string.cpp">
@@ -78,6 +81,12 @@
     <ClCompile Include="hidemaruexe_export.cpp">
       <Filter>秀丸本体のexeの関数やバージョン</Filter>
     </ClCompile>
+    <ClCompile Include="hm_original_encode_map.cpp">
+      <Filter>秀丸独自のChar渡しでのUnicode扱い</Filter>
+    </ClCompile>
+    <ClCompile Include="hm_original_encode_mapfunc.cpp">
+      <Filter>秀丸独自のChar渡しでのUnicode扱い</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="convert_string.h">
@@ -112,6 +121,9 @@
     </ClInclude>
     <ClInclude Include="tinyxml.h">
       <Filter>TinyXML</Filter>
+    </ClInclude>
+    <ClInclude Include="hm_original_encode_mapfunc.h">
+      <Filter>秀丸独自のChar渡しでのUnicode扱い</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

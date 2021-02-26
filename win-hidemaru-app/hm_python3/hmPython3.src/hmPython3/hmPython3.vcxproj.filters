@@ -133,6 +133,9 @@
     <ClInclude Include="exception_translator.h">
       <Filter>システム例外変換</Filter>
     </ClInclude>
+    <ClInclude Include="hm_original_encode_mapfunc.h">
+      <Filter>秀丸独自のChar渡しでのUnicode扱い</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="hmPython3.rc">

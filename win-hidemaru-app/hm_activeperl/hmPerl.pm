@@ -188,5 +188,44 @@ sub Macro {
     #--------------------------------------------------------------
 
 
+# アウトプットパネル周り
+#--------------------------------------------------------------
+sub OutputPane {
+    my ($class) = @_;
+    return bless {}, $class;
+}
+
+        #--------------------------------------------------------------
+        sub Output {
+            my ($self, $value) = @_;
+            $::hm_OutputPanne_Output = $value;
+            return $::hm_OutputPanne_Output;
+        }
+
+        sub Push {
+            my ($self, $value) = @_;
+            return $::hm_OutputPanne_Push;
+        }
+
+        sub Pop {
+            my ($self, $value) = @_;
+            return $::hm_OutputPanne_Pop;
+        }
+
+        sub Clear {
+            my ($self, $value) = @_;
+            return $::hm_OutputPanne_Clear;
+        }
+
+        sub SendMessage {
+            my ($self, $value) = @_;
+            $::hm_OutputPanne_SendMessage = $value;
+            return $::hm_OutputPanne_SendMessage;
+        }
+
+        #--------------------------------------------------------------
+
+    #--------------------------------------------------------------
+
 
 package main;

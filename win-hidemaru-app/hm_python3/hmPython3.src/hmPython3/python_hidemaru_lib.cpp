@@ -6,9 +6,9 @@
 #include "python_hidemaru_lib.h"
 #include "pybind11.h"
 
+#include "hm_original_encode_mapfunc.h"
 using namespace pybind11::literals;
 
-extern vector<BYTE> EncodeWStringToOriginalEncodeVector(wstring original_string);
 
 
 namespace Hidemaru {
@@ -440,12 +440,12 @@ namespace Hidemaru {
 	// アウトプット枠への出力
 	BOOL OutputPane_Output(const std::string utf8_value) {
 		wstring utf16_value = utf8_to_utf16(utf8_value);
-		auto encode_byte_data = EncodeWStringToOriginalEncodeVector(utf16_value);
 		
 		// ちゃんと関数がある時だけ
 		if (CHidemaruExeExport::Hidemaru_GetCurrentWindowHandle) {
 			HWND hHidemaruWindow = CHidemaruExeExport::Hidemaru_GetCurrentWindowHandle();
 			if (CHidemaruExeExport::HmOutputPane_Output) {
+				auto encode_byte_data = EncodeWStringToOriginalEncodeVector(utf16_value);
 				BOOL result = CHidemaruExeExport::HmOutputPane_Output(hHidemaruWindow, encode_byte_data.data());
 				return result;
 			}
@@ -483,6 +483,7 @@ namespace Hidemaru {
 
 		return FALSE;
 	}
+
 
 	// ハンドルの取得  (この関数はPython層へは公開していない)
 	HWND OutputPane_GetWindowHanndle() {
@@ -526,6 +527,14 @@ namespace Hidemaru {
 
 		return FALSE;
 	}
+
+	// アウトプット枠表示物の一時退避してたものを戻す
+	BOOL OutputPane_Clear() {
+		// 1009 = クリア
+		LRESULT r = OutputPane_SendMessage(1009);
+		return (BOOL)r;
+	}
+
 
 
 #pragma region
@@ -603,6 +612,7 @@ PyMODINIT_FUNC PyInit_hidemaru() {
 	outputpane.def("output", &Hidemaru::OutputPane_Output);
 	outputpane.def("push", &Hidemaru::OutputPane_Push);
 	outputpane.def("pop", &Hidemaru::OutputPane_Pop);
+	outputpane.def("clear", &Hidemaru::OutputPane_Clear);
 	outputpane.def("sendmessage", &Hidemaru::OutputPane_SendMessage);
 	outputpane.def("setbasedir", &Hidemaru::OutputPane_SetBaseDir);
 	

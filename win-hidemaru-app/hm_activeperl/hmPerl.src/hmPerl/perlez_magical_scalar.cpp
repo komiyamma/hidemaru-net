@@ -14,6 +14,8 @@
 #include "dllfunc_interface.h"
 #include "dllfunc_interface_internal.h"
 
+#include "hm_original_encode_mapfunc.h"
+
 // シンボルにアクセスする際にここに直前のものがかならずストックされる。
 wstring CPerlEzMagicalScalar::stocked_macro_var_simbol = L"";
 
@@ -336,6 +338,64 @@ BOOL CPerlEzMagicalScalar::Hm::Macro::Set::VarValue(wstring utf16_value) {
 	return success;
 }
 
+BOOL CPerlEzMagicalScalar::Hm::OutputPane::Set::Output(wstring utf16_value) {
+	// ちゃんと関数がある時だけ
+	if (CHidemaruExeExport::Hidemaru_GetCurrentWindowHandle) {
+		HWND hHidemaruWindow = CHidemaruExeExport::Hidemaru_GetCurrentWindowHandle();
+		if (CHidemaruExeExport::HmOutputPane_Output) {
+			auto encode_byte_data = EncodeWStringToOriginalEncodeVector(utf16_value);
+			BOOL result = CHidemaruExeExport::HmOutputPane_Output(hHidemaruWindow, encode_byte_data.data());
+			return result;
+		}
+	}
+	return FALSE;
+}
+
+BOOL CPerlEzMagicalScalar::Hm::OutputPane::Set::Push() {
+	if (CHidemaruExeExport::Hidemaru_GetCurrentWindowHandle) {
+		HWND hHidemaruWindow = CHidemaruExeExport::Hidemaru_GetCurrentWindowHandle();
+		if (CHidemaruExeExport::HmOutputPane_Push) {
+			BOOL result = CHidemaruExeExport::HmOutputPane_Push(hHidemaruWindow);
+			return result;
+		}
+	}
+	return FALSE;
+}
+
+BOOL CPerlEzMagicalScalar::Hm::OutputPane::Set::Pop() {
+	if (CHidemaruExeExport::Hidemaru_GetCurrentWindowHandle) {
+		HWND hHidemaruWindow = CHidemaruExeExport::Hidemaru_GetCurrentWindowHandle();
+		if (CHidemaruExeExport::HmOutputPane_Push) {
+			BOOL result = CHidemaruExeExport::HmOutputPane_Pop(hHidemaruWindow);
+			return result;
+		}
+	}
+	return FALSE;
+}
+
+BOOL CPerlEzMagicalScalar::Hm::OutputPane::Set::SendMessage(wstring utf16_command_id) {
+	HWND OutputWindowHandle = CHidemaruExeExport::OutputPane_GetWindowHanndle();
+	if (OutputWindowHandle) {
+		// (#h,0x111/*WM_COMMAND*/,1009,0);//1009=クリア
+		// 0x111 = WM_COMMAND
+		int command_id = 0;
+		LRESULT r = 0;
+		try {
+			command_id = std::stoi(utf16_command_id);
+			r = ::SendMessageW(OutputWindowHandle, 0x111, command_id, 0);
+		}
+		catch (exception e) {
+			wstring error = cp932_to_utf16(e.what());
+			OutputDebugStream(error);
+		}
+		return r;
+	}
+	return FALSE;
+}
+
+
+
+
 void CPerlEzMagicalScalar::BindMagicalScalarFunctions(CPerlEzEngine* module) {
 	auto& engine = module->engine;
 
@@ -359,7 +419,13 @@ void CPerlEzMagicalScalar::BindMagicalScalarFunctions(CPerlEzEngine* module) {
 		szMagicalVarMacroEval,
 		szMagicalVarMacroEvalResult,
 		szMagicalVarMacroVarSimbol,
-		szMagicalVarMacroVarValue
+		szMagicalVarMacroVarValue,
+		szMagicalVarOutputPaneOutput,
+		szMagicalVarOutputPaneOutputResult,
+		szMagicalVarOutputPanePush,
+		szMagicalVarOutputPanePop,
+		szMagicalVarOutputPaneClear,
+		szMagicalVarOutputPaneSendMessage,
 	};
 
 	for (auto var_name : list) {

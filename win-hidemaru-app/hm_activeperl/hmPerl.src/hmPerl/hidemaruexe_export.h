@@ -7,6 +7,7 @@
 
 #include <windows.h>
 #include <string>
+#include <shlwapi.h>
 
 using namespace std;
 
@@ -51,6 +52,10 @@ public:
 	// 何のエンコードで開かれるのかを取得する機能となる。
 	using PFNAnalyzeEncoding = int(WINAPI *)(const WCHAR* pwszFileName, DWORD_PTR lParam1, DWORD_PTR lParam2);
 	static PFNAnalyzeEncoding Hidemaru_AnalyzeEncoding;
+
+	// 秀丸のウィンドウハンドル
+	using PFNNGetCurrentWindowHandle = HWND(WINAPI *)();
+	static PFNNGetCurrentWindowHandle Hidemaru_GetCurrentWindowHandle;
 
 	//-------------------------------------------------------------------------
 	// 指定の秀丸のencodeを指定して、ファイル内容を読み込む
@@ -189,7 +194,22 @@ public:
 	//-------------------------------------------------------------------------
 	static BOOL EvalMacro(wstring);
 
+	//-------------------------------------------------------------------------
+	// アウトプットパネル
+	//-------------------------------------------------------------------------
+	using PFNHmOutputPane_Output = int(_cdecl*)(HWND hwnd, BYTE *);
+	static PFNHmOutputPane_Output HmOutputPane_Output;
+	using PFNHmOutputPane_Push = int(_cdecl*)(HWND hwnd);
+	static PFNHmOutputPane_Push HmOutputPane_Push;
+	using PFNHmOutputPane_Pop = int(_cdecl*)(HWND hwnd);
+	static PFNHmOutputPane_Pop HmOutputPane_Pop;
+	using PFNHmOutputPane_GetWindowHandle = HWND(_cdecl*)(HWND hwnd);
+	static PFNHmOutputPane_GetWindowHandle HmOutputPane_GetWindowHandle;
+	using PFNHmOutputPane_SetBaseDir = int(_cdecl*)(HWND hwnd, BYTE *);
+	static PFNHmOutputPane_SetBaseDir HmOutputPane_SetBaseDir;
 
+	// ラッパー関数
+	static HWND OutputPane_GetWindowHanndle();
 };
 
 

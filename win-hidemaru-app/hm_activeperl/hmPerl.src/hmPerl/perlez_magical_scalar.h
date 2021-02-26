@@ -16,13 +16,19 @@
 #define szMagicalVarEditTotalText	    "hm_Edit_TotalText"
 #define szMagicalVarEditSelectedText    "hm_Edit_SelectedText"
 #define szMagicalVarEditLineText        "hm_Edit_LineText"
+#define szMagicalVarEditCursorPos       "hm_Edit_CursorPos"
+#define szMagicalVarEditCursorPosFromMousePos    "hm_Edit_CursorPosFromMousePos"
 #define szMagicalVarFileHmEncode        "hm_File_HmEncode"
 #define szMagicalVarFileHmEncodeResult  "hm_File_HmEncode_Result"
 #define szMagicalVarFileLoadEncode      "hm_File_Load_Encode"
 #define szMagicalVarFileLoadFileName    "hm_File_Load_FileName"
 #define szMagicalVarFileLoadResult      "hm_File_Load_Result"
-#define szMagicalVarEditCursorPos       "hm_Edit_CursorPos"
-#define szMagicalVarEditCursorPosFromMousePos    "hm_Edit_CursorPosFromMousePos"
+#define szMagicalVarOutputPaneOutput          "hm_File_OutputPane_Output"
+#define szMagicalVarOutputPaneOutputResult    "hm_File_OutputPane_Output_Result"
+#define szMagicalVarOutputPanePush            "hm_File_OutputPanePush"
+#define szMagicalVarOutputPanePop             "hm_File_OutputPanePop"
+#define szMagicalVarOutputPaneClear           "hm_File_OutputPaneClear"
+#define szMagicalVarOutputPaneSendMessage     "hm_File_OutputPaneSendMessage"
 
 
 //========================================================================
@@ -93,6 +99,7 @@ private:
 			};
 
 		};
+
 		struct Macro {
 
 			static BOOL Eval(wstring utf16_value);
@@ -105,6 +112,18 @@ private:
 				static BOOL VarValue(wstring utf16_value);
 			};
 		};
+
+		struct OutputPane {
+
+			struct Set {
+				static BOOL Output(wstring utf16_value);
+				static BOOL Push();
+				static BOOL Pop();
+				static BOOL Clear();
+				static BOOL SendMessage(wstring utf16_commannd_id);
+			};
+		};
+
 	};
 };
 

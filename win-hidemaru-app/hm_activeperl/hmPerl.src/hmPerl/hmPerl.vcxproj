@@ -241,6 +241,8 @@
     <ClCompile Include="dllfunc_interface_internal.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="hidemaruexe_export.cpp" />
+    <ClCompile Include="hm_original_encode_map.cpp" />
+    <ClCompile Include="hm_original_encode_mapfunc.cpp" />
     <ClCompile Include="output_debugstream.cpp" />
     <ClCompile Include="perlez_engine.cpp" />
     <ClCompile Include="perlez_engine_path.cpp" />
@@ -257,6 +259,7 @@
     <ClInclude Include="dllfunc_interface_internal.h" />
     <ClInclude Include="hidemaruexe_export.h" />
     <ClInclude Include="dllfunc_interface.h" />
+    <ClInclude Include="hm_original_encode_mapfunc.h" />
     <ClInclude Include="output_debugstream.h" />
     <ClInclude Include="perlez_engine.h" />
     <ClInclude Include="perlez_magical_scalar.h" />
