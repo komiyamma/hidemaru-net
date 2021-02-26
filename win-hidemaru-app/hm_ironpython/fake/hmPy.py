@@ -1,7 +1,7 @@
 # coding: utf-8
 
 #--------------------------------------------------------------
-# hmPy 1.7.0.1用 フェイクライブラリ
+# hmPy 1.7.4.1用 フェイクライブラリ
 # Copyright (c) 2016-2020 Akitsugu Komiyama
 # under the Apache License Version 2.0
 #--------------------------------------------------------------
@@ -161,15 +161,41 @@ class _TMacro:
     #--------------------------------------------------
 
 
+class _TOutputPane:
+    """
+    秀丸アウトプットパネル関連のクラス
+    """
+    # アウトプットパネルへの出力
+    def Output(self, message):
+        return 1
+            
+    # アウトプット枠情報の一時退避
+    def Push(self):
+        return 1
+
+    # アウトプット枠情報の一時退避したものを復元
+    def Push(self):
+        return 1
+
+    # アウトプット枠にメッセージを送る
+    def SendMessage(self, command_id):
+        return 1
+
+    # アウトプット枠の基底ディレクトリを設定する
+    def SetBaseDir(self, dirpath):
+        return hidemaru.outputpane.setbasedir(dirpath)
+
+
 class _THidemaru:
     """
     特定のカテゴリに所属しないようなもの
     """
     #--------------------------------------------------
     def __init__(self):
-        self.File = _TFile()
-        self.Edit = _TEdit()
-        self.Macro = _TMacro()
+        self.File: _TFile = _TFile()
+        self.Edit: _TEdit = _TEdit()
+        self.Macro: _TMacro = _TMacro()
+        self.OutputPane = _TOutputPane()
     #--------------------------------------------------
 
     #--------------------------------------------------
