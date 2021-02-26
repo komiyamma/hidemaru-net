@@ -110,6 +110,8 @@
     <Compile Include="Extension\Modules\ScriptModulePath.cs" />
     <Compile Include="Extension\Modules\ScriptModules.cs" />
     <Compile Include="Extension\NativeTypes\JArray.cs" />
+    <Compile Include="hmJSStaticLib\HmOriginalEncodeFunc.cs" />
+    <Compile Include="hmJSStaticLib\HmOriginalEncodeMap.cs" />
     <Compile Include="hmJSStaticLib\hmV8Console.cs" />
     <Compile Include="hmJSStaticLib\hmV8DllPathResolver.cs" />
     <Compile Include="hmJSStaticLib\hmV8Hidemaru.cs" />
@@ -117,7 +119,9 @@
     <Compile Include="hmJSStaticLib\hmV8HidemaruEdit.cs" />
     <Compile Include="hmJSStaticLib\hmV8HidemaruFile.cs" />
     <Compile Include="hmJSStaticLib\hmV8HidemaruMacro.cs" />
+    <Compile Include="hmJSStaticLib\hmV8HidemaruOutputPane.cs" />
     <Compile Include="hmJSStaticLib\hmV8StaticLib.cs" />
+    <Compile Include="hmJSStaticLib\HmWndHandleSearcher.cs" />
     <Compile Include="hmJSStaticLib\UnManagedDll.cs" />
     <None Include="app.config" />
   </ItemGroup>
