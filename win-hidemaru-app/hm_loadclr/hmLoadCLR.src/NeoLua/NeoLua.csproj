@@ -78,6 +78,10 @@
     <Compile Include="hmLmStaticLib\hmLmHidemaruEdit.cs" />
     <Compile Include="hmLmStaticLib\hmLmHidemaruFile.cs" />
     <Compile Include="hmLmStaticLib\hmLmHidemaruMacro.cs" />
+    <Compile Include="hmLmStaticLib\HmOriginalEncodeFunc.cs" />
+    <Compile Include="hmLmStaticLib\HmOriginalEncodeMap.cs" />
+    <Compile Include="hmLmStaticLib\hmLmHidemaruOutputPane.cs" />
+    <Compile Include="hmLmStaticLib\HmWndHandleSearcher.cs" />
     <Compile Include="hmLmStaticLib\UnManagedDll.cs" />
     <Compile Include="Lua\Exceptions.cs" />
     <Compile Include="hmLmStaticLib\hmLmHidemaru.cs" />

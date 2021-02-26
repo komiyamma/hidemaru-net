@@ -37,6 +37,7 @@ Class hmLmDynamicLib: AutoLayout, AnsiClass, Class, Public, Sealed
     Neo.IronLua.Lua l : Public, Static
     Neo.IronLua.LuaGlobal g : Public, Static
   Methods:
+    SendMessage(IntPtr, UInt32, Int32, IntPtr): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     OutputDebugStream(String): PrivateScope, Public, Static, HideBySig
     BindDllHandle(IntPtr): PrivateScope, Public, Static, HideBySig
     SetTmpVar(Object): PrivateScope, Public, Static, HideBySig
@@ -702,8 +703,10 @@ Class hmLmDynamicLib+DllPathResolver: AutoLayout, AnsiClass, Class, NestedPublic
 Class hmLmDynamicLib+Hidemaru: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Properties:
+    IntPtr WindowHandle 'get ' : 
     Double version 'get ' : 
   Methods:
+    get_WindowHandle(): PrivateScope, Public, Static, HideBySig, SpecialName
     debuginfo(Object): PrivateScope, Public, Static, HideBySig
     get_version(): PrivateScope, Public, Static, HideBySig, SpecialName
 Class Neo.IronLua.LuaTable+LuaTableStringKeyCollection: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
@@ -793,6 +796,18 @@ Class hmLmDynamicLib+Hidemaru+Macro: AutoLayout, AnsiClass, Class, NestedPublic,
     TMacroVar Var : Public, Static
   Methods:
     Eval(String): PrivateScope, Public, Static, HideBySig
+Class hmLmDynamicLib+Hidemaru+OutputPane: AutoLayout, AnsiClass, Class, NestedPublic
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    IntPtr WindowHandle 'get ' : 
+  Methods:
+    Output(String): PrivateScope, Public, Static, HideBySig
+    Push(): PrivateScope, Public, Static, HideBySig
+    Pop(): PrivateScope, Public, Static, HideBySig
+    Clear(): PrivateScope, Public, Static, HideBySig
+    get_WindowHandle(): PrivateScope, Public, Static, HideBySig, SpecialName
+    SendMessge(Int32): PrivateScope, Public, Static, HideBySig
+    SetBaseDir(String): PrivateScope, Public, Static, HideBySig
 Interface hmLmDynamicLib+Hidemaru+File+IHidemaruEncoding: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
   Properties:
     Int32 HmEncode 'get ' : 
