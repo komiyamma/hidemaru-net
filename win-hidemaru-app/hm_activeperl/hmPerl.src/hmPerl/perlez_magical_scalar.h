@@ -23,12 +23,11 @@
 #define szMagicalVarFileLoadEncode      "hm_File_Load_Encode"
 #define szMagicalVarFileLoadFileName    "hm_File_Load_FileName"
 #define szMagicalVarFileLoadResult      "hm_File_Load_Result"
-#define szMagicalVarOutputPaneOutput          "hm_File_OutputPane_Output"
-#define szMagicalVarOutputPaneOutputResult    "hm_File_OutputPane_Output_Result"
-#define szMagicalVarOutputPanePush            "hm_File_OutputPanePush"
-#define szMagicalVarOutputPanePop             "hm_File_OutputPanePop"
-#define szMagicalVarOutputPaneClear           "hm_File_OutputPaneClear"
-#define szMagicalVarOutputPaneSendMessage     "hm_File_OutputPaneSendMessage"
+#define szMagicalVarOutputPaneOutput          "hm_OutputPane_Output"
+#define szMagicalVarOutputPanePush            "hm_OutputPane_Push"
+#define szMagicalVarOutputPanePop             "hm_OutputPane_Pop"
+#define szMagicalVarOutputPaneClear           "hm_OutputPane_Clear"
+#define szMagicalVarOutputPaneSendMessage     "hm_OutputPane_SendMessage"
 
 
 //========================================================================

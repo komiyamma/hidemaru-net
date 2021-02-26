@@ -1,8 +1,8 @@
 ﻿#--------------------------------------------------------------
-# hmPerl 1.7.0.1用 カスタムファイル
+# hmPerl 1.7.4.1用 カスタムファイル
 #                 ActivePerl x86版 v5.10 ～ v5.26
 #
-# Copyright (c) 2016-2020 Akitsugu Komiyama
+# Copyright (c) 2016-2021 Akitsugu Komiyama
 #                 under the Apache License Version 2.0
 #
 #--------------------------------------------------------------
@@ -198,29 +198,27 @@ sub OutputPane {
         #--------------------------------------------------------------
         sub Output {
             my ($self, $value) = @_;
-            $::hm_OutputPanne_Output = $value;
-            return $::hm_OutputPanne_Output;
+            $::hm_OutputPane_Output = $value;
         }
 
         sub Push {
             my ($self, $value) = @_;
-            return $::hm_OutputPanne_Push;
+            $::hm_OutputPane_Push = "1";
         }
 
         sub Pop {
             my ($self, $value) = @_;
-            return $::hm_OutputPanne_Pop;
+            $::hm_OutputPane_Pop = "1";
         }
 
         sub Clear {
             my ($self, $value) = @_;
-            return $::hm_OutputPanne_Clear;
+            $::hm_OutputPane_Clear = "1";
         }
 
         sub SendMessage {
             my ($self, $value) = @_;
-            $::hm_OutputPanne_SendMessage = $value;
-            return $::hm_OutputPanne_SendMessage;
+            $::hm_OutputPane_SendMessage = $value;
         }
 
         #--------------------------------------------------------------

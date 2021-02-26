@@ -233,6 +233,26 @@ LPCSTR CPerlEzMagicalScalar::SetHmComposedMagicScalarFunctions(LPVOID obj, LPCST
 		return ret ? p_utf8_Value : "";
 	}
 
+	else if (utf8_SelfName == szMagicalVarOutputPaneOutput) {
+		int ret = Hm::OutputPane::Set::Output(utf16_value);
+		return ret ? p_utf8_Value : "";
+	}
+	else if (utf8_SelfName == szMagicalVarOutputPanePush) {
+		int ret = Hm::OutputPane::Set::Push();
+		return ret ? p_utf8_Value : "";
+	}
+	else if (utf8_SelfName == szMagicalVarOutputPanePop) {
+		int ret = Hm::OutputPane::Set::Pop();
+		return ret ? p_utf8_Value : "";
+	}
+	else if (utf8_SelfName == szMagicalVarOutputPaneClear) {
+		int ret = Hm::OutputPane::Set::Clear();
+		return ret ? p_utf8_Value : "";
+	}
+	else if (utf8_SelfName == szMagicalVarOutputPaneSendMessage) {
+		int ret = Hm::OutputPane::Set::SendMessage(utf16_value);
+		return ret ? p_utf8_Value : "";
+	}
 	return p_utf8_Value;
 }
 
@@ -393,6 +413,10 @@ BOOL CPerlEzMagicalScalar::Hm::OutputPane::Set::SendMessage(wstring utf16_comman
 	return FALSE;
 }
 
+BOOL CPerlEzMagicalScalar::Hm::OutputPane::Set::Clear() {
+	// (#h,0x111/*WM_COMMAND*/,1009,0);//1009=ÉNÉäÉA
+	return CPerlEzMagicalScalar::Hm::OutputPane::Set::SendMessage(L"1009");
+}
 
 
 
@@ -421,7 +445,6 @@ void CPerlEzMagicalScalar::BindMagicalScalarFunctions(CPerlEzEngine* module) {
 		szMagicalVarMacroVarSimbol,
 		szMagicalVarMacroVarValue,
 		szMagicalVarOutputPaneOutput,
-		szMagicalVarOutputPaneOutputResult,
 		szMagicalVarOutputPanePush,
 		szMagicalVarOutputPanePop,
 		szMagicalVarOutputPaneClear,
