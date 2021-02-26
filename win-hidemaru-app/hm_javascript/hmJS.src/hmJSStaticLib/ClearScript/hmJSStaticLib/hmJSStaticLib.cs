@@ -153,6 +153,9 @@ public sealed partial class hmJSDynamicLib
         System.Diagnostics.Trace.WriteLine(error);
     }
 
+    [DllImport("user32.dll", SetLastError = true)]
+    public static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, int command, IntPtr lparam);
+
     // hmのため
     //----------------------------------------------------------------------------------------------
     public static Hidemaru hm;

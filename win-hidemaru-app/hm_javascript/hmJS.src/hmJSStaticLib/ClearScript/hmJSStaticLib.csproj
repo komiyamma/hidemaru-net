@@ -71,7 +71,11 @@
     <Compile Include="hmJSStaticLib\hmJSHidemaruDelegate.cs" />
     <Compile Include="hmJSStaticLib\hmJSHidemaruEdit.cs" />
     <Compile Include="hmJSStaticLib\hmJSHidemaruMacro.cs" />
+    <Compile Include="hmJSStaticLib\hmJSHidemaruOutputPane.cs" />
     <Compile Include="hmJSStaticLib\hmJSStaticLib.cs" />
+    <Compile Include="hmJSStaticLib\HmOriginalEncodeFunc.cs" />
+    <Compile Include="hmJSStaticLib\HmOriginalEncodeMap.cs" />
+    <Compile Include="hmJSStaticLib\HmWndHandleSearcher.cs" />
     <Compile Include="JS\CanonicalRefTable.cs" />
     <Compile Include="JS\ContinuationCallback.cs" />
     <Compile Include="JS\ImmutableValueAttribute.cs" />

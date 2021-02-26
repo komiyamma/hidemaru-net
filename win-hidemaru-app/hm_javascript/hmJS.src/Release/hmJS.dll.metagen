@@ -43,6 +43,7 @@ Class hmJSDynamicLib: AutoLayout, AnsiClass, Class, Public, Sealed
     Hidemaru hm : Public, Static
   Methods:
     OutputDebugStream(String): PrivateScope, Public, Static, HideBySig
+    SendMessage(IntPtr, UInt32, Int32, IntPtr): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     BindDllHandle(IntPtr): PrivateScope, Public, Static, HideBySig
     ModifyFuncCallByDllType(String): PrivateScope, Public, Static, HideBySig
     SetTmpVar(Object): PrivateScope, Public, Static, HideBySig
@@ -489,8 +490,10 @@ Interface Microsoft.ClearScript.JavaScript.ITypedArray`1[T]: AutoLayout, AnsiCla
 Class hmJSDynamicLib+Hidemaru: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Properties:
+    IntPtr WindowHandle 'get ' : 
     Double version 'get ' : 
   Methods:
+    get_WindowHandle(): PrivateScope, Public, Static, HideBySig, SpecialName
     debuginfo(Object[]): PrivateScope, Public, Static, HideBySig
     get_version(): PrivateScope, Public, Static, HideBySig, SpecialName
 Class hmJSDynamicLib+hmJSConsole: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
@@ -520,7 +523,10 @@ Class hmJSDynamicLib+Hidemaru+ErrorMsg: AutoLayout, AnsiClass, Class, NestedPubl
     System.String MethodNeed866 = このメソッドは秀丸エディタ v8.66 正式版以降で利用可能です。 : Public, Static, Literal, HasDefault
     System.String MethodNeed873 = このメソッドは秀丸エディタ v8.73 正式版以降で利用可能です。 : Public, Static, Literal, HasDefault
     System.String MethodNeed875 = このメソッドは秀丸エディタ v8.75 正式版以降で利用可能です。 : Public, Static, Literal, HasDefault
+    System.String MethodNeed877 = このメソッドは秀丸エディタ v8.77 正式版以降で利用可能です。 : Public, Static, Literal, HasDefault
     System.String MethodNeed890 = このメソッドは秀丸エディタ v8.90 正式版以降で利用可能です。 : Public, Static, Literal, HasDefault
+    System.String MethodNeedOutputNotFound = HmOutputPaneの対象関数を発見できません。 : Public, Static, Literal, HasDefault
+    System.String MethodNeedOutputOperation = HmOutputPaneへの操作中にエラーが発生しました。 : Public, Static, Literal, HasDefault
 Class hmJSDynamicLib+Hidemaru+Edit: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Properties:
@@ -543,6 +549,18 @@ Class hmJSDynamicLib+Hidemaru+Macro: AutoLayout, AnsiClass, Class, NestedPublic,
   Methods:
     Eval(Object): PrivateScope, Public, Static, HideBySig
     Var(String, Object(Optional, HasDefault)): PrivateScope, Public, Static, HideBySig
+Class hmJSDynamicLib+Hidemaru+OutputPane: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    IntPtr WindowHandle 'get ' : 
+  Methods:
+    Output(String): PrivateScope, Public, Static, HideBySig
+    Push(): PrivateScope, Public, Static, HideBySig
+    Pop(): PrivateScope, Public, Static, HideBySig
+    Clear(): PrivateScope, Public, Static, HideBySig
+    get_WindowHandle(): PrivateScope, Public, Static, HideBySig, SpecialName
+    SendMessge(Int32): PrivateScope, Public, Static, HideBySig
+    SetBaseDir(String): PrivateScope, Public, Static, HideBySig
 Interface hmJSDynamicLib+Hidemaru+File+IHidemaruEncoding: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
   Properties:
     Int32 HmEncode 'get ' : 

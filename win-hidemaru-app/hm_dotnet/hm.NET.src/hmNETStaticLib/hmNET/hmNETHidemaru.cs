@@ -45,7 +45,7 @@ internal sealed partial class hmNETDynamicLib
                 if (pGetCurrentWindowHandle != null)
                 {
                     // System.Diagnostics.Trace.WriteLine("自動取得");
-                    IntPtr tmp = pGetCurrentWindowHandle();
+                    // IntPtr tmp = pGetCurrentWindowHandle();
                     // System.Diagnostics.Trace.WriteLine(tmp);
                     return pGetCurrentWindowHandle();
 
