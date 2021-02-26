@@ -57,12 +57,16 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HmOriginalEncodeFunc.cs" />
+    <Compile Include="HmOriginalEncodeMap.cs" />
+    <Compile Include="hmRbHidemaruOutputPane.cs" />
     <Compile Include="hmRbHidemaruDelegate.cs" />
     <Compile Include="hmRbHidemaruEdit.cs" />
     <Compile Include="hmRbHidemaruFile.cs" />
     <Compile Include="hmRbHidemaruMacro.cs" />
     <Compile Include="hmRbHidemaru.cs" />
     <Compile Include="hmRbStaticLIb.cs" />
+    <Compile Include="HmWndHandleSearcher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnManagedDll.cs" />
   </ItemGroup>
