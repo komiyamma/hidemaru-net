@@ -75,12 +75,16 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HmOriginalEncodeFunc.cs" />
+    <Compile Include="HmOriginalEncodeMap.cs" />
+    <Compile Include="hmPSHidemaruOutputPane.cs" />
     <Compile Include="hmPyHidemaru.cs" />
     <Compile Include="hmPyHidemaruDelegate.cs" />
     <Compile Include="hmPyHidemaruMacro.cs" />
     <Compile Include="hmPyHidemaruEdit.cs" />
     <Compile Include="hmPyHidemrauFile.cs" />
     <Compile Include="hmPyStaticLib.cs" />
+    <Compile Include="HmWndHandleSearcher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnManagedDll.cs" />
   </ItemGroup>
