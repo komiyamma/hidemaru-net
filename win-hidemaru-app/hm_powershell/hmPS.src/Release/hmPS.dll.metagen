@@ -32,6 +32,7 @@ Class hmPSDynamicLib: AutoLayout, AnsiClass, Class, Public, Sealed
     System.Management.Automation.Runspaces.Pipeline pipeline : Public, Static
     Hidemaru hm : Public, Static
   Methods:
+    SendMessage(IntPtr, UInt32, Int32, IntPtr): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     OutputDebugStream(String): PrivateScope, Public, Static, HideBySig
     BindDllHandle(IntPtr): PrivateScope, Public, Static, HideBySig
     ModifyFuncCallByDllType(String): PrivateScope, Public, Static, HideBySig
@@ -52,9 +53,12 @@ Class hmPSDynamicLib+Hidemaru: AutoLayout, AnsiClass, Class, NestedPublic, Seale
     TEdit Edit : Public, Static
     TFile File : Public, Static
     TMacro Macro : Public, Static
+    TOutputPane OutputPane : Public, Static
   Properties:
+    IntPtr WindowHandle 'get ' : 
     Double version 'get ' : 
   Methods:
+    get_WindowHandle(): PrivateScope, Public, Static, HideBySig, SpecialName
     debuginfo(Object[]): PrivateScope, Public, Static, HideBySig
     get_version(): PrivateScope, Public, Static, HideBySig, SpecialName
 Class hmPSDynamicLib+DllPathResolver: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
@@ -87,6 +91,18 @@ Class hmPSDynamicLib+Hidemaru+TMacro: AutoLayout, AnsiClass, Class, NestedPublic
     TMacroVar Var : Public, Static
   Methods:
     Eval(String): PrivateScope, Public, Static, HideBySig
+Class hmPSDynamicLib+Hidemaru+TOutputPane: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    IntPtr WindowHandle 'get ' : 
+  Methods:
+    Output(String): PrivateScope, Public, Static, HideBySig
+    Push(): PrivateScope, Public, Static, HideBySig
+    Pop(): PrivateScope, Public, Static, HideBySig
+    Clear(): PrivateScope, Public, Static, HideBySig
+    get_WindowHandle(): PrivateScope, Public, Static, HideBySig, SpecialName
+    SendMessge(Int32): PrivateScope, Public, Static, HideBySig
+    SetBaseDir(String): PrivateScope, Public, Static, HideBySig
 Class hmPSDynamicLib+Hidemaru+ErrorMsg: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Fields:
@@ -94,7 +110,10 @@ Class hmPSDynamicLib+Hidemaru+ErrorMsg: AutoLayout, AnsiClass, Class, NestedPubl
     System.String MethodNeed866 = このメソッドは秀丸エディタ v8.66 正式版以降で利用可能です。 : Public, Static, Literal, HasDefault
     System.String MethodNeed873 = このメソッドは秀丸エディタ v8.73 正式版以降で利用可能です。 : Public, Static, Literal, HasDefault
     System.String MethodNeed875 = このメソッドは秀丸エディタ v8.75 正式版以降で利用可能です。 : Public, Static, Literal, HasDefault
+    System.String MethodNeed877 = このメソッドは秀丸エディタ v8.77 正式版以降で利用可能です。 : Public, Static, Literal, HasDefault
     System.String MethodNeed890 = このメソッドは秀丸エディタ v8.90 正式版以降で利用可能です。 : Public, Static, Literal, HasDefault
+    System.String MethodNeedOutputNotFound = HmOutputPaneの対象関数を発見できません。 : Public, Static, Literal, HasDefault
+    System.String MethodNeedOutputOperation = HmOutputPaneへの操作中にエラーが発生しました。 : Public, Static, Literal, HasDefault
 Struct hmPSDynamicLib+Hidemaru+TEdit+HmCursurPos: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
   :System.ValueType
     Void .ctor(Int32, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName

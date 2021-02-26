@@ -62,7 +62,7 @@ internal sealed partial class hmNETDynamicLib
         static TOutputPane_Output pOutputPane_Output;
         static TOutputPane_Push pOutputPane_Push;
         static TOutputPane_Pop pOutputPane_Pop;
-        static TOutputPane_GetWindowHandle pGetWinndowHandle;
+        static TOutputPane_GetWindowHandle pOutputPane_GetWindowHandle;
         static TOutputPane_SetBaseDir pOutputPane_SetBaseDir;
 
         [DllImport("kernel32.dll", SetLastError = true)]
@@ -116,7 +116,7 @@ internal sealed partial class hmNETDynamicLib
                         pOutputPane_Output = hmOutputPaneHandle.GetProcDelegate<TOutputPane_Output>("Output");
                         pOutputPane_Push = hmOutputPaneHandle.GetProcDelegate<TOutputPane_Push>("Push");
                         pOutputPane_Pop = hmOutputPaneHandle.GetProcDelegate<TOutputPane_Pop>("Pop");
-                        pGetWinndowHandle = hmOutputPaneHandle.GetProcDelegate<TOutputPane_GetWindowHandle>("GetWindowHandle");
+                        pOutputPane_GetWindowHandle = hmOutputPaneHandle.GetProcDelegate<TOutputPane_GetWindowHandle>("GetWindowHandle");
 
                         if (version >= 877) { 
                             pOutputPane_SetBaseDir = hmOutputPaneHandle.GetProcDelegate<TOutputPane_SetBaseDir>("SetBaseDir");

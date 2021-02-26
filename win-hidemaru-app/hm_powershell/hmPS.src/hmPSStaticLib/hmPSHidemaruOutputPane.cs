@@ -10,13 +10,15 @@ using System.Collections.Generic;
 
 
 // ★秀丸クラス
-public sealed partial class hmJSDynamicLib
+public sealed partial class hmPSDynamicLib
 {
     public sealed partial class Hidemaru
     {
-        public sealed class OutputPane
-        {
-            static OutputPane()
+
+        public static TOutputPane OutputPane;
+        public sealed class TOutputPane
+            {
+            public TOutputPane()
             {
                 SetUnManagedDll();
             }
@@ -54,7 +56,7 @@ public sealed partial class hmJSDynamicLib
             public static int Clear()
             {
                 //1009=クリア
-                IntPtr r = OutputPane.SendMessge(1009);
+                IntPtr r = SendMessge(1009);
                 if ((long)r < (long)int.MinValue)
                 {
                     r = (IntPtr)int.MinValue;
@@ -83,7 +85,7 @@ public sealed partial class hmJSDynamicLib
                 // #h=dllfunc("GetWindowHandle",hidemaruhandle(0));
                 // #ret=sendmessage(#h,0x111,1009,0);//1009=クリア 0x111=WM_COMMAND
                 //
-                IntPtr result = SendMessage(OutputPane.WindowHandle, 0x111, commandID, IntPtr.Zero);
+                IntPtr result = SendMessage(pOutputPane_GetWindowHandle(Hidemaru.WindowHandle), 0x111, commandID, IntPtr.Zero);
                 return result;
             }
 

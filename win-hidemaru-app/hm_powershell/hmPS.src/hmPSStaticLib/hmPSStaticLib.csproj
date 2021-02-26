@@ -43,10 +43,14 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HmWndHandleSearcher.cs" />
+    <Compile Include="HmOriginalEncodeFunc.cs" />
+    <Compile Include="HmOriginalEncodeMap.cs" />
     <Compile Include="hmPSHidemaruDelegate.cs" />
     <Compile Include="hmPSHidemaruEdit.cs" />
     <Compile Include="hmPSHidemaruFile.cs" />
     <Compile Include="hmPSHidemaruMacro.cs" />
+    <Compile Include="hmPSHidemaruOutputPane.cs" />
     <Compile Include="UnManagedDll.cs" />
     <Compile Include="hmPSDllPathResolver.cs" />
     <Compile Include="hmPSHidemaru.cs" />

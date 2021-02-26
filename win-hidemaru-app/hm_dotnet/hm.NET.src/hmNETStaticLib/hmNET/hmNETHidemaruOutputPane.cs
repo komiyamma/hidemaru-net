@@ -72,7 +72,7 @@ internal sealed partial class hmNETDynamicLib
             {
                 get
                 {
-                    return pGetWinndowHandle(Hidemaru.WindowHandle);
+                    return pOutputPane_GetWindowHandle(Hidemaru.WindowHandle);
                 }
             }
 
