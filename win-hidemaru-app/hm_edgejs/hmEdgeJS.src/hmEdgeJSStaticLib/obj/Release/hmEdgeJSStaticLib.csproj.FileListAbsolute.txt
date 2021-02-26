@@ -41,5 +41,4 @@ G:\repository\hidemaru-net\win-hidemaru-app\hm_edgejs\hmEdgeJS.src\hmEdgeJSStati
 G:\repository\hidemaru-net\win-hidemaru-app\hm_edgejs\hmEdgeJS.src\hmEdgeJSStaticLib\obj\Release\hmEdgeJSStaticLib.csproj.CoreCompileInputs.cache
 G:\repository\hidemaru-net\win-hidemaru-app\hm_edgejs\hmEdgeJS.src\hmEdgeJSStaticLib\obj\Release\hmEdgeJSStaticLib.csproj.CopyComplete
 G:\repository\hidemaru-net\win-hidemaru-app\hm_edgejs\hmEdgeJS.src\hmEdgeJSStaticLib\obj\Release\hmEdgeJSStaticLib.netmodule
-G:\repogitory\hidemaru-net\win-hidemaru-app\hm_edgejs\hmEdgeJS.src\hmEdgeJSStaticLib\obj\Release\hmEdgeJSStaticLib.csproj.CoreCompileInputs.cache
-G:\repogitory\hidemaru-net\win-hidemaru-app\hm_edgejs\hmEdgeJS.src\hmEdgeJSStaticLib\obj\Release\hmEdgeJSStaticLib.csproj.CopyComplete
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_edgejs\hmEdgeJS.src\hmEdgeJSStaticLib\obj\Release\hmEdgeJSStaticLib.csprojResolveAssemblyReference.cache

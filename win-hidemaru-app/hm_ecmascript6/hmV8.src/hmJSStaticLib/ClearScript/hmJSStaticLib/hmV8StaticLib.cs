@@ -155,7 +155,7 @@ public sealed partial class hmV8DynamicLib
     private static extern ulong GetModuleFileName(IntPtr hModule, StringBuilder filename, ulong bufsize);
 
     [DllImport("user32.dll", SetLastError = true)]
-    public static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, int command, IntPtr lparam);
+    private static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, int command, IntPtr lparam);
 
     public static Microsoft.ClearScript.V8.V8ScriptEngine engine;
     public static V8EngineCore core;

@@ -1,5 +1,5 @@
 ImageRuntimeVersion: v4.0.30319
-Assembly hmEdgeJS, Version=1.6.*, Culture=ロケールに依存しない言語 (ロケールに依存しない国): 
+Assembly hmEdgeJS, Version=1.7.*, Culture=ロケールに依存しない言語 (ロケールに依存しない国): 
 	hash=SHA1, flags=PublicKey
 Assembly mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
 	hash=None, flags=None
@@ -38,10 +38,16 @@ Class hmEdgeJSDynamicLib: AutoLayout, AnsiClass, Class, Public, Sealed
 Class hmEdgeJSDynamicLib+Hidemaru: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Properties:
+    IntPtr WindowHandle 'get ' : 
     Double version 'get ' : 
   Methods:
+    get_WindowHandle(): PrivateScope, Public, Static, HideBySig, SpecialName
     debuginfo(Object): PrivateScope, Public, Static, HideBySig
     get_version(): PrivateScope, Public, Static, HideBySig, SpecialName
+Class hmEdgeJSDynamicLib+HmOriginalEncodeMap: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    UInt32[] encode_map : Public, Static, InitOnly
 Class hmEdgeJSDynamicLib+Hidemaru+ErrorMsg: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Fields:
@@ -49,7 +55,10 @@ Class hmEdgeJSDynamicLib+Hidemaru+ErrorMsg: AutoLayout, AnsiClass, Class, Nested
     System.String MethodNeed866 = このメソッドは秀丸エディタ v8.66 正式版以降で利用可能です。 : Public, Static, Literal, HasDefault
     System.String MethodNeed873 = このメソッドは秀丸エディタ v8.73 正式版以降で利用可能です。 : Public, Static, Literal, HasDefault
     System.String MethodNeed875 = このメソッドは秀丸エディタ v8.75 正式版以降で利用可能です。 : Public, Static, Literal, HasDefault
+    System.String MethodNeed877 = このメソッドは秀丸エディタ v8.77 正式版以降で利用可能です。 : Public, Static, Literal, HasDefault
     System.String MethodNeed890 = このメソッドは秀丸エディタ v8.90 正式版以降で利用可能です。 : Public, Static, Literal, HasDefault
+    System.String MethodNeedOutputNotFound = HmOutputPaneの対象関数を発見できません。 : Public, Static, Literal, HasDefault
+    System.String MethodNeedOutputOperation = HmOutputPaneへの操作中にエラーが発生しました。 : Public, Static, Literal, HasDefault
 Class hmEdgeJSDynamicLib+Hidemaru+Edit: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Methods:
@@ -75,6 +84,15 @@ Class hmEdgeJSDynamicLib+Hidemaru+Macro: AutoLayout, AnsiClass, Class, NestedPub
     Eval(Object): PrivateScope, Public, Static, HideBySig
     GetVar(String): PrivateScope, Public, Static, HideBySig
     SetVar(String, Object): PrivateScope, Public, Static, HideBySig
+Class hmEdgeJSDynamicLib+Hidemaru+OutputPane: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Output(String): PrivateScope, Public, Static, HideBySig
+    Push(): PrivateScope, Public, Static, HideBySig
+    Pop(): PrivateScope, Public, Static, HideBySig
+    Clear(): PrivateScope, Public, Static, HideBySig
+    SendMessge(Int32): PrivateScope, Public, Static, HideBySig
+    SetBaseDir(String): PrivateScope, Public, Static, HideBySig
 Struct hmEdgeJSDynamicLib+Hidemaru+Edit+HmCursurPos: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
   :System.ValueType
     Void .ctor(Int32, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName

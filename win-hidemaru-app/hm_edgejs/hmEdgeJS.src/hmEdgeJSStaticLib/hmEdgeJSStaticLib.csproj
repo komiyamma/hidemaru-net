@@ -54,6 +54,10 @@
     <Compile Include="hmEdgeJSHidemaruMacro.cs" />
     <Compile Include="hmEdgeJSMethodRef.cs" />
     <Compile Include="hmEdgeJSStaticLib.cs" />
+    <Compile Include="hmEdgeJSHidemaruOutputPane.cs" />
+    <Compile Include="HmOriginalEncodeFunc.cs" />
+    <Compile Include="HmOriginalEncodeMap.cs" />
+    <Compile Include="HmWndHandleSearcher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnManagedDll.cs" />
   </ItemGroup>
@@ -64,18 +68,14 @@
     <Content Include="edge\edge.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="edge\x64\node.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Content Include="edge\x64\node.dll" />
     <Content Include="edge\x86\node.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="edge\x64\edge_nativeclr.node">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="edge\x64\edge_nativeclr.node" />
     <None Include="edge\x86\edge_nativeclr.node">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

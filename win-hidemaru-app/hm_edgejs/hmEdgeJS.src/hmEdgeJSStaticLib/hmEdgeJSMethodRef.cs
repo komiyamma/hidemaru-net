@@ -33,6 +33,12 @@ public sealed partial class hmEdgeJSDynamicLib
 
     static Func<dynamic, Task<object>> refFileReadAllText;
 
+    static Func<dynamic, Task<object>> refOutputPane_Output;
+    static Func<dynamic, Task<object>> refOutputPane_Push;
+    static Func<dynamic, Task<object>> refOutputPane_Pop;
+    static Func<dynamic, Task<object>> refOutputPane_Clear;
+    static Func<dynamic, Task<object>> refOutputPane_SendMessage;
+
     static void InitMethodReference()
     {
         refDebugInfo = (Func<object, Task<object>>)(async (obj) =>
@@ -136,6 +142,37 @@ public sealed partial class hmEdgeJSDynamicLib
             var ret = Hidemaru.File.ReadAllText((String)obj.FilePath, (int)obj.HmEncode);
             return ret;
         });
+
+        refOutputPane_Output = (Func<dynamic, Task<object>>)(async (obj) =>
+        {
+            var ret = Hidemaru.OutputPane.Output((String)obj);
+            return ret;
+        });
+
+        refOutputPane_Push = (Func<dynamic, Task<object>>)(async (obj) =>
+        {
+            var ret = Hidemaru.OutputPane.Push();
+            return ret;
+        });
+
+        refOutputPane_Pop = (Func<dynamic, Task<object>>)(async (obj) =>
+        {
+            var ret = Hidemaru.OutputPane.Pop();
+            return ret;
+        });
+
+        refOutputPane_Clear = (Func<dynamic, Task<object>>)(async (obj) =>
+        {
+            var ret = Hidemaru.OutputPane.Clear();
+            return ret;
+        });
+
+        refOutputPane_SendMessage = (Func<dynamic, Task<object>>)(async (obj) =>
+        {
+            var ret = Hidemaru.OutputPane.SendMessge((int)obj);
+            return ret;
+        });
+
     }
 
     public static async Task InitExpression(string filename)
@@ -271,6 +308,36 @@ public sealed partial class hmEdgeJSDynamicLib
                     return text;
                 }
 
+                function _hm_refOutputPane_Output(obj) {
+                    let ret = 0;
+                    let dumm = _TransRefObj.refOutputPane_Output(obj, function(error, result) { ret = result; } );
+                    return ret;
+                }
+
+                function _hm_refOutputPane_Push(obj) {
+                    let ret = 0;
+                    let dumm = _TransRefObj.refOutputPane_Push(obj, function(error, result) { ret = result; } );
+                    return ret;
+                }
+
+                function _hm_refOutputPane_Pop(obj) {
+                    let ret = 0;
+                    let dumm = _TransRefObj.refOutputPane_Pop(obj, function(error, result) { ret = result; } );
+                    return ret;
+                }
+
+                function _hm_refOutputPane_Clear(obj) {
+                    let ret = 0;
+                    let dumm = _TransRefObj.refOutputPane_Clear(obj, function(error, result) { ret = result; } );
+                    return ret;
+                }
+
+                function _hm_refOutputPane_SendMessage(obj) {
+                    let ret = 0;
+                    let dumm = _TransRefObj.refOutputPane_SendMessage(obj, function(error, result) { ret = result; } );
+                    return ret;
+                }
+
                 class _hm_file_ {
                     static Open(filepath, hm_encode_override = -1) {
 
@@ -373,6 +440,30 @@ public sealed partial class hmEdgeJSDynamicLib
                 }
                 );
 
+                class _hm_outputpane_ {
+                    static Output(text) {
+                        return _hm_refOutputPane_Output(text);
+                    }
+
+                    static Push() {
+                        return _hm_refOutputPane_Push();
+                    }
+
+                    static Pop() {
+                        return _hm_refOutputPane_Pop();
+                    }
+
+                    static Clear() {
+                        return _hm_refOutputPane_Clear();
+                    }
+
+                    static SendMessage(command_id) {
+                        return _hm_refOutputPane_SendMessage(command_id);
+                    }
+
+                }
+
+
                 class hm {
                     static get version() {
                         return _hm_refGetVersion();
@@ -392,6 +483,10 @@ public sealed partial class hmEdgeJSDynamicLib
 
                     static get Macro() {
                         return _hm_macro_;
+                    }
+
+                    static get OutputPane() {
+                        return _hm_outputpane_;
                     }
                 };
 
@@ -450,7 +545,12 @@ public sealed partial class hmEdgeJSDynamicLib
                 refFileGetHmEncode = refFileGetHmEncode,
                 refFileGetMsCodePage = refFileGetMsCodePage,
                 refFileGetJsEncoding = refFileGetJsEncoding,
-                refFileReadAllText = refFileReadAllText
+                refFileReadAllText = refFileReadAllText,
+                refOutputPane_Output = refOutputPane_Output,
+                refOutputPane_Push = refOutputPane_Push,
+                refOutputPane_Pop = refOutputPane_Pop,
+                refOutputPane_Clear = refOutputPane_Clear,
+                refOutputPane_SendMessage = refOutputPane_SendMessage,
             });
 
         }

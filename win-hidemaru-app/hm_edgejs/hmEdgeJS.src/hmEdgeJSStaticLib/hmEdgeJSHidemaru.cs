@@ -25,8 +25,37 @@ public sealed partial class hmEdgeJSDynamicLib
             public const String MethodNeed866 = "このメソッドは秀丸エディタ v8.66 正式版以降で利用可能です。";
             public const String MethodNeed873 = "このメソッドは秀丸エディタ v8.73 正式版以降で利用可能です。";
             public const String MethodNeed875 = "このメソッドは秀丸エディタ v8.75 正式版以降で利用可能です。";
+            public const String MethodNeed877 = "このメソッドは秀丸エディタ v8.77 正式版以降で利用可能です。";
             public const String MethodNeed890 = "このメソッドは秀丸エディタ v8.90 正式版以降で利用可能です。";
+            public const String MethodNeedOutputNotFound = "HmOutputPaneの対象関数を発見できません。";
+            public const String MethodNeedOutputOperation = "HmOutputPaneへの操作中にエラーが発生しました。";
             public static readonly String NoDllBindHandle866 = strDllFullPath + "をloaddllした際の束縛変数の値を特定できません";
+        }
+
+        private static IntPtr _hWndHidemaru = IntPtr.Zero;
+        public static IntPtr WindowHandle
+        {
+            get
+            {
+                if (pGetCurrentWindowHandle != null)
+                {
+                    // System.Diagnostics.Trace.WriteLine("自動取得");
+                    // IntPtr tmp = pGetCurrentWindowHandle();
+                    // System.Diagnostics.Trace.WriteLine(tmp);
+                    return pGetCurrentWindowHandle();
+
+                }
+
+                // System.Diagnostics.Trace.WriteLine("手動取得");
+                _hWndHidemaru = HmWndHandleSearcher.GetCurWndHidemaru(_hWndHidemaru);
+                // System.Diagnostics.Trace.WriteLine(_hWndHidemaru);
+                if (_hWndHidemaru != IntPtr.Zero)
+                {
+                    return _hWndHidemaru;
+                }
+
+                return IntPtr.Zero;
+            }
         }
 
         // debuginfo関数
