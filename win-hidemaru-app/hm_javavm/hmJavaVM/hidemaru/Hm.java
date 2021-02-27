@@ -67,52 +67,7 @@ public class Hm {
 	protected static native int OutputPane_Pop();
 	protected static native int OutputPane_Clear();
 	protected static native int OutputPane_SetBaseDir(String dirpath);
-	protected static native int OutputPane_SendMessage(int command_id);
-
-	public static class OutputPane {
-		public static int output(String message) {
-			int ret = OutputPane_Output(message);
-			if (ret == 0) {
-				throw new java.lang.RuntimeException("Can't Output to OutputPane");
-			}
-
-		}
-		public static int push() {
-			int ret = OutputPane_Push();
-			if (ret == 0) {
-				throw new java.lang.RuntimeException("Can't Push to OutputPane");
-			}
-			return ret;
-		}
-		public static int pop() {
-			int ret = OutputPane_Pop();
-			if (ret == 0) {
-				throw new java.lang.RuntimeException("Can't Pop to OutputPane");
-			}
-			return ret;
-		}
-		public static int clear() {
-			int ret = OutputPane_Clear();
-			if (ret == 0) {
-				throw new java.lang.RuntimeException("Can't Clear to OutputPane");
-			}
-			return ret;
-		}
-		public static int setBaseDir(String directorypath) {
-			int ret = OutputPane_SetBaseDir(directorypath);
-			if (ret == 0) {
-				throw new java.lang.RuntimeException("Can't SetBaseDir to OutputPane");
-			}
-			return ret;
-		}
-		public static int sendMessage(String command_id) {
-			int ret = OutputPane_SendMessage(command_id);
-			if (ret == 0) {
-				throw new java.lang.RuntimeException("Can't SendMessage to OutputPane");
-			}
-			return ret;
-		}
-	}
+	protected static native long OutputPane_SendMessage(int command_id);
 
 	public static double getVersion() {
 		return GetVersion();
@@ -494,6 +449,51 @@ public class Hm {
 			} else {
 				throw new java.lang.IllegalArgumentException("Can't assign Hidemaru Macro Simbol " + symbol);
 			}
+		}
+	}
+
+	public static class OutputPane {
+		public static int output(String message) {
+			int ret = OutputPane_Output(message);
+			if (ret == 0) {
+				throw new java.lang.RuntimeException("Can't Output to OutputPane");
+			}
+
+		}
+		public static int push() {
+			int ret = OutputPane_Push();
+			if (ret == 0) {
+				throw new java.lang.RuntimeException("Can't Push to OutputPane");
+			}
+			return ret;
+		}
+		public static int pop() {
+			int ret = OutputPane_Pop();
+			if (ret == 0) {
+				throw new java.lang.RuntimeException("Can't Pop to OutputPane");
+			}
+			return ret;
+		}
+		public static int clear() {
+			int ret = OutputPane_Clear();
+			if (ret == 0) {
+				throw new java.lang.RuntimeException("Can't Clear to OutputPane");
+			}
+			return ret;
+		}
+		public static int setBaseDir(String directorypath) {
+			int ret = OutputPane_SetBaseDir(directorypath);
+			if (ret == 0) {
+				throw new java.lang.RuntimeException("Can't SetBaseDir to OutputPane");
+			}
+			return ret;
+		}
+		public static long sendMessage(String command_id) {
+			long ret = OutputPane_SendMessage(command_id);
+			if (ret == 0) {
+				throw new java.lang.RuntimeException("Can't SendMessage to OutputPane");
+			}
+			return ret;
 		}
 	}
 
