@@ -22,5 +22,11 @@ EXPORTS
 	Java_hidemaru_Hm_GetHmEncodeFromFile
 	Java_hidemaru_Hm_GetMsCodePageFromHmEncode
 	Java_hidemaru_Hm_GetJavaEncodingAliasFromHmEncode
-	Java_hidemaru_Hm_LoadFile
+	Java_hidemaru_Hm_OutputPaneOutput
+	Java_hidemaru_Hm_OutputPanePush
+	Java_hidemaru_Hm_OutputPanePop
+	Java_hidemaru_Hm_OutputPaneClear
+	Java_hidemaru_Hm_OutputPaneSetBaseDir
+	Java_hidemaru_Hm_OutputPaneGetWindowHandle
+	Java_hidemaru_Hm_OutputPaneSendMessage
 

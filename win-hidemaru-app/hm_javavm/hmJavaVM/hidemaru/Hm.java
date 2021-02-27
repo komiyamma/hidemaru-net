@@ -62,12 +62,13 @@ public class Hm {
 
 	protected static native String LoadFile(String filepath, int hm_encode);
 
-	protected static native int OutputPane_Output(String message);
-	protected static native int OutputPane_Push();
-	protected static native int OutputPane_Pop();
-	protected static native int OutputPane_Clear();
-	protected static native int OutputPane_SetBaseDir(String dirpath);
-	protected static native long OutputPane_SendMessage(int command_id);
+	protected static native int OutputPaneOutput(String message);
+	protected static native int OutputPanePush();
+	protected static native int OutputPanePop();
+	protected static native int OutputPaneClear();
+	protected static native int OutputPaneSetBaseDir(String dirpath);
+	protected static native long OutputPaneGetWindowHandle();
+	protected static native long OutputPaneSendMessage(int command_id);
 
 	public static double getVersion() {
 		return GetVersion();
@@ -214,9 +215,9 @@ public class Hm {
 		public static java.io.File getFile() {
 			String path = GetFileFullPath();
 			if (path.length() > 0) {
-			    return new java.io.File(path);
+				return new java.io.File(path);
 			} else {
-			    return null;
+				return null;
 			}
 		}
 
@@ -322,13 +323,13 @@ public class Hm {
 
 	public static class Macro {
 
-	    public static boolean isExecuting() {
+		public static boolean isExecuting() {
 			return IsMacroExecuting();
 		}
 		
 		public static Map<String, Object> doExec(java.io.File file) {
 			String filename = file.getAbsolutePath();
-		    String str_result = ExecMacroFromFile(filename);
+			String str_result = ExecMacroFromFile(filename);
 			String[] splited_result = str_result.split(",", 3);
 			int ret = Integer.parseInt(splited_result[0]);
 			String exception = splited_result[1];
@@ -366,7 +367,7 @@ public class Hm {
 		}
 
 		public static Map<String, Object> doExec(Object expression) {
-		    String str_result = ExecMacroFromString(expression.toString());
+			String str_result = ExecMacroFromString(expression.toString());
 			String[] splited_result = str_result.split(",", 3);
 			int ret = Integer.parseInt(splited_result[0]);
 			String exception = splited_result[1];
@@ -454,45 +455,34 @@ public class Hm {
 
 	public static class OutputPane {
 		public static int output(String message) {
-			int ret = OutputPane_Output(message);
-			if (ret == 0) {
-				throw new java.lang.RuntimeException("Can't Output to OutputPane");
-			}
-
+			int ret = OutputPaneOutput(message);
+			return ret;
 		}
 		public static int push() {
-			int ret = OutputPane_Push();
-			if (ret == 0) {
-				throw new java.lang.RuntimeException("Can't Push to OutputPane");
-			}
+			int ret = OutputPanePush();
 			return ret;
 		}
 		public static int pop() {
-			int ret = OutputPane_Pop();
-			if (ret == 0) {
-				throw new java.lang.RuntimeException("Can't Pop to OutputPane");
-			}
+			int ret = OutputPanePop();
 			return ret;
 		}
 		public static int clear() {
-			int ret = OutputPane_Clear();
-			if (ret == 0) {
-				throw new java.lang.RuntimeException("Can't Clear to OutputPane");
-			}
+			int ret = OutputPaneClear();
 			return ret;
 		}
 		public static int setBaseDir(String directorypath) {
-			int ret = OutputPane_SetBaseDir(directorypath);
+			int ret = OutputPaneSetBaseDir(directorypath);
+			return ret;
+		}
+		public static long getWindowHandle() {
+			long ret = OutputPaneGetWindowHandle();
 			if (ret == 0) {
-				throw new java.lang.RuntimeException("Can't SetBaseDir to OutputPane");
+				throw new java.lang.NullPointerException("Output Window Handle is Zero");
 			}
 			return ret;
 		}
-		public static long sendMessage(String command_id) {
-			long ret = OutputPane_SendMessage(command_id);
-			if (ret == 0) {
-				throw new java.lang.RuntimeException("Can't SendMessage to OutputPane");
-			}
+		public static long sendMessage(int command_id) {
+			long ret = OutputPaneSendMessage(command_id);
 			return ret;
 		}
 	}
@@ -506,9 +496,9 @@ public class Hm {
 		String currentmacrodirectory = (String)Hm.Macro.getVar("currentmacrodirectory");
 		_AddClassPath(currentmacrodirectory);
 
-        // ディレクトリ配下を探索
-        java.io.File[] filelist = new java.io.File(currentmacrodirectory).listFiles();
-        for (java.io.File file : filelist) {
+		// ディレクトリ配下を探索
+		java.io.File[] filelist = new java.io.File(currentmacrodirectory).listFiles();
+		for (java.io.File file : filelist) {
 			if (file.isFile()) {
 				String suffix = _GetFiNameSuffix(file.getName());
 				// 見つかったファイルがJARの場合は追加
@@ -516,7 +506,7 @@ public class Hm {
 					_AddClassPath(currentmacrodirectory + "\\" + file.getName());
 				}
 			}
-        }
+		}
 
 	}
 
@@ -524,10 +514,10 @@ public class Hm {
 	 * ClassPathの追加
 	 * @param path 追加するPATH
 	 */
-    private static void _AddClassPath(String path) {
+	private static void _AddClassPath(String path) {
 
 		try {
-    		URLClassLoader loader = (URLClassLoader)ClassLoader.getSystemClassLoader(); // Java9ではエラー
+			URLClassLoader loader = (URLClassLoader)ClassLoader.getSystemClassLoader(); // Java9ではエラー
 			URL u = new java.io.File(path).toURI().toURL();
  			Method m = URLClassLoader.class.getDeclaredMethod("addURL", new Class[]{ URL.class }); // Java9ではエラー
 			m.setAccessible(true);
@@ -537,7 +527,7 @@ public class Hm {
 			// この記述ではJava9以降ではまだクラスを見つけられない
 			try {
 				ClassLoader classLoader = ClassLoader.getSystemClassLoader();
-	    		Method method = classLoader.getClass().getDeclaredMethod("appendToClassPathForInstrumentation", String.class);
+				Method method = classLoader.getClass().getDeclaredMethod("appendToClassPathForInstrumentation", String.class);
 				method.setAccessible(true);
 				method.invoke(classLoader, path);
 				Hm.debugInfo("ClassPathに「" + path + "」を追加しました");
@@ -567,20 +557,20 @@ public class Hm {
 		return fileName;
 	}
 
-    /**
-    * ファイル名から拡張子を返却
-    * @param fileName ファイル名
-    * @return ファイルの拡張子
-    */
-    private static String _GetFiNameSuffix(String fileName) {
-        if (fileName == null) {
-            return null;
-        }
-        int point = fileName.lastIndexOf(".");
-        if (point != -1) {
-            return fileName.substring(point + 1);
-        }
-        return fileName;
-    }
+	/**
+	* ファイル名から拡張子を返却
+	* @param fileName ファイル名
+	* @return ファイルの拡張子
+	*/
+	private static String _GetFiNameSuffix(String fileName) {
+		if (fileName == null) {
+			return null;
+		}
+		int point = fileName.lastIndexOf(".");
+		if (point != -1) {
+			return fileName.substring(point + 1);
+		}
+		return fileName;
+	}
 }
 

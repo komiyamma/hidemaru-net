@@ -29,6 +29,12 @@ CHidemaruExeExport::PFNLoadFileUnicode CHidemaruExeExport::Hidemaru_LoadFileUnic
 CHidemaruExeExport::PFNGetCursorPosUnicode CHidemaruExeExport::Hidemaru_GetCursorPosUnicode = NULL;
 CHidemaruExeExport::PFNGetCursorPosUnicodeFromMousePos CHidemaruExeExport::Hidemaru_GetCursorPosUnicodeFromMousePos = NULL;
 CHidemaruExeExport::PFNEvalMacro CHidemaruExeExport::Hidemaru_EvalMacro = NULL;
+// アウトプットパネル
+CHidemaruExeExport::PFNHmOutputPane_Output CHidemaruExeExport::HmOutputPane_Output = NULL;
+CHidemaruExeExport::PFNHmOutputPane_Push CHidemaruExeExport::HmOutputPane_Push = NULL;
+CHidemaruExeExport::PFNHmOutputPane_Pop CHidemaruExeExport::HmOutputPane_Pop = NULL;
+CHidemaruExeExport::PFNHmOutputPane_GetWindowHandle CHidemaruExeExport::HmOutputPane_GetWindowHandle = NULL;
+CHidemaruExeExport::PFNHmOutputPane_SetBaseDir CHidemaruExeExport::HmOutputPane_SetBaseDir = NULL;
 
 double CHidemaruExeExport::hm_version = 0;
 double CHidemaruExeExport::QueryFileVersion(TCHAR* path){
@@ -86,6 +92,31 @@ BOOL CHidemaruExeExport::init() {
 		Hidemaru_GetCursorPosUnicode = (PFNGetCursorPosUnicode)GetProcAddress(hHideExeHandle, "Hidemaru_GetCursorPosUnicode");
 		Hidemaru_GetCursorPosUnicodeFromMousePos = (PFNGetCursorPosUnicodeFromMousePos)GetProcAddress(hHideExeHandle, "Hidemaru_GetCursorPosUnicodeFromMousePos");
 		Hidemaru_EvalMacro = (PFNEvalMacro)GetProcAddress(hHideExeHandle, "Hidemaru_EvalMacro");
+
+		// 少なくともGetWindowsCurrentHandleが無いと、役に立たない
+		if (Hidemaru_GetCurrentWindowHandle) {
+			// hidemaru.exeのディレクトリを求める
+			wchar_t hidemarudir[512] = L"";
+			wcscpy_s(hidemarudir, szHidemaruFullPath);
+			PathRemoveFileSpec(hidemarudir);
+
+			// ディレクトリある？ （まぁあるよね）
+			if (PathFileExists(hidemarudir)) {
+				// HmOutputPane.dllがあるかどうか。
+				wstring hmoutputpane_fullpath = wstring(hidemarudir) + wstring(L"\\HmOutputPane.dll");
+				HMODULE hHmOutputPaneDLL = LoadLibrary(hmoutputpane_fullpath.data());
+				// あれば、Output関数をセッティングしておく
+				if (hHmOutputPaneDLL) {
+					HmOutputPane_Output = (PFNHmOutputPane_Output)GetProcAddress(hHmOutputPaneDLL, "Output");
+					HmOutputPane_Push = (PFNHmOutputPane_Push)GetProcAddress(hHmOutputPaneDLL, "Push");
+					HmOutputPane_Pop = (PFNHmOutputPane_Pop)GetProcAddress(hHmOutputPaneDLL, "Pop");
+					HmOutputPane_GetWindowHandle = (PFNHmOutputPane_GetWindowHandle)GetProcAddress(hHmOutputPaneDLL, "GetWindowHandle");
+					HmOutputPane_SetBaseDir = (PFNHmOutputPane_SetBaseDir)GetProcAddress(hHmOutputPaneDLL, "SetBaseDir");
+				}
+			}
+		}
+
+
 		return TRUE;
 	}
 

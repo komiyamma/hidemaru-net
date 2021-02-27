@@ -16,6 +16,8 @@
 #include "dllfunc_interface_internal.h"
 #include "java_native_method_encode.h"
 
+#include "hm_original_encode_mapfunc.h"
+
 intptr_t GetMacroVarNum(wstring key_name) {
 
 	TestDynamicVar.Clear();
@@ -362,3 +364,109 @@ JNIEXPORT jstring JNICALL Java_hidemaru_Hm_LoadFile(JNIEnv *env, jobject obj, js
 	}
 }
 
+// アウトプット枠への出力
+JNIEXPORT jint JNICALL Java_hidemaru_Hm_OutputPaneOutput(JNIEnv *env, jobject obj, jstring message ) {
+	wstring utf16_message = jstring_to_utf16(env, message);
+
+	// ちゃんと関数がある時だけ
+	HWND hHidemaruWindow = CHidemaruExeExport::GetCurWndHidemaru();
+	if (CHidemaruExeExport::HmOutputPane_Output) {
+		auto encode_byte_data = EncodeWStringToOriginalEncodeVector(utf16_message);
+		int result = CHidemaruExeExport::HmOutputPane_Output(hHidemaruWindow, encode_byte_data.data());
+		return (jint)result;
+	}
+
+	return (jint)0;
+}
+
+// Push
+JNIEXPORT jint JNICALL Java_hidemaru_Hm_OutputPanePush(JNIEnv *env, jobject obj) {
+
+	// ちゃんと関数がある時だけ
+	HWND hHidemaruWindow = CHidemaruExeExport::GetCurWndHidemaru();
+	if (CHidemaruExeExport::HmOutputPane_Push) {
+		int result = CHidemaruExeExport::HmOutputPane_Push(hHidemaruWindow);
+		return (jint)result;
+	}
+
+	return (jint)0;
+}
+
+// Pop
+JNIEXPORT jint JNICALL  Java_hidemaru_Hm_OutputPanePop(JNIEnv *env, jobject obj) {
+
+	// ちゃんと関数がある時だけ
+	HWND hHidemaruWindow = CHidemaruExeExport::GetCurWndHidemaru();
+	if (CHidemaruExeExport::HmOutputPane_Pop) {
+		int result = CHidemaruExeExport::HmOutputPane_Pop(hHidemaruWindow);
+		return (jint)result;
+	}
+
+	return (jint)0;
+}
+
+// Output枠のGetWindowHandle
+JNIEXPORT jlong JNICALL Java_hidemaru_Hm_OutputPaneGetWindowHandle(JNIEnv *env, jobject obj) {
+
+	// ちゃんと関数がある時だけ
+	HWND hHidemaruWindow = CHidemaruExeExport::GetCurWndHidemaru();
+	if (CHidemaruExeExport::HmOutputPane_GetWindowHandle) {
+		HWND hwnd = CHidemaruExeExport::HmOutputPane_GetWindowHandle(hHidemaruWindow);
+		return (jlong)hwnd;
+	}
+
+	return (jlong)0;
+}
+
+// SetBaseDir相当
+JNIEXPORT jint JNICALL Java_hidemaru_Hm_OutputPaneSetBaseDir(JNIEnv *env, jobject obj, jstring directorypatth) {
+	wstring utf16_message = jstring_to_utf16(env, directorypatth);
+
+	// ちゃんと関数がある時だけ
+	HWND hHidemaruWindow = CHidemaruExeExport::GetCurWndHidemaru();
+	if (CHidemaruExeExport::HmOutputPane_SetBaseDir) {
+		auto encode_byte_data = EncodeWStringToOriginalEncodeVector(utf16_message);
+		int result = CHidemaruExeExport::HmOutputPane_SetBaseDir(hHidemaruWindow, encode_byte_data.data());
+		return (jint)result;
+	}
+
+	return (jint)0;
+}
+
+// Output枠のGetWindowHandle
+JNIEXPORT jlong JNICALL Java_hidemaru_Hm_OutputPaneSendMessage(JNIEnv *env, jobject obj, jint command_id) {
+
+	// ちゃんと関数がある時だけ
+	HWND hHidemaruWindow = CHidemaruExeExport::GetCurWndHidemaru();
+	if (CHidemaruExeExport::HmOutputPane_GetWindowHandle) {
+		HWND OutputWindowHandle = CHidemaruExeExport::HmOutputPane_GetWindowHandle(hHidemaruWindow);
+
+		if (OutputWindowHandle) {
+			// (#h,0x111/*WM_COMMAND*/,1009,0);//1009=クリア
+			// 0x111 = WM_COMMAND
+			LRESULT r = SendMessageW(OutputWindowHandle, 0x111, command_id, 0);
+			return r;
+		}
+	}
+
+	return (jlong)0;
+}
+
+// Clear
+JNIEXPORT jint JNICALL Java_hidemaru_Hm_OutputPaneClear(JNIEnv *env, jobject obj) {
+
+	// ちゃんと関数がある時だけ
+	HWND hHidemaruWindow = CHidemaruExeExport::GetCurWndHidemaru();
+	if (CHidemaruExeExport::HmOutputPane_GetWindowHandle) {
+		HWND OutputWindowHandle = CHidemaruExeExport::HmOutputPane_GetWindowHandle(hHidemaruWindow);
+
+		if (OutputWindowHandle) {
+			// (#h,0x111/*WM_COMMAND*/,1009,0);//1009=クリア
+			// 0x111 = WM_COMMAND
+			LRESULT r = SendMessageW(OutputWindowHandle, 0x111, 1009, 0);
+			return (jint)r;
+		}
+	}
+
+	return (jint)0;
+}

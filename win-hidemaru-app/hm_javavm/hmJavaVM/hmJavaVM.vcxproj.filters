@@ -46,6 +46,9 @@
     <Filter Include="Javaファイル\参考ファイル">
       <UniqueIdentifier>{047b6610-f45d-44a1-bc12-1ed1d1d87c64}</UniqueIdentifier>
     </Filter>
+    <Filter Include="秀丸独自のChar渡しでのUnicode扱い">
+      <UniqueIdentifier>{27e1b342-8910-4084-b7d9-d0bd50fbef3b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="convert_string.cpp">
@@ -101,6 +104,12 @@
     </ClCompile>
     <ClCompile Include="java_CallStaticStringMethod.cpp">
       <Filter>JavaVMの生成や破棄</Filter>
+    </ClCompile>
+    <ClCompile Include="hm_original_encode_map.cpp">
+      <Filter>秀丸独自のChar渡しでのUnicode扱い</Filter>
+    </ClCompile>
+    <ClCompile Include="hm_original_encode_mapfunc.cpp">
+      <Filter>秀丸独自のChar渡しでのUnicode扱い</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -186,6 +195,9 @@
     </ClInclude>
     <ClInclude Include="java_CallStaticStringMethod.h">
       <Filter>JavaVMの生成や破棄</Filter>
+    </ClInclude>
+    <ClInclude Include="hm_original_encode_mapfunc.h">
+      <Filter>秀丸独自のChar渡しでのUnicode扱い</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

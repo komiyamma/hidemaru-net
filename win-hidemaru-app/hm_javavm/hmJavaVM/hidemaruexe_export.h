@@ -254,7 +254,19 @@ public:
 	static wstring ExecMacroFromString(wstring cmd);
 
 
-
+	//-------------------------------------------------------------------------
+	// アウトプットパネル
+	//-------------------------------------------------------------------------
+	using PFNHmOutputPane_Output = int(_cdecl*)(HWND hwnd, BYTE *);
+	static PFNHmOutputPane_Output HmOutputPane_Output;
+	using PFNHmOutputPane_Push = int(_cdecl*)(HWND hwnd);
+	static PFNHmOutputPane_Push HmOutputPane_Push;
+	using PFNHmOutputPane_Pop = int(_cdecl*)(HWND hwnd);
+	static PFNHmOutputPane_Pop HmOutputPane_Pop;
+	using PFNHmOutputPane_GetWindowHandle = HWND(_cdecl*)(HWND hwnd);
+	static PFNHmOutputPane_GetWindowHandle HmOutputPane_GetWindowHandle;
+	using PFNHmOutputPane_SetBaseDir = int(_cdecl*)(HWND hwnd, BYTE *);
+	static PFNHmOutputPane_SetBaseDir HmOutputPane_SetBaseDir;
 
 };
 

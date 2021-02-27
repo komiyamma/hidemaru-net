@@ -511,7 +511,7 @@ namespace Hidemaru {
 		return FALSE;
 	}
 
-	// アウトプット枠への出力
+	// SetBaseDir
 	BOOL OutputPane_SetBaseDir(const std::string utf8_value) {
 		wstring utf16_value = utf8_to_utf16(utf8_value);
 		auto encode_byte_data = EncodeWStringToOriginalEncodeVector(utf16_value);

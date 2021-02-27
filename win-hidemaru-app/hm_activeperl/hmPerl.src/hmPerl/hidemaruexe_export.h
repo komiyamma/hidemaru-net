@@ -46,16 +46,16 @@ public:
 	using PFNGetLineTextUnicode = HGLOBAL(WINAPI *)(int nLineNo);
 	static PFNGetLineTextUnicode Hidemaru_GetLineTextUnicode;
 
+	// 秀丸のウィンドウハンドル
+	using PFNNGetCurrentWindowHandle = HWND(WINAPI *)();
+	static PFNNGetCurrentWindowHandle Hidemaru_GetCurrentWindowHandle;
+
 	//-------------------------------------------------------------------------
 	// 指定対象のファイルの秀丸encodeを得る。秀丸自体の「動作環境」-「ファイル」ー「エンコード1」の設定に従うので注意。
 	// 汎用のエンコード取得機能ではなく、使用者が使っている秀丸の設定の元、その該当の秀丸でファイルを開いたとしたら、
 	// 何のエンコードで開かれるのかを取得する機能となる。
 	using PFNAnalyzeEncoding = int(WINAPI *)(const WCHAR* pwszFileName, DWORD_PTR lParam1, DWORD_PTR lParam2);
 	static PFNAnalyzeEncoding Hidemaru_AnalyzeEncoding;
-
-	// 秀丸のウィンドウハンドル
-	using PFNNGetCurrentWindowHandle = HWND(WINAPI *)();
-	static PFNNGetCurrentWindowHandle Hidemaru_GetCurrentWindowHandle;
 
 	//-------------------------------------------------------------------------
 	// 指定の秀丸のencodeを指定して、ファイル内容を読み込む
