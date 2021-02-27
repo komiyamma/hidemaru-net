@@ -23,13 +23,14 @@
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>HmSharedOutputPanedll</RootNamespace>
     <ProjectName>HmSharedOutputPane</ProjectName>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
@@ -42,7 +43,7 @@
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
@@ -158,15 +159,20 @@
     <ClCompile Include="hidemaruexe_export.cpp" />
     <ClCompile Include="hidemaruexe_handle.cpp" />
     <ClCompile Include="HmSharedOutputPane.cpp" />
+    <ClCompile Include="hm_original_encode_map.cpp" />
+    <ClCompile Include="hm_original_encode_mapfunc.cpp" />
     <ClCompile Include="Mutex.cpp" />
     <ClCompile Include="SharedExport.cpp" />
+    <ClCompile Include="string_converter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="hidemaruexe_export.h" />
     <ClInclude Include="hidemaruexe_handle.h" />
+    <ClInclude Include="hm_original_encode_mapfunc.h" />
     <ClInclude Include="Mutex.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="SharedExport.h" />
+    <ClInclude Include="string_converter.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="HmSharedOutputPane.def" />

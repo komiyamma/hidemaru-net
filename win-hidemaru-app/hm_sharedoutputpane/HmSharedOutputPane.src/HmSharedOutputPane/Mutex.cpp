@@ -16,9 +16,9 @@ namespace Mutex {
 
 
 	// dllが自分自身の名前を得る。Mutex用の識別名をこれにすることで、一意性を保つ。
-	TCHAR* GetMutexLabel() {
+	wchar_t* GetMutexLabel() {
 
-		return _T("HmSharedOutputPane.dll");
+		return L"HmSharedOutputPane.dll";
 	}
 
 	static HANDLE hMutexLock = NULL;

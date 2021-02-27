@@ -15,11 +15,11 @@ extern HWND GetCurWndHidemaru(HWND hCurWnd);
 class HidemaruWindowHandleSearcher {
 
 public:
-	HidemaruWindowHandleSearcher(string strClassName);
+	HidemaruWindowHandleSearcher(wstring strClassName);
 
 private:
 	// これはスタティックではない。デスクトップ版とアプリ版があるので
-	string strHidemaruClassName;
+	wstring strHidemaruClassName;
 	// 秀丸ハンドル
 	HWND hCurWndHidemaru;
 

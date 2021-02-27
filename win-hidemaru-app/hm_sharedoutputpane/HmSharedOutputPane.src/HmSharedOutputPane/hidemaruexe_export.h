@@ -15,7 +15,7 @@ public:
 	CHidemaruExeExport();
 private:
 	static HMODULE hHideExeHandle;
-	static char szHidemaruFullPath[MAX_PATH];
+	static wchar_t szHidemaruFullPath[MAX_PATH];
 
 
 protected:

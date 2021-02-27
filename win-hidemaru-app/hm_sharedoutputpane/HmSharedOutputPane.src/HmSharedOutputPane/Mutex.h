@@ -14,7 +14,7 @@ namespace Mutex {
 	extern HANDLE hMutex;
 
 	// Mutex用の一意のラベルを得る(実態はこのdll名)。
-	TCHAR* GetMutexLabel();
+	wchar_t* GetMutexLabel();
 
 	// Mutexロック開始。誰かが取っていたら無限に待つ。
 	void BgnMutexLock();

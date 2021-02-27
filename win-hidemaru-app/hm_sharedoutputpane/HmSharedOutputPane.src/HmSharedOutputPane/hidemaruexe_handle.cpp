@@ -9,7 +9,7 @@
 #include "hidemaruexe_export.h"
 
 
-HidemaruWindowHandleSearcher::HidemaruWindowHandleSearcher(string strClassName) {
+HidemaruWindowHandleSearcher::HidemaruWindowHandleSearcher(wstring strClassName) {
 	this->strHidemaruClassName = strClassName;
 	this->hCurWndHidemaru = NULL;
 }
@@ -35,8 +35,8 @@ bool HidemaruWindowHandleSearcher::IsWndHidemaru32ClassType(HWND hWnd) {
 		return false;
 	}
 
-	char strTargetClassName[MAX_CLASS_NAME];
-	::GetClassName(hWnd, strTargetClassName, _countof(strTargetClassName));
+	wchar_t strTargetClassName[MAX_CLASS_NAME];
+	::GetClassNameW(hWnd, strTargetClassName, _countof(strTargetClassName));
 
 	if (strHidemaruClassName == strTargetClassName) {
 		return true;
@@ -70,14 +70,14 @@ void HidemaruWindowHandleSearcher::TabOnSearchCurWndHidemaru(HWND hWnd)
 
 	// 子クラスをなめていく。子クラスはあくまでも「Hidemaru32Class系」。
 	// ストア版はちょっと違うのでインスタンス変数になっている。
-	const char *pszClassName = strHidemaruClassName.c_str();
-	HWND hWndChild = FindWindowEx(hWnd, NULL, pszClassName, NULL);
+	const wchar_t *pszClassName = strHidemaruClassName.c_str();
+	HWND hWndChild = FindWindowExW(hWnd, NULL, pszClassName, NULL);
 	while (hWndChild != NULL)
 	{
 		TabOnSearchCurWndHidemaru(hWndChild);
 		if (hCurWndHidemaru) { break; }
 
-		hWndChild = FindWindowEx(hWnd, hWndChild, pszClassName, NULL);
+		hWndChild = FindWindowExW(hWnd, hWndChild, pszClassName, NULL);
 	}
 }
 
@@ -102,7 +102,7 @@ void HidemaruWindowHandleSearcher::NoTabSearchCurWndHidemaru(HWND hWnd)
 
 	// 子クラスをなめていく。子クラスはあくまでも「Hidemaru32Class系」。
 	// ストア版はちょっと違うのでインスタンス変数になっている。
-	const char *pszClassName = strHidemaruClassName.c_str();
+	const wchar_t *pszClassName = strHidemaruClassName.c_str();
 	HWND hWndChild = FindWindowEx(hWnd, NULL, pszClassName, NULL);
 	while (hWndChild != NULL)
 	{
@@ -123,13 +123,13 @@ HWND GetCurWndHidemaru(HWND hCurWnd) {
 
 	HWND hWnd = NULL;
 	if (!hWnd) {
-		HidemaruWindowHandleSearcher s1("Hidemaru32Class");
+		HidemaruWindowHandleSearcher s1(L"Hidemaru32Class");
 		hWnd = s1.GetCurWndHidemaru();
 	}
 
 	if (!hWnd) {
 		// ストアアプリ版
-		HidemaruWindowHandleSearcher s2("Hidemaru32Class_Appx");
+		HidemaruWindowHandleSearcher s2(L"Hidemaru32Class_Appx");
 		hWnd = s2.GetCurWndHidemaru();
 	}
 

@@ -13,6 +13,8 @@
 #include "Mutex.h"
 #include "SharedExport.h"
 #include "hidemaruexe_export.h"
+#include "string_converter.h"
+#include "hm_original_encode_mapfunc.h"
 
 using namespace std;
 
@@ -21,7 +23,7 @@ using namespace std;
 
 #pragma data_seg("HM_SHARED_OUTPUT_PANE_SEG")
 HWND hCurHidemaruWndHandle = 0;
-TCHAR szBufList[BUF_LINE][BUF_CHRS] = {};			// 外部プログラムから書き込まれるバッファ。BUF_LINE行で、1行あたりBUF_CHRS文字まで。
+wchar_t szBufList[BUF_LINE][BUF_CHRS] = {};			// 外部プログラムから書き込まれるバッファ。BUF_LINE行で、1行あたりBUF_CHRS文字まで。
 int InputIndex = 0;								    // 外部から共有メモリの書き込みで、今何番目まで書き込んでいるか。循環で利用される。
 int OtputIndex = 0;						            // 内部から吐き出したのが、何番目まで吐き出したのか。循環で利用される。
 int lstInputTimeGetTime = ::timeGetTime();          // 一番最後に外部から内部に書き込まれた時刻。
@@ -36,8 +38,8 @@ CHidemaruExeExport HMEXE;
 
 
 
-void OutputDebugStream(const TCHAR *format, ...) {
-	TCHAR szBufDebug[4096] = _T("");
+void OutputDebugStream(const wchar_t *format, ...) {
+	wchar_t szBufDebug[4096] = L"";
 
 	va_list arg;
 
@@ -77,15 +79,25 @@ extern "C" int _cdecl SetWithClearTime(intptr_t iMilliSecond) {
 	return 1;
 }
 
+extern "C" void _stdcall SetSharedMessage(const char *szmsg) {
+	SetSharedMessageA(szmsg);
+}
+
 // 外部からメッセージをDLL内部にコピーする。
-extern "C" void _stdcall SetSharedMessage(const TCHAR *szmsg) {
+extern "C" void _stdcall SetSharedMessageA(const char *szmsg) {
 
 	if (!szmsg) { return; }
 
-	TCHAR szBuf[BUF_CHRS] = _T("");
-	_tcsncpy_s(szBuf, szmsg, BUF_CHRS - 1);
-	szBuf[BUF_CHRS - 1] = NULL;
+	wstring wstr = cp932_to_utf16(szmsg);
+	SetSharedMessageW(wstr.data());
+}
 
+// 外部からメッセージをDLL内部にコピーする。
+extern "C" void _stdcall SetSharedMessageW(const wchar_t *szmsg) {
+
+	if (!szmsg) { return; }
+
+	wstring wstr = wstring(szmsg);
 
 	// 排他Mutexオブジェクトを作成。ハンドルを得る 
 	Mutex::hMutex = CreateMutex(NULL, FALSE, Mutex::GetMutexLabel());
@@ -93,7 +105,7 @@ extern "C" void _stdcall SetSharedMessage(const TCHAR *szmsg) {
 
 	// バッファは順番に使っていくこととなる。
 	// 共有メモリにコピーする。
-	_tcscpy_s(szBufList[InputIndex], szBuf);
+	_tcsncpy_s(szBufList[InputIndex], wstr.data(), BUF_CHRS - 1);
 	// 共有メモリのどのインデックスまで使ったかを覚えておく。BUF_LINEまでを順繰りで利用する。
 	InputIndex++;
 	if (InputIndex == BUF_LINE) { InputIndex = 0; }
@@ -108,7 +120,6 @@ extern "C" void _stdcall SetSharedMessage(const TCHAR *szmsg) {
 DWORD curTimeGetTime = ::timeGetTime();
 DWORD preTimeGetTime = ::timeGetTime();
 
-extern void ShellErrorBalloon(tstring message);
 
 
 // 外部から秀丸ハンドルを設定する。
@@ -193,12 +204,13 @@ unsigned __stdcall OutputSharedMessage(void *) {
 				break;
 			}
 
-			tstring line = tstring(szBufList[OtputIndex]);
+			wstring line = wstring(szBufList[OtputIndex]);
 
 			if (pOutputFunc) {
-				line += _T("\n");
+				line += L"\n";
+				vector<BYTE> bite_data = EncodeWStringToOriginalEncodeVector(line);
 				// --------------------- １行の文字列にパッチを当てていく ここまで----------------------------
-				BOOL success = pOutputFunc((HWND)hLocalHidemaruWndHandle, line.c_str());
+				BOOL success = pOutputFunc((HWND)hLocalHidemaruWndHandle, bite_data.data());
 
 				// アウトプットパネルへの出力は、詰まってると失敗することがある
 				if (success) {

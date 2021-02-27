@@ -16,6 +16,12 @@
     <Filter Include="秀丸本体からのexport">
       <UniqueIdentifier>{9474fef7-656d-4a5a-805e-8e2c15fa697f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="cp932⇔wchar_t 変換">
+      <UniqueIdentifier>{56ef5715-f1d9-420a-9d7e-d9fbeb17b69b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="秀丸独自のChar渡しでのUnicode扱い">
+      <UniqueIdentifier>{df19077c-c402-42af-bcc5-efbc4122a1fa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HmSharedOutputPane.cpp">
@@ -36,6 +42,15 @@
     <ClCompile Include="hidemaruexe_handle.cpp">
       <Filter>秀丸本体からのexport</Filter>
     </ClCompile>
+    <ClCompile Include="string_converter.cpp">
+      <Filter>cp932⇔wchar_t 変換</Filter>
+    </ClCompile>
+    <ClCompile Include="hm_original_encode_map.cpp">
+      <Filter>秀丸独自のChar渡しでのUnicode扱い</Filter>
+    </ClCompile>
+    <ClCompile Include="hm_original_encode_mapfunc.cpp">
+      <Filter>秀丸独自のChar渡しでのUnicode扱い</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SharedExport.h">
@@ -52,6 +67,12 @@
     </ClInclude>
     <ClInclude Include="hidemaruexe_handle.h">
       <Filter>秀丸本体からのexport</Filter>
+    </ClInclude>
+    <ClInclude Include="string_converter.h">
+      <Filter>cp932⇔wchar_t 変換</Filter>
+    </ClInclude>
+    <ClInclude Include="hm_original_encode_mapfunc.h">
+      <Filter>秀丸独自のChar渡しでのUnicode扱い</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -31,7 +31,7 @@ BOOL APIENTRY DllMain(HANDLE hModule, DWORD  ul_reason_for_call, LPVOID lpReserv
 	case DLL_PROCESS_ATTACH:
 
 		// アウトプットパネルのDLLのポインタを確保
-		hHmOutputPaneDLL = LoadLibrary(_T("HmOutputPane.dll"));
+		hHmOutputPaneDLL = LoadLibraryW(L"HmOutputPane.dll");
 		if (hHmOutputPaneDLL) {
 			// アウトプットペインのOutput関数の取得
 			// アウトプットペイン自体のウィンドウハンドルの取得。

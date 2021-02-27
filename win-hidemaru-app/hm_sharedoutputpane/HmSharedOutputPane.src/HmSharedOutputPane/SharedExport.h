@@ -14,18 +14,18 @@
 #define BUF_LINE 5000
 #define BUF_CHRS 1024
 
-namespace std {
-	using tstring = std::basic_string<TCHAR>;
-}
 
-using PFNOUTPUT = int(_cdecl *)(HWND hwnd, const TCHAR *);
+
+using PFNOUTPUT = int(_cdecl *)(HWND hwnd, BYTE *);
 using PFNGETWINDOWHANDLE = HWND(_cdecl *)(HWND hHidemaru);
 extern HWND hCurHidemaruWndHandle;
-extern "C" void _stdcall SetSharedMessage(const TCHAR *szmsg);
+extern "C" void _stdcall SetSharedMessage(const char *szmsg);
+extern "C" void _stdcall SetSharedMessageA(const char *szmsg);
+extern "C" void _stdcall SetSharedMessageW(const wchar_t *szmsg);
 
 unsigned __stdcall OutputSharedMessage(void *);
 
-extern TCHAR szBufList[BUF_LINE][BUF_CHRS];
+extern wchar_t szBufList[BUF_LINE][BUF_CHRS];
 
 extern HMODULE hHmOutputPaneDLL;
 

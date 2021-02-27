@@ -5,5 +5,7 @@ SECTIONS
 
 EXPORTS
 	SetSharedMessage
+	SetSharedMessageA
+	SetSharedMessageW
 	SetHidemaruHandle
 	SetWithClearTime
