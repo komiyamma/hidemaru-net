@@ -54,17 +54,7 @@ public sealed partial class hmLmDynamicLib
             public static int Clear()
             {
                 //1009=クリア
-                IntPtr r = SendMessge(1009);
-                if ((long)r < (long)int.MinValue)
-                {
-                    r = (IntPtr)int.MinValue;
-                }
-                if ((long)int.MaxValue < (long)r)
-                {
-                    r = (IntPtr)int.MaxValue;
-                }
-
-                return (int)r;
+                return OutputPane.SendMessge(1009);
 
             }
 
@@ -76,15 +66,23 @@ public sealed partial class hmLmDynamicLib
                 }
             }
 
-            public static IntPtr SendMessge(int commandID)
+            public static int SendMessge(int commandID)
             {
                 //
                 // loaddll "HmOutputPane.dll";
                 // #h=dllfunc("GetWindowHandle",hidemaruhandle(0));
                 // #ret=sendmessage(#h,0x111,1009,0);//1009=クリア 0x111=WM_COMMAND
                 //
-                IntPtr result = SendMessage(pOutputPane_GetWindowHandle(Hidemaru.WindowHandle), 0x111, commandID, IntPtr.Zero);
-                return result;
+                IntPtr r = SendMessage(OutputPane.WindowHandle, 0x111, commandID, IntPtr.Zero);
+                if ((long)r < (long)int.MinValue)
+                {
+                    r = (IntPtr)int.MinValue;
+                }
+                if ((long)r > (long)int.MaxValue)
+                {
+                    r = (IntPtr)int.MaxValue;
+                }
+                return (int)r;
             }
 
             // Output枠へと出力する

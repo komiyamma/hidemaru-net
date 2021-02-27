@@ -281,7 +281,7 @@ namespace Hidemaru
                 }
             }
 
-            public static IntPtr SendMessage(int command_id)
+            public static int SendMessage(int command_id)
             {
                 return hmNETDynamicLib.Hidemaru.OutputPane.SendMessge(command_id);
             }
