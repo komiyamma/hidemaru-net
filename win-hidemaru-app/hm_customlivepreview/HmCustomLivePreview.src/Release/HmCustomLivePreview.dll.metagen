@@ -513,8 +513,10 @@ Interface Microsoft.ClearScript.JavaScript.ITypedArray`1[T]: AutoLayout, AnsiCla
 Class HmCustomLivePreviewDynamicLib+Hidemaru: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Properties:
+    IntPtr WindowHandle 'get ' : 
     Double version 'get ' : 
   Methods:
+    get_WindowHandle(): PrivateScope, Public, Static, HideBySig, SpecialName
     debuginfo(Object[]): PrivateScope, Public, Static, HideBySig
     get_version(): PrivateScope, Public, Static, HideBySig, SpecialName
 Class HmCustomLivePreviewDynamicLib+HmCustomLivePreviewConsole: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
@@ -537,6 +539,18 @@ Class HmCustomLivePreviewDynamicLib+Hidemaru+File: AutoLayout, AnsiClass, Class,
   Methods:
     GetEncoding(String): PrivateScope, Public, Static, HideBySig
     Open(String, Int32(Optional, HasDefault)): PrivateScope, Public, Static, HideBySig
+Class HmCustomLivePreviewDynamicLib+Hidemaru+OutputPane: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    IntPtr WindowHandle 'get ' : 
+  Methods:
+    Output(String): PrivateScope, Public, Static, HideBySig
+    Push(): PrivateScope, Public, Static, HideBySig
+    Pop(): PrivateScope, Public, Static, HideBySig
+    Clear(): PrivateScope, Public, Static, HideBySig
+    get_WindowHandle(): PrivateScope, Public, Static, HideBySig, SpecialName
+    SendMessge(Int32): PrivateScope, Public, Static, HideBySig
+    SetBaseDir(String): PrivateScope, Public, Static, HideBySig
 Class HmCustomLivePreviewDynamicLib+Hidemaru+Edit: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Properties:
@@ -566,7 +580,10 @@ Class HmCustomLivePreviewDynamicLib+Hidemaru+ErrorMsg: AutoLayout, AnsiClass, Cl
     System.String MethodNeed866 = このメソッドは秀丸エディタ v8.66 正式版以降で利用可能です。 : Public, Static, Literal, HasDefault
     System.String MethodNeed873 = このメソッドは秀丸エディタ v8.73 正式版以降で利用可能です。 : Public, Static, Literal, HasDefault
     System.String MethodNeed875 = このメソッドは秀丸エディタ v8.75 正式版以降で利用可能です。 : Public, Static, Literal, HasDefault
+    System.String MethodNeed877 = このメソッドは秀丸エディタ v8.77 正式版以降で利用可能です。 : Public, Static, Literal, HasDefault
     System.String MethodNeed890 = このメソッドは秀丸エディタ v8.90 正式版以降で利用可能です。 : Public, Static, Literal, HasDefault
+    System.String MethodNeedOutputNotFound = HmOutputPaneの対象関数を発見できません。 : Public, Static, Literal, HasDefault
+    System.String MethodNeedOutputOperation = HmOutputPaneへの操作中にエラーが発生しました。 : Public, Static, Literal, HasDefault
 Interface HmCustomLivePreviewDynamicLib+Hidemaru+File+IHidemaruEncoding: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
   Properties:
     Int32 HmEncode 'get ' : 

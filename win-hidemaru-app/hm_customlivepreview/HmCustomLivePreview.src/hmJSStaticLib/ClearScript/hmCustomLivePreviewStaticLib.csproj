@@ -68,6 +68,10 @@
     <Compile Include="hmJSStaticLib\ClearScriptExtension.cs" />
     <Compile Include="hmJSStaticLib\hmCustomLivePreviewConsole.cs" />
     <Compile Include="hmJSStaticLib\hmCustomLivePreviewDllPathResolver.cs" />
+    <Compile Include="hmJSStaticLib\hmCustomLivePreviewHidemaruOutputPane.cs" />
+    <Compile Include="hmJSStaticLib\HmOriginalEncodeFunc.cs" />
+    <Compile Include="hmJSStaticLib\HmOriginalEncodeMap.cs" />
+    <Compile Include="hmJSStaticLib\HmWndHandleSearcher.cs" />
     <Compile Include="hmJSStaticLib\UnManagedDll.cs" />
     <Compile Include="hmJSStaticLib\hmCustomLivePreviewHidemaruDelegate.cs" />
     <Compile Include="hmJSStaticLib\hmCustomLivePreviewHidemaruEdit.cs" />
