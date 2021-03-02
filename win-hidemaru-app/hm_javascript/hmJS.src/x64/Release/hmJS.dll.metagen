@@ -43,7 +43,6 @@ Class hmJSDynamicLib: AutoLayout, AnsiClass, Class, Public, Sealed
     Hidemaru hm : Public, Static
   Methods:
     OutputDebugStream(String): PrivateScope, Public, Static, HideBySig
-    SendMessage(IntPtr, UInt32, Int32, IntPtr): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     BindDllHandle(IntPtr): PrivateScope, Public, Static, HideBySig
     ModifyFuncCallByDllType(String): PrivateScope, Public, Static, HideBySig
     SetTmpVar(Object): PrivateScope, Public, Static, HideBySig
