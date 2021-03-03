@@ -17,6 +17,20 @@ namespace HmNetPInvoke
     internal partial class Hm
 #endif
     {
+        static Hm() {
+            SetVersion();
+        }
+
+        private static void SetVersion()
+        {
+            if (_version == 0)
+            {
+                string hidemaru_fullpath = GetHidemaruExeFullPath();
+                System.Diagnostics.FileVersionInfo vi = System.Diagnostics.FileVersionInfo.GetVersionInfo(hidemaru_fullpath);
+                _version = 100 * vi.FileMajorPart + 10 * vi.FileMinorPart + 1 * vi.FileBuildPart + 0.01 * vi.FilePrivatePart;
+            }
+        }
+
         private static double _version = 0;
         /// <summary>
         /// 秀丸バージョンの取得
@@ -26,13 +40,6 @@ namespace HmNetPInvoke
         {
             get
             {
-                if (_version == 0)
-                {
-                    string hidemaru_fullpath = GetHidemaruExeFullPath();
-                    System.Diagnostics.FileVersionInfo vi = System.Diagnostics.FileVersionInfo.GetVersionInfo(hidemaru_fullpath);
-                    _version = 100 * vi.FileMajorPart + 10 * vi.FileMinorPart + 1 * vi.FileBuildPart + 0.01 * vi.FilePrivatePart;
-                }
-
                 return _version;
             }
         }

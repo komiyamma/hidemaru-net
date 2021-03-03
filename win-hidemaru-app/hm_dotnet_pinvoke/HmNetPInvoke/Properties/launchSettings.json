@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "HmNetPInvoke": {
+      "commandName": "Executable",
+      "executablePath": "C:\\usr\\hidemaru\\Hidemaru.exe"
+    }
+  }
+}

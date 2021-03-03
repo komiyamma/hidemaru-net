@@ -12,7 +12,7 @@ using System;
 using System.Reflection;
 
 [assembly: System.Reflection.AssemblyCompanyAttribute("HmNetPInvoke")]
-[assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
+[assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyCopyrightAttribute("Copyright © 2021 Akitsugu Komiyama")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.8.0.1")]
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.8.0.1")]
