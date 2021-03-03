@@ -556,6 +556,8 @@ namespace HmNetPInvoke
         [DllImport("user32.dll", EntryPoint = "SendMessage", CharSet = CharSet.Auto)]
         private static extern bool SendMessage(IntPtr hWnd, uint Msg, StringBuilder wParam, StringBuilder lParam);
 
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, int command, IntPtr lparam);
     }
 }
 
@@ -581,5 +583,57 @@ namespace HmNetPInvoke
             X = pos.X;
             Y = pos.Y;
         }
+    }
+}
+
+namespace HmNetPInvoke
+{
+
+#if BUILD_DLL
+    public partial class Hm
+#else
+    internal partial class Hm
+#endif
+    {
+        // アンマネージドライブラリの遅延での読み込み。C++のLoadLibraryと同じことをするため
+        // これをする理由は、このhmPyとHideamru.exeが異なるディレクトリに存在する可能性があるため、
+        // C#風のDllImportは成立しないからだ。
+        internal sealed class UnManagedDll : IDisposable
+        {
+            [DllImport("kernel32")]
+            private static extern IntPtr LoadLibrary(string lpFileName);
+            [DllImport("kernel32")]
+            private static extern IntPtr GetProcAddress(IntPtr hModule, string lpProcName);
+            [DllImport("kernel32")]
+            private static extern bool FreeLibrary(IntPtr hModule);
+
+            IntPtr moduleHandle;
+
+            public UnManagedDll(string lpFileName)
+            {
+                moduleHandle = LoadLibrary(lpFileName);
+            }
+
+            public IntPtr ModuleHandle
+            {
+                get
+                {
+                    return moduleHandle;
+                }
+            }
+
+            public T GetProcDelegate<T>(string method) where T : class
+            {
+                IntPtr methodHandle = GetProcAddress(moduleHandle, method);
+                T r = Marshal.GetDelegateForFunctionPointer(methodHandle, typeof(T)) as T;
+                return r;
+            }
+
+            public void Dispose()
+            {
+                FreeLibrary(moduleHandle);
+            }
+        }
+
     }
 }
