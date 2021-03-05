@@ -84,16 +84,31 @@ Class IronRubyErrorListener: AutoLayout, AnsiClass, Class, Public, Sealed, Befor
 Class hmRbDynamicLib+Hidemaru: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Fields:
+    HmOutputPane OutputPane : Public
     HmEdit Edit : Public
     HmFile File : Public
     HmMacro Macro : Public
   Properties:
+    IntPtr WindowHandle 'get ' : 
     Double version 'get ' : 
   Methods:
+    get_WindowHandle(): PrivateScope, Public, Static, HideBySig, SpecialName
     _(String): PrivateScope, Public, HideBySig
     debuginfo(Object): PrivateScope, Public, HideBySig
     get_version(): PrivateScope, Public, HideBySig, SpecialName
     InitVersion(): PrivateScope, Public, Static, HideBySig
+Class hmRbDynamicLib+Hidemaru+HmOutputPane: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    IntPtr WindowHandle 'get ' : 
+  Methods:
+    Output(String): PrivateScope, Public, HideBySig
+    Push(): PrivateScope, Public, HideBySig
+    Pop(): PrivateScope, Public, HideBySig
+    Clear(): PrivateScope, Public, HideBySig
+    get_WindowHandle(): PrivateScope, Public, HideBySig, SpecialName
+    SendMessage(Int32): PrivateScope, Public, HideBySig
+    SetBaseDir(String): PrivateScope, Public, HideBySig
 Class hmRbDynamicLib+Hidemaru+HmEdit: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Properties:

@@ -37,7 +37,6 @@ Class hmLmDynamicLib: AutoLayout, AnsiClass, Class, Public, Sealed
     Neo.IronLua.Lua l : Public, Static
     Neo.IronLua.LuaGlobal g : Public, Static
   Methods:
-    SendMessage(IntPtr, UInt32, Int32, IntPtr): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     OutputDebugStream(String): PrivateScope, Public, Static, HideBySig
     BindDllHandle(IntPtr): PrivateScope, Public, Static, HideBySig
     SetTmpVar(Object): PrivateScope, Public, Static, HideBySig
@@ -806,7 +805,7 @@ Class hmLmDynamicLib+Hidemaru+OutputPane: AutoLayout, AnsiClass, Class, NestedPu
     Pop(): PrivateScope, Public, Static, HideBySig
     Clear(): PrivateScope, Public, Static, HideBySig
     get_WindowHandle(): PrivateScope, Public, Static, HideBySig, SpecialName
-    SendMessge(Int32): PrivateScope, Public, Static, HideBySig
+    SendMessage(Int32): PrivateScope, Public, Static, HideBySig
     SetBaseDir(String): PrivateScope, Public, Static, HideBySig
 Interface hmLmDynamicLib+Hidemaru+File+IHidemaruEncoding: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
   Properties:

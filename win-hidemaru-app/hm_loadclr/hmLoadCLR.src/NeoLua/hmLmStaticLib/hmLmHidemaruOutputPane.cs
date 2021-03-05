@@ -54,7 +54,7 @@ public sealed partial class hmLmDynamicLib
             public static int Clear()
             {
                 //1009=クリア
-                return OutputPane.SendMessge(1009);
+                return OutputPane.SendMessage(1009);
 
             }
 
@@ -66,14 +66,14 @@ public sealed partial class hmLmDynamicLib
                 }
             }
 
-            public static int SendMessge(int commandID)
+            public static int SendMessage(int commandID)
             {
                 //
                 // loaddll "HmOutputPane.dll";
                 // #h=dllfunc("GetWindowHandle",hidemaruhandle(0));
                 // #ret=sendmessage(#h,0x111,1009,0);//1009=クリア 0x111=WM_COMMAND
                 //
-                IntPtr r = SendMessage(OutputPane.WindowHandle, 0x111, commandID, IntPtr.Zero);
+                IntPtr r = hmLmDynamicLib.SendMessage(OutputPane.WindowHandle, 0x111, commandID, IntPtr.Zero);
                 if ((long)r < (long)int.MinValue)
                 {
                     r = (IntPtr)int.MinValue;

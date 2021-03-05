@@ -42,7 +42,6 @@ Class hmRbDynamicLib: AutoLayout, AnsiClass, Class, Public, Sealed
     Microsoft.Scripting.Hosting.ScriptScope ss : Public, Static
     Hidemaru hm : Public, Static
   Methods:
-    SendMessage(IntPtr, UInt32, Int32, IntPtr): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     OutputDebugStream(String): PrivateScope, Public, Static, HideBySig
     BindDllHandle(IntPtr): PrivateScope, Public, Static, HideBySig
     SetTmpVar(Object): PrivateScope, Public, Static, HideBySig
@@ -108,7 +107,7 @@ Class hmRbDynamicLib+Hidemaru+HmOutputPane: AutoLayout, AnsiClass, Class, Nested
     Pop(): PrivateScope, Public, HideBySig
     Clear(): PrivateScope, Public, HideBySig
     get_WindowHandle(): PrivateScope, Public, HideBySig, SpecialName
-    SendMessge(Int32): PrivateScope, Public, HideBySig
+    SendMessage(Int32): PrivateScope, Public, HideBySig
     SetBaseDir(String): PrivateScope, Public, HideBySig
 Class hmRbDynamicLib+Hidemaru+HmEdit: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
