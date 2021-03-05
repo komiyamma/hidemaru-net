@@ -1,5 +1,5 @@
 #-------------------- coding: utf-8 ---------------------------
-# hmPython3 1.7.4.1用 フェイクライブラリ
+# hmPython3 1.8.1.1用 フェイクライブラリ
 # Copyright (c) 2017-2021 Akitsugu Komiyama
 # under the Apache License Version 2.0
 #--------------------------------------------------------------

@@ -7,5 +7,5 @@ using System.Runtime.InteropServices;
 // 次の GUID は、このプロジェクトが COM に公開される場合の、typelib の ID です
 [assembly: Guid("d976ec5e-8310-4212-a205-3d70f7cd295c")]
 
-[assembly: AssemblyVersion("1.7.4.1")]
-[assembly: AssemblyFileVersion("1.7.4.1")]
+[assembly: AssemblyVersion("1.8.1.1")]
+[assembly: AssemblyFileVersion("1.8.1.1")]
