@@ -43,7 +43,6 @@ Class hmPyDynamicLib: AutoLayout, AnsiClass, Class, Public, Sealed
     Microsoft.Scripting.Hosting.ScriptEngine pe : Public, Static
     Microsoft.Scripting.Hosting.ScriptScope ss : Public, Static
   Methods:
-    SendMessage(IntPtr, UInt32, Int32, IntPtr): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     OutputDebugStream(String): PrivateScope, Public, Static, HideBySig
     BindDllHandle(IntPtr): PrivateScope, Public, Static, HideBySig
     SetTmpVar(Object): PrivateScope, Public, Static, HideBySig
@@ -102,7 +101,7 @@ Class hmPyDynamicLib+Hidemaru+OutputPane: AutoLayout, AnsiClass, Class, NestedPu
     Pop(): PrivateScope, Public, Static, HideBySig
     Clear(): PrivateScope, Public, Static, HideBySig
     get_WindowHandle(): PrivateScope, Public, Static, HideBySig, SpecialName
-    SendMessge(Int32): PrivateScope, Public, Static, HideBySig
+    SendMessage(Int32): PrivateScope, Public, Static, HideBySig
     SetBaseDir(String): PrivateScope, Public, Static, HideBySig
 Class hmPyDynamicLib+Hidemaru+Macro: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
