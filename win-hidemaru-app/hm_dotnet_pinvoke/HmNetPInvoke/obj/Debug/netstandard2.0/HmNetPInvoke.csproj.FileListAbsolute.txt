@@ -1,9 +1,0 @@
-G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_pinvoke\HmNetPInvoke\bin\Debug\netstandard2.0\HmNetPInvoke.deps.json
-G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_pinvoke\HmNetPInvoke\bin\Debug\netstandard2.0\HmNetPInvoke.dll
-G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_pinvoke\HmNetPInvoke\bin\Debug\netstandard2.0\HmNetPInvoke.pdb
-G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_pinvoke\HmNetPInvoke\obj\Debug\netstandard2.0\HmNetPInvoke.csprojAssemblyReference.cache
-G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_pinvoke\HmNetPInvoke\obj\Debug\netstandard2.0\HmNetPInvoke.csproj.CoreCompileInputs.cache
-G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_pinvoke\HmNetPInvoke\obj\Debug\netstandard2.0\HmNetPInvoke.AssemblyInfoInputs.cache
-G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_pinvoke\HmNetPInvoke\obj\Debug\netstandard2.0\HmNetPInvoke.AssemblyInfo.cs
-G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_pinvoke\HmNetPInvoke\obj\Debug\netstandard2.0\HmNetPInvoke.dll
-G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_pinvoke\HmNetPInvoke\obj\Debug\netstandard2.0\HmNetPInvoke.pdb

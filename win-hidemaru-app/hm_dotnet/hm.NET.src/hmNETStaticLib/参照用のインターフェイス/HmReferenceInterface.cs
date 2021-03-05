@@ -283,7 +283,7 @@ namespace Hidemaru
 
             public static IntPtr SendMessage(int command_id)
             {
-                return hmNETDynamicLib.Hidemaru.OutputPane.SendMessge(command_id);
+                return hmNETDynamicLib.Hidemaru.OutputPane.SendMessage(command_id);
             }
 
             public static int SetBaseDir(String dirpath)

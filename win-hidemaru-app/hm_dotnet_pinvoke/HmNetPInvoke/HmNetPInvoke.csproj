@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>HmNetPInvoke</AssemblyName>
     <RootNamespace>Hidemaru</RootNamespace>
-    <Version>1.8.0.1</Version>
+    <Version>1.8.1.1</Version>
     <Copyright>Copyright © 2021 Akitsugu Komiyama</Copyright>
     <NeutralLanguage>ja-JP</NeutralLanguage>
     <PackageId>HmNetPInvoke</PackageId>
