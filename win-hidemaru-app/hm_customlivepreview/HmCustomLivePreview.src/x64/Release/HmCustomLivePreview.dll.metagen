@@ -549,7 +549,7 @@ Class HmCustomLivePreviewDynamicLib+Hidemaru+OutputPane: AutoLayout, AnsiClass, 
     Pop(): PrivateScope, Public, Static, HideBySig
     Clear(): PrivateScope, Public, Static, HideBySig
     get_WindowHandle(): PrivateScope, Public, Static, HideBySig, SpecialName
-    SendMessge(Int32): PrivateScope, Public, Static, HideBySig
+    SendMessage(Int32): PrivateScope, Public, Static, HideBySig
     SetBaseDir(String): PrivateScope, Public, Static, HideBySig
 Class HmCustomLivePreviewDynamicLib+Hidemaru+Edit: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
