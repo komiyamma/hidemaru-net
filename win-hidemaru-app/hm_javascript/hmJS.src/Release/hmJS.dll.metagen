@@ -558,7 +558,7 @@ Class hmJSDynamicLib+Hidemaru+OutputPane: AutoLayout, AnsiClass, Class, NestedPu
     Pop(): PrivateScope, Public, Static, HideBySig
     Clear(): PrivateScope, Public, Static, HideBySig
     get_WindowHandle(): PrivateScope, Public, Static, HideBySig, SpecialName
-    SendMessge(Int32): PrivateScope, Public, Static, HideBySig
+    SendMessage(Int32): PrivateScope, Public, Static, HideBySig
     SetBaseDir(String): PrivateScope, Public, Static, HideBySig
 Interface hmJSDynamicLib+Hidemaru+File+IHidemaruEncoding: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
   Properties:

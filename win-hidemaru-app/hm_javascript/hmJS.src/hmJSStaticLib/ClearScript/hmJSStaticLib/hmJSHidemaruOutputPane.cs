@@ -54,7 +54,7 @@ public sealed partial class hmJSDynamicLib
             public static int Clear()
             {
                 //1009=クリア
-                IntPtr r = OutputPane.SendMessge(1009);
+                IntPtr r = OutputPane.SendMessage(1009);
                 if ((long)r < (long)int.MinValue)
                 {
                     r = (IntPtr)int.MinValue;
@@ -76,14 +76,14 @@ public sealed partial class hmJSDynamicLib
                 }
             }
 
-            public static IntPtr SendMessge(int commandID)
+            public static IntPtr SendMessage(int commandID)
             {
                 //
                 // loaddll "HmOutputPane.dll";
                 // #h=dllfunc("GetWindowHandle",hidemaruhandle(0));
                 // #ret=sendmessage(#h,0x111,1009,0);//1009=クリア 0x111=WM_COMMAND
                 //
-                IntPtr result = SendMessage(OutputPane.WindowHandle, 0x111, commandID, IntPtr.Zero);
+                IntPtr result = hmJSDynamicLib.SendMessage(OutputPane.WindowHandle, 0x111, commandID, IntPtr.Zero);
                 return result;
             }
 

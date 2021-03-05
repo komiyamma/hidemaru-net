@@ -56,7 +56,7 @@ public sealed partial class hmPSDynamicLib
             public static int Clear()
             {
                 //1009=クリア
-                return SendMessge(1009);
+                return SendMessage(1009);
 
             }
 
@@ -68,14 +68,14 @@ public sealed partial class hmPSDynamicLib
                 }
             }
 
-            public static int SendMessge(int commandID)
+            public static int SendMessage(int commandID)
             {
                 //
                 // loaddll "HmOutputPane.dll";
                 // #h=dllfunc("GetWindowHandle",hidemaruhandle(0));
                 // #ret=sendmessage(#h,0x111,1009,0);//1009=クリア 0x111=WM_COMMAND
                 //
-                IntPtr r = SendMessage(pOutputPane_GetWindowHandle(Hidemaru.WindowHandle), 0x111, commandID, IntPtr.Zero);
+                IntPtr r = hmPSDynamicLib.SendMessage(pOutputPane_GetWindowHandle(Hidemaru.WindowHandle), 0x111, commandID, IntPtr.Zero);
                 if ((long)r < (long)int.MinValue)
                 {
                     r = (IntPtr)int.MinValue;

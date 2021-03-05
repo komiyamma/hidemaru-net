@@ -32,7 +32,6 @@ Class hmPSDynamicLib: AutoLayout, AnsiClass, Class, Public, Sealed
     System.Management.Automation.Runspaces.Pipeline pipeline : Public, Static
     Hidemaru hm : Public, Static
   Methods:
-    SendMessage(IntPtr, UInt32, Int32, IntPtr): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     OutputDebugStream(String): PrivateScope, Public, Static, HideBySig
     BindDllHandle(IntPtr): PrivateScope, Public, Static, HideBySig
     ModifyFuncCallByDllType(String): PrivateScope, Public, Static, HideBySig
@@ -101,7 +100,7 @@ Class hmPSDynamicLib+Hidemaru+TOutputPane: AutoLayout, AnsiClass, Class, NestedP
     Pop(): PrivateScope, Public, Static, HideBySig
     Clear(): PrivateScope, Public, Static, HideBySig
     get_WindowHandle(): PrivateScope, Public, Static, HideBySig, SpecialName
-    SendMessge(Int32): PrivateScope, Public, Static, HideBySig
+    SendMessage(Int32): PrivateScope, Public, Static, HideBySig
     SetBaseDir(String): PrivateScope, Public, Static, HideBySig
 Class hmPSDynamicLib+Hidemaru+ErrorMsg: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
