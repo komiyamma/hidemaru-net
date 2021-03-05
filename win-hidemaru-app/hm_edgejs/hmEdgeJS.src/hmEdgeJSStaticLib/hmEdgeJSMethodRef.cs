@@ -169,7 +169,7 @@ public sealed partial class hmEdgeJSDynamicLib
 
         refOutputPane_SendMessage = (Func<dynamic, Task<object>>)(async (obj) =>
         {
-            var ret = Hidemaru.OutputPane.SendMessge((int)obj);
+            var ret = Hidemaru.OutputPane.SendMessage((int)obj);
             return ret;
         });
 

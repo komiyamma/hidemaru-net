@@ -86,12 +86,15 @@ Class hmEdgeJSDynamicLib+Hidemaru+Macro: AutoLayout, AnsiClass, Class, NestedPub
     SetVar(String, Object): PrivateScope, Public, Static, HideBySig
 Class hmEdgeJSDynamicLib+Hidemaru+OutputPane: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    IntPtr WindowHandle 'get ' : 
   Methods:
     Output(String): PrivateScope, Public, Static, HideBySig
     Push(): PrivateScope, Public, Static, HideBySig
     Pop(): PrivateScope, Public, Static, HideBySig
     Clear(): PrivateScope, Public, Static, HideBySig
-    SendMessge(Int32): PrivateScope, Public, Static, HideBySig
+    get_WindowHandle(): PrivateScope, Public, Static, HideBySig, SpecialName
+    SendMessage(Int32): PrivateScope, Public, Static, HideBySig
     SetBaseDir(String): PrivateScope, Public, Static, HideBySig
 Struct hmEdgeJSDynamicLib+Hidemaru+Edit+HmCursurPos: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
   :System.ValueType
