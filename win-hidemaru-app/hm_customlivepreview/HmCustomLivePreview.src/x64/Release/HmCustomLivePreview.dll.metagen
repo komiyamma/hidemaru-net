@@ -544,7 +544,7 @@ Class HmCustomLivePreviewDynamicLib+Hidemaru+OutputPane: AutoLayout, AnsiClass, 
   Properties:
     IntPtr WindowHandle 'get ' : 
   Methods:
-    Output(String): PrivateScope, Public, Static, HideBySig
+    Output(Object): PrivateScope, Public, Static, HideBySig
     Push(): PrivateScope, Public, Static, HideBySig
     Pop(): PrivateScope, Public, Static, HideBySig
     Clear(): PrivateScope, Public, Static, HideBySig
