@@ -66,8 +66,19 @@ public sealed partial class hmV8DynamicLib
             List<String> list = new List<String>();
             foreach (var exp in expressions)
             {
+                bool isClearScriptItem = false;
+                try
+                {
+                    if (exp.GetType().Name == "V8ScriptItem" || exp.GetType().BaseType?.Name == "V8ScriptItem" || exp.GetType().BaseType?.BaseType?.Name == "V8ScriptItem")
+                    {
+                        isClearScriptItem = true;
+                    }
+                } catch(Exception e)
+                {
+
+                }
                 // V8エンジンのオブジェクトであれば、そのまま出しても意味が無いので…
-                if (exp.GetType().Name == "V8ScriptItem")
+                if (isClearScriptItem)
                 {
                     dynamic dexp = exp;
 

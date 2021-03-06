@@ -68,8 +68,20 @@ public sealed partial class hmJSDynamicLib
             List<String> list = new List<String>();
             foreach (var exp in expressions)
             {
-                // V8エンジンのオブジェクトであれば、そのまま出しても意味が無いので…
-                if (exp.GetType().Name == "WindowsScriptItem")
+                bool isClearScriptItem = false;
+                try
+                {
+                    if (exp.GetType().Name == "WindowsScriptItem" || exp.GetType().BaseType?.Name == "WindowsScriptItem" || exp.GetType().BaseType?.BaseType?.Name == "WindowsScriptItem")
+                    {
+                        isClearScriptItem = true;
+                    }
+                }
+                catch (Exception e)
+                {
+
+                }
+                // WindowsScriptItemエンジンのオブジェクトであれば、そのまま出しても意味が無いので…
+                if (isClearScriptItem)
                 {
                     dynamic dexp = exp;
 
@@ -101,7 +113,7 @@ public sealed partial class hmJSDynamicLib
                     }
                 }
 
-                // V8オブジェクトでないなら、普通にToString
+                // WindowsScriptItemオブジェクトでないなら、普通にToString
                 else
                 {
                     list.Add(exp.ToString());
