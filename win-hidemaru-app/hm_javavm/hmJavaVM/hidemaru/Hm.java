@@ -454,8 +454,9 @@ public class Hm {
 	}
 
 	public static class OutputPane {
-		public static int output(String message) {
-			int ret = OutputPaneOutput(message);
+		public static int output(Object message) {
+			String str_message = message.toString();
+			int ret = OutputPaneOutput(str_message);
 			return ret;
 		}
 		public static int push() {
