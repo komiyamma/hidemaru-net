@@ -228,9 +228,6 @@ namespace HmNetPInvoke
         // wchar_tに直接対応していないような古い秀丸では、この特殊な変換マップによる変換をしてバイトコードから元のwchar_tへと戻す必要がある。
         public static string DecodeOriginalEnncodeVectorToWString(byte[] encode_data)
         {
-            // string text = System.Text.Encoding.GetEncoding(932).GetString(encode_data);
-            // return text;
-
             InitReverseDictionary();
 
             int index = 0;
