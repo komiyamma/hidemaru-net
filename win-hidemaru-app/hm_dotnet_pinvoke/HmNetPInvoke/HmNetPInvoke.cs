@@ -539,8 +539,11 @@ namespace HmNetPInvoke
 
         [DllImport("kernel32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-
         private extern static bool GlobalUnlock(IntPtr hMem);
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        private extern static IntPtr GlobalSize(IntPtr hMem);
+
         [DllImport("kernel32.dll", SetLastError = true)]
         private extern static IntPtr GlobalFree(IntPtr hMem);
 

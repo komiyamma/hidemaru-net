@@ -171,6 +171,93 @@ namespace HmNetPInvoke
 
 namespace HmNetPInvoke
 {
+#if BUILD_DLL
+    public partial class Hm
+#else
+    internal partial class Hm
+#endif
+    {
+        public static class ExplorerPane
+        {
+            private static UnManagedDll hmExplorerPaneHandle = null;
+
+            // OutputPaneから出ている関数群
+            private delegate IntPtr TExplorerPane_GetProject(IntPtr hHidemaruWindow);
+            private delegate IntPtr TExplorerPane_GetWindowHandle(IntPtr hHidemaruWindow);
+
+            private static TExplorerPane_GetProject pExplorerPane_GetProject;
+            private static TExplorerPane_GetWindowHandle pExplorerPane_GetWindowHandle;
+
+            static ExplorerPane()
+            {
+                try
+                {
+                    string exedir = System.IO.Path.GetDirectoryName(GetHidemaruExeFullPath());
+                    hmExplorerPaneHandle = new UnManagedDll(Path.Combine(exedir, "HmExplorerPane.dll"));
+                    pExplorerPane_GetProject = hmExplorerPaneHandle.GetProcDelegate<TExplorerPane_GetProject>("GetProject");
+                    pExplorerPane_GetWindowHandle = hmExplorerPaneHandle.GetProcDelegate<TExplorerPane_GetWindowHandle>("GetWindowHandle");
+                    if (Version >= 877)
+                    {
+                        // 
+                    }
+                }
+                catch (Exception e)
+                {
+                    System.Diagnostics.Trace.WriteLine(e.Message);
+                }
+            }
+
+            /// <summary>
+            /// プロジェクトファイル名を取得します。
+            /// </summary>
+            /// <returns>プロジェクトファイル名</returns>
+            public unsafe static string GetProject()
+            {
+                string project_name = "";
+                System.Diagnostics.Trace.WriteLine("GetProject");
+                try
+                {
+                    IntPtr hGlobal = pExplorerPane_GetProject(Hm.WindowHandle);
+                    if (hGlobal == IntPtr.Zero)
+                    {
+                        new InvalidOperationException("HmExplorerPane_GetProject_Exception");
+                    }
+
+                    var psz = GlobalLock(hGlobal);
+                    if (psz != IntPtr.Zero)
+                    {
+                         byte* p = (byte *)psz.ToPointer();
+                        List<byte> b = new List<byte>();
+                        while (*p != 0)
+                        {
+                            b.Add(*p);
+                            p++;
+                        }
+
+                        string wstr = System.Text.Encoding.UTF8.GetString(b.ToArray());
+                        // String wstr = HmOriginalEncodeMap.DecodeOriginalEnncodeVectorToWString(b.ToArray());
+                        project_name = wstr;
+                        System.Diagnostics.Trace.WriteLine("■" + project_name);
+                        GlobalUnlock(hGlobal);
+                    }
+                    // GlobalFree(hGlobal);
+                }
+                catch (Exception e)
+                {
+                    System.Diagnostics.Trace.WriteLine(e.Message);
+                    throw;
+                }
+
+                return project_name;
+            }
+        }
+    }
+}
+
+
+
+namespace HmNetPInvoke
+{
     internal static partial class HmOriginalEncodeMap
     {
         // wchar_t→秀丸の独自エンコードへ。
