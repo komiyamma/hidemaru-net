@@ -3,7 +3,7 @@
  * under the Apache License Version 2.0
  */
  
- package hidemaru;
+package hidemaru;
 
 import java.io.File;
 import java.io.FileNotFoundException;
