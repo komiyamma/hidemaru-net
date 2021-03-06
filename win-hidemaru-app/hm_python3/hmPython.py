@@ -215,9 +215,8 @@ class _TOutputPane:
     秀丸アウトプットパネル関連のクラス
     """
     # アウトプットパネルへの出力
-    def Output(self, message):
-        message = str(message)
-        return hidemaru.outputpane.output(message)
+    def Output(self, obj):
+        return hidemaru.outputpane.output(obj)
             
     # アウトプット枠情報の一時退避
     def Push(self):
@@ -226,6 +225,10 @@ class _TOutputPane:
     # アウトプット枠情報の一時退避したものを復元
     def Push(self):
         return hidemaru.outputpane.pop()
+
+    # アウトプット枠のクリア
+    def Clear(self):
+        return hidemaru.outputpane.clear()
 
     # アウトプット枠にメッセージを送る
     def SendMessage(self, command_id):

@@ -168,7 +168,7 @@ class _TOutputPane:
     秀丸アウトプットパネル関連のクラス
     """
     # アウトプットパネルへの出力
-    def Output(self, message):
+    def Output(self, obj):
         return 1
             
     # アウトプット枠情報の一時退避
@@ -178,6 +178,10 @@ class _TOutputPane:
     # アウトプット枠情報の一時退避したものを復元
     def Push(self):
         return 1
+
+    # アウトプット枠のクリア
+    def Clear(self):
+        return 0
 
     # アウトプット枠にメッセージを送る
     def SendMessage(self, command_id):

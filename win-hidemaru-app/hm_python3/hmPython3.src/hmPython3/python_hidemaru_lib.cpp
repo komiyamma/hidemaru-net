@@ -438,8 +438,9 @@ namespace Hidemaru {
 
 
 	// アウトプット枠への出力
-	BOOL OutputPane_Output(const std::string utf8_value) {
-		wstring utf16_value = utf8_to_utf16(utf8_value);
+	BOOL OutputPane_Output(const py::object utf8_value) {
+		auto str = py::str(utf8_value);
+		wstring utf16_value = utf8_to_utf16(str);
 		
 		// ちゃんと関数がある時だけ
 		if (CHidemaruExeExport::Hidemaru_GetCurrentWindowHandle) {

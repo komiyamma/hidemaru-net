@@ -177,6 +177,10 @@ class _TOutputPane:
     def Push(self):
         return 1
 
+    # アウトプット枠のクリア
+    def Clear(self):
+        return 0
+
     # アウトプット枠にメッセージを送る
     def SendMessage(self, command_id):
         return 1
