@@ -24,11 +24,12 @@ public sealed partial class hmPyDynamicLib
 
 
             // Output枠へと出力する
-            public static int Output(string message)
+            public static int Output(object message)
             {
                 try
                 {
-                    byte[] encode_data = HmOriginalEncodeFunc.EncodeWStringToOriginalEncodeVector(message);
+                    string str_message = message.ToString();
+                    byte[] encode_data = HmOriginalEncodeFunc.EncodeWStringToOriginalEncodeVector(str_message);
                     int result = pOutputPane_Output(Hidemaru.WindowHandle, encode_data);
                     return result;
                 }

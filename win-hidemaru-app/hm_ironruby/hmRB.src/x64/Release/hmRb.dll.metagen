@@ -102,7 +102,7 @@ Class hmRbDynamicLib+Hidemaru+HmOutputPane: AutoLayout, AnsiClass, Class, Nested
   Properties:
     IntPtr WindowHandle 'get ' : 
   Methods:
-    Output(String): PrivateScope, Public, HideBySig
+    Output(Object): PrivateScope, Public, HideBySig
     Push(): PrivateScope, Public, HideBySig
     Pop(): PrivateScope, Public, HideBySig
     Clear(): PrivateScope, Public, HideBySig

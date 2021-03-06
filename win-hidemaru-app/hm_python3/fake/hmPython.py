@@ -185,7 +185,7 @@ class _TOutputPane:
 
     # アウトプット枠の基底ディレクトリを設定する
     def SetBaseDir(self, dirpath):
-        return hidemaru.outputpane.setbasedir(dirpath)
+        return 1
 
 
 class _THidemaru:

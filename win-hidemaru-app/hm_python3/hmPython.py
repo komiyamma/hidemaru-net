@@ -216,6 +216,7 @@ class _TOutputPane:
     """
     # アウトプットパネルへの出力
     def Output(self, message):
+        message = str(message)
         return hidemaru.outputpane.output(message)
             
     # アウトプット枠情報の一時退避

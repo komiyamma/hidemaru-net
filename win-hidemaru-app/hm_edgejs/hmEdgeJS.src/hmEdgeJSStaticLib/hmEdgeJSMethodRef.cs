@@ -442,7 +442,7 @@ public sealed partial class hmEdgeJSDynamicLib
 
                 class _hm_outputpane_ {
                     static Output(text) {
-                        return _hm_refOutputPane_Output(text);
+                        return _hm_refOutputPane_Output(text.toString());
                     }
 
                     static Push() {

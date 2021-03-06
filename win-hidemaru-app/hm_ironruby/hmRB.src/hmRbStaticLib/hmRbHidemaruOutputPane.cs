@@ -24,11 +24,12 @@ using System.Collections.Generic;
 
 
             // Output枠へと出力する
-            public int Output(string message)
+            public int Output(object message)
             {
                 try
                 {
-                    byte[] encode_data = HmOriginalEncodeFunc.EncodeWStringToOriginalEncodeVector(message);
+                    string str_message = message.ToString();
+                    byte[] encode_data = HmOriginalEncodeFunc.EncodeWStringToOriginalEncodeVector(str_message);
                     int result = pOutputPane_Output(Hidemaru.WindowHandle, encode_data);
                     return result;
                 }
