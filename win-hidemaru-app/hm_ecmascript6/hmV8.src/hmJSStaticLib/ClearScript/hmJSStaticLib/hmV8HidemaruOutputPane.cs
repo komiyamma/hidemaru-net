@@ -23,11 +23,12 @@ public sealed partial class hmV8DynamicLib
 
 
             // Output枠へと出力する
-            public static int Output(string message)
+            public static int Output(object message)
             {
+                string str_message = message.ToString();
                 try
                 {
-                    byte[] encode_data = HmOriginalEncodeFunc.EncodeWStringToOriginalEncodeVector(message);
+                    byte[] encode_data = HmOriginalEncodeFunc.EncodeWStringToOriginalEncodeVector(str_message);
                     int result = pOutputPane_Output(Hidemaru.WindowHandle, encode_data);
                     return result;
                 }
