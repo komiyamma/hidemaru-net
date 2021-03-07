@@ -70,7 +70,7 @@ HANDLE AckEvent;
 HANDLE ReadyEvent;
 HANDLE SharedFile;
 LPVOID SharedMem;
-LPSTR  String;
+LPSTR  lpString;
 DWORD  ret;
 DWORD  LastPid;
 LPDWORD pThisPid;
@@ -166,7 +166,7 @@ void InitDebugMonitor(HWND hEdit) {
 	}
 
 	//--------------- 先頭DWORDがプロセスID、以下が格納文字列
-	String = (LPSTR)SharedMem + sizeof(DWORD);
+	lpString = (LPSTR)SharedMem + sizeof(DWORD);
 	pThisPid = (LPDWORD)SharedMem;
 
 	LastPid = 0xffffffff;
@@ -251,8 +251,8 @@ unsigned __stdcall ThreadExternalProcDebugMonitor(void *lpx) {
 			// ターゲットのプロセスＩＤ
 			bool hWndTargetProcessIsHidemaruToolTipsWindow = IsTargetProcessIsHidemaruToolTipsWindow(*pThisPid);
 
-			// printf("%s", String); // utf8
-			string sjis = String;
+			// printf("%s", lpString); // utf8
+			string sjis = lpString;
 
 			if (sjis == ("xxxxxxxxxx\n")) {
 				// 受信を停止していない。直前に秀丸を起動したと言ってない。
@@ -420,7 +420,7 @@ unsigned __stdcall ThreadExternalProcDebugMonitor(void *lpx) {
 			}
 
 		}
-		DidCR = (*String && (String[strlen(String) - 1] == '\n'));
+		DidCR = (*lpString && (lpString[strlen(lpString) - 1] == '\n'));
 
 		SetEvent(AckEvent);
 
