@@ -1,2 +1,2 @@
-#TargetFrameworkVersion=v4.0:PlatformToolSet=v120_xp:EnableManagedIncrementalBuild=false:VCToolArchitecture=Native32Bit
-Release|x64|C:\usr\web\hidemaru-net\win-hidemaru-app\hm_sharedoutputpane\HmSharedOutputPane.src\|
+#TargetFrameworkVersion=v4.0:PlatformToolSet=v141:EnableManagedIncrementalBuild=false:VCToolArchitecture=Native32Bit:WindowsTargetPlatformVersion=8.1
+Release|x64|G:\repogitory\hidemaru-net\win-hidemaru-app\hm_sharedoutputpane\HmSharedOutputPane.src\|

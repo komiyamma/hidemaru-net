@@ -1,5 +1,5 @@
 - HmSharedOutputPane
-   Copyright (C) 2016-2019 Akitsugu Komiyama
+   Copyright (C) 2016-2021 Akitsugu Komiyama
 
 
    The MIT License (MIT)
