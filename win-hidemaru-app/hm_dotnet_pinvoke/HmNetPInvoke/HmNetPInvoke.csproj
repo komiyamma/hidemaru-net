@@ -4,14 +4,13 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>HmNetPInvoke</AssemblyName>
     <RootNamespace>Hidemaru</RootNamespace>
-    <Version>1.8.5.1</Version>
+    <Version>1.8.1.1</Version>
     <Copyright>Copyright © 2021 Akitsugu Komiyama</Copyright>
     <NeutralLanguage>ja-JP</NeutralLanguage>
     <PackageId>HmNetPInvoke</PackageId>
     <Authors>HmNetPInvoke</Authors>
     <Company>HmNetPInvoke</Company>
     <Product>HmNetPInvoke</Product>
-    <AssemblyVersion>1.8.5.1</AssemblyVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -22,7 +21,6 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DefineConstants>TRACE;BUILD_DLL</DefineConstants>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
 </Project>

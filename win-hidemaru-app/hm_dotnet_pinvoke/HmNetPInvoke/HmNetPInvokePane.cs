@@ -1,5 +1,5 @@
 ﻿/*
- * HmNetPInvoke ver 1.851
+ * HmNetPInvoke ver 1.811
  * Copyright (C) 2021 Akitsugu Komiyama
  * under the MIT License
  **/
@@ -173,8 +173,7 @@ namespace HmNetPInvoke
 {
     internal static partial class HmOriginalEncodeMap
     {
-        // wchar_t→秀丸の独自エンコードへ。
-        // wchar_tに直接対応していないような独特な秀丸dllは、この特殊な変換マップによる変換をしてバイトコードとして渡す必要がある。
+        // wchar_tに直接対応していないような古い秀丸では、この特殊な変換マップによる変換をしてバイトコードとして渡す必要がある。
         public static byte[] EncodeWStringToOriginalEncodeVector(string original_string)
         {
             List<byte> r = new List<byte>();
