@@ -1,5 +1,5 @@
 ﻿/*
- * HmNetPInvoke ver 1.811
+ * HmNetPInvoke ver 1.821
  * Copyright (C) 2021 Akitsugu Komiyama
  * under the MIT License
  **/
@@ -7,8 +7,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.InteropServices;
-using System.Text;
 
 namespace HmNetPInvoke
 {

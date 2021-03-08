@@ -1,5 +1,5 @@
 ﻿/*
- * HmNetPInvoke ver 1.811
+ * HmNetPInvoke ver 1.821
  * Copyright (C) 2021 Akitsugu Komiyama
  * under the MIT License
  **/
@@ -19,30 +19,23 @@ namespace HmNetPInvoke
     {
         static Hm() {
             SetVersion();
+            BindHidemaruExternFunctions();
         }
 
         private static void SetVersion()
         {
-            if (_version == 0)
+            if (Version == 0)
             {
                 string hidemaru_fullpath = GetHidemaruExeFullPath();
                 System.Diagnostics.FileVersionInfo vi = System.Diagnostics.FileVersionInfo.GetVersionInfo(hidemaru_fullpath);
-                _version = 100 * vi.FileMajorPart + 10 * vi.FileMinorPart + 1 * vi.FileBuildPart + 0.01 * vi.FilePrivatePart;
+                Version = 100 * vi.FileMajorPart + 10 * vi.FileMinorPart + 1 * vi.FileBuildPart + 0.01 * vi.FilePrivatePart;
             }
         }
-
-        private static double _version = 0;
         /// <summary>
         /// 秀丸バージョンの取得
         /// </summary>
         /// <returns>秀丸バージョン</returns>
-        public static double Version
-        {
-            get
-            {
-                return _version;
-            }
-        }
+        public static double Version { get; private set; } = 0;
 
         private const int filePathMaxLength = 512;
 
@@ -62,7 +55,139 @@ namespace HmNetPInvoke
         {
             get
             {
-                return Hidemaru_GetCurrentWindowHandle();
+                return pGetCurrentWindowHandle();
+            }
+        }
+
+        public static class File
+        {
+            public interface IHidemaruEncoding
+            {
+                int HmEncode { get; }
+            }
+            public interface IMicrosoftEncoding
+            {
+                int MsCodePage { get; }
+            }
+
+            public interface IEncoding : IHidemaruEncoding, IMicrosoftEncoding
+            {
+            }
+
+            private struct TEncodings : IEncoding
+            {
+                public int HmEncode { get; set; }
+                public int MsCodePage { get; set; }
+            }
+
+            public static IEncoding GetEncoding(String filepath)
+            {
+                int hm_encode = GetHmEncode(filepath);
+                int ms_codepage = GetMsCodePage(hm_encode);
+                TEncodings encoding = new TEncodings();
+                encoding.HmEncode = hm_encode;
+                encoding.MsCodePage = ms_codepage;
+                return encoding;
+            }
+
+            private static int GetHmEncode(string filepath)
+            {
+                if (pAnalyzeEncoding == null)
+                {
+                    new NullReferenceException("Hidemaru_AnalyzeEncoding");
+                    return -1;
+                }
+
+                return pAnalyzeEncoding(filepath, IntPtr.Zero, IntPtr.Zero);
+            }
+
+            private static int[] key_encode_value_codepage_array = {
+                0,      // Unknown
+                932,    // encode = 1 ANSI/OEM Japanese; Japanese (Shift-JIS)
+                1200,   // encode = 2 Unicode UTF-16, little-endian
+                51932,  // encode = 3 EUC
+                50221,  // encode = 4 JIS
+                65000,  // encode = 5 UTF-7
+                65001,  // encode = 6 UTF-8
+                1201,   // encode = 7 Unicode UTF-16, big-endian
+                1252,   // encode = 8 欧文 ANSI Latin 1; Western European (Windows)
+                936,    // encode = 9 簡体字中国語 ANSI/OEM Simplified Chinese (PRC, Singapore); Chinese Simplified (GB2312)
+                950,    // encode =10 繁体字中国語 ANSI/OEM Traditional Chinese (Taiwan; Hong Kong SAR, PRC); Chinese Traditional (Big5)
+                949,    // encode =11 韓国語 ANSI/OEM Korean (Unified Hangul Code)
+                1361,   // encode =12 韓国語 Korean (Johab)
+                1250,   // encode =13 中央ヨーロッパ言語 ANSI Central European; Central European (Windows)
+                1257,   // encode =14 バルト語 ANSI Baltic; Baltic (Windows)
+                1253,   // encode =15 ギリシャ語 ANSI Greek; Greek (Windows)
+                1251,   // encode =16 キリル言語 ANSI Cyrillic; Cyrillic (Windows)
+                42,     // encode =17 シンボル
+                1254,   // encode =18 トルコ語 ANSI Turkish; Turkish (Windows)
+                1255,   // encode =19 ヘブライ語 ANSI Hebrew; Hebrew (Windows)
+                1256,   // encode =20 アラビア語 ANSI Arabic; Arabic (Windows)
+                874,    // encode =21 タイ語 ANSI/OEM Thai (same as 28605, ISO 8859-15); Thai (Windows)
+                1258,   // encode =22 ベトナム語 ANSI/OEM Vietnamese; Vietnamese (Windows)
+                10001,  // encode =23 x-mac-japanese Japanese (Mac)
+                850,    // encode =24 OEM/DOS
+                0,      // encode =25 その他
+                12000,  // encode =26 Unicode (UTF-32) little-endian
+                12001,  // encode =27 Unicode (UTF-32) big-endian
+
+            };
+
+            private static int GetMsCodePage(int hidemaru_encode)
+            {
+                int result_codepage = 0;
+
+                if (pAnalyzeEncoding == null)
+                {
+                    new NullReferenceException("Hidemaru_AnalyzeEncoding");
+                    return result_codepage;
+                }
+
+                /*
+                 *
+                    Shift-JIS encode=1 codepage=932
+                    Unicode encode=2 codepage=1200
+                    EUC encode=3 codepage=51932
+                    JIS encode=4 codepage=50221
+                    UTF-7 encode=5 codepage=65000
+                    UTF-8 encode=6 codepage=65001
+                    Unicode (Big-Endian) encode=7 codepage=1201
+                    欧文 encode=8 codepage=1252
+                    簡体字中国語 encode=9 codepage=936
+                    繁体字中国語 encode=10 codepage=950
+                    韓国語 encode=11 codepage=949
+                    韓国語(Johab) encode=12 codepage=1361
+                    中央ヨーロッパ言語 encode=13 codepage=1250
+                    バルト語 encode=14 codepage=1257
+                    ギリシャ語 encode=15 codepage=1253
+                    キリル言語 encode=16 codepage=1251
+                    シンボル encode=17 codepage=42
+                    トルコ語 encode=18 codepage=1254
+                    ヘブライ語 encode=19 codepage=1255
+                    アラビア語 encode=20 codepage=1256
+                    タイ語 encode=21 codepage=874
+                    ベトナム語 encode=22 codepage=1258
+                    Macintosh encode=23 codepage=0
+                    OEM/DOS encode=24 codepage=0
+                    その他 encode=25 codepage=0
+                    UTF-32 encode=27 codepage=12000
+                    UTF-32 (Big-Endian) encode=28 codepage=12001
+                */
+                if (hidemaru_encode <= 0)
+                {
+                    return result_codepage;
+                }
+
+                if (hidemaru_encode < key_encode_value_codepage_array.Length)
+                {
+                    // 把握しているコードページなので入れておく
+                    result_codepage = key_encode_value_codepage_array[hidemaru_encode];
+                    return result_codepage;
+                }
+                else // 長さ以上なら、予期せぬ未来のencode番号対応
+                {
+                    return result_codepage;
+                }
             }
         }
 
@@ -80,7 +205,7 @@ namespace HmNetPInvoke
                     string totalText = "";
                     try
                     {
-                        IntPtr hGlobal = Hidemaru_GetTotalTextUnicode();
+                        IntPtr hGlobal = pGetTotalTextUnicode();
                         if (hGlobal == IntPtr.Zero)
                         {
                             new InvalidOperationException("Hidemaru_GetTotalTextUnicode_Exception");
@@ -115,7 +240,7 @@ namespace HmNetPInvoke
                         string selectedText = "";
                         try
                         {
-                            IntPtr hGlobal = Hidemaru_GetSelectedTextUnicode();
+                            IntPtr hGlobal = pGetSelectedTextUnicode();
                             if (hGlobal == IntPtr.Zero)
                             {
                                 new InvalidOperationException("Hidemaru_GetSelectedTextUnicode_Exception");
@@ -158,7 +283,7 @@ namespace HmNetPInvoke
 
                         try
                         {
-                            IntPtr hGlobal = Hidemaru_GetLineTextUnicode(pos.LineNo);
+                            IntPtr hGlobal = pGetLineTextUnicode(pos.LineNo);
                             if (hGlobal == IntPtr.Zero)
                             {
                                 new InvalidOperationException("Hidemaru_GetLineTextUnicode_Exception");
@@ -228,8 +353,8 @@ namespace HmNetPInvoke
                 {
                     int lineno = -1;
                     int column = -1;
-                    bool success = Hidemaru_GetCursorPosUnicode(out lineno, out column);
-                    if (success)
+                    int success = pGetCursorPosUnicode(out lineno, out column);
+                    if (success != 0)
                     {
                         TCursurPos pos = new TCursurPos();
                         pos.LineNo = lineno;
@@ -273,8 +398,8 @@ namespace HmNetPInvoke
 
                     int column = -1;
                     int lineno = -1;
-                    bool success_2 = Hidemaru_GetCursorPosUnicodeFromMousePos(IntPtr.Zero, out lineno, out column);
-                    if (!success_2)
+                    int success_2 = pGetCursorPosUnicodeFromMousePos(IntPtr.Zero, out lineno, out column);
+                    if (success_2 == 0)
                     {
                         return pos;
                     }
@@ -388,7 +513,7 @@ namespace HmNetPInvoke
                 int success = 0;
                 try
                 {
-                    success = Hidemaru_EvalMacro(expression);
+                    success = pEvalMacro(expression);
                 }
                 catch (Exception)
                 {
@@ -498,28 +623,64 @@ namespace HmNetPInvoke
     internal partial class Hm
 #endif
     {
-        [DllImport("Hidemaru.exe", CallingConvention = CallingConvention.Winapi)]
-        private extern static IntPtr Hidemaru_GetTotalTextUnicode();
+        // 秀丸本体から出ている関数群
+        private delegate IntPtr TGetCurrentWindowHandle();
+        private delegate IntPtr TGetTotalTextUnicode();
+        private delegate IntPtr TGetLineTextUnicode(int nLineNo);
+        private delegate IntPtr TGetSelectedTextUnicode();
+        private delegate int TGetCursorPosUnicode(out int pnLineNo, out int pnColumn);
+        private delegate int TGetCursorPosUnicodeFromMousePos(IntPtr lpPoint, out int pnLineNo, out int pnColumn);
+        private delegate int TEvalMacro([MarshalAs(UnmanagedType.LPWStr)] String pwsz);
+        private delegate int TCheckQueueStatus();
+        private delegate int TAnalyzeEncoding([MarshalAs(UnmanagedType.LPWStr)] String pwszFileName, IntPtr lParam1, IntPtr lParam2);
+        private delegate IntPtr TLoadFileUnicode([MarshalAs(UnmanagedType.LPWStr)] String pwszFileName, int nEncode, ref int pcwchOut, IntPtr lParam1, IntPtr lParam2);
 
-        [DllImport("Hidemaru.exe", CallingConvention = CallingConvention.Winapi)]
-        private extern static IntPtr Hidemaru_GetSelectedTextUnicode();
+        // 秀丸本体から出ている関数群
+        private static TGetCurrentWindowHandle pGetCurrentWindowHandle;
+        private static TGetTotalTextUnicode pGetTotalTextUnicode;
+        private static TGetLineTextUnicode pGetLineTextUnicode;
+        private static TGetSelectedTextUnicode pGetSelectedTextUnicode;
+        private static TGetCursorPosUnicode pGetCursorPosUnicode;
+        private static TGetCursorPosUnicodeFromMousePos pGetCursorPosUnicodeFromMousePos;
+        private static TEvalMacro pEvalMacro;
+        private static TCheckQueueStatus pCheckQueueStatus;
+        private static TAnalyzeEncoding pAnalyzeEncoding;
+        private static TLoadFileUnicode pLoadFileUnicode;
 
-        [DllImport("Hidemaru.exe", CallingConvention = CallingConvention.Winapi)]
-        private extern static IntPtr Hidemaru_GetLineTextUnicode(int nLineNo);
+        // 秀丸本体のexeを指すモジュールハンドル
+        private static UnManagedDll hmExeHandle;
 
-        [DllImport("Hidemaru.exe", CallingConvention = CallingConvention.Winapi)]
-        private extern static IntPtr Hidemaru_GetCurrentWindowHandle();
+        private static void BindHidemaruExternFunctions()
+        {
+            // 初めての代入のみ
+            if (hmExeHandle == null)
+            {
+                try
+                {
+                    hmExeHandle = new UnManagedDll(GetHidemaruExeFullPath());
 
-        [DllImport("Hidemaru.exe", CallingConvention = CallingConvention.Winapi)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        private extern static bool Hidemaru_GetCursorPosUnicode(out int lineno, out int column);
+                    pGetTotalTextUnicode = hmExeHandle.GetProcDelegate<TGetTotalTextUnicode>("Hidemaru_GetTotalTextUnicode");
+                    pGetLineTextUnicode = hmExeHandle.GetProcDelegate<TGetLineTextUnicode>("Hidemaru_GetLineTextUnicode");
+                    pGetSelectedTextUnicode = hmExeHandle.GetProcDelegate<TGetSelectedTextUnicode>("Hidemaru_GetSelectedTextUnicode");
+                    pGetCursorPosUnicode = hmExeHandle.GetProcDelegate<TGetCursorPosUnicode>("Hidemaru_GetCursorPosUnicode");
+                    pEvalMacro = hmExeHandle.GetProcDelegate<TEvalMacro>("Hidemaru_EvalMacro");
+                    pCheckQueueStatus = hmExeHandle.GetProcDelegate<TCheckQueueStatus>("Hidemaru_CheckQueueStatus");
 
-        [DllImport("Hidemaru.exe", CallingConvention = CallingConvention.Winapi)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        private extern static bool Hidemaru_GetCursorPosUnicodeFromMousePos(IntPtr ppt, out int lineno, out int column);
+                    pGetCursorPosUnicodeFromMousePos = hmExeHandle.GetProcDelegate<TGetCursorPosUnicodeFromMousePos>("Hidemaru_GetCursorPosUnicodeFromMousePos");
+                    pGetCurrentWindowHandle = hmExeHandle.GetProcDelegate<TGetCurrentWindowHandle>("Hidemaru_GetCurrentWindowHandle");
 
-        [DllImport("Hidemaru.exe", CallingConvention = CallingConvention.Winapi)]
-        private extern static int Hidemaru_EvalMacro([MarshalAs(UnmanagedType.LPWStr)] String pwsz);
+                    if (Version >= 890)
+                    {
+                        pAnalyzeEncoding = hmExeHandle.GetProcDelegate<TAnalyzeEncoding>("Hidemaru_AnalyzeEncoding");
+                        pLoadFileUnicode = hmExeHandle.GetProcDelegate<TLoadFileUnicode>("Hidemaru_LoadFileUnicode");
+                    }
+                } catch(Exception e)
+                {
+                    System.Diagnostics.Trace.WriteLine(e.Message);
+                }
+
+            }
+        }
     }
 }
 
