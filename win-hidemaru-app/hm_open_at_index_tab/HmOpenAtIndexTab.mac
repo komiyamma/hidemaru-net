@@ -4,13 +4,13 @@
 
 #n = 1;
 while (#n < 10) {
-    if( iskeydown(0x30+#n) ){
+    if( iskeydown(0x30+#n) ) {
         break;
     }
     #n = #n + 1;
 }
 if (#n==10) {
-    if( !iskeydown(0x30) ){
+    if( !iskeydown(0x30) ) {
         #n=0;
     }
 }
