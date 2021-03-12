@@ -1,0 +1,16 @@
+﻿
+#n = 1;
+while (#n < 10) {
+    if( iskeydown(0x30+#n) ){
+        break;
+    }
+    #n = #n + 1;
+}
+if (#n==10) {
+    if( !iskeydown(0x30) ){
+        #n=0;
+    }
+}
+if( #n > 0 ){
+    setactivehidemaru gettabhandle(0, tabgroup, #n-1);
+}
