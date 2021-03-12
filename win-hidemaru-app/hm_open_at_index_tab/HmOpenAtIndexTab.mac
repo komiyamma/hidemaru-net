@@ -1,4 +1,7 @@
-﻿
+﻿/*
+ * This codes is licensed under CC0 1.0 Universal
+ */
+
 #n = 1;
 while (#n < 10) {
     if( iskeydown(0x30+#n) ){
