@@ -41,7 +41,7 @@ class _TFile:
             except:
                 raise
 
-        def Close(self):
+        def Close(self) -> None:
             self.__encoding = None
             self.__filepath = None
 
@@ -168,27 +168,28 @@ class _TOutputPane:
     秀丸アウトプットパネル関連のクラス
     """
     # アウトプットパネルへの出力
-    def Output(self, obj):
+    def Output(self, obj) -> int:
+        print(obj, end='')
         return 1
             
     # アウトプット枠情報の一時退避
-    def Push(self):
+    def Push(self) -> int:
         return 1
 
     # アウトプット枠情報の一時退避したものを復元
-    def Push(self):
+    def Push(self) -> int:
         return 1
 
     # アウトプット枠のクリア
-    def Clear(self):
+    def Clear(self) -> int:
         return 0
 
     # アウトプット枠にメッセージを送る
-    def SendMessage(self, command_id):
+    def SendMessage(self, command_id) -> int:
         return 1
 
     # アウトプット枠の基底ディレクトリを設定する
-    def SetBaseDir(self, dirpath):
+    def SetBaseDir(self, dirpath) -> int:
         return 1
 
 
