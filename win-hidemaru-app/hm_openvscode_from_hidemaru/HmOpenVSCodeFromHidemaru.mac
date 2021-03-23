@@ -73,7 +73,7 @@ runex sprintf(@"""%s"" -n -g ""%s"" ""%s:%d:%d"" ", $VSCODE_ABSOLUTE_PATH, $GIT_
             //       5:insert, 6:replace, 7:>output pane, 8:>>output pane
     , 0, "" //stderr 0:none, 1:auto or >>stdout, 2-8:same as stdout's param
     , 0, "" //folder 0:none, 1:current, 2:specify 3:(reserved), 4:exe's
-    , 2     //show   0:auto, 1:show, 2:hide, 3-13:ShellExecute()'s SW_*
+    , 1     //show   0:auto, 1:show, 2:hide, 3-13:ShellExecute()'s SW_*
     , 0     //draw   0:draw, 1:no draw when stdout redirected
     , 0     //encode 0:ansi, 2:utf-16, 6:utf-8
     , 0     //extended flags
