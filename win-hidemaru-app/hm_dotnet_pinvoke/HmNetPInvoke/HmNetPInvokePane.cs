@@ -16,7 +16,7 @@ namespace HmNetPInvoke
     internal partial class Hm
 #endif
     {
-        public static class OutputPane
+        public static partial class OutputPane
         {
             private static UnManagedDll hmOutputPaneHandle = null;
 

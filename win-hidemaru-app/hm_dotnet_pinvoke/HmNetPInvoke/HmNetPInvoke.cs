@@ -1,5 +1,5 @@
 ﻿/*
- * HmNetPInvoke ver 1.821
+ * HmNetPInvoke ver 1.831
  * Copyright (C) 2021 Akitsugu Komiyama
  * under the MIT License
  **/
@@ -59,7 +59,7 @@ namespace HmNetPInvoke
             }
         }
 
-        public static class Edit
+        public static partial class Edit
         {
             /// <summary>
             /// 現在アクティブな編集領域のテキスト全体を返す。
@@ -313,7 +313,7 @@ namespace HmNetPInvoke
             }
         }
 
-        public static class Macro
+        public static partial class Macro
         {
             /// <summary>
             /// マクロを実行中か否かを判定する
@@ -401,7 +401,7 @@ namespace HmNetPInvoke
 
             }
 
-            public static class Exec
+            public static partial class Exec
             {
                 /// <summary>
                 /// マクロを実行していない時に、プログラム中で、マクロファイルを与えて新たなマクロを実行。
