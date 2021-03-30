@@ -14,11 +14,11 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("HmNetPInvoke")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyCopyrightAttribute("Copyright © 2021 Akitsugu Komiyama")]
-[assembly: System.Reflection.AssemblyFileVersionAttribute("1.8.3.1")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.8.3.1")]
+[assembly: System.Reflection.AssemblyFileVersionAttribute("1.8.4.1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.8.4.1")]
 [assembly: System.Reflection.AssemblyProductAttribute("HmNetPInvoke")]
 [assembly: System.Reflection.AssemblyTitleAttribute("HmNetPInvoke")]
-[assembly: System.Reflection.AssemblyVersionAttribute("1.8.3.1")]
+[assembly: System.Reflection.AssemblyVersionAttribute("1.8.4.1")]
 [assembly: System.Resources.NeutralResourcesLanguageAttribute("ja-JP")]
 
 // MSBuild WriteCodeFragment クラスによって生成されました。

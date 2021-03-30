@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+ * HmNetPInvoke ver 1.841
+ * Copyright (C) 2021 Akitsugu Komiyama
+ * under the MIT License
+ **/
+
+using System;
 using System.Runtime.InteropServices;
 
 namespace HmNetPInvoke
@@ -54,7 +60,6 @@ namespace HmNetPInvoke
             return myTargetClass;
         }
 
-        // マクロ文字列の実行。複数行を一気に実行可能
         public static TMacroVar Var = new TMacroVar();
         public sealed class TMacroVar
         {
@@ -75,61 +80,54 @@ namespace HmNetPInvoke
                 }
                 set
                 {
-                    try
+                    if (var_name.StartsWith("#"))
                     {
-                        if (var_name.StartsWith("#"))
+                        Object result = new Object();
+
+                        // Boolean型であれば、True:1 Flase:0にマッピングする
+                        if (value is bool)
                         {
-                            Object result = new Object();
-
-                            // Boolean型であれば、True:1 Flase:0にマッピングする
-                            if (value is bool)
+                            if ((Boolean)value == true)
                             {
-                                if ((Boolean)value == true)
-                                {
-                                    value = 1;
-                                }
-                                else
-                                {
-                                    value = 0;
-                                }
-                            }
-
-                            // まずは整数でトライ
-                            int itmp = 0;
-                            bool success = int.TryParse(value.ToString(), out itmp);
-                            if (success == true)
-                            {
-                                result = itmp;
+                                value = 1;
                             }
                             else
                             {
-                                // 次に少数でトライ
-                                double dtmp = 0;
-                                success = double.TryParse(value.ToString(), out dtmp);
-                                if (success)
-                                {
-                                    result = (int)Math.Floor(dtmp);
-                                }
-                                else
-                                {
-                                    result = 0;
-                                }
+                                value = 0;
                             }
-                            SetVar(var_name, value);
-                            ClearVar();
                         }
 
-                        else // if (var_name.StartsWith("$")
+                        // まずは整数でトライ
+                        int itmp = 0;
+                        bool success = int.TryParse(value.ToString(), out itmp);
+                        if (success == true)
                         {
-
-                            String result = value.ToString();
-                            SetVar(var_name, value);
-                            ClearVar();
+                            result = itmp;
                         }
+                        else
+                        {
+                            // 次に少数でトライ
+                            double dtmp = 0;
+                            success = double.TryParse(value.ToString(), out dtmp);
+                            if (success)
+                            {
+                                result = (int)Math.Floor(dtmp);
+                            }
+                            else
+                            {
+                                result = 0;
+                            }
+                        }
+                        SetVar(var_name, value);
+                        ClearVar();
                     }
-                    catch (Exception e)
+
+                    else // if (var_name.StartsWith("$")
                     {
-                        System.Diagnostics.Trace.WriteLine(e);
+
+                        String result = value.ToString();
+                        SetVar(var_name, value);
+                        ClearVar();
                     }
                 }
             }
