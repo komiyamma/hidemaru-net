@@ -9,12 +9,13 @@ using System.Runtime.InteropServices;
 
 namespace HmNetPInvoke
 {
+    // 秀丸のCOMから呼び出して、マクロ⇔COMといったように、マクロとプログラムで変数値を互いに伝搬する
     [ComVisible(true)]
     // [Guid("00000000-0000-0000-0000-000000000000")]
     [Guid("04609F5B-0889-4149-B084-E646977B2BAE")]
-    public partial class HmMacroVar
+    public partial class HmMacroCOMVar
     {
-        static object marcroVar = null;
+        private static object marcroVar = null;
         public object DllToMacro()
         {
             return marcroVar;
@@ -26,16 +27,17 @@ namespace HmNetPInvoke
         }
     }
 
-    public partial class HmMacroVar
+    public partial class HmMacroCOMVar
     {
-        static string myGuidLabel = "";
-        static string myClassFullName = "";
-        static HmMacroVar()
+        static HmMacroCOMVar()
         {
-            var h = new HmMacroVar();
+            var h = new HmMacroCOMVar();
             myGuidLabel = h.GetType().GUID.ToString();
             myClassFullName = h.GetType().FullName;
         }
+
+        private static string myGuidLabel = "";
+        private static string myClassFullName = "";
 
         private static string GetMyTargetDllFullPath(string thisDllFullPath)
         {
@@ -60,25 +62,92 @@ namespace HmNetPInvoke
             return myTargetClass;
         }
 
-        public static TMacroVar Var = new TMacroVar();
-        public sealed class TMacroVar
+        internal static object GetVar(string var_name)
         {
-            public Object this[String var_name]
+            string myDllFullPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
+            string myTargetDllFullPath = GetMyTargetDllFullPath(myDllFullPath);
+            string myTargetClass = GetMyTargetClass(myDllFullPath);
+            ClearVar();
+            try
             {
-                get
+                var result = Hm.Macro.Eval($@"
+                    #_COM_NET_PINVOKE_MACRO_VAR = createobject(@""{myTargetDllFullPath}"", @""{myTargetClass}"" );
+                    #_COM_NET_PINVOKE_MACRO_VAR_RESULT = member(#_COM_NET_PINVOKE_MACRO_VAR, ""MacroToDll"", {var_name});
+                    releaseobject(#_COM_NET_PINVOKE_MACRO_VAR);
+                    #_COM_NET_PINVOKE_MACRO_VAR_RESULT = 0;
+                ");
+                if (result.Error != null)
                 {
-                    ClearVar();
-                    Object ret = GetVar(var_name);
-                    if (ret.GetType().Name != "String")
+                    throw result.Error;
+                }
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Trace.WriteLine(e);
+            }
+            return HmMacroCOMVar.marcroVar;
+        }
+
+        internal static int SetVar(string var_name, object obj)
+        {
+            string myDllFullPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
+            string myTargetDllFullPath = GetMyTargetDllFullPath(myDllFullPath);
+            string myTargetClass = GetMyTargetClass(myDllFullPath);
+            ClearVar();
+            HmMacroCOMVar.marcroVar = obj;
+            try
+            {
+                var result = Hm.Macro.Eval($@"
+                    #_COM_NET_PINVOKE_MACRO_VAR = createobject(@""{myTargetDllFullPath}"", @""{myTargetClass}"" );
+                    {var_name} = member(#_COM_NET_PINVOKE_MACRO_VAR, ""DllToMacro"" );
+                    releaseobject(#_COM_NET_PINVOKE_MACRO_VAR);
+                ");
+                if (result.Error != null)
+                {
+                    throw result.Error;
+                }
+
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Trace.WriteLine(e);
+                return 0;
+            }
+            return 1;
+        }
+
+        internal static void ClearVar()
+        {
+            HmMacroCOMVar.marcroVar = null;
+        }
+    }
+
+
+#if BUILD_DLL
+    public partial class Hm
+#else
+    internal partial class Hm
+#endif
+    {
+
+        public static partial class Macro
+        {
+            public static TMacroVar Var = new TMacroVar();
+            public sealed class TMacroVar
+            {
+                public Object this[String var_name]
+                {
+                    get
                     {
-                        return (int)ret + 0; // 確実に複製を
+                        return GetMethod(var_name);
                     }
-                    else
+                    set
                     {
-                        return (String)ret + ""; // 確実に複製を
+                        value = SetMethod(var_name, value);
                     }
                 }
-                set
+
+                private static object SetMethod(string var_name, object value)
                 {
                     if (var_name.StartsWith("#"))
                     {
@@ -118,81 +187,36 @@ namespace HmNetPInvoke
                                 result = 0;
                             }
                         }
-                        SetVar(var_name, value);
-                        ClearVar();
+                        HmMacroCOMVar.SetVar(var_name, value);
+                        HmMacroCOMVar.ClearVar();
                     }
 
                     else // if (var_name.StartsWith("$")
                     {
 
                         String result = value.ToString();
-                        SetVar(var_name, value);
-                        ClearVar();
+                        HmMacroCOMVar.SetVar(var_name, value);
+                        HmMacroCOMVar.ClearVar();
+                    }
+
+                    return value;
+                }
+
+                private static object GetMethod(string var_name)
+                {
+                    HmMacroCOMVar.ClearVar();
+                    Object ret = HmMacroCOMVar.GetVar(var_name);
+                    if (ret.GetType().Name != "String")
+                    {
+                        return (int)ret + 0; // 確実に複製を
+                    }
+                    else
+                    {
+                        return (String)ret + ""; // 確実に複製を
                     }
                 }
             }
         }
-
-        private static object GetVar(string var_name)
-        {
-            string myDllFullPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
-            string myTargetDllFullPath = GetMyTargetDllFullPath(myDllFullPath);
-            string myTargetClass = GetMyTargetClass(myDllFullPath);
-            ClearVar();
-            try
-            {
-                var result = Hm.Macro.Eval($@"
-                    #_COM_NET_PINVOKE = createobject(@""{myTargetDllFullPath}"", @""{myTargetClass}"" );
-                    #_COM_NET_PINVOKE_MEMBER_RESULT = member(#_COM_NET_PINVOKE, ""MacroToDll"", {var_name});
-                    releaseobject(#_COM_NET_PINVOKE);
-                ");
-                if (result.Error != null)
-                {
-                    throw result.Error;
-                }
-            }
-            catch (Exception e)
-            {
-                System.Diagnostics.Trace.WriteLine(e);
-            }
-            return marcroVar;
-        }
-
-        private static int SetVar(string var_name, object obj)
-        {
-            string myDllFullPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
-            string myTargetDllFullPath = GetMyTargetDllFullPath(myDllFullPath);
-            string myTargetClass = GetMyTargetClass(myDllFullPath);
-            ClearVar();
-            marcroVar = obj;
-            try
-            {
-                var result = Hm.Macro.Eval($@"
-                    #_COM_NET_PINVOKE = createobject(@""{myTargetDllFullPath}"", @""{myTargetClass}"" );
-                    {var_name} = member(#_COM_NET_PINVOKE, ""DllToMacro"" );
-                    releaseobject(#_COM_NET_PINVOKE);
-                ");
-                if (result.Error != null)
-                {
-                    throw result.Error;
-                }
-
-            }
-            catch (Exception e)
-            {
-                System.Diagnostics.Trace.WriteLine(e);
-                return 0;
-            }
-            return 1;
-        }
-
-        private static void ClearVar()
-        {
-            marcroVar = null;
-        }
     }
-
-
 }
 
-// #endif

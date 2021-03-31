@@ -7,7 +7,7 @@
   "targets": {
     ".NETStandard,Version=v2.0": {},
     ".NETStandard,Version=v2.0/": {
-      "HmNetPInvoke/1.8.3.1": {
+      "HmNetPInvoke/1.8.4.1": {
         "dependencies": {
           "NETStandard.Library": "2.0.3"
         },
@@ -24,7 +24,7 @@
     }
   },
   "libraries": {
-    "HmNetPInvoke/1.8.3.1": {
+    "HmNetPInvoke/1.8.4.1": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
