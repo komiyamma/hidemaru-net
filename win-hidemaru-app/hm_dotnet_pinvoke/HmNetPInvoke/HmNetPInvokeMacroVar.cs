@@ -9,10 +9,16 @@ using System.Runtime.InteropServices;
 
 namespace HmNetPInvoke
 {
+    public partial class HmMacroCOMVar {
+        public const string HmMacroCOMVarInterface = "04609F5B-0889-4149-B084-E646977B2BAE"; // ★dll単位で新たなGUIDを与えること
+    }
+}
+
+namespace HmNetPInvoke
+{
     // 秀丸のCOMから呼び出して、マクロ⇔COMといったように、マクロとプログラムで変数値を互いに伝搬する
     [ComVisible(true)]
-    // [Guid("00000000-0000-0000-0000-000000000000")]
-    [Guid("04609F5B-0889-4149-B084-E646977B2BAE")]
+    [Guid(HmMacroCOMVarInterface)]
     public partial class HmMacroCOMVar
     {
         private static object marcroVar = null;
@@ -50,6 +56,7 @@ namespace HmNetPInvoke
 
             return thisDllFullPath;
         }
+
         private static string GetMyTargetClass(string thisDllFullPath)
         {
             string myTargetClass = myClassFullName;
@@ -132,8 +139,8 @@ namespace HmNetPInvoke
 
         public static partial class Macro
         {
-            public static TMacroVar Var = new TMacroVar();
-            public sealed class TMacroVar
+            internal static TMacroVar Var = new TMacroVar();
+            internal sealed class TMacroVar
             {
                 public Object this[String var_name]
                 {
