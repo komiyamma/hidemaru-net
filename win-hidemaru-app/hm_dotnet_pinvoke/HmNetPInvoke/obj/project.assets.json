@@ -180,7 +180,9 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\master\\.nuget\\packages\\": {}
+    "C:\\Users\\master\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.8.4.1",
@@ -191,8 +193,13 @@
       "packagesPath": "C:\\Users\\master\\.nuget\\packages\\",
       "outputPath": "G:\\repogitory\\hidemaru-net\\win-hidemaru-app\\hm_dotnet_pinvoke\\HmNetPInvoke\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
       "configFilePaths": [
         "C:\\Users\\master\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

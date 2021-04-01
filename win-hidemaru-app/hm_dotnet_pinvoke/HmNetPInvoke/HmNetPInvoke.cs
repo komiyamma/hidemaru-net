@@ -65,7 +65,6 @@ namespace HmNetPInvoke
             /// 現在アクティブな編集領域のテキスト全体を返す。
             /// </summary>
             /// <returns>編集領域のテキスト全体</returns>
-
             public static string TotalText
             {
                 get

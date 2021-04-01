@@ -6,16 +6,13 @@
 
 
 
-
-
-
 using System;
 using System.Runtime.InteropServices;
 
 namespace HmNetPInvoke
 {
     public partial class HmMacroCOMVar {
-        private const string HmMacroCOMVarInterface = "d569d55c-4d6a-4c87-841f-e70e7cc15601";
+        private const string HmMacroCOMVarInterface = "925d3acc-199f-4bac-aaaf-924d6d52bd52";
     }
 }
 
@@ -141,8 +138,14 @@ namespace HmNetPInvoke
     internal partial class Hm
 #endif
     {
+
         public static partial class Macro
         {
+            /// <summary>
+            /// 対象の「秀丸マクロ変数名」への読み書き
+            /// </summary>
+            /// <param name = "var_name">書き込みの場合は、変数の値</param>
+            /// <returns>読み取りの場合は、対象の変数の値</returns>
             internal static TMacroVar Var = new TMacroVar();
             internal sealed class TMacroVar
             {
