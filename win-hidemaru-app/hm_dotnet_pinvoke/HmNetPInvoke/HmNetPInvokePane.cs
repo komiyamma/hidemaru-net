@@ -149,12 +149,13 @@ namespace HmNetPInvoke
 
                 try
                 {
-                    if (pOutputPane_SetBaseDir != null)
-                    {
-                        byte[] encode_data = HmOriginalEncodeMap.EncodeWStringToOriginalEncodeVector(dirpath);
-                        int result = pOutputPane_SetBaseDir(Hm.WindowHandle, encode_data);
-                        return result;
+                    if (pOutputPane_SetBaseDir == null) {
+                        throw new MissingMethodException("HmOutputPane_SetBaseDir_Exception");
                     }
+
+                    byte[] encode_data = HmOriginalEncodeMap.EncodeWStringToOriginalEncodeVector(dirpath);
+                    int result = pOutputPane_SetBaseDir(Hm.WindowHandle, encode_data);
+                    return result;
                 }
                 catch (Exception e)
                 {

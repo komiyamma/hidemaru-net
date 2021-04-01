@@ -1,8 +1,13 @@
-ï»¿/*
+/*
  * HmNetPInvoke ver 1.841
  * Copyright (C) 2021 Akitsugu Komiyama
  * under the MIT License
  **/
+
+
+
+
+
 
 using System;
 using System.Runtime.InteropServices;
@@ -10,13 +15,13 @@ using System.Runtime.InteropServices;
 namespace HmNetPInvoke
 {
     public partial class HmMacroCOMVar {
-        public const string HmMacroCOMVarInterface = "04609F5B-0889-4149-B084-E646977B2BAE"; // â˜…dllå˜ä½ã§æ–°ãŸãªGUIDã‚’ä¸ãˆã‚‹ã“ã¨
+        private const string HmMacroCOMVarInterface = "d569d55c-4d6a-4c87-841f-e70e7cc15601";
     }
 }
 
 namespace HmNetPInvoke
 {
-    // ç§€ä¸¸ã®COMã‹ã‚‰å‘¼ã³å‡ºã—ã¦ã€ãƒã‚¯ãƒ­â‡”COMã¨ã„ã£ãŸã‚ˆã†ã«ã€ãƒã‚¯ãƒ­ã¨ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã§å¤‰æ•°å€¤ã‚’äº’ã„ã«ä¼æ¬ã™ã‚‹
+    // GŠÛ‚ÌCOM‚©‚çŒÄ‚Ño‚µ‚ÄAƒ}ƒNƒÌCOM‚Æ‚¢‚Á‚½‚æ‚¤‚ÉAƒ}ƒNƒ‚ÆƒvƒƒOƒ‰ƒ€‚Å•Ï”’l‚ğŒİ‚¢‚É“`”À‚·‚é
     [ComVisible(true)]
     [Guid(HmMacroCOMVarInterface)]
     public partial class HmMacroCOMVar
@@ -136,7 +141,6 @@ namespace HmNetPInvoke
     internal partial class Hm
 #endif
     {
-
         public static partial class Macro
         {
             internal static TMacroVar Var = new TMacroVar();
@@ -160,7 +164,7 @@ namespace HmNetPInvoke
                     {
                         Object result = new Object();
 
-                        // Booleanå‹ã§ã‚ã‚Œã°ã€True:1 Flase:0ã«ãƒãƒƒãƒ”ãƒ³ã‚°ã™ã‚‹
+                        // BooleanŒ^‚Å‚ ‚ê‚ÎATrue:1 Flase:0‚Éƒ}ƒbƒsƒ“ƒO‚·‚é
                         if (value is bool)
                         {
                             if ((Boolean)value == true)
@@ -173,7 +177,7 @@ namespace HmNetPInvoke
                             }
                         }
 
-                        // ã¾ãšã¯æ•´æ•°ã§ãƒˆãƒ©ã‚¤
+                        // ‚Ü‚¸‚Í®”‚Åƒgƒ‰ƒC
                         int itmp = 0;
                         bool success = int.TryParse(value.ToString(), out itmp);
                         if (success == true)
@@ -182,7 +186,7 @@ namespace HmNetPInvoke
                         }
                         else
                         {
-                            // æ¬¡ã«å°‘æ•°ã§ãƒˆãƒ©ã‚¤
+                            // Ÿ‚É­”‚Åƒgƒ‰ƒC
                             double dtmp = 0;
                             success = double.TryParse(value.ToString(), out dtmp);
                             if (success)
@@ -215,11 +219,11 @@ namespace HmNetPInvoke
                     Object ret = HmMacroCOMVar.GetVar(var_name);
                     if (ret.GetType().Name != "String")
                     {
-                        return (int)ret + 0; // ç¢ºå®Ÿã«è¤‡è£½ã‚’
+                        return (int)ret + 0; // ŠmÀ‚É•¡»‚ğ
                     }
                     else
                     {
-                        return (String)ret + ""; // ç¢ºå®Ÿã«è¤‡è£½ã‚’
+                        return (String)ret + ""; // ŠmÀ‚É•¡»‚ğ
                     }
                 }
             }
