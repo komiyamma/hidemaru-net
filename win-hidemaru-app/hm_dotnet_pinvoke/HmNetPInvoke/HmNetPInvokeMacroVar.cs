@@ -12,9 +12,10 @@ using System.Runtime.InteropServices;
 namespace HmNetPInvoke
 {
     public partial class HmMacroCOMVar {
-        private const string HmMacroCOMVarInterface = "925d3acc-199f-4bac-aaaf-924d6d52bd52";
+        private const string HmMacroCOMVarInterface = "53f5efeb-1871-4044-8995-6f098dc014d1";
     }
 }
+
 
 namespace HmNetPInvoke
 {
@@ -44,10 +45,18 @@ namespace HmNetPInvoke
             myClassFullName = h.GetType().FullName;
         }
 
+        internal static void SetMacroVar(object obj)
+        {
+            marcroVar = obj;
+        }
+        internal static object GetMacroVar()
+        {
+            return marcroVar;
+        }
         private static string myGuidLabel = "";
         private static string myClassFullName = "";
 
-        private static string GetMyTargetDllFullPath(string thisDllFullPath)
+        internal static string GetMyTargetDllFullPath(string thisDllFullPath)
         {
             string myTargetClass = myClassFullName;
             string thisComHostFullPath = System.IO.Path.ChangeExtension(thisDllFullPath, "comhost.dll");
@@ -59,7 +68,7 @@ namespace HmNetPInvoke
             return thisDllFullPath;
         }
 
-        private static string GetMyTargetClass(string thisDllFullPath)
+        internal static string GetMyTargetClass(string thisDllFullPath)
         {
             string myTargetClass = myClassFullName;
             string thisComHostFullPath = System.IO.Path.ChangeExtension(thisDllFullPath, "comhost.dll");
@@ -138,6 +147,98 @@ namespace HmNetPInvoke
     internal partial class Hm
 #endif
     {
+        public static partial class Edit
+        {
+            static partial void SetTotalText(string text)
+            {
+                string myDllFullPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
+                string myTargetDllFullPath = HmMacroCOMVar.GetMyTargetDllFullPath(myDllFullPath);
+                string myTargetClass = HmMacroCOMVar.GetMyTargetClass(myDllFullPath);
+                HmMacroCOMVar.ClearVar();
+                HmMacroCOMVar.SetMacroVar(text);
+                try
+                {
+                    var result = Hm.Macro.Eval($@"
+                    begingroupundo;
+                    selectall;
+                    #_COM_NET_PINVOKE_MACRO_VAR = createobject(@""{myTargetDllFullPath}"", @""{myTargetClass}"" );
+                    insert member(#_COM_NET_PINVOKE_MACRO_VAR, ""DllToMacro"" );
+                    releaseobject(#_COM_NET_PINVOKE_MACRO_VAR);
+                    endgroupundo;
+                ");
+                    if (result.Error != null)
+                    {
+                        throw result.Error;
+                    }
+
+                }
+                catch (Exception e)
+                {
+                    System.Diagnostics.Trace.WriteLine(e);
+                }
+            }
+
+            static partial void SetSelectedText(string text)
+            {
+                string myDllFullPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
+                string myTargetDllFullPath = HmMacroCOMVar.GetMyTargetDllFullPath(myDllFullPath);
+                string myTargetClass = HmMacroCOMVar.GetMyTargetClass(myDllFullPath);
+                HmMacroCOMVar.ClearVar();
+                HmMacroCOMVar.SetMacroVar(text);
+                try
+                {
+                    var result = Hm.Macro.Eval($@"
+                    if (selecting) {{
+                    #_COM_NET_PINVOKE_MACRO_VAR = createobject(@""{myTargetDllFullPath}"", @""{myTargetClass}"" );
+                    insert member(#_COM_NET_PINVOKE_MACRO_VAR, ""DllToMacro"" );
+                    releaseobject(#_COM_NET_PINVOKE_MACRO_VAR);
+                    }}
+                ");
+                    if (result.Error != null)
+                    {
+                        throw result.Error;
+                    }
+
+                }
+                catch (Exception e)
+                {
+                    System.Diagnostics.Trace.WriteLine(e);
+                }
+            }
+
+            static partial void SetLineText(string text)
+            {
+                string myDllFullPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
+                string myTargetDllFullPath = HmMacroCOMVar.GetMyTargetDllFullPath(myDllFullPath);
+                string myTargetClass = HmMacroCOMVar.GetMyTargetClass(myDllFullPath);
+                HmMacroCOMVar.ClearVar();
+                HmMacroCOMVar.SetMacroVar(text);
+                try
+                {
+                    var pos = Edit.CursorPos;
+                    var result = Hm.Macro.Eval($@"
+                    begingroupundo;
+                    selectline;
+                    #_COM_NET_PINVOKE_MACRO_VAR = createobject(@""{myTargetDllFullPath}"", @""{myTargetClass}"" );
+                    insert member(#_COM_NET_PINVOKE_MACRO_VAR, ""DllToMacro"" );
+                    releaseobject(#_COM_NET_PINVOKE_MACRO_VAR);
+                    moveto2 {pos.Column}, {pos.LineNo};
+                    endgroupundo;
+                ");
+                    if (result.Error != null)
+                    {
+                        throw result.Error;
+                    }
+
+                }
+                catch (Exception e)
+                {
+                    System.Diagnostics.Trace.WriteLine(e);
+                }
+            }
+
+        }
+
 
         public static partial class Macro
         {

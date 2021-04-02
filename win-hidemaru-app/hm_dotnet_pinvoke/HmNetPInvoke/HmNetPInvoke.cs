@@ -17,7 +17,8 @@ namespace HmNetPInvoke
     internal partial class Hm
 #endif
     {
-        static Hm() {
+        static Hm()
+        {
             SetVersion();
             BindHidemaruExternFunctions();
         }
@@ -93,7 +94,13 @@ namespace HmNetPInvoke
 
                     return totalText;
                 }
+                set
+                {
+                    SetTotalText(value);
+                }
             }
+            static partial void SetTotalText(string text);
+
 
             /// <summary>
             /// 現在、単純選択している場合、その選択中のテキスト内容を返す。
@@ -129,7 +136,12 @@ namespace HmNetPInvoke
                         return selectedText;
                     }
                 }
+                set
+                {
+                    SetSelectedText(value);
+                }
             }
+            static partial void SetSelectedText(string text);
 
             /// <summary>
             /// 現在、カーソルがある行(エディタ的)のテキスト内容を返す。
@@ -172,7 +184,12 @@ namespace HmNetPInvoke
                         return lineText;
                     }
                 }
+                set
+                {
+                    SetLineText(value);
+                }
             }
+            static partial void SetLineText(string text);
 
             /// <summary>
             /// CursorPos の返り値のインターフェイス
@@ -541,7 +558,8 @@ namespace HmNetPInvoke
                         pAnalyzeEncoding = hmExeHandle.GetProcDelegate<TAnalyzeEncoding>("Hidemaru_AnalyzeEncoding");
                         pLoadFileUnicode = hmExeHandle.GetProcDelegate<TLoadFileUnicode>("Hidemaru_LoadFileUnicode");
                     }
-                } catch(Exception e)
+                }
+                catch (Exception e)
                 {
                     System.Diagnostics.Trace.WriteLine(e.Message);
                 }
