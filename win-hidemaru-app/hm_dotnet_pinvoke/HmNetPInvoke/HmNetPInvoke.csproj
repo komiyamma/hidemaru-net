@@ -25,9 +25,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Update="HmNetPInvokeMacroVar.tt">
+    <None Update="HmNetPInvokeFull.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>HmNetPInvokeMacroVar.cs</LastGenOutput>
+      <LastGenOutput>HmNetPInvokeFull.cs</LastGenOutput>
     </None>
   </ItemGroup>
 
@@ -36,10 +36,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="HmNetPInvokeMacroVar.cs">
+    <Compile Update="HmNetPInvokeFull.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>HmNetPInvokeMacroVar.tt</DependentUpon>
+      <DependentUpon>HmNetPInvokeFull.tt</DependentUpon>
     </Compile>
   </ItemGroup>
 

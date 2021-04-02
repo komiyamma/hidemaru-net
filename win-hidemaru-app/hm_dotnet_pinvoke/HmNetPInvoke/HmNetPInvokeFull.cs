@@ -4,10 +4,7 @@
  * under the MIT License
  **/
 
-<#@ template debug="false" hostspecific="true" language="C#" #>
-<#@ output extension=".cs" #>
 
-<# string HmMacroCOMVarGUID = System.Guid.NewGuid().ToString(); #>
 
 using System;
 using System.Runtime.InteropServices;
@@ -15,7 +12,7 @@ using System.Runtime.InteropServices;
 namespace HmNetPInvoke
 {
     public partial class HmMacroCOMVar {
-        private const string HmMacroCOMVarInterface = "<#= HmMacroCOMVarGUID #>";
+        private const string HmMacroCOMVarInterface = "5524ea96-c33f-4087-aeb4-1d2f7cf9bafa";
     }
 }
 
@@ -89,22 +86,15 @@ namespace HmNetPInvoke
             string myTargetDllFullPath = GetMyTargetDllFullPath(myDllFullPath);
             string myTargetClass = GetMyTargetClass(myDllFullPath);
             ClearVar();
-            try
+            var result = Hm.Macro.Eval($@"
+                #_COM_NET_PINVOKE_MACRO_VAR = createobject(@""{myTargetDllFullPath}"", @""{myTargetClass}"" );
+                #_COM_NET_PINVOKE_MACRO_VAR_RESULT = member(#_COM_NET_PINVOKE_MACRO_VAR, ""MacroToDll"", {var_name});
+                releaseobject(#_COM_NET_PINVOKE_MACRO_VAR);
+                #_COM_NET_PINVOKE_MACRO_VAR_RESULT = 0;
+            ");
+            if (result.Error != null)
             {
-                var result = Hm.Macro.Eval($@"
-                    #_COM_NET_PINVOKE_MACRO_VAR = createobject(@""{myTargetDllFullPath}"", @""{myTargetClass}"" );
-                    #_COM_NET_PINVOKE_MACRO_VAR_RESULT = member(#_COM_NET_PINVOKE_MACRO_VAR, ""MacroToDll"", {var_name});
-                    releaseobject(#_COM_NET_PINVOKE_MACRO_VAR);
-                    #_COM_NET_PINVOKE_MACRO_VAR_RESULT = 0;
-                ");
-                if (result.Error != null)
-                {
-                    throw result.Error;
-                }
-            }
-            catch (Exception e)
-            {
-                System.Diagnostics.Trace.WriteLine(e);
+                throw result.Error;
             }
             return HmMacroCOMVar.marcroVar;
         }
@@ -116,23 +106,14 @@ namespace HmNetPInvoke
             string myTargetClass = GetMyTargetClass(myDllFullPath);
             ClearVar();
             HmMacroCOMVar.marcroVar = obj;
-            try
+            var result = Hm.Macro.Eval($@"
+                #_COM_NET_PINVOKE_MACRO_VAR = createobject(@""{myTargetDllFullPath}"", @""{myTargetClass}"" );
+                {var_name} = member(#_COM_NET_PINVOKE_MACRO_VAR, ""DllToMacro"" );
+                releaseobject(#_COM_NET_PINVOKE_MACRO_VAR);
+            ");
+            if (result.Error != null)
             {
-                var result = Hm.Macro.Eval($@"
-                    #_COM_NET_PINVOKE_MACRO_VAR = createobject(@""{myTargetDllFullPath}"", @""{myTargetClass}"" );
-                    {var_name} = member(#_COM_NET_PINVOKE_MACRO_VAR, ""DllToMacro"" );
-                    releaseobject(#_COM_NET_PINVOKE_MACRO_VAR);
-                ");
-                if (result.Error != null)
-                {
-                    throw result.Error;
-                }
-
-            }
-            catch (Exception e)
-            {
-                System.Diagnostics.Trace.WriteLine(e);
-                return 0;
+                throw result.Error;
             }
             return 1;
         }
@@ -157,36 +138,28 @@ namespace HmNetPInvoke
                 string myDllFullPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
                 string myTargetDllFullPath = HmMacroCOMVar.GetMyTargetDllFullPath(myDllFullPath);
                 string myTargetClass = HmMacroCOMVar.GetMyTargetClass(myDllFullPath);
-                HmMacroCOMVar.ClearVar();
                 HmMacroCOMVar.SetMacroVar(text);
-                try
+                string cmd = $@"
+                begingroupundo;
+                selectall;
+                #_COM_NET_PINVOKE_MACRO_VAR = createobject(@""{myTargetDllFullPath}"", @""{myTargetClass}"" );
+                insert member(#_COM_NET_PINVOKE_MACRO_VAR, ""DllToMacro"" );
+                releaseobject(#_COM_NET_PINVOKE_MACRO_VAR);
+                endgroupundo;
+                ";
+                Macro.IResult result = null;
+                if (Macro.IsExecuting)
                 {
-                    string cmd = $@"
-                    begingroupundo;
-                    selectall;
-                    #_COM_NET_PINVOKE_MACRO_VAR = createobject(@""{myTargetDllFullPath}"", @""{myTargetClass}"" );
-                    insert member(#_COM_NET_PINVOKE_MACRO_VAR, ""DllToMacro"" );
-                    releaseobject(#_COM_NET_PINVOKE_MACRO_VAR);
-                    endgroupundo;
-                    ";
-                    Macro.IResult result = null;
-                    if (Macro.IsExecuting)
-                    {
-                        result = Hm.Macro.Eval(cmd);
-                    } else
-                    {
-                        result = Hm.Macro.Exec.Eval(cmd);
-                    }
-
-                    if (result.Error != null)
-                    {
-                        throw result.Error;
-                    }
-
+                    result = Hm.Macro.Eval(cmd);
+                } else
+                {
+                    result = Hm.Macro.Exec.Eval(cmd);
                 }
-                catch (Exception e)
+
+                HmMacroCOMVar.ClearVar();
+                if (result.Error != null)
                 {
-                    System.Diagnostics.Trace.WriteLine(e);
+                    throw result.Error;
                 }
             }
 
@@ -195,36 +168,29 @@ namespace HmNetPInvoke
                 string myDllFullPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
                 string myTargetDllFullPath = HmMacroCOMVar.GetMyTargetDllFullPath(myDllFullPath);
                 string myTargetClass = HmMacroCOMVar.GetMyTargetClass(myDllFullPath);
-                HmMacroCOMVar.ClearVar();
                 HmMacroCOMVar.SetMacroVar(text);
-                try
+                string cmd = $@"
+                if (selecting) {{
+                #_COM_NET_PINVOKE_MACRO_VAR = createobject(@""{myTargetDllFullPath}"", @""{myTargetClass}"" );
+                insert member(#_COM_NET_PINVOKE_MACRO_VAR, ""DllToMacro"" );
+                releaseobject(#_COM_NET_PINVOKE_MACRO_VAR);
+                }}
+                ";
+
+                Macro.IResult result = null;
+                if (Macro.IsExecuting)
                 {
-                    string cmd = $@"
-                    if (selecting) {{
-                    #_COM_NET_PINVOKE_MACRO_VAR = createobject(@""{myTargetDllFullPath}"", @""{myTargetClass}"" );
-                    insert member(#_COM_NET_PINVOKE_MACRO_VAR, ""DllToMacro"" );
-                    releaseobject(#_COM_NET_PINVOKE_MACRO_VAR);
-                    }}
-                    ";
-
-                    Macro.IResult result = null;
-                    if (Macro.IsExecuting)
-                    {
-                        result = Hm.Macro.Eval(cmd);
-                    }
-                    else
-                    {
-                        result = Hm.Macro.Exec.Eval(cmd);
-                    }
-
-                    if (result.Error != null)
-                    {
-                        throw result.Error;
-                    }
+                    result = Hm.Macro.Eval(cmd);
                 }
-                catch (Exception e)
+                else
                 {
-                    System.Diagnostics.Trace.WriteLine(e);
+                    result = Hm.Macro.Exec.Eval(cmd);
+                }
+
+                HmMacroCOMVar.ClearVar();
+                if (result.Error != null)
+                {
+                    throw result.Error;
                 }
             }
 
@@ -233,39 +199,32 @@ namespace HmNetPInvoke
                 string myDllFullPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
                 string myTargetDllFullPath = HmMacroCOMVar.GetMyTargetDllFullPath(myDllFullPath);
                 string myTargetClass = HmMacroCOMVar.GetMyTargetClass(myDllFullPath);
-                HmMacroCOMVar.ClearVar();
                 HmMacroCOMVar.SetMacroVar(text);
-                try
+                var pos = Edit.CursorPos;
+                string cmd = $@"
+                begingroupundo;
+                selectline;
+                #_COM_NET_PINVOKE_MACRO_VAR = createobject(@""{myTargetDllFullPath}"", @""{myTargetClass}"" );
+                insert member(#_COM_NET_PINVOKE_MACRO_VAR, ""DllToMacro"" );
+                releaseobject(#_COM_NET_PINVOKE_MACRO_VAR);
+                moveto2 {pos.Column}, {pos.LineNo};
+                endgroupundo;
+                ";
+
+                Macro.IResult result = null;
+                if (Macro.IsExecuting)
                 {
-                    var pos = Edit.CursorPos;
-                    string cmd = $@"
-                    begingroupundo;
-                    selectline;
-                    #_COM_NET_PINVOKE_MACRO_VAR = createobject(@""{myTargetDllFullPath}"", @""{myTargetClass}"" );
-                    insert member(#_COM_NET_PINVOKE_MACRO_VAR, ""DllToMacro"" );
-                    releaseobject(#_COM_NET_PINVOKE_MACRO_VAR);
-                    moveto2 {pos.Column}, {pos.LineNo};
-                    endgroupundo;
-                    ";
-
-                    Macro.IResult result = null;
-                    if (Macro.IsExecuting)
-                    {
-                        result = Hm.Macro.Eval(cmd);
-                    }
-                    else
-                    {
-                        result = Hm.Macro.Exec.Eval(cmd);
-                    }
-
-                    if (result.Error != null)
-                    {
-                        throw result.Error;
-                    }
+                    result = Hm.Macro.Eval(cmd);
                 }
-                catch (Exception e)
+                else
                 {
-                    System.Diagnostics.Trace.WriteLine(e);
+                    result = Hm.Macro.Exec.Eval(cmd);
+                }
+
+                HmMacroCOMVar.ClearVar();
+                if (result.Error != null)
+                {
+                    throw result.Error;
                 }
             }
 
