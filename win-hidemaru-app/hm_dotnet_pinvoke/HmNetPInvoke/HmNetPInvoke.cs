@@ -110,31 +110,29 @@ namespace HmNetPInvoke
             {
                 get
                 {
+                    string selectedText = "";
+                    try
                     {
-                        string selectedText = "";
-                        try
+                        IntPtr hGlobal = pGetSelectedTextUnicode();
+                        if (hGlobal == IntPtr.Zero)
                         {
-                            IntPtr hGlobal = pGetSelectedTextUnicode();
-                            if (hGlobal == IntPtr.Zero)
-                            {
-                                new InvalidOperationException("Hidemaru_GetSelectedTextUnicode_Exception");
-                            }
-
-                            var pwsz = GlobalLock(hGlobal);
-                            if (pwsz != IntPtr.Zero)
-                            {
-                                selectedText = Marshal.PtrToStringUni(pwsz);
-                                GlobalUnlock(hGlobal);
-                            }
-                            GlobalFree(hGlobal);
-                        }
-                        catch (Exception)
-                        {
-                            throw;
+                            new InvalidOperationException("Hidemaru_GetSelectedTextUnicode_Exception");
                         }
 
-                        return selectedText;
+                        var pwsz = GlobalLock(hGlobal);
+                        if (pwsz != IntPtr.Zero)
+                        {
+                            selectedText = Marshal.PtrToStringUni(pwsz);
+                            GlobalUnlock(hGlobal);
+                        }
+                        GlobalFree(hGlobal);
                     }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
+
+                    return selectedText;
                 }
                 set
                 {
@@ -151,38 +149,36 @@ namespace HmNetPInvoke
             {
                 get
                 {
+                    string lineText = "";
+
+                    ICursorPos pos = CursorPos;
+                    if (pos.LineNo < 0 || pos.Column < 0)
                     {
-                        string lineText = "";
-
-                        ICursorPos pos = CursorPos;
-                        if (pos.LineNo < 0 || pos.Column < 0)
-                        {
-                            return lineText;
-                        }
-
-                        try
-                        {
-                            IntPtr hGlobal = pGetLineTextUnicode(pos.LineNo);
-                            if (hGlobal == IntPtr.Zero)
-                            {
-                                new InvalidOperationException("Hidemaru_GetLineTextUnicode_Exception");
-                            }
-
-                            var pwsz = GlobalLock(hGlobal);
-                            if (pwsz != IntPtr.Zero)
-                            {
-                                lineText = Marshal.PtrToStringUni(pwsz);
-                                GlobalUnlock(hGlobal);
-                            }
-                            GlobalFree(hGlobal);
-                        }
-                        catch (Exception)
-                        {
-                            throw;
-                        }
-
                         return lineText;
                     }
+
+                    try
+                    {
+                        IntPtr hGlobal = pGetLineTextUnicode(pos.LineNo);
+                        if (hGlobal == IntPtr.Zero)
+                        {
+                            new InvalidOperationException("Hidemaru_GetLineTextUnicode_Exception");
+                        }
+
+                        var pwsz = GlobalLock(hGlobal);
+                        if (pwsz != IntPtr.Zero)
+                        {
+                            lineText = Marshal.PtrToStringUni(pwsz);
+                            GlobalUnlock(hGlobal);
+                        }
+                        GlobalFree(hGlobal);
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
+
+                    return lineText;
                 }
                 set
                 {
