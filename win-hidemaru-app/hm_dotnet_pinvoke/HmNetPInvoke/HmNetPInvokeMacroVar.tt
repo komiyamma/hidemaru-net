@@ -161,14 +161,23 @@ namespace HmNetPInvoke
                 HmMacroCOMVar.SetMacroVar(text);
                 try
                 {
-                    var result = Hm.Macro.Eval($@"
+                    string cmd = $@"
                     begingroupundo;
                     selectall;
                     #_COM_NET_PINVOKE_MACRO_VAR = createobject(@""{myTargetDllFullPath}"", @""{myTargetClass}"" );
                     insert member(#_COM_NET_PINVOKE_MACRO_VAR, ""DllToMacro"" );
                     releaseobject(#_COM_NET_PINVOKE_MACRO_VAR);
                     endgroupundo;
-                ");
+                    ";
+                    Macro.IResult result = null;
+                    if (Macro.IsExecuting)
+                    {
+                        result = Hm.Macro.Eval(cmd);
+                    } else
+                    {
+                        result = Hm.Macro.Exec.Eval(cmd);
+                    }
+
                     if (result.Error != null)
                     {
                         throw result.Error;
@@ -190,18 +199,28 @@ namespace HmNetPInvoke
                 HmMacroCOMVar.SetMacroVar(text);
                 try
                 {
-                    var result = Hm.Macro.Eval($@"
+                    string cmd = $@"
                     if (selecting) {{
                     #_COM_NET_PINVOKE_MACRO_VAR = createobject(@""{myTargetDllFullPath}"", @""{myTargetClass}"" );
                     insert member(#_COM_NET_PINVOKE_MACRO_VAR, ""DllToMacro"" );
                     releaseobject(#_COM_NET_PINVOKE_MACRO_VAR);
                     }}
-                ");
+                    ";
+
+                    Macro.IResult result = null;
+                    if (Macro.IsExecuting)
+                    {
+                        result = Hm.Macro.Eval(cmd);
+                    }
+                    else
+                    {
+                        result = Hm.Macro.Exec.Eval(cmd);
+                    }
+
                     if (result.Error != null)
                     {
                         throw result.Error;
                     }
-
                 }
                 catch (Exception e)
                 {
@@ -219,7 +238,7 @@ namespace HmNetPInvoke
                 try
                 {
                     var pos = Edit.CursorPos;
-                    var result = Hm.Macro.Eval($@"
+                    string cmd = $@"
                     begingroupundo;
                     selectline;
                     #_COM_NET_PINVOKE_MACRO_VAR = createobject(@""{myTargetDllFullPath}"", @""{myTargetClass}"" );
@@ -227,12 +246,22 @@ namespace HmNetPInvoke
                     releaseobject(#_COM_NET_PINVOKE_MACRO_VAR);
                     moveto2 {pos.Column}, {pos.LineNo};
                     endgroupundo;
-                ");
+                    ";
+
+                    Macro.IResult result = null;
+                    if (Macro.IsExecuting)
+                    {
+                        result = Hm.Macro.Eval(cmd);
+                    }
+                    else
+                    {
+                        result = Hm.Macro.Exec.Eval(cmd);
+                    }
+
                     if (result.Error != null)
                     {
                         throw result.Error;
                     }
-
                 }
                 catch (Exception e)
                 {
