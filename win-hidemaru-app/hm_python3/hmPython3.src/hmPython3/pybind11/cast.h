@@ -1025,6 +1025,14 @@ public:
         if (!src)
             return false;
 
+#if !defined(PYPY_VERSION)
+        auto index_check = [](PyObject *o) { return PyIndex_Check(o); };
+#else
+        // In PyPy 7.3.3, `PyIndex_Check` is implemented by calling `__index__`,
+        // while CPython only considers the existence of `nb_index`/`__index__`.
+        auto index_check = [](PyObject *o) { return hasattr(o, "__index__"); };
+#endif
+
         if (std::is_floating_point<T>::value) {
             if (convert || PyFloat_Check(src.ptr()))
                 py_value = (py_type) PyFloat_AsDouble(src.ptr());
@@ -1032,12 +1040,31 @@ public:
                 return false;
         } else if (PyFloat_Check(src.ptr())) {
             return false;
-        } else if (std::is_unsigned<py_type>::value) {
-            py_value = as_unsigned<py_type>(src.ptr());
-        } else { // signed integer:
-            py_value = sizeof(T) <= sizeof(long)
-                ? (py_type) PyLong_AsLong(src.ptr())
-                : (py_type) PYBIND11_LONG_AS_LONGLONG(src.ptr());
+        } else if (!convert && !PYBIND11_LONG_CHECK(src.ptr()) && !index_check(src.ptr())) {
+            return false;
+        } else {
+            handle src_or_index = src;
+#if PY_VERSION_HEX < 0x03080000
+            object index;
+            if (!PYBIND11_LONG_CHECK(src.ptr())) {  // So: index_check(src.ptr())
+                index = reinterpret_steal<object>(PyNumber_Index(src.ptr()));
+                if (!index) {
+                    PyErr_Clear();
+                    if (!convert)
+                        return false;
+                }
+                else {
+                    src_or_index = index;
+                }
+            }
+#endif
+            if (std::is_unsigned<py_type>::value) {
+                py_value = as_unsigned<py_type>(src_or_index.ptr());
+            } else { // signed integer:
+                py_value = sizeof(T) <= sizeof(long)
+                    ? (py_type) PyLong_AsLong(src_or_index.ptr())
+                    : (py_type) PYBIND11_LONG_AS_LONGLONG(src_or_index.ptr());
+            }
         }
 
         // Python API reported an error
@@ -1046,15 +1073,8 @@ public:
         // Check to see if the conversion is valid (integers should match exactly)
         // Signed/unsigned checks happen elsewhere
         if (py_err || (std::is_integral<T>::value && sizeof(py_type) != sizeof(T) && py_value != (py_type) (T) py_value)) {
-            bool type_error = py_err && PyErr_ExceptionMatches(
-#if PY_VERSION_HEX < 0x03000000 && !defined(PYPY_VERSION)
-                PyExc_SystemError
-#else
-                PyExc_TypeError
-#endif
-            );
             PyErr_Clear();
-            if (type_error && convert && PyNumber_Check(src.ptr())) {
+            if (py_err && convert && PyNumber_Check(src.ptr())) {
                 auto tmp = reinterpret_steal<object>(std::is_floating_point<T>::value
                                                      ? PyNumber_Float(src.ptr())
                                                      : PyNumber_Long(src.ptr()));
@@ -2172,16 +2192,26 @@ private:
     dict m_kwargs;
 };
 
+// [workaround(intel)] Separate function required here
+// We need to put this into a separate function because the Intel compiler
+// fails to compile enable_if_t<!all_of<is_positional<Args>...>::value>
+// (tested with ICC 2021.1 Beta 20200827).
+template <typename... Args>
+constexpr bool args_are_all_positional()
+{
+  return all_of<is_positional<Args>...>::value;
+}
+
 /// Collect only positional arguments for a Python function call
 template <return_value_policy policy, typename... Args,
-          typename = enable_if_t<all_of<is_positional<Args>...>::value>>
+          typename = enable_if_t<args_are_all_positional<Args...>()>>
 simple_collector<policy> collect_arguments(Args &&...args) {
     return simple_collector<policy>(std::forward<Args>(args)...);
 }
 
 /// Collect all arguments, including keywords and unpacking (only instantiated when needed)
 template <return_value_policy policy, typename... Args,
-          typename = enable_if_t<!all_of<is_positional<Args>...>::value>>
+          typename = enable_if_t<!args_are_all_positional<Args...>()>>
 unpacking_collector<policy> collect_arguments(Args &&...args) {
     // Following argument order rules for generalized unpacking according to PEP 448
     static_assert(

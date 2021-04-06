@@ -52,9 +52,11 @@ private:
 
                 pywrite(line);
                 pyflush();
+
+                // Placed inside gil_scoped_aquire as a mutex to avoid a race
+                setp(pbase(), epptr());
             }
 
-            setp(pbase(), epptr());
         }
         return 0;
     }
@@ -104,8 +106,8 @@ PYBIND11_NAMESPACE_END(detail)
     .. code-block:: cpp
 
         {
-            py::scoped_ostream_redirect output{std::cerr, py::module_::import("sys").attr("stderr")};
-            std::cerr << "Hello, World!";
+            py::scoped_ostream_redirect output{std::cerr, py::module::import("sys").attr("stderr")};
+            std::cout << "Hello, World!";
         }
  \endrst */
 class scoped_ostream_redirect {
