@@ -1,0 +1,25 @@
+ImageRuntimeVersion: v4.0.30319
+Assembly HmLinkedTextPreview, Version=0.0.*, Culture=ロケールに依存しない言語 (ロケールに依存しない国): 
+	hash=SHA1, flags=PublicKey
+Assembly mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a: 
+	hash=None, flags=None
+Assembly System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Class HmStatsusBarPreviewForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Windows.Forms.Form
+    Void .ctor(HWND__*, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.Drawing.Image currentImage : Public
+    HmStatsusBarPreviewForm f : Public, Static
+  Methods:
+    SetBColor(Color): PrivateScope, Public, Static, HideBySig
+    GetFileName(): PrivateScope, Public, HideBySig
+    IsSouldBeShow(): PrivateScope, Public, HideBySig
+    form_Paint(Object, PaintEventArgs): PrivateScope, Public, HideBySig
+    IsPictureFile(String): PrivateScope, Public, HideBySig
+    CreateImage(String): PrivateScope, Public, Static, HideBySig
+    MovePosition(): PrivateScope, Public, HideBySig
