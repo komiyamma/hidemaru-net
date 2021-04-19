@@ -6,3 +6,6 @@ C:\usr\web\hidemaru-net\win-hidemaru-app\hm_iecapt\HmIECapt.dll.src\HmIECapt\bin
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_iecapt\HmIECapt.dll.src\HmIECapt\obj\Release\HmIECapt.dll
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_iecapt\HmIECapt.dll.src\HmIECapt\obj\Release\HmIECapt.csprojAssemblyReference.cache
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_iecapt\HmIECapt.dll.src\HmIECapt\obj\Release\HmIECapt.csproj.CoreCompileInputs.cache
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_iecapt\HmIECapt.dll.src\HmIECapt\bin\Release\HmIECapt.dll
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_iecapt\HmIECapt.dll.src\HmIECapt\obj\Release\HmIECapt.csproj.CoreCompileInputs.cache
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_iecapt\HmIECapt.dll.src\HmIECapt\obj\Release\HmIECapt.dll

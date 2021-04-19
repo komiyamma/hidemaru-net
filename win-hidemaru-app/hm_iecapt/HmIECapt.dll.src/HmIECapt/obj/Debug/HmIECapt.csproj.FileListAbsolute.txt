@@ -2,3 +2,9 @@ C:\Users\admin\documents\visual studio 2015\Projects\HmIECapt\HmIECapt\bin\Debug
 C:\Users\admin\documents\visual studio 2015\Projects\HmIECapt\HmIECapt\bin\Debug\HmIECapt.pdb
 C:\Users\admin\documents\visual studio 2015\Projects\HmIECapt\HmIECapt\obj\Debug\HmIECapt.dll
 C:\Users\admin\documents\visual studio 2015\Projects\HmIECapt\HmIECapt\obj\Debug\HmIECapt.pdb
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_iecapt\HmIECapt.dll.src\HmIECapt\bin\Debug\HmIECapt.dll
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_iecapt\HmIECapt.dll.src\HmIECapt\bin\Debug\HmIECapt.pdb
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_iecapt\HmIECapt.dll.src\HmIECapt\obj\Debug\HmIECapt.csprojAssemblyReference.cache
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_iecapt\HmIECapt.dll.src\HmIECapt\obj\Debug\HmIECapt.csproj.CoreCompileInputs.cache
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_iecapt\HmIECapt.dll.src\HmIECapt\obj\Debug\HmIECapt.dll
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_iecapt\HmIECapt.dll.src\HmIECapt\obj\Debug\HmIECapt.pdb
