@@ -37,11 +37,11 @@ double CHidemaruExeExport::QueryFileVersion(TCHAR* path) {
 				double(LOWORD(v->dwFileVersionMS)) * 10 +
 				double(HIWORD(v->dwFileVersionLS)) +
 				double(LOWORD(v->dwFileVersionLS)) * 0.01;
-			delete buf;
+			delete[] buf;
 			return ret;
 		}
 		else {
-			delete buf;
+			delete[] buf;
 		}
 	}
 
