@@ -24,6 +24,18 @@ namespace Hidemaru {
 		OutputDebugStream(utf8_to_utf16(str));
 	}
 
+	std::string Edit_GetFilePath() {
+
+		const int WM_HIDEMARUINFO = WM_USER + 181;
+		const int HIDEMARUINFO_GETFILEFULLPATH = 4;
+		HWND hWndHidemaru = CHidemaruExeExport::Hidemaru_GetCurrentWindowHandle();
+		if (hWndHidemaru) {
+			wchar_t filepath[MAX_PATH * 3] = L"";
+			int cwch = SendMessageW(hWndHidemaru, WM_HIDEMARUINFO, HIDEMARUINFO_GETFILEFULLPATH, (LPARAM)filepath);
+			return utf16_to_utf8(filepath);
+		}
+	}
+
 	// 秀丸で現在編集しているテキスト全体の取得
 	std::string Edit_GetTotalText() {
 		wstring utf16_value = CHidemaruExeExport::GetTotalText();
@@ -594,6 +606,7 @@ PyMODINIT_FUNC PyInit_hidemaru() {
 	file.def("get_readalltext", &Hidemaru::File_ReadAllText);
 
 	py::module edit = m.def_submodule("edit", "Hidemaru Edit python module");
+	edit.def("get_filepath", &Hidemaru::Edit_GetFilePath);
 	edit.def("get_totaltext", &Hidemaru::Edit_GetTotalText);
 	edit.def("set_totaltext", &Hidemaru::Edit_SetTotalText);
 	edit.def("get_selectedtext", &Hidemaru::Edit_GetSelectedText);

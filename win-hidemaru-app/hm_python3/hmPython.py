@@ -92,6 +92,12 @@ class _TEdit:
     秀丸で編集中のドキュメント関連のクラス
     """
 
+    def __GetFilePath(self):
+        return hidemaru.edit.get_filepath()
+        
+    # 編集中のファイルのパス
+    FilePath = property(__GetFilePath)
+
     #--------------------------------------------------
     def __GetTotalText(self):
         return hidemaru.edit.get_totaltext()

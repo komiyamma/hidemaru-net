@@ -68,6 +68,7 @@ class _TFile:
 
 class _TEdit:
 
+    FilePath: str = r"C:\test\test.txt"
     #--------------------------------------------------
     # 編集中のテキスト全体
     TotalText: str = "abcdefg\nhijklmn\nopqrstu\nvwxyz"
