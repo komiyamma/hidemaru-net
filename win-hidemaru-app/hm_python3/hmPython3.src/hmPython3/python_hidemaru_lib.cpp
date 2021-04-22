@@ -34,6 +34,8 @@ namespace Hidemaru {
 			int cwch = SendMessageW(hWndHidemaru, WM_HIDEMARUINFO, HIDEMARUINFO_GETFILEFULLPATH, (LPARAM)filepath);
 			return utf16_to_utf8(filepath);
 		}
+
+		return "";
 	}
 
 	// 秀丸で現在編集しているテキスト全体の取得
