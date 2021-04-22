@@ -155,7 +155,7 @@ MACRO_DLL const TCHAR * GetStrVar(const TCHAR *sz_full_var_name) {
 
 	if (CreateScope() == 0)
 	{
-		return 0;
+		return L"";
 	}
 
 	// DoStringされる度にdllのBindの在り方を確認更新する。
@@ -163,7 +163,7 @@ MACRO_DLL const TCHAR * GetStrVar(const TCHAR *sz_full_var_name) {
 
 	// 絶対に２文字は必要
 	if (_tcslen(sz_full_var_name) < 2) {
-		return 0;
+		return L"";
 	}
 
 	char utf8_buffer[4096] = "";

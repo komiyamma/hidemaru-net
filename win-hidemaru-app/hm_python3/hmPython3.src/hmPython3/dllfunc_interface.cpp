@@ -84,7 +84,7 @@ MACRO_DLL const wchar_t * GetStrVar(const wchar_t *utf16_simbol) {
 
 	if (CreateScope() == 0)
 	{
-		return 0;
+		return strvars.c_str();
 	}
 
 	CSelfDllInfo::SetBindDllHandle();
