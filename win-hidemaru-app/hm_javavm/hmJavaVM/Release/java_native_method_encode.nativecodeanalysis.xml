@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>g:\repogitory\hidemaru-net\win-hidemaru-app\hm_javavm\hmjavavm</FILEPATH>
+      <FILENAME>java_native_method_encode.h</FILENAME>
+      <LINE>11</LINE>
+      <COLUMN>0</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>Variable 'TEncodingParam::ms_codepage' is uninitialized. Always initialize a member variable (type.6).</DESCRIPTION>
+    <FUNCTION>TEncodingParam::{ctor}</FUNCTION>
+    <DECORATED>??0TEncodingParam@@QAE@XZ</DECORATED>
+    <FUNCLINE>11</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>g:\repogitory\hidemaru-net\win-hidemaru-app\hm_javavm\hmjavavm</FILEPATH>
+      <FILENAME>java_native_method_encode.h</FILENAME>
+      <LINE>11</LINE>
+      <COLUMN>0</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>Variable 'TEncodingParam::hm_encode' is uninitialized. Always initialize a member variable (type.6).</DESCRIPTION>
+    <FUNCTION>TEncodingParam::{ctor}</FUNCTION>
+    <DECORATED>??0TEncodingParam@@QAE@XZ</DECORATED>
+    <FUNCLINE>11</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+</DEFECTS>
