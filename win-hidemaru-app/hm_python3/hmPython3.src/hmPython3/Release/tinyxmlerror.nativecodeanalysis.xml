@@ -8,7 +8,7 @@
       <COLUMN>1</COLUMN>
     </SFA>
     <DEFECTCODE>26495</DEFECTCODE>
-    <DESCRIPTION>Variable 'TiXmlCursor::col' is uninitialized. Always initialize a member variable (type.6).</DESCRIPTION>
+    <DESCRIPTION>Variable 'TiXmlCursor::row' is uninitialized. Always initialize a member variable (type.6).</DESCRIPTION>
     <FUNCTION>TiXmlCursor::{ctor}</FUNCTION>
     <DECORATED>??0TiXmlCursor@@QAE@XZ</DECORATED>
     <FUNCLINE>101</FUNCLINE>
@@ -22,7 +22,7 @@
       <COLUMN>1</COLUMN>
     </SFA>
     <DEFECTCODE>26495</DEFECTCODE>
-    <DESCRIPTION>Variable 'TiXmlCursor::row' is uninitialized. Always initialize a member variable (type.6).</DESCRIPTION>
+    <DESCRIPTION>Variable 'TiXmlCursor::col' is uninitialized. Always initialize a member variable (type.6).</DESCRIPTION>
     <FUNCTION>TiXmlCursor::{ctor}</FUNCTION>
     <DECORATED>??0TiXmlCursor@@QAE@XZ</DECORATED>
     <FUNCLINE>101</FUNCLINE>

@@ -8,7 +8,7 @@
       <COLUMN>1</COLUMN>
     </SFA>
     <DEFECTCODE>26495</DEFECTCODE>
-    <DESCRIPTION>Variable 'TiXmlCursor::row' is uninitialized. Always initialize a member variable (type.6).</DESCRIPTION>
+    <DESCRIPTION>Variable 'TiXmlCursor::col' is uninitialized. Always initialize a member variable (type.6).</DESCRIPTION>
     <FUNCTION>TiXmlCursor::{ctor}</FUNCTION>
     <DECORATED>??0TiXmlCursor@@QAE@XZ</DECORATED>
     <FUNCLINE>101</FUNCLINE>
@@ -22,7 +22,7 @@
       <COLUMN>1</COLUMN>
     </SFA>
     <DEFECTCODE>26495</DEFECTCODE>
-    <DESCRIPTION>Variable 'TiXmlCursor::col' is uninitialized. Always initialize a member variable (type.6).</DESCRIPTION>
+    <DESCRIPTION>Variable 'TiXmlCursor::row' is uninitialized. Always initialize a member variable (type.6).</DESCRIPTION>
     <FUNCTION>TiXmlCursor::{ctor}</FUNCTION>
     <DECORATED>??0TiXmlCursor@@QAE@XZ</DECORATED>
     <FUNCLINE>101</FUNCLINE>
@@ -50,7 +50,7 @@
       <COLUMN>15</COLUMN>
     </SFA>
     <DEFECTCODE>26495</DEFECTCODE>
-    <DESCRIPTION>Variable 'TiXmlDocument::errorId' is uninitialized. Always initialize a member variable (type.6).</DESCRIPTION>
+    <DESCRIPTION>Variable 'TiXmlDocument::error' is uninitialized. Always initialize a member variable (type.6).</DESCRIPTION>
     <FUNCTION>TiXmlDocument::{ctor}</FUNCTION>
     <DECORATED>??0TiXmlDocument@@QAE@XZ</DECORATED>
     <FUNCLINE>913</FUNCLINE>
@@ -64,7 +64,7 @@
       <COLUMN>15</COLUMN>
     </SFA>
     <DEFECTCODE>26495</DEFECTCODE>
-    <DESCRIPTION>Variable 'TiXmlDocument::error' is uninitialized. Always initialize a member variable (type.6).</DESCRIPTION>
+    <DESCRIPTION>Variable 'TiXmlDocument::errorId' is uninitialized. Always initialize a member variable (type.6).</DESCRIPTION>
     <FUNCTION>TiXmlDocument::{ctor}</FUNCTION>
     <DECORATED>??0TiXmlDocument@@QAE@XZ</DECORATED>
     <FUNCLINE>913</FUNCLINE>
@@ -78,7 +78,7 @@
       <COLUMN>15</COLUMN>
     </SFA>
     <DEFECTCODE>26495</DEFECTCODE>
-    <DESCRIPTION>Variable 'TiXmlDocument::errorId' is uninitialized. Always initialize a member variable (type.6).</DESCRIPTION>
+    <DESCRIPTION>Variable 'TiXmlDocument::error' is uninitialized. Always initialize a member variable (type.6).</DESCRIPTION>
     <FUNCTION>TiXmlDocument::{ctor}</FUNCTION>
     <DECORATED>??0TiXmlDocument@@QAE@PBD@Z</DECORATED>
     <FUNCLINE>920</FUNCLINE>
@@ -92,7 +92,7 @@
       <COLUMN>15</COLUMN>
     </SFA>
     <DEFECTCODE>26495</DEFECTCODE>
-    <DESCRIPTION>Variable 'TiXmlDocument::error' is uninitialized. Always initialize a member variable (type.6).</DESCRIPTION>
+    <DESCRIPTION>Variable 'TiXmlDocument::errorId' is uninitialized. Always initialize a member variable (type.6).</DESCRIPTION>
     <FUNCTION>TiXmlDocument::{ctor}</FUNCTION>
     <DECORATED>??0TiXmlDocument@@QAE@PBD@Z</DECORATED>
     <FUNCLINE>920</FUNCLINE>
@@ -107,6 +107,20 @@
     </SFA>
     <DEFECTCODE>26495</DEFECTCODE>
     <DESCRIPTION>Variable 'TiXmlDocument::tabsize' is uninitialized. Always initialize a member variable (type.6).</DESCRIPTION>
+    <FUNCTION>TiXmlDocument::{ctor}</FUNCTION>
+    <DECORATED>??0TiXmlDocument@@QAE@ABV0@@Z</DECORATED>
+    <FUNCLINE>940</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>g:\repogitory\hidemaru-net\win-hidemaru-app\hm_python3\hmpython3.src\hmpython3</FILEPATH>
+      <FILENAME>tinyxml.cpp</FILENAME>
+      <LINE>940</LINE>
+      <COLUMN>15</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>Variable 'TiXmlDocument::error' is uninitialized. Always initialize a member variable (type.6).</DESCRIPTION>
     <FUNCTION>TiXmlDocument::{ctor}</FUNCTION>
     <DECORATED>??0TiXmlDocument@@QAE@ABV0@@Z</DECORATED>
     <FUNCLINE>940</FUNCLINE>
@@ -135,20 +149,6 @@
     </SFA>
     <DEFECTCODE>26495</DEFECTCODE>
     <DESCRIPTION>Variable 'TiXmlDocument::errorId' is uninitialized. Always initialize a member variable (type.6).</DESCRIPTION>
-    <FUNCTION>TiXmlDocument::{ctor}</FUNCTION>
-    <DECORATED>??0TiXmlDocument@@QAE@ABV0@@Z</DECORATED>
-    <FUNCLINE>940</FUNCLINE>
-    <PATH></PATH>
-  </DEFECT>
-  <DEFECT>
-    <SFA>
-      <FILEPATH>g:\repogitory\hidemaru-net\win-hidemaru-app\hm_python3\hmpython3.src\hmpython3</FILEPATH>
-      <FILENAME>tinyxml.cpp</FILENAME>
-      <LINE>940</LINE>
-      <COLUMN>15</COLUMN>
-    </SFA>
-    <DEFECTCODE>26495</DEFECTCODE>
-    <DESCRIPTION>Variable 'TiXmlDocument::error' is uninitialized. Always initialize a member variable (type.6).</DESCRIPTION>
     <FUNCTION>TiXmlDocument::{ctor}</FUNCTION>
     <DECORATED>??0TiXmlDocument@@QAE@ABV0@@Z</DECORATED>
     <FUNCLINE>940</FUNCLINE>
