@@ -868,7 +868,7 @@
       <COLUMN>1</COLUMN>
     </SFA>
     <DEFECTCODE>26495</DEFECTCODE>
-    <DESCRIPTION>Variable 'Hidemaru::TEncodingParam::hm_encode' is uninitialized. Always initialize a member variable (type.6).</DESCRIPTION>
+    <DESCRIPTION>Variable 'Hidemaru::TEncodingParam::ms_codepage' is uninitialized. Always initialize a member variable (type.6).</DESCRIPTION>
     <FUNCTION>Hidemaru::TEncodingParam::{ctor}</FUNCTION>
     <DECORATED>??0TEncodingParam@Hidemaru@@QAE@XZ</DECORATED>
     <FUNCLINE>129</FUNCLINE>
@@ -882,7 +882,7 @@
       <COLUMN>1</COLUMN>
     </SFA>
     <DEFECTCODE>26495</DEFECTCODE>
-    <DESCRIPTION>Variable 'Hidemaru::TEncodingParam::ms_codepage' is uninitialized. Always initialize a member variable (type.6).</DESCRIPTION>
+    <DESCRIPTION>Variable 'Hidemaru::TEncodingParam::hm_encode' is uninitialized. Always initialize a member variable (type.6).</DESCRIPTION>
     <FUNCTION>Hidemaru::TEncodingParam::{ctor}</FUNCTION>
     <DECORATED>??0TEncodingParam@Hidemaru@@QAE@XZ</DECORATED>
     <FUNCLINE>129</FUNCLINE>

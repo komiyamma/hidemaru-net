@@ -864,7 +864,7 @@
       <COLUMN>1</COLUMN>
     </SFA>
     <DEFECTCODE>26495</DEFECTCODE>
-    <DESCRIPTION>Variable 'Hidemaru::TEncodingParam::hm_encode' is uninitialized. Always initialize a member variable (type.6).</DESCRIPTION>
+    <DESCRIPTION>Variable 'Hidemaru::TEncodingParam::ms_codepage' is uninitialized. Always initialize a member variable (type.6).</DESCRIPTION>
     <FUNCTION>Hidemaru::TEncodingParam::{ctor}</FUNCTION>
     <DECORATED>??0TEncodingParam@Hidemaru@@QAE@XZ</DECORATED>
     <FUNCLINE>129</FUNCLINE>
@@ -935,7 +935,7 @@
     <SFA>
       <FILEPATH>g:\repogitory\hidemaru-net\win-hidemaru-app\hm_python3\hmpython3.src\hmpython3</FILEPATH>
       <FILENAME>python_engine.cpp</FILENAME>
-      <LINE>52</LINE>
+      <LINE>56</LINE>
       <COLUMN>8</COLUMN>
     </SFA>
     <DEFECTCODE>26444</DEFECTCODE>
@@ -961,7 +961,7 @@
     <SFA>
       <FILEPATH>g:\repogitory\hidemaru-net\win-hidemaru-app\hm_python3\hmpython3.src\hmpython3</FILEPATH>
       <FILENAME>python_engine.cpp</FILENAME>
-      <LINE>56</LINE>
+      <LINE>52</LINE>
       <COLUMN>8</COLUMN>
     </SFA>
     <DEFECTCODE>26444</DEFECTCODE>
@@ -1017,7 +1017,7 @@
       <COLUMN>15</COLUMN>
     </SFA>
     <DEFECTCODE>26495</DEFECTCODE>
-    <DESCRIPTION>Variable 'TiXmlDocument::error' is uninitialized. Always initialize a member variable (type.6).</DESCRIPTION>
+    <DESCRIPTION>Variable 'TiXmlDocument::errorId' is uninitialized. Always initialize a member variable (type.6).</DESCRIPTION>
     <FUNCTION>TiXmlDocument::{ctor}</FUNCTION>
     <DECORATED>??0TiXmlDocument@@QAE@XZ</DECORATED>
     <FUNCLINE>913</FUNCLINE>
@@ -1030,7 +1030,7 @@
       <COLUMN>15</COLUMN>
     </SFA>
     <DEFECTCODE>26495</DEFECTCODE>
-    <DESCRIPTION>Variable 'TiXmlDocument::error' is uninitialized. Always initialize a member variable (type.6).</DESCRIPTION>
+    <DESCRIPTION>Variable 'TiXmlDocument::errorId' is uninitialized. Always initialize a member variable (type.6).</DESCRIPTION>
     <FUNCTION>TiXmlDocument::{ctor}</FUNCTION>
     <DECORATED>??0TiXmlDocument@@QAE@PBD@Z</DECORATED>
     <FUNCLINE>920</FUNCLINE>
