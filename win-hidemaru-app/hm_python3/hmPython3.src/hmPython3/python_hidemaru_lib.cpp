@@ -7,6 +7,9 @@
 #include "pybind11.h"
 
 #include "hm_original_encode_mapfunc.h"
+
+#include "resource.h"
+
 using namespace pybind11::literals;
 
 
@@ -598,7 +601,6 @@ namespace Hidemaru {
 
 PyMODINIT_FUNC PyInit_hidemaru() {
 	py::module m("hidemaru", "Hidemaru python module.");
-
 	m.def("get_version", &Hidemaru::GetVersion);
 	m.def("debug_info", &Hidemaru::DebugInfo);
 

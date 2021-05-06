@@ -7,6 +7,7 @@
 #include "python_engine.h"
 #include "exception_translator.h"
 
+
 namespace PythonEngine {
 
 	// ƒGƒ“ƒWƒ“‚ª—LŒø‚É‚È‚Á‚½
