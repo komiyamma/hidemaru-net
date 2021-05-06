@@ -7,6 +7,8 @@
 import hidemaru
 import os
 
+__version__ = hidemaru.__version__
+
 class _TText:
     class _TEncoding:
 

@@ -34,7 +34,7 @@ namespace Hidemaru {
 		HWND hWndHidemaru = CHidemaruExeExport::Hidemaru_GetCurrentWindowHandle();
 		if (hWndHidemaru) {
 			wchar_t filepath[MAX_PATH * 3] = L"";
-			int cwch = SendMessageW(hWndHidemaru, WM_HIDEMARUINFO, HIDEMARUINFO_GETFILEFULLPATH, (LPARAM)filepath);
+			LRESULT cwch = SendMessageW(hWndHidemaru, WM_HIDEMARUINFO, HIDEMARUINFO_GETFILEFULLPATH, (LPARAM)filepath);
 			return utf16_to_utf8(filepath);
 		}
 
@@ -601,6 +601,7 @@ namespace Hidemaru {
 
 PyMODINIT_FUNC PyInit_hidemaru() {
 	py::module m("hidemaru", "Hidemaru python module.");
+	m.attr("__version__") = (1000 * HM_PYTHON_MAJOR_VERION + 100 * HM_PYTHON_MINOR_VERION + 10 * HM_PYTHON_MICRO_VERION + HM_PYTHON_RELEASE_VERION)*0.001;
 	m.def("get_version", &Hidemaru::GetVersion);
 	m.def("debug_info", &Hidemaru::DebugInfo);
 
