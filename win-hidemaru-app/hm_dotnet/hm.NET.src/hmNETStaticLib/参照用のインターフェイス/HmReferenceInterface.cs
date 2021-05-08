@@ -72,6 +72,7 @@ namespace Hidemaru
                 Exception Error { get; }
             }
 
+
             private class TStatementResult : IStatementResult
             {
                 public int Result { get; set; }
@@ -79,6 +80,28 @@ namespace Hidemaru
                 public Exception Error { get; set; }
 
                 public TStatementResult(int Result, String Message, Exception Error)
+                {
+                    this.Result = Result;
+                    this.Message = Message;
+                    this.Error = Error;
+                }
+            }
+
+            // マクロでの問い合わせ結果系
+            public interface IFunctionResult
+            {
+                object Result { get; }
+                String Message { get; }
+                Exception Error { get; }
+            }
+
+            private class TFunctionResult : IFunctionResult
+            {
+                public object Result { get; set; }
+                public string Message { get; set; }
+                public Exception Error { get; set; }
+
+                public TFunctionResult(object Result, String Message, Exception Error)
                 {
                     this.Result = Result;
                     this.Message = Message;
@@ -118,6 +141,13 @@ namespace Hidemaru
             {
                 var ret = hmNETDynamicLib.Hidemaru.Macro.AsStatementTryInvokeMember(funcname, args);
                 IStatementResult result = new TStatementResult(ret.Result, ret.Message, ret.Error);
+                return result;
+            }
+
+            public static IFunctionResult Function(string funcname, params object[] args)
+            {
+                var ret = hmNETDynamicLib.Hidemaru.Macro.AsFunctionTryInvokeMember(funcname, args);
+                IFunctionResult result = new TFunctionResult(ret.Result, ret.Message, ret.Error);
                 return result;
             }
 
