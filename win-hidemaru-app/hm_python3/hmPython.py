@@ -211,6 +211,9 @@ class _TMacro:
                 raise NameError(varname)
             else:
                 return hidemaru.macro.set_var(varname, value)
+
+        def __getattr__(self, varname):
+            return hidemaru.macro.get_var(varname)
     #--------------------------------------------------
 
     #--------------------------------------------------
