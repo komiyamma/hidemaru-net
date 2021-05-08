@@ -64,6 +64,28 @@ namespace Hidemaru
                 }
             }
 
+            // マクロでの問い合わせ結果系
+            public interface IStatementResult
+            {
+                int Result { get; }
+                String Message { get; }
+                Exception Error { get; }
+            }
+
+            private class TStatementResult : IStatementResult
+            {
+                public int Result { get; set; }
+                public string Message { get; set; }
+                public Exception Error { get; set; }
+
+                public TStatementResult(int Result, String Message, Exception Error)
+                {
+                    this.Result = Result;
+                    this.Message = Message;
+                    this.Error = Error;
+                }
+            }
+
             // 実行系
             public interface IExec
             {
@@ -92,20 +114,12 @@ namespace Hidemaru
             public static IExec Exec = new TExec();
 
 
-            public class TAsFunction : DynamicObject
+            public static IStatementResult Statement(string funcname, params object[] args)
             {
-
+                var ret = hmNETDynamicLib.Hidemaru.Macro.AsStatementTryInvokeMember(funcname, args);
+                IStatementResult result = new TStatementResult(ret.Result, ret.Message, ret.Error);
+                return result;
             }
-
-            public class TAsStatement : DynamicObject
-            {
-                public override bool TryInvokeMember(InvokeMemberBinder binder, object[] args, out object result)
-                {
-                    return hmNETDynamicLib.Hidemaru.Macro.AsStatementTryInvokeMember(binder.Name, args, out result);
-                }
-            }
-            public static dynamic Fn = new TAsFunction();
-            public static dynamic St = new TAsStatement();
 
             public static IResult Eval(String expression)
             {

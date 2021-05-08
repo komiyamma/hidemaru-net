@@ -210,7 +210,7 @@ internal sealed partial class hmNETDynamicLib
             }
 
             private static int base_random = 0;
-            public static bool AsStatementTryInvokeMember(string funcname, object[] args, out object result)
+            public static ExecResult AsStatementTryInvokeMember(string funcname, params object[] args)
             {
                 if (base_random == 0)
                 {
@@ -304,13 +304,13 @@ internal sealed partial class hmNETDynamicLib
 
                     if (normalized_arg is Int32 || normalized_arg is Int64)
                     {
-                        string key = "#AsFunction_" + base_random.ToString() + '_' + cur_random.ToString();
+                        string key = "#AsStatement_" + base_random.ToString() + '_' + cur_random.ToString();
                         arg_list.Add(new KeyValuePair<string, object>(key, normalized_arg));
                         hmNETDynamicLib.Hidemaru.Macro.Var[key] = normalized_arg;
                     }
                     else if (normalized_arg is string)
                     {
-                        string key = "$AsFunction_" + base_random.ToString() + '_' + cur_random.ToString();
+                        string key = "$AsStatement_" + base_random.ToString() + '_' + cur_random.ToString();
                         arg_list.Add(new KeyValuePair<string, object>(key, normalized_arg));
                         hmNETDynamicLib.Hidemaru.Macro.Var[key] = normalized_arg;
                     }
@@ -328,11 +328,9 @@ internal sealed partial class hmNETDynamicLib
                 // それを指定の「文」で実行する形
                 string expression = $"{funcname} {args_string};\n";
 
-                System.Diagnostics.Trace.WriteLine(expression);
                 // 実行する
-                var ret = hmNETDynamicLib.Hidemaru.Macro.Eval(expression);
+                ExecResult ret = hmNETDynamicLib.Hidemaru.Macro.Eval(expression);
                 // 成否も含めて結果を入れる。
-                result = ret;
                 // new TResult(ret.Result, ret.Message, ret.Error);
 
                 // 使ったので削除
@@ -349,7 +347,7 @@ internal sealed partial class hmNETDynamicLib
                 }
                 // Errorがあるとfalseを返したくなるところだが、このtrue, falseはメソッドが「あったか」「なかったか」なので
                 // 判断のしようがない。
-                return true;
+                return ret;
             }
 
             // マクロ文字列の実行。複数行を一気に実行可能
