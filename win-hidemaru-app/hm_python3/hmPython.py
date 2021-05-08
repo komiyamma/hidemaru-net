@@ -171,6 +171,30 @@ class _TMacro:
     """
     秀丸マクロ関連のクラス
     """
+
+    class _TAsFunction:
+        """
+        秀丸マクロ関連のうち、括弧があり値が返る秀丸組み込みの関数のラップを表すクラス
+        """
+        def __getattr__(self, attr):
+            return self.closure
+        def closure(self, *args):
+            hm.OutputPane.Output("★")
+            hm.OutputPane.Output(args)
+            hm.OutputPane.Output("★")
+
+    class _TAsStatement:
+        """
+        秀丸マクロ関連のうち、括弧がなく値が変えられない秀丸組み込みの(関数のように使う)文のラップを表すクラス
+        """
+        def __getattr__(self, attr):
+            return self.closure
+        def closure(self, *args):
+            hm.OutputPane.Output("★")
+            hm.OutputPane.Output(args)
+            hm.OutputPane.Output("★")
+
+            
     #--------------------------------------------------
     class _TVar:
         """
@@ -207,6 +231,8 @@ class _TMacro:
     #--------------------------------------------------
     def __init__(self):
         self.Var = _TMacro._TVar()
+        self.Fn = _TMacro._TAsFunction();
+        self.St = _TMacro._TAsStatement();
     #--------------------------------------------------
 
     #--------------------------------------------------
