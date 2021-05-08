@@ -231,7 +231,7 @@ internal sealed class hmTypeConverter
                 if (success)
                 {
                     // ★★★JScriptエンジンやFirefoxは、%dでは0に近づける方にまるめる
-                    result = dtmp >= 0 ? (Int32)Math.Floor(dtmp) : (Int32)Math.Ceiling(dtmp);
+                    result = (Int32)(dtmp);
                 }
 
                 else
@@ -261,7 +261,7 @@ internal sealed class hmTypeConverter
                 if (success)
                 {
                     // ★★★JScriptエンジンやFirefoxは、%dでは0に近づける方にまるめる
-                    result = dtmp >= 0 ? (Int64)Math.Floor(dtmp) : (Int64)Math.Ceiling(dtmp);
+                    result = (Int64)(dtmp);
                 }
                 else
                 {
