@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp16
 {
-    class _AsFunction : DynamicObject
+    public class _AsFunction : DynamicObject
     {
         int base_random = 0;
 
@@ -78,7 +78,7 @@ namespace ConsoleApp16
         }
     }
 
-    class _AsStatement : DynamicObject
+    public class _AsStatement : DynamicObject
     {
         int base_random = 0;
         public _AsStatement() {

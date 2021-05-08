@@ -5,6 +5,8 @@ Assembly mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934
 	hash=None, flags=None
 Assembly System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
 	hash=None, flags=None
+Assembly System.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
 Class Hidemaru.Lib: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
 Class Hidemaru.Hm: AutoLayout, AnsiClass, Class, Public, Abstract, Sealed, BeforeFieldInit
@@ -27,6 +29,8 @@ Class Hidemaru.Lib+UnManagedDll: AutoLayout, AnsiClass, Class, NestedPublic, Sea
 Class Hidemaru.Hm+Macro: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
   Fields:
     IExec Exec : Public, Static
+    System.Object Fn : Public, Static
+    System.Object St : Public, Static
     IVar Var : Public, Static
   Properties:
     Boolean IsExecuting 'get ' : 
@@ -81,6 +85,14 @@ Interface Hidemaru.Hm+Macro+IExec: AutoLayout, AnsiClass, Class, NestedPublic, C
   Methods:
     File(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
     Eval(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class Hidemaru.Hm+Macro+TAsFunction: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+  :System.Dynamic.DynamicObject
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Hidemaru.Hm+Macro+TAsStatement: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+  :System.Dynamic.DynamicObject
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    TryInvokeMember(InvokeMemberBinder, Object[], Object&(Out)): PrivateScope, Public, Virtual, HideBySig
 Interface Hidemaru.Hm+Macro+IVar: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
   Properties:
     System.Object Item [System.String] 'get set' : 

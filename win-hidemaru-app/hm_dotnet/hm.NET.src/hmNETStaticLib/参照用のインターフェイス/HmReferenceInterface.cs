@@ -4,6 +4,8 @@
  */
 
 using System;
+using System.Collections.Generic;
+using System.Dynamic;
 
 namespace Hidemaru
 {
@@ -89,6 +91,21 @@ namespace Hidemaru
 
             public static IExec Exec = new TExec();
 
+
+            public class TAsFunction : DynamicObject
+            {
+
+            }
+
+            public class TAsStatement : DynamicObject
+            {
+                public override bool TryInvokeMember(InvokeMemberBinder binder, object[] args, out object result)
+                {
+                    return hmNETDynamicLib.Hidemaru.Macro.AsStatementTryInvokeMember(binder.Name, args, out result);
+                }
+            }
+            public static dynamic Fn = new TAsFunction();
+            public static dynamic St = new TAsStatement();
 
             public static IResult Eval(String expression)
             {
