@@ -229,7 +229,7 @@ public partial class HmCustomLivePreviewDynamicLib
                                 success = Double.TryParse(value.ToString(), out dtmp);
                                 if (success)
                                 {
-                                    result = (Int32)Math.Floor(dtmp);
+                                    result = (Int32)(dtmp);
                                 }
 
                                 else
@@ -258,7 +258,7 @@ public partial class HmCustomLivePreviewDynamicLib
                                 success = Double.TryParse(value.ToString(), out dtmp);
                                 if (success)
                                 {
-                                    result = (Int64)Math.Floor(dtmp);
+                                    result = (Int64)(dtmp);
                                 }
                                 else
                                 {
