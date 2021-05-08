@@ -5,3 +5,10 @@ C:\Users\admin\source\repos\ConsoleApp16\bin\Debug\ConsoleApp16.exe
 C:\Users\admin\source\repos\ConsoleApp16\bin\Debug\ConsoleApp16.pdb
 C:\Users\admin\source\repos\ConsoleApp16\obj\Debug\ConsoleApp16.exe
 C:\Users\admin\source\repos\ConsoleApp16\obj\Debug\ConsoleApp16.pdb
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet\汎用ラッパーの実験\ConsoleApp16\obj\Debug\ConsoleApp16.csprojAssemblyReference.cache
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet\汎用ラッパーの実験\ConsoleApp16\obj\Debug\ConsoleApp16.csproj.CoreCompileInputs.cache
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet\汎用ラッパーの実験\ConsoleApp16\obj\Debug\ConsoleApp16.exe
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet\汎用ラッパーの実験\ConsoleApp16\obj\Debug\ConsoleApp16.pdb
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet\汎用ラッパーの実験\ConsoleApp16\bin\Debug\ConsoleApp16.exe.config
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet\汎用ラッパーの実験\ConsoleApp16\bin\Debug\ConsoleApp16.exe
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet\汎用ラッパーの実験\ConsoleApp16\bin\Debug\ConsoleApp16.pdb
