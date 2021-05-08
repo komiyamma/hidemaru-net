@@ -398,7 +398,7 @@ internal class hmTypeConverter
                 if (success)
                 {
                     // šššv8ƒGƒ“ƒWƒ“‚¾‚ÆAØ‚èÌ‚Ä
-                    result = (Int32)Math.Floor(dtmp);
+                    result = (Int32)(dtmp);
                 }
 
                 else
