@@ -10,15 +10,14 @@
         "projectUniqueName": "G:\\repogitory\\hidemaru-net\\win-hidemaru-app\\hm_dotnet_pinvoke\\HmNetPInvoke\\HmNetPInvoke.csproj",
         "projectName": "HmNetPInvoke",
         "projectPath": "G:\\repogitory\\hidemaru-net\\win-hidemaru-app\\hm_dotnet_pinvoke\\HmNetPInvoke\\HmNetPInvoke.csproj",
-        "packagesPath": "C:\\Users\\master\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
         "outputPath": "G:\\repogitory\\hidemaru-net\\win-hidemaru-app\\hm_dotnet_pinvoke\\HmNetPInvoke\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\master\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -62,7 +61,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }

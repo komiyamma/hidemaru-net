@@ -289,7 +289,7 @@ namespace HmNetPInvoke
                             success = double.TryParse(value.ToString(), out dtmp);
                             if (success)
                             {
-                                result = (int)Math.Floor(dtmp);
+                                result = (int)(dtmp);
                             }
                             else
                             {

@@ -12,7 +12,7 @@ using System.Runtime.InteropServices;
 namespace HmNetPInvoke
 {
     public partial class HmMacroCOMVar {
-        private const string HmMacroCOMVarInterface = "5524ea96-c33f-4087-aeb4-1d2f7cf9bafa";
+        private const string HmMacroCOMVarInterface = "38dfb036-60a0-4d44-8fc0-5a3be3cf91a4";
     }
 }
 
@@ -286,7 +286,7 @@ namespace HmNetPInvoke
                             success = double.TryParse(value.ToString(), out dtmp);
                             if (success)
                             {
-                                result = (int)Math.Floor(dtmp);
+                                result = (int)(dtmp);
                             }
                             else
                             {
