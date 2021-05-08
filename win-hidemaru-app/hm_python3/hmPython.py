@@ -187,12 +187,31 @@ class _TMacro:
         """
         秀丸マクロ関連のうち、括弧がなく値が変えられない秀丸組み込みの(関数のように使う)文のラップを表すクラス
         """
-        def __getattr__(self, attr):
-            return self.closure
-        def closure(self, *args):
-            hm.OutputPane.Output("★")
-            hm.OutputPane.Output(args)
-            hm.OutputPane.Output("★")
+        def __getattr__(self, name):
+            return lambda *args: self.closure(name, *args)
+
+        def closure(self, name, *args):
+            hm.OutputPane.Output(name)
+            value_list = []
+            type_list = []
+            for arg in args:
+                if arg is int:
+                    value_list.append(arg)
+                    type_list.append('int')
+                elif arg is bool:
+                    value_list.append(int(arg))
+                    type_list.append('int')
+                elif arg is float:
+                    value_list.append(int(arg))
+                    type_list.append('int')
+                elif arg is complex:
+                    value_list.append(arg.real)
+                    type_list.append('int')
+                else:
+                    value_list.append(str(arg))
+                    type_list.append('str')
+            ret = hidemaru.macro.do_statement(name, tuple(value_list), tuple(type_list))
+            return ret
 
             
     #--------------------------------------------------
@@ -214,6 +233,7 @@ class _TMacro:
 
         def __getattr__(self, varname):
             return hidemaru.macro.get_var(varname)
+
     #--------------------------------------------------
 
     #--------------------------------------------------

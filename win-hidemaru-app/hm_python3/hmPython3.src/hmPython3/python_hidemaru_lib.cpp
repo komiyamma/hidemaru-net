@@ -452,6 +452,39 @@ namespace Hidemaru {
 		}
 	}
 
+	// pythonの中から秀丸関数ステートメントを実行
+	py::tuple Macro_Function(const std::string utf8_funcname, const py::tuple value_args, const py::tuple type_args) {
+		BOOL success = 0;
+		return py::make_tuple(success, "", "HidemaruMacroEvalException");
+	}
+
+	// pythonの中から秀丸マクロステートメントを実行
+	py::tuple Macro_Statement(const std::string utf8_funcname, const py::tuple value_args, const py::tuple type_args) {
+		wstring utf16_funcname = utf8_to_utf16(utf8_funcname);
+		OutputDebugStringW(utf16_funcname.c_str());
+		OutputDebugStringW(L"\n");
+
+		string num = to_string(value_args.size());
+		OutputDebugStringA(num.data());
+		OutputDebugStringW(L"\n");
+		for (size_t i = 0; i < value_args.size() && i < type_args.size(); i++) {
+
+
+			string t = py::str(type_args[i]);
+			if (t == "int") {
+				OutputDebugStringW(L"int:");
+				OutputDebugStringW(L"\n");
+			}
+			else if (t == "string") {
+				OutputDebugStringW(L"str:");
+				OutputDebugStringW(L"\n");
+			}
+
+		}
+
+		BOOL success = 0;
+		return py::make_tuple(success, "", "HidemaruMacroEvalException");
+	}
 
 
 	// アウトプット枠への出力
@@ -626,6 +659,8 @@ PyMODINIT_FUNC PyInit_hidemaru() {
 	macro.def("get_var", &Hidemaru::Macro_GetVar);
 	macro.def("set_var", &Hidemaru::Macro_SetVar);
 	macro.def("do_eval", &Hidemaru::Macro_Eval);
+	macro.def("do_statement", &Hidemaru::Macro_Statement);
+	macro.def("do_function", &Hidemaru::Macro_Function);
 
 	py::module outputpane = m.def_submodule("outputpane", "Hidemaru OutputPane python module");
 	outputpane.def("output", &Hidemaru::OutputPane_Output);
