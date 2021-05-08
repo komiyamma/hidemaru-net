@@ -19,3 +19,10 @@ C:\usr\github\tenshoukijp\xn--rssu31gj1g.jp\other_soft\hm_loadclr\hmLoadCLR\NeoL
 C:\usr\github\tenshoukijp\xn--rssu31gj1g.jp\other_soft\hm_loadclr\hmLoadCLR\NeoLua\bin\Debug\Neo.Lua.pdb
 C:\usr\github\tenshoukijp\xn--rssu31gj1g.jp\other_soft\hm_loadclr\hmLoadCLR\NeoLua\obj\Debug\Neo.Lua.netmodule
 C:\usr\github\tenshoukijp\xn--rssu31gj1g.jp\other_soft\hm_loadclr\hmLoadCLR\NeoLua\obj\Debug\Neo.Lua.pdb
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_loadclr\hmLoadCLR.src\NeoLua\bin\Debug\Neo.Lua.netmodule.config
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_loadclr\hmLoadCLR.src\NeoLua\bin\Debug\Neo.Lua.netmodule
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_loadclr\hmLoadCLR.src\NeoLua\bin\Debug\Neo.Lua.pdb
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_loadclr\hmLoadCLR.src\NeoLua\obj\Debug\NeoLua.csprojAssemblyReference.cache
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_loadclr\hmLoadCLR.src\NeoLua\obj\Debug\NeoLua.csproj.CoreCompileInputs.cache
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_loadclr\hmLoadCLR.src\NeoLua\obj\Debug\Neo.Lua.netmodule
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_loadclr\hmLoadCLR.src\NeoLua\obj\Debug\Neo.Lua.pdb
