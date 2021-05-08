@@ -6,6 +6,7 @@
 
 import hidemaru
 import os
+import random
 
 __version__ = hidemaru.__version__
 
@@ -191,28 +192,57 @@ class _TMacro:
             return lambda *args: self.closure(name, *args)
 
         def closure(self, name, *args):
-            hm.OutputPane.Output(name)
+            cur_random = random.randint(1, 100000)
+            varname_list = []
+            ix = 0;
+            for arg in args:
+                ix = ix + 1;
+                
+                if (type(arg) is int) or (type(arg) is bool) or (type(arg) is float):
+                    varname = r"#AsStatement_" + str(cur_random + ix)
+                    value = int(arg)
+                    varname_list.append(varname)
+                    hidemaru.macro.set_var(varname, value)
+                else:
+                    varname = r"$AsStatement_" + str(cur_random + ix)
+                    value = str(arg)
+                    varname_list.append(varname)
+                    hidemaru.macro.set_var(varname, value)
+
+            arg_varname_list = ','.join(varname_list)
+            expression = name + " " + arg_varname_list + ";\n"
+            res, msg, errmsg = hidemaru.macro.do_eval(expression)
+            ret = _TMacro._TStatementResult(res, msg, errmsg)
+            
+            for varname in varname_list:
+                if varname.startswith("#"):
+                    hidemaru.macro.set_var(varname, 0)
+                elif varname.startswith("$"):
+                    hidemaru.macro.set_var(varname, "")
+            
+            '''
             value_list = []
             type_list = []
             for arg in args:
-                if arg is int:
+                if type(arg) is int:
                     value_list.append(arg)
                     type_list.append('int')
-                elif arg is bool:
+                elif type(arg) is bool:
                     value_list.append(int(arg))
                     type_list.append('int')
-                elif arg is float:
+                elif type(arg) is float:
                     value_list.append(int(arg))
                     type_list.append('int')
-                elif arg is complex:
+                elif type(arg) is complex:
                     value_list.append(arg.real)
                     type_list.append('int')
                 else:
                     value_list.append(str(arg))
                     type_list.append('str')
             ret = hidemaru.macro.do_statement(name, tuple(value_list), tuple(type_list))
+            '''
+            
             return ret
-
             
     #--------------------------------------------------
     class _TVar:
@@ -250,12 +280,24 @@ class _TMacro:
             else:
                 self.Error = RuntimeError(ErrorMsg)
     #--------------------------------------------------
+    class _TStatementResult:
+        """
+        秀丸マクロ関連のうち、マクロ実行結果情報を扱うクラス
+        """
+
+        def __init__(self, Result, Message, ErrorMsg):
+            self.Result = Result
+            self.Message = Message
+            if Result >= 1:
+                self.Error = None
+            else:
+                self.Error = RuntimeError(ErrorMsg)
 
     #--------------------------------------------------
     def __init__(self):
         self.Var = _TMacro._TVar()
-        self.Fn = _TMacro._TAsFunction();
-        self.St = _TMacro._TAsStatement();
+        self.Function = _TMacro._TAsFunction();
+        self.Statement = _TMacro._TAsStatement();
     #--------------------------------------------------
 
     #--------------------------------------------------
