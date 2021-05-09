@@ -77,13 +77,15 @@ internal partial class hmNETDynamicLib
     static hmNETDynamicLib()
     {
         StringBuilder exe_full_path = new StringBuilder(260);
-        GetModuleFileName(IntPtr.Zero, exe_full_path, (ulong)exe_full_path.Capacity);
+        GetModuleFileName(IntPtr.Zero, exe_full_path, exe_full_path.Capacity);
         strExecuteFullpath = exe_full_path.ToString();
     }
 
     static String strExecuteFullpath;
     [DllImport("kernel32.dll", SetLastError = true)]
-    private static extern ulong GetModuleFileName(IntPtr hModule, StringBuilder filename, ulong bufsize);
+    [PreserveSig]
+    private static extern uint GetModuleFileName([In]IntPtr hModule, [Out] StringBuilder lpFilename,  [In][MarshalAs(UnmanagedType.U4)]int nSize);
+    // private static extern ulong GetModuleFileName(IntPtr hModule, StringBuilder filename, ulong bufsize);
 
     public static void OutputDebugStream(String error)
     {
