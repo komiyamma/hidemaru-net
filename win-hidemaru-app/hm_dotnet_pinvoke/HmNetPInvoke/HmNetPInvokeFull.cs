@@ -13,7 +13,7 @@ using System.Runtime.InteropServices;
 namespace HmNetPInvoke
 {
     public partial class HmMacroCOMVar {
-        private const string HmMacroCOMVarInterface = "38dfb036-60a0-4d44-8fc0-5a3be3cf91a4";
+        private const string HmMacroCOMVarInterface = "f9277cf4-27dd-4a07-ad00-3b449ea6d8c5";
     }
 }
 
@@ -390,7 +390,7 @@ namespace HmNetPInvoke
             }
 
             private static int funciton_base_random = 0;
-            public static IFunctionResult AsFunctionTryInvokeMember(string funcname, params object[] args)
+            public static IFunctionResult Function(string funcname, params object[] args)
             {
                 if (funciton_base_random == 0)
                 {
@@ -435,7 +435,7 @@ namespace HmNetPInvoke
                         success = Double.TryParse(value.ToString(), out dtmp);
                         if (success)
                         {
-                            normalized_arg = (Int32)(dtmp);
+                            normalized_arg = (int)(dtmp);
                         }
 
                         else
@@ -483,7 +483,7 @@ namespace HmNetPInvoke
  
                 if (ret.GetType().Name != "String")
                 {
-                    result.Result = (Int32)ret + 0; // ämé¿Ç…ï°êªÇ
+                    result.Result = (int)ret + 0; // ämé¿Ç…ï°êªÇ
                     result.Message = "";
                     result.Error = null;
                 }
