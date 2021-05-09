@@ -281,10 +281,8 @@ namespace PythonEngine {
 		}
 
 		try {
-
 			string utf8_expression = utf16_to_utf8(utf16_expression);
 			py::eval<py::eval_statements>(utf8_expression);
-
 			return TRUE;
 		}
 		catch (py::error_already_set& e) {

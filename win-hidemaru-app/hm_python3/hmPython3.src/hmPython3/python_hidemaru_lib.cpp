@@ -458,32 +458,74 @@ namespace Hidemaru {
 		return py::make_tuple(success, "", "HidemaruMacroEvalException");
 	}
 
+	/** joins a vector of strings into a single string */
+	std::wstring StringJoin(const std::vector<std::wstring> &strs, const std::wstring delim)
+	{
+		if (strs.size() == 0) return L"";
+		std::vector<wchar_t> res;
+		for (int i = 0; i < strs.size() - 1; ++i)
+		{
+			for (auto c : strs[i]) res.push_back(c);
+			for (auto c : delim) res.push_back(c);
+		}
+		for (auto c : strs[strs.size() - 1]) res.push_back(c);
+		return std::wstring{ res.begin(), res.end() };
+	}
+
+
 	// pythonの中から秀丸マクロステートメントを実行
 	py::tuple Macro_Statement(const std::string utf8_funcname, const py::tuple value_args, const py::tuple type_args) {
 		wstring utf16_funcname = utf8_to_utf16(utf8_funcname);
-		OutputDebugStringW(utf16_funcname.c_str());
-		OutputDebugStringW(L"\n");
 
 		string num = to_string(value_args.size());
-		OutputDebugStringA(num.data());
-		OutputDebugStringW(L"\n");
+
+		vector<wstring> varname_list;
+		int cur_random = rand() + 1;
 		for (size_t i = 0; i < value_args.size() && i < type_args.size(); i++) {
-
-
 			string t = py::str(type_args[i]);
 			if (t == "int") {
-				OutputDebugStringW(L"int:");
-				OutputDebugStringW(L"\n");
+				wstring varname = L"#AsStatement_" + to_wstring(cur_random + i);
+				varname_list.push_back(varname);
+				string utf8_varname = utf16_to_utf8(varname);
+				py::int_ o = value_args[i];
+				Macro_SetVar(utf8_varname, o);
 			}
-			else if (t == "string") {
-				OutputDebugStringW(L"str:");
-				OutputDebugStringW(L"\n");
+			else if (t == "str") {
+				wstring varname = L"$AsStatement_" + to_wstring(cur_random + i);
+				varname_list.push_back(varname);
+				string utf8_varname = utf16_to_utf8(varname);
+				py::str o = value_args[i];
+				Macro_SetVar(utf8_varname, o);
 			}
-
 		}
 
-		BOOL success = 0;
-		return py::make_tuple(success, "", "HidemaruMacroEvalException");
+		wstring arg_varname_list = StringJoin(varname_list, L", ");
+		wstring utf16_expression = utf16_funcname + L" " + arg_varname_list + L";\n";
+
+		BOOL success = CHidemaruExeExport::EvalMacro(utf16_expression);
+
+		for (size_t i = 0; i < varname_list.size(); i++) {
+			wstring varname = varname_list[i];
+			string utf8_varname = utf16_to_utf8(varname);
+			if (varname[0] == L'#') {
+				pybind11::object o = py::int_(0);
+				Macro_SetVar(utf8_varname, o);
+			}
+			else if (varname[0] == L'$') {
+				pybind11::object o = py::str("");
+				Macro_SetVar(utf8_varname, o);
+			}
+		}
+
+		if (success) {
+			return py::make_tuple(success, "", "");
+		}
+		else {
+			OutputDebugStream(L"マクロの実行に失敗しました。\n");
+			OutputDebugStream(L"マクロ内容:\n");
+			OutputDebugStream(utf16_expression);
+			return py::make_tuple(success, "", "HidemaruMacroEvalException");
+		}
 	}
 
 

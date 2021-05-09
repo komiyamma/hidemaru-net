@@ -172,7 +172,29 @@ class _TMacro:
     """
     秀丸マクロ関連のクラス
     """
+    class _TAsStatement:
+        """
+        秀丸マクロ関連のうち、括弧がなく値が変えられない秀丸組み込みの(関数のように使う)文のラップを表すクラス
+        """
+        def __getattr__(self, statement_name):
+            return lambda *args: self.closure(statement_name, *args)
 
+        def closure(self, statement_name, *args):
+            value_list = []
+            type_list = []
+            for arg in args:
+                if type(arg) is int or type(arg) is bool or type(arg) is float:
+                    value_list.append(int(arg))
+                    type_list.append('int')
+                else:
+                    value_list.append(str(arg))
+                    type_list.append('str')
+            
+            res, msg, errmsg = hidemaru.macro.do_statement(statement_name, tuple(value_list), tuple(type_list))
+            ret = _TMacro._TStatementResult(res, msg, errmsg)
+            
+            return ret
+            
     class _TAsFunction:
         """
         秀丸マクロ関連のうち、括弧があり値が返る秀丸組み込みの関数のラップを表すクラス
@@ -184,66 +206,6 @@ class _TMacro:
             hm.OutputPane.Output(args)
             hm.OutputPane.Output("★")
 
-    class _TAsStatement:
-        """
-        秀丸マクロ関連のうち、括弧がなく値が変えられない秀丸組み込みの(関数のように使う)文のラップを表すクラス
-        """
-        def __getattr__(self, name):
-            return lambda *args: self.closure(name, *args)
-
-        def closure(self, name, *args):
-            cur_random = random.randint(1, 100000)
-            varname_list = []
-            ix = 0;
-            for arg in args:
-                ix = ix + 1;
-                
-                if (type(arg) is int) or (type(arg) is bool) or (type(arg) is float):
-                    varname = r"#AsStatement_" + str(cur_random + ix)
-                    value = int(arg)
-                    varname_list.append(varname)
-                    hidemaru.macro.set_var(varname, value)
-                else:
-                    varname = r"$AsStatement_" + str(cur_random + ix)
-                    value = str(arg)
-                    varname_list.append(varname)
-                    hidemaru.macro.set_var(varname, value)
-
-            arg_varname_list = ','.join(varname_list)
-            expression = name + " " + arg_varname_list + ";\n"
-            res, msg, errmsg = hidemaru.macro.do_eval(expression)
-            ret = _TMacro._TStatementResult(res, msg, errmsg)
-            
-            for varname in varname_list:
-                if varname.startswith("#"):
-                    hidemaru.macro.set_var(varname, 0)
-                elif varname.startswith("$"):
-                    hidemaru.macro.set_var(varname, "")
-            
-            '''
-            value_list = []
-            type_list = []
-            for arg in args:
-                if type(arg) is int:
-                    value_list.append(arg)
-                    type_list.append('int')
-                elif type(arg) is bool:
-                    value_list.append(int(arg))
-                    type_list.append('int')
-                elif type(arg) is float:
-                    value_list.append(int(arg))
-                    type_list.append('int')
-                elif type(arg) is complex:
-                    value_list.append(arg.real)
-                    type_list.append('int')
-                else:
-                    value_list.append(str(arg))
-                    type_list.append('str')
-            ret = hidemaru.macro.do_statement(name, tuple(value_list), tuple(type_list))
-            '''
-            
-            return ret
-            
     #--------------------------------------------------
     class _TVar:
         """
@@ -260,10 +222,6 @@ class _TMacro:
                 raise NameError(varname)
             else:
                 return hidemaru.macro.set_var(varname, value)
-
-        def __getattr__(self, varname):
-            return hidemaru.macro.get_var(varname)
-
     #--------------------------------------------------
 
     #--------------------------------------------------
@@ -308,6 +266,25 @@ class _TMacro:
         return ret
     #--------------------------------------------------
 
+    #--------------------------------------------------
+    # ステートの実行
+    def Statement(self, statement_name, *args):
+            value_list = []
+            type_list = []
+            for arg in args:
+                if type(arg) is int or type(arg) is bool or type(arg) is float:
+                    value_list.append(int(arg))
+                    type_list.append('int')
+                else:
+                    value_list.append(str(arg))
+                    type_list.append('str')
+            
+            hm.OutputPane.Output("start");
+            res, msg, errmsg = hidemaru.macro.do_statement(statement_name, tuple(value_list), tuple(type_list))
+            ret = _TMacro._TStatementResult(res, msg, errmsg)
+            hm.OutputPane.Output("end");
+            
+            return ret
 
 class _TOutputPane:
     """
