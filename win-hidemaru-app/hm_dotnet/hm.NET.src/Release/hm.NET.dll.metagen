@@ -84,19 +84,23 @@ Interface Hidemaru.Hm+Macro+IStatementResult: AutoLayout, AnsiClass, Class, Nest
     Int32 Result 'get ' : 
     System.String Message 'get ' : 
     System.Exception Error 'get ' : 
+    System.Collections.Generic.List`1[System.Object] Args 'get ' : 
   Methods:
     get_Result(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
     get_Message(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
     get_Error(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Args(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
 Interface Hidemaru.Hm+Macro+IFunctionResult: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
   Properties:
     System.Object Result 'get ' : 
     System.String Message 'get ' : 
     System.Exception Error 'get ' : 
+    System.Collections.Generic.List`1[System.Object] Args 'get ' : 
   Methods:
     get_Result(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
     get_Message(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
     get_Error(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Args(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
 Interface Hidemaru.Hm+Macro+IExec: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
   Methods:
     File(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract

@@ -13,10 +13,9 @@ using System.Runtime.InteropServices;
 namespace HmNetPInvoke
 {
     public partial class HmMacroCOMVar {
-        private const string HmMacroCOMVarInterface = "f9277cf4-27dd-4a07-ad00-3b449ea6d8c5";
+        private const string HmMacroCOMVarInterface = "5a04be68-085c-4b86-bc00-0727069eb9c6";
     }
 }
-
 
 namespace HmNetPInvoke
 {
@@ -240,6 +239,7 @@ namespace HmNetPInvoke
                 int Result { get; }
                 String Message { get; }
                 Exception Error { get; }
+                List<Object> Args { get; }
             }
 
 
@@ -248,12 +248,14 @@ namespace HmNetPInvoke
                 public int Result { get; set; }
                 public string Message { get; set; }
                 public Exception Error { get; set; }
+                public List<Object> Args { get; set; }
 
-                public TStatementResult(int Result, String Message, Exception Error)
+                public TStatementResult(int Result, String Message, Exception Error, List<Object> Args)
                 {
                     this.Result = Result;
                     this.Message = Message;
                     this.Error = Error;
+                    this.Args = new List<object>(Args); // コピー渡し
                 }
             }
 
@@ -350,20 +352,23 @@ namespace HmNetPInvoke
                 // 成否も含めて結果を入れる。
                 // new TResult(ret.Result, ret.Message, ret.Error);
 
+                IStatementResult result = new TStatementResult(ret.Result, ret.Message, ret.Error, new List<Object>);
+
                 // 使ったので削除
                 foreach (var l in arg_list)
                 {
                     if (l.Value is Int32 || l.Value is Int64)
                     {
+                        result.Args.Add(Macro.Var[l.Key]);
                         Macro.Var[l.Key] = 0;
                     }
                     else if (l.Value is string)
                     {
+                        result.Args.Add(Macro.Var[l.Key]);
                         Macro.Var[l.Key] = "";
                     }
                 }
 
-                IStatementResult result = new TStatementResult(ret.Result, ret.Message, ret.Error);
                 return result;
             }
 
@@ -373,6 +378,7 @@ namespace HmNetPInvoke
                 object Result { get; }
                 String Message { get; }
                 Exception Error { get; }
+                List<Object> Args { get; }
             }
 
             private class TFunctionResult : IFunctionResult
@@ -380,12 +386,14 @@ namespace HmNetPInvoke
                 public object Result { get; set; }
                 public string Message { get; set; }
                 public Exception Error { get; set; }
+                public List<Object> Args { get; set; }
 
-                public TFunctionResult(object Result, String Message, Exception Error)
+                public TFunctionResult(object Result, String Message, Exception Error, List<Object> Args)
                 {
                     this.Result = Result;
                     this.Message = Message;
                     this.Error = Error;
+                    this.Args = new List<object>(Args); // コピー渡し
                 }
             }
 
@@ -477,10 +485,25 @@ namespace HmNetPInvoke
                 string expression = $"{funcname}({args_string})";
 
                 //----------------------------------------------------------------
-                TFunctionResult result = new TFunctionResult(null, "", null);
+                TFunctionResult result = new TFunctionResult(null, "", null, new List<Object>);
 
                 Object ret = Macro.Var[expression];
- 
+
+                // 使ったので削除
+                foreach (var l in arg_list)
+                {
+                    if (l.Value is int)
+                    {
+                        result.Args.Add(Macro.Var[l.Key]);
+                        Macro.Var[l.Key] = 0;
+                    }
+                    else if (l.Value is string)
+                    {
+                        result.Args.Add(Macro.Var[l.Key]);
+                        Macro.Var[l.Key] = "";
+                    }
+                }
+
                 if (ret.GetType().Name != "String")
                 {
                     result.Result = (int)ret + 0; // 確実に複製を
@@ -492,19 +515,6 @@ namespace HmNetPInvoke
                     result.Result = (String)ret + ""; // 確実に複製を
                     result.Message = "";
                     result.Error = null;
-                }
-
-                // 使ったので削除
-                foreach (var l in arg_list)
-                {
-                    if (l.Value is int)
-                    {
-                        Macro.Var[l.Key] = 0;
-                    }
-                    else if (l.Value is string)
-                    {
-                        Macro.Var[l.Key] = "";
-                    }
                 }
 
                 return result;

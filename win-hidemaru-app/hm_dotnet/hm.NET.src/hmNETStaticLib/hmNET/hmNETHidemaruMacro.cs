@@ -210,7 +210,14 @@ internal sealed partial class hmNETDynamicLib
             }
 
             private static int statement_base_random = 0;
-            public static ExecResult AsStatementTryInvokeMember(string funcname, params object[] args)
+            public struct ExecStateResult
+            {
+                public int Result;
+                public string Message;
+                public Exception Error;
+                public List<Object> Args;
+            }
+            public static ExecStateResult AsStatementTryInvokeMember(string funcname, params object[] args)
             {
                 if (statement_base_random == 0)
                 {
@@ -330,6 +337,11 @@ internal sealed partial class hmNETDynamicLib
 
                 // 実行する
                 ExecResult ret = hmNETDynamicLib.Hidemaru.Macro.Eval(expression);
+                ExecStateResult result = new ExecStateResult();
+                result.Result = ret.Result;
+                result.Error = ret.Error;
+                result.Message = ret.Message;
+
                 // 成否も含めて結果を入れる。
                 // new TResult(ret.Result, ret.Message, ret.Error);
 
@@ -338,15 +350,17 @@ internal sealed partial class hmNETDynamicLib
                 {
                     if (l.Value is Int32 || l.Value is Int64)
                     {
+                        result.Args.Add(hmNETDynamicLib.Hidemaru.Macro.Var[l.Key]);
                         hmNETDynamicLib.Hidemaru.Macro.Var[l.Key] = 0;
                     }
                     else if (l.Value is string)
                     {
+                        result.Args.Add(hmNETDynamicLib.Hidemaru.Macro.Var[l.Key]);
                         hmNETDynamicLib.Hidemaru.Macro.Var[l.Key] = "";
                     }
                 }
 
-                return ret;
+                return result;
             }
 
             private static int funciton_base_random = 0;
@@ -356,6 +370,7 @@ internal sealed partial class hmNETDynamicLib
                 public object Result;
                 public string Message;
                 public Exception Error;
+                public List<Object> Args;
             }
             public static ExecFuncResult AsFunctionTryInvokeMember(string funcname, params object[] args)
             {
@@ -477,6 +492,8 @@ internal sealed partial class hmNETDynamicLib
 
                 //----------------------------------------------------------------
                 ExecFuncResult result = new ExecFuncResult();
+
+                // 866より少ないのでこのリターンの正常性は考慮しなくても良い
                 if (version < 866)
                 {
                     OutputDebugStream(ErrorMsg.MethodNeed866);
@@ -501,6 +518,22 @@ internal sealed partial class hmNETDynamicLib
 
                 Eval(cmd);
 
+
+                // 使ったので削除
+                foreach (var l in arg_list)
+                {
+                    if (l.Value is Int32 || l.Value is Int64)
+                    {
+                        result.Args.Add(hmNETDynamicLib.Hidemaru.Macro.Var[l.Key]);
+                        hmNETDynamicLib.Hidemaru.Macro.Var[l.Key] = 0;
+                    }
+                    else if (l.Value is string)
+                    {
+                        result.Args.Add(hmNETDynamicLib.Hidemaru.Macro.Var[l.Key]);
+                        hmNETDynamicLib.Hidemaru.Macro.Var[l.Key] = "";
+                    }
+                }
+
                 if (tmpVar == null)
                 {
                     result.Result = null;
@@ -518,14 +551,12 @@ internal sealed partial class hmNETDynamicLib
                         result.Result = (Int32)ret + 0; // 確実に複製を
                         result.Message = "";
                         result.Error = null;
-                        return result;
                     }
                     else
                     {
                         result.Result = (Int64)ret + 0; // 確実に複製を
                         result.Message = "";
                         result.Error = null;
-                        return result;
                     }
                 }
                 else
@@ -533,19 +564,6 @@ internal sealed partial class hmNETDynamicLib
                     result.Result = (String)ret + ""; // 確実に複製を
                     result.Message = "";
                     result.Error = null;
-                }
-
-                // 使ったので削除
-                foreach (var l in arg_list)
-                {
-                    if (l.Value is Int32 || l.Value is Int64)
-                    {
-                        hmNETDynamicLib.Hidemaru.Macro.Var[l.Key] = 0;
-                    }
-                    else if (l.Value is string)
-                    {
-                        hmNETDynamicLib.Hidemaru.Macro.Var[l.Key] = "";
-                    }
                 }
 
                 return result;

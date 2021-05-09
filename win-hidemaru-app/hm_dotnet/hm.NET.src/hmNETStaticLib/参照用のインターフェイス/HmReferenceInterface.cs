@@ -70,6 +70,7 @@ namespace Hidemaru
                 int Result { get; }
                 String Message { get; }
                 Exception Error { get; }
+                List<Object> Args { get; }
             }
 
 
@@ -78,12 +79,14 @@ namespace Hidemaru
                 public int Result { get; set; }
                 public string Message { get; set; }
                 public Exception Error { get; set; }
+                public List<Object> Args { get; set; }
 
-                public TStatementResult(int Result, String Message, Exception Error)
+                public TStatementResult(int Result, String Message, Exception Error, List<Object> Args)
                 {
                     this.Result = Result;
                     this.Message = Message;
                     this.Error = Error;
+                    this.Args = new List<object>(Args); // コピー渡し
                 }
             }
 
@@ -93,6 +96,7 @@ namespace Hidemaru
                 object Result { get; }
                 String Message { get; }
                 Exception Error { get; }
+                List<Object> Args { get; }
             }
 
             private class TFunctionResult : IFunctionResult
@@ -100,12 +104,14 @@ namespace Hidemaru
                 public object Result { get; set; }
                 public string Message { get; set; }
                 public Exception Error { get; set; }
+                public List<Object> Args { get; set; }
 
-                public TFunctionResult(object Result, String Message, Exception Error)
+                public TFunctionResult(object Result, String Message, Exception Error, List<Object> Args)
                 {
                     this.Result = Result;
                     this.Message = Message;
                     this.Error = Error;
+                    this.Args = new List<object>(Args); // コピー渡し
                 }
             }
 
@@ -140,14 +146,14 @@ namespace Hidemaru
             public static IStatementResult Statement(string funcname, params object[] args)
             {
                 var ret = hmNETDynamicLib.Hidemaru.Macro.AsStatementTryInvokeMember(funcname, args);
-                IStatementResult result = new TStatementResult(ret.Result, ret.Message, ret.Error);
+                IStatementResult result = new TStatementResult(ret.Result, ret.Message, ret.Error, ret.Args);
                 return result;
             }
 
             public static IFunctionResult Function(string funcname, params object[] args)
             {
                 var ret = hmNETDynamicLib.Hidemaru.Macro.AsFunctionTryInvokeMember(funcname, args);
-                IFunctionResult result = new TFunctionResult(ret.Result, ret.Message, ret.Error);
+                IFunctionResult result = new TFunctionResult(ret.Result, ret.Message, ret.Error, ret.Args);
                 return result;
             }
 
