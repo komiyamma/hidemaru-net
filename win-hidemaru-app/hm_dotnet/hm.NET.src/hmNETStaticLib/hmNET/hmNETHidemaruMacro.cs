@@ -517,14 +517,14 @@ internal sealed partial class hmNETDynamicLib
                     {
                         result.Result = (Int32)ret + 0; // 確実に複製を
                         result.Message = "";
-                        result.Error = new InvalidOperationException("HidemaruMacroEvalException");
+                        result.Error = null;
                         return result;
                     }
                     else
                     {
                         result.Result = (Int64)ret + 0; // 確実に複製を
                         result.Message = "";
-                        result.Error = new InvalidOperationException("HidemaruMacroEvalException");
+                        result.Error = null;
                         return result;
                     }
                 }
@@ -532,7 +532,7 @@ internal sealed partial class hmNETDynamicLib
                 {
                     result.Result = (String)ret + ""; // 確実に複製を
                     result.Message = "";
-                    result.Error = new InvalidOperationException("HidemaruMacroEvalException");
+                    result.Error = null;
                 }
 
                 // 使ったので削除

@@ -7,6 +7,7 @@
 
 
 using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 namespace HmNetPInvoke
@@ -233,6 +234,282 @@ namespace HmNetPInvoke
 
         public static partial class Macro
         {
+            // マクロでの問い合わせ結果系
+            public interface IStatementResult
+            {
+                int Result { get; }
+                String Message { get; }
+                Exception Error { get; }
+            }
+
+
+            private class TStatementResult : IStatementResult
+            {
+                public int Result { get; set; }
+                public string Message { get; set; }
+                public Exception Error { get; set; }
+
+                public TStatementResult(int Result, String Message, Exception Error)
+                {
+                    this.Result = Result;
+                    this.Message = Message;
+                    this.Error = Error;
+                }
+            }
+
+            private static int statement_base_random = 0;
+            internal static IStatementResult Statement(string funcname, params object[] args)
+            {
+                if (statement_base_random == 0)
+                {
+                    statement_base_random = new System.Random().Next(Int16.MaxValue) + 1;
+
+                }
+
+                var arg_list = new List<KeyValuePair<String, Object>>();
+                int cur_random = new Random().Next(Int16.MaxValue) + 1;
+                foreach (var value in args)
+                {
+                    bool success = false;
+                    cur_random++;
+                    object normalized_arg = null;
+                    // Boolean型であれば、True:1 Flase:0にマッピングする
+                    if (value is bool)
+                    {
+                        success = true;
+                        if ((bool)value == true)
+                        {
+                            normalized_arg = 1;
+                        }
+                        else
+                        {
+                            normalized_arg = 0;
+                        }
+                    }
+
+                    // まずは整数でトライ
+                    int itmp = 0;
+                    success = Int32.TryParse(value.ToString(), out itmp);
+
+                    if (success == true)
+                    {
+                        normalized_arg = itmp;
+                    }
+
+                    else
+                    {
+                        // 次に少数でトライ
+                        Double dtmp = 0;
+                        success = Double.TryParse(value.ToString(), out dtmp);
+                        if (success)
+                        {
+                            normalized_arg = (int)(dtmp);
+                        }
+
+                        else
+                        {
+                            normalized_arg = 0;
+                        }
+                    }
+
+
+                    // 成功しなかった
+                    if (!success)
+                    {
+                        normalized_arg = value.ToString();
+                    }
+
+                    if (normalized_arg is int)
+                    {
+                        string key = "#AsStatement_" + statement_base_random.ToString() + '_' + cur_random.ToString();
+                        arg_list.Add(new KeyValuePair<string, object>(key, normalized_arg));
+                        Macro.Var[key] = normalized_arg;
+                    }
+                    else if (normalized_arg is string)
+                    {
+                        string key = "$AsStatement_" + statement_base_random.ToString() + '_' + cur_random.ToString();
+                        arg_list.Add(new KeyValuePair<string, object>(key, normalized_arg));
+                        Macro.Var[key] = normalized_arg;
+                    }
+                }
+
+                // keyをリスト化
+                var arg_keys = new List<String>();
+                foreach (var l in arg_list)
+                {
+                    arg_keys.Add(l.Key);
+                }
+
+                // それを「,」で繋げる
+                string args_string = String.Join(", ", arg_keys);
+                // それを指定の「文」で実行する形
+                string expression = $"{funcname} {args_string};\n";
+
+                // 実行する
+                IResult ret = Macro.Eval(expression);
+                // 成否も含めて結果を入れる。
+                // new TResult(ret.Result, ret.Message, ret.Error);
+
+                // 使ったので削除
+                foreach (var l in arg_list)
+                {
+                    if (l.Value is Int32 || l.Value is Int64)
+                    {
+                        Macro.Var[l.Key] = 0;
+                    }
+                    else if (l.Value is string)
+                    {
+                        Macro.Var[l.Key] = "";
+                    }
+                }
+
+                IStatementResult result = new TStatementResult(ret.Result, ret.Message, ret.Error);
+                return result;
+            }
+
+            // マクロでの問い合わせ結果系
+            public interface IFunctionResult
+            {
+                object Result { get; }
+                String Message { get; }
+                Exception Error { get; }
+            }
+
+            private class TFunctionResult : IFunctionResult
+            {
+                public object Result { get; set; }
+                public string Message { get; set; }
+                public Exception Error { get; set; }
+
+                public TFunctionResult(object Result, String Message, Exception Error)
+                {
+                    this.Result = Result;
+                    this.Message = Message;
+                    this.Error = Error;
+                }
+            }
+
+            private static int funciton_base_random = 0;
+            public static IFunctionResult AsFunctionTryInvokeMember(string funcname, params object[] args)
+            {
+                if (funciton_base_random == 0)
+                {
+                    funciton_base_random = new System.Random().Next(Int16.MaxValue) + 1;
+
+                }
+
+                var arg_list = new List<KeyValuePair<String, Object>>();
+                int cur_random = new Random().Next(Int16.MaxValue) + 1;
+                foreach (var value in args)
+                {
+                    bool success = false;
+                    cur_random++;
+                    object normalized_arg = null;
+                    // Boolean型であれば、True:1 Flase:0にマッピングする
+                    if (value is bool)
+                    {
+                        success = true;
+                        if ((bool)value == true)
+                        {
+                            normalized_arg = 1;
+                        }
+                        else
+                        {
+                            normalized_arg = 0;
+                        }
+                    }
+
+                    // まずは整数でトライ
+                    int itmp = 0;
+                    success = int.TryParse(value.ToString(), out itmp);
+
+                    if (success == true)
+                    {
+                        normalized_arg = itmp;
+                    }
+
+                    else
+                    {
+                        // 次に少数でトライ
+                        Double dtmp = 0;
+                        success = Double.TryParse(value.ToString(), out dtmp);
+                        if (success)
+                        {
+                            normalized_arg = (Int32)(dtmp);
+                        }
+
+                        else
+                        {
+                            normalized_arg = 0;
+                        }
+                    }
+
+                    // 成功しなかった
+                    if (!success)
+                    {
+                        normalized_arg = value.ToString();
+                    }
+
+                    if (normalized_arg is int)
+                    {
+                        string key = "#AsStatement_" + funciton_base_random.ToString() + '_' + cur_random.ToString();
+                        arg_list.Add(new KeyValuePair<string, object>(key, normalized_arg));
+                        Macro.Var[key] = normalized_arg;
+                    }
+                    else if (normalized_arg is string)
+                    {
+                        string key = "$AsStatement_" + funciton_base_random.ToString() + '_' + cur_random.ToString();
+                        arg_list.Add(new KeyValuePair<string, object>(key, normalized_arg));
+                        Macro.Var[key] = normalized_arg;
+                    }
+                }
+
+                // keyをリスト化
+                var arg_keys = new List<String>();
+                foreach (var l in arg_list)
+                {
+                    arg_keys.Add(l.Key);
+                }
+
+                // それを「,」で繋げる
+                string args_string = String.Join(", ", arg_keys);
+                // それを指定の「文」で実行する形
+                string expression = $"{funcname}({args_string})";
+
+                //----------------------------------------------------------------
+                TFunctionResult result = new TFunctionResult(null, "", null);
+
+                Object ret = Macro.Var[expression];
+ 
+                if (ret.GetType().Name != "String")
+                {
+                    result.Result = (Int32)ret + 0; // 確実に複製を
+                    result.Message = "";
+                    result.Error = null;
+                }
+                else
+                {
+                    result.Result = (String)ret + ""; // 確実に複製を
+                    result.Message = "";
+                    result.Error = null;
+                }
+
+                // 使ったので削除
+                foreach (var l in arg_list)
+                {
+                    if (l.Value is int)
+                    {
+                        Macro.Var[l.Key] = 0;
+                    }
+                    else if (l.Value is string)
+                    {
+                        Macro.Var[l.Key] = "";
+                    }
+                }
+
+                return result;
+            }
+
             /// <summary>
             /// 対象の「秀丸マクロ変数名」への読み書き
             /// </summary>
