@@ -341,6 +341,7 @@ internal sealed partial class hmNETDynamicLib
                 result.Result = ret.Result;
                 result.Error = ret.Error;
                 result.Message = ret.Message;
+                result.Args = new List<object>();
 
                 // 成否も含めて結果を入れる。
                 // new TResult(ret.Result, ret.Message, ret.Error);
@@ -492,6 +493,7 @@ internal sealed partial class hmNETDynamicLib
 
                 //----------------------------------------------------------------
                 ExecFuncResult result = new ExecFuncResult();
+                result.Args = new List<object>();
 
                 // 866より少ないのでこのリターンの正常性は考慮しなくても良い
                 if (version < 866)
@@ -518,6 +520,43 @@ internal sealed partial class hmNETDynamicLib
 
                 Eval(cmd);
 
+                bool is_exception = false;
+                if (tmpVar == null)
+                {
+                    is_exception = true;
+                    result.Result = null;
+                    result.Message = "";
+                    result.Error = new InvalidOperationException("HidemaruMacroEvalException");
+                }
+
+                if (!is_exception)
+                {
+                    Object ret = tmpVar;
+                    tmpVar = null; // クリア
+
+                    if (ret.GetType().Name != "String")
+                    {
+                        if (IntPtr.Size == 4)
+                        {
+                            result.Result = (Int32)ret + 0; // 確実に複製を
+                            result.Message = "";
+                            result.Error = null;
+                        }
+                        else
+                        {
+                            result.Result = (Int64)ret + 0; // 確実に複製を
+                            result.Message = "";
+                            result.Error = null;
+                        }
+                    }
+                    else
+                    {
+                        result.Result = (String)ret + ""; // 確実に複製を
+                        result.Message = "";
+                        result.Error = null;
+                    }
+
+                }
 
                 // 使ったので削除
                 foreach (var l in arg_list)
@@ -532,38 +571,6 @@ internal sealed partial class hmNETDynamicLib
                         result.Args.Add(hmNETDynamicLib.Hidemaru.Macro.Var[l.Key]);
                         hmNETDynamicLib.Hidemaru.Macro.Var[l.Key] = "";
                     }
-                }
-
-                if (tmpVar == null)
-                {
-                    result.Result = null;
-                    result.Message = "";
-                    result.Error = new InvalidOperationException("HidemaruMacroEvalException");
-                    return result;
-                }
-                Object ret = tmpVar;
-                tmpVar = null; // クリア
-
-                if (ret.GetType().Name != "String")
-                {
-                    if (IntPtr.Size == 4)
-                    {
-                        result.Result = (Int32)ret + 0; // 確実に複製を
-                        result.Message = "";
-                        result.Error = null;
-                    }
-                    else
-                    {
-                        result.Result = (Int64)ret + 0; // 確実に複製を
-                        result.Message = "";
-                        result.Error = null;
-                    }
-                }
-                else
-                {
-                    result.Result = (String)ret + ""; // 確実に複製を
-                    result.Message = "";
-                    result.Error = null;
                 }
 
                 return result;

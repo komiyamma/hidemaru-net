@@ -86,7 +86,7 @@ namespace Hidemaru
                     this.Result = Result;
                     this.Message = Message;
                     this.Error = Error;
-                    this.Args = new List<object>(Args); // コピー渡し
+                    this.Args = new List<Object>(Args); // コピー渡し
                 }
             }
 
@@ -111,7 +111,7 @@ namespace Hidemaru
                     this.Result = Result;
                     this.Message = Message;
                     this.Error = Error;
-                    this.Args = new List<object>(Args); // コピー渡し
+                    this.Args = new List<Object>(Args); // コピー渡し
                 }
             }
 
