@@ -524,7 +524,7 @@ internal sealed partial class hmNETDynamicLib
                     "##_tmp_dll_id_ret = dllfuncw( " + invocate + " \"SetTmpVar\", " + expression + ");\n" +
                     "##_tmp_dll_id_ret = 0;\n";
 
-                Eval(cmd);
+                ExecResult eval_ret = Eval(cmd);
 
                 bool is_exception = false;
                 if (tmpVar == null)
@@ -545,21 +545,21 @@ internal sealed partial class hmNETDynamicLib
                         if (IntPtr.Size == 4)
                         {
                             result.Result = (Int32)ret + 0; // 確実に複製を
-                            result.Message = "";
-                            result.Error = null;
+                            result.Message = eval_ret.Message;
+                            result.Error = eval_ret.Error;
                         }
                         else
                         {
                             result.Result = (Int64)ret + 0; // 確実に複製を
-                            result.Message = "";
-                            result.Error = null;
+                            result.Message = eval_ret.Message;
+                            result.Error = eval_ret.Error;
                         }
                     }
                     else
                     {
                         result.Result = (String)ret + ""; // 確実に複製を
-                        result.Message = "";
-                        result.Error = null;
+                        result.Message = eval_ret.Message;
+                        result.Error = eval_ret.Error;
                     }
 
                 }
