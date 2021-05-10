@@ -292,31 +292,32 @@ namespace HmNetPInvoke
                         }
                     }
 
-                    // まずは整数でトライ
-                    int itmp = 0;
-                    success = Int32.TryParse(value.ToString(), out itmp);
+                    if (!success) {
+                        // まずは整数でトライ
+                        int itmp = 0;
+                        success = Int32.TryParse(value.ToString(), out itmp);
 
-                    if (success == true)
-                    {
-                        normalized_arg = itmp;
-                    }
-
-                    else
-                    {
-                        // 次に少数でトライ
-                        Double dtmp = 0;
-                        success = Double.TryParse(value.ToString(), out dtmp);
-                        if (success)
+                        if (success == true)
                         {
-                            normalized_arg = (int)(dtmp);
+                            normalized_arg = itmp;
                         }
 
                         else
                         {
-                            normalized_arg = 0;
+                            // 次に少数でトライ
+                            Double dtmp = 0;
+                            success = Double.TryParse(value.ToString(), out dtmp);
+                            if (success)
+                            {
+                                normalized_arg = (int)(dtmp);
+                            }
+
+                            else
+                            {
+                                normalized_arg = 0;
+                            }
                         }
                     }
-
 
                     // 成功しなかった
                     if (!success)
@@ -355,7 +356,7 @@ namespace HmNetPInvoke
                 // 成否も含めて結果を入れる。
                 // new TResult(ret.Result, ret.Message, ret.Error);
 
-                IStatementResult result = new TStatementResult(ret.Result, ret.Message, ret.Error, new List<Object>);
+                IStatementResult result = new TStatementResult(ret.Result, ret.Message, ret.Error, new List<Object>());
 
                 // 使ったので削除
                 foreach (var l in arg_list)
@@ -430,28 +431,30 @@ namespace HmNetPInvoke
                         }
                     }
 
-                    // まずは整数でトライ
-                    int itmp = 0;
-                    success = int.TryParse(value.ToString(), out itmp);
+                    if (!success) {
+                        // まずは整数でトライ
+                        int itmp = 0;
+                        success = int.TryParse(value.ToString(), out itmp);
 
-                    if (success == true)
-                    {
-                        normalized_arg = itmp;
-                    }
-
-                    else
-                    {
-                        // 次に少数でトライ
-                        Double dtmp = 0;
-                        success = Double.TryParse(value.ToString(), out dtmp);
-                        if (success)
+                        if (success == true)
                         {
-                            normalized_arg = (int)(dtmp);
+                            normalized_arg = itmp;
                         }
 
                         else
                         {
-                            normalized_arg = 0;
+                            // 次に少数でトライ
+                            Double dtmp = 0;
+                            success = Double.TryParse(value.ToString(), out dtmp);
+                            if (success)
+                            {
+                                normalized_arg = (int)(dtmp);
+                            }
+
+                            else
+                            {
+                                normalized_arg = 0;
+                            }
                         }
                     }
 
@@ -484,13 +487,27 @@ namespace HmNetPInvoke
 
                 // それを「,」で繋げる
                 string args_string = String.Join(", ", arg_keys);
-                // それを指定の「文」で実行する形
+                // それを指定の「関数」で実行する形
                 string expression = $"{funcname}({args_string})";
 
                 //----------------------------------------------------------------
-                TFunctionResult result = new TFunctionResult(null, "", null, new List<Object>);
+                TFunctionResult result = new TFunctionResult(null, "", null, new List<Object>());
+                result.Args = new List<object>();
 
                 Object ret = Macro.Var[expression];
+
+                if (ret.GetType().Name != "String")
+                {
+                    result.Result = (int)ret + 0; // 確実に複製を
+                    result.Message = "";
+                    result.Error = null;
+                }
+                else
+                {
+                    result.Result = (String)ret + ""; // 確実に複製を
+                    result.Message = "";
+                    result.Error = null;
+                }
 
                 // 使ったので削除
                 foreach (var l in arg_list)
@@ -505,19 +522,6 @@ namespace HmNetPInvoke
                         result.Args.Add(Macro.Var[l.Key]);
                         Macro.Var[l.Key] = "";
                     }
-                }
-
-                if (ret.GetType().Name != "String")
-                {
-                    result.Result = (int)ret + 0; // 確実に複製を
-                    result.Message = "";
-                    result.Error = null;
-                }
-                else
-                {
-                    result.Result = (String)ret + ""; // 確実に複製を
-                    result.Message = "";
-                    result.Error = null;
                 }
 
                 return result;

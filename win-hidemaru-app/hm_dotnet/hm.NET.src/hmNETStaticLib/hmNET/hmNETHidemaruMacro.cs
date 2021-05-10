@@ -246,59 +246,62 @@ internal sealed partial class hmNETDynamicLib
                         }
                     }
 
-                    // 32bit
-                    if (IntPtr.Size == 4)
+                    if (!success)
                     {
-                        // まずは整数でトライ
-                        Int32 itmp = 0;
-                        success = Int32.TryParse(value.ToString(), out itmp);
-
-                        if (success == true)
+                        // 32bit
+                        if (IntPtr.Size == 4)
                         {
-                            normalized_arg = itmp;
-                        }
+                            // まずは整数でトライ
+                            Int32 itmp = 0;
+                            success = Int32.TryParse(value.ToString(), out itmp);
 
-                        else
-                        {
-                            // 次に少数でトライ
-                            Double dtmp = 0;
-                            success = Double.TryParse(value.ToString(), out dtmp);
-                            if (success)
+                            if (success == true)
                             {
-                                normalized_arg = (Int32)(dtmp);
+                                normalized_arg = itmp;
                             }
 
                             else
                             {
-                                normalized_arg = 0;
+                                // 次に少数でトライ
+                                Double dtmp = 0;
+                                success = Double.TryParse(value.ToString(), out dtmp);
+                                if (success)
+                                {
+                                    normalized_arg = (Int32)(dtmp);
+                                }
+
+                                else
+                                {
+                                    normalized_arg = 0;
+                                }
                             }
                         }
-                    }
 
-                    // 64bit
-                    else
-                    {
-                        // まずは整数でトライ
-                        Int64 itmp = 0;
-                        success = Int64.TryParse(value.ToString(), out itmp);
-
-                        if (success == true)
-                        {
-                            normalized_arg = itmp;
-                        }
-
+                        // 64bit
                         else
                         {
-                            // 次に少数でトライ
-                            Double dtmp = 0;
-                            success = Double.TryParse(value.ToString(), out dtmp);
-                            if (success)
+                            // まずは整数でトライ
+                            Int64 itmp = 0;
+                            success = Int64.TryParse(value.ToString(), out itmp);
+
+                            if (success == true)
                             {
-                                normalized_arg = (Int64)(dtmp);
+                                normalized_arg = itmp;
                             }
+
                             else
                             {
-                                normalized_arg = 0;
+                                // 次に少数でトライ
+                                Double dtmp = 0;
+                                success = Double.TryParse(value.ToString(), out dtmp);
+                                if (success)
+                                {
+                                    normalized_arg = (Int64)(dtmp);
+                                }
+                                else
+                                {
+                                    normalized_arg = 0;
+                                }
                             }
                         }
                     }
@@ -402,59 +405,62 @@ internal sealed partial class hmNETDynamicLib
                         }
                     }
 
-                    // 32bit
-                    if (IntPtr.Size == 4)
+                    if (!success)
                     {
-                        // まずは整数でトライ
-                        Int32 itmp = 0;
-                        success = Int32.TryParse(value.ToString(), out itmp);
-
-                        if (success == true)
+                        // 32bit
+                        if (IntPtr.Size == 4)
                         {
-                            normalized_arg = itmp;
-                        }
+                            // まずは整数でトライ
+                            Int32 itmp = 0;
+                            success = Int32.TryParse(value.ToString(), out itmp);
 
-                        else
-                        {
-                            // 次に少数でトライ
-                            Double dtmp = 0;
-                            success = Double.TryParse(value.ToString(), out dtmp);
-                            if (success)
+                            if (success == true)
                             {
-                                normalized_arg = (Int32)(dtmp);
+                                normalized_arg = itmp;
                             }
 
                             else
                             {
-                                normalized_arg = 0;
+                                // 次に少数でトライ
+                                Double dtmp = 0;
+                                success = Double.TryParse(value.ToString(), out dtmp);
+                                if (success)
+                                {
+                                    normalized_arg = (Int32)(dtmp);
+                                }
+
+                                else
+                                {
+                                    normalized_arg = 0;
+                                }
                             }
                         }
-                    }
 
-                    // 64bit
-                    else
-                    {
-                        // まずは整数でトライ
-                        Int64 itmp = 0;
-                        success = Int64.TryParse(value.ToString(), out itmp);
-
-                        if (success == true)
-                        {
-                            normalized_arg = itmp;
-                        }
-
+                        // 64bit
                         else
                         {
-                            // 次に少数でトライ
-                            Double dtmp = 0;
-                            success = Double.TryParse(value.ToString(), out dtmp);
-                            if (success)
+                            // まずは整数でトライ
+                            Int64 itmp = 0;
+                            success = Int64.TryParse(value.ToString(), out itmp);
+
+                            if (success == true)
                             {
-                                normalized_arg = (Int64)(dtmp);
+                                normalized_arg = itmp;
                             }
+
                             else
                             {
-                                normalized_arg = 0;
+                                // 次に少数でトライ
+                                Double dtmp = 0;
+                                success = Double.TryParse(value.ToString(), out dtmp);
+                                if (success)
+                                {
+                                    normalized_arg = (Int64)(dtmp);
+                                }
+                                else
+                                {
+                                    normalized_arg = 0;
+                                }
                             }
                         }
                     }
@@ -488,7 +494,7 @@ internal sealed partial class hmNETDynamicLib
 
                 // それを「,」で繋げる
                 string args_string = String.Join(", ", arg_keys);
-                // それを指定の「文」で実行する形
+                // それを指定の「関数」で実行する形
                 string expression = $"{funcname}({args_string})";
 
                 //----------------------------------------------------------------
