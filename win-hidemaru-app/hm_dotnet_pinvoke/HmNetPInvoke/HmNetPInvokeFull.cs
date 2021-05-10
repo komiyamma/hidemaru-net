@@ -1,5 +1,5 @@
 /*
- * HmNetPInvoke ver 1.841
+ * HmNetPInvoke ver 1.851
  * Copyright (C) 2021 Akitsugu Komiyama
  * under the MIT License
  **/
@@ -13,7 +13,7 @@ using System.Runtime.InteropServices;
 namespace HmNetPInvoke
 {
     public partial class HmMacroCOMVar {
-        private const string HmMacroCOMVarInterface = "b727d443-f106-4cf7-924f-4d4f53d04e78";
+        private const string HmMacroCOMVarInterface = "eafab547-adc8-4c6d-96f9-9f261f40da67";
     }
 }
 
@@ -359,20 +359,32 @@ namespace HmNetPInvoke
                 TFunctionResult result = new TFunctionResult(null, "", null, new List<Object>());
                 result.Args = new List<object>();
 
-                Object ret = Macro.Var[expression];
+                Object ret = null;
+                try
+                {
+                    ret = Macro.Var[expression]; // この中のGetMethodで例外が発生する可能性あり
 
-                if (ret.GetType().Name != "String")
-                {
-                    result.Result = (int)ret + 0; // 確実に複製を
-                    result.Message = "";
-                    result.Error = null;
+                    if (ret.GetType().Name != "String")
+                    {
+                        result.Result = (int)ret + 0; // 確実に複製を
+                        result.Message = "";
+                        result.Error = null;
+                    }
+                    else
+                    {
+                        result.Result = (String)ret + ""; // 確実に複製を
+                        result.Message = "";
+                        result.Error = null;
+                    }
+
                 }
-                else
+                catch (Exception e)
                 {
-                    result.Result = (String)ret + ""; // 確実に複製を
+                    result.Result = null;
                     result.Message = "";
-                    result.Error = null;
+                    result.Error = e;
                 }
+
 
                 // 使ったので削除
                 foreach (var l in arg_list)
