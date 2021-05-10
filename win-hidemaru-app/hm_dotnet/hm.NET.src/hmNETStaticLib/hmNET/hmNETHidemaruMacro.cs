@@ -209,22 +209,8 @@ internal sealed partial class hmNETDynamicLib
                 return result;
             }
 
-            private static int statement_base_random = 0;
-            public struct ExecStateResult
+            private static List<KeyValuePair<string, object>> SetMacroVarAndMakeMacroKeyArray(object[] args, int base_random)
             {
-                public int Result;
-                public string Message;
-                public Exception Error;
-                public List<Object> Args;
-            }
-            public static ExecStateResult AsStatementTryInvokeMember(string funcname, params object[] args)
-            {
-                if (statement_base_random == 0)
-                {
-                    statement_base_random = new System.Random().Next(Int16.MaxValue) + 1;
-
-                }
-
                 var arg_list = new List<KeyValuePair<String, Object>>();
                 int cur_random = new Random().Next(Int16.MaxValue) + 1;
                 foreach (var value in args)
@@ -314,17 +300,40 @@ internal sealed partial class hmNETDynamicLib
 
                     if (normalized_arg is Int32 || normalized_arg is Int64)
                     {
-                        string key = "#AsStatement_" + statement_base_random.ToString() + '_' + cur_random.ToString();
+                        string key = "#AsMacroArs_" + base_random.ToString() + '_' + cur_random.ToString();
                         arg_list.Add(new KeyValuePair<string, object>(key, normalized_arg));
                         hmNETDynamicLib.Hidemaru.Macro.Var[key] = normalized_arg;
                     }
                     else if (normalized_arg is string)
                     {
-                        string key = "$AsStatement_" + statement_base_random.ToString() + '_' + cur_random.ToString();
+                        string key = "$AsMacroArs_" + base_random.ToString() + '_' + cur_random.ToString();
                         arg_list.Add(new KeyValuePair<string, object>(key, normalized_arg));
                         hmNETDynamicLib.Hidemaru.Macro.Var[key] = normalized_arg;
                     }
                 }
+
+                return arg_list;
+            }
+
+
+
+            private static int statement_base_random = 0;
+            public struct ExecStateResult
+            {
+                public int Result;
+                public string Message;
+                public Exception Error;
+                public List<Object> Args;
+            }
+            public static ExecStateResult AsStatementTryInvokeMember(string funcname, params object[] args)
+            {
+                if (statement_base_random == 0)
+                {
+                    statement_base_random = new System.Random().Next(Int16.MaxValue) + 1;
+
+                }
+
+                List<KeyValuePair<string, object>> arg_list = SetMacroVarAndMakeMacroKeyArray(args, statement_base_random);
 
                 // keyをリスト化
                 var arg_keys = new List<String>();
@@ -381,109 +390,9 @@ internal sealed partial class hmNETDynamicLib
                 if (funciton_base_random == 0)
                 {
                     funciton_base_random = new System.Random().Next(Int16.MaxValue) + 1;
-
                 }
 
-                var arg_list = new List<KeyValuePair<String, Object>>();
-                int cur_random = new Random().Next(Int16.MaxValue) + 1;
-                foreach (var value in args)
-                {
-                    bool success = false;
-                    cur_random++;
-                    object normalized_arg = null;
-                    // Boolean型であれば、True:1 Flase:0にマッピングする
-                    if (value is bool)
-                    {
-                        success = true;
-                        if ((bool)value == true)
-                        {
-                            normalized_arg = 1;
-                        }
-                        else
-                        {
-                            normalized_arg = 0;
-                        }
-                    }
-
-                    if (!success)
-                    {
-                        // 32bit
-                        if (IntPtr.Size == 4)
-                        {
-                            // まずは整数でトライ
-                            Int32 itmp = 0;
-                            success = Int32.TryParse(value.ToString(), out itmp);
-
-                            if (success == true)
-                            {
-                                normalized_arg = itmp;
-                            }
-
-                            else
-                            {
-                                // 次に少数でトライ
-                                Double dtmp = 0;
-                                success = Double.TryParse(value.ToString(), out dtmp);
-                                if (success)
-                                {
-                                    normalized_arg = (Int32)(dtmp);
-                                }
-
-                                else
-                                {
-                                    normalized_arg = 0;
-                                }
-                            }
-                        }
-
-                        // 64bit
-                        else
-                        {
-                            // まずは整数でトライ
-                            Int64 itmp = 0;
-                            success = Int64.TryParse(value.ToString(), out itmp);
-
-                            if (success == true)
-                            {
-                                normalized_arg = itmp;
-                            }
-
-                            else
-                            {
-                                // 次に少数でトライ
-                                Double dtmp = 0;
-                                success = Double.TryParse(value.ToString(), out dtmp);
-                                if (success)
-                                {
-                                    normalized_arg = (Int64)(dtmp);
-                                }
-                                else
-                                {
-                                    normalized_arg = 0;
-                                }
-                            }
-                        }
-                    }
-
-                    // 成功しなかった
-                    if (!success)
-                    {
-                        normalized_arg = value.ToString();
-                    }
-
-                    if (normalized_arg is Int32 || normalized_arg is Int64)
-                    {
-                        string key = "#AsStatement_" + funciton_base_random.ToString() + '_' + cur_random.ToString();
-                        arg_list.Add(new KeyValuePair<string, object>(key, normalized_arg));
-                        hmNETDynamicLib.Hidemaru.Macro.Var[key] = normalized_arg;
-                    }
-                    else if (normalized_arg is string)
-                    {
-                        string key = "$AsStatement_" + funciton_base_random.ToString() + '_' + cur_random.ToString();
-                        arg_list.Add(new KeyValuePair<string, object>(key, normalized_arg));
-                        hmNETDynamicLib.Hidemaru.Macro.Var[key] = normalized_arg;
-                    }
-                }
+                List<KeyValuePair<string, object>> arg_list = SetMacroVarAndMakeMacroKeyArray(args, statement_base_random);
 
                 // keyをリスト化
                 var arg_keys = new List<String>();
