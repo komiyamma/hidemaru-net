@@ -13,7 +13,7 @@ using System.Runtime.InteropServices;
 namespace HmNetPInvoke
 {
     public partial class HmMacroCOMVar {
-        private const string HmMacroCOMVarInterface = "b869bdd3-89f3-4294-8087-757c8fb3e2d6";
+        private const string HmMacroCOMVarInterface = "b727d443-f106-4cf7-924f-4d4f53d04e78";
     }
 }
 
@@ -268,73 +268,7 @@ namespace HmNetPInvoke
 
                 }
 
-                var arg_list = new List<KeyValuePair<String, Object>>();
-                int cur_random = new Random().Next(Int16.MaxValue) + 1;
-                foreach (var value in args)
-                {
-                    bool success = false;
-                    cur_random++;
-                    object normalized_arg = null;
-                    // Boolean型であれば、True:1 Flase:0にマッピングする
-                    if (value is bool)
-                    {
-                        success = true;
-                        if ((bool)value == true)
-                        {
-                            normalized_arg = 1;
-                        }
-                        else
-                        {
-                            normalized_arg = 0;
-                        }
-                    }
-
-                    if (!success) {
-                        // まずは整数でトライ
-                        int itmp = 0;
-                        success = Int32.TryParse(value.ToString(), out itmp);
-
-                        if (success == true)
-                        {
-                            normalized_arg = itmp;
-                        }
-
-                        else
-                        {
-                            // 次に少数でトライ
-                            Double dtmp = 0;
-                            success = Double.TryParse(value.ToString(), out dtmp);
-                            if (success)
-                            {
-                                normalized_arg = (int)(dtmp);
-                            }
-
-                            else
-                            {
-                                normalized_arg = 0;
-                            }
-                        }
-                    }
-
-                    // 成功しなかった
-                    if (!success)
-                    {
-                        normalized_arg = value.ToString();
-                    }
-
-                    if (normalized_arg is int)
-                    {
-                        string key = "#AsStatement_" + statement_base_random.ToString() + '_' + cur_random.ToString();
-                        arg_list.Add(new KeyValuePair<string, object>(key, normalized_arg));
-                        Macro.Var[key] = normalized_arg;
-                    }
-                    else if (normalized_arg is string)
-                    {
-                        string key = "$AsStatement_" + statement_base_random.ToString() + '_' + cur_random.ToString();
-                        arg_list.Add(new KeyValuePair<string, object>(key, normalized_arg));
-                        Macro.Var[key] = normalized_arg;
-                    }
-                }
+                List<KeyValuePair<string, object>> arg_list = SetMacroVarAndMakeMacroKeyArray(args, statement_base_random);
 
                 // keyをリスト化
                 var arg_keys = new List<String>();
@@ -407,73 +341,7 @@ namespace HmNetPInvoke
 
                 }
 
-                var arg_list = new List<KeyValuePair<String, Object>>();
-                int cur_random = new Random().Next(Int16.MaxValue) + 1;
-                foreach (var value in args)
-                {
-                    bool success = false;
-                    cur_random++;
-                    object normalized_arg = null;
-                    // Boolean型であれば、True:1 Flase:0にマッピングする
-                    if (value is bool)
-                    {
-                        success = true;
-                        if ((bool)value == true)
-                        {
-                            normalized_arg = 1;
-                        }
-                        else
-                        {
-                            normalized_arg = 0;
-                        }
-                    }
-
-                    if (!success) {
-                        // まずは整数でトライ
-                        int itmp = 0;
-                        success = int.TryParse(value.ToString(), out itmp);
-
-                        if (success == true)
-                        {
-                            normalized_arg = itmp;
-                        }
-
-                        else
-                        {
-                            // 次に少数でトライ
-                            Double dtmp = 0;
-                            success = Double.TryParse(value.ToString(), out dtmp);
-                            if (success)
-                            {
-                                normalized_arg = (int)(dtmp);
-                            }
-
-                            else
-                            {
-                                normalized_arg = 0;
-                            }
-                        }
-                    }
-
-                    // 成功しなかった
-                    if (!success)
-                    {
-                        normalized_arg = value.ToString();
-                    }
-
-                    if (normalized_arg is int)
-                    {
-                        string key = "#AsStatement_" + funciton_base_random.ToString() + '_' + cur_random.ToString();
-                        arg_list.Add(new KeyValuePair<string, object>(key, normalized_arg));
-                        Macro.Var[key] = normalized_arg;
-                    }
-                    else if (normalized_arg is string)
-                    {
-                        string key = "$AsStatement_" + funciton_base_random.ToString() + '_' + cur_random.ToString();
-                        arg_list.Add(new KeyValuePair<string, object>(key, normalized_arg));
-                        Macro.Var[key] = normalized_arg;
-                    }
-                }
+                List<KeyValuePair<string, object>> arg_list = SetMacroVarAndMakeMacroKeyArray(args, funciton_base_random);
 
                 // keyをリスト化
                 var arg_keys = new List<String>();
@@ -522,6 +390,80 @@ namespace HmNetPInvoke
                 }
 
                 return result;
+            }
+
+            private static List<KeyValuePair<string, object>> SetMacroVarAndMakeMacroKeyArray(object[] args, int base_random)
+            {
+                var arg_list = new List<KeyValuePair<String, Object>>();
+                int cur_random = new Random().Next(Int16.MaxValue) + 1;
+                foreach (var value in args)
+                {
+                    bool success = false;
+                    cur_random++;
+                    object normalized_arg = null;
+                    // Boolean型であれば、True:1 Flase:0にマッピングする
+                    if (value is bool)
+                    {
+                        success = true;
+                        if ((bool)value == true)
+                        {
+                            normalized_arg = 1;
+                        }
+                        else
+                        {
+                            normalized_arg = 0;
+                        }
+                    }
+
+                    if (!success)
+                    {
+                        // まずは整数でトライ
+                        int itmp = 0;
+                        success = int.TryParse(value.ToString(), out itmp);
+
+                        if (success == true)
+                        {
+                            normalized_arg = itmp;
+                        }
+
+                        else
+                        {
+                            // 次に少数でトライ
+                            Double dtmp = 0;
+                            success = Double.TryParse(value.ToString(), out dtmp);
+                            if (success)
+                            {
+                                normalized_arg = (int)(dtmp);
+                            }
+
+                            else
+                            {
+                                normalized_arg = 0;
+                            }
+                        }
+                    }
+
+                    // 成功しなかった
+                    if (!success)
+                    {
+                        normalized_arg = value.ToString();
+                    }
+
+                    if (normalized_arg is int)
+                    {
+                        string key = "#AsMacroArs_" + base_random.ToString() + '_' + cur_random.ToString();
+                        arg_list.Add(new KeyValuePair<string, object>(key, normalized_arg));
+                        Macro.Var[key] = normalized_arg;
+                    }
+                    else if (normalized_arg is string)
+                    {
+                        string key = "AsMacroArs_" + base_random.ToString() + '_' + cur_random.ToString();
+                        arg_list.Add(new KeyValuePair<string, object>(key, normalized_arg));
+                        Macro.Var[key] = normalized_arg;
+                    }
+                }
+
+                return arg_list;
             }
 
             /// <summary>
