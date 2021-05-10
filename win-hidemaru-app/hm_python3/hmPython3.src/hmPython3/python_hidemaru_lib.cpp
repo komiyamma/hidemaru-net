@@ -452,12 +452,6 @@ namespace Hidemaru {
 		}
 	}
 
-	// pythonの中から秀丸関数ステートメントを実行
-	py::tuple Macro_Function(const std::string utf8_funcname, const py::tuple value_args, const py::tuple type_args) {
-		BOOL success = 0;
-		return py::make_tuple(success, "", "HidemaruMacroEvalException");
-	}
-
 	/** joins a vector of strings into a single string */
 	std::wstring StringJoin(const std::vector<std::wstring> &strs, const std::wstring delim)
 	{
@@ -470,6 +464,82 @@ namespace Hidemaru {
 		}
 		for (auto c : strs[strs.size() - 1]) res.push_back(c);
 		return std::wstring{ res.begin(), res.end() };
+	}
+
+	// pythonの中から秀丸関数ステートメントを実行
+	py::tuple Macro_Function(const std::string utf8_funcname, const py::tuple value_args, const py::tuple type_args) {
+		wstring utf16_funcname = utf8_to_utf16(utf8_funcname);
+
+		string num = to_string(value_args.size());
+
+		vector<wstring> varname_list;
+		int cur_random = rand() + 1;
+		for (size_t i = 0; i < value_args.size() && i < type_args.size(); i++) {
+			string t = py::str(type_args[i]);
+			if (t == "int") {
+				wstring varname = L"#AsStatement_" + to_wstring(cur_random + i);
+				varname_list.push_back(varname);
+				string utf8_varname = utf16_to_utf8(varname);
+				py::int_ o = value_args[i];
+				Macro_SetVar(utf8_varname, o);
+			}
+			else if (t == "str") {
+				wstring varname = L"$AsStatement_" + to_wstring(cur_random + i);
+				varname_list.push_back(varname);
+				string utf8_varname = utf16_to_utf8(varname);
+				py::str o = value_args[i];
+				Macro_SetVar(utf8_varname, o);
+			}
+		}
+
+		wstring arg_varname_list = StringJoin(varname_list, L", ");
+		wstring utf16_expression = utf16_funcname + L"(" + arg_varname_list + L")";
+
+		// GetVar相当-------------------------
+		TestDynamicVar.Clear();
+		auto dll_invocant = CSelfDllInfo::GetInvocantString();
+		wstring cmd =
+			L"##_tmp_dll_id_ret = dllfuncw( " + dll_invocant + L"\"SetDynamicVar\", " + utf16_expression + L");\n"
+			L"##_tmp_dll_id_ret = 0;\n";
+		BOOL success = CHidemaruExeExport::EvalMacro(cmd);
+
+		py::object r = py::cast<py::none>(Py_None);
+		// 数値なら
+		if (TestDynamicVar.type == CDynamicValue::TDynamicType::TypeInteger)
+		{
+			 r = py::cast(TestDynamicVar.num);
+		}
+		// 文字列なら
+		else {
+			string utf8_value = utf16_to_utf8(TestDynamicVar.wstr);
+			r = py::cast(utf8_value);
+		}
+
+		py::list args;
+		for (size_t i = 0; i < varname_list.size(); i++) {
+			wstring varname = varname_list[i];
+			string utf8_varname = utf16_to_utf8(varname);
+			if (varname[0] == L'#') {
+				args.append(py::int_(Macro_GetVar(utf8_varname)));
+				pybind11::object o = py::int_(0);
+				Macro_SetVar(utf8_varname, o);
+			}
+			else if (varname[0] == L'$') {
+				args.append(py::str(Macro_GetVar(utf8_varname)));
+				pybind11::object o = py::str("");
+				Macro_SetVar(utf8_varname, o);
+			}
+		}
+
+		if (success) {
+			return py::make_tuple(r, "", "", args);
+		}
+		else {
+			OutputDebugStream(L"マクロの実行に失敗しました。\n");
+			OutputDebugStream(L"マクロ内容:\n");
+			OutputDebugStream(utf16_expression);
+			return py::make_tuple(r, "", "HidemaruMacroEvalException");
+		}
 	}
 
 
@@ -503,22 +573,24 @@ namespace Hidemaru {
 		wstring utf16_expression = utf16_funcname + L" " + arg_varname_list + L";\n";
 
 		BOOL success = CHidemaruExeExport::EvalMacro(utf16_expression);
-
+		py::list args;
 		for (size_t i = 0; i < varname_list.size(); i++) {
 			wstring varname = varname_list[i];
 			string utf8_varname = utf16_to_utf8(varname);
 			if (varname[0] == L'#') {
+				args.append(py::int_(Macro_GetVar(utf8_varname)));
 				pybind11::object o = py::int_(0);
 				Macro_SetVar(utf8_varname, o);
 			}
 			else if (varname[0] == L'$') {
+				args.append(py::str(Macro_GetVar(utf8_varname)));
 				pybind11::object o = py::str("");
 				Macro_SetVar(utf8_varname, o);
 			}
 		}
 
 		if (success) {
-			return py::make_tuple(success, "", "");
+			return py::make_tuple(success, "", "", args);
 		}
 		else {
 			OutputDebugStream(L"マクロの実行に失敗しました。\n");

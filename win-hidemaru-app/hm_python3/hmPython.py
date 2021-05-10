@@ -1,5 +1,5 @@
 #-------------------- coding: utf-8 ---------------------------
-# hmPython3 1.8.2.2用 ライブラリ
+# hmPython3 1.8.2.3用 ライブラリ
 # Copyright (c) 2017-2021 Akitsugu Komiyama
 # under the Apache License Version 2.0
 #--------------------------------------------------------------
@@ -190,8 +190,8 @@ class _TMacro:
                     value_list.append(str(arg))
                     type_list.append('str')
             
-            res, msg, errmsg = hidemaru.macro.do_statement(statement_name, tuple(value_list), tuple(type_list))
-            ret = _TMacro._TStatementResult(res, msg, errmsg)
+            res, msg, errmsg, args = hidemaru.macro.do_statement(statement_name, tuple(value_list), tuple(type_list))
+            ret = _TMacro._TStatementResult(res, msg, errmsg, args)
             
             return ret
             
@@ -199,12 +199,24 @@ class _TMacro:
         """
         秀丸マクロ関連のうち、括弧があり値が返る秀丸組み込みの関数のラップを表すクラス
         """
-        def __getattr__(self, attr):
-            return self.closure
-        def closure(self, *args):
-            hm.OutputPane.Output("★")
-            hm.OutputPane.Output(args)
-            hm.OutputPane.Output("★")
+        def __getattr__(self, function_name):
+            return lambda *args: self.closure(function_name, *args)
+
+        def closure(self, function_name, *args):
+            value_list = []
+            type_list = []
+            for arg in args:
+                if type(arg) is int or type(arg) is bool or type(arg) is float:
+                    value_list.append(int(arg))
+                    type_list.append('int')
+                else:
+                    value_list.append(str(arg))
+                    type_list.append('str')
+            
+            res, msg, errmsg, args = hidemaru.macro.do_function(function_name, tuple(value_list), tuple(type_list))
+            ret = _TMacro._TFunctionResult(res, msg, errmsg, args)
+            
+            return ret
 
     #--------------------------------------------------
     class _TVar:
@@ -243,10 +255,25 @@ class _TMacro:
         秀丸マクロ関連のうち、マクロ実行結果情報を扱うクラス
         """
 
-        def __init__(self, Result, Message, ErrorMsg):
+        def __init__(self, Result, Message, ErrorMsg, Args):
             self.Result = Result
             self.Message = Message
+            self.Args = tuple(Args)
             if Result >= 1:
+                self.Error = None
+            else:
+                self.Error = RuntimeError(ErrorMsg)
+    #--------------------------------------------------
+    class _TFunctionResult:
+        """
+        秀丸マクロ関連のうち、マクロ実行結果情報を扱うクラス
+        """
+
+        def __init__(self, Result, Message, ErrorMsg, Args):
+            self.Result = Result
+            self.Message = Message
+            self.Args = tuple(Args)
+            if Result != None:
                 self.Error = None
             else:
                 self.Error = RuntimeError(ErrorMsg)
@@ -265,26 +292,6 @@ class _TMacro:
         ret = _TMacro._TResult(res, msg, errmsg)
         return ret
     #--------------------------------------------------
-
-    #--------------------------------------------------
-    # ステートの実行
-    def Statement(self, statement_name, *args):
-            value_list = []
-            type_list = []
-            for arg in args:
-                if type(arg) is int or type(arg) is bool or type(arg) is float:
-                    value_list.append(int(arg))
-                    type_list.append('int')
-                else:
-                    value_list.append(str(arg))
-                    type_list.append('str')
-            
-            hm.OutputPane.Output("start");
-            res, msg, errmsg = hidemaru.macro.do_statement(statement_name, tuple(value_list), tuple(type_list))
-            ret = _TMacro._TStatementResult(res, msg, errmsg)
-            hm.OutputPane.Output("end");
-            
-            return ret
 
 class _TOutputPane:
     """
