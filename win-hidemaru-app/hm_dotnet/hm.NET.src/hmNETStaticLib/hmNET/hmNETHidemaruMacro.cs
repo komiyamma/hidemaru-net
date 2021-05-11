@@ -232,6 +232,12 @@ internal sealed partial class hmNETDynamicLib
                         }
                     }
 
+                    if (value is string || value is StringBuilder)
+                    {
+                        success = true;
+                        normalized_arg = value.ToString();
+                    }
+
                     if (!success)
                     {
                         // 32bit

@@ -10,6 +10,7 @@
 <# string HmMacroCOMVarGUID = System.Guid.NewGuid().ToString(); #>
 
 using System;
+using System.Text;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
@@ -428,6 +429,12 @@ namespace HmNetPInvoke
                         {
                             normalized_arg = 0;
                         }
+                    }
+
+                    if (value is string || value is StringBuilder)
+                    {
+                        success = true;
+                        normalized_arg = value.ToString();
                     }
 
                     if (!success)

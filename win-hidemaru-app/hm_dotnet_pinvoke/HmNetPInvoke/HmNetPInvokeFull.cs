@@ -7,13 +7,14 @@
 
 
 using System;
+using System.Text;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 namespace HmNetPInvoke
 {
     public partial class HmMacroCOMVar {
-        private const string HmMacroCOMVarInterface = "eafab547-adc8-4c6d-96f9-9f261f40da67";
+        private const string HmMacroCOMVarInterface = "e64ea5d2-daca-4614-ad73-83989e4df6fb";
     }
 }
 
@@ -425,6 +426,12 @@ namespace HmNetPInvoke
                         {
                             normalized_arg = 0;
                         }
+                    }
+
+                    if (value is string || value is StringBuilder)
+                    {
+                        success = true;
+                        normalized_arg = value.ToString();
                     }
 
                     if (!success)
