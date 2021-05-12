@@ -1,5 +1,5 @@
 #-------------------- coding: utf-8 ---------------------------
-# hmPython3 1.8.2.3用 ライブラリ
+# hmPython3 1.8.3.1用 ライブラリ
 # Copyright (c) 2017-2021 Akitsugu Komiyama
 # under the Apache License Version 2.0
 #--------------------------------------------------------------
@@ -186,6 +186,15 @@ class _TMacro:
                 if type(arg) is int or type(arg) is bool or type(arg) is float:
                     value_list.append(int(arg))
                     type_list.append('int')
+                elif type(arg) is list or type(arg) is tuple:
+                    if all(type(e) is str for e in arg):
+                        value_list.append(tuple(arg))
+                        type_list.append('array_str')
+                    elif all((type(e) is int or type(e) is float or type(e) is bool) for e in arg):
+                        modify_list = [int(e) for e in arg]
+                        value_list.append(tuple(modify_list))
+                        type_list.append('array_int')
+                        
                 else:
                     value_list.append(str(arg))
                     type_list.append('str')
@@ -234,6 +243,10 @@ class _TMacro:
                 raise NameError(varname)
             else:
                 return hidemaru.macro.set_var(varname, value)
+
+        def __getattr__(self, varname):
+            return hidemaru.macro.get_var(varname)
+
     #--------------------------------------------------
 
     #--------------------------------------------------

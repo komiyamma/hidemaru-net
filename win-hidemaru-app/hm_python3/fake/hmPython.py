@@ -134,6 +134,9 @@ class _TMacro:
                 hm.debuginfo("cant set attribute: フェイクデータ構築とみなします。本来のhmPython3ではこの代入は認められません。")
 
             self.__map[varname] = value
+
+        def __getattr__(self, varname: str):
+            return self.__map[varname]
     #--------------------------------------------------
 
     #--------------------------------------------------

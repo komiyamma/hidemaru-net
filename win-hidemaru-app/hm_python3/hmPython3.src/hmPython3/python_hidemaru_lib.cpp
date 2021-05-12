@@ -15,6 +15,9 @@ using namespace pybind11::literals;
 
 
 namespace Hidemaru {
+	void SetMacroVarAndMakeMacroKeyArray(const pybind11::tuple &value_args, const pybind11::tuple &type_args, std::vector<std::wstring> &varname_list);
+
+	void ClearMacroVarAndUpdateArgs(std::vector<std::wstring> &varname_list, pybind11::list &args, const pybind11::tuple &value_args);
 
 	// バージョンの取得
 	double GetVersion() {
@@ -457,7 +460,7 @@ namespace Hidemaru {
 	{
 		if (strs.size() == 0) return L"";
 		std::vector<wchar_t> res;
-		for (int i = 0; i < strs.size() - 1; ++i)
+		for (size_t i = 0; i < strs.size() - 1; ++i)
 		{
 			for (auto c : strs[i]) res.push_back(c);
 			for (auto c : delim) res.push_back(c);
@@ -473,24 +476,7 @@ namespace Hidemaru {
 		string num = to_string(value_args.size());
 
 		vector<wstring> varname_list;
-		int cur_random = rand() + 1;
-		for (size_t i = 0; i < value_args.size() && i < type_args.size(); i++) {
-			string t = py::str(type_args[i]);
-			if (t == "int") {
-				wstring varname = L"#AsStatement_" + to_wstring(cur_random + i);
-				varname_list.push_back(varname);
-				string utf8_varname = utf16_to_utf8(varname);
-				py::int_ o = value_args[i];
-				Macro_SetVar(utf8_varname, o);
-			}
-			else if (t == "str") {
-				wstring varname = L"$AsStatement_" + to_wstring(cur_random + i);
-				varname_list.push_back(varname);
-				string utf8_varname = utf16_to_utf8(varname);
-				py::str o = value_args[i];
-				Macro_SetVar(utf8_varname, o);
-			}
-		}
+		SetMacroVarAndMakeMacroKeyArray(value_args, type_args, varname_list);
 
 		wstring arg_varname_list = StringJoin(varname_list, L", ");
 		wstring utf16_expression = utf16_funcname + L"(" + arg_varname_list + L")";
@@ -518,30 +504,7 @@ namespace Hidemaru {
 
 		
 		py::list args;
-		for (size_t i = 0; i < varname_list.size(); i++) {
-			wstring varname = varname_list[i];
-			string utf8_varname = utf16_to_utf8(varname);
-			if (varname[0] == L'#') {
-				try {
-					args.append(py::int_(Macro_GetVar(utf8_varname)));
-				}
-				catch (...) {
-					args.append(value_args[i]);
-				}
-				pybind11::object o = py::int_(0);
-				Macro_SetVar(utf8_varname, o);
-			}
-			else if (varname[0] == L'$') {
-				try {
-					args.append(py::str(Macro_GetVar(utf8_varname)));
-				}
-				catch (...) {
-					args.append(value_args[i]);
-				}
-				pybind11::object o = py::str("");
-				Macro_SetVar(utf8_varname, o);
-			}
-		}
+		ClearMacroVarAndUpdateArgs(varname_list, args, value_args);
 
 		if (success) {
 			return py::make_tuple(r, "", "", args);
@@ -562,54 +525,14 @@ namespace Hidemaru {
 		string num = to_string(value_args.size());
 
 		vector<wstring> varname_list;
-		int cur_random = rand() + 1;
-		for (size_t i = 0; i < value_args.size() && i < type_args.size(); i++) {
-			string t = py::str(type_args[i]);
-			if (t == "int") {
-				wstring varname = L"#AsStatement_" + to_wstring(cur_random + i);
-				varname_list.push_back(varname);
-				string utf8_varname = utf16_to_utf8(varname);
-				py::int_ o = value_args[i];
-				Macro_SetVar(utf8_varname, o);
-			}
-			else if (t == "str") {
-				wstring varname = L"$AsStatement_" + to_wstring(cur_random + i);
-				varname_list.push_back(varname);
-				string utf8_varname = utf16_to_utf8(varname);
-				py::str o = value_args[i];
-				Macro_SetVar(utf8_varname, o);
-			}
-		}
+		SetMacroVarAndMakeMacroKeyArray(value_args, type_args, varname_list);
 
 		wstring arg_varname_list = StringJoin(varname_list, L", ");
 		wstring utf16_expression = utf16_funcname + L" " + arg_varname_list + L";\n";
 
 		BOOL success = CHidemaruExeExport::EvalMacro(utf16_expression);
 		py::list args;
-		for (size_t i = 0; i < varname_list.size(); i++) {
-			wstring varname = varname_list[i];
-			string utf8_varname = utf16_to_utf8(varname);
-			if (varname[0] == L'#') {
-				try {
-					args.append(py::int_(Macro_GetVar(utf8_varname)));
-				}
-				catch (...) {
-					args.append(value_args[i]);
-				}
-				pybind11::object o = py::int_(0);
-				Macro_SetVar(utf8_varname, o);
-			}
-			else if (varname[0] == L'$') {
-				try {
-					args.append(py::str(Macro_GetVar(utf8_varname)));
-				}
-				catch (...) {
-					args.append(value_args[i]);
-				}
-				pybind11::object o = py::str("");
-				Macro_SetVar(utf8_varname, o);
-			}
-		}
+		ClearMacroVarAndUpdateArgs(varname_list, args, value_args);
 
 		if (success) {
 			return py::make_tuple(success, "", "", args);
@@ -619,6 +542,101 @@ namespace Hidemaru {
 			OutputDebugStream(L"マクロ内容:\n");
 			OutputDebugStream(utf16_expression);
 			return py::make_tuple(success, "", "HidemaruMacroEvalException", args);
+		}
+	}
+
+	void SetMacroVarAndMakeMacroKeyArray(const pybind11::tuple &value_args, const pybind11::tuple &type_args, std::vector<std::wstring> &varname_list)
+	{
+		int cur_random = rand() + 1;
+		for (size_t i = 0; i < value_args.size() && i < type_args.size(); i++) {
+			string t = py::str(type_args[i]);
+			if (t == "int") {
+				wstring varname = L"#AsMacroArs_" + to_wstring(cur_random + i);
+				varname_list.push_back(varname);
+				string utf8_varname = utf16_to_utf8(varname);
+				py::int_ o = value_args[i];
+				Macro_SetVar(utf8_varname, o);
+			}
+			else if (t == "str") {
+				wstring varname = L"$AsMacroArs_" + to_wstring(cur_random + i);
+				varname_list.push_back(varname);
+				string utf8_varname = utf16_to_utf8(varname);
+				py::str o = value_args[i];
+				Macro_SetVar(utf8_varname, o);
+			}
+			else if (t == "array_int") {
+				wstring varname = L"#AsIntArrayOfMacroArs_" + to_wstring(cur_random + i);
+				varname_list.push_back(varname);
+				string utf8_varname = utf16_to_utf8(varname);
+
+				py::tuple arr = value_args[i];
+				for (size_t oix = 0; oix < arr.size(); oix++) {
+					string utf8_index_varname = utf8_varname + "[" + to_string(oix) + "]";
+					py::int_ o = arr[oix];
+					Macro_SetVar(utf8_index_varname, o);
+				}
+			}
+			else if (t == "array_str") {
+				wstring varname = L"$AsStrArrayOfMacroArs_" + to_wstring(cur_random + i);
+				varname_list.push_back(varname);
+				string utf8_varname = utf16_to_utf8(varname);
+
+				py::tuple arr = value_args[i];
+				for (size_t oix = 0; oix < arr.size(); oix++) {
+					string utf8_index_varname = utf8_varname + "[" + to_string(oix) + "]";
+					py::str o = arr[oix];
+					Macro_SetVar(utf8_index_varname, o);
+				}
+			}
+		}
+	}
+
+	void ClearMacroVarAndUpdateArgs(std::vector<std::wstring> &varname_list, pybind11::list &args, const pybind11::tuple &value_args)
+	{
+		for (size_t i = 0; i < varname_list.size(); i++) {
+			wstring varname = varname_list[i];
+			string utf8_varname = utf16_to_utf8(varname);
+			if (varname.find(L"#AsMacroArs_") != wstring::npos) {
+				try {
+					args.append(py::int_(Macro_GetVar(utf8_varname)));
+				}
+				catch (...) {
+					args.append(value_args[i]);
+				}
+				pybind11::object o = py::int_(0);
+				Macro_SetVar(utf8_varname, o);
+			}
+			else if (varname.find(L"$AsMacroArs_") != wstring::npos) {
+				try {
+					args.append(py::str(Macro_GetVar(utf8_varname)));
+				}
+				catch (...) {
+					args.append(value_args[i]);
+				}
+				pybind11::str o = py::str("");
+				Macro_SetVar(utf8_varname, o);
+			}
+			else if (varname.find(L"#AsIntArrayOfMacroArs_") != wstring::npos) {
+				args.append(value_args[i]);
+
+				py::tuple arr = value_args[i];
+				for (size_t oix = 0; oix < arr.size(); oix++) {
+					string utf8_index_varname = utf8_varname + "[" + to_string(oix) + "]";
+					pybind11::object o = py::int_(0);
+					Macro_SetVar(utf8_index_varname, o);
+				}
+
+			}
+			else if (varname.find(L"$AsStrArrayOfMacroArs_") != wstring::npos) {
+				args.append(value_args[i]);
+
+				py::tuple arr = value_args[i];
+				for (size_t oix = 0; oix < arr.size(); oix++) {
+					string utf8_index_varname = utf8_varname + "[" + to_string(oix) + "]";
+					pybind11::object o = py::str("");
+					Macro_SetVar(utf8_index_varname, o);
+				}
+			}
 		}
 	}
 
