@@ -509,7 +509,7 @@ public sealed partial class hmV8DynamicLib
             }
 
 
-            public struct ExecFuncResult
+            private struct ExecFuncResult
             {
                 public object Result;
                 public string Message;
