@@ -9,7 +9,6 @@ using System.Runtime.InteropServices;
 using System.Text;
 
 
-
 // ★秀丸クラス
 public sealed partial class hmV8DynamicLib
 {

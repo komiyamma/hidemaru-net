@@ -1,0 +1,1 @@
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_ecmascript6\hmV8.src\hmJS\x64\Release\hmJS.vcxprojAssemblyReference.cache
