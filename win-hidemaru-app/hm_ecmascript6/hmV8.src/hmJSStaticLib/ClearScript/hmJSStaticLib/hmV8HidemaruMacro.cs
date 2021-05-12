@@ -242,7 +242,7 @@ public sealed partial class hmV8DynamicLib
                 int Result { get; }
                 String Message { get; }
                 Exception Error { get; }
-                List<Object> Args { get; }
+                dynamic Args { get; }
             }
 
 
@@ -251,7 +251,7 @@ public sealed partial class hmV8DynamicLib
                 public int Result { get; set; }
                 public string Message { get; set; }
                 public Exception Error { get; set; }
-                public List<Object> Args { get; set; }
+                public dynamic Args { get; set; }
 
                 public TStatementResult(int Result, String Message, Exception Error, List<Object> Args)
                 {
@@ -333,7 +333,7 @@ public sealed partial class hmV8DynamicLib
                 object Result { get; }
                 String Message { get; }
                 Exception Error { get; }
-                List<Object> Args { get; }
+                dynamic Args { get; }
             }
 
             private class TFunctionResult : IFunctionResult
@@ -341,7 +341,7 @@ public sealed partial class hmV8DynamicLib
                 public object Result { get; set; }
                 public string Message { get; set; }
                 public Exception Error { get; set; }
-                public List<Object> Args { get; set; }
+                public dynamic Args { get; set; }
 
                 public TFunctionResult(object Result, String Message, Exception Error, List<Object> Args)
                 {
