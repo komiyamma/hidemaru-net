@@ -266,7 +266,32 @@ public sealed partial class hmV8DynamicLib
                         return hm.Macro.__Var(prop, val);
                     }
                 }
-                )
+                );
+
+                hm.Macro.Statement = new Proxy(()=>{}, {
+                    apply: function(target, that, args) {
+                        if (args.length >= 1 ) {
+                            return hm.Macro.__AsStatementTryInvokeMember(...args)
+                        }
+                    },
+                    get(target, prop, receiver) {
+                        return (...args) => { return hm.Macro.__AsStatementTryInvokeMember(prop, ...args) }
+                    }
+                }
+                );
+
+                hm.Macro.Function = new Proxy(()=>{}, {
+                    apply: function(target, that, args) {
+                        if (args.length >= 1 ) {
+                            return hm.Macro.__AsFunctionTryInvokeMember(...args)
+                        }
+                    },
+                    get(target, prop, receiver) {
+                        return (...args) => { return hm.Macro.__AsFunctionTryInvokeMember(prop, ...args) }
+                    }
+                }
+                );
+
                 ";
 
                 engine.Execute(expression);
