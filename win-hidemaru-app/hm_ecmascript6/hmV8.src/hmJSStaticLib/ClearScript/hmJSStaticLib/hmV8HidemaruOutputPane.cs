@@ -33,7 +33,7 @@ public sealed partial class hmV8DynamicLib
                         isClearScriptItem = true;
                     }
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
 
                 }

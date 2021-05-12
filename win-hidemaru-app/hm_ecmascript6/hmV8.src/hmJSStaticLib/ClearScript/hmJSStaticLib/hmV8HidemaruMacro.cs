@@ -4,6 +4,7 @@
  */
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -124,8 +125,9 @@ public sealed partial class hmV8DynamicLib
             {
                 var arg_list = new List<KeyValuePair<String, Object>>();
                 int cur_random = new Random().Next(Int16.MaxValue) + 1;
-                foreach (var value in args)
+                foreach (var ref_value in args)
                 {
+                    var value = ref_value;
                     bool success = false;
                     cur_random++;
                     object normalized_arg = null;
@@ -149,11 +151,51 @@ public sealed partial class hmV8DynamicLib
                         normalized_arg = value.ToString();
                     }
 
+                    if (!success) {
+                        // v8の場合に、V8Arrayならば、全体が文字列もしくは、数値かにあわせて、List<String> or List<long>にすることで、hm.NETなど共通のList<***>処理へと糾合する
+                        if (value.GetType().Name == "V8Array")
+                        {
+                            try
+                            {
+                                List<long> long_list = new List<long>();
+                                List<string> string_list = new List<string>();
+
+                                var dvalue = (IList)(dynamic)value;
+                                int list_count = 0;
+                                foreach(var dv in dvalue)
+                                {
+                                    list_count++;
+                                    if (dv is Int32 || dv is Int64)
+                                    {
+                                        long_list.Add((long)(dv));
+                                    }
+                                    else
+                                    {
+                                        string_list.Add(dv.ToString());
+                                    }
+                                }
+                                if (list_count == long_list.Count)
+                                {
+                                    value = long_list;
+                                }
+                                else if(list_count == string_list.Count)
+                                {
+                                    value = string_list;
+                                }
+                                else
+                                {
+                                    System.Diagnostics.Trace.WriteLine("渡された Arrayに数値型と文字列型などの異なる型が入り混じっています");
+                                }
+                            }
+                            catch (Exception)
+                            {
+                            }
+                        }
+                    }
+
                     // 配列の場合を追加
                     if (!success)
                     {
-                        System.Diagnostics.Trace.WriteLine(value.GetType().Name);
-
                         if (value.GetType() == new List<int>().GetType())
                         {
                             success = true;
