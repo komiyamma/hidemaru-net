@@ -109,7 +109,6 @@ public sealed partial class hmLmDynamicLib
 
                     if (!success)
                     {
-                        System.Diagnostics.Trace.WriteLine(value.GetType().Name);
                         // LuaTableの場合に、全体が文字列もしくは、数値かにあわせて、List<String> or List<long>にすることで、hm.NETなど共通のList<***>処理へと糾合する
                         if (value.GetType().Name == "LuaTable")
                         {
