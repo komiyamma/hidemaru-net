@@ -120,8 +120,8 @@ namespace Hidemaru
             {
                 IResult File(String filepath);
                 IResult Eval(String expression);
-                IResult Method(string param, string dirfullpath, string typefullname, string methodname);
-                IResult Method(string param, Delegate delegate_method);
+                IResult Method(string message_parameter, string dirfullpath, string typefullname, string methodname);
+                IResult Method(string message_parameter, Delegate delegate_method);
            }
 
             // 実行系の実態
