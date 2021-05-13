@@ -122,6 +122,19 @@ internal sealed partial class hmNETDynamicLib
                 return result;
             }
 
+
+            public static ExecResult BornMacroScopeMethod(String scopename, String dllfullpath, String typefullname, String methodname)
+            {
+                string selfdir = strDllFullPath;
+                string expression = $@"
+
+                    #_dll_dotnet_newscope = loaddll(@""{strDllFullPath}"");
+                    #_r_dotnet_newscope = dllfuncw( #_dll_dotnet_newscope, ""CallMethod"", @""{dllfullpath}"", @""{typefullname}"", @""{methodname}"", @""{scopename}"");
+                    endmacro ""{scopename}"";
+                ";
+                return ExecEval(expression);
+            }
+
             public static ExecResult ExecEval(String cmd)
             {
                 ExecResult result = new ExecResult();

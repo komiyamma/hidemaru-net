@@ -120,6 +120,7 @@ namespace Hidemaru
             {
                 IResult File(String filepath);
                 IResult Eval(String expression);
+                IResult BornMacroScopeMethod(string scopename, string dirfullpath, string typefullname, string methodname);
             }
 
             // 実行系の実態
@@ -135,6 +136,13 @@ namespace Hidemaru
                 public IResult File(string filepath)
                 {
                     var ret = hmNETDynamicLib.Hidemaru.Macro.ExecFile(filepath);
+                    var result = new TResult(ret.Result, ret.Message, ret.Error);
+                    return result;
+                }
+
+                public IResult BornMacroScopeMethod(string scopename, string dirfullpath, string typefullname, string methodname)
+                {
+                    var ret = hmNETDynamicLib.Hidemaru.Macro.BornMacroScopeMethod(scopename, dirfullpath, typefullname, methodname);
                     var result = new TResult(ret.Result, ret.Message, ret.Error);
                     return result;
                 }

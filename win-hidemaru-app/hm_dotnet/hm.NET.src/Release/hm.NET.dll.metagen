@@ -105,6 +105,7 @@ Interface Hidemaru.Hm+Macro+IExec: AutoLayout, AnsiClass, Class, NestedPublic, C
   Methods:
     File(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
     Eval(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    BornMacroScopeMethod(String, String, String, String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
 Interface Hidemaru.Hm+Macro+IVar: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
   Properties:
     System.Object Item [System.String] 'get set' : 
