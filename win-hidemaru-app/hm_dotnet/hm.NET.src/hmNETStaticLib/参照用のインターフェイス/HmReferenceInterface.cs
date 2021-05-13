@@ -120,12 +120,15 @@ namespace Hidemaru
             {
                 IResult File(String filepath);
                 IResult Eval(String expression);
-                IResult Method(string scopename, string dirfullpath, string typefullname, string methodname);
-            }
+                IResult Method(string param, string dirfullpath, string typefullname, string methodname);
+                IResult Method(string param, Delegate delegate_method);
+           }
 
             // 実行系の実態
             private class TExec : IExec
             {
+                private const string V = " is not 'PUBLIC'";
+
                 public IResult Eval(string expression)
                 {
                     var ret = hmNETDynamicLib.Hidemaru.Macro.ExecEval(expression);
@@ -140,12 +143,42 @@ namespace Hidemaru
                     return result;
                 }
 
-                public IResult Method(string scopename, string dirfullpath, string typefullname, string methodname)
+                public IResult Method(string parameter, string dirfullpath, string typefullname, string methodname)
                 {
-                    var ret = hmNETDynamicLib.Hidemaru.Macro.BornMacroScopeMethod(scopename, dirfullpath, typefullname, methodname);
+                    var ret = hmNETDynamicLib.Hidemaru.Macro.BornMacroScopeMethod(parameter, dirfullpath, typefullname, methodname);
                     var result = new TResult(ret.Result, ret.Message, ret.Error);
                     return result;
                 }
+
+                public IResult Method(string parameter, Delegate delegate_method)
+                {
+                    if (delegate_method.Method.IsStatic && delegate_method.Method.IsPublic)
+                    {
+                        var ret = hmNETDynamicLib.Hidemaru.Macro.BornMacroScopeMethod(parameter, delegate_method.Method.DeclaringType.Assembly.Location, delegate_method.Method.DeclaringType.FullName, delegate_method.Method.Name);
+                        var result = new TResult(ret.Result, ret.Message, ret.Error);
+                        return result;
+                    }
+                    else if (!delegate_method.Method.IsStatic)
+                    {
+
+                        string message_no_static = delegate_method.Method.DeclaringType.FullName + "." + delegate_method.Method.Name + " is not 'STATIC' in " + delegate_method.Method.DeclaringType.Assembly.Location;
+                        var result_no_static = new TResult(0, "", new MissingMethodException(message_no_static));
+                        System.Diagnostics.Trace.WriteLine(message_no_static);
+                        return result_no_static;
+                    }
+                    else if (!delegate_method.Method.IsPublic)
+                    {
+                        string message_no_public = delegate_method.Method.DeclaringType.FullName + "." + delegate_method.Method.Name + " is not 'PUBLIC' in " + delegate_method.Method.DeclaringType.Assembly.Location ;
+                        var result_no_public = new TResult(0, "", new MissingMethodException(message_no_public));
+                        System.Diagnostics.Trace.WriteLine(message_no_public);
+                        return result_no_public;
+                    }
+                    string message_missing = delegate_method.Method.DeclaringType.FullName + "." + delegate_method.Method.Name + "is 'MISSING' access in " + delegate_method.Method.DeclaringType.Assembly.Location;
+                    var result_missing = new TResult(0, "", new MissingMethodException(delegate_method.Method.Name + " is missing access"));
+                    System.Diagnostics.Trace.WriteLine(result_missing);
+                    return result_missing;
+                }
+
             }
 
             public static IExec Exec = new TExec();
