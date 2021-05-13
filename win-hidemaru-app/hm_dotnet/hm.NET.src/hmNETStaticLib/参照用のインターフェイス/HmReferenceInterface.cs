@@ -140,7 +140,7 @@ namespace Hidemaru
                     return result;
                 }
 
-                public IResult BornMacroScopeMethod(string scopename, string dirfullpath, string typefullname, string methodname)
+                public IResult Method(string scopename, string dirfullpath, string typefullname, string methodname)
                 {
                     var ret = hmNETDynamicLib.Hidemaru.Macro.BornMacroScopeMethod(scopename, dirfullpath, typefullname, methodname);
                     var result = new TResult(ret.Result, ret.Message, ret.Error);
