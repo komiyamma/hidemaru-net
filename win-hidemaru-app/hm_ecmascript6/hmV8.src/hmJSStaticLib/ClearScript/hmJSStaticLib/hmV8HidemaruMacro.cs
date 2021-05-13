@@ -165,7 +165,7 @@ public sealed partial class hmV8DynamicLib
                                 foreach(var dv in dvalue)
                                 {
                                     list_count++;
-                                    if (dv is Int32 || dv is Int64)
+                                    if (dv is Int32 || dv is Int64 || dv is IntPtr)
                                     {
                                         long_list.Add((long)(dv));
                                     }

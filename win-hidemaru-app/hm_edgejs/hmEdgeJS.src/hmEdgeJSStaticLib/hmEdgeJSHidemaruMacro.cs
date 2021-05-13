@@ -132,7 +132,7 @@ public sealed partial class hmEdgeJSDynamicLib
                                 Object[] value_list = (Object[])value;
                                 foreach (var dv in value_list)
                                 {
-                                    if (dv is Int32 || dv is Int64)
+                                    if (dv is Int32 || dv is Int64 || dv is IntPtr)
                                     {
                                         long_list.Add((long)(dv));
                                     }

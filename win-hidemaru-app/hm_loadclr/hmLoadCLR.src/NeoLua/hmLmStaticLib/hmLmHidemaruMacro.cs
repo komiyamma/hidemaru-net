@@ -3,8 +3,12 @@
  * under the Apache License Version 2.0
  */
 
+using Neo.IronLua;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Text;
 
 
 // ★クラス実装内のメソッドの中でdynamic型を利用したもの。これを直接利用しないのは、内部でdynamic型を利用していると、クラスに自動的にメソッドが追加されてしまい、C++とはヘッダのメソッドの個数が合わなくなりリンクできなくなるため。
@@ -105,20 +109,21 @@ public sealed partial class hmLmDynamicLib
 
                     if (!success)
                     {
-                        // v8の場合に、V8Arrayならば、全体が文字列もしくは、数値かにあわせて、List<String> or List<long>にすることで、hm.NETなど共通のList<***>処理へと糾合する
-                        if (value.GetType().Name == "V8Array")
+                        System.Diagnostics.Trace.WriteLine(value.GetType().Name);
+                        // LuaTableの場合に、全体が文字列もしくは、数値かにあわせて、List<String> or List<long>にすることで、hm.NETなど共通のList<***>処理へと糾合する
+                        if (value.GetType().Name == "LuaTable")
                         {
                             try
                             {
                                 List<long> long_list = new List<long>();
                                 List<string> string_list = new List<string>();
 
-                                var dvalue = (IList)(dynamic)value;
+                                LuaTable dvalue = (LuaTable)value;
                                 int list_count = 0;
-                                foreach (var dv in dvalue)
+                                foreach (var dv in dvalue.ArrayList)
                                 {
                                     list_count++;
-                                    if (dv is Int32 || dv is Int64)
+                                    if (dv is Int32 || dv is Int64 || dv is IntPtr)
                                     {
                                         long_list.Add((long)(dv));
                                     }
@@ -247,13 +252,13 @@ public sealed partial class hmLmDynamicLib
                     {
                         string key = "#AsMacroArs_" + base_random.ToString() + '_' + cur_random.ToString();
                         arg_list.Add(new KeyValuePair<string, object>(key, normalized_arg));
-                        hmV8DynamicLib.Hidemaru.Macro.__Var(key, normalized_arg);
+                        hmLmDynamicLib.Hidemaru.Macro.Var[key] = normalized_arg;
                     }
                     else if (normalized_arg is string)
                     {
                         string key = "$AsMacroArs_" + base_random.ToString() + '_' + cur_random.ToString();
                         arg_list.Add(new KeyValuePair<string, object>(key, normalized_arg));
-                        hmV8DynamicLib.Hidemaru.Macro.__Var(key, normalized_arg);
+                        hmLmDynamicLib.Hidemaru.Macro.Var[key] = normalized_arg;
                     }
                     else if (value.GetType() == new List<int>().GetType() || value.GetType() == new List<long>().GetType() || value.GetType() == new List<IntPtr>().GetType())
                     {
@@ -264,7 +269,7 @@ public sealed partial class hmLmDynamicLib
                             List<int> int_list = (List<int>)value;
                             for (int iix = 0; iix < int_list.Count; iix++)
                             {
-                                hmV8DynamicLib.Hidemaru.Macro.__Var(key + "[" + iix + "]", int_list[iix]);
+                                hmLmDynamicLib.Hidemaru.Macro.Var[key + "[" + iix + "]"] = int_list[iix];
                             }
                         }
                         else if (value.GetType() == new List<long>().GetType())
@@ -272,7 +277,7 @@ public sealed partial class hmLmDynamicLib
                             List<long> long_list = (List<long>)value;
                             for (int iix = 0; iix < long_list.Count; iix++)
                             {
-                                hmV8DynamicLib.Hidemaru.Macro.__Var(key + "[" + iix + "]", long_list[iix]);
+                                hmLmDynamicLib.Hidemaru.Macro.Var[key + "[" + iix + "]"] = long_list[iix];
                             }
                         }
                         else if (value.GetType() == new List<IntPtr>().GetType())
@@ -280,7 +285,7 @@ public sealed partial class hmLmDynamicLib
                             List<IntPtr> ptr_list = (List<IntPtr>)value;
                             for (int iix = 0; iix < ptr_list.Count; iix++)
                             {
-                                hmV8DynamicLib.Hidemaru.Macro.__Var(key + "[" + iix + "]", ptr_list[iix]);
+                                hmLmDynamicLib.Hidemaru.Macro.Var[key + "[" + iix + "]"] = ptr_list[iix];
                             }
                         }
                     }
@@ -291,7 +296,7 @@ public sealed partial class hmLmDynamicLib
                         List<String> str_list = (List<String>)value;
                         for (int iix = 0; iix < str_list.Count; iix++)
                         {
-                            hmV8DynamicLib.Hidemaru.Macro.__Var(key + "[" + iix + "]", str_list[iix]);
+                            hmLmDynamicLib.Hidemaru.Macro.Var[key + "[" + iix + "]"] = str_list[iix];
                         }
                     }
                 }
@@ -336,10 +341,8 @@ public sealed partial class hmLmDynamicLib
                 public List<Object> Args;
             }
 
-            // AsStatementTryInvokeMemberのプロキシを貼るためのショートカット
-            public static Object Statement;
 
-            public static IStatementResult __AsStatementTryInvokeMember(string funcname, params object[] args)
+            public static IStatementResult Statement(string funcname, params object[] args)
             {
                 if (statement_base_random == 0)
                 {
@@ -362,7 +365,7 @@ public sealed partial class hmLmDynamicLib
                 string expression = $"{funcname} {args_string};\n";
 
                 // 実行する
-                IResult ret = hmV8DynamicLib.Hidemaru.Macro.Eval(expression);
+                IResult ret = hmLmDynamicLib.Hidemaru.Macro.Eval(expression);
                 ExecStateResult result = new ExecStateResult();
                 result.Result = ret.Result;
                 result.Error = ret.Error;
@@ -378,13 +381,13 @@ public sealed partial class hmLmDynamicLib
                     var l = arg_list[ix];
                     if (l.Value is Int32 || l.Value is Int64)
                     {
-                        result.Args.Add(hmV8DynamicLib.Hidemaru.Macro.__Var(l.Key));
-                        hmV8DynamicLib.Hidemaru.Macro.__Var(l.Key, 0);
+                        result.Args.Add(hmLmDynamicLib.Hidemaru.Macro.Var[l.Key]);
+                        hmLmDynamicLib.Hidemaru.Macro.Var[l.Key] = 0;
                     }
                     else if (l.Value is string)
                     {
-                        result.Args.Add(hmV8DynamicLib.Hidemaru.Macro.__Var(l.Key));
-                        hmV8DynamicLib.Hidemaru.Macro.__Var(l.Key, "");
+                        result.Args.Add(hmLmDynamicLib.Hidemaru.Macro.Var[l.Key]);
+                        hmLmDynamicLib.Hidemaru.Macro.Var[l.Key] = "";
                     }
 
                     else if (l.Value.GetType() == new List<int>().GetType() || l.Value.GetType() == new List<long>().GetType() || l.Value.GetType() == new List<IntPtr>().GetType())
@@ -395,7 +398,7 @@ public sealed partial class hmLmDynamicLib
                             List<int> int_list = (List<int>)l.Value;
                             for (int iix = 0; iix < int_list.Count; iix++)
                             {
-                                hmV8DynamicLib.Hidemaru.Macro.__Var(l.Key + "[" + iix + "]", 0);
+                                hmLmDynamicLib.Hidemaru.Macro.Var[l.Key + "[" + iix + "]"] = 0;
                             }
                         }
                         else if (l.Value.GetType() == new List<long>().GetType())
@@ -403,7 +406,7 @@ public sealed partial class hmLmDynamicLib
                             List<long> long_list = (List<long>)l.Value;
                             for (int iix = 0; iix < long_list.Count; iix++)
                             {
-                                hmV8DynamicLib.Hidemaru.Macro.__Var(l.Key + "[" + iix + "]", 0);
+                                hmLmDynamicLib.Hidemaru.Macro.Var[l.Key + "[" + iix + "]"] = 0;
                             }
                         }
                         else if (l.Value.GetType() == new List<IntPtr>().GetType())
@@ -411,7 +414,7 @@ public sealed partial class hmLmDynamicLib
                             List<IntPtr> ptr_list = (List<IntPtr>)l.Value;
                             for (int iix = 0; iix < ptr_list.Count; iix++)
                             {
-                                hmV8DynamicLib.Hidemaru.Macro.__Var(l.Key + "[" + iix + "]", 0);
+                                hmLmDynamicLib.Hidemaru.Macro.Var[l.Key + "[" + iix + "]"] = 0;
                             }
                         }
                     }
@@ -421,7 +424,7 @@ public sealed partial class hmLmDynamicLib
                         List<String> ptr_list = (List<String>)l.Value;
                         for (int iix = 0; iix < ptr_list.Count; iix++)
                         {
-                            hmV8DynamicLib.Hidemaru.Macro.__Var(l.Key + "[" + iix + "]", "");
+                            hmLmDynamicLib.Hidemaru.Macro.Var[l.Key + "[" + iix + "]"] = "";
                         }
                     }
                     else
@@ -470,10 +473,7 @@ public sealed partial class hmLmDynamicLib
                 public List<Object> Args;
             }
 
-            // __AsFunctionTryInvokeMemberのプロキシを貼るためのショートカット
-            public static Object Function;
-
-            public static IFunctionResult __AsFunctionTryInvokeMember(string funcname, params object[] args)
+            public static IFunctionResult Function(string funcname, params object[] args)
             {
                 if (funciton_base_random == 0)
                 {
@@ -567,13 +567,13 @@ public sealed partial class hmLmDynamicLib
                     var l = arg_list[ix];
                     if (l.Value is Int32 || l.Value is Int64)
                     {
-                        result.Args.Add(hmV8DynamicLib.Hidemaru.Macro.__Var(l.Key));
-                        hmV8DynamicLib.Hidemaru.Macro.__Var(l.Key, 0);
+                        result.Args.Add(hmLmDynamicLib.Hidemaru.Macro.Var[l.Key]);
+                        hmLmDynamicLib.Hidemaru.Macro.Var[l.Key] = 0;
                     }
                     else if (l.Value is string)
                     {
-                        result.Args.Add(hmV8DynamicLib.Hidemaru.Macro.__Var(l.Key));
-                        hmV8DynamicLib.Hidemaru.Macro.__Var(l.Key, "");
+                        result.Args.Add(hmLmDynamicLib.Hidemaru.Macro.Var[l.Key]);
+                        hmLmDynamicLib.Hidemaru.Macro.Var[l.Key] ="";
                     }
 
                     else if (l.Value.GetType() == new List<int>().GetType() || l.Value.GetType() == new List<long>().GetType() || l.Value.GetType() == new List<IntPtr>().GetType())
@@ -584,7 +584,7 @@ public sealed partial class hmLmDynamicLib
                             List<int> int_list = (List<int>)l.Value;
                             for (int iix = 0; iix < int_list.Count; iix++)
                             {
-                                hmV8DynamicLib.Hidemaru.Macro.__Var(l.Key + "[" + iix + "]", 0);
+                                hmLmDynamicLib.Hidemaru.Macro.Var[l.Key + "[" + iix + "]"] = 0;
                             }
                         }
                         else if (l.Value.GetType() == new List<long>().GetType())
@@ -592,7 +592,7 @@ public sealed partial class hmLmDynamicLib
                             List<long> long_list = (List<long>)l.Value;
                             for (int iix = 0; iix < long_list.Count; iix++)
                             {
-                                hmV8DynamicLib.Hidemaru.Macro.__Var(l.Key + "[" + iix + "]", 0);
+                                hmLmDynamicLib.Hidemaru.Macro.Var[l.Key + "[" + iix + "]"] = 0;
                             }
                         }
                         else if (l.Value.GetType() == new List<IntPtr>().GetType())
@@ -600,7 +600,7 @@ public sealed partial class hmLmDynamicLib
                             List<IntPtr> ptr_list = (List<IntPtr>)l.Value;
                             for (int iix = 0; iix < ptr_list.Count; iix++)
                             {
-                                hmV8DynamicLib.Hidemaru.Macro.__Var(l.Key + "[" + iix + "]", 0);
+                                hmLmDynamicLib.Hidemaru.Macro.Var[l.Key + "[" + iix + "]"] = 0;
                             }
                         }
                     }
@@ -610,7 +610,7 @@ public sealed partial class hmLmDynamicLib
                         List<String> ptr_list = (List<String>)l.Value;
                         for (int iix = 0; iix < ptr_list.Count; iix++)
                         {
-                            hmV8DynamicLib.Hidemaru.Macro.__Var(l.Key + "[" + iix + "]", "");
+                            hmLmDynamicLib.Hidemaru.Macro.Var[l.Key + "[" + iix + "]"] = "";
                         }
                     }
                     else
