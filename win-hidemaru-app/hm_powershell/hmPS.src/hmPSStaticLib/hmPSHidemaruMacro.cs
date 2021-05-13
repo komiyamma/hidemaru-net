@@ -310,7 +310,7 @@ public sealed partial class hmPSDynamicLib
                 int Result { get; }
                 String Message { get; }
                 Exception Error { get; }
-                dynamic Args { get; }
+                List<Object> Args { get; }
             }
 
 
@@ -319,7 +319,7 @@ public sealed partial class hmPSDynamicLib
                 public int Result { get; set; }
                 public string Message { get; set; }
                 public Exception Error { get; set; }
-                public dynamic Args { get; set; }
+                public List<Object> Args { get; set; }
 
                 public TStatementResult(int Result, String Message, Exception Error, List<Object> Args)
                 {
@@ -442,7 +442,7 @@ public sealed partial class hmPSDynamicLib
                 object Result { get; }
                 String Message { get; }
                 Exception Error { get; }
-                dynamic Args { get; }
+                List<Object> Args { get; }
             }
 
             private class TFunctionResult : IFunctionResult
@@ -450,7 +450,7 @@ public sealed partial class hmPSDynamicLib
                 public object Result { get; set; }
                 public string Message { get; set; }
                 public Exception Error { get; set; }
-                public dynamic Args { get; set; }
+                public List<Object> Args { get; set; }
 
                 public TFunctionResult(object Result, String Message, Exception Error, List<Object> Args)
                 {
