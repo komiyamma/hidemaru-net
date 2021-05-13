@@ -1,0 +1,230 @@
+ImageRuntimeVersion: v4.0.30319
+Assembly hmPy, Version=1.8.*, Culture=ロケールに依存しない言語 (ロケールに依存しない国): 
+	hash=SHA1, flags=PublicKey
+Assembly mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly Microsoft.Scripting, Version=1.3.0.0, Culture=neutral, PublicKeyToken=7f709c5b713576e1: 
+	hash=None, flags=None
+Assembly System.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly IronPython, Version=3.4.0.0, Culture=neutral, PublicKeyToken=7f709c5b713576e1: 
+	hash=None, flags=None
+Assembly Microsoft.CSharp, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a: 
+	hash=None, flags=None
+Class IPyStaticLib: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    OutputDebugStream(String): PrivateScope, Public, Static, HideBySig
+    CreateScope(): PrivateScope, Public, Static, HideBySig
+    BindDllHandle(IntPtr): PrivateScope, Public, Static, HideBySig
+    SetCodePage(IntPtr): PrivateScope, Public, Static, HideBySig
+    SetTmpVar(Object): PrivateScope, Public, Static, HideBySig
+    PopTmpVar(): PrivateScope, Public, Static, HideBySig
+    GetNumVar(String): PrivateScope, Public, Static, HideBySig
+    SetNumVar(String, IntPtr): PrivateScope, Public, Static, HideBySig
+    GetStrVar(String): PrivateScope, Public, Static, HideBySig
+    SetStrVar(String, String): PrivateScope, Public, Static, HideBySig
+    GetNumItemOfList(String, IntPtr): PrivateScope, Public, Static, HideBySig
+    SetNumItemOfList(String, IntPtr, IntPtr): PrivateScope, Public, Static, HideBySig
+    GetStrItemOfList(String, IntPtr): PrivateScope, Public, Static, HideBySig
+    SetStrItemOfList(String, IntPtr, String): PrivateScope, Public, Static, HideBySig
+    GetNumItemOfDict(String, String): PrivateScope, Public, Static, HideBySig
+    SetNumItemOfDict(String, String, IntPtr): PrivateScope, Public, Static, HideBySig
+    GetStrItemOfDict(String, String): PrivateScope, Public, Static, HideBySig
+    SetStrItemOfDict(String, String, String): PrivateScope, Public, Static, HideBySig
+    DoString(String): PrivateScope, Public, Static, HideBySig
+    DoFile(String): PrivateScope, Public, Static, HideBySig
+    DestroyScope(): PrivateScope, Public, Static, HideBySig
+Class hmPyDynamicLib: AutoLayout, AnsiClass, Class, Public, Sealed
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Microsoft.Scripting.Hosting.ScriptEngine pe : Public, Static
+    Microsoft.Scripting.Hosting.ScriptScope ss : Public, Static
+  Methods:
+    OutputDebugStream(String): PrivateScope, Public, Static, HideBySig
+    BindDllHandle(IntPtr): PrivateScope, Public, Static, HideBySig
+    SetTmpVar(Object): PrivateScope, Public, Static, HideBySig
+    PopTmpVar(): PrivateScope, Public, Static, HideBySig
+    CreateScope(): PrivateScope, Public, Static, HideBySig
+    SetCodePage(IntPtr): PrivateScope, Public, Static, HideBySig
+    GetNumVar(String): PrivateScope, Public, Static, HideBySig
+    SetNumVar(String, IntPtr): PrivateScope, Public, Static, HideBySig
+    GetStrVar(String): PrivateScope, Public, Static, HideBySig
+    SetStrVar(String, String): PrivateScope, Public, Static, HideBySig
+    GetNumItemOfList(String, IntPtr): PrivateScope, Public, Static, HideBySig
+    SetNumItemOfList(String, IntPtr, IntPtr): PrivateScope, Public, Static, HideBySig
+    GetStrItemOfList(String, IntPtr): PrivateScope, Public, Static, HideBySig
+    SetStrItemOfList(String, IntPtr, String): PrivateScope, Public, Static, HideBySig
+    GetNumItemOfDict(String, String): PrivateScope, Public, Static, HideBySig
+    SetNumItemOfDict(String, String, IntPtr): PrivateScope, Public, Static, HideBySig
+    GetStrItemOfDict(String, String): PrivateScope, Public, Static, HideBySig
+    SetStrItemOfDict(String, String, String): PrivateScope, Public, Static, HideBySig
+    DoString(String, String(Optional, HasDefault)): PrivateScope, Public, Static, HideBySig
+    DoFile(String): PrivateScope, Public, Static, HideBySig
+    DestroyScope(): PrivateScope, Public, Static, HideBySig
+Class IronPytnonErrorListener: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :Microsoft.Scripting.Hosting.ErrorListener
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.String Message 'get set' : 
+    Int32 ErrorCode 'get set' : 
+    Microsoft.Scripting.Severity sev 'get set' : 
+    Microsoft.Scripting.SourceSpan Span 'get set' : 
+  Methods:
+    get_Message(): PrivateScope, Public, HideBySig, SpecialName
+    set_Message(String): PrivateScope, Public, HideBySig, SpecialName
+    get_ErrorCode(): PrivateScope, Public, HideBySig, SpecialName
+    set_ErrorCode(Int32): PrivateScope, Public, HideBySig, SpecialName
+    get_sev(): PrivateScope, Public, HideBySig, SpecialName
+    set_sev(Severity): PrivateScope, Public, HideBySig, SpecialName
+    get_Span(): PrivateScope, Public, HideBySig, SpecialName
+    set_Span(SourceSpan): PrivateScope, Public, HideBySig, SpecialName
+    ErrorReported(ScriptSource, String, SourceSpan, Int32, Severity): PrivateScope, Public, Virtual, HideBySig
+Class hmPyDynamicLib+Hidemaru: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    IntPtr WindowHandle 'get ' : 
+    Double version 'get ' : 
+  Methods:
+    get_WindowHandle(): PrivateScope, Public, Static, HideBySig, SpecialName
+    debuginfo(Object): PrivateScope, Public, Static, HideBySig
+    get_version(): PrivateScope, Public, Static, HideBySig, SpecialName
+Class hmPyDynamicLib+Hidemaru+OutputPane: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    IntPtr WindowHandle 'get ' : 
+  Methods:
+    Output(Object): PrivateScope, Public, Static, HideBySig
+    Push(): PrivateScope, Public, Static, HideBySig
+    Pop(): PrivateScope, Public, Static, HideBySig
+    Clear(): PrivateScope, Public, Static, HideBySig
+    get_WindowHandle(): PrivateScope, Public, Static, HideBySig, SpecialName
+    SendMessage(Int32): PrivateScope, Public, Static, HideBySig
+    SetBaseDir(String): PrivateScope, Public, Static, HideBySig
+Class hmPyDynamicLib+Hidemaru+Macro: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    TMacroVar Var : Public, Static
+  Methods:
+    Eval(String): PrivateScope, Public, Static, HideBySig
+Class hmPyDynamicLib+Hidemaru+Edit: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    HmCursurPos CursorPos 'get ' : 
+    HmMousePos MousePos 'get ' : 
+    System.String TotalText 'get set' : 
+    System.String SelectedText 'get set' : 
+    System.String LineText 'get set' : 
+  Methods:
+    get_CursorPos(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_MousePos(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_TotalText(): PrivateScope, Public, Static, HideBySig, SpecialName
+    set_TotalText(String): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_SelectedText(): PrivateScope, Public, Static, HideBySig, SpecialName
+    set_SelectedText(String): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_LineText(): PrivateScope, Public, Static, HideBySig, SpecialName
+    set_LineText(String): PrivateScope, Public, Static, HideBySig, SpecialName
+Class hmPyDynamicLib+Hidemaru+File: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    GetEncoding(String): PrivateScope, Public, Static, HideBySig
+    Open(String, Int32(Optional, HasDefault)): PrivateScope, Public, Static, HideBySig
+Interface hmPyDynamicLib+Hidemaru+Macro+IResult: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
+  Properties:
+    Int32 Result 'get ' : 
+    System.String Message 'get ' : 
+    System.Exception Error 'get ' : 
+  Methods:
+    get_Result(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Message(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Error(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Class hmPyDynamicLib+Hidemaru+Macro+TMacroVar: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    System.Object Item [System.String] 'get set' : 
+  Methods:
+    get_Item(String): PrivateScope, Public, HideBySig, SpecialName
+    set_Item(String, Object): PrivateScope, Public, HideBySig, SpecialName
+Struct hmPyDynamicLib+Hidemaru+Edit+HmCursurPos: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+    Void .ctor(Int32, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Int32 column 'get ' : 
+    Int32 lineno 'get ' : 
+  Methods:
+    get_column(): PrivateScope, Public, HideBySig, SpecialName
+    get_lineno(): PrivateScope, Public, HideBySig, SpecialName
+Struct hmPyDynamicLib+Hidemaru+Edit+HmMousePos: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+    Void .ctor(Int32, Int32, Int32, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Int32 x    'get ' : 
+    Int32 y    'get ' : 
+    Int32 column 'get ' : 
+    Int32 lineno 'get ' : 
+  Methods:
+    get_x(): PrivateScope, Public, HideBySig, SpecialName
+    get_y(): PrivateScope, Public, HideBySig, SpecialName
+    get_column(): PrivateScope, Public, HideBySig, SpecialName
+    get_lineno(): PrivateScope, Public, HideBySig, SpecialName
+Interface hmPyDynamicLib+Hidemaru+File+IHidemaruEncoding: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
+  Properties:
+    Int32 HmEncode 'get ' : 
+  Methods:
+    get_HmEncode(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Interface hmPyDynamicLib+Hidemaru+File+IMicrosoftEncoding: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
+  Properties:
+    Int32 MsCodePage 'get ' : 
+  Methods:
+    get_MsCodePage(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Interface hmPyDynamicLib+Hidemaru+File+IPythonEncoding: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
+  Properties:
+    System.String PyEncodingName 'get ' : 
+  Methods:
+    get_PyEncodingName(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Interface hmPyDynamicLib+Hidemaru+File+IEncoding: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
+  Interfaces:
+    hmPyDynamicLib+Hidemaru+File+IHidemaruEncoding
+    hmPyDynamicLib+Hidemaru+File+IMicrosoftEncoding
+    hmPyDynamicLib+Hidemaru+File+IPythonEncoding
+Interface hmPyDynamicLib+Hidemaru+File+IHidemaruStreamReader: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
+  Interfaces:
+    System.IDisposable
+  Properties:
+    IEncoding Encoding 'get ' : 
+    System.String FilePath 'get ' : 
+  Methods:
+    get_Encoding(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    Read(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    get_FilePath(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    Close(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+Class hmPyDynamicLib+Hidemaru+File+Encoding: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(Int32, Int32, System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    hmPyDynamicLib+Hidemaru+File+IEncoding
+    hmPyDynamicLib+Hidemaru+File+IHidemaruEncoding
+    hmPyDynamicLib+Hidemaru+File+IMicrosoftEncoding
+    hmPyDynamicLib+Hidemaru+File+IPythonEncoding
+  Properties:
+    Int32 HmEncode 'get ' : 
+    Int32 MsCodePage 'get ' : 
+    System.String PyEncodingName 'get ' : 
+  Methods:
+    get_HmEncode(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_MsCodePage(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_PyEncodingName(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+Class hmPyDynamicLib+Hidemaru+File+HidemaruStreamReader: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
+    Void .ctor(System.String, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    hmPyDynamicLib+Hidemaru+File+IHidemaruStreamReader
+    System.IDisposable
+  Properties:
+    IEncoding Encoding 'get ' : 
+    System.String FilePath 'get ' : 
+  Methods:
+    get_Encoding(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_FilePath(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    Close(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig, VtableLayoutMask
