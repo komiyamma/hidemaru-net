@@ -179,6 +179,9 @@ class _TMacro:
         def __getattr__(self, statement_name):
             return lambda *args: self.closure(statement_name, *args)
 
+        def __call__(self, statement_name, *args):
+            return self.closure(statement_name, *args)
+
         def closure(self, statement_name, *args):
             value_list = []
             type_list = []
@@ -210,6 +213,9 @@ class _TMacro:
         """
         def __getattr__(self, function_name):
             return lambda *args: self.closure(function_name, *args)
+
+        def __call__(self, statement_name, *args):
+            return self.closure(statement_name, *args)
 
         def closure(self, function_name, *args):
             value_list = []
