@@ -129,8 +129,8 @@ internal sealed partial class hmNETDynamicLib
                 string expression = $@"
 
                     #_dll_dotnet_newscope = loaddll(@""{strDllFullPath}"");
-                    #_r_dotnet_newscope = dllfuncw( #_dll_dotnet_newscope, ""CallMethod"", @""{dllfullpath}"", @""{typefullname}"", @""{methodname}"", @""{scopename}"");
-                    endmacro ""{scopename}"";
+                    #_r_dotnet_newscope = dllfuncw( #_dll_dotnet_newscope, ""CallMethod"", @""{dllfullpath}"", @""{typefullname}"", @""{methodname}"",  R""MACRO_OF_SCOPENAME({scopename})MACRO_OF_SCOPENAME"");
+                    endmacro R""MACRO_OF_SCOPENAME({scopename})MACRO_OF_SCOPENAME"";
                 ";
                 return ExecEval(expression);
             }
