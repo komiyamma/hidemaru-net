@@ -254,8 +254,6 @@ internal sealed partial class hmNETDynamicLib
                     // 配列の場合を追加
                     if (!success)
                     {
-                        System.Diagnostics.Trace.WriteLine(value.GetType().Name);
-
                         if (value.GetType() == new List<int>().GetType())
                         {
                             success = true;
