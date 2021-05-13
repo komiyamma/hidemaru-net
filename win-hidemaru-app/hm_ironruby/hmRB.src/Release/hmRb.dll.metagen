@@ -189,7 +189,7 @@ Interface hmRbDynamicLib+Hidemaru+HmMacro+IStatementResult: AutoLayout, AnsiClas
     Int32 Result 'get ' : 
     System.String Message 'get ' : 
     System.Exception Error 'get ' : 
-    System.Object Args 'get ' : 
+    System.Collections.Generic.List`1[System.Object] Args 'get ' : 
   Methods:
     get_Result(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
     get_Message(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
@@ -200,7 +200,7 @@ Interface hmRbDynamicLib+Hidemaru+HmMacro+IFunctionResult: AutoLayout, AnsiClass
     System.Object Result 'get ' : 
     System.String Message 'get ' : 
     System.Exception Error 'get ' : 
-    System.Object Args 'get ' : 
+    System.Collections.Generic.List`1[System.Object] Args 'get ' : 
   Methods:
     get_Result(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
     get_Message(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName

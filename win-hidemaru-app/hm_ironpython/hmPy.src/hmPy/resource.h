@@ -4,7 +4,7 @@
 
 // 新しいオブジェクトの次の既定値
 // 
-#define IRONPYTHON_VERSION  L"IronPython 2.7.9 用 (要 : 厳密なバージョン一致)"
+#define IRONPYTHON_VERSION  L"IronPython 2.7.11 用 (要 : 厳密なバージョン一致)"
 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
