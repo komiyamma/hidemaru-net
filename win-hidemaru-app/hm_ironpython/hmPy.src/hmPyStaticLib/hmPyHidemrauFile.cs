@@ -427,6 +427,7 @@ public sealed partial class hmPyDynamicLib
                 }
             }
 
+            // IronPythonではpublic必須
             public class Encoding : IEncoding
             {
                 private int m_hm_encode;
@@ -444,6 +445,7 @@ public sealed partial class hmPyDynamicLib
                 public String PyEncodingName {  get { return this.m_py_encoding_name; } }
             }
 
+            // IronPythonではpublic必須
             public class HidemaruStreamReader : IHidemaruStreamReader
             {
                 String m_path;

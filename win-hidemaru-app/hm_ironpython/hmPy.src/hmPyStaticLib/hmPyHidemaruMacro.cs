@@ -31,7 +31,8 @@ public sealed partial class hmPyDynamicLib
             }
 
             // 問い合わせ結果系の実態。外から見えないように
-            private class TResult : IResult
+            // IronPythonではpublic必須
+            public class TResult : IResult
             {
                 public int Result { get; set; }
                 public string Message { get; set; }
@@ -109,7 +110,6 @@ public sealed partial class hmPyDynamicLib
 
                     if (!success)
                     {
-                        System.Diagnostics.Trace.WriteLine(value.GetType().Name);
                         // 配列ならば、全体が文字列もしくは、数値かにあわせて、List<String> or List<long>にすることで、hm.NETなど共通のList<***>処理へと糾合する
                         if (value.GetType().Name == "List")
                         {
@@ -118,7 +118,7 @@ public sealed partial class hmPyDynamicLib
                             {
                                 List<long> long_list = new List<long>();
                                 List<string> string_list = new List<string>();
-                                dynamic value_list = (dynamic)value;
+                                IronPython.Runtime.List value_list = (IronPython.Runtime.List)value;
                                 foreach (var dv in value_list)
                                 {
                                     if (dv is Int32 || dv is Int64 || dv is IntPtr)
@@ -314,8 +314,8 @@ public sealed partial class hmPyDynamicLib
                 List<Object> Args { get; }
             }
 
-
-            private class TStatementResult : IStatementResult
+            // IronPythonではpublic必須
+            public class TStatementResult : IStatementResult
             {
                 public int Result { get; set; }
                 public string Message { get; set; }
@@ -431,6 +431,8 @@ public sealed partial class hmPyDynamicLib
                     }
                 }
 
+                System.Diagnostics.Trace.WriteLine(result.Result);
+                System.Diagnostics.Trace.WriteLine(result.Args);
                 return new TStatementResult(result.Result, result.Message, result.Error, result.Args); ;
             }
 
@@ -446,7 +448,8 @@ public sealed partial class hmPyDynamicLib
                 List<Object> Args { get; }
             }
 
-            private class TFunctionResult : IFunctionResult
+            // IronPythonではpublic必須
+            public class TFunctionResult : IFunctionResult
             {
                 public object Result { get; set; }
                 public string Message { get; set; }
