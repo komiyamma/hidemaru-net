@@ -29,3 +29,5 @@ G:\repogitory\hidemaru-net\win-hidemaru-app\hm_ironpython3\hmPy.src\hmPYStaticLi
 G:\repogitory\hidemaru-net\win-hidemaru-app\hm_ironpython3\hmPy.src\hmPYStaticLib\bin\Release\System.Memory.dll
 G:\repogitory\hidemaru-net\win-hidemaru-app\hm_ironpython3\hmPy.src\hmPYStaticLib\bin\Release\System.Runtime.CompilerServices.Unsafe.dll
 G:\repogitory\hidemaru-net\win-hidemaru-app\hm_ironpython3\hmPy.src\hmPYStaticLib\obj\Release\hmPyStaticLib.csproj.CopyComplete
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_ironpython3\hmPy.src\hmPYStaticLib\bin\Release\IKVM.Reflection.dll
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_ironpython3\hmPy.src\hmPYStaticLib\bin\Release\System.Buffers.dll
