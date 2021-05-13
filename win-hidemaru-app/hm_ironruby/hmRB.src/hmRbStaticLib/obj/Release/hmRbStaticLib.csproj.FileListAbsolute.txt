@@ -11,4 +11,3 @@ G:\repogitory\hidemaru-net\win-hidemaru-app\hm_ironruby\hmRB.src\hmRbStaticLib\b
 G:\repogitory\hidemaru-net\win-hidemaru-app\hm_ironruby\hmRB.src\hmRbStaticLib\obj\Release\hmRbStaticLib.csproj.CoreCompileInputs.cache
 G:\repogitory\hidemaru-net\win-hidemaru-app\hm_ironruby\hmRB.src\hmRbStaticLib\obj\Release\hmRbStaticLib.csproj.CopyComplete
 G:\repogitory\hidemaru-net\win-hidemaru-app\hm_ironruby\hmRB.src\hmRbStaticLib\obj\Release\hmRbStaticLib.netmodule
-G:\repogitory\hidemaru-net\win-hidemaru-app\hm_ironruby\hmRB.src\hmRbStaticLib\obj\Release\hmRbStaticLib.csprojAssemblyReference.cache

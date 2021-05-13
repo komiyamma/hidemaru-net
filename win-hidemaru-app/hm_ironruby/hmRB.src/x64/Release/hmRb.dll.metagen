@@ -137,6 +137,8 @@ Class hmRbDynamicLib+Hidemaru+HmMacro: AutoLayout, AnsiClass, Class, NestedPubli
     TMacroVar Var : Public
   Methods:
     Eval(String): PrivateScope, Public, HideBySig
+    Statement(String, Object[]): PrivateScope, Public, HideBySig
+    Function(String, Object[]): PrivateScope, Public, HideBySig
 Struct hmRbDynamicLib+Hidemaru+HmEdit+HmCursurPos: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
   :System.ValueType
     Void .ctor(Int32, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
@@ -182,6 +184,28 @@ Interface hmRbDynamicLib+Hidemaru+HmMacro+IResult: AutoLayout, AnsiClass, Class,
     get_Result(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
     get_Message(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
     get_Error(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Interface hmRbDynamicLib+Hidemaru+HmMacro+IStatementResult: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
+  Properties:
+    Int32 Result 'get ' : 
+    System.String Message 'get ' : 
+    System.Exception Error 'get ' : 
+    System.Object Args 'get ' : 
+  Methods:
+    get_Result(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Message(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Error(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Args(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Interface hmRbDynamicLib+Hidemaru+HmMacro+IFunctionResult: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
+  Properties:
+    System.Object Result 'get ' : 
+    System.String Message 'get ' : 
+    System.Exception Error 'get ' : 
+    System.Object Args 'get ' : 
+  Methods:
+    get_Result(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Message(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Error(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Args(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
 Class hmRbDynamicLib+Hidemaru+HmMacro+TMacroVar: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Properties:
