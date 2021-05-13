@@ -82,6 +82,8 @@ Class hmEdgeJSDynamicLib+Hidemaru+Macro: AutoLayout, AnsiClass, Class, NestedPub
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Methods:
     Eval(Object): PrivateScope, Public, Static, HideBySig
+    Statement(String, Object[]): PrivateScope, Public, Static, HideBySig
+    Function(String, Object[]): PrivateScope, Public, Static, HideBySig
     GetVar(String): PrivateScope, Public, Static, HideBySig
     SetVar(String, Object): PrivateScope, Public, Static, HideBySig
 Class hmEdgeJSDynamicLib+Hidemaru+OutputPane: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
@@ -162,3 +164,25 @@ Interface hmEdgeJSDynamicLib+Hidemaru+Macro+IResult: AutoLayout, AnsiClass, Clas
     get_Result(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
     get_Message(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
     get_Error(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Interface hmEdgeJSDynamicLib+Hidemaru+Macro+IStatementResult: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
+  Properties:
+    Int32 Result 'get ' : 
+    System.String Message 'get ' : 
+    System.Exception Error 'get ' : 
+    System.Object Args 'get ' : 
+  Methods:
+    get_Result(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Message(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Error(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Args(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Interface hmEdgeJSDynamicLib+Hidemaru+Macro+IFunctionResult: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
+  Properties:
+    System.Object Result 'get ' : 
+    System.String Message 'get ' : 
+    System.Exception Error 'get ' : 
+    System.Object Args 'get ' : 
+  Methods:
+    get_Result(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Message(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Error(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Args(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName

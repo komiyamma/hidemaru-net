@@ -26,6 +26,8 @@ public sealed partial class hmEdgeJSDynamicLib
     static Func<object, Task<object>> refMacroEval;
     static Func<object, Task<object>> refMacroGetVar;
     static Func<dynamic, Task<object>> refMacroSetVar;
+    static Func<dynamic, Task<object>> refMacroFunction;
+    static Func<dynamic, Task<object>> refMacroStatement;
 
     static Func<object, Task<object>> refFileGetHmEncode;
     static Func<object, Task<object>> refFileGetMsCodePage;
@@ -33,11 +35,11 @@ public sealed partial class hmEdgeJSDynamicLib
 
     static Func<dynamic, Task<object>> refFileReadAllText;
 
-    static Func<dynamic, Task<object>> refOutputPane_Output;
-    static Func<dynamic, Task<object>> refOutputPane_Push;
-    static Func<dynamic, Task<object>> refOutputPane_Pop;
-    static Func<dynamic, Task<object>> refOutputPane_Clear;
-    static Func<dynamic, Task<object>> refOutputPane_SendMessage;
+    static Func<object, Task<object>> refOutputPane_Output;
+    static Func<object, Task<object>> refOutputPane_Push;
+    static Func<object, Task<object>> refOutputPane_Pop;
+    static Func<object, Task<object>> refOutputPane_Clear;
+    static Func<object, Task<object>> refOutputPane_SendMessage;
 
     static void InitMethodReference()
     {
@@ -107,6 +109,18 @@ public sealed partial class hmEdgeJSDynamicLib
             return ret;
         });
 
+        refMacroFunction = (Func<dynamic, Task<object>>)(async (obj) =>
+        {
+            var ret = Hidemaru.Macro.Function((String)obj.FuncName, (Object[])(obj.Args));
+            return ret;
+        });
+
+        refMacroStatement = (Func<dynamic, Task<object>>)(async (obj) =>
+        {
+            var ret = Hidemaru.Macro.Statement((String)obj.FuncName, (Object[])(obj.Args));
+            return ret;
+        });
+
         refMacroGetVar = (Func<object, Task<object>>)(async (obj) =>
         {
             var ret = Hidemaru.Macro.GetVar((String)obj);
@@ -143,31 +157,31 @@ public sealed partial class hmEdgeJSDynamicLib
             return ret;
         });
 
-        refOutputPane_Output = (Func<dynamic, Task<object>>)(async (obj) =>
+        refOutputPane_Output = (Func<object, Task<object>>)(async (obj) =>
         {
             var ret = Hidemaru.OutputPane.Output((String)obj);
             return ret;
         });
 
-        refOutputPane_Push = (Func<dynamic, Task<object>>)(async (obj) =>
+        refOutputPane_Push = (Func<object, Task<object>>)(async (obj) =>
         {
             var ret = Hidemaru.OutputPane.Push();
             return ret;
         });
 
-        refOutputPane_Pop = (Func<dynamic, Task<object>>)(async (obj) =>
+        refOutputPane_Pop = (Func<object, Task<object>>)(async (obj) =>
         {
             var ret = Hidemaru.OutputPane.Pop();
             return ret;
         });
 
-        refOutputPane_Clear = (Func<dynamic, Task<object>>)(async (obj) =>
+        refOutputPane_Clear = (Func<object, Task<object>>)(async (obj) =>
         {
             var ret = Hidemaru.OutputPane.Clear();
             return ret;
         });
 
-        refOutputPane_SendMessage = (Func<dynamic, Task<object>>)(async (obj) =>
+        refOutputPane_SendMessage = (Func<object, Task<object>>)(async (obj) =>
         {
             var ret = Hidemaru.OutputPane.SendMessage((int)obj);
             return ret;
@@ -281,6 +295,18 @@ public sealed partial class hmEdgeJSDynamicLib
                 function _hm_refMacroSetVar(obj) {
                     let ret = null;
                     let dumm = _TransRefObj.refMacroSetVar(obj, function(error, result) { ret = result; } );
+                    return ret;
+                }
+
+                function _hm_refMacroFunction(obj) {
+                    let ret = null;
+                    let dumm = _TransRefObj.refMacroFunction(obj, function(error, result) { ret = result; } );
+                    return ret;
+                }
+
+                function _hm_refMacroStatement(obj) {
+                    let ret = null;
+                    let dumm = _TransRefObj.refMacroStatement(obj, function(error, result) { ret = result; } );
                     return ret;
                 }
 
@@ -407,6 +433,15 @@ public sealed partial class hmEdgeJSDynamicLib
                     static Eval(expression) {
                         return _hm_refMacroEval(expression);
                     }
+
+                    static Function(funcname, ...args) {
+                        return _hm_refMacroFunction( { FuncName:funcname, Args:args } );
+                    }
+
+                    static Statement(funcname, ...args) {
+                        return _hm_refMacroStatement( { FuncName:funcname, Args:args } );
+                    }
+
 /*
                     static Var(key, value) {
                         if (value == null) {
@@ -541,6 +576,8 @@ public sealed partial class hmEdgeJSDynamicLib
                 refMacroEval = refMacroEval,
                 refMacroGetVar = refMacroGetVar,
                 refMacroSetVar = refMacroSetVar,
+                refMacroFunction = refMacroFunction,
+                refMacroStatement = refMacroStatement,
                 refManualResetEvent = refManualResetEvent,
                 refFileGetHmEncode = refFileGetHmEncode,
                 refFileGetMsCodePage = refFileGetMsCodePage,
