@@ -1,5 +1,5 @@
 ImageRuntimeVersion: v4.0.30319
-Assembly hm.NET, Version=1.8.*, Culture=ロケールに依存しない言語 (ロケールに依存しない国): 
+Assembly hm.NET, Version=1.9.*, Culture=ロケールに依存しない言語 (ロケールに依存しない国): 
 	hash=SHA1, flags=PublicKey
 Assembly mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
 	hash=None, flags=None
@@ -105,7 +105,8 @@ Interface Hidemaru.Hm+Macro+IExec: AutoLayout, AnsiClass, Class, NestedPublic, C
   Methods:
     File(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
     Eval(String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
-    BornMacroScopeMethod(String, String, String, String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    Method(String, String, String, String): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    Method(String, Delegate): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
 Interface Hidemaru.Hm+Macro+IVar: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
   Properties:
     System.Object Item [System.String] 'get set' : 
