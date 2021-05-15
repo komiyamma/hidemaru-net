@@ -883,7 +883,7 @@ namespace Hidemaru {
 	std::string ExplorerPane_GetCurrentDir() {
 		if (CHidemaruExeExport::HmExplorerPane_GetCurrentDir) {
 			if (Macro_IsExecuting()) {
-				py::object ret = Macro_GetVar(R"RAW(dllfuncstr(loaddll("HmExplorerPane"), "GetCurrentDir", hidemaruhandle(0));)RAW");
+				py::object ret = Macro_GetVar(R"RAW(dllfuncstr(loaddll("HmExplorerPane"), "GetCurrentDir", hidemaruhandle(0)))RAW");
 				return py::str(ret);
 			}
 			else {
@@ -899,7 +899,7 @@ namespace Hidemaru {
 	std::string ExplorerPane_GetProject() {
 		if (CHidemaruExeExport::HmExplorerPane_GetProject) {
 			if (Macro_IsExecuting()) {
-				py::object ret = Macro_GetVar(R"RAW(dllfuncstr(loaddll("HmExplorerPane"), "GetProject", hidemaruhandle(0));)RAW");
+				py::object ret = Macro_GetVar(R"RAW(dllfuncstr(loaddll("HmExplorerPane"), "GetProject", hidemaruhandle(0)))RAW");
 				return py::str(ret);
 			}
 			else {
@@ -911,49 +911,6 @@ namespace Hidemaru {
 
 		return "";
 	}
-
-	int ExplorerPane_GetProjectNative(int ch) {
-		if (CHidemaruExeExport::HmExplorerPane_GetProject) {
-			HWND hHidemaruWindow = CHidemaruExeExport::Hidemaru_GetCurrentWindowHandle();
-			BYTE *ret = CHidemaruExeExport::HmExplorerPane_GetProject(hHidemaruWindow);
-			if (*ret != NULL) {
-				ret = ret + 7;
-			}
-
-			union TYPERET {
-				BYTE byte4[4];
-				int a;
-			};
-			TYPERET typre_ret;
-			typre_ret.a = 0; //Å@èâä˙âª
-
-			for (int i = 0; i < 4; i++) {
-				if (ret[i] == NULL) {
-					break;
-				}
-				typre_ret.byte4[i] = ret[i];
-			}
-
-			return typre_ret.a;
-
-				/*
-			vector<BYTE> v;
-			BYTE *p = ret;
-			while (true) {
-				if (*p) {
-					v.push_back(*p);
-				}
-				else {
-					break;
-				}
-				p++;
-			}
-			*/
-		}
-
-		return false;
-	}
-
 
 #pragma region
 	/*
@@ -1049,7 +1006,6 @@ PyMODINIT_FUNC PyInit_hidemaru() {
 	explorerpane.def("sendmessage", &Hidemaru::ExplorerPane_SendMessage);
 	explorerpane.def("getproject", &Hidemaru::ExplorerPane_GetProject);
 	explorerpane.def("getcurrentdir", &Hidemaru::ExplorerPane_GetCurrentDir);
-	explorerpane.def("test", &Hidemaru::ExplorerPane_GetProjectNative);
 	
 
 #pragma region

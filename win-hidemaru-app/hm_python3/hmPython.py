@@ -96,7 +96,11 @@ class _TEdit:
     """
 
     def __GetFilePath(self):
-        return hidemaru.edit.get_filepath()
+        filepath = hidemaru.edit.get_filepath()
+        if not filepath:
+            return None
+        else:
+            return filepath
         
     # 編集中のファイルのパス
     FilePath = property(__GetFilePath)
@@ -314,9 +318,9 @@ class _TMacro:
 
 class _TOutputPane:
     """
-    秀丸アウトプットパネル関連のクラス
+    秀丸アウトプットペイン関連のクラス
     """
-    # アウトプットパネルへの出力
+    # アウトプット枠への出力
     def Output(self, obj):
         return hidemaru.outputpane.output(obj)
             
@@ -339,6 +343,31 @@ class _TOutputPane:
     # アウトプット枠の基底ディレクトリを設定する
     def SetBaseDir(self, dirpath):
         return hidemaru.outputpane.setbasedir(dirpath)
+
+
+class _TExplorerPane:
+    """
+    秀丸ファイルマネージャペイン関連のクラス
+    """
+    # ファイルマネージャ枠のモードの設定
+    def SetMode(self, mode):
+        return hidemaru.explorerpane.setmode(mode)
+
+    # ファイルマネージャ枠のモードの取得
+    def GetMode(self):
+        return hidemaru.explorerpane.getmode()
+
+    # ファイルマネージャ枠に指定のファイルのプロジェクトを読み込む
+    def LoadProject(self, filepath):
+        return hidemaru.explorerpane.loadproject(filepath)
+
+    # ファイルマネージャ枠のプロジェクトを指定ファイルに保存
+    def LoadProject(self, filepath):
+        return hidemaru.explorerpane.saveproject(filepath)
+
+    # ファイルマネージャ枠にプロジェクトを読み込んでいるならば、そのファイルパスを取得する(読み込んでいなければ空白文字が返る)
+    def LoadProject(self, filepath):
+        return hidemaru.explorerpane.saveproject(filepath)
 
 
 class _THidemaru:
