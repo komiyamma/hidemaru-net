@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="hmNET\hmNETHidemaruExplorerPane.cs" />
     <Compile Include="hmNET\hmNETHidemaruFile.cs" />
     <Compile Include="hmNET\hmNETHidemaruOutputPane.cs" />
     <Compile Include="hmNET\HmOriginalEncodeMap.cs" />

@@ -122,7 +122,7 @@ namespace Hidemaru
                 IResult Eval(String expression);
                 IResult Method(string message_parameter, string dllfullpath, string typefullname, string methodname);
                 IResult Method(string message_parameter, Delegate delegate_method);
-           }
+            }
 
             // 実行系の実態
             private class TExec : IExec
@@ -168,7 +168,7 @@ namespace Hidemaru
                     }
                     else if (!delegate_method.Method.IsPublic)
                     {
-                        string message_no_public = delegate_method.Method.DeclaringType.FullName + "." + delegate_method.Method.Name + " is not 'PUBLIC' in " + delegate_method.Method.DeclaringType.Assembly.Location ;
+                        string message_no_public = delegate_method.Method.DeclaringType.FullName + "." + delegate_method.Method.Name + " is not 'PUBLIC' in " + delegate_method.Method.DeclaringType.Assembly.Location;
                         var result_no_public = new TResult(0, "", new MissingMethodException(message_no_public));
                         System.Diagnostics.Trace.WriteLine(message_no_public);
                         return result_no_public;
@@ -398,6 +398,44 @@ namespace Hidemaru
             {
                 return hmNETDynamicLib.Hidemaru.OutputPane.SetBaseDir(dirpath);
             }
+        }
+
+        // ファイルマネージャ系
+        public static class ExplorerPane
+        {
+            public static int SetMode(int mode)
+            {
+                return hmNETDynamicLib.Hidemaru.ExplorerPane.SetMode(mode);
+            }
+
+            public static int GetMode()
+            {
+                return hmNETDynamicLib.Hidemaru.ExplorerPane.GetMode();
+            }
+
+            public static int LoadProject(string filepath)
+            {
+                return hmNETDynamicLib.Hidemaru.ExplorerPane.LoadProject(filepath);
+            }
+
+            public static int SaveProject(string filepath)
+            {
+                return hmNETDynamicLib.Hidemaru.ExplorerPane.SaveProject(filepath);
+            }
+
+            public static IntPtr WindowHandle
+            {
+                get
+                {
+                    return hmNETDynamicLib.Hidemaru.ExplorerPane.WindowHandle;
+                }
+            }
+
+            public static IntPtr SendMessage(int command_id)
+            {
+                return hmNETDynamicLib.Hidemaru.ExplorerPane.SendMessage(command_id);
+            }
+
         }
     }
 }

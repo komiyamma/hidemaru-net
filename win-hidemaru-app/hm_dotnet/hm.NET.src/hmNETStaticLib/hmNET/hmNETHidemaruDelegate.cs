@@ -166,7 +166,7 @@ internal sealed partial class hmNETDynamicLib
                     }
                     catch (Exception e)
                     {
-                        OutputDebugStream(ErrorMsg.MethodNeedOutputNotFound + ":\n" + e.Message);
+                        OutputDebugStream(ErrorMsg.MethodNeedExplorerNotFound + ":\n" + e.Message);
                     }
 
                 }
