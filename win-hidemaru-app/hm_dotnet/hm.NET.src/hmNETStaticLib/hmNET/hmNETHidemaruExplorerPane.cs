@@ -106,7 +106,6 @@ internal sealed partial class hmNETDynamicLib
                 return "";
             }
 
-
             // GetCurrentDirする
             public static string GetCurrentDir()
             {

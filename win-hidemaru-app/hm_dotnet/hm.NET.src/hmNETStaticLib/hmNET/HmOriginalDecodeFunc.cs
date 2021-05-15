@@ -17,13 +17,15 @@ internal sealed partial class hmNETDynamicLib
                     sorted_map = new Dictionary<UInt32, UInt16>();
                     for (int i = 0; i < HmOriginalDecodeMap.decode_map.Length; i++)
                     {
-                        UInt32 key = HmOriginalDecodeMap.decode_map[i];
-                        try
+                        UInt32 encode_key = HmOriginalEncodeMap.encode_map[i];
+                        UInt32 decode_key = HmOriginalDecodeMap.decode_map[i];
+                        if (encode_key == decode_key || Math.Abs(encode_key - decode_key) == 0x8000000)
                         {
-                            sorted_map.Add(key, (UInt16)i);
-                        } catch(Exception)
+                            sorted_map.Add(decode_key, (UInt16)i);
+                        }
+                        else
                         {
-                            // 
+                            sorted_map.Add(encode_key, (UInt16)i);
                         }
                     }
                 }
