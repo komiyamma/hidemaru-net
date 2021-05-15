@@ -374,6 +374,18 @@ namespace Hidemaru {
 		return py::make_tuple(ret.lineno, ret.column, ret.x, ret.y);
 	}
 
+	BOOL IsMacroExecuting() {
+
+		if (CHidemaruExeExport::Hidemaru_GetCurrentWindowHandle) {
+			HWND hHidemaruWindow = CHidemaruExeExport::Hidemaru_GetCurrentWindowHandle();
+			const int WM_ISMACROEXECUTING = WM_USER + 167;
+			LRESULT r = SendMessageW(hHidemaruWindow, WM_ISMACROEXECUTING, 0, 0);
+			return (BOOL)r;
+		}
+
+		return FALSE;
+	}
+
 	// シンボルの値の取得
 	py::object Macro_GetVar(const std::string utf8_simbol) {
 
@@ -454,6 +466,36 @@ namespace Hidemaru {
 			return py::make_tuple( success, "", "HidemaruMacroEvalException");
 		}
 	}
+
+	py::tuple Macro_ExecEvalMemory(wstring utf16_expression) {
+		if (CHidemaruExeExport::Hidemaru_GetCurrentWindowHandle) {
+			HWND hHidemaruWindow = CHidemaruExeExport::Hidemaru_GetCurrentWindowHandle();
+			const int WM_REMOTE_EXECMACRO_MEMORY = WM_USER + 272;
+
+			WCHAR wszReturn[65535];
+			*(WORD*)wszReturn = sizeof(wszReturn) / sizeof(wszReturn[0]); // 最初のバイトにバッファーのサイズを格納することで秀丸本体がバッファーサイズの上限を知る。
+			LRESULT lRet = SendMessage(hHidemaruWindow, WM_REMOTE_EXECMACRO_MEMORY, (WPARAM)wszReturn, (LPARAM)utf16_expression.c_str());
+			if (lRet) {
+				string utf8_message = utf16_to_utf8(wszReturn);
+				py::str py_message = py::str(utf8_message);
+				return py::make_tuple(lRet, py_message, "");
+			}
+			else {
+				OutputDebugStream(L"マクロの実行に失敗しました。\n");
+				OutputDebugStream(L"マクロ内容:\n");
+				OutputDebugStream(utf16_expression);
+				return py::make_tuple(lRet, "", "HidemaruMacroExecEvalException");
+			}
+		}
+		return py::make_tuple(0, "", "HidemaruMacroExecEvalException");
+	}
+
+	std::string ExplorerPane_GetCurrentDir() {
+		py::object ret = Macro_GetVar(R"RAW(dllfuncstr(loaddll("HmExplorerPane"), "GetCurrentDir", hidemaruhandle(0));)RAW");
+		return py::str(ret);
+	}
+
+
 
 	/** joins a vector of strings into a single string */
 	std::wstring StringJoin(const std::vector<std::wstring> &strs, const std::wstring delim)
@@ -841,8 +883,8 @@ namespace Hidemaru {
 		return FALSE;
 	}
 
-	
 
+	
 
 #pragma region
 	/*
@@ -915,8 +957,10 @@ PyMODINIT_FUNC PyInit_hidemaru() {
 	macro.def("get_var", &Hidemaru::Macro_GetVar);
 	macro.def("set_var", &Hidemaru::Macro_SetVar);
 	macro.def("do_eval", &Hidemaru::Macro_Eval);
+	macro.def("do_exec_eval", &Hidemaru::Macro_ExecEvalMemory);
 	macro.def("do_statement", &Hidemaru::Macro_Statement);
 	macro.def("do_function", &Hidemaru::Macro_Function);
+	macro.def("is_executing", &Hidemaru::IsMacroExecuting);
 
 	py::module outputpane = m.def_submodule("outputpane", "Hidemaru OutputPane python module");
 	outputpane.def("output", &Hidemaru::OutputPane_Output);
@@ -933,6 +977,7 @@ PyMODINIT_FUNC PyInit_hidemaru() {
 	explorerpane.def("saveproject", &Hidemaru::ExplorerPane_SaveProject);
 	explorerpane.def("getwindowhandle", &Hidemaru::ExplorerPane_GetWindowHanndle);
 	explorerpane.def("getupdated", &Hidemaru::ExplorerPane_GetUpdated);
+	explorerpane.def("sendmessage", &Hidemaru::ExplorerPane_SendMessage);
 
 #pragma region
 	/*
