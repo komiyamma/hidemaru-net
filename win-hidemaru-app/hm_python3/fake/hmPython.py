@@ -1,9 +1,11 @@
 #-------------------- coding: utf-8 ---------------------------
-# hmPython3 1.8.2.2用 フェイクライブラリ
+# hmPython3 2.0.0.1用 フェイクライブラリ
 # Copyright (c) 2017-2021 Akitsugu Komiyama
 # under the Apache License Version 2.0
 #--------------------------------------------------------------
 import os
+
+__version__ = 2.001
 
 class _TText:
     class _TEncoding:
@@ -195,6 +197,43 @@ class _TOutputPane:
     # アウトプット枠の基底ディレクトリを設定する
     def SetBaseDir(self, dirpath) -> int:
         return 1
+
+
+class _TExplorerPane:
+    """
+    秀丸ファイルマネージャペイン関連のクラス
+    """
+    # ファイルマネージャ枠のモードの設定
+    def SetMode(self, mode):
+        return 1
+
+    # ファイルマネージャ枠のモードの取得
+    def GetMode(self):
+        return 1
+
+    # ファイルマネージャ枠に指定のファイルのプロジェクトを読み込む
+    def LoadProject(self, filepath):
+        return 1
+
+    # ファイルマネージャ枠のプロジェクトを指定ファイルに保存
+    def SaveProject(self, filepath):
+        return 1
+
+    # ファイルマネージャ枠が「プロジェクト」表示のとき、更新された状態であるかどうかを返します
+    def GetUpdated(self):
+        return 0
+
+    # ファイルマネージャ枠にメッセージを送る
+    def SendMessage(self, command_id):
+        return 0
+
+    # ファイルマネージャ枠にプロジェクトを読み込んでいるならば、そのファイルパスを取得する(読み込んでいなければNoneが返る)
+    def GetProject(self):
+        return None
+
+    # ファイルマネージャ枠のカレントディレクトリを返す
+    def GetCurrentDir(self):
+        return os.getcwd()
 
 
 class _THidemaru:
