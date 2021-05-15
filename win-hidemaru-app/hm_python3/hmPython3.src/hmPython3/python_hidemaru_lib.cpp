@@ -740,6 +740,108 @@ namespace Hidemaru {
 		return (BOOL)r;
 	}
 
+	// ファイルマネージャ枠の設定
+	BOOL ExplorerPane_SetMode(const int mode) {
+
+		// ちゃんと関数がある時だけ
+		if (CHidemaruExeExport::Hidemaru_GetCurrentWindowHandle) {
+			HWND hHidemaruWindow = CHidemaruExeExport::Hidemaru_GetCurrentWindowHandle();
+			if (CHidemaruExeExport::HmExplorerPane_SetMode) {
+				BOOL result = CHidemaruExeExport::HmExplorerPane_SetMode(hHidemaruWindow, mode);
+				return result;
+			}
+		}
+
+		return FALSE;
+	}
+
+	BOOL ExplorerPane_GetMode() {
+
+		// ちゃんと関数がある時だけ
+		if (CHidemaruExeExport::Hidemaru_GetCurrentWindowHandle) {
+			HWND hHidemaruWindow = CHidemaruExeExport::Hidemaru_GetCurrentWindowHandle();
+			if (CHidemaruExeExport::HmExplorerPane_GetMode) {
+				BOOL result = CHidemaruExeExport::HmExplorerPane_GetMode(hHidemaruWindow);
+				return result;
+			}
+		}
+
+		return FALSE;
+	}
+
+	BOOL ExplorerPane_LoadProject(const py::str utf8_value) {
+		wstring utf16_value = utf8_to_utf16(utf8_value);
+
+		// ちゃんと関数がある時だけ
+		if (CHidemaruExeExport::Hidemaru_GetCurrentWindowHandle) {
+			HWND hHidemaruWindow = CHidemaruExeExport::Hidemaru_GetCurrentWindowHandle();
+			if (CHidemaruExeExport::HmExplorerPane_LoadProject) {
+				auto encode_byte_data = EncodeWStringToOriginalEncodeVector(utf16_value);
+				BOOL result = CHidemaruExeExport::HmExplorerPane_LoadProject(hHidemaruWindow, encode_byte_data.data());
+				return result;
+			}
+		}
+
+		return FALSE;
+	}
+
+	BOOL ExplorerPane_SaveProject(const py::str utf8_value) {
+		wstring utf16_value = utf8_to_utf16(utf8_value);
+
+		// ちゃんと関数がある時だけ
+		if (CHidemaruExeExport::Hidemaru_GetCurrentWindowHandle) {
+			HWND hHidemaruWindow = CHidemaruExeExport::Hidemaru_GetCurrentWindowHandle();
+			if (CHidemaruExeExport::HmExplorerPane_SaveProject) {
+				auto encode_byte_data = EncodeWStringToOriginalEncodeVector(utf16_value);
+				BOOL result = CHidemaruExeExport::HmExplorerPane_SaveProject(hHidemaruWindow, encode_byte_data.data());
+				return result;
+			}
+		}
+
+		return FALSE;
+	}
+
+	// ハンドルの取得  (この関数はPython層へは公開していない)
+	HWND ExplorerPane_GetWindowHanndle() {
+
+		// ちゃんと関数がある時だけ
+		if (CHidemaruExeExport::Hidemaru_GetCurrentWindowHandle) {
+			HWND hHidemaruWindow = CHidemaruExeExport::Hidemaru_GetCurrentWindowHandle();
+			if (CHidemaruExeExport::HmExplorerPane_GetWindowHandle) {
+				return CHidemaruExeExport::HmExplorerPane_GetWindowHandle(hHidemaruWindow);
+			}
+		}
+
+		return NULL;
+	}
+
+	LRESULT ExplorerPane_SendMessage(const int command_id) {
+		HWND ExplorerWindowHandle = ExplorerPane_GetWindowHanndle();
+		if (ExplorerWindowHandle) {
+			//251=１つ上のフォルダ
+			// 0x111 = WM_COMMAND
+			LRESULT r = SendMessageW(ExplorerWindowHandle, 0x111, command_id, 0);
+			return r;
+
+		}
+		return FALSE;
+	}
+
+	BOOL ExplorerPane_GetUpdated() {
+
+		// ちゃんと関数がある時だけ
+		if (CHidemaruExeExport::Hidemaru_GetCurrentWindowHandle) {
+			HWND hHidemaruWindow = CHidemaruExeExport::Hidemaru_GetCurrentWindowHandle();
+			if (CHidemaruExeExport::HmExplorerPane_GetUpdated) {
+				BOOL result = CHidemaruExeExport::HmExplorerPane_GetUpdated(hHidemaruWindow);
+				return result;
+			}
+		}
+
+		return FALSE;
+	}
+
+	
 
 
 #pragma region
@@ -824,6 +926,13 @@ PyMODINIT_FUNC PyInit_hidemaru() {
 	outputpane.def("sendmessage", &Hidemaru::OutputPane_SendMessage);
 	outputpane.def("setbasedir", &Hidemaru::OutputPane_SetBaseDir);
 	
+	py::module explorerpane = m.def_submodule("explorerpane", "Hidemaru ExplorerPane python module");
+	explorerpane.def("setmode", &Hidemaru::ExplorerPane_SetMode);
+	explorerpane.def("getmode", &Hidemaru::ExplorerPane_GetMode);
+	explorerpane.def("loadproject", &Hidemaru::ExplorerPane_LoadProject);
+	explorerpane.def("saveproject", &Hidemaru::ExplorerPane_SaveProject);
+	explorerpane.def("getwindowhandle", &Hidemaru::ExplorerPane_GetWindowHanndle);
+	explorerpane.def("getupdated", &Hidemaru::ExplorerPane_GetUpdated);
 
 #pragma region
 	/*

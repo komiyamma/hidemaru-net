@@ -229,9 +229,9 @@ public:
 	static PFNHmExplorerPane_SaveProject HmExplorerPane_SaveProject;
 	using PFNHmExplorerPane_GetProject = int(_cdecl*)(HWND hwnd, BYTE *);
 	static PFNHmExplorerPane_GetProject HmExplorerPane_GetProject;
-	using PFNHmExplorerPane_GetWindowHandle = int(_cdecl*)(HWND hwnd, BYTE *);
+	using PFNHmExplorerPane_GetWindowHandle = HWND(_cdecl*)(HWND hwnd);
 	static PFNHmExplorerPane_GetWindowHandle HmExplorerPane_GetWindowHandle;
-	using PFNHmExplorerPane_GetUpdated = int(_cdecl*)(HWND hwnd, BYTE *);
+	using PFNHmExplorerPane_GetUpdated = int(_cdecl*)(HWND hwnd);
 	static PFNHmExplorerPane_GetUpdated HmExplorerPane_GetUpdated;
 	using PFNHmExplorerPane_GetCurrentDir = int(_cdecl*)(HWND hwnd, BYTE *);
 	static PFNHmExplorerPane_GetCurrentDir HmExplorerPane_GetCurrentDir;
