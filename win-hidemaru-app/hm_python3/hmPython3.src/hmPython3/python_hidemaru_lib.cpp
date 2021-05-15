@@ -374,7 +374,7 @@ namespace Hidemaru {
 		return py::make_tuple(ret.lineno, ret.column, ret.x, ret.y);
 	}
 
-	BOOL IsMacroExecuting() {
+	BOOL Macro_IsExecuting() {
 
 		if (CHidemaruExeExport::Hidemaru_GetCurrentWindowHandle) {
 			HWND hHidemaruWindow = CHidemaruExeExport::Hidemaru_GetCurrentWindowHandle();
@@ -467,8 +467,10 @@ namespace Hidemaru {
 		}
 	}
 
-	py::tuple Macro_ExecEvalMemory(wstring utf16_expression) {
+	py::tuple Macro_Exec_EvalMemory(string utf8_expression) {
 		if (CHidemaruExeExport::Hidemaru_GetCurrentWindowHandle) {
+			wstring utf16_expression = utf8_to_utf16(utf8_expression);
+
 			HWND hHidemaruWindow = CHidemaruExeExport::Hidemaru_GetCurrentWindowHandle();
 			const int WM_REMOTE_EXECMACRO_MEMORY = WM_USER + 272;
 
@@ -490,13 +492,8 @@ namespace Hidemaru {
 		return py::make_tuple(0, "", "HidemaruMacroExecEvalException");
 	}
 
-	std::string ExplorerPane_GetCurrentDir() {
-		py::object ret = Macro_GetVar(R"RAW(dllfuncstr(loaddll("HmExplorerPane"), "GetCurrentDir", hidemaruhandle(0));)RAW");
-		return py::str(ret);
-	}
 
-
-
+	
 	/** joins a vector of strings into a single string */
 	std::wstring StringJoin(const std::vector<std::wstring> &strs, const std::wstring delim)
 	{
@@ -883,8 +880,34 @@ namespace Hidemaru {
 		return FALSE;
 	}
 
+	std::string ExplorerPane_GetCurrentDir() {
+		if (CHidemaruExeExport::HmExplorerPane_GetCurrentDir) {
+			if (Macro_IsExecuting()) {
+				py::object ret = Macro_GetVar(R"RAW(dllfuncstr(loaddll("HmExplorerPane"), "GetCurrentDir", hidemaruhandle(0));)RAW");
+				return py::str(ret);
+			}
+			else {
+				py::tuple ret = Macro_Exec_EvalMemory(R"RAW(endmacro dllfuncstr(loaddll("HmExplorerPane"), "GetCurrentDir", hidemaruhandle(0));)RAW");
+				py::str message = ret[1];
+				return message;
+			}
+		}
 
-	
+		return "";
+	}
+
+	std::string ExplorerPane_GetProject() {
+		if (Macro_IsExecuting()) {
+			py::object ret = Macro_GetVar(R"RAW(dllfuncstr(loaddll("HmExplorerPane"), "GetProject", hidemaruhandle(0));)RAW");
+			return py::str(ret);
+		}
+		else {
+			py::tuple ret = Macro_Exec_EvalMemory(R"RAW(endmacro dllfuncstr(loaddll("HmExplorerPane"), "GetProject", hidemaruhandle(0));)RAW");
+			py::str message = ret[1];
+			return message;
+		}
+	}
+
 
 #pragma region
 	/*
@@ -957,10 +980,10 @@ PyMODINIT_FUNC PyInit_hidemaru() {
 	macro.def("get_var", &Hidemaru::Macro_GetVar);
 	macro.def("set_var", &Hidemaru::Macro_SetVar);
 	macro.def("do_eval", &Hidemaru::Macro_Eval);
-	macro.def("do_exec_eval", &Hidemaru::Macro_ExecEvalMemory);
+	macro.def("do_exec_eval", &Hidemaru::Macro_Exec_EvalMemory);
 	macro.def("do_statement", &Hidemaru::Macro_Statement);
 	macro.def("do_function", &Hidemaru::Macro_Function);
-	macro.def("is_executing", &Hidemaru::IsMacroExecuting);
+	macro.def("is_executing", &Hidemaru::Macro_IsExecuting);
 
 	py::module outputpane = m.def_submodule("outputpane", "Hidemaru OutputPane python module");
 	outputpane.def("output", &Hidemaru::OutputPane_Output);
@@ -978,6 +1001,8 @@ PyMODINIT_FUNC PyInit_hidemaru() {
 	explorerpane.def("getwindowhandle", &Hidemaru::ExplorerPane_GetWindowHanndle);
 	explorerpane.def("getupdated", &Hidemaru::ExplorerPane_GetUpdated);
 	explorerpane.def("sendmessage", &Hidemaru::ExplorerPane_SendMessage);
+	explorerpane.def("getproject", &Hidemaru::ExplorerPane_GetProject);
+	explorerpane.def("getcurrentdir", &Hidemaru::ExplorerPane_GetCurrentDir);
 
 #pragma region
 	/*
