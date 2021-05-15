@@ -1,5 +1,5 @@
 #-------------------- coding: utf-8 ---------------------------
-# hmPython3 1.8.3.1用 ライブラリ
+# hmPython3 2.0.0.1用 ライブラリ
 # Copyright (c) 2017-2021 Akitsugu Komiyama
 # under the Apache License Version 2.0
 #--------------------------------------------------------------
@@ -102,7 +102,7 @@ class _TEdit:
         else:
             return filepath
         
-    # 編集中のファイルのパス
+    # 編集中のファイルのパスを返す。ファイル名が決まってなければNoneを返す。
     FilePath = property(__GetFilePath)
 
     #--------------------------------------------------
@@ -362,12 +362,32 @@ class _TExplorerPane:
         return hidemaru.explorerpane.loadproject(filepath)
 
     # ファイルマネージャ枠のプロジェクトを指定ファイルに保存
-    def LoadProject(self, filepath):
+    def SaveProject(self, filepath):
         return hidemaru.explorerpane.saveproject(filepath)
 
-    # ファイルマネージャ枠にプロジェクトを読み込んでいるならば、そのファイルパスを取得する(読み込んでいなければ空白文字が返る)
-    def LoadProject(self, filepath):
-        return hidemaru.explorerpane.saveproject(filepath)
+    # ファイルマネージャ枠が「プロジェクト」表示のとき、更新された状態であるかどうかを返します
+    def GetUpdated(self):
+        return hidemaru.explorerpane.getupdated()
+
+    # ファイルマネージャ枠にメッセージを送る
+    def SendMessage(self, command_id):
+        return hidemaru.explorerpane.sendmessage(command_id)
+
+    # ファイルマネージャ枠にプロジェクトを読み込んでいるならば、そのファイルパスを取得する(読み込んでいなければNoneが返る)
+    def GetProject(self):
+        filepath = hidemaru.explorerpane.getproject()
+        if not filepath:
+            return None
+        else:
+            return filepath
+
+    # ファイルマネージャ枠のカレントディレクトリを返す
+    def GetCurrentDir(self):
+        dirpath = hidemaru.explorerpane.getcurrentdir()
+        if not dirpath:
+            return None
+        else:
+            return dirpath
 
 
 class _THidemaru:
@@ -380,6 +400,7 @@ class _THidemaru:
         self.Edit = _TEdit()
         self.Macro = _TMacro()
         self.OutputPane = _TOutputPane()
+        self.ExplorerPane = _TExplorerPane()
     #--------------------------------------------------
 
     #--------------------------------------------------
