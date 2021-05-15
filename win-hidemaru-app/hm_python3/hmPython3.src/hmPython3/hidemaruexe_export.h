@@ -15,6 +15,9 @@ private:
 	static HMODULE hHideExeHandle;
 	static wchar_t szHidemaruFullPath[MAX_PATH];
 
+	static HMODULE hHmOutputPaneDLL;
+	static HMODULE hHmExplorerPaneDLL;
+
 public:
 	//========================================================================
 	// 秀丸本体のバージョン。
@@ -213,6 +216,25 @@ public:
 	static PFNHmOutputPane_GetWindowHandle HmOutputPane_GetWindowHandle;
 	using PFNHmOutputPane_SetBaseDir = int(_cdecl*)(HWND hwnd, BYTE *);
 	static PFNHmOutputPane_SetBaseDir HmOutputPane_SetBaseDir;
+
+
+	// ファイルマネージャパネル
+	using PFNHmExplorerPane_SetMode = int(_cdecl*)(HWND hwnd, intptr_t);
+	static PFNHmExplorerPane_SetMode HmExplorerPane_SetMode;
+	using PFNHmExplorerPane_GetMode = int(_cdecl*)(HWND hwnd);
+	static PFNHmExplorerPane_GetMode HmExplorerPane_GetMode;
+	using PFNHmExplorerPane_LoadProject = int(_cdecl*)(HWND hwnd, BYTE *);
+	static PFNHmExplorerPane_LoadProject HmExplorerPane_LoadProject;
+	using PFNHmExplorerPane_SaveProject = int(_cdecl*)(HWND hwnd, BYTE *);
+	static PFNHmExplorerPane_SaveProject HmExplorerPane_SaveProject;
+	using PFNHmExplorerPane_GetProject = int(_cdecl*)(HWND hwnd, BYTE *);
+	static PFNHmExplorerPane_GetProject HmExplorerPane_GetProject;
+	using PFNHmExplorerPane_GetWindowHandle = int(_cdecl*)(HWND hwnd, BYTE *);
+	static PFNHmExplorerPane_GetWindowHandle HmExplorerPane_GetWindowHandle;
+	using PFNHmExplorerPane_GetUpdated = int(_cdecl*)(HWND hwnd, BYTE *);
+	static PFNHmExplorerPane_GetUpdated HmExplorerPane_GetUpdated;
+	using PFNHmExplorerPane_GetCurrentDir = int(_cdecl*)(HWND hwnd, BYTE *);
+	static PFNHmExplorerPane_GetCurrentDir HmExplorerPane_GetCurrentDir;
 };
 
 

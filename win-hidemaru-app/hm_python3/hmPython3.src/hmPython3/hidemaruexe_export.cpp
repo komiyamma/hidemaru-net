@@ -13,6 +13,9 @@
 HMODULE CHidemaruExeExport::hHideExeHandle = NULL;
 wchar_t CHidemaruExeExport::szHidemaruFullPath[MAX_PATH] = L"";
 
+HMODULE CHidemaruExeExport::hHmOutputPaneDLL = NULL;
+HMODULE CHidemaruExeExport::hHmExplorerPaneDLL = NULL;
+
 CHidemaruExeExport::PFNGetDllFuncCalledType CHidemaruExeExport::Hidemaru_GetDllFuncCalledType = NULL;
 CHidemaruExeExport::PFNGetTotalTextUnicode CHidemaruExeExport::Hidemaru_GetTotalTextUnicode = NULL;
 CHidemaruExeExport::PFNGetSelectedTextUnicode CHidemaruExeExport::Hidemaru_GetSelectedTextUnicode = NULL;
@@ -29,6 +32,15 @@ CHidemaruExeExport::PFNHmOutputPane_Push CHidemaruExeExport::HmOutputPane_Push =
 CHidemaruExeExport::PFNHmOutputPane_Pop CHidemaruExeExport::HmOutputPane_Pop = NULL;
 CHidemaruExeExport::PFNHmOutputPane_GetWindowHandle CHidemaruExeExport::HmOutputPane_GetWindowHandle = NULL;
 CHidemaruExeExport::PFNHmOutputPane_SetBaseDir CHidemaruExeExport::HmOutputPane_SetBaseDir = NULL;
+// ファイルマネージャパネル
+CHidemaruExeExport::PFNHmExplorerPane_SetMode CHidemaruExeExport::HmExplorerPane_SetMode = NULL;
+CHidemaruExeExport::PFNHmExplorerPane_GetMode CHidemaruExeExport::HmExplorerPane_GetMode = NULL;
+CHidemaruExeExport::PFNHmExplorerPane_LoadProject CHidemaruExeExport::HmExplorerPane_LoadProject = NULL;
+CHidemaruExeExport::PFNHmExplorerPane_SaveProject CHidemaruExeExport::HmExplorerPane_SaveProject = NULL;
+CHidemaruExeExport::PFNHmExplorerPane_GetProject CHidemaruExeExport::HmExplorerPane_GetProject = NULL;
+CHidemaruExeExport::PFNHmExplorerPane_GetWindowHandle CHidemaruExeExport::HmExplorerPane_GetWindowHandle = NULL;
+CHidemaruExeExport::PFNHmExplorerPane_GetUpdated CHidemaruExeExport::HmExplorerPane_GetUpdated = NULL;
+CHidemaruExeExport::PFNHmExplorerPane_GetCurrentDir CHidemaruExeExport::HmExplorerPane_GetCurrentDir = NULL;
 
 
 
@@ -101,15 +113,35 @@ BOOL CHidemaruExeExport::init() {
 			if (PathFileExists(hidemarudir)) {
 				// HmOutputPane.dllがあるかどうか。
 				wstring hmoutputpane_fullpath = wstring(hidemarudir) + wstring(L"\\HmOutputPane.dll");
-				HMODULE hHmOutputPaneDLL = LoadLibrary(hmoutputpane_fullpath.data());
+				hHmOutputPaneDLL = LoadLibrary(hmoutputpane_fullpath.data());
 				// あれば、Output関数をセッティングしておく
 				if (hHmOutputPaneDLL) {
 					HmOutputPane_Output = (PFNHmOutputPane_Output)GetProcAddress(hHmOutputPaneDLL, "Output");
 					HmOutputPane_Push = (PFNHmOutputPane_Push)GetProcAddress(hHmOutputPaneDLL, "Push");
 					HmOutputPane_Pop = (PFNHmOutputPane_Pop)GetProcAddress(hHmOutputPaneDLL, "Pop");
 					HmOutputPane_GetWindowHandle = (PFNHmOutputPane_GetWindowHandle)GetProcAddress(hHmOutputPaneDLL, "GetWindowHandle");
-					HmOutputPane_SetBaseDir = (PFNHmOutputPane_SetBaseDir)GetProcAddress(hHmOutputPaneDLL, "SetBaseDir");
+					if (hm_version > 877) {
+						HmOutputPane_SetBaseDir = (PFNHmOutputPane_SetBaseDir)GetProcAddress(hHmOutputPaneDLL, "SetBaseDir");
+					}
 				}
+
+				// HmExplorerPane.dllがあるかどうか。
+				wstring hmexplorerpane_fullpath = wstring(hidemarudir) + wstring(L"\\HmExplorerPane.dll");
+				hHmExplorerPaneDLL = LoadLibrary(hmexplorerpane_fullpath.data());
+				// あれば、Output関数をセッティングしておく
+				if (hHmExplorerPaneDLL) {
+					HmExplorerPane_SetMode = (PFNHmExplorerPane_SetMode)GetProcAddress(hHmExplorerPaneDLL, "SetMode");
+					HmExplorerPane_GetMode = (PFNHmExplorerPane_GetMode)GetProcAddress(hHmExplorerPaneDLL, "GetMode");
+					HmExplorerPane_LoadProject = (PFNHmExplorerPane_LoadProject)GetProcAddress(hHmExplorerPaneDLL, "LoadProject");
+					HmExplorerPane_SaveProject = (PFNHmExplorerPane_SaveProject)GetProcAddress(hHmExplorerPaneDLL, "SaveProject");
+					HmExplorerPane_GetProject = (PFNHmExplorerPane_GetProject)GetProcAddress(hHmExplorerPaneDLL, "GetProject");
+					HmExplorerPane_GetWindowHandle = (PFNHmExplorerPane_GetWindowHandle)GetProcAddress(hHmExplorerPaneDLL, "GetWindowHandle");
+					HmExplorerPane_GetUpdated = (PFNHmExplorerPane_GetUpdated)GetProcAddress(hHmExplorerPaneDLL, "GetUpdated");
+					if (hm_version > 885) {
+						HmExplorerPane_GetCurrentDir = (PFNHmExplorerPane_GetCurrentDir)GetProcAddress(hHmExplorerPaneDLL, "GetCurrentDir");
+					}
+				}
+
 			}
 		}
 
