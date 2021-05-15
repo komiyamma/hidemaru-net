@@ -897,15 +897,19 @@ namespace Hidemaru {
 	}
 
 	std::string ExplorerPane_GetProject() {
-		if (Macro_IsExecuting()) {
-			py::object ret = Macro_GetVar(R"RAW(dllfuncstr(loaddll("HmExplorerPane"), "GetProject", hidemaruhandle(0));)RAW");
-			return py::str(ret);
+		if (CHidemaruExeExport::HmExplorerPane_GetProject) {
+			if (Macro_IsExecuting()) {
+				py::object ret = Macro_GetVar(R"RAW(dllfuncstr(loaddll("HmExplorerPane"), "GetProject", hidemaruhandle(0));)RAW");
+				return py::str(ret);
+			}
+			else {
+				py::tuple ret = Macro_Exec_EvalMemory(R"RAW(endmacro dllfuncstr(loaddll("HmExplorerPane"), "GetProject", hidemaruhandle(0));)RAW");
+				py::str message = ret[1];
+				return message;
+			}
 		}
-		else {
-			py::tuple ret = Macro_Exec_EvalMemory(R"RAW(endmacro dllfuncstr(loaddll("HmExplorerPane"), "GetProject", hidemaruhandle(0));)RAW");
-			py::str message = ret[1];
-			return message;
-		}
+
+		return "";
 	}
 
 
