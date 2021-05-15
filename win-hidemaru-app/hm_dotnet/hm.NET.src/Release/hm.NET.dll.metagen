@@ -78,6 +78,9 @@ Class Hidemaru.Hm+ExplorerPane: AutoLayout, AnsiClass, Class, NestedPublic, Abst
     GetMode(): PrivateScope, Public, Static, HideBySig
     LoadProject(String): PrivateScope, Public, Static, HideBySig
     SaveProject(String): PrivateScope, Public, Static, HideBySig
+    GetUpdated(): PrivateScope, Public, Static, HideBySig
+    GetProject(): PrivateScope, Public, Static, HideBySig
+    GetCurrentDir(): PrivateScope, Public, Static, HideBySig
     get_WindowHandle(): PrivateScope, Public, Static, HideBySig, SpecialName
     SendMessage(Int32): PrivateScope, Public, Static, HideBySig
 Interface Hidemaru.Hm+Macro+IResult: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract

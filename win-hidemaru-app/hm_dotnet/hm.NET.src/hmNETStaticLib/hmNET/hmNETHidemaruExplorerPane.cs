@@ -79,6 +79,66 @@ internal sealed partial class hmNETDynamicLib
                 return 0;
             }
 
+            // GetProjectする
+            public static string GetProject()
+            {
+                try
+                {
+                    if (hmNETDynamicLib.Hidemaru.Macro.IsExecuting)
+                    {
+                        string cmd = @"dllfuncstr(loaddll(""HmExplorerPane""), ""GetProject"", hidemaruhandle(0))";
+                        string project_name = (string)hmNETDynamicLib.Hidemaru.Macro.Var[cmd];
+                        return project_name;
+                    }
+                    else
+                    {
+                        string cmd = @"endmacro dllfuncstr(loaddll(""HmExplorerPane""), ""GetProject"", hidemaruhandle(0))";
+                        var result = hmNETDynamicLib.Hidemaru.Macro.ExecEval(cmd);
+                        return result.Message;
+                    }
+                }
+                catch (Exception e)
+                {
+                    OutputDebugStream(ErrorMsg.MethodNeedExplorerOperation + ":\n" + e.Message);
+                }
+
+                return "";
+            }
+
+            // GetProjectする
+            public static string GetCurrentDir()
+            {
+                if (version < 885)
+                {
+                    OutputDebugStream(ErrorMsg.MethodNeedExplorerNotFound + ":\n" + "GetCurrentDir");
+                    return "";
+                }
+                try
+                {
+                    if (hmNETDynamicLib.Hidemaru.Macro.IsExecuting)
+                    {
+                        if (hmNETDynamicLib.Hidemaru.pExplorerPane_GetCurrentDir != null)
+                        {
+                            string cmd = @"dllfuncstr(loaddll(""HmExplorerPane""), ""GetCurrentDir"", hidemaruhandle(0))";
+                            string currentdir_name = (string)hmNETDynamicLib.Hidemaru.Macro.Var[cmd];
+                            return currentdir_name;
+                        }
+                        else
+                        {
+                            string cmd = @"endmacro dllfuncstr(loaddll(""HmExplorerPane""), ""GetCurrentDir"", hidemaruhandle(0))";
+                            var result = hmNETDynamicLib.Hidemaru.Macro.ExecEval(cmd);
+                            return result.Message;
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    OutputDebugStream(ErrorMsg.MethodNeedExplorerOperation + ":\n" + e.Message);
+                }
+
+                return "";
+            }
+
             // GetUpdated
             public static int GetUpdated()
             {

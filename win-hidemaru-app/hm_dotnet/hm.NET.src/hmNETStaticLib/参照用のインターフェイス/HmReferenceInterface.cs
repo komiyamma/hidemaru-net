@@ -423,6 +423,21 @@ namespace Hidemaru
                 return hmNETDynamicLib.Hidemaru.ExplorerPane.SaveProject(filepath);
             }
 
+            public static int GetUpdated()
+            {
+                return hmNETDynamicLib.Hidemaru.ExplorerPane.GetUpdated();
+            }
+
+            public static string GetProject()
+            {
+                return hmNETDynamicLib.Hidemaru.ExplorerPane.GetProject();
+            }
+
+            public static string GetCurrentDir()
+            {
+                return hmNETDynamicLib.Hidemaru.ExplorerPane.GetCurrentDir();
+            }
+
             public static IntPtr WindowHandle
             {
                 get
