@@ -1,5 +1,5 @@
 ImageRuntimeVersion: v4.0.30319
-Assembly hm.NET, Version=1.9.*, Culture=ロケールに依存しない言語 (ロケールに依存しない国): 
+Assembly hm.NET, Version=2.0.*, Culture=ロケールに依存しない言語 (ロケールに依存しない国): 
 	hash=SHA1, flags=PublicKey
 Assembly mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
 	hash=None, flags=None
@@ -70,6 +70,19 @@ Class Hidemaru.Hm+OutputPane: AutoLayout, AnsiClass, Class, NestedPublic, Abstra
     get_WindowHandle(): PrivateScope, Public, Static, HideBySig, SpecialName
     SendMessage(Int32): PrivateScope, Public, Static, HideBySig
     SetBaseDir(String): PrivateScope, Public, Static, HideBySig
+Class Hidemaru.Hm+ExplorerPane: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
+  Properties:
+    IntPtr WindowHandle 'get ' : 
+  Methods:
+    SetMode(Int32): PrivateScope, Public, Static, HideBySig
+    GetMode(): PrivateScope, Public, Static, HideBySig
+    LoadProject(String): PrivateScope, Public, Static, HideBySig
+    SaveProject(String): PrivateScope, Public, Static, HideBySig
+    GetUpdated(): PrivateScope, Public, Static, HideBySig
+    GetProject(): PrivateScope, Public, Static, HideBySig
+    GetCurrentDir(): PrivateScope, Public, Static, HideBySig
+    get_WindowHandle(): PrivateScope, Public, Static, HideBySig, SpecialName
+    SendMessage(Int32): PrivateScope, Public, Static, HideBySig
 Interface Hidemaru.Hm+Macro+IResult: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
   Properties:
     Int32 Result 'get ' : 
