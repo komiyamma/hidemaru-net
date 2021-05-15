@@ -1,5 +1,6 @@
 ﻿// ★秀丸クラス
 using System;
+using System.Collections.Generic;
 
 internal sealed partial class hmNETDynamicLib
 {
@@ -105,7 +106,8 @@ internal sealed partial class hmNETDynamicLib
                 return "";
             }
 
-            // GetProjectする
+
+            // GetCurrentDirする
             public static string GetCurrentDir()
             {
                 if (version < 885)
@@ -115,9 +117,9 @@ internal sealed partial class hmNETDynamicLib
                 }
                 try
                 {
-                    if (hmNETDynamicLib.Hidemaru.Macro.IsExecuting)
+                    if (hmNETDynamicLib.Hidemaru.pExplorerPane_GetCurrentDir != null)
                     {
-                        if (hmNETDynamicLib.Hidemaru.pExplorerPane_GetCurrentDir != null)
+                        if (hmNETDynamicLib.Hidemaru.Macro.IsExecuting)
                         {
                             string cmd = @"dllfuncstr(loaddll(""HmExplorerPane""), ""GetCurrentDir"", hidemaruhandle(0))";
                             string currentdir_name = (string)hmNETDynamicLib.Hidemaru.Macro.Var[cmd];

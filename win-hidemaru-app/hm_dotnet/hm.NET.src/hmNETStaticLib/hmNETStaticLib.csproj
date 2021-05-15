@@ -50,6 +50,7 @@
     <Compile Include="hmNET\hmNETHidemaruExplorerPane.cs" />
     <Compile Include="hmNET\hmNETHidemaruFile.cs" />
     <Compile Include="hmNET\hmNETHidemaruOutputPane.cs" />
+    <Compile Include="hmNET\HmOriginalDecodeFunc.cs" />
     <Compile Include="hmNET\HmOriginalEncodeMap.cs" />
     <Compile Include="hmNET\HmOriginalEncodeFunc.cs" />
     <Compile Include="hmNET\HmWndHandleSearcher.cs" />
@@ -60,6 +61,7 @@
     <Compile Include="hmNET\hmNETHidemaruMacro.cs" />
     <Compile Include="hmNET\hmNETStaticLib.cs" />
     <Compile Include="hmNET\UnManagedDll.cs" />
+    <Compile Include="hmNET\HmOriginalDecodeMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="参照用のインターフェイス\HmReferenceInterface.cs" />
   </ItemGroup>
