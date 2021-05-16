@@ -214,7 +214,9 @@ public:
 	static PFNHmOutputPane_SetBaseDir HmOutputPane_SetBaseDir;
 
 
+	//-------------------------------------------------------------------------
 	// ファイルマネージャパネル
+	//-------------------------------------------------------------------------
 	using PFNHmExplorerPane_SetMode = int(_cdecl*)(HWND hwnd, intptr_t);
 	static PFNHmExplorerPane_SetMode HmExplorerPane_SetMode;
 	using PFNHmExplorerPane_GetMode = int(_cdecl*)(HWND hwnd);
