@@ -33,7 +33,6 @@ int CSelfDllInfo::GetBindDllType() {
 
 void CSelfDllInfo::SetKeepDll(int dll) {
 	if (HadSetdKeepDll) {
-		MessageBoxA(NULL, "–n", "–n", NULL);
 		return;
 	}
 
