@@ -80,6 +80,7 @@
     <Compile Include="hmPSHidemaruOutputPane.cs" />
     <Compile Include="hmPyHidemaru.cs" />
     <Compile Include="hmPyHidemaruDelegate.cs" />
+    <Compile Include="hmPyHidemaruExplorerPane.cs" />
     <Compile Include="hmPyHidemaruMacro.cs" />
     <Compile Include="hmPyHidemaruEdit.cs" />
     <Compile Include="hmPyHidemrauFile.cs" />
