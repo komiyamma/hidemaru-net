@@ -75,7 +75,7 @@ public sealed partial class hmPSDynamicLib
                 // #h=dllfunc("GetWindowHandle",hidemaruhandle(0));
                 // #ret=sendmessage(#h,0x111,1009,0);//1009=クリア 0x111=WM_COMMAND
                 //
-                IntPtr r = hmPSDynamicLib.SendMessage(TOutputPane.WindowHandle, 0x111, commandID, IntPtr.Zero);
+                IntPtr r = hmPSDynamicLib.SendMessage(pOutputPane_GetWindowHandle(Hidemaru.WindowHandle), 0x111, commandID, IntPtr.Zero);
                 if ((long)r < (long)int.MinValue)
                 {
                     r = (IntPtr)int.MinValue;

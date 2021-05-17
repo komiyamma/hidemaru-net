@@ -191,7 +191,7 @@ public sealed partial class hmPSDynamicLib
                 // #h=dllfunc("GetWindowHandle",hidemaruhandle(0));
                 // #ret=sendmessage(#h,0x111/*WM_COMMAND*/,251,0); //251=１つ上のフォルダ
                 //
-                return hmPSDynamicLib.SendMessage(TExplorerPane.WindowHandle, 0x111, commandID, IntPtr.Zero);
+                return hmPSDynamicLib.SendMessage(pExplorerPane_GetWindowHandle(Hidemaru.WindowHandle), 0x111, commandID, IntPtr.Zero);
             }
 
         }
