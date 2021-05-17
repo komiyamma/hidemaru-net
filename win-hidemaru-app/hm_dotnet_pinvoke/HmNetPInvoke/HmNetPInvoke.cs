@@ -11,6 +11,19 @@ using System.Text;
 
 namespace HmNetPInvoke
 {
+    interface IComDetachMethod
+    {
+        void OnReleaseObject();
+    }
+
+    interface IComSupportX64
+    {
+        bool X64MACRO();
+    }
+}
+
+namespace HmNetPInvoke
+{
 #if BUILD_DLL
     public partial class Hm
 #else

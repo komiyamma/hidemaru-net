@@ -56,7 +56,7 @@ namespace HmNetPInvoke
             }
 
             /// <summary>
-            /// Outputペインへの文字列の出力。
+            /// アウトプット枠への文字列の出力。
             /// 改行するには「\r\n」といったように「\r」も必要。
             /// </summary>
             /// <returns>失敗なら0、成功なら0以外</returns>
@@ -64,7 +64,7 @@ namespace HmNetPInvoke
             {
                 try
                 {
-                    byte[] encode_data = HmOriginalEncodeMap.EncodeWStringToOriginalEncodeVector(message);
+                    byte[] encode_data = HmOriginalEncodeFunc.EncodeWStringToOriginalEncodeVector(message);
                     int result = pOutputPane_Output(Hm.WindowHandle, encode_data);
                     return result;
                 }
@@ -77,7 +77,7 @@ namespace HmNetPInvoke
             }
 
             /// <summary>
-            /// Outputペインにある文字列の一時退避
+            /// アウトプット枠にある文字列の一時退避
             /// </summary>
             /// <returns>失敗なら0、成功なら0以外</returns>
             public static int Push()
@@ -95,7 +95,7 @@ namespace HmNetPInvoke
             }
 
             /// <summary>
-            /// Outputペインにある文字列のクリア
+            /// アウトプット枠にある文字列のクリア
             /// </summary>
             /// <returns>現在のところ、成否を指し示す値は返ってこない</returns>
             public static int Clear()
@@ -115,9 +115,9 @@ namespace HmNetPInvoke
             }
 
             /// <summary>
-            /// OutputペインへのWindowHandle
+            /// アウトプット枠のWindowHandle
             /// </summary>
-            /// <returns>OutputペインへのWindowHandle</returns>
+            /// <returns>アウトプット枠のWindowHandle</returns>
             public static IntPtr WindowHandle
             {
                 get
@@ -127,7 +127,7 @@ namespace HmNetPInvoke
             }
 
             /// <summary>
-            /// OutputペインへのSendMessage
+            /// アウトプット枠へのSendMessage
             /// </summary>
             /// <returns>SendMessageの返り値そのまま</returns>
             public static IntPtr SendMessage(int commandID)
@@ -137,23 +137,24 @@ namespace HmNetPInvoke
             }
 
             /// <summary>
-            /// Outputペインのベースとなるディレクトリの設定
+            /// アウトプット枠のベースとなるディレクトリの設定
             /// </summary>
             /// <returns>失敗なら0、成功なら0以外</returns>
             public static int SetBaseDir(string dirpath)
             {
                 if (Version < 877)
                 {
-                    return 0;
+                    throw new MissingMethodException("HmOutputPane_SetBaseDir_Exception");
                 }
 
                 try
                 {
-                    if (pOutputPane_SetBaseDir == null) {
+                    if (pOutputPane_SetBaseDir == null)
+                    {
                         throw new MissingMethodException("HmOutputPane_SetBaseDir_Exception");
                     }
 
-                    byte[] encode_data = HmOriginalEncodeMap.EncodeWStringToOriginalEncodeVector(dirpath);
+                    byte[] encode_data = HmOriginalEncodeFunc.EncodeWStringToOriginalEncodeVector(dirpath);
                     int result = pOutputPane_SetBaseDir(Hm.WindowHandle, encode_data);
                     return result;
                 }
@@ -170,7 +171,274 @@ namespace HmNetPInvoke
 
 namespace HmNetPInvoke
 {
-    internal static partial class HmOriginalEncodeMap
+#if BUILD_DLL
+    public partial class Hm
+#else
+    internal partial class Hm
+#endif
+    {
+        public static partial class ExplorerPane
+        {
+            private static UnManagedDll hmExplorerPaneHandle = null;
+
+            // ExplorerPaneから出ている関数群
+            private delegate int TExplorerPane_SetMode(IntPtr hHidemaruWindow, IntPtr mode);
+            private delegate int TExplorerPane_GetMode(IntPtr hHidemaruWindow);
+            private delegate int TExplorerPane_LoadProject(IntPtr hHidemaruWindow, byte[] encode_project_file_path);
+            private delegate int TExplorerPane_SaveProject(IntPtr hHidemaruWindow, byte[] encode_project_file_path);
+            private delegate IntPtr TExplorerPane_GetProject(IntPtr hHidemaruWindow);
+            private delegate IntPtr TExplorerPane_GetWindowHandle(IntPtr hHidemaruWindow);
+            private delegate int TExplorerPane_GetUpdated(IntPtr hHidemaruWindow);
+            private delegate IntPtr TExplorerPane_GetCurrentDir(IntPtr hHidemaruWindow);
+
+            private static TExplorerPane_SetMode pExplorerPane_SetMode;
+            private static TExplorerPane_GetMode pExplorerPane_GetMode;
+            private static TExplorerPane_LoadProject pExplorerPane_LoadProject;
+            private static TExplorerPane_SaveProject pExplorerPane_SaveProject;
+            private static TExplorerPane_GetProject pExplorerPane_GetProject;
+            private static TExplorerPane_GetWindowHandle pExplorerPane_GetWindowHandle;
+            private static TExplorerPane_GetUpdated pExplorerPane_GetUpdated;
+            private static TExplorerPane_GetCurrentDir pExplorerPane_GetCurrentDir;
+
+            static ExplorerPane()
+            {
+                try
+                {
+                    string exedir = System.IO.Path.GetDirectoryName(GetHidemaruExeFullPath());
+                    hmExplorerPaneHandle = new UnManagedDll(exedir + @"\HmExplorerPane.dll");
+                    pExplorerPane_SetMode = hmExplorerPaneHandle.GetProcDelegate<TExplorerPane_SetMode>("SetMode");
+                    pExplorerPane_GetMode = hmExplorerPaneHandle.GetProcDelegate<TExplorerPane_GetMode>("GetMode");
+                    pExplorerPane_LoadProject = hmExplorerPaneHandle.GetProcDelegate<TExplorerPane_LoadProject>("LoadProject");
+                    pExplorerPane_SaveProject = hmExplorerPaneHandle.GetProcDelegate<TExplorerPane_SaveProject>("SaveProject");
+                    pExplorerPane_GetProject = hmExplorerPaneHandle.GetProcDelegate<TExplorerPane_GetProject>("GetProject");
+                    pExplorerPane_GetUpdated = hmExplorerPaneHandle.GetProcDelegate<TExplorerPane_GetUpdated>("GetUpdated");
+                    pExplorerPane_GetWindowHandle = hmExplorerPaneHandle.GetProcDelegate<TExplorerPane_GetWindowHandle>("GetWindowHandle");
+
+                    if (Version >= 885)
+                    {
+                        pExplorerPane_GetCurrentDir = hmExplorerPaneHandle.GetProcDelegate<TExplorerPane_GetCurrentDir>("GetCurrentDir");
+                    }
+                }
+                catch (Exception e)
+                {
+                    System.Diagnostics.Trace.WriteLine(e.Message);
+                }
+            }
+
+            /// <summary>
+            /// ファイルマネージャ枠のモードの設定
+            /// </summary>
+            /// <returns>失敗なら0、成功なら0以外</returns>
+            public static int SetMode(int mode)
+            {
+                try
+                {
+                    int result = pExplorerPane_SetMode(Hm.WindowHandle, (IntPtr)mode);
+                    return result;
+                }
+                catch (Exception e)
+                {
+                    System.Diagnostics.Trace.WriteLine(e.Message);
+                }
+
+                return 0;
+            }
+
+            /// <summary>
+            /// ファイルマネージャ枠のモードの取得
+            /// </summary>
+            /// <returns>失敗なら0、成功なら0以外</returns>
+            public static int GetMode()
+            {
+                try
+                {
+                    int result = pExplorerPane_GetMode(Hm.WindowHandle);
+                    return result;
+                }
+                catch (Exception e)
+                {
+                    System.Diagnostics.Trace.WriteLine(e.Message);
+                }
+
+                return 0;
+            }
+
+            /// <summary>
+            /// ファイルマネージャ枠に指定のファイルのプロジェクトを読み込む
+            /// </summary>
+            /// <returns>失敗なら0、成功なら0以外</returns>
+            public static int LoadProject(string filepath)
+            {
+                try
+                {
+                    byte[] encode_data = HmOriginalEncodeFunc.EncodeWStringToOriginalEncodeVector(filepath);
+                    int result = pExplorerPane_LoadProject(Hm.WindowHandle, encode_data);
+                    return result;
+                }
+                catch (Exception e)
+                {
+                    System.Diagnostics.Trace.WriteLine(e.Message);
+                }
+
+                return 0;
+            }
+
+            /// <summary>
+            /// ファイルマネージャ枠のプロジェクトを指定ファイルに保存
+            /// </summary>
+            /// <returns>失敗なら0、成功なら0以外</returns>
+            public static int SaveProject(string filepath)
+            {
+                try
+                {
+                    byte[] encode_data = HmOriginalEncodeFunc.EncodeWStringToOriginalEncodeVector(filepath);
+                    int result = pExplorerPane_SaveProject(Hm.WindowHandle, encode_data);
+                    return result;
+                }
+                catch (Exception e)
+                {
+                    System.Diagnostics.Trace.WriteLine(e.Message);
+                }
+
+                return 0;
+            }
+
+            /// <summary>
+            /// ファイルマネージャ枠にプロジェクトを読み込んでいるならば、そのファイルパスを取得する
+            /// </summary>
+            /// <returns>ファイルのフルパス。読み込んでいなければnull</returns>
+            public static string GetProject()
+            {
+                try
+                {
+                    if (Macro.IsExecuting)
+                    {
+                        string cmd = @"dllfuncstr(loaddll(""HmExplorerPane""), ""GetProject"", hidemaruhandle(0))";
+                        string project_name = (string)Macro.Var[cmd];
+                        if (String.IsNullOrEmpty(project_name))
+                        {
+                            return null;
+                        }
+                        return project_name;
+                    }
+                    else
+                    {
+                        string cmd = @"endmacro dllfuncstr(loaddll(""HmExplorerPane""), ""GetProject"", hidemaruhandle(0))";
+                        var result = Macro.Exec.Eval(cmd);
+                        string project_name = result.Message;
+                        if (String.IsNullOrEmpty(project_name))
+                        {
+                            return null;
+                        }
+                        return result.Message;
+                    }
+                }
+                catch (Exception e)
+                {
+                    System.Diagnostics.Trace.WriteLine(e.Message);
+                }
+
+                return null;
+            }
+
+            /// <summary>
+            /// ファイルマネージャ枠のカレントディレクトリを返す
+            /// </summary>
+            /// <returns>カレントディレクトリのフルパス。読み損ねた場合はnull</returns>
+            public static string GetCurrentDir()
+            {
+                if (Version < 885)
+                {
+                    throw new MissingMethodException("HmOutputPane_GetCurrentDir_Exception");
+                }
+                try
+                {
+                    if (pExplorerPane_GetCurrentDir != null)
+                    {
+                        if (Macro.IsExecuting)
+                        {
+                            string cmd = @"dllfuncstr(loaddll(""HmExplorerPane""), ""GetCurrentDir"", hidemaruhandle(0))";
+                            string currentdir_name = (string)Macro.Var[cmd];
+                            if (String.IsNullOrEmpty(currentdir_name))
+                            {
+                                return null;
+                            }
+                            return currentdir_name;
+                        }
+                        else
+                        {
+                            string cmd = @"endmacro dllfuncstr(loaddll(""HmExplorerPane""), ""GetCurrentDir"", hidemaruhandle(0))";
+                            var result = Macro.Exec.Eval(cmd);
+                            string currentdir_name = result.Message;
+                            if (String.IsNullOrEmpty(currentdir_name))
+                            {
+                                return null;
+                            }
+                            return result.Message;
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    System.Diagnostics.Trace.WriteLine(e.Message);
+                }
+
+                return null;
+            }
+
+            /// <summary>
+            /// ファイルマネージャ枠が「プロジェクト」表示のとき、更新された状態であるかどうかを返します
+            /// </summary>
+            /// <returns>更新状態なら1、それ以外は0</returns>
+            public static int GetUpdated()
+            {
+                try
+                {
+                    int result = pExplorerPane_GetUpdated(Hm.WindowHandle);
+                    return result;
+                }
+                catch (Exception e)
+                {
+                    System.Diagnostics.Trace.WriteLine(e.Message);
+                }
+
+                return 0;
+            }
+
+            /// <summary>
+            /// ファイルマネージャ枠のWindowHandle
+            /// </summary>
+            /// <returns>ファイルマネージャ枠のWindowHandle</returns>
+            public static IntPtr WindowHandle
+            {
+                get
+                {
+                    return pExplorerPane_GetWindowHandle(Hm.WindowHandle);
+                }
+            }
+
+            /// <summary>
+            /// ファイルマネージャ枠へのSendMessage
+            /// </summary>
+            /// <returns>SendMessageの返り値そのまま</returns>
+            public static IntPtr SendMessage(int commandID)
+            {
+                //
+                // loaddll "HmExplorerPane.dll";
+                // #h=dllfunc("GetWindowHandle",hidemaruhandle(0));
+                // #ret=sendmessage(#h,0x111/*WM_COMMAND*/,251,0); //251=１つ上のフォルダ
+                //
+                return Hm.SendMessage(ExplorerPane.WindowHandle, 0x111, commandID, IntPtr.Zero);
+            }
+
+        }
+    }
+}
+
+
+namespace HmNetPInvoke
+{
+    internal static partial class HmOriginalEncodeFunc
     {
         // wchar_tに直接対応していないような古い秀丸では、この特殊な変換マップによる変換をしてバイトコードとして渡す必要がある。
         public static byte[] EncodeWStringToOriginalEncodeVector(string original_string)

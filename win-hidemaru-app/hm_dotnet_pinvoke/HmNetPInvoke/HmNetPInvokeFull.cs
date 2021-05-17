@@ -14,7 +14,7 @@ using System.Runtime.InteropServices;
 namespace HmNetPInvoke
 {
     public partial class HmMacroCOMVar {
-        private const string HmMacroCOMVarInterface = "e64ea5d2-daca-4614-ad73-83989e4df6fb";
+        private const string HmMacroCOMVarInterface = "fe41c1d1-1e4a-4127-a9c3-4866d4c2d39d";
     }
 }
 
@@ -23,7 +23,7 @@ namespace HmNetPInvoke
     // 秀丸のCOMから呼び出して、マクロ⇔COMといったように、マクロとプログラムで変数値を互いに伝搬する
     [ComVisible(true)]
     [Guid(HmMacroCOMVarInterface)]
-    public partial class HmMacroCOMVar
+    public partial class HmMacroCOMVar : IComSupportX64
     {
         private static object marcroVar = null;
         public object DllToMacro()
@@ -34,6 +34,10 @@ namespace HmNetPInvoke
         {
             marcroVar = variable;
             return 1;
+        }
+
+        public bool X64MACRO() {
+            return true;
         }
     }
 
@@ -524,25 +528,60 @@ namespace HmNetPInvoke
                             }
                         }
 
-                        // まずは整数でトライ
-                        int itmp = 0;
-                        bool success = int.TryParse(value.ToString(), out itmp);
-                        if (success == true)
+                        // 32bit
+                        if (IntPtr.Size == 4)
                         {
-                            result = itmp;
-                        }
-                        else
-                        {
-                            // 次に少数でトライ
-                            double dtmp = 0;
-                            success = double.TryParse(value.ToString(), out dtmp);
-                            if (success)
+                            // まずは整数でトライ
+                            Int32 itmp = 0;
+                            bool success = Int32.TryParse(value.ToString(), out itmp);
+
+                            if (success == true)
                             {
-                                result = (int)(dtmp);
+                                result = itmp;
                             }
+
                             else
                             {
-                                result = 0;
+                                // 次に少数でトライ
+                                Double dtmp = 0;
+                                success = Double.TryParse(value.ToString(), out dtmp);
+                                if (success)
+                                {
+                                    result = (Int32)(dtmp);
+                                }
+
+                                else
+                                {
+                                    result = 0;
+                                }
+                            }
+                        }
+
+                        // 64bit
+                        else
+                        {
+                            // まずは整数でトライ
+                            Int64 itmp = 0;
+                            bool success = Int64.TryParse(value.ToString(), out itmp);
+
+                            if (success == true)
+                            {
+                                result = itmp;
+                            }
+
+                            else
+                            {
+                                // 次に少数でトライ
+                                Double dtmp = 0;
+                                success = Double.TryParse(value.ToString(), out dtmp);
+                                if (success)
+                                {
+                                    result = (Int64)(dtmp);
+                                }
+                                else
+                                {
+                                    result = 0;
+                                }
                             }
                         }
                         HmMacroCOMVar.SetVar(var_name, value);
@@ -566,7 +605,14 @@ namespace HmNetPInvoke
                     Object ret = HmMacroCOMVar.GetVar(var_name);
                     if (ret.GetType().Name != "String")
                     {
-                        return (int)ret + 0; // 確実に複製を
+                        if (IntPtr.Size == 4)
+                        {
+                            return (Int32)ret + 0; // 確実に複製を
+                        }
+                        else
+                        {
+                            return (Int64)ret + 0; // 確実に複製を
+                        }
                     }
                     else
                     {
