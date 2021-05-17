@@ -512,8 +512,6 @@ namespace Hidemaru {
 	py::tuple Macro_Function(const std::string utf8_funcname, const py::tuple value_args, const py::tuple type_args) {
 		wstring utf16_funcname = utf8_to_utf16(utf8_funcname);
 
-		string num = to_string(value_args.size());
-
 		vector<wstring> varname_list;
 		SetMacroVarAndMakeMacroKeyArray(value_args, type_args, varname_list);
 
@@ -560,8 +558,6 @@ namespace Hidemaru {
 	// pythonの中から秀丸マクロステートメントを実行
 	py::tuple Macro_Statement(const std::string utf8_funcname, const py::tuple value_args, const py::tuple type_args) {
 		wstring utf16_funcname = utf8_to_utf16(utf8_funcname);
-
-		string num = to_string(value_args.size());
 
 		vector<wstring> varname_list;
 		SetMacroVarAndMakeMacroKeyArray(value_args, type_args, varname_list);

@@ -38,6 +38,7 @@ static int CreateScope() {
 
 	// エンジン構築。結果をそのまま返す
 	BOOL isValid = PythonEngine::Create();
+
 	return isValid;
 }
 

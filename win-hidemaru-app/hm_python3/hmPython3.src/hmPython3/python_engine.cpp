@@ -357,6 +357,7 @@ namespace PythonEngine {
 			}
 		}
 
+		CSelfDllInfo::ClearKeepDll();
 		// ‰Šúó‘Ô‚Ö
 		m_isValid = FALSE;
 		m_isInitialize = FALSE;

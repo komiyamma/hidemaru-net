@@ -34,6 +34,7 @@ struct CSelfDllInfo {
 	//-------------------------------------------------------------------------
 private:
 	static int iSelfBindedType;
+	static int HadSetdKeepDll;
 public:
 	static void InitializeHandle(HMODULE handle);
 
@@ -42,6 +43,8 @@ public:
 	static wstring GetInvocantString();
 	static wstring GetSelfModuleFullPath();
 	static wstring GetSelfModuleDir();
+	static void SetKeepDll(int dll);
+	static void ClearKeepDll();
 };
 
 
