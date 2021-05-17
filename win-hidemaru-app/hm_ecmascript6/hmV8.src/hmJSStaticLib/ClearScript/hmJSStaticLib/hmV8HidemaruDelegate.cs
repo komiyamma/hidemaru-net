@@ -62,6 +62,24 @@ public sealed partial class hmV8DynamicLib
         static TOutputPane_GetWindowHandle pGetWinndowHandle;
         static TOutputPane_SetBaseDir pOutputPane_SetBaseDir;
 
+        // ExplorerPaneから出ている関数群
+        delegate int TExplorerPane_SetMode(IntPtr hHidemaruWindow, IntPtr mode);
+        delegate int TExplorerPane_GetMode(IntPtr hHidemaruWindow);
+        delegate int TExplorerPane_LoadProject(IntPtr hHidemaruWindow, byte[] encode_project_file_path);
+        delegate int TExplorerPane_SaveProject(IntPtr hHidemaruWindow, byte[] encode_project_file_path);
+        delegate IntPtr TExplorerPane_GetProject(IntPtr hHidemaruWindow);
+        delegate IntPtr TExplorerPane_GetWindowHandle(IntPtr hHidemaruWindow);
+        delegate int TExplorerPane_GetUpdated(IntPtr hHidemaruWindow);
+        delegate IntPtr TExplorerPane_GetCurrentDir(IntPtr hHidemaruWindow);
+
+        static TExplorerPane_SetMode pExplorerPane_SetMode;
+        static TExplorerPane_GetMode pExplorerPane_GetMode;
+        static TExplorerPane_LoadProject pExplorerPane_LoadProject;
+        static TExplorerPane_SaveProject pExplorerPane_SaveProject;
+        static TExplorerPane_GetProject pExplorerPane_GetProject;
+        static TExplorerPane_GetWindowHandle pExplorerPane_GetWindowHandle;
+        static TExplorerPane_GetUpdated pExplorerPane_GetUpdated;
+        static TExplorerPane_GetCurrentDir pExplorerPane_GetCurrentDir;
 
         [DllImport("kernel32.dll", SetLastError = true)]
         private static extern IntPtr GlobalLock(IntPtr hMem);
@@ -75,6 +93,7 @@ public sealed partial class hmV8DynamicLib
         // 秀丸本体のexeを指すモジュールハンドル
         static UnManagedDll hmExeHandle;
         static UnManagedDll hmOutputPaneHandle;
+        static UnManagedDll hmExplorerPaneHandle;
 
         // 秀丸本体のExport関数を使えるようにポインタ設定。
         static void SetUnManagedDll()
@@ -123,6 +142,28 @@ public sealed partial class hmV8DynamicLib
                     catch (Exception e)
                     {
                         OutputDebugStream(ErrorMsg.MethodNeedOutputNotFound + ":\n" + e.Message);
+                    }
+
+                    try
+                    {
+                        string exedir = System.IO.Path.GetDirectoryName(strExecuteFullpath);
+                        hmExplorerPaneHandle = new UnManagedDll(exedir + @"\HmExplorerPane.dll");
+                        pExplorerPane_SetMode = hmExplorerPaneHandle.GetProcDelegate<TExplorerPane_SetMode>("SetMode");
+                        pExplorerPane_GetMode = hmExplorerPaneHandle.GetProcDelegate<TExplorerPane_GetMode>("GetMode");
+                        pExplorerPane_LoadProject = hmExplorerPaneHandle.GetProcDelegate<TExplorerPane_LoadProject>("LoadProject");
+                        pExplorerPane_SaveProject = hmExplorerPaneHandle.GetProcDelegate<TExplorerPane_SaveProject>("SaveProject");
+                        pExplorerPane_GetProject = hmExplorerPaneHandle.GetProcDelegate<TExplorerPane_GetProject>("GetProject");
+                        pExplorerPane_GetUpdated = hmExplorerPaneHandle.GetProcDelegate<TExplorerPane_GetUpdated>("GetUpdated");
+                        pExplorerPane_GetWindowHandle = hmExplorerPaneHandle.GetProcDelegate<TExplorerPane_GetWindowHandle>("GetWindowHandle");
+
+                        if (version >= 885)
+                        {
+                            pExplorerPane_GetCurrentDir = hmExplorerPaneHandle.GetProcDelegate<TExplorerPane_GetCurrentDir>("GetCurrentDir");
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        OutputDebugStream(ErrorMsg.MethodNeedExplorerNotFound + ":\n" + e.Message);
                     }
 
                 }
