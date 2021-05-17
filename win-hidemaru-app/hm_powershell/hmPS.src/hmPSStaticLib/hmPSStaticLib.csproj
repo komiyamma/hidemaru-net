@@ -43,6 +43,7 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="hmPSHidemaruExplorerPane.cs" />
     <Compile Include="HmWndHandleSearcher.cs" />
     <Compile Include="HmOriginalEncodeFunc.cs" />
     <Compile Include="HmOriginalEncodeMap.cs" />
