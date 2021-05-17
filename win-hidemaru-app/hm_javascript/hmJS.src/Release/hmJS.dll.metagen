@@ -42,6 +42,10 @@ Class hmJSDynamicLib: AutoLayout, AnsiClass, Class, Public, Sealed
     Microsoft.ClearScript.Windows.JScriptEngine engine : Public, Static
     Hidemaru hm : Public, Static
   Methods:
+    SendMessage(IntPtr, UInt32, IntPtr, StringBuilder): PrivateScope, Public, Static, HideBySig, PinvokeImpl
+    SendMessage(IntPtr, UInt32, StringBuilder, StringBuilder): PrivateScope, Public, Static, HideBySig, PinvokeImpl
+    SendMessage(IntPtr, UInt32, IntPtr, IntPtr): PrivateScope, Public, Static, HideBySig, PinvokeImpl
+    SendMessage(IntPtr, UInt32, Int32, IntPtr): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     OutputDebugStream(String): PrivateScope, Public, Static, HideBySig
     BindDllHandle(IntPtr): PrivateScope, Public, Static, HideBySig
     ModifyFuncCallByDllType(String): PrivateScope, Public, Static, HideBySig
@@ -510,6 +514,20 @@ Class hmJSDynamicLib+hmJSConsole: AutoLayout, AnsiClass, Class, NestedPublic, Se
     assert(Object, Object[]): PrivateScope, Public, Static, HideBySig
 Class hmJSDynamicLib+DllPathResolver: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class hmJSDynamicLib+Hidemaru+ExplorerPane: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    IntPtr WindowHandle 'get ' : 
+  Methods:
+    SetMode(Int32): PrivateScope, Public, Static, HideBySig
+    GetMode(): PrivateScope, Public, Static, HideBySig
+    LoadProject(String): PrivateScope, Public, Static, HideBySig
+    SaveProject(String): PrivateScope, Public, Static, HideBySig
+    GetProject(): PrivateScope, Public, Static, HideBySig
+    GetCurrentDir(): PrivateScope, Public, Static, HideBySig
+    GetUpdated(): PrivateScope, Public, Static, HideBySig
+    get_WindowHandle(): PrivateScope, Public, Static, HideBySig, SpecialName
+    SendMessage(Int32): PrivateScope, Public, Static, HideBySig
 Class hmJSDynamicLib+Hidemaru+File: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Methods:
@@ -526,6 +544,8 @@ Class hmJSDynamicLib+Hidemaru+ErrorMsg: AutoLayout, AnsiClass, Class, NestedPubl
     System.String MethodNeed890 = このメソッドは秀丸エディタ v8.90 正式版以降で利用可能です。 : Public, Static, Literal, HasDefault
     System.String MethodNeedOutputNotFound = HmOutputPaneの対象関数を発見できません。 : Public, Static, Literal, HasDefault
     System.String MethodNeedOutputOperation = HmOutputPaneへの操作中にエラーが発生しました。 : Public, Static, Literal, HasDefault
+    System.String MethodNeedExplorerNotFound = HmExplorerPaneの対象関数を発見できません。 : Public, Static, Literal, HasDefault
+    System.String MethodNeedExplorerOperation = HmExplorerPaneへの操作中にエラーが発生しました。 : Public, Static, Literal, HasDefault
 Class hmJSDynamicLib+Hidemaru+Edit: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Properties:
@@ -545,8 +565,12 @@ Class hmJSDynamicLib+Hidemaru+Edit: AutoLayout, AnsiClass, Class, NestedPublic, 
     set_LineText(String): PrivateScope, Public, Static, HideBySig, SpecialName
 Class hmJSDynamicLib+Hidemaru+Macro: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Boolean IsExecuting 'get ' : 
   Methods:
     Eval(Object): PrivateScope, Public, Static, HideBySig
+    get_IsExecuting(): PrivateScope, Public, Static, HideBySig, SpecialName
+    ExecEval(String): PrivateScope, Public, Static, HideBySig
     Statement(String, Object[]): PrivateScope, Public, Static, HideBySig
     Function(String, Object[]): PrivateScope, Public, Static, HideBySig
     Var(String, Object(Optional, HasDefault)): PrivateScope, Public, Static, HideBySig

@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-public sealed partial class hmV8DynamicLib
+public sealed partial class hmJSDynamicLib
 {
     public sealed partial class Hidemaru
     {
@@ -85,10 +85,10 @@ public sealed partial class hmV8DynamicLib
             {
                 try
                 {
-                    if (hmV8DynamicLib.Hidemaru.Macro.IsExecuting)
+                    if (hmJSDynamicLib.Hidemaru.Macro.IsExecuting)
                     {
                         string cmd = @"dllfuncstr(loaddll(""HmExplorerPane""), ""GetProject"", hidemaruhandle(0))";
-                        string project_name = (string)hmV8DynamicLib.Hidemaru.Macro.__Var(cmd);
+                        string project_name = (string)hmJSDynamicLib.Hidemaru.Macro.Var(cmd);
                         if (String.IsNullOrEmpty(project_name))
                         {
                             return null;
@@ -98,7 +98,7 @@ public sealed partial class hmV8DynamicLib
                     else
                     {
                         string cmd = @"endmacro dllfuncstr(loaddll(""HmExplorerPane""), ""GetProject"", hidemaruhandle(0))";
-                        var result = hmV8DynamicLib.Hidemaru.Macro.ExecEval(cmd);
+                        var result = hmJSDynamicLib.Hidemaru.Macro.ExecEval(cmd);
                         string project_name = result.Message;
                         if (String.IsNullOrEmpty(project_name))
                         {
@@ -125,12 +125,12 @@ public sealed partial class hmV8DynamicLib
                 }
                 try
                 {
-                    if (hmV8DynamicLib.Hidemaru.pExplorerPane_GetCurrentDir != null)
+                    if (hmJSDynamicLib.Hidemaru.pExplorerPane_GetCurrentDir != null)
                     {
-                        if (hmV8DynamicLib.Hidemaru.Macro.IsExecuting)
+                        if (hmJSDynamicLib.Hidemaru.Macro.IsExecuting)
                         {
                             string cmd = @"dllfuncstr(loaddll(""HmExplorerPane""), ""GetCurrentDir"", hidemaruhandle(0))";
-                            string currentdir_name = (string)hmV8DynamicLib.Hidemaru.Macro.__Var(cmd);
+                            string currentdir_name = (string)hmJSDynamicLib.Hidemaru.Macro.Var(cmd);
                             if (String.IsNullOrEmpty(currentdir_name))
                             {
                                 return null;
@@ -140,7 +140,7 @@ public sealed partial class hmV8DynamicLib
                         else
                         {
                             string cmd = @"endmacro dllfuncstr(loaddll(""HmExplorerPane""), ""GetCurrentDir"", hidemaruhandle(0))";
-                            var result = hmV8DynamicLib.Hidemaru.Macro.ExecEval(cmd);
+                            var result = hmJSDynamicLib.Hidemaru.Macro.ExecEval(cmd);
                             string currentdir_name = result.Message;
                             if (String.IsNullOrEmpty(currentdir_name))
                             {
@@ -189,7 +189,7 @@ public sealed partial class hmV8DynamicLib
                 // #h=dllfunc("GetWindowHandle",hidemaruhandle(0));
                 // #ret=sendmessage(#h,0x111/*WM_COMMAND*/,251,0); //251=１つ上のフォルダ
                 //
-                return hmV8DynamicLib.SendMessage(ExplorerPane.WindowHandle, 0x111, commandID, IntPtr.Zero);
+                return hmJSDynamicLib.SendMessage(ExplorerPane.WindowHandle, 0x111, commandID, IntPtr.Zero);
             }
 
         }
