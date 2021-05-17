@@ -76,6 +76,7 @@
     <Compile Include="hmLmStaticLib\hmLmDllPathResolver.cs" />
     <Compile Include="hmLmStaticLib\hmLmHidemaruDelegate.cs" />
     <Compile Include="hmLmStaticLib\hmLmHidemaruEdit.cs" />
+    <Compile Include="hmLmStaticLib\hmLmHidemaruExplorerPane.cs" />
     <Compile Include="hmLmStaticLib\hmLmHidemaruFile.cs" />
     <Compile Include="hmLmStaticLib\hmLmHidemaruMacro.cs" />
     <Compile Include="hmLmStaticLib\HmOriginalEncodeFunc.cs" />
