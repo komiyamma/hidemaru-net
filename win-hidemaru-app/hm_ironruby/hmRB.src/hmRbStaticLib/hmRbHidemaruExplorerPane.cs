@@ -16,7 +16,7 @@ public sealed partial class hmRbDynamicLib
             }
 
             // モードの設定
-            public static int SetMode(int mode)
+            public int SetMode(int mode)
             {
                 try
                 {
@@ -32,7 +32,7 @@ public sealed partial class hmRbDynamicLib
             }
 
             // モードの取得
-            public static int GetMode()
+            public int GetMode()
             {
                 try
                 {
@@ -48,7 +48,7 @@ public sealed partial class hmRbDynamicLib
             }
 
             // LoadProjectする
-            public static int LoadProject(string filepath)
+            public int LoadProject(string filepath)
             {
                 try
                 {
@@ -65,7 +65,7 @@ public sealed partial class hmRbDynamicLib
             }
 
             // SaveProjectする
-            public static int SaveProject(string filepath)
+            public int SaveProject(string filepath)
             {
                 try
                 {
@@ -162,7 +162,7 @@ public sealed partial class hmRbDynamicLib
             }
 
             // GetUpdated
-            public static int GetUpdated()
+            public int GetUpdated()
             {
                 try
                 {
@@ -177,7 +177,7 @@ public sealed partial class hmRbDynamicLib
                 return 0;
             }
 
-            public static IntPtr WindowHandle
+            public IntPtr WindowHandle
             {
                 get
                 {
@@ -185,7 +185,7 @@ public sealed partial class hmRbDynamicLib
                 }
             }
 
-            public static IntPtr SendMessage(int commandID)
+            public IntPtr SendMessage(int commandID)
             {
                 //
                 // loaddll "HmExplorerPane.dll";
