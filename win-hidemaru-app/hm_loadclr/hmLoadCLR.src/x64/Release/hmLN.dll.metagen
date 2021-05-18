@@ -37,6 +37,10 @@ Class hmLmDynamicLib: AutoLayout, AnsiClass, Class, Public, Sealed
     Neo.IronLua.Lua l : Public, Static
     Neo.IronLua.LuaGlobal g : Public, Static
   Methods:
+    SendMessage(IntPtr, UInt32, IntPtr, StringBuilder): PrivateScope, Public, Static, HideBySig, PinvokeImpl
+    SendMessage(IntPtr, UInt32, StringBuilder, StringBuilder): PrivateScope, Public, Static, HideBySig, PinvokeImpl
+    SendMessage(IntPtr, UInt32, IntPtr, IntPtr): PrivateScope, Public, Static, HideBySig, PinvokeImpl
+    SendMessage(IntPtr, UInt32, Int32, IntPtr): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     OutputDebugStream(String): PrivateScope, Public, Static, HideBySig
     BindDllHandle(IntPtr): PrivateScope, Public, Static, HideBySig
     SetTmpVar(Object): PrivateScope, Public, Static, HideBySig
@@ -784,6 +788,20 @@ Class hmLmDynamicLib+Hidemaru+Edit: AutoLayout, AnsiClass, Class, NestedPublic, 
     get_LineText(): PrivateScope, Public, Static, HideBySig, SpecialName
     set_LineText(String): PrivateScope, Public, Static, HideBySig, SpecialName
     GetLineText(): PrivateScope, Public, Static, HideBySig
+Class hmLmDynamicLib+Hidemaru+ExplorerPane: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    IntPtr WindowHandle 'get ' : 
+  Methods:
+    SetMode(Int32): PrivateScope, Public, Static, HideBySig
+    GetMode(): PrivateScope, Public, Static, HideBySig
+    LoadProject(String): PrivateScope, Public, Static, HideBySig
+    SaveProject(String): PrivateScope, Public, Static, HideBySig
+    GetProject(): PrivateScope, Public, Static, HideBySig
+    GetCurrentDir(): PrivateScope, Public, Static, HideBySig
+    GetUpdated(): PrivateScope, Public, Static, HideBySig
+    get_WindowHandle(): PrivateScope, Public, Static, HideBySig, SpecialName
+    SendMessage(Int32): PrivateScope, Public, Static, HideBySig
 Class hmLmDynamicLib+Hidemaru+File: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Methods:
@@ -793,8 +811,12 @@ Class hmLmDynamicLib+Hidemaru+Macro: AutoLayout, AnsiClass, Class, NestedPublic,
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Fields:
     TMacroVar Var : Public, Static
+  Properties:
+    Boolean IsExecuting 'get ' : 
   Methods:
     Eval(String): PrivateScope, Public, Static, HideBySig
+    get_IsExecuting(): PrivateScope, Public, Static, HideBySig, SpecialName
+    ExecEval(String): PrivateScope, Public, Static, HideBySig
     Statement(String, Object[]): PrivateScope, Public, Static, HideBySig
     Function(String, Object[]): PrivateScope, Public, Static, HideBySig
 Class hmLmDynamicLib+Hidemaru+OutputPane: AutoLayout, AnsiClass, Class, NestedPublic
