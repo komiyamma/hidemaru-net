@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="HmOriginalEncodeFunc.cs" />
     <Compile Include="HmOriginalEncodeMap.cs" />
+    <Compile Include="hmRbHidemaruExplorerPane.cs" />
     <Compile Include="hmRbHidemaruOutputPane.cs" />
     <Compile Include="hmRbHidemaruDelegate.cs" />
     <Compile Include="hmRbHidemaruEdit.cs" />
