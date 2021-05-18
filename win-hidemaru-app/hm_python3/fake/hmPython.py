@@ -1,11 +1,11 @@
 #-------------------- coding: utf-8 ---------------------------
-# hmPython3 2.0.0.1用 フェイクライブラリ
+# hmPython3 1.9.0.1用 フェイクライブラリ
 # Copyright (c) 2017-2021 Akitsugu Komiyama
 # under the Apache License Version 2.0
 #--------------------------------------------------------------
 import os
 
-__version__ = 2.001
+__version__ = 1.901
 
 class _TText:
     class _TEncoding:
@@ -120,6 +120,40 @@ class _TMacro:
     """
     秀丸マクロ関連のクラス
     """
+    """
+    秀丸マクロ関連のクラス
+    """
+    class _TAsStatement:
+        """
+        秀丸マクロ関連のうち、括弧がなく値が変えられない秀丸組み込みの(関数のように使う)文のラップを表すクラス
+        """
+        def __getattr__(self, statement_name):
+            return lambda *args: self.closure(statement_name, *args)
+
+        def __call__(self, statement_name, *args):
+            return self.closure(statement_name, *args)
+
+        def closure(self, statement_name, *args):
+            (res, msg, errmsg, args) = (1, "", None, args)
+            ret = _TMacro._TStatementResult(res, msg, errmsg, args)
+            
+            return ret
+            
+    class _TAsFunction:
+        """
+        秀丸マクロ関連のうち、括弧があり値が返る秀丸組み込みの関数のラップを表すクラス
+        """
+        def __getattr__(self, function_name):
+            return lambda *args: self.closure(function_name, *args)
+
+        def __call__(self, statement_name, *args):
+            return self.closure(statement_name, *args)
+
+        def closure(self, function_name, *args):
+            (res, msg, errmsg, args) = (1, "", None, args)
+            ret = _TMacro._TFunctionResult(res, msg, errmsg, args)
+            
+            return ret
     #--------------------------------------------------
     class _TVar:
         __map: dict = {}
@@ -152,10 +186,39 @@ class _TMacro:
             self.Message: str = Message
             self.Error: str = None
     #--------------------------------------------------
+    class _TStatementResult:
+        """
+        秀丸マクロ関連のうち、マクロ実行結果情報を扱うクラス
+        """
+
+        def __init__(self, Result, Message, ErrorMsg, Args):
+            self.Result = Result
+            self.Message = Message
+            self.Args = tuple(Args)
+            if Result >= 1:
+                self.Error = None
+            else:
+                self.Error = RuntimeError(ErrorMsg)
+    #--------------------------------------------------
+    class _TFunctionResult:
+        """
+        秀丸マクロ関連のうち、マクロ実行結果情報を扱うクラス
+        """
+
+        def __init__(self, Result, Message, ErrorMsg, Args):
+            self.Result = Result
+            self.Message = Message
+            self.Args = tuple(Args)
+            if Result != None:
+                self.Error = None
+            else:
+                self.Error = RuntimeError(ErrorMsg)
 
     #--------------------------------------------------
     def __init__(self):
         self.Var = _TMacro._TVar()
+        self.Function = _TMacro._TAsFunction();
+        self.Statement = _TMacro._TAsStatement();
     #--------------------------------------------------
 
     #--------------------------------------------------
