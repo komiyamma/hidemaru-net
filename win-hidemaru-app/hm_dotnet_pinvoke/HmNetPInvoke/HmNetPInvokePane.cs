@@ -12,11 +12,7 @@ using System.Runtime.InteropServices;
 
 namespace HmNetPInvoke
 {
-#if BUILD_DLL
-    public partial class Hm
-#else
     internal partial class Hm
-#endif
     {
         public static partial class OutputPane
         {
@@ -173,11 +169,7 @@ namespace HmNetPInvoke
 
 namespace HmNetPInvoke
 {
-#if BUILD_DLL
-    public partial class Hm
-#else
     internal partial class Hm
-#endif
     {
         public static partial class ExplorerPane
         {

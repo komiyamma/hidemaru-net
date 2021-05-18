@@ -25,11 +25,7 @@ namespace HmNetPInvoke
 
 namespace HmNetPInvoke
 {
-#if BUILD_DLL
-    public partial class Hm
-#else
     internal partial class Hm
-#endif
     {
         static Hm()
         {
@@ -511,11 +507,7 @@ namespace HmNetPInvoke
 namespace HmNetPInvoke
 {
 
-#if BUILD_DLL
-    public partial class Hm
-#else
     internal partial class Hm
-#endif
     {
         // 秀丸本体から出ている関数群
         private delegate IntPtr TGetCurrentWindowHandle();
@@ -581,11 +573,7 @@ namespace HmNetPInvoke
 
 namespace HmNetPInvoke
 {
-#if BUILD_DLL
-    public partial class Hm
-#else
     internal partial class Hm
-#endif
     {
         [DllImport("kernel32.dll")]
         private extern static uint GetModuleFileName(IntPtr hModule, StringBuilder lpFilename, int nSize);
@@ -627,11 +615,7 @@ namespace HmNetPInvoke
 namespace HmNetPInvoke
 {
 
-#if BUILD_DLL
-    public static class HmExtentensions
-#else
     internal static class HmExtentensions
-#endif
     {
         public static void Deconstruct(this Hm.Edit.ICursorPos pos, out int LineNo, out int Column)
         {
@@ -652,11 +636,7 @@ namespace HmNetPInvoke
 namespace HmNetPInvoke
 {
 
-#if BUILD_DLL
-    public partial class Hm
-#else
     internal partial class Hm
-#endif
     {
         // アンマネージドライブラリの遅延での読み込み。C++のLoadLibraryと同じことをするため
         // これをする理由は、このhmPyとHideamru.exeが異なるディレクトリに存在する可能性があるため、
