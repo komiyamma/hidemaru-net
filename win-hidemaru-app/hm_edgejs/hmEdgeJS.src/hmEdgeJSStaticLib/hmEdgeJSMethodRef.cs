@@ -41,6 +41,15 @@ public sealed partial class hmEdgeJSDynamicLib
     static Func<object, Task<object>> refOutputPane_Clear;
     static Func<object, Task<object>> refOutputPane_SendMessage;
 
+    static Func<object, Task<object>> refExplorerPane_SetMode;
+    static Func<object, Task<object>> refExplorerPane_GetMode;
+    static Func<object, Task<object>> refExplorerPane_LoadProject;
+    static Func<object, Task<object>> refExplorerPane_SaveProject;
+    static Func<object, Task<object>> refExplorerPane_GetProject;
+    static Func<object, Task<object>> refExplorerPane_SendMessage;
+    static Func<object, Task<object>> refExplorerPane_GetUpdated;
+    static Func<object, Task<object>> refExplorerPane_GetCurrentDir;
+
     static void InitMethodReference()
     {
         refDebugInfo = (Func<object, Task<object>>)(async (obj) =>
@@ -184,6 +193,54 @@ public sealed partial class hmEdgeJSDynamicLib
         refOutputPane_SendMessage = (Func<object, Task<object>>)(async (obj) =>
         {
             var ret = Hidemaru.OutputPane.SendMessage((int)obj);
+            return ret;
+        });
+
+        refExplorerPane_SetMode = (Func<object, Task<object>>)(async (obj) =>
+        {
+            var ret = Hidemaru.ExplorerPane.SetMode((int)obj);
+            return ret;
+        });
+
+        refExplorerPane_GetMode = (Func<object, Task<object>>)(async (obj) =>
+        {
+            var ret = Hidemaru.ExplorerPane.GetMode();
+            return ret;
+        });
+
+        refExplorerPane_LoadProject = (Func<object, Task<object>>)(async (obj) =>
+        {
+            var ret = Hidemaru.ExplorerPane.LoadProject((String)obj);
+            return ret;
+        });
+
+        refExplorerPane_SaveProject = (Func<object, Task<object>>)(async (obj) =>
+        {
+            var ret = Hidemaru.ExplorerPane.SaveProject((String)obj);
+            return ret;
+        });
+
+        refExplorerPane_GetProject = (Func<object, Task<object>>)(async (obj) =>
+        {
+            var ret = Hidemaru.ExplorerPane.GetProject();
+            return ret;
+        });
+
+        refExplorerPane_SendMessage = (Func<object, Task<object>>)(async (obj) =>
+        {
+            var ret = Hidemaru.ExplorerPane.SendMessage((int)obj);
+            return ret;
+        });
+
+        refExplorerPane_GetUpdated = (Func<object, Task<object>>)(async (obj) =>
+        {
+            var ret = Hidemaru.ExplorerPane.GetUpdated();
+            return ret;
+        });
+
+        refExplorerPane_GetCurrentDir = (Func<object, Task<object>>)(async (obj) =>
+        {
+            var ret = Hidemaru.ExplorerPane.GetCurrentDir();
             return ret;
         });
 
@@ -364,6 +421,54 @@ public sealed partial class hmEdgeJSDynamicLib
                     return ret;
                 }
 
+                function _hm_refExplorerPane_SetMode(obj) {
+                    let ret = 0;
+                    let dumm = _TransRefObj.refExplorerPane_SetMode(obj, function(error, result) { ret = result; } );
+                    return ret;
+                }
+
+                function _hm_refExplorerPane_GetMode(obj) {
+                    let ret = 0;
+                    let dumm = _TransRefObj.refExplorerPane_GetMode(obj, function(error, result) { ret = result; } );
+                    return ret;
+                }
+
+                function _hm_refExplorerPane_LoadProject(obj) {
+                    let ret = 0;
+                    let dumm = _TransRefObj.refExplorerPane_LoadProject(obj, function(error, result) { ret = result; } );
+                    return ret;
+                }
+
+                function _hm_refExplorerPane_SaveProject(obj) {
+                    let ret = 0;
+                    let dumm = _TransRefObj.refExplorerPane_SaveProject(obj, function(error, result) { ret = result; } );
+                    return ret;
+                }
+
+                function _hm_refExplorerPane_GetUpdated(obj) {
+                    let ret = 0;
+                    let dumm = _TransRefObj.refExplorerPane_GetUpdated(obj, function(error, result) { ret = result; } );
+                    return ret;
+                }
+
+                function _hm_refExplorerPane_SendMessage(obj) {
+                    let ret = 0;
+                    let dumm = _TransRefObj.refExplorerPane_SendMessage(obj, function(error, result) { ret = result; } );
+                    return ret;
+                }
+
+                function _hm_refExplorerPane_GetProject(obj) {
+                    let text = """";
+                    let dumm = _TransRefObj.refExplorerPane_GetProject(obj, function(error, result) { text = result; } );
+                    return text;
+                }
+
+                function _hm_refExplorerPane_GetCurrentDir(obj) {
+                    let text = """";
+                    let dumm = _TransRefObj.refExplorerPane_GetCurrentDir(obj, function(error, result) { text = result; } );
+                    return text;
+                }
+
                 class _hm_file_ {
                     static Open(filepath, hm_encode_override = -1) {
 
@@ -495,9 +600,41 @@ public sealed partial class hmEdgeJSDynamicLib
                     static SendMessage(command_id) {
                         return _hm_refOutputPane_SendMessage(command_id);
                     }
-
                 }
 
+                class _hm_explorerpane_ {
+                    static SetMode(mode) {
+                        return _hm_refExplorerPane_SetMode(mode);
+                    }
+
+                    static GetMode() {
+                        return _hm_refExplorerPane_GetMode();
+                    }
+
+                    static LoadProject(filepath) {
+                        return _hm_refExplorerPane_LoadProject(filepath);
+                    }
+
+                    static SoadProject(filepath) {
+                        return _hm_refExplorerPane_SoadProject(filepath);
+                    }
+
+                    static GetProject() {
+                        return _hm_refExplorerPane_GetProject();
+                    }
+
+                    static SendMessage(command_id) {
+                        return _hm_refExplorerPane_SendMessage(command_id);
+                    }
+
+                    static GetUpdated() {
+                        return _hm_refExplorerPane_GetUpdated();
+                    }
+
+                    static GetCurrentDir() {
+                        return _hm_refExplorerPane_GetCurrentDir();
+                    }
+                }
 
                 class hm {
                     static get version() {
@@ -523,6 +660,11 @@ public sealed partial class hmEdgeJSDynamicLib
                     static get OutputPane() {
                         return _hm_outputpane_;
                     }
+
+                    static get ExplorerPane() {
+                        return _hm_explorerpane_;
+                    }
+
                 };
 
                 console.log = hm.debuginfo
@@ -588,6 +730,14 @@ public sealed partial class hmEdgeJSDynamicLib
                 refOutputPane_Pop = refOutputPane_Pop,
                 refOutputPane_Clear = refOutputPane_Clear,
                 refOutputPane_SendMessage = refOutputPane_SendMessage,
+                refExplorerPane_SetMode = refExplorerPane_SetMode,
+                refExplorerPane_GetMode = refExplorerPane_GetMode,
+                refExplorerPane_LoadProject = refExplorerPane_LoadProject,
+                refExplorerPane_SaveProject = refExplorerPane_SaveProject,
+                refExplorerPane_GetProject = refExplorerPane_GetProject,
+                refExplorerPane_SendMessage = refExplorerPane_SendMessage,
+                refExplorerPane_GetUpdated = refExplorerPane_GetUpdated,
+                refExplorerPane_GetCurrentDir = refExplorerPane_GetCurrentDir,
             });
 
         }

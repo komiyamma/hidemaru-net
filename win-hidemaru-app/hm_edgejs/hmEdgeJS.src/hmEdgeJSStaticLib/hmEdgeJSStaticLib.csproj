@@ -50,6 +50,7 @@
     <Compile Include="hmEdgeJSHidemaru.cs" />
     <Compile Include="hmEdgeJSHidemaruDelegate.cs" />
     <Compile Include="hmEdgeJSHidemaruEdit.cs" />
+    <Compile Include="hmEdgeJSHidemaruExplorerPane.cs" />
     <Compile Include="hmEdgeJSHidemaruFile.cs" />
     <Compile Include="hmEdgeJSHidemaruMacro.cs" />
     <Compile Include="hmEdgeJSMethodRef.cs" />

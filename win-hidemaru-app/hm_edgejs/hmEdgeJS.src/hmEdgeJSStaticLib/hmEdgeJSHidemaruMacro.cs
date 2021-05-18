@@ -7,6 +7,7 @@ using System;
 using System.Text;
 using System.Collections.Generic;
 using System.Collections;
+using System.Runtime.InteropServices;
 
 
 
@@ -89,6 +90,94 @@ public sealed partial class hmEdgeJSDynamicLib
                     return result;
                 }
             }
+
+            [DllImport("user32.dll", SetLastError = true)]
+            static extern IntPtr FindWindowEx(IntPtr hwndParent, IntPtr hwndChildAfter, string lpszClass, IntPtr szTitle);
+
+            public static bool IsExecuting
+            {
+                get
+                {
+                    const int WM_USER = 0x400;
+                    const int WM_ISMACROEXECUTING = WM_USER + 167;
+
+                    // 875.02から存在するが、安全を見て875正式版以降とする
+                    if (version >= 875.99)
+                    {
+                        IntPtr hWndHidemaru = WindowHandle;
+                        if (hWndHidemaru != IntPtr.Zero)
+                        {
+                            bool cwch = SendMessage(hWndHidemaru, WM_ISMACROEXECUTING, IntPtr.Zero, IntPtr.Zero);
+                            return cwch;
+                        }
+                    }
+                    // 古い状態でも取れる。866以上なら余裕
+                    else
+                    {
+                        IntPtr hWndHidemaru = WindowHandle;
+                        if (hWndHidemaru != IntPtr.Zero)
+                        {
+                            IntPtr hHm32Client = FindWindowEx(hWndHidemaru, IntPtr.Zero, "HM32CLIENT", IntPtr.Zero);
+                            bool cwch = SendMessage(hHm32Client, WM_ISMACROEXECUTING, IntPtr.Zero, IntPtr.Zero);
+                            return cwch;
+                        }
+
+                    }
+
+                    return false;
+                }
+            }
+
+            public static IResult ExecEval(String cmd)
+            {
+                TResult result = new TResult(0, "", null);
+                if (IsExecuting)
+                {
+                    result.Result = -1;
+                    result.Message = "";
+                    result.Error = new InvalidOperationException("HidemaruMacroIsExecutingException");
+                    return result;
+                }
+
+                if (version < 875.02)
+                {
+                    OutputDebugStream(ErrorMsg.MethodNeed875);
+                    result.Result = 0;
+                    result.Message = "";
+                    result.Error = new InvalidOperationException("HidemaruNeedVersionException");
+                    return result;
+                }
+
+                IntPtr hWndHidemaru = WindowHandle;
+                if (hWndHidemaru == IntPtr.Zero)
+                {
+                    result.Result = 0;
+                    result.Message = "";
+                    result.Error = new NullReferenceException("HidemaruWindowHandleException");
+                    return result;
+                }
+
+                const int WM_USER = 0x400;
+                const int WM_REMOTE_EXECMACRO_MEMORY = WM_USER + 272;
+
+                StringBuilder sbExpression = new StringBuilder(cmd);
+                StringBuilder sbRet = new StringBuilder("\x0f0f", 0x0f0f + 1); // 最初の値は帰り値のバッファー
+                bool cwch = SendMessage(hWndHidemaru, WM_REMOTE_EXECMACRO_MEMORY, sbRet, sbExpression);
+                if (cwch)
+                {
+                    result.Result = 1;
+                    result.Message = sbRet.ToString();
+                    result.Error = null;
+                }
+                else
+                {
+                    result.Result = 0;
+                    result.Message = sbRet.ToString();
+                    result.Error = new InvalidOperationException("HidemaruMacroEvalException");
+                }
+                return result;
+            }
+
 
             private static List<KeyValuePair<string, object>> SetMacroVarAndMakeMacroKeyArray(object[] args, int base_random)
             {
