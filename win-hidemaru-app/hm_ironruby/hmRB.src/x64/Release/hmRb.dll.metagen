@@ -1,5 +1,5 @@
 ImageRuntimeVersion: v4.0.30319
-Assembly hmRb, Version=1.8.*, Culture=ロケールに依存しない言語 (ロケールに依存しない国): 
+Assembly hmRb, Version=1.9.*, Culture=ロケールに依存しない言語 (ロケールに依存しない国): 
 	hash=SHA1, flags=PublicKey
 Assembly mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
 	hash=None, flags=None
@@ -107,15 +107,15 @@ Class hmRbDynamicLib+Hidemaru+HmExplorerPane: AutoLayout, AnsiClass, Class, Nest
   Properties:
     IntPtr WindowHandle 'get ' : 
   Methods:
-    SetMode(Int32): PrivateScope, Public, Static, HideBySig
-    GetMode(): PrivateScope, Public, Static, HideBySig
-    LoadProject(String): PrivateScope, Public, Static, HideBySig
-    SaveProject(String): PrivateScope, Public, Static, HideBySig
+    SetMode(Int32): PrivateScope, Public, HideBySig
+    GetMode(): PrivateScope, Public, HideBySig
+    LoadProject(String): PrivateScope, Public, HideBySig
+    SaveProject(String): PrivateScope, Public, HideBySig
     GetProject(): PrivateScope, Public, HideBySig
     GetCurrentDir(): PrivateScope, Public, HideBySig
-    GetUpdated(): PrivateScope, Public, Static, HideBySig
-    get_WindowHandle(): PrivateScope, Public, Static, HideBySig, SpecialName
-    SendMessage(Int32): PrivateScope, Public, Static, HideBySig
+    GetUpdated(): PrivateScope, Public, HideBySig
+    get_WindowHandle(): PrivateScope, Public, HideBySig, SpecialName
+    SendMessage(Int32): PrivateScope, Public, HideBySig
 Class hmRbDynamicLib+Hidemaru+HmOutputPane: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Properties:
