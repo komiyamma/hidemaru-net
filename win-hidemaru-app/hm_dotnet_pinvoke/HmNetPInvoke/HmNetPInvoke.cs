@@ -14,7 +14,7 @@ namespace HmNetPInvoke
 {
     interface IComDetachMethod
     {
-        void OnReleaseObject(int reason);
+        void OnReleaseObject(int reason=0);
     }
 
     interface IComSupportX64

@@ -59,10 +59,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>HmNetInvokeDLL.tt</DependentUpon>
     </Compile>
-    <Compile Update="HmNetPInvokeForCreateObject.cs">
+    <Compile Update="HmNetInvokeForLoadDLL.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>HmNetPInvokeForCreateObject.tt</DependentUpon>
+      <DependentUpon>HmNetInvokeForLoadDLL.tt</DependentUpon>
     </Compile>
   </ItemGroup>
 

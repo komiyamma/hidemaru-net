@@ -267,7 +267,14 @@ internal sealed partial class hmNETDynamicLib
                     "insert dllfuncstrw( {0} \"PopStrVar\" );\n" +
                     "endgroupundo;\n"
                 );
-                Macro.Eval(cmd);
+                if (Macro.IsExecuting)
+                {
+                    Macro.Eval(cmd);
+                }
+                else
+                {
+                    Macro.ExecEval(cmd);
+                }
                 SetTmpVar(null);
             }
 
@@ -370,7 +377,14 @@ internal sealed partial class hmNETDynamicLib
                     "if (selecting) {\n" +
                     "insert dllfuncstrw( " + invocate + " \"PopStrVar\" );\n" +
                     "}\n";
-                Macro.Eval(cmd);
+                if (Macro.IsExecuting)
+                {
+                    Macro.Eval(cmd);
+                }
+                else
+                {
+                    Macro.ExecEval(cmd);
+                }
                 SetTmpVar(null);
             }
 
@@ -474,7 +488,14 @@ internal sealed partial class hmNETDynamicLib
                     "moveto2 " + pos.Column + ", " + pos.LineNo + ";\n" +
                     "endgroupundo;\n"
                 );
-                Macro.Eval(cmd);
+                if (Macro.IsExecuting)
+                {
+                    Macro.Eval(cmd);
+                }
+                else
+                {
+                    Macro.ExecEval(cmd);
+                }
                 SetTmpVar(null);
             }
         }
