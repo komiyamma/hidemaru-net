@@ -1,5 +1,5 @@
 ImageRuntimeVersion: v4.0.30319
-Assembly hmPS, Version=1.8.*, Culture=ロケールに依存しない言語 (ロケールに依存しない国): 
+Assembly hmPS, Version=1.9.*, Culture=ロケールに依存しない言語 (ロケールに依存しない国): 
 	hash=SHA1, flags=PublicKey
 Assembly mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
 	hash=None, flags=None
@@ -32,6 +32,10 @@ Class hmPSDynamicLib: AutoLayout, AnsiClass, Class, Public, Sealed
     System.Management.Automation.Runspaces.Pipeline pipeline : Public, Static
     Hidemaru hm : Public, Static
   Methods:
+    SendMessage(IntPtr, UInt32, IntPtr, StringBuilder): PrivateScope, Public, Static, HideBySig, PinvokeImpl
+    SendMessage(IntPtr, UInt32, StringBuilder, StringBuilder): PrivateScope, Public, Static, HideBySig, PinvokeImpl
+    SendMessage(IntPtr, UInt32, IntPtr, IntPtr): PrivateScope, Public, Static, HideBySig, PinvokeImpl
+    SendMessage(IntPtr, UInt32, Int32, IntPtr): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     OutputDebugStream(String): PrivateScope, Public, Static, HideBySig
     BindDllHandle(IntPtr): PrivateScope, Public, Static, HideBySig
     ModifyFuncCallByDllType(String): PrivateScope, Public, Static, HideBySig
@@ -49,6 +53,7 @@ Class hmPSDynamicLib: AutoLayout, AnsiClass, Class, Public, Sealed
 Class hmPSDynamicLib+Hidemaru: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Fields:
+    TExplorerPane ExplorerPane : Public, Static
     TEdit Edit : Public, Static
     TFile File : Public, Static
     TMacro Macro : Public, Static
@@ -62,6 +67,20 @@ Class hmPSDynamicLib+Hidemaru: AutoLayout, AnsiClass, Class, NestedPublic, Seale
     get_version(): PrivateScope, Public, Static, HideBySig, SpecialName
 Class hmPSDynamicLib+DllPathResolver: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class hmPSDynamicLib+Hidemaru+TExplorerPane: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    IntPtr WindowHandle 'get ' : 
+  Methods:
+    SetMode(Int32): PrivateScope, Public, Static, HideBySig
+    GetMode(): PrivateScope, Public, Static, HideBySig
+    LoadProject(String): PrivateScope, Public, Static, HideBySig
+    SaveProject(String): PrivateScope, Public, Static, HideBySig
+    GetProject(): PrivateScope, Public, Static, HideBySig
+    GetCurrentDir(): PrivateScope, Public, Static, HideBySig
+    GetUpdated(): PrivateScope, Public, Static, HideBySig
+    get_WindowHandle(): PrivateScope, Public, Static, HideBySig, SpecialName
+    SendMessage(Int32): PrivateScope, Public, Static, HideBySig
 Class hmPSDynamicLib+Hidemaru+TEdit: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Properties:
@@ -88,8 +107,14 @@ Class hmPSDynamicLib+Hidemaru+TMacro: AutoLayout, AnsiClass, Class, NestedPublic
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Fields:
     TMacroVar Var : Public, Static
+  Properties:
+    Boolean IsExecuting 'get ' : 
   Methods:
     Eval(String): PrivateScope, Public, Static, HideBySig
+    get_IsExecuting(): PrivateScope, Public, Static, HideBySig, SpecialName
+    ExecEval(String): PrivateScope, Public, Static, HideBySig
+    Statement(String, Object[]): PrivateScope, Public, Static, HideBySig
+    Function(String, Object[]): PrivateScope, Public, Static, HideBySig
 Class hmPSDynamicLib+Hidemaru+TOutputPane: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Properties:
@@ -113,6 +138,8 @@ Class hmPSDynamicLib+Hidemaru+ErrorMsg: AutoLayout, AnsiClass, Class, NestedPubl
     System.String MethodNeed890 = このメソッドは秀丸エディタ v8.90 正式版以降で利用可能です。 : Public, Static, Literal, HasDefault
     System.String MethodNeedOutputNotFound = HmOutputPaneの対象関数を発見できません。 : Public, Static, Literal, HasDefault
     System.String MethodNeedOutputOperation = HmOutputPaneへの操作中にエラーが発生しました。 : Public, Static, Literal, HasDefault
+    System.String MethodNeedExplorerNotFound = HmExplorerPaneの対象関数を発見できません。 : Public, Static, Literal, HasDefault
+    System.String MethodNeedExplorerOperation = HmExplorerPaneへの操作中にエラーが発生しました。 : Public, Static, Literal, HasDefault
 Struct hmPSDynamicLib+Hidemaru+TEdit+HmCursurPos: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
   :System.ValueType
     Void .ctor(Int32, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
@@ -194,6 +221,28 @@ Interface hmPSDynamicLib+Hidemaru+TMacro+IResult: AutoLayout, AnsiClass, Class, 
     get_Result(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
     get_Message(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
     get_Error(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Interface hmPSDynamicLib+Hidemaru+TMacro+IStatementResult: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
+  Properties:
+    Int32 Result 'get ' : 
+    System.String Message 'get ' : 
+    System.Exception Error 'get ' : 
+    System.Collections.Generic.List`1[System.Object] Args 'get ' : 
+  Methods:
+    get_Result(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Message(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Error(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Args(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Interface hmPSDynamicLib+Hidemaru+TMacro+IFunctionResult: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
+  Properties:
+    System.Object Result 'get ' : 
+    System.String Message 'get ' : 
+    System.Exception Error 'get ' : 
+    System.Collections.Generic.List`1[System.Object] Args 'get ' : 
+  Methods:
+    get_Result(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Message(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Error(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Args(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
 Class hmPSDynamicLib+Hidemaru+TMacro+TMacroVar: AutoLayout, AnsiClass, Class, NestedPublic, BeforeFieldInit
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Properties:
