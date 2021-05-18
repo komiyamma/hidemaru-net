@@ -4,4 +4,3 @@ G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_pinvoke\HmNetPInvoke\obj\R
 G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_pinvoke\HmNetPInvoke\obj\Release\netstandard2.0\HmNetPInvoke.AssemblyInfoInputs.cache
 G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_pinvoke\HmNetPInvoke\obj\Release\netstandard2.0\HmNetPInvoke.AssemblyInfo.cs
 G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_pinvoke\HmNetPInvoke\obj\Release\netstandard2.0\HmNetPInvoke.dll
-G:\repogitory\hidemaru-net\win-hidemaru-app\hm_dotnet_pinvoke\HmNetPInvoke\obj\Release\netstandard2.0\HmNetPInvoke.csprojAssemblyReference.cache

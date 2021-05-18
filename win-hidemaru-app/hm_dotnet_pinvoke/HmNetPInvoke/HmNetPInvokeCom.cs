@@ -1,15 +1,11 @@
-/*
- * HmNetPInvoke ver 1.851
+ï»¿/*
+ * HmNetPInvoke ver 1.901
  * Copyright (C) 2021 Akitsugu Komiyama
  * under the MIT License
  **/
 
-<#@ template debug="false" hostspecific="true" language="C#" #>
-<#@ output extension=".cs" #>
-
-<# string HmMacroCOMVarGUID = System.Guid.NewGuid().ToString(); #>
-
 using System;
+using System.IO;
 using System.Text;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
@@ -17,13 +13,13 @@ using System.Runtime.InteropServices;
 namespace HmNetPInvoke
 {
     public partial class HmMacroCOMVar {
-        private const string HmMacroCOMVarInterface = "<#= HmMacroCOMVarGUID #>";
+        private const string HmMacroCOMVarInterface = "HmMacroCOMVarGUID";
     }
 }
 
 namespace HmNetPInvoke
 {
-    // GŠÛ‚ÌCOM‚©‚çŒÄ‚Ño‚µ‚ÄAƒ}ƒNƒÌCOM‚Æ‚¢‚Á‚½‚æ‚¤‚ÉAƒ}ƒNƒ‚ÆƒvƒƒOƒ‰ƒ€‚Å•Ï”’l‚ğŒİ‚¢‚É“`”À‚·‚é
+    // ç§€ä¸¸ã®COMã‹ã‚‰å‘¼ã³å‡ºã—ã¦ã€ãƒã‚¯ãƒ­â‡”COMã¨ã„ã£ãŸã‚ˆã†ã«ã€ãƒã‚¯ãƒ­ã¨ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã§å¤‰æ•°å€¤ã‚’äº’ã„ã«ä¼æ¬ã™ã‚‹
     [ComVisible(true)]
     [Guid(HmMacroCOMVarInterface)]
     public partial class HmMacroCOMVar : IComSupportX64
@@ -241,7 +237,7 @@ namespace HmNetPInvoke
 
         public static partial class Macro
         {
-            // ƒ}ƒNƒ‚Å‚Ì–â‚¢‡‚í‚¹Œ‹‰ÊŒn
+            // ãƒã‚¯ãƒ­ã§ã®å•ã„åˆã‚ã›çµæœç³»
             public interface IStatementResult
             {
                 int Result { get; }
@@ -263,7 +259,7 @@ namespace HmNetPInvoke
                     this.Result = Result;
                     this.Message = Message;
                     this.Error = Error;
-                    this.Args = new List<object>(Args); // ƒRƒs[“n‚µ
+                    this.Args = new List<object>(Args); // ã‚³ãƒ”ãƒ¼æ¸¡ã—
                 }
             }
 
@@ -278,28 +274,28 @@ namespace HmNetPInvoke
 
                 List<KeyValuePair<string, object>> arg_list = SetMacroVarAndMakeMacroKeyArray(args, statement_base_random);
 
-                // key‚ğƒŠƒXƒg‰»
+                // keyã‚’ãƒªã‚¹ãƒˆåŒ–
                 var arg_keys = new List<String>();
                 foreach (var l in arg_list)
                 {
                     arg_keys.Add(l.Key);
                 }
 
-                // ‚»‚ê‚ğu,v‚ÅŒq‚°‚é
+                // ãã‚Œã‚’ã€Œ,ã€ã§ç¹‹ã’ã‚‹
                 string args_string = String.Join(", ", arg_keys);
-                // ‚»‚ê‚ğw’è‚Ìu•¶v‚ÅÀs‚·‚éŒ`
+                // ãã‚Œã‚’æŒ‡å®šã®ã€Œæ–‡ã€ã§å®Ÿè¡Œã™ã‚‹å½¢
                 string expression = $"{funcname} {args_string};\n";
 
-                // Às‚·‚é
+                // å®Ÿè¡Œã™ã‚‹
                 IResult ret = Macro.Eval(expression);
-                // ¬”Û‚àŠÜ‚ß‚ÄŒ‹‰Ê‚ğ“ü‚ê‚éB
-                // new TResult(ret.Result, ret.Message, ret.Error);
-
+ 
+                // æˆå¦ã‚‚å«ã‚ã¦çµæœã‚’å…¥ã‚Œã‚‹ã€‚
                 IStatementResult result = new TStatementResult(ret.Result, ret.Message, ret.Error, new List<Object>());
 
-                // g‚Á‚½‚Ì‚Åíœ
-                foreach (var l in arg_list)
+                // ä½¿ã£ãŸã®ã§å‰Šé™¤
+                for (int ix = 0; ix < arg_list.Count; ix++)
                 {
+                    var l = arg_list[ix];
                     if (l.Value is Int32 || l.Value is Int64)
                     {
                         result.Args.Add(Macro.Var[l.Key]);
@@ -310,12 +306,54 @@ namespace HmNetPInvoke
                         result.Args.Add(Macro.Var[l.Key]);
                         Macro.Var[l.Key] = "";
                     }
+
+                    else if (l.Value.GetType() == new List<int>().GetType() || l.Value.GetType() == new List<long>().GetType() || l.Value.GetType() == new List<IntPtr>().GetType())
+                    {
+                        result.Args.Add(l.Value);
+                        if (l.Value.GetType() == new List<int>().GetType())
+                        {
+                            List<int> int_list = (List<int>)l.Value;
+                            for (int iix = 0; iix < int_list.Count; iix++)
+                            {
+                                Macro.Var[l.Key + "[" + iix + "]"] = 0;
+                            }
+                        }
+                        else if (l.Value.GetType() == new List<long>().GetType())
+                        {
+                            List<long> long_list = (List<long>)l.Value;
+                            for (int iix = 0; iix < long_list.Count; iix++)
+                            {
+                                Macro.Var[l.Key + "[" + iix + "]"] = 0;
+                            }
+                        }
+                        else if (l.Value.GetType() == new List<IntPtr>().GetType())
+                        {
+                            List<IntPtr> ptr_list = (List<IntPtr>)l.Value;
+                            for (int iix = 0; iix < ptr_list.Count; iix++)
+                            {
+                                Macro.Var[l.Key + "[" + iix + "]"] = 0;
+                            }
+                        }
+                    }
+                    else if (l.Value.GetType() == new List<String>().GetType())
+                    {
+                        result.Args.Add(l.Value);
+                        List<String> ptr_list = (List<String>)l.Value;
+                        for (int iix = 0; iix < ptr_list.Count; iix++)
+                        {
+                            Macro.Var[l.Key + "[" + iix + "]"] = "";
+                        }
+                    }
+                    else
+                    {
+                        result.Args.Add(l.Value);
+                    }
                 }
 
                 return result;
             }
 
-            // ƒ}ƒNƒ‚Å‚Ì–â‚¢‡‚í‚¹Œ‹‰ÊŒn
+            // ãƒã‚¯ãƒ­ã§ã®å•ã„åˆã‚ã›çµæœç³»
             public interface IFunctionResult
             {
                 object Result { get; }
@@ -336,7 +374,7 @@ namespace HmNetPInvoke
                     this.Result = Result;
                     this.Message = Message;
                     this.Error = Error;
-                    this.Args = new List<object>(Args); // ƒRƒs[“n‚µ
+                    this.Args = new List<object>(Args); // ã‚³ãƒ”ãƒ¼æ¸¡ã—
                 }
             }
 
@@ -351,16 +389,16 @@ namespace HmNetPInvoke
 
                 List<KeyValuePair<string, object>> arg_list = SetMacroVarAndMakeMacroKeyArray(args, funciton_base_random);
 
-                // key‚ğƒŠƒXƒg‰»
+                // keyã‚’ãƒªã‚¹ãƒˆåŒ–
                 var arg_keys = new List<String>();
                 foreach (var l in arg_list)
                 {
                     arg_keys.Add(l.Key);
                 }
 
-                // ‚»‚ê‚ğu,v‚ÅŒq‚°‚é
+                // ãã‚Œã‚’ã€Œ,ã€ã§ç¹‹ã’ã‚‹
                 string args_string = String.Join(", ", arg_keys);
-                // ‚»‚ê‚ğw’è‚ÌuŠÖ”v‚ÅÀs‚·‚éŒ`
+                // ãã‚Œã‚’æŒ‡å®šã®ã€Œé–¢æ•°ã€ã§å®Ÿè¡Œã™ã‚‹å½¢
                 string expression = $"{funcname}({args_string})";
 
                 //----------------------------------------------------------------
@@ -370,17 +408,26 @@ namespace HmNetPInvoke
                 Object ret = null;
                 try
                 {
-                    ret = Macro.Var[expression]; // ‚±‚Ì’†‚ÌGetMethod‚Å—áŠO‚ª”­¶‚·‚é‰Â”\«‚ ‚è
+                    ret = Macro.Var[expression]; // ã“ã®ä¸­ã®GetMethodã§ä¾‹å¤–ãŒç™ºç”Ÿã™ã‚‹å¯èƒ½æ€§ã‚ã‚Š
 
                     if (ret.GetType().Name != "String")
                     {
-                        result.Result = (int)ret + 0; // ŠmÀ‚É•¡»‚ğ
-                        result.Message = "";
-                        result.Error = null;
+                        if (IntPtr.Size == 4)
+                        {
+                            result.Result = (Int32)ret + 0; // ç¢ºå®Ÿã«è¤‡è£½ã‚’
+                            result.Message = "";
+                            result.Error = null;
+                        }
+                        else
+                        {
+                            result.Result = (Int64)ret + 0; // ç¢ºå®Ÿã«è¤‡è£½ã‚’
+                            result.Message = "";
+                            result.Error = null;
+                        }
                     }
                     else
                     {
-                        result.Result = (String)ret + ""; // ŠmÀ‚É•¡»‚ğ
+                        result.Result = (String)ret + ""; // ç¢ºå®Ÿã«è¤‡è£½ã‚’
                         result.Message = "";
                         result.Error = null;
                     }
@@ -394,10 +441,11 @@ namespace HmNetPInvoke
                 }
 
 
-                // g‚Á‚½‚Ì‚Åíœ
-                foreach (var l in arg_list)
+                // ä½¿ã£ãŸã®ã§å‰Šé™¤
+                for (int ix = 0; ix < arg_list.Count; ix++)
                 {
-                    if (l.Value is int)
+                    var l = arg_list[ix];
+                    if (l.Value is Int32 || l.Value is Int64)
                     {
                         result.Args.Add(Macro.Var[l.Key]);
                         Macro.Var[l.Key] = 0;
@@ -406,6 +454,48 @@ namespace HmNetPInvoke
                     {
                         result.Args.Add(Macro.Var[l.Key]);
                         Macro.Var[l.Key] = "";
+                    }
+
+                    else if (l.Value.GetType() == new List<int>().GetType() || l.Value.GetType() == new List<long>().GetType() || l.Value.GetType() == new List<IntPtr>().GetType())
+                    {
+                        result.Args.Add(l.Value);
+                        if (l.Value.GetType() == new List<int>().GetType())
+                        {
+                            List<int> int_list = (List<int>)l.Value;
+                            for (int iix = 0; iix < int_list.Count; iix++)
+                            {
+                                Macro.Var[l.Key + "[" + iix + "]"] = 0;
+                            }
+                        }
+                        else if (l.Value.GetType() == new List<long>().GetType())
+                        {
+                            List<long> long_list = (List<long>)l.Value;
+                            for (int iix = 0; iix < long_list.Count; iix++)
+                            {
+                                Macro.Var[l.Key + "[" + iix + "]"] = 0;
+                            }
+                        }
+                        else if (l.Value.GetType() == new List<IntPtr>().GetType())
+                        {
+                            List<IntPtr> ptr_list = (List<IntPtr>)l.Value;
+                            for (int iix = 0; iix < ptr_list.Count; iix++)
+                            {
+                                Macro.Var[l.Key + "[" + iix + "]"] = 0;
+                            }
+                        }
+                    }
+                    else if (l.Value.GetType() == new List<String>().GetType())
+                    {
+                        result.Args.Add(l.Value);
+                        List<String> ptr_list = (List<String>)l.Value;
+                        for (int iix = 0; iix < ptr_list.Count; iix++)
+                        {
+                            Macro.Var[l.Key + "[" + iix + "]"] = "";
+                        }
+                    }
+                    else
+                    {
+                        result.Args.Add(l.Value);
                     }
                 }
 
@@ -421,7 +511,7 @@ namespace HmNetPInvoke
                     bool success = false;
                     cur_random++;
                     object normalized_arg = null;
-                    // BooleanŒ^‚Å‚ ‚ê‚ÎATrue:1 Flase:0‚Éƒ}ƒbƒsƒ“ƒO‚·‚é
+                    // Booleanå‹ã§ã‚ã‚Œã°ã€True:1 Flase:0ã«ãƒãƒƒãƒ”ãƒ³ã‚°ã™ã‚‹
                     if (value is bool)
                     {
                         success = true;
@@ -441,41 +531,104 @@ namespace HmNetPInvoke
                         normalized_arg = value.ToString();
                     }
 
+                    // é…åˆ—ã®å ´åˆã‚’è¿½åŠ 
                     if (!success)
                     {
-                        // ‚Ü‚¸‚Í®”‚Åƒgƒ‰ƒC
-                        int itmp = 0;
-                        success = int.TryParse(value.ToString(), out itmp);
-
-                        if (success == true)
+                        if (value.GetType() == new List<int>().GetType())
                         {
-                            normalized_arg = itmp;
+                            success = true;
+                            normalized_arg = new List<int>((List<int>)value);
                         }
-
-                        else
+                        if (value.GetType() == new List<long>().GetType())
                         {
-                            // Ÿ‚É­”‚Åƒgƒ‰ƒC
-                            Double dtmp = 0;
-                            success = Double.TryParse(value.ToString(), out dtmp);
-                            if (success)
+                            success = true;
+                            normalized_arg = new List<long>((List<long>)value);
+                        }
+                        if (value.GetType() == new List<IntPtr>().GetType())
+                        {
+                            success = true;
+                            normalized_arg = new List<IntPtr>((List<IntPtr>)value);
+                        }
+                    }
+
+                    if (!success)
+                    {
+                        if (value.GetType() == new List<string>().GetType())
+                        {
+                            success = true;
+                            normalized_arg = new List<String>((List<String>)value);
+                        }
+                    }
+                    // ä»¥ä¸Šé…åˆ—ã®å ´åˆã‚’è¿½åŠ 
+
+                    if (!success)
+                    {
+                        // 32bit
+                        if (IntPtr.Size == 4)
+                        {
+                            // ã¾ãšã¯æ•´æ•°ã§ãƒˆãƒ©ã‚¤
+                            Int32 itmp = 0;
+                            success = Int32.TryParse(value.ToString(), out itmp);
+
+                            if (success == true)
                             {
-                                normalized_arg = (int)(dtmp);
+                                normalized_arg = itmp;
                             }
 
                             else
                             {
-                                normalized_arg = 0;
+                                // æ¬¡ã«å°‘æ•°ã§ãƒˆãƒ©ã‚¤
+                                Double dtmp = 0;
+                                success = Double.TryParse(value.ToString(), out dtmp);
+                                if (success)
+                                {
+                                    normalized_arg = (Int32)(dtmp);
+                                }
+
+                                else
+                                {
+                                    normalized_arg = 0;
+                                }
+                            }
+                        }
+
+                        // 64bit
+                        else
+                        {
+                            // ã¾ãšã¯æ•´æ•°ã§ãƒˆãƒ©ã‚¤
+                            Int64 itmp = 0;
+                            success = Int64.TryParse(value.ToString(), out itmp);
+
+                            if (success == true)
+                            {
+                                normalized_arg = itmp;
+                            }
+
+                            else
+                            {
+                                // æ¬¡ã«å°‘æ•°ã§ãƒˆãƒ©ã‚¤
+                                Double dtmp = 0;
+                                success = Double.TryParse(value.ToString(), out dtmp);
+                                if (success)
+                                {
+                                    normalized_arg = (Int64)(dtmp);
+                                }
+                                else
+                                {
+                                    normalized_arg = 0;
+                                }
                             }
                         }
                     }
 
-                    // ¬Œ÷‚µ‚È‚©‚Á‚½
+
+                    // æˆåŠŸã—ãªã‹ã£ãŸ
                     if (!success)
                     {
                         normalized_arg = value.ToString();
                     }
 
-                    if (normalized_arg is int)
+                    if (normalized_arg is Int32 || normalized_arg is Int64)
                     {
                         string key = "#AsMacroArs_" + base_random.ToString() + '_' + cur_random.ToString();
                         arg_list.Add(new KeyValuePair<string, object>(key, normalized_arg));
@@ -483,20 +636,59 @@ namespace HmNetPInvoke
                     }
                     else if (normalized_arg is string)
                     {
-                        string key = "AsMacroArs_" + base_random.ToString() + '_' + cur_random.ToString();
+                        string key = "$AsMacroArs_" + base_random.ToString() + '_' + cur_random.ToString();
                         arg_list.Add(new KeyValuePair<string, object>(key, normalized_arg));
                         Macro.Var[key] = normalized_arg;
                     }
+                    else if (value.GetType() == new List<int>().GetType() || value.GetType() == new List<long>().GetType() || value.GetType() == new List<IntPtr>().GetType())
+                    {
+                        string key = "$AsIntArrayOfMacroArs_" + base_random.ToString() + '_' + cur_random.ToString();
+                        arg_list.Add(new KeyValuePair<string, object>(key, normalized_arg));
+                        if (value.GetType() == new List<int>().GetType())
+                        {
+                            List<int> int_list = (List<int>)value;
+                            for (int iix = 0; iix < int_list.Count; iix++)
+                            {
+                                Macro.Var[key + "[" + iix + "]"] = int_list[iix];
+                            }
+                        }
+                        else if (value.GetType() == new List<long>().GetType())
+                        {
+                            List<long> long_list = (List<long>)value;
+                            for (int iix = 0; iix < long_list.Count; iix++)
+                            {
+                                Macro.Var[key + "[" + iix + "]"] = long_list[iix];
+                            }
+                        }
+                        else if (value.GetType() == new List<IntPtr>().GetType())
+                        {
+                            List<IntPtr> ptr_list = (List<IntPtr>)value;
+                            for (int iix = 0; iix < ptr_list.Count; iix++)
+                            {
+                                Macro.Var[key + "[" + iix + "]"] = ptr_list[iix];
+                            }
+                        }
+                    }
+                    else if (value.GetType() == new List<string>().GetType())
+                    {
+                        string key = "$AsStrArrayOfMacroArs_" + base_random.ToString() + '_' + cur_random.ToString();
+                        arg_list.Add(new KeyValuePair<string, object>(key, normalized_arg));
+                        List<String> str_list = (List<String>)value;
+                        for (int iix = 0; iix < str_list.Count; iix++)
+                        {
+                            Macro.Var[key + "[" + iix + "]"] = str_list[iix];
+                        }
+                    }
                 }
-
                 return arg_list;
             }
 
+
             /// <summary>
-            /// ‘ÎÛ‚ÌuGŠÛƒ}ƒNƒ•Ï”–¼v‚Ö‚Ì“Ç‚İ‘‚«
+            /// å¯¾è±¡ã®ã€Œç§€ä¸¸ãƒã‚¯ãƒ­å¤‰æ•°åã€ã¸ã®èª­ã¿æ›¸ã
             /// </summary>
-            /// <param name = "var_name">‘‚«‚İ‚Ìê‡‚ÍA•Ï”‚Ì’l</param>
-            /// <returns>“Ç‚İæ‚è‚Ìê‡‚ÍA‘ÎÛ‚Ì•Ï”‚Ì’l</returns>
+            /// <param name = "var_name">æ›¸ãè¾¼ã¿ã®å ´åˆã¯ã€å¤‰æ•°ã®å€¤</param>
+            /// <returns>èª­ã¿å–ã‚Šã®å ´åˆã¯ã€å¯¾è±¡ã®å¤‰æ•°ã®å€¤</returns>
             internal static TMacroVar Var = new TMacroVar();
             internal sealed class TMacroVar
             {
@@ -518,7 +710,7 @@ namespace HmNetPInvoke
                     {
                         Object result = new Object();
 
-                        // BooleanŒ^‚Å‚ ‚ê‚ÎATrue:1 Flase:0‚Éƒ}ƒbƒsƒ“ƒO‚·‚é
+                        // Booleanå‹ã§ã‚ã‚Œã°ã€True:1 Flase:0ã«ãƒãƒƒãƒ”ãƒ³ã‚°ã™ã‚‹
                         if (value is bool)
                         {
                             if ((Boolean)value == true)
@@ -534,7 +726,7 @@ namespace HmNetPInvoke
                         // 32bit
                         if (IntPtr.Size == 4)
                         {
-                            // ‚Ü‚¸‚Í®”‚Åƒgƒ‰ƒC
+                            // ã¾ãšã¯æ•´æ•°ã§ãƒˆãƒ©ã‚¤
                             Int32 itmp = 0;
                             bool success = Int32.TryParse(value.ToString(), out itmp);
 
@@ -545,7 +737,7 @@ namespace HmNetPInvoke
 
                             else
                             {
-                                // Ÿ‚É­”‚Åƒgƒ‰ƒC
+                                // æ¬¡ã«å°‘æ•°ã§ãƒˆãƒ©ã‚¤
                                 Double dtmp = 0;
                                 success = Double.TryParse(value.ToString(), out dtmp);
                                 if (success)
@@ -563,7 +755,7 @@ namespace HmNetPInvoke
                         // 64bit
                         else
                         {
-                            // ‚Ü‚¸‚Í®”‚Åƒgƒ‰ƒC
+                            // ã¾ãšã¯æ•´æ•°ã§ãƒˆãƒ©ã‚¤
                             Int64 itmp = 0;
                             bool success = Int64.TryParse(value.ToString(), out itmp);
 
@@ -574,7 +766,7 @@ namespace HmNetPInvoke
 
                             else
                             {
-                                // Ÿ‚É­”‚Åƒgƒ‰ƒC
+                                // æ¬¡ã«å°‘æ•°ã§ãƒˆãƒ©ã‚¤
                                 Double dtmp = 0;
                                 success = Double.TryParse(value.ToString(), out dtmp);
                                 if (success)
@@ -610,16 +802,16 @@ namespace HmNetPInvoke
                     {
                         if (IntPtr.Size == 4)
                         {
-                            return (Int32)ret + 0; // ŠmÀ‚É•¡»‚ğ
+                            return (Int32)ret + 0; // ç¢ºå®Ÿã«è¤‡è£½ã‚’
                         }
                         else
                         {
-                            return (Int64)ret + 0; // ŠmÀ‚É•¡»‚ğ
+                            return (Int64)ret + 0; // ç¢ºå®Ÿã«è¤‡è£½ã‚’
                         }
                     }
                     else
                     {
-                        return (String)ret + ""; // ŠmÀ‚É•¡»‚ğ
+                        return (String)ret + ""; // ç¢ºå®Ÿã«è¤‡è£½ã‚’
                     }
                 }
             }

@@ -26,7 +26,6 @@
 
   <ItemGroup>
     <Compile Remove="HmNetPInvoke.cs" />
-    <Compile Remove="HmNetPInvokeCom.cs" />
     <Compile Remove="HmNetPInvokePane.cs" />
   </ItemGroup>
 
@@ -58,6 +57,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>HmNetInvokeDLL.tt</DependentUpon>
+    </Compile>
+    <Compile Update="HmNetPInvokeCOM.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>HmNetPInvokeCOM.tt</DependentUpon>
     </Compile>
     <Compile Update="HmNetPInvokeForCreateObject.cs">
       <DesignTime>True</DesignTime>

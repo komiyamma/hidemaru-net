@@ -1,4 +1,17 @@
-ï»¿/*
+/*
+ * HmNetPInvoke ver 1.901
+ * Copyright (C) 2021 Akitsugu Komiyama
+ * under the MIT License
+ **/
+
+
+using System;
+using System.IO;
+using System.Text;
+using System.Collections.Generic;
+using System.Runtime.InteropServices;
+
+/*
  * HmNetPInvoke ver 1.901
  * Copyright (C) 2021 Akitsugu Komiyama
  * under the MIT License
@@ -22,7 +35,7 @@ namespace HmNetPInvoke
         {
             private static UnManagedDll hmOutputPaneHandle = null;
 
-            // OutputPaneã‹ã‚‰å‡ºã¦ã„ã‚‹é–¢æ•°ç¾¤
+            // OutputPane‚©‚ço‚Ä‚¢‚éŠÖ”ŒQ
             private delegate int TOutputPane_Output(IntPtr hHidemaruWindow, byte[] encode_data);
             private delegate int TOutputPane_Push(IntPtr hHidemaruWindow);
             private delegate int TOutputPane_Pop(IntPtr hHidemaruWindow);
@@ -58,10 +71,10 @@ namespace HmNetPInvoke
             }
 
             /// <summary>
-            /// ã‚¢ã‚¦ãƒˆãƒ—ãƒƒãƒˆæ ã¸ã®æ–‡å­—åˆ—ã®å‡ºåŠ›ã€‚
-            /// æ”¹è¡Œã™ã‚‹ã«ã¯ã€Œ\r\nã€ã¨ã„ã£ãŸã‚ˆã†ã«ã€Œ\rã€ã‚‚å¿…è¦ã€‚
+            /// ƒAƒEƒgƒvƒbƒg˜g‚Ö‚Ì•¶š—ñ‚Ìo—ÍB
+            /// ‰üs‚·‚é‚É‚Íu\r\nv‚Æ‚¢‚Á‚½‚æ‚¤‚Éu\rv‚à•K—vB
             /// </summary>
-            /// <returns>å¤±æ•—ãªã‚‰0ã€æˆåŠŸãªã‚‰0ä»¥å¤–</returns>
+            /// <returns>¸”s‚È‚ç0A¬Œ÷‚È‚ç0ˆÈŠO</returns>
             public static int Output(string message)
             {
                 try
@@ -79,30 +92,30 @@ namespace HmNetPInvoke
             }
 
             /// <summary>
-            /// ã‚¢ã‚¦ãƒˆãƒ—ãƒƒãƒˆæ ã«ã‚ã‚‹æ–‡å­—åˆ—ã®ä¸€æ™‚é€€é¿
+            /// ƒAƒEƒgƒvƒbƒg˜g‚É‚ ‚é•¶š—ñ‚Ìˆê‘Ş”ğ
             /// </summary>
-            /// <returns>å¤±æ•—ãªã‚‰0ã€æˆåŠŸãªã‚‰0ä»¥å¤–</returns>
+            /// <returns>¸”s‚È‚ç0A¬Œ÷‚È‚ç0ˆÈŠO</returns>
             public static int Push()
             {
                 return pOutputPane_Push(Hm.WindowHandle); ;
             }
 
             /// <summary>
-            /// Pushã«ã‚ˆã£ã¦ä¸€æ™‚é€€é¿ã—ãŸæ–‡å­—åˆ—ã®å¾©å…ƒ
+            /// Push‚É‚æ‚Á‚Äˆê‘Ş”ğ‚µ‚½•¶š—ñ‚Ì•œŒ³
             /// </summary>
-            /// <returns>å¤±æ•—ãªã‚‰0ã€æˆåŠŸãªã‚‰0ä»¥å¤–</returns>
+            /// <returns>¸”s‚È‚ç0A¬Œ÷‚È‚ç0ˆÈŠO</returns>
             public static int Pop()
             {
                 return pOutputPane_Pop(Hm.WindowHandle); ;
             }
 
             /// <summary>
-            /// ã‚¢ã‚¦ãƒˆãƒ—ãƒƒãƒˆæ ã«ã‚ã‚‹æ–‡å­—åˆ—ã®ã‚¯ãƒªã‚¢
+            /// ƒAƒEƒgƒvƒbƒg˜g‚É‚ ‚é•¶š—ñ‚ÌƒNƒŠƒA
             /// </summary>
-            /// <returns>ç¾åœ¨ã®ã¨ã“ã‚ã€æˆå¦ã‚’æŒ‡ã—ç¤ºã™å€¤ã¯è¿”ã£ã¦ã“ãªã„</returns>
+            /// <returns>Œ»İ‚Ì‚Æ‚±‚ëA¬”Û‚ğw‚µ¦‚·’l‚Í•Ô‚Á‚Ä‚±‚È‚¢</returns>
             public static int Clear()
             {
-                //1009=ã‚¯ãƒªã‚¢
+                //1009=ƒNƒŠƒA
                 IntPtr r = OutputPane.SendMessage(1009);
                 if ((long)r < (long)int.MinValue)
                 {
@@ -117,9 +130,9 @@ namespace HmNetPInvoke
             }
 
             /// <summary>
-            /// ã‚¢ã‚¦ãƒˆãƒ—ãƒƒãƒˆæ ã®WindowHandle
+            /// ƒAƒEƒgƒvƒbƒg˜g‚ÌWindowHandle
             /// </summary>
-            /// <returns>ã‚¢ã‚¦ãƒˆãƒ—ãƒƒãƒˆæ ã®WindowHandle</returns>
+            /// <returns>ƒAƒEƒgƒvƒbƒg˜g‚ÌWindowHandle</returns>
             public static IntPtr WindowHandle
             {
                 get
@@ -129,9 +142,9 @@ namespace HmNetPInvoke
             }
 
             /// <summary>
-            /// ã‚¢ã‚¦ãƒˆãƒ—ãƒƒãƒˆæ ã¸ã®SendMessage
+            /// ƒAƒEƒgƒvƒbƒg˜g‚Ö‚ÌSendMessage
             /// </summary>
-            /// <returns>SendMessageã®è¿”ã‚Šå€¤ãã®ã¾ã¾</returns>
+            /// <returns>SendMessage‚Ì•Ô‚è’l‚»‚Ì‚Ü‚Ü</returns>
             public static IntPtr SendMessage(int commandID)
             {
                 IntPtr result = Hm.SendMessage(OutputPane.WindowHandle, 0x111, commandID, IntPtr.Zero);
@@ -139,9 +152,9 @@ namespace HmNetPInvoke
             }
 
             /// <summary>
-            /// ã‚¢ã‚¦ãƒˆãƒ—ãƒƒãƒˆæ ã®ãƒ™ãƒ¼ã‚¹ã¨ãªã‚‹ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã®è¨­å®š
+            /// ƒAƒEƒgƒvƒbƒg˜g‚Ìƒx[ƒX‚Æ‚È‚éƒfƒBƒŒƒNƒgƒŠ‚Ìİ’è
             /// </summary>
-            /// <returns>å¤±æ•—ãªã‚‰0ã€æˆåŠŸãªã‚‰0ä»¥å¤–</returns>
+            /// <returns>¸”s‚È‚ç0A¬Œ÷‚È‚ç0ˆÈŠO</returns>
             public static int SetBaseDir(string dirpath)
             {
                 if (Version < 877)
@@ -183,7 +196,7 @@ namespace HmNetPInvoke
         {
             private static UnManagedDll hmExplorerPaneHandle = null;
 
-            // ExplorerPaneã‹ã‚‰å‡ºã¦ã„ã‚‹é–¢æ•°ç¾¤
+            // ExplorerPane‚©‚ço‚Ä‚¢‚éŠÖ”ŒQ
             private delegate int TExplorerPane_SetMode(IntPtr hHidemaruWindow, IntPtr mode);
             private delegate int TExplorerPane_GetMode(IntPtr hHidemaruWindow);
             private delegate int TExplorerPane_LoadProject(IntPtr hHidemaruWindow, byte[] encode_project_file_path);
@@ -228,9 +241,9 @@ namespace HmNetPInvoke
             }
 
             /// <summary>
-            /// ãƒ•ã‚¡ã‚¤ãƒ«ãƒãƒãƒ¼ã‚¸ãƒ£æ ã®ãƒ¢ãƒ¼ãƒ‰ã®è¨­å®š
+            /// ƒtƒ@ƒCƒ‹ƒ}ƒl[ƒWƒƒ˜g‚Ìƒ‚[ƒh‚Ìİ’è
             /// </summary>
-            /// <returns>å¤±æ•—ãªã‚‰0ã€æˆåŠŸãªã‚‰0ä»¥å¤–</returns>
+            /// <returns>¸”s‚È‚ç0A¬Œ÷‚È‚ç0ˆÈŠO</returns>
             public static int SetMode(int mode)
             {
                 try
@@ -247,9 +260,9 @@ namespace HmNetPInvoke
             }
 
             /// <summary>
-            /// ãƒ•ã‚¡ã‚¤ãƒ«ãƒãƒãƒ¼ã‚¸ãƒ£æ ã®ãƒ¢ãƒ¼ãƒ‰ã®å–å¾—
+            /// ƒtƒ@ƒCƒ‹ƒ}ƒl[ƒWƒƒ˜g‚Ìƒ‚[ƒh‚Ìæ“¾
             /// </summary>
-            /// <returns>å¤±æ•—ãªã‚‰0ã€æˆåŠŸãªã‚‰0ä»¥å¤–</returns>
+            /// <returns>¸”s‚È‚ç0A¬Œ÷‚È‚ç0ˆÈŠO</returns>
             public static int GetMode()
             {
                 try
@@ -266,9 +279,9 @@ namespace HmNetPInvoke
             }
 
             /// <summary>
-            /// ãƒ•ã‚¡ã‚¤ãƒ«ãƒãƒãƒ¼ã‚¸ãƒ£æ ã«æŒ‡å®šã®ãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆã‚’èª­ã¿è¾¼ã‚€
+            /// ƒtƒ@ƒCƒ‹ƒ}ƒl[ƒWƒƒ˜g‚Éw’è‚Ìƒtƒ@ƒCƒ‹‚ÌƒvƒƒWƒFƒNƒg‚ğ“Ç‚İ‚Ş
             /// </summary>
-            /// <returns>å¤±æ•—ãªã‚‰0ã€æˆåŠŸãªã‚‰0ä»¥å¤–</returns>
+            /// <returns>¸”s‚È‚ç0A¬Œ÷‚È‚ç0ˆÈŠO</returns>
             public static int LoadProject(string filepath)
             {
                 try
@@ -286,9 +299,9 @@ namespace HmNetPInvoke
             }
 
             /// <summary>
-            /// ãƒ•ã‚¡ã‚¤ãƒ«ãƒãƒãƒ¼ã‚¸ãƒ£æ ã®ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆã‚’æŒ‡å®šãƒ•ã‚¡ã‚¤ãƒ«ã«ä¿å­˜
+            /// ƒtƒ@ƒCƒ‹ƒ}ƒl[ƒWƒƒ˜g‚ÌƒvƒƒWƒFƒNƒg‚ğw’èƒtƒ@ƒCƒ‹‚É•Û‘¶
             /// </summary>
-            /// <returns>å¤±æ•—ãªã‚‰0ã€æˆåŠŸãªã‚‰0ä»¥å¤–</returns>
+            /// <returns>¸”s‚È‚ç0A¬Œ÷‚È‚ç0ˆÈŠO</returns>
             public static int SaveProject(string filepath)
             {
                 try
@@ -306,9 +319,9 @@ namespace HmNetPInvoke
             }
 
             /// <summary>
-            /// ãƒ•ã‚¡ã‚¤ãƒ«ãƒãƒãƒ¼ã‚¸ãƒ£æ ã«ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆã‚’èª­ã¿è¾¼ã‚“ã§ã„ã‚‹ãªã‚‰ã°ã€ãã®ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹ã‚’å–å¾—ã™ã‚‹
+            /// ƒtƒ@ƒCƒ‹ƒ}ƒl[ƒWƒƒ˜g‚ÉƒvƒƒWƒFƒNƒg‚ğ“Ç‚İ‚ñ‚Å‚¢‚é‚È‚ç‚ÎA‚»‚Ìƒtƒ@ƒCƒ‹ƒpƒX‚ğæ“¾‚·‚é
             /// </summary>
-            /// <returns>ãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒ•ãƒ«ãƒ‘ã‚¹ã€‚èª­ã¿è¾¼ã‚“ã§ã„ãªã‘ã‚Œã°null</returns>
+            /// <returns>ƒtƒ@ƒCƒ‹‚Ìƒtƒ‹ƒpƒXB“Ç‚İ‚ñ‚Å‚¢‚È‚¯‚ê‚Înull</returns>
             public static string GetProject()
             {
                 try
@@ -344,9 +357,9 @@ namespace HmNetPInvoke
             }
 
             /// <summary>
-            /// ãƒ•ã‚¡ã‚¤ãƒ«ãƒãƒãƒ¼ã‚¸ãƒ£æ ã®ã‚«ãƒ¬ãƒ³ãƒˆãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã‚’è¿”ã™
+            /// ƒtƒ@ƒCƒ‹ƒ}ƒl[ƒWƒƒ˜g‚ÌƒJƒŒƒ“ƒgƒfƒBƒŒƒNƒgƒŠ‚ğ•Ô‚·
             /// </summary>
-            /// <returns>ã‚«ãƒ¬ãƒ³ãƒˆãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã®ãƒ•ãƒ«ãƒ‘ã‚¹ã€‚èª­ã¿æã­ãŸå ´åˆã¯null</returns>
+            /// <returns>ƒJƒŒƒ“ƒgƒfƒBƒŒƒNƒgƒŠ‚Ìƒtƒ‹ƒpƒXB“Ç‚İ‘¹‚Ë‚½ê‡‚Ínull</returns>
             public static string GetCurrentDir()
             {
                 if (Version < 885)
@@ -389,9 +402,9 @@ namespace HmNetPInvoke
             }
 
             /// <summary>
-            /// ãƒ•ã‚¡ã‚¤ãƒ«ãƒãƒãƒ¼ã‚¸ãƒ£æ ãŒã€Œãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆã€è¡¨ç¤ºã®ã¨ãã€æ›´æ–°ã•ã‚ŒãŸçŠ¶æ…‹ã§ã‚ã‚‹ã‹ã©ã†ã‹ã‚’è¿”ã—ã¾ã™
+            /// ƒtƒ@ƒCƒ‹ƒ}ƒl[ƒWƒƒ˜g‚ªuƒvƒƒWƒFƒNƒgv•\¦‚Ì‚Æ‚«AXV‚³‚ê‚½ó‘Ô‚Å‚ ‚é‚©‚Ç‚¤‚©‚ğ•Ô‚µ‚Ü‚·
             /// </summary>
-            /// <returns>æ›´æ–°çŠ¶æ…‹ãªã‚‰1ã€ãã‚Œä»¥å¤–ã¯0</returns>
+            /// <returns>XVó‘Ô‚È‚ç1A‚»‚êˆÈŠO‚Í0</returns>
             public static int GetUpdated()
             {
                 try
@@ -408,9 +421,9 @@ namespace HmNetPInvoke
             }
 
             /// <summary>
-            /// ãƒ•ã‚¡ã‚¤ãƒ«ãƒãƒãƒ¼ã‚¸ãƒ£æ ã®WindowHandle
+            /// ƒtƒ@ƒCƒ‹ƒ}ƒl[ƒWƒƒ˜g‚ÌWindowHandle
             /// </summary>
-            /// <returns>ãƒ•ã‚¡ã‚¤ãƒ«ãƒãƒãƒ¼ã‚¸ãƒ£æ ã®WindowHandle</returns>
+            /// <returns>ƒtƒ@ƒCƒ‹ƒ}ƒl[ƒWƒƒ˜g‚ÌWindowHandle</returns>
             public static IntPtr WindowHandle
             {
                 get
@@ -420,15 +433,15 @@ namespace HmNetPInvoke
             }
 
             /// <summary>
-            /// ãƒ•ã‚¡ã‚¤ãƒ«ãƒãƒãƒ¼ã‚¸ãƒ£æ ã¸ã®SendMessage
+            /// ƒtƒ@ƒCƒ‹ƒ}ƒl[ƒWƒƒ˜g‚Ö‚ÌSendMessage
             /// </summary>
-            /// <returns>SendMessageã®è¿”ã‚Šå€¤ãã®ã¾ã¾</returns>
+            /// <returns>SendMessage‚Ì•Ô‚è’l‚»‚Ì‚Ü‚Ü</returns>
             public static IntPtr SendMessage(int commandID)
             {
                 //
                 // loaddll "HmExplorerPane.dll";
                 // #h=dllfunc("GetWindowHandle",hidemaruhandle(0));
-                // #ret=sendmessage(#h,0x111/*WM_COMMAND*/,251,0); //251=ï¼‘ã¤ä¸Šã®ãƒ•ã‚©ãƒ«ãƒ€
+                // #ret=sendmessage(#h,0x111/*WM_COMMAND*/,251,0); //251=‚P‚Âã‚ÌƒtƒHƒ‹ƒ_
                 //
                 return Hm.SendMessage(ExplorerPane.WindowHandle, 0x111, commandID, IntPtr.Zero);
             }
@@ -442,25 +455,25 @@ namespace HmNetPInvoke
 {
     internal static partial class HmOriginalEncodeFunc
     {
-        // wchar_tã«ç›´æ¥å¯¾å¿œã—ã¦ã„ãªã„ã‚ˆã†ãªå¤ã„ç§€ä¸¸ã§ã¯ã€ã“ã®ç‰¹æ®Šãªå¤‰æ›ãƒãƒƒãƒ—ã«ã‚ˆã‚‹å¤‰æ›ã‚’ã—ã¦ãƒã‚¤ãƒˆã‚³ãƒ¼ãƒ‰ã¨ã—ã¦æ¸¡ã™å¿…è¦ãŒã‚ã‚‹ã€‚
+        // wchar_t‚É’¼Ú‘Î‰‚µ‚Ä‚¢‚È‚¢‚æ‚¤‚ÈŒÃ‚¢GŠÛ‚Å‚ÍA‚±‚Ì“Áê‚È•ÏŠ·ƒ}ƒbƒv‚É‚æ‚é•ÏŠ·‚ğ‚µ‚ÄƒoƒCƒgƒR[ƒh‚Æ‚µ‚Ä“n‚·•K—v‚ª‚ ‚éB
         public static byte[] EncodeWStringToOriginalEncodeVector(string original_string)
         {
             List<byte> r = new List<byte>();
 
             foreach (char ch in original_string)
             {
-                // æ–‡å­—ã‚³ãƒ¼ãƒ‰ãŒãã‚“ã¾ã¾ã€ãƒãƒƒãƒ—ã§ã®Indexã«ãªã£ã¦ã„ã‚‹ã€‚
+                // •¶šƒR[ƒh‚ª‚»‚ñ‚Ü‚ÜAƒ}ƒbƒv‚Å‚ÌIndex‚É‚È‚Á‚Ä‚¢‚éB
                 int ix = (int)ch;
 
-                // æ–‡å­—ã‚³ãƒ¼ãƒ‰ã«å¯¾å¿œã™ã‚‹ç§€ä¸¸ã§ã®4ãƒã‚¤ãƒˆã®å€¤(UInt32)ã‚’å¾—ã‚‹4ãƒã‚¤ãƒˆ
+                // •¶šƒR[ƒh‚É‘Î‰‚·‚éGŠÛ‚Å‚Ì4ƒoƒCƒg‚Ì’l(UInt32)‚ğ“¾‚é4ƒoƒCƒg
                 UInt32 encode_code = HmOriginalEncodeMap.encode_map[ix];
 
-                // å˜ãƒã‚¤ãƒˆã§åã¾ã‚‹ã‚‚ã®ã¯å˜ãƒã‚¤ãƒˆ
+                // ’PƒoƒCƒg‚Åû‚Ü‚é‚à‚Ì‚Í’PƒoƒCƒg
                 if (encode_code <= 0xFF)
-                { // ï¼‘æ–‡å­—ã§åã¾ã‚‹
+                { // ‚P•¶š‚Åû‚Ü‚é
                     r.Add((Byte)encode_code);
                 }
-                // ãã†ã§ãªã„ã‚‚ã®ã®ã¯ï¼”ãƒã‚¤ãƒˆã€ãã‚Œãã‚Œåˆ†å‰²ã§è¿½åŠ 
+                // ‚»‚¤‚Å‚È‚¢‚à‚Ì‚Ì‚Í‚SƒoƒCƒgA‚»‚ê‚¼‚ê•ªŠ„‚Å’Ç‰Á
                 else
                 {
                     byte[] bytes4 = BitConverter.GetBytes(encode_code);
@@ -66021,3 +66034,1525 @@ namespace HmNetPInvoke
         };
     }
 }
+
+
+
+
+/*
+ * HmNetPInvoke ver 1.901
+ * Copyright (C) 2021 Akitsugu Komiyama
+ * under the MIT License
+ **/
+
+
+namespace HmNetPInvoke
+{
+    interface IComDetachMethod
+    {
+        void OnReleaseObject();
+    }
+
+    interface IComSupportX64
+    {
+        bool X64MACRO();
+    }
+}
+
+namespace HmNetPInvoke
+{
+#if BUILD_DLL
+    public partial class Hm
+#else
+    internal partial class Hm
+#endif
+    {
+        static Hm()
+        {
+            SetVersion();
+            BindHidemaruExternFunctions();
+        }
+
+        private static void SetVersion()
+        {
+            if (Version == 0)
+            {
+                string hidemaru_fullpath = GetHidemaruExeFullPath();
+                System.Diagnostics.FileVersionInfo vi = System.Diagnostics.FileVersionInfo.GetVersionInfo(hidemaru_fullpath);
+                Version = 100 * vi.FileMajorPart + 10 * vi.FileMinorPart + 1 * vi.FileBuildPart + 0.01 * vi.FilePrivatePart;
+            }
+        }
+        /// <summary>
+        /// GŠÛƒo[ƒWƒ‡ƒ“‚Ìæ“¾
+        /// </summary>
+        /// <returns>GŠÛƒo[ƒWƒ‡ƒ“</returns>
+        public static double Version { get; private set; } = 0;
+
+        private const int filePathMaxLength = 512;
+
+        private static string GetHidemaruExeFullPath()
+        {
+            var sb = new StringBuilder(filePathMaxLength);
+            GetModuleFileName(IntPtr.Zero, sb, filePathMaxLength);
+            string hidemaru_fullpath = sb.ToString();
+            return hidemaru_fullpath;
+        }
+
+        /// <summary>
+        /// ŒÄ‚Î‚ê‚½ƒvƒƒZƒX‚ÌŒ»İ‚ÌGŠÛƒGƒfƒBƒ^‚ÌƒEƒBƒ“ƒhƒEƒnƒ“ƒhƒ‹‚ğ•Ô‚µ‚Ü‚·B
+        /// </summary>
+        /// <returns>Œ»İ‚ÌGŠÛƒGƒfƒBƒ^‚ÌƒEƒBƒ“ƒhƒEƒnƒ“ƒhƒ‹</returns>
+        public static IntPtr WindowHandle
+        {
+            get
+            {
+                return pGetCurrentWindowHandle();
+            }
+        }
+
+        public static partial class Edit
+        {
+            /// <summary>
+            /// Œ»İƒAƒNƒeƒBƒu‚È•ÒW—Ìˆæ‚ÌƒeƒLƒXƒg‘S‘Ì‚ğ•Ô‚·B
+            /// </summary>
+            /// <returns>•ÒW—Ìˆæ‚ÌƒeƒLƒXƒg‘S‘Ì</returns>
+            public static string TotalText
+            {
+                get
+                {
+                    string totalText = "";
+                    try
+                    {
+                        IntPtr hGlobal = pGetTotalTextUnicode();
+                        if (hGlobal == IntPtr.Zero)
+                        {
+                            new InvalidOperationException("Hidemaru_GetTotalTextUnicode_Exception");
+                        }
+
+                        var pwsz = GlobalLock(hGlobal);
+                        if (pwsz != IntPtr.Zero)
+                        {
+                            totalText = Marshal.PtrToStringUni(pwsz);
+                            GlobalUnlock(hGlobal);
+                        }
+                        GlobalFree(hGlobal);
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
+
+                    return totalText;
+                }
+                set
+                {
+                    SetTotalText(value);
+                }
+            }
+            static partial void SetTotalText(string text);
+
+
+            /// <summary>
+            /// Œ»İA’Pƒ‘I‘ğ‚µ‚Ä‚¢‚éê‡A‚»‚Ì‘I‘ğ’†‚ÌƒeƒLƒXƒg“à—e‚ğ•Ô‚·B
+            /// </summary>
+            /// <returns>‘I‘ğ’†‚ÌƒeƒLƒXƒg“à—e</returns>
+            public static string SelectedText
+            {
+                get
+                {
+                    string selectedText = "";
+                    try
+                    {
+                        IntPtr hGlobal = pGetSelectedTextUnicode();
+                        if (hGlobal == IntPtr.Zero)
+                        {
+                            new InvalidOperationException("Hidemaru_GetSelectedTextUnicode_Exception");
+                        }
+
+                        var pwsz = GlobalLock(hGlobal);
+                        if (pwsz != IntPtr.Zero)
+                        {
+                            selectedText = Marshal.PtrToStringUni(pwsz);
+                            GlobalUnlock(hGlobal);
+                        }
+                        GlobalFree(hGlobal);
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
+
+                    return selectedText;
+                }
+                set
+                {
+                    SetSelectedText(value);
+                }
+            }
+            static partial void SetSelectedText(string text);
+
+            /// <summary>
+            /// Œ»İAƒJ[ƒ\ƒ‹‚ª‚ ‚és(ƒGƒfƒBƒ^“I)‚ÌƒeƒLƒXƒg“à—e‚ğ•Ô‚·B
+            /// </summary>
+            /// <returns>‘I‘ğ’†‚ÌƒeƒLƒXƒg“à—e</returns>
+            public static string LineText
+            {
+                get
+                {
+                    string lineText = "";
+
+                    ICursorPos pos = CursorPos;
+                    if (pos.LineNo < 0 || pos.Column < 0)
+                    {
+                        return lineText;
+                    }
+
+                    try
+                    {
+                        IntPtr hGlobal = pGetLineTextUnicode(pos.LineNo);
+                        if (hGlobal == IntPtr.Zero)
+                        {
+                            new InvalidOperationException("Hidemaru_GetLineTextUnicode_Exception");
+                        }
+
+                        var pwsz = GlobalLock(hGlobal);
+                        if (pwsz != IntPtr.Zero)
+                        {
+                            lineText = Marshal.PtrToStringUni(pwsz);
+                            GlobalUnlock(hGlobal);
+                        }
+                        GlobalFree(hGlobal);
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
+
+                    return lineText;
+                }
+                set
+                {
+                    SetLineText(value);
+                }
+            }
+            static partial void SetLineText(string text);
+
+            /// <summary>
+            /// CursorPos ‚Ì•Ô‚è’l‚ÌƒCƒ“ƒ^[ƒtƒFƒCƒX
+            /// </summary>
+            /// <returns>(LineNo, Column)</returns>
+            public interface ICursorPos
+            {
+                int LineNo { get; }
+                int Column { get; }
+            }
+
+            private struct TCursurPos : ICursorPos
+            {
+                public int Column { get; set; }
+                public int LineNo { get; set; }
+            }
+
+            /// <summary>
+            /// MousePos ‚Ì•Ô‚è’l‚ÌƒCƒ“ƒ^[ƒtƒFƒCƒX
+            /// </summary>
+            /// <returns>(LineNo, Column, X, Y)</returns>
+            public interface IMousePos
+            {
+                int LineNo { get; }
+                int Column { get; }
+                int X { get; }
+                int Y { get; }
+            }
+
+            private struct TMousePos : IMousePos
+            {
+                public int LineNo { get; set; }
+                public int Column { get; set; }
+                public int X { get; set; }
+                public int Y { get; set; }
+            }
+
+            /// <summary>
+            /// ƒ†ƒjƒR[ƒh‚ÌƒGƒfƒBƒ^“I‚ÈŠ·Z‚Å‚ÌƒJ[ƒ\ƒ‹‚ÌˆÊ’u‚ğ•Ô‚·
+            /// </summary>
+            /// <returns>(LineNo, Column)</returns>
+            public static ICursorPos CursorPos
+            {
+                get
+                {
+                    int lineno = -1;
+                    int column = -1;
+                    int success = pGetCursorPosUnicode(out lineno, out column);
+                    if (success != 0)
+                    {
+                        TCursurPos pos = new TCursurPos();
+                        pos.LineNo = lineno;
+                        pos.Column = column;
+                        return pos;
+                    }
+                    else
+                    {
+                        TCursurPos pos = new TCursurPos();
+                        pos.LineNo = -1;
+                        pos.Column = -1;
+                        return pos;
+                    }
+
+                }
+            }
+
+            /// <summary>
+            /// ƒ†ƒjƒR[ƒh‚ÌƒGƒfƒBƒ^“I‚ÈŠ·Z‚Å‚Ìƒ}ƒEƒX‚ÌˆÊ’u‚É‘Î‰‚·‚éƒJ[ƒ\ƒ‹‚ÌˆÊ’u‚ğ•Ô‚·
+            /// </summary>
+            /// <returns>(LineNo, Column, X, Y)</returns>
+            public static IMousePos MousePos
+            {
+                get
+                {
+                    POINT lpPoint;
+                    bool success_1 = GetCursorPos(out lpPoint);
+
+                    TMousePos pos = new TMousePos
+                    {
+                        LineNo = -1,
+                        Column = -1,
+                        X = -1,
+                        Y = -1,
+                    };
+
+                    if (!success_1)
+                    {
+                        return pos;
+                    }
+
+                    int column = -1;
+                    int lineno = -1;
+                    int success_2 = pGetCursorPosUnicodeFromMousePos(IntPtr.Zero, out lineno, out column);
+                    if (success_2 == 0)
+                    {
+                        return pos;
+                    }
+
+                    pos.LineNo = lineno;
+                    pos.Column = column;
+                    pos.X = lpPoint.X;
+                    pos.Y = lpPoint.Y;
+                    return pos;
+                }
+            }
+
+            /// <summary>
+            /// Œ»İŠJ‚¢‚Ä‚¢‚éƒtƒ@ƒCƒ‹–¼‚Ìƒtƒ‹ƒpƒX‚ğ•Ô‚·A–³‘èƒeƒLƒXƒg‚Å‚ ‚ê‚ÎAnull‚ğ•Ô‚·B
+            /// </summary>
+            /// <returns>ƒtƒ@ƒCƒ‹–¼‚Ìƒtƒ‹ƒpƒXA‚à‚µ‚­‚Í null</returns>
+
+            public static string FilePath
+            {
+                get
+                {
+                    IntPtr hWndHidemaru = WindowHandle;
+                    if (hWndHidemaru != IntPtr.Zero)
+                    {
+                        const int WM_USER = 0x400;
+                        const int WM_HIDEMARUINFO = WM_USER + 181;
+                        const int HIDEMARUINFO_GETFILEFULLPATH = 4;
+
+                        StringBuilder sb = new StringBuilder(filePathMaxLength); // ‚Ü‚Ÿ‚±‚ñ‚­‚ç‚¢‚Å‚³‚·‚ª‚É\•ª‚È‚ñ‚¶‚á‚È‚¢‚Ì...
+                        bool cwch = SendMessage(hWndHidemaru, WM_HIDEMARUINFO, new IntPtr(HIDEMARUINFO_GETFILEFULLPATH), sb);
+                        String filename = sb.ToString();
+                        if (String.IsNullOrEmpty(filename))
+                        {
+                            return null;
+                        }
+                        else
+                        {
+                            return filename;
+                        }
+                    }
+                    return null;
+                }
+            }
+        }
+
+        public static partial class Macro
+        {
+            /// <summary>
+            /// ƒ}ƒNƒ‚ğÀs’†‚©”Û‚©‚ğ”»’è‚·‚é
+            /// </summary>
+            /// <returns>Às’†‚È‚çtrue, ‚»‚¤‚Å‚È‚¯‚ê‚Îfalse</returns>
+
+            public static bool IsExecuting
+            {
+                get
+                {
+                    const int WM_USER = 0x400;
+                    const int WM_ISMACROEXECUTING = WM_USER + 167;
+
+                    IntPtr hWndHidemaru = WindowHandle;
+                    if (hWndHidemaru != IntPtr.Zero)
+                    {
+                        bool cwch = SendMessage(hWndHidemaru, WM_ISMACROEXECUTING, IntPtr.Zero, IntPtr.Zero);
+                        return cwch;
+                    }
+
+                    return false;
+                }
+            }
+
+            /// <summary>
+            /// ƒ}ƒNƒ‚ğƒvƒƒOƒ‰ƒ€“à‚©‚çÀs‚µ‚½Û‚Ì•Ô‚è’l‚ÌƒCƒ“ƒ^[ƒtƒFƒCƒX
+            /// </summary>
+            /// <returns>(Result, Message, Error)</returns>
+            public interface IResult
+            {
+                int Result { get; }
+                String Message { get; }
+                Exception Error { get; }
+            }
+
+            private class TResult : IResult
+            {
+                public int Result { get; set; }
+                public string Message { get; set; }
+                public Exception Error { get; set; }
+
+                public TResult(int Result, String Message, Exception Error)
+                {
+                    this.Result = Result;
+                    this.Message = Message;
+                    this.Error = Error;
+                }
+            }
+
+            /// <summary>
+            /// Œ»İ‚Ìƒ}ƒNƒÀs’†‚ÉAƒvƒƒOƒ‰ƒ€’†‚ÅAƒ}ƒNƒ‚ğ•¶š—ñ‚ÅÀsB
+            /// ƒ}ƒNƒÀs’†‚Ì‚İÀs‰Â”\‚Èƒƒ\ƒbƒhB
+            /// </summary>
+            /// <returns>(Result, Message, Error)</returns>
+
+            public static IResult Eval(String expression)
+            {
+                TResult result;
+                if (!IsExecuting)
+                {
+                    Exception e = new InvalidOperationException("Hidemaru_Macro_IsNotExecuting_Exception");
+                    result = new TResult(-1, "", e);
+                    return result;
+                }
+                int success = 0;
+                try
+                {
+                    success = pEvalMacro(expression);
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+                if (success == 0)
+                {
+                    Exception e = new InvalidOperationException("Hidemaru_Macro_Eval_Exception");
+                    result = new TResult(0, "", e);
+                    return result;
+                }
+                else
+                {
+                    result = new TResult(success, "", null);
+                    return result;
+                }
+
+            }
+
+            public static partial class Exec
+            {
+                /// <summary>
+                /// ƒ}ƒNƒ‚ğÀs‚µ‚Ä‚¢‚È‚¢‚ÉAƒvƒƒOƒ‰ƒ€’†‚ÅAƒ}ƒNƒƒtƒ@ƒCƒ‹‚ğ—^‚¦‚ÄV‚½‚Èƒ}ƒNƒ‚ğÀsB
+                /// ƒ}ƒNƒ‚ğÀs‚µ‚Ä‚¢‚È‚¢‚Ì‚İÀs‰Â”\‚Èƒƒ\ƒbƒhB
+                /// </summary>
+                /// <returns>(Result, Message, Error)</returns>
+
+                public static IResult File(string filepath)
+                {
+                    TResult result;
+                    if (IsExecuting)
+                    {
+                        Exception e = new InvalidOperationException("Hidemaru_Macro_IsExecuting_Exception");
+                        result = new TResult(-1, "", e);
+                        return result;
+                    }
+                    if (!System.IO.File.Exists(filepath))
+                    {
+                        Exception e = new FileNotFoundException(filepath);
+                        result = new TResult(-1, "", e);
+                        return result;
+                    }
+
+                    const int WM_USER = 0x400;
+                    const int WM_REMOTE_EXECMACRO_FILE = WM_USER + 271;
+                    IntPtr hWndHidemaru = WindowHandle;
+
+                    StringBuilder sbFileName = new StringBuilder(filepath);
+                    StringBuilder sbRet = new StringBuilder("\x0f0f", 0x0f0f + 1); // Å‰‚Ì’l‚Í‹A‚è’l‚Ìƒoƒbƒtƒ@[
+                    bool cwch = SendMessage(hWndHidemaru, WM_REMOTE_EXECMACRO_FILE, sbRet, sbFileName);
+                    if (cwch)
+                    {
+                        result = new TResult(1, sbRet.ToString(), null);
+                    }
+                    else
+                    {
+                        Exception e = new InvalidOperationException("Hidemaru_Macro_Eval_Exception");
+                        result = new TResult(0, sbRet.ToString(), e);
+                    }
+                    return result;
+                }
+
+                /// <summary>
+                /// ƒ}ƒNƒ‚ğÀs‚µ‚Ä‚¢‚È‚¢‚ÉAƒvƒƒOƒ‰ƒ€’†‚ÅA•¶š—ñ‚ÅV‚½‚Èƒ}ƒNƒ‚ğÀsB
+                /// ƒ}ƒNƒ‚ğÀs‚µ‚Ä‚¢‚È‚¢‚Ì‚İÀs‰Â”\‚Èƒƒ\ƒbƒhB
+                /// </summary>
+                /// <returns>(Result, Message, Error)</returns>
+                public static IResult Eval(string expression)
+                {
+                    TResult result;
+                    if (IsExecuting)
+                    {
+                        Exception e = new InvalidOperationException("Hidemaru_Macro_IsExecuting_Exception");
+                        result = new TResult(-1, "", e);
+                        return result;
+                    }
+
+                    const int WM_USER = 0x400;
+                    const int WM_REMOTE_EXECMACRO_MEMORY = WM_USER + 272;
+                    IntPtr hWndHidemaru = WindowHandle;
+
+                    StringBuilder sbExpression = new StringBuilder(expression);
+                    StringBuilder sbRet = new StringBuilder("\x0f0f", 0x0f0f + 1); // Å‰‚Ì’l‚Í‹A‚è’l‚Ìƒoƒbƒtƒ@[
+                    bool cwch = SendMessage(hWndHidemaru, WM_REMOTE_EXECMACRO_MEMORY, sbRet, sbExpression);
+                    if (cwch)
+                    {
+                        result = new TResult(1, sbRet.ToString(), null);
+                    }
+                    else
+                    {
+                        Exception e = new InvalidOperationException("Hidemaru_Macro_Eval_Exception");
+                        result = new TResult(0, sbRet.ToString(), e);
+                    }
+                    return result;
+                }
+            }
+        }
+    }
+}
+
+namespace HmNetPInvoke
+{
+
+#if BUILD_DLL
+    public partial class Hm
+#else
+    internal partial class Hm
+#endif
+    {
+        // GŠÛ–{‘Ì‚©‚ço‚Ä‚¢‚éŠÖ”ŒQ
+        private delegate IntPtr TGetCurrentWindowHandle();
+        private delegate IntPtr TGetTotalTextUnicode();
+        private delegate IntPtr TGetLineTextUnicode(int nLineNo);
+        private delegate IntPtr TGetSelectedTextUnicode();
+        private delegate int TGetCursorPosUnicode(out int pnLineNo, out int pnColumn);
+        private delegate int TGetCursorPosUnicodeFromMousePos(IntPtr lpPoint, out int pnLineNo, out int pnColumn);
+        private delegate int TEvalMacro([MarshalAs(UnmanagedType.LPWStr)] String pwsz);
+        private delegate int TCheckQueueStatus();
+        private delegate int TAnalyzeEncoding([MarshalAs(UnmanagedType.LPWStr)] String pwszFileName, IntPtr lParam1, IntPtr lParam2);
+        private delegate IntPtr TLoadFileUnicode([MarshalAs(UnmanagedType.LPWStr)] String pwszFileName, int nEncode, ref int pcwchOut, IntPtr lParam1, IntPtr lParam2);
+
+        // GŠÛ–{‘Ì‚©‚ço‚Ä‚¢‚éŠÖ”ŒQ
+        private static TGetCurrentWindowHandle pGetCurrentWindowHandle;
+        private static TGetTotalTextUnicode pGetTotalTextUnicode;
+        private static TGetLineTextUnicode pGetLineTextUnicode;
+        private static TGetSelectedTextUnicode pGetSelectedTextUnicode;
+        private static TGetCursorPosUnicode pGetCursorPosUnicode;
+        private static TGetCursorPosUnicodeFromMousePos pGetCursorPosUnicodeFromMousePos;
+        private static TEvalMacro pEvalMacro;
+        private static TCheckQueueStatus pCheckQueueStatus;
+        private static TAnalyzeEncoding pAnalyzeEncoding;
+        private static TLoadFileUnicode pLoadFileUnicode;
+
+        // GŠÛ–{‘Ì‚Ìexe‚ğw‚·ƒ‚ƒWƒ…[ƒ‹ƒnƒ“ƒhƒ‹
+        private static UnManagedDll hmExeHandle;
+
+        private static void BindHidemaruExternFunctions()
+        {
+            // ‰‚ß‚Ä‚Ì‘ã“ü‚Ì‚İ
+            if (hmExeHandle == null)
+            {
+                try
+                {
+                    hmExeHandle = new UnManagedDll(GetHidemaruExeFullPath());
+
+                    pGetTotalTextUnicode = hmExeHandle.GetProcDelegate<TGetTotalTextUnicode>("Hidemaru_GetTotalTextUnicode");
+                    pGetLineTextUnicode = hmExeHandle.GetProcDelegate<TGetLineTextUnicode>("Hidemaru_GetLineTextUnicode");
+                    pGetSelectedTextUnicode = hmExeHandle.GetProcDelegate<TGetSelectedTextUnicode>("Hidemaru_GetSelectedTextUnicode");
+                    pGetCursorPosUnicode = hmExeHandle.GetProcDelegate<TGetCursorPosUnicode>("Hidemaru_GetCursorPosUnicode");
+                    pEvalMacro = hmExeHandle.GetProcDelegate<TEvalMacro>("Hidemaru_EvalMacro");
+                    pCheckQueueStatus = hmExeHandle.GetProcDelegate<TCheckQueueStatus>("Hidemaru_CheckQueueStatus");
+
+                    pGetCursorPosUnicodeFromMousePos = hmExeHandle.GetProcDelegate<TGetCursorPosUnicodeFromMousePos>("Hidemaru_GetCursorPosUnicodeFromMousePos");
+                    pGetCurrentWindowHandle = hmExeHandle.GetProcDelegate<TGetCurrentWindowHandle>("Hidemaru_GetCurrentWindowHandle");
+
+                    if (Version >= 890)
+                    {
+                        pAnalyzeEncoding = hmExeHandle.GetProcDelegate<TAnalyzeEncoding>("Hidemaru_AnalyzeEncoding");
+                        pLoadFileUnicode = hmExeHandle.GetProcDelegate<TLoadFileUnicode>("Hidemaru_LoadFileUnicode");
+                    }
+                }
+                catch (Exception e)
+                {
+                    System.Diagnostics.Trace.WriteLine(e.Message);
+                }
+
+            }
+        }
+    }
+}
+
+namespace HmNetPInvoke
+{
+#if BUILD_DLL
+    public partial class Hm
+#else
+    internal partial class Hm
+#endif
+    {
+        [DllImport("kernel32.dll")]
+        private extern static uint GetModuleFileName(IntPtr hModule, StringBuilder lpFilename, int nSize);
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        private extern static IntPtr GlobalLock(IntPtr hMem);
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+
+        private extern static bool GlobalUnlock(IntPtr hMem);
+        [DllImport("kernel32.dll", SetLastError = true)]
+        private extern static IntPtr GlobalFree(IntPtr hMem);
+
+        [StructLayout(LayoutKind.Sequential)]
+        private struct POINT
+        {
+            public int X;
+            public int Y;
+        }
+        [DllImport("user32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private extern static bool GetCursorPos(out POINT lpPoint);
+
+        [DllImport("user32.dll", EntryPoint = "SendMessage", CharSet = CharSet.Auto)]
+        private static extern bool SendMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
+
+        [DllImport("user32.dll", EntryPoint = "SendMessage", CharSet = CharSet.Auto)]
+        private static extern bool SendMessage(IntPtr hWnd, uint Msg, IntPtr wParam, StringBuilder lParam);
+
+        [DllImport("user32.dll", EntryPoint = "SendMessage", CharSet = CharSet.Auto)]
+        private static extern bool SendMessage(IntPtr hWnd, uint Msg, StringBuilder wParam, StringBuilder lParam);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, int command, IntPtr lparam);
+    }
+}
+
+namespace HmNetPInvoke
+{
+
+#if BUILD_DLL
+    public static class HmExtentensions
+#else
+    internal static class HmExtentensions
+#endif
+    {
+        public static void Deconstruct(this Hm.Edit.ICursorPos pos, out int LineNo, out int Column)
+        {
+            LineNo = pos.LineNo;
+            Column = pos.Column;
+        }
+
+        public static void Deconstruct(this Hm.Edit.IMousePos pos, out int LineNo, out int Column, out int X, out int Y)
+        {
+            LineNo = pos.LineNo;
+            Column = pos.Column;
+            X = pos.X;
+            Y = pos.Y;
+        }
+    }
+}
+
+namespace HmNetPInvoke
+{
+
+#if BUILD_DLL
+    public partial class Hm
+#else
+    internal partial class Hm
+#endif
+    {
+        // ƒAƒ“ƒ}ƒl[ƒWƒhƒ‰ƒCƒuƒ‰ƒŠ‚Ì’x‰„‚Å‚Ì“Ç‚İ‚İBC++‚ÌLoadLibrary‚Æ“¯‚¶‚±‚Æ‚ğ‚·‚é‚½‚ß
+        // ‚±‚ê‚ğ‚·‚é——R‚ÍA‚±‚ÌhmPy‚ÆHideamru.exe‚ªˆÙ‚È‚éƒfƒBƒŒƒNƒgƒŠ‚É‘¶İ‚·‚é‰Â”\«‚ª‚ ‚é‚½‚ßA
+        // C#•—‚ÌDllImport‚Í¬—§‚µ‚È‚¢‚©‚ç‚¾B
+        internal sealed class UnManagedDll : IDisposable
+        {
+            [DllImport("kernel32")]
+            private static extern IntPtr LoadLibrary(string lpFileName);
+            [DllImport("kernel32")]
+            private static extern IntPtr GetProcAddress(IntPtr hModule, string lpProcName);
+            [DllImport("kernel32")]
+            private static extern bool FreeLibrary(IntPtr hModule);
+
+            IntPtr moduleHandle;
+
+            public UnManagedDll(string lpFileName)
+            {
+                moduleHandle = LoadLibrary(lpFileName);
+            }
+
+            public IntPtr ModuleHandle
+            {
+                get
+                {
+                    return moduleHandle;
+                }
+            }
+
+            public T GetProcDelegate<T>(string method) where T : class
+            {
+                IntPtr methodHandle = GetProcAddress(moduleHandle, method);
+                T r = Marshal.GetDelegateForFunctionPointer(methodHandle, typeof(T)) as T;
+                return r;
+            }
+
+            public void Dispose()
+            {
+                FreeLibrary(moduleHandle);
+            }
+        }
+
+    }
+}
+
+
+
+
+/*
+ * HmNetPInvoke ver 1.901
+ * Copyright (C) 2021 Akitsugu Komiyama
+ * under the MIT License
+ **/
+
+
+namespace HmNetPInvoke
+{
+    public partial class HmMacroCOMVar {
+        private const string HmMacroCOMVarInterface = "b4561f60-e253-4848-a98f-97e08f0ebfa3";
+    }
+}
+
+namespace HmNetPInvoke
+{
+    // GŠÛ‚ÌCOM‚©‚çŒÄ‚Ño‚µ‚ÄAƒ}ƒNƒÌCOM‚Æ‚¢‚Á‚½‚æ‚¤‚ÉAƒ}ƒNƒ‚ÆƒvƒƒOƒ‰ƒ€‚Å•Ï”’l‚ğŒİ‚¢‚É“`”À‚·‚é
+    [ComVisible(true)]
+    [Guid(HmMacroCOMVarInterface)]
+    public partial class HmMacroCOMVar : IComSupportX64
+    {
+        private static object marcroVar = null;
+        public object DllToMacro()
+        {
+            return marcroVar;
+        }
+        public int MacroToDll(object variable)
+        {
+            marcroVar = variable;
+            return 1;
+        }
+
+        public bool X64MACRO() {
+            return true;
+        }
+    }
+
+    public partial class HmMacroCOMVar
+    {
+        static HmMacroCOMVar()
+        {
+            var h = new HmMacroCOMVar();
+            myGuidLabel = h.GetType().GUID.ToString();
+            myClassFullName = h.GetType().FullName;
+        }
+
+        internal static void SetMacroVar(object obj)
+        {
+            marcroVar = obj;
+        }
+        internal static object GetMacroVar()
+        {
+            return marcroVar;
+        }
+        private static string myGuidLabel = "";
+        private static string myClassFullName = "";
+
+        internal static string GetMyTargetDllFullPath(string thisDllFullPath)
+        {
+            string myTargetClass = myClassFullName;
+            string thisComHostFullPath = System.IO.Path.ChangeExtension(thisDllFullPath, "comhost.dll");
+            if (System.IO.File.Exists(thisComHostFullPath))
+            {
+                return thisComHostFullPath;
+            }
+
+            return thisDllFullPath;
+        }
+
+        internal static string GetMyTargetClass(string thisDllFullPath)
+        {
+            string myTargetClass = myClassFullName;
+            string thisComHostFullPath = System.IO.Path.ChangeExtension(thisDllFullPath, "comhost.dll");
+            if (System.IO.File.Exists(thisComHostFullPath))
+            {
+                myTargetClass = "{" + myGuidLabel + "}";
+            }
+
+            return myTargetClass;
+        }
+
+        internal static object GetVar(string var_name)
+        {
+            string myDllFullPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
+            string myTargetDllFullPath = GetMyTargetDllFullPath(myDllFullPath);
+            string myTargetClass = GetMyTargetClass(myDllFullPath);
+            ClearVar();
+            var result = Hm.Macro.Eval($@"
+                #_COM_NET_PINVOKE_MACRO_VAR = createobject(@""{myTargetDllFullPath}"", @""{myTargetClass}"" );
+                #_COM_NET_PINVOKE_MACRO_VAR_RESULT = member(#_COM_NET_PINVOKE_MACRO_VAR, ""MacroToDll"", {var_name});
+                releaseobject(#_COM_NET_PINVOKE_MACRO_VAR);
+                #_COM_NET_PINVOKE_MACRO_VAR_RESULT = 0;
+            ");
+            if (result.Error != null)
+            {
+                throw result.Error;
+            }
+            return HmMacroCOMVar.marcroVar;
+        }
+
+        internal static int SetVar(string var_name, object obj)
+        {
+            string myDllFullPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
+            string myTargetDllFullPath = GetMyTargetDllFullPath(myDllFullPath);
+            string myTargetClass = GetMyTargetClass(myDllFullPath);
+            ClearVar();
+            HmMacroCOMVar.marcroVar = obj;
+            var result = Hm.Macro.Eval($@"
+                #_COM_NET_PINVOKE_MACRO_VAR = createobject(@""{myTargetDllFullPath}"", @""{myTargetClass}"" );
+                {var_name} = member(#_COM_NET_PINVOKE_MACRO_VAR, ""DllToMacro"" );
+                releaseobject(#_COM_NET_PINVOKE_MACRO_VAR);
+            ");
+            if (result.Error != null)
+            {
+                throw result.Error;
+            }
+            return 1;
+        }
+
+        internal static void ClearVar()
+        {
+            HmMacroCOMVar.marcroVar = null;
+        }
+    }
+
+
+#if BUILD_DLL
+    public partial class Hm
+#else
+    internal partial class Hm
+#endif
+    {
+        public static partial class Edit
+        {
+            static partial void SetTotalText(string text)
+            {
+                string myDllFullPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
+                string myTargetDllFullPath = HmMacroCOMVar.GetMyTargetDllFullPath(myDllFullPath);
+                string myTargetClass = HmMacroCOMVar.GetMyTargetClass(myDllFullPath);
+                HmMacroCOMVar.SetMacroVar(text);
+                string cmd = $@"
+                begingroupundo;
+                selectall;
+                #_COM_NET_PINVOKE_MACRO_VAR = createobject(@""{myTargetDllFullPath}"", @""{myTargetClass}"" );
+                insert member(#_COM_NET_PINVOKE_MACRO_VAR, ""DllToMacro"" );
+                releaseobject(#_COM_NET_PINVOKE_MACRO_VAR);
+                endgroupundo;
+                ";
+                Macro.IResult result = null;
+                if (Macro.IsExecuting)
+                {
+                    result = Hm.Macro.Eval(cmd);
+                } else
+                {
+                    result = Hm.Macro.Exec.Eval(cmd);
+                }
+
+                HmMacroCOMVar.ClearVar();
+                if (result.Error != null)
+                {
+                    throw result.Error;
+                }
+            }
+
+            static partial void SetSelectedText(string text)
+            {
+                string myDllFullPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
+                string myTargetDllFullPath = HmMacroCOMVar.GetMyTargetDllFullPath(myDllFullPath);
+                string myTargetClass = HmMacroCOMVar.GetMyTargetClass(myDllFullPath);
+                HmMacroCOMVar.SetMacroVar(text);
+                string cmd = $@"
+                if (selecting) {{
+                #_COM_NET_PINVOKE_MACRO_VAR = createobject(@""{myTargetDllFullPath}"", @""{myTargetClass}"" );
+                insert member(#_COM_NET_PINVOKE_MACRO_VAR, ""DllToMacro"" );
+                releaseobject(#_COM_NET_PINVOKE_MACRO_VAR);
+                }}
+                ";
+
+                Macro.IResult result = null;
+                if (Macro.IsExecuting)
+                {
+                    result = Hm.Macro.Eval(cmd);
+                }
+                else
+                {
+                    result = Hm.Macro.Exec.Eval(cmd);
+                }
+
+                HmMacroCOMVar.ClearVar();
+                if (result.Error != null)
+                {
+                    throw result.Error;
+                }
+            }
+
+            static partial void SetLineText(string text)
+            {
+                string myDllFullPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
+                string myTargetDllFullPath = HmMacroCOMVar.GetMyTargetDllFullPath(myDllFullPath);
+                string myTargetClass = HmMacroCOMVar.GetMyTargetClass(myDllFullPath);
+                HmMacroCOMVar.SetMacroVar(text);
+                var pos = Edit.CursorPos;
+                string cmd = $@"
+                begingroupundo;
+                selectline;
+                #_COM_NET_PINVOKE_MACRO_VAR = createobject(@""{myTargetDllFullPath}"", @""{myTargetClass}"" );
+                insert member(#_COM_NET_PINVOKE_MACRO_VAR, ""DllToMacro"" );
+                releaseobject(#_COM_NET_PINVOKE_MACRO_VAR);
+                moveto2 {pos.Column}, {pos.LineNo};
+                endgroupundo;
+                ";
+
+                Macro.IResult result = null;
+                if (Macro.IsExecuting)
+                {
+                    result = Hm.Macro.Eval(cmd);
+                }
+                else
+                {
+                    result = Hm.Macro.Exec.Eval(cmd);
+                }
+
+                HmMacroCOMVar.ClearVar();
+                if (result.Error != null)
+                {
+                    throw result.Error;
+                }
+            }
+
+        }
+
+
+        public static partial class Macro
+        {
+            // ƒ}ƒNƒ‚Å‚Ì–â‚¢‡‚í‚¹Œ‹‰ÊŒn
+            public interface IStatementResult
+            {
+                int Result { get; }
+                String Message { get; }
+                Exception Error { get; }
+                List<Object> Args { get; }
+            }
+
+
+            private class TStatementResult : IStatementResult
+            {
+                public int Result { get; set; }
+                public string Message { get; set; }
+                public Exception Error { get; set; }
+                public List<Object> Args { get; set; }
+
+                public TStatementResult(int Result, String Message, Exception Error, List<Object> Args)
+                {
+                    this.Result = Result;
+                    this.Message = Message;
+                    this.Error = Error;
+                    this.Args = new List<object>(Args); // ƒRƒs[“n‚µ
+                }
+            }
+
+            private static int statement_base_random = 0;
+            internal static IStatementResult Statement(string funcname, params object[] args)
+            {
+                if (statement_base_random == 0)
+                {
+                    statement_base_random = new System.Random().Next(Int16.MaxValue) + 1;
+
+                }
+
+                List<KeyValuePair<string, object>> arg_list = SetMacroVarAndMakeMacroKeyArray(args, statement_base_random);
+
+                // key‚ğƒŠƒXƒg‰»
+                var arg_keys = new List<String>();
+                foreach (var l in arg_list)
+                {
+                    arg_keys.Add(l.Key);
+                }
+
+                // ‚»‚ê‚ğu,v‚ÅŒq‚°‚é
+                string args_string = String.Join(", ", arg_keys);
+                // ‚»‚ê‚ğw’è‚Ìu•¶v‚ÅÀs‚·‚éŒ`
+                string expression = $"{funcname} {args_string};\n";
+
+                // Às‚·‚é
+                IResult ret = Macro.Eval(expression);
+ 
+                // ¬”Û‚àŠÜ‚ß‚ÄŒ‹‰Ê‚ğ“ü‚ê‚éB
+                IStatementResult result = new TStatementResult(ret.Result, ret.Message, ret.Error, new List<Object>());
+
+                // g‚Á‚½‚Ì‚Åíœ
+                for (int ix = 0; ix < arg_list.Count; ix++)
+                {
+                    var l = arg_list[ix];
+                    if (l.Value is Int32 || l.Value is Int64)
+                    {
+                        result.Args.Add(Macro.Var[l.Key]);
+                        Macro.Var[l.Key] = 0;
+                    }
+                    else if (l.Value is string)
+                    {
+                        result.Args.Add(Macro.Var[l.Key]);
+                        Macro.Var[l.Key] = "";
+                    }
+
+                    else if (l.Value.GetType() == new List<int>().GetType() || l.Value.GetType() == new List<long>().GetType() || l.Value.GetType() == new List<IntPtr>().GetType())
+                    {
+                        result.Args.Add(l.Value);
+                        if (l.Value.GetType() == new List<int>().GetType())
+                        {
+                            List<int> int_list = (List<int>)l.Value;
+                            for (int iix = 0; iix < int_list.Count; iix++)
+                            {
+                                Macro.Var[l.Key + "[" + iix + "]"] = 0;
+                            }
+                        }
+                        else if (l.Value.GetType() == new List<long>().GetType())
+                        {
+                            List<long> long_list = (List<long>)l.Value;
+                            for (int iix = 0; iix < long_list.Count; iix++)
+                            {
+                                Macro.Var[l.Key + "[" + iix + "]"] = 0;
+                            }
+                        }
+                        else if (l.Value.GetType() == new List<IntPtr>().GetType())
+                        {
+                            List<IntPtr> ptr_list = (List<IntPtr>)l.Value;
+                            for (int iix = 0; iix < ptr_list.Count; iix++)
+                            {
+                                Macro.Var[l.Key + "[" + iix + "]"] = 0;
+                            }
+                        }
+                    }
+                    else if (l.Value.GetType() == new List<String>().GetType())
+                    {
+                        result.Args.Add(l.Value);
+                        List<String> ptr_list = (List<String>)l.Value;
+                        for (int iix = 0; iix < ptr_list.Count; iix++)
+                        {
+                            Macro.Var[l.Key + "[" + iix + "]"] = "";
+                        }
+                    }
+                    else
+                    {
+                        result.Args.Add(l.Value);
+                    }
+                }
+
+                return result;
+            }
+
+            // ƒ}ƒNƒ‚Å‚Ì–â‚¢‡‚í‚¹Œ‹‰ÊŒn
+            public interface IFunctionResult
+            {
+                object Result { get; }
+                String Message { get; }
+                Exception Error { get; }
+                List<Object> Args { get; }
+            }
+
+            private class TFunctionResult : IFunctionResult
+            {
+                public object Result { get; set; }
+                public string Message { get; set; }
+                public Exception Error { get; set; }
+                public List<Object> Args { get; set; }
+
+                public TFunctionResult(object Result, String Message, Exception Error, List<Object> Args)
+                {
+                    this.Result = Result;
+                    this.Message = Message;
+                    this.Error = Error;
+                    this.Args = new List<object>(Args); // ƒRƒs[“n‚µ
+                }
+            }
+
+            private static int funciton_base_random = 0;
+            public static IFunctionResult Function(string funcname, params object[] args)
+            {
+                if (funciton_base_random == 0)
+                {
+                    funciton_base_random = new System.Random().Next(Int16.MaxValue) + 1;
+
+                }
+
+                List<KeyValuePair<string, object>> arg_list = SetMacroVarAndMakeMacroKeyArray(args, funciton_base_random);
+
+                // key‚ğƒŠƒXƒg‰»
+                var arg_keys = new List<String>();
+                foreach (var l in arg_list)
+                {
+                    arg_keys.Add(l.Key);
+                }
+
+                // ‚»‚ê‚ğu,v‚ÅŒq‚°‚é
+                string args_string = String.Join(", ", arg_keys);
+                // ‚»‚ê‚ğw’è‚ÌuŠÖ”v‚ÅÀs‚·‚éŒ`
+                string expression = $"{funcname}({args_string})";
+
+                //----------------------------------------------------------------
+                TFunctionResult result = new TFunctionResult(null, "", null, new List<Object>());
+                result.Args = new List<object>();
+
+                Object ret = null;
+                try
+                {
+                    ret = Macro.Var[expression]; // ‚±‚Ì’†‚ÌGetMethod‚Å—áŠO‚ª”­¶‚·‚é‰Â”\«‚ ‚è
+
+                    if (ret.GetType().Name != "String")
+                    {
+                        if (IntPtr.Size == 4)
+                        {
+                            result.Result = (Int32)ret + 0; // ŠmÀ‚É•¡»‚ğ
+                            result.Message = "";
+                            result.Error = null;
+                        }
+                        else
+                        {
+                            result.Result = (Int64)ret + 0; // ŠmÀ‚É•¡»‚ğ
+                            result.Message = "";
+                            result.Error = null;
+                        }
+                    }
+                    else
+                    {
+                        result.Result = (String)ret + ""; // ŠmÀ‚É•¡»‚ğ
+                        result.Message = "";
+                        result.Error = null;
+                    }
+
+                }
+                catch (Exception e)
+                {
+                    result.Result = null;
+                    result.Message = "";
+                    result.Error = e;
+                }
+
+
+                // g‚Á‚½‚Ì‚Åíœ
+                for (int ix = 0; ix < arg_list.Count; ix++)
+                {
+                    var l = arg_list[ix];
+                    if (l.Value is Int32 || l.Value is Int64)
+                    {
+                        result.Args.Add(Macro.Var[l.Key]);
+                        Macro.Var[l.Key] = 0;
+                    }
+                    else if (l.Value is string)
+                    {
+                        result.Args.Add(Macro.Var[l.Key]);
+                        Macro.Var[l.Key] = "";
+                    }
+
+                    else if (l.Value.GetType() == new List<int>().GetType() || l.Value.GetType() == new List<long>().GetType() || l.Value.GetType() == new List<IntPtr>().GetType())
+                    {
+                        result.Args.Add(l.Value);
+                        if (l.Value.GetType() == new List<int>().GetType())
+                        {
+                            List<int> int_list = (List<int>)l.Value;
+                            for (int iix = 0; iix < int_list.Count; iix++)
+                            {
+                                Macro.Var[l.Key + "[" + iix + "]"] = 0;
+                            }
+                        }
+                        else if (l.Value.GetType() == new List<long>().GetType())
+                        {
+                            List<long> long_list = (List<long>)l.Value;
+                            for (int iix = 0; iix < long_list.Count; iix++)
+                            {
+                                Macro.Var[l.Key + "[" + iix + "]"] = 0;
+                            }
+                        }
+                        else if (l.Value.GetType() == new List<IntPtr>().GetType())
+                        {
+                            List<IntPtr> ptr_list = (List<IntPtr>)l.Value;
+                            for (int iix = 0; iix < ptr_list.Count; iix++)
+                            {
+                                Macro.Var[l.Key + "[" + iix + "]"] = 0;
+                            }
+                        }
+                    }
+                    else if (l.Value.GetType() == new List<String>().GetType())
+                    {
+                        result.Args.Add(l.Value);
+                        List<String> ptr_list = (List<String>)l.Value;
+                        for (int iix = 0; iix < ptr_list.Count; iix++)
+                        {
+                            Macro.Var[l.Key + "[" + iix + "]"] = "";
+                        }
+                    }
+                    else
+                    {
+                        result.Args.Add(l.Value);
+                    }
+                }
+
+                return result;
+            }
+
+            private static List<KeyValuePair<string, object>> SetMacroVarAndMakeMacroKeyArray(object[] args, int base_random)
+            {
+                var arg_list = new List<KeyValuePair<String, Object>>();
+                int cur_random = new Random().Next(Int16.MaxValue) + 1;
+                foreach (var value in args)
+                {
+                    bool success = false;
+                    cur_random++;
+                    object normalized_arg = null;
+                    // BooleanŒ^‚Å‚ ‚ê‚ÎATrue:1 Flase:0‚Éƒ}ƒbƒsƒ“ƒO‚·‚é
+                    if (value is bool)
+                    {
+                        success = true;
+                        if ((bool)value == true)
+                        {
+                            normalized_arg = 1;
+                        }
+                        else
+                        {
+                            normalized_arg = 0;
+                        }
+                    }
+
+                    if (value is string || value is StringBuilder)
+                    {
+                        success = true;
+                        normalized_arg = value.ToString();
+                    }
+
+                    // ”z—ñ‚Ìê‡‚ğ’Ç‰Á
+                    if (!success)
+                    {
+                        if (value.GetType() == new List<int>().GetType())
+                        {
+                            success = true;
+                            normalized_arg = new List<int>((List<int>)value);
+                        }
+                        if (value.GetType() == new List<long>().GetType())
+                        {
+                            success = true;
+                            normalized_arg = new List<long>((List<long>)value);
+                        }
+                        if (value.GetType() == new List<IntPtr>().GetType())
+                        {
+                            success = true;
+                            normalized_arg = new List<IntPtr>((List<IntPtr>)value);
+                        }
+                    }
+
+                    if (!success)
+                    {
+                        if (value.GetType() == new List<string>().GetType())
+                        {
+                            success = true;
+                            normalized_arg = new List<String>((List<String>)value);
+                        }
+                    }
+                    // ˆÈã”z—ñ‚Ìê‡‚ğ’Ç‰Á
+
+                    if (!success)
+                    {
+                        // 32bit
+                        if (IntPtr.Size == 4)
+                        {
+                            // ‚Ü‚¸‚Í®”‚Åƒgƒ‰ƒC
+                            Int32 itmp = 0;
+                            success = Int32.TryParse(value.ToString(), out itmp);
+
+                            if (success == true)
+                            {
+                                normalized_arg = itmp;
+                            }
+
+                            else
+                            {
+                                // Ÿ‚É­”‚Åƒgƒ‰ƒC
+                                Double dtmp = 0;
+                                success = Double.TryParse(value.ToString(), out dtmp);
+                                if (success)
+                                {
+                                    normalized_arg = (Int32)(dtmp);
+                                }
+
+                                else
+                                {
+                                    normalized_arg = 0;
+                                }
+                            }
+                        }
+
+                        // 64bit
+                        else
+                        {
+                            // ‚Ü‚¸‚Í®”‚Åƒgƒ‰ƒC
+                            Int64 itmp = 0;
+                            success = Int64.TryParse(value.ToString(), out itmp);
+
+                            if (success == true)
+                            {
+                                normalized_arg = itmp;
+                            }
+
+                            else
+                            {
+                                // Ÿ‚É­”‚Åƒgƒ‰ƒC
+                                Double dtmp = 0;
+                                success = Double.TryParse(value.ToString(), out dtmp);
+                                if (success)
+                                {
+                                    normalized_arg = (Int64)(dtmp);
+                                }
+                                else
+                                {
+                                    normalized_arg = 0;
+                                }
+                            }
+                        }
+                    }
+
+
+                    // ¬Œ÷‚µ‚È‚©‚Á‚½
+                    if (!success)
+                    {
+                        normalized_arg = value.ToString();
+                    }
+
+                    if (normalized_arg is Int32 || normalized_arg is Int64)
+                    {
+                        string key = "#AsMacroArs_" + base_random.ToString() + '_' + cur_random.ToString();
+                        arg_list.Add(new KeyValuePair<string, object>(key, normalized_arg));
+                        Macro.Var[key] = normalized_arg;
+                    }
+                    else if (normalized_arg is string)
+                    {
+                        string key = "$AsMacroArs_" + base_random.ToString() + '_' + cur_random.ToString();
+                        arg_list.Add(new KeyValuePair<string, object>(key, normalized_arg));
+                        Macro.Var[key] = normalized_arg;
+                    }
+                    else if (value.GetType() == new List<int>().GetType() || value.GetType() == new List<long>().GetType() || value.GetType() == new List<IntPtr>().GetType())
+                    {
+                        string key = "$AsIntArrayOfMacroArs_" + base_random.ToString() + '_' + cur_random.ToString();
+                        arg_list.Add(new KeyValuePair<string, object>(key, normalized_arg));
+                        if (value.GetType() == new List<int>().GetType())
+                        {
+                            List<int> int_list = (List<int>)value;
+                            for (int iix = 0; iix < int_list.Count; iix++)
+                            {
+                                Macro.Var[key + "[" + iix + "]"] = int_list[iix];
+                            }
+                        }
+                        else if (value.GetType() == new List<long>().GetType())
+                        {
+                            List<long> long_list = (List<long>)value;
+                            for (int iix = 0; iix < long_list.Count; iix++)
+                            {
+                                Macro.Var[key + "[" + iix + "]"] = long_list[iix];
+                            }
+                        }
+                        else if (value.GetType() == new List<IntPtr>().GetType())
+                        {
+                            List<IntPtr> ptr_list = (List<IntPtr>)value;
+                            for (int iix = 0; iix < ptr_list.Count; iix++)
+                            {
+                                Macro.Var[key + "[" + iix + "]"] = ptr_list[iix];
+                            }
+                        }
+                    }
+                    else if (value.GetType() == new List<string>().GetType())
+                    {
+                        string key = "$AsStrArrayOfMacroArs_" + base_random.ToString() + '_' + cur_random.ToString();
+                        arg_list.Add(new KeyValuePair<string, object>(key, normalized_arg));
+                        List<String> str_list = (List<String>)value;
+                        for (int iix = 0; iix < str_list.Count; iix++)
+                        {
+                            Macro.Var[key + "[" + iix + "]"] = str_list[iix];
+                        }
+                    }
+                }
+                return arg_list;
+            }
+
+
+            /// <summary>
+            /// ‘ÎÛ‚ÌuGŠÛƒ}ƒNƒ•Ï”–¼v‚Ö‚Ì“Ç‚İ‘‚«
+            /// </summary>
+            /// <param name = "var_name">‘‚«‚İ‚Ìê‡‚ÍA•Ï”‚Ì’l</param>
+            /// <returns>“Ç‚İæ‚è‚Ìê‡‚ÍA‘ÎÛ‚Ì•Ï”‚Ì’l</returns>
+            internal static TMacroVar Var = new TMacroVar();
+            internal sealed class TMacroVar
+            {
+                public Object this[String var_name]
+                {
+                    get
+                    {
+                        return GetMethod(var_name);
+                    }
+                    set
+                    {
+                        value = SetMethod(var_name, value);
+                    }
+                }
+
+                private static object SetMethod(string var_name, object value)
+                {
+                    if (var_name.StartsWith("#"))
+                    {
+                        Object result = new Object();
+
+                        // BooleanŒ^‚Å‚ ‚ê‚ÎATrue:1 Flase:0‚Éƒ}ƒbƒsƒ“ƒO‚·‚é
+                        if (value is bool)
+                        {
+                            if ((Boolean)value == true)
+                            {
+                                value = 1;
+                            }
+                            else
+                            {
+                                value = 0;
+                            }
+                        }
+
+                        // 32bit
+                        if (IntPtr.Size == 4)
+                        {
+                            // ‚Ü‚¸‚Í®”‚Åƒgƒ‰ƒC
+                            Int32 itmp = 0;
+                            bool success = Int32.TryParse(value.ToString(), out itmp);
+
+                            if (success == true)
+                            {
+                                result = itmp;
+                            }
+
+                            else
+                            {
+                                // Ÿ‚É­”‚Åƒgƒ‰ƒC
+                                Double dtmp = 0;
+                                success = Double.TryParse(value.ToString(), out dtmp);
+                                if (success)
+                                {
+                                    result = (Int32)(dtmp);
+                                }
+
+                                else
+                                {
+                                    result = 0;
+                                }
+                            }
+                        }
+
+                        // 64bit
+                        else
+                        {
+                            // ‚Ü‚¸‚Í®”‚Åƒgƒ‰ƒC
+                            Int64 itmp = 0;
+                            bool success = Int64.TryParse(value.ToString(), out itmp);
+
+                            if (success == true)
+                            {
+                                result = itmp;
+                            }
+
+                            else
+                            {
+                                // Ÿ‚É­”‚Åƒgƒ‰ƒC
+                                Double dtmp = 0;
+                                success = Double.TryParse(value.ToString(), out dtmp);
+                                if (success)
+                                {
+                                    result = (Int64)(dtmp);
+                                }
+                                else
+                                {
+                                    result = 0;
+                                }
+                            }
+                        }
+                        HmMacroCOMVar.SetVar(var_name, value);
+                        HmMacroCOMVar.ClearVar();
+                    }
+
+                    else // if (var_name.StartsWith("$")
+                    {
+
+                        String result = value.ToString();
+                        HmMacroCOMVar.SetVar(var_name, value);
+                        HmMacroCOMVar.ClearVar();
+                    }
+
+                    return value;
+                }
+
+                private static object GetMethod(string var_name)
+                {
+                    HmMacroCOMVar.ClearVar();
+                    Object ret = HmMacroCOMVar.GetVar(var_name);
+                    if (ret.GetType().Name != "String")
+                    {
+                        if (IntPtr.Size == 4)
+                        {
+                            return (Int32)ret + 0; // ŠmÀ‚É•¡»‚ğ
+                        }
+                        else
+                        {
+                            return (Int64)ret + 0; // ŠmÀ‚É•¡»‚ğ
+                        }
+                    }
+                    else
+                    {
+                        return (String)ret + ""; // ŠmÀ‚É•¡»‚ğ
+                    }
+                }
+            }
+        }
+    }
+}
+
+
