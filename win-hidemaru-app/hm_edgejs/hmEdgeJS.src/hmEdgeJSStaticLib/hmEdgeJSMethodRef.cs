@@ -615,8 +615,8 @@ public sealed partial class hmEdgeJSDynamicLib
                         return _hm_refExplorerPane_LoadProject(filepath);
                     }
 
-                    static SoadProject(filepath) {
-                        return _hm_refExplorerPane_SoadProject(filepath);
+                    static SaveProject(filepath) {
+                        return _hm_refExplorerPane_SaveProject(filepath);
                     }
 
                     static GetProject() {
