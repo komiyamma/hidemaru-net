@@ -580,6 +580,30 @@ public sealed partial class hmEdgeJSDynamicLib
                 }
                 );
 
+                hm.Macro.Statement = new Proxy(()=>{}, {
+                    apply: function(target, that, args) {
+                        if (args.length >= 1 ) {
+                            return _hm_refMacroStatement( { FuncName:args[0], Args:args.slice(1) } );
+                        }
+                    },
+                    get(target, prop, receiver) {
+                        return (...args) => { return _hm_refMacroStatement( { FuncName:prop, Args:args } ); }
+                    }
+                }
+                );
+
+                hm.Macro.Function = new Proxy(()=>{}, {
+                    apply: function(target, that, args) {
+                        if (args.length >= 1 ) {
+                            return _hm_refMacroFunction( { FuncName:args[0], Args:args.slice(1) } );
+                        }
+                    },
+                    get(target, prop, receiver) {
+                        return (...args) => { return _hm_refMacroFunction( { FuncName:prop, Args:args } ); }
+                    }
+                }
+                );
+
                 class _hm_outputpane_ {
                     static Output(text) {
                         return _hm_refOutputPane_Output(text.toString());
