@@ -64,13 +64,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_0AD7942C246445FBBB5B8A6AD261D226"
+        "OwnerKey" = "8:_4F87FB3F06324371921B1A43E6710AAD"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_4F87FB3F06324371921B1A43E6710AAD"
+        "OwnerKey" = "8:_0AD7942C246445FBBB5B8A6AD261D226"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -203,7 +203,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:hmEdgeJS, Version=1.8.1.1, Culture=neutral, processorArchitecture=AMD64"
+            "AssemblyAsmDisplayName" = "8:hmEdgeJS, Version=1.9.0.1, Culture=neutral, processorArchitecture=AMD64"
                 "ScatterAssemblies"
                 {
                     "_0AD7942C246445FBBB5B8A6AD261D226"
@@ -419,15 +419,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:hmEdgeJS x64 版"
-        "ProductCode" = "8:{1139D178-311F-4B7B-95D5-84673CB00011}"
-        "PackageCode" = "8:{C7A9C811-7D2D-482C-B0E4-8EAA1CB3F431}"
+        "ProductCode" = "8:{F49FA4DF-445E-4F63-8474-C34311EFAB4B}"
+        "PackageCode" = "8:{57DE2303-C654-4E79-BB6E-6E5A9F2C7982}"
         "UpgradeCode" = "8:{F2C86FB9-3FF7-44DE-9DE2-8B12595EE05C}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.8.1"
+        "ProductVersion" = "8:1.9.0"
         "Manufacturer" = "8:Akitsugu Komiyama"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"

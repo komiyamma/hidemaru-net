@@ -1,5 +1,5 @@
 ImageRuntimeVersion: v4.0.30319
-Assembly hmEdgeJS, Version=1.8.*, Culture=ロケールに依存しない言語 (ロケールに依存しない国): 
+Assembly hmEdgeJS, Version=1.9.*, Culture=ロケールに依存しない言語 (ロケールに依存しない国): 
 	hash=SHA1, flags=PublicKey
 Assembly mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
 	hash=None, flags=None
@@ -27,6 +27,10 @@ Class hmEdgeJSDynamicLib: AutoLayout, AnsiClass, Class, Public, Sealed
     Hidemaru hm : Public, Static
   Methods:
     InitExpression(String): PrivateScope, Public, Static, HideBySig
+    SendMessage(IntPtr, UInt32, IntPtr, StringBuilder): PrivateScope, Public, Static, HideBySig, PinvokeImpl
+    SendMessage(IntPtr, UInt32, StringBuilder, StringBuilder): PrivateScope, Public, Static, HideBySig, PinvokeImpl
+    SendMessage(IntPtr, UInt32, IntPtr, IntPtr): PrivateScope, Public, Static, HideBySig, PinvokeImpl
+    SendMessage(IntPtr, UInt32, Int32, IntPtr): PrivateScope, Public, Static, HideBySig, PinvokeImpl
     OutputDebugStream(String): PrivateScope, Public, Static, HideBySig
     BindDllHandle(IntPtr): PrivateScope, Public, Static, HideBySig
     ModifyFuncCallByDllType(String): PrivateScope, Public, Static, HideBySig
@@ -59,6 +63,8 @@ Class hmEdgeJSDynamicLib+Hidemaru+ErrorMsg: AutoLayout, AnsiClass, Class, Nested
     System.String MethodNeed890 = このメソッドは秀丸エディタ v8.90 正式版以降で利用可能です。 : Public, Static, Literal, HasDefault
     System.String MethodNeedOutputNotFound = HmOutputPaneの対象関数を発見できません。 : Public, Static, Literal, HasDefault
     System.String MethodNeedOutputOperation = HmOutputPaneへの操作中にエラーが発生しました。 : Public, Static, Literal, HasDefault
+    System.String MethodNeedExplorerNotFound = HmExplorerPaneの対象関数を発見できません。 : Public, Static, Literal, HasDefault
+    System.String MethodNeedExplorerOperation = HmExplorerPaneへの操作中にエラーが発生しました。 : Public, Static, Literal, HasDefault
 Class hmEdgeJSDynamicLib+Hidemaru+Edit: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Methods:
@@ -70,6 +76,20 @@ Class hmEdgeJSDynamicLib+Hidemaru+Edit: AutoLayout, AnsiClass, Class, NestedPubl
     SetSelectedText(String): PrivateScope, Public, Static, HideBySig
     GetLineText(): PrivateScope, Public, Static, HideBySig
     SetLineText(String): PrivateScope, Public, Static, HideBySig
+Class hmEdgeJSDynamicLib+Hidemaru+ExplorerPane: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    IntPtr WindowHandle 'get ' : 
+  Methods:
+    SetMode(Int32): PrivateScope, Public, Static, HideBySig
+    GetMode(): PrivateScope, Public, Static, HideBySig
+    LoadProject(String): PrivateScope, Public, Static, HideBySig
+    SaveProject(String): PrivateScope, Public, Static, HideBySig
+    GetProject(): PrivateScope, Public, Static, HideBySig
+    GetCurrentDir(): PrivateScope, Public, Static, HideBySig
+    GetUpdated(): PrivateScope, Public, Static, HideBySig
+    get_WindowHandle(): PrivateScope, Public, Static, HideBySig, SpecialName
+    SendMessage(Int32): PrivateScope, Public, Static, HideBySig
 Class hmEdgeJSDynamicLib+Hidemaru+File: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Methods:
@@ -80,8 +100,14 @@ Class hmEdgeJSDynamicLib+Hidemaru+File: AutoLayout, AnsiClass, Class, NestedPubl
     GetMsCodePage(Int32): PrivateScope, Public, Static, HideBySig
 Class hmEdgeJSDynamicLib+Hidemaru+Macro: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Boolean IsExecuting 'get ' : 
   Methods:
     Eval(Object): PrivateScope, Public, Static, HideBySig
+    get_IsExecuting(): PrivateScope, Public, Static, HideBySig, SpecialName
+    ExecEval(String): PrivateScope, Public, Static, HideBySig
+    Statement(String, Object[]): PrivateScope, Public, Static, HideBySig
+    Function(String, Object[]): PrivateScope, Public, Static, HideBySig
     GetVar(String): PrivateScope, Public, Static, HideBySig
     SetVar(String, Object): PrivateScope, Public, Static, HideBySig
 Class hmEdgeJSDynamicLib+Hidemaru+OutputPane: AutoLayout, AnsiClass, Class, NestedPublic, Sealed
@@ -162,3 +188,25 @@ Interface hmEdgeJSDynamicLib+Hidemaru+Macro+IResult: AutoLayout, AnsiClass, Clas
     get_Result(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
     get_Message(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
     get_Error(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Interface hmEdgeJSDynamicLib+Hidemaru+Macro+IStatementResult: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
+  Properties:
+    Int32 Result 'get ' : 
+    System.String Message 'get ' : 
+    System.Exception Error 'get ' : 
+    System.Object Args 'get ' : 
+  Methods:
+    get_Result(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Message(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Error(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Args(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+Interface hmEdgeJSDynamicLib+Hidemaru+Macro+IFunctionResult: AutoLayout, AnsiClass, Class, NestedPublic, ClassSemanticsMask, Abstract
+  Properties:
+    System.Object Result 'get ' : 
+    System.String Message 'get ' : 
+    System.Exception Error 'get ' : 
+    System.Object Args 'get ' : 
+  Methods:
+    get_Result(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Message(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Error(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_Args(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
