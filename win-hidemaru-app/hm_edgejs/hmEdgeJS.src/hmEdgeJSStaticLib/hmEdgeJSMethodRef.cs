@@ -580,7 +580,7 @@ public sealed partial class hmEdgeJSDynamicLib
                 }
                 );
 
-                hm.Macro.Statement = new Proxy(()=>{}, {
+                _hm_macro_.Statement = new Proxy(()=>{}, {
                     apply: function(target, that, args) {
                         if (args.length >= 1 ) {
                             return _hm_refMacroStatement( { FuncName:args[0], Args:args.slice(1) } );
@@ -592,7 +592,7 @@ public sealed partial class hmEdgeJSDynamicLib
                 }
                 );
 
-                hm.Macro.Function = new Proxy(()=>{}, {
+                _hm_macro_.Function = new Proxy(()=>{}, {
                     apply: function(target, that, args) {
                         if (args.length >= 1 ) {
                             return _hm_refMacroFunction( { FuncName:args[0], Args:args.slice(1) } );
