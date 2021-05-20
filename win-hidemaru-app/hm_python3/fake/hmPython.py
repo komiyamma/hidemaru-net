@@ -191,7 +191,7 @@ class _TMacro:
         秀丸マクロ関連のうち、マクロ実行結果情報を扱うクラス
         """
 
-        def __init__(self, Result, Message, ErrorMsg, Args):
+        def __init__(self, Result: int, Message: str, ErrorMsg: str, Args):
             self.Result = Result
             self.Message = Message
             self.Args = tuple(Args)
@@ -205,7 +205,7 @@ class _TMacro:
         秀丸マクロ関連のうち、マクロ実行結果情報を扱うクラス
         """
 
-        def __init__(self, Result, Message, ErrorMsg, Args):
+        def __init__(self, Result, Message: str, ErrorMsg: str, Args):
             self.Result = Result
             self.Message = Message
             self.Args = tuple(Args)
@@ -227,7 +227,7 @@ class _TMacro:
         res: int = 1
         msg: str = ""
         errmsg: str = ""
-        ret: _TResult = _TMacro._TResult(res, msg, errmsg)
+        ret: _TMacro._TResult = _TMacro._TResult(res, msg, errmsg)
         return ret
     #--------------------------------------------------
 
@@ -254,7 +254,7 @@ class _TOutputPane:
         return 0
 
     # アウトプット枠にメッセージを送る
-    def SendMessage(self, command_id) -> int:
+    def SendMessage(self, command_id: int) -> int:
         return 1
 
     # アウトプット枠の基底ディレクトリを設定する
@@ -267,35 +267,35 @@ class _TExplorerPane:
     秀丸ファイルマネージャペイン関連のクラス
     """
     # ファイルマネージャ枠のモードの設定
-    def SetMode(self, mode):
+    def SetMode(self, mode: int) -> int:
         return 1
 
     # ファイルマネージャ枠のモードの取得
-    def GetMode(self):
+    def GetMode(self) -> int:
         return 1
 
     # ファイルマネージャ枠に指定のファイルのプロジェクトを読み込む
-    def LoadProject(self, filepath):
+    def LoadProject(self, filepath: str) -> int:
         return 1
 
     # ファイルマネージャ枠のプロジェクトを指定ファイルに保存
-    def SaveProject(self, filepath):
+    def SaveProject(self, filepath: str) -> int:
         return 1
 
     # ファイルマネージャ枠が「プロジェクト」表示のとき、更新された状態であるかどうかを返します
-    def GetUpdated(self):
+    def GetUpdated(self) -> int:
         return 0
 
     # ファイルマネージャ枠にメッセージを送る
-    def SendMessage(self, command_id):
+    def SendMessage(self, command_id) -> int:
         return 0
 
     # ファイルマネージャ枠にプロジェクトを読み込んでいるならば、そのファイルパスを取得する(読み込んでいなければNoneが返る)
-    def GetProject(self):
+    def GetProject(self) -> str:
         return None
 
     # ファイルマネージャ枠のカレントディレクトリを返す
-    def GetCurrentDir(self):
+    def GetCurrentDir(self) -> str:
         return os.getcwd()
 
 
@@ -309,6 +309,7 @@ class _THidemaru:
         self.Edit: _TEdit = _TEdit()
         self.Macro: _TMacro = _TMacro()
         self.OutputPane = _TOutputPane()
+        self.ExplorerPane = _TExplorerPane()
     #--------------------------------------------------
 
     #--------------------------------------------------
