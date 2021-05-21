@@ -145,6 +145,49 @@ declare namespace hm {
          */
           function SetBaseDir(dirpath: string): number;
     }
+
+    namespace ExplorerPane {
+
+        /**
+         * ファイルマネージャ枠のモードの設定
+         */
+         function SetMode(message: number): number;
+ 
+        /**
+         * ファイルマネージャ枠のモードの取得
+         */
+         function GetMode(): number;
+
+        /**
+         * ファイルマネージャ枠に指定のファイルのプロジェクトを読み込む
+         */
+         function LoadProject(filename: string): number;
+
+        /**
+         * ファイルマネージャ枠のプロジェクトを指定ファイルに保存
+         */
+         function SaveProject(filename: string): number;
+
+        /**
+         * ファイルマネージャ枠にプロジェクトを読み込んでいるならば、そのファイルパスを取得する(読み込んでいなければNoneが返る)
+         */
+         function GetProject(): string;
+
+        /**
+         * ファイルマネージャ枠にメッセージを送る
+         */
+         function SendMessage(command_id: number): number;
+
+        /**
+         * ファイルマネージャ枠が「プロジェクト」表示のとき、更新された状態であるかどうかを返します
+         */
+         function GetUpdated(): number;
+
+        /**
+         * ファイルマネージャ枠のカレントディレクトリを返す
+         */
+         function GetCurrentDir(): string;
+    }
 }
  
 interface Console {
