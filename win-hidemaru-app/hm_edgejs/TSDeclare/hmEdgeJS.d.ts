@@ -66,6 +66,28 @@ declare namespace hm {
          * 秀丸マクロの変数の読み書き。
          */
         let Var: TVar;
+
+        interface IStatementResult {
+            Result :number;
+            Args: object[];
+            Error: { readonly Message: string };
+            Message: string;
+        }
+        /**
+         * ステートメントの実行
+         */
+        let Statement: any;
+
+        interface IFunctionResult {
+            Result :number | string;
+            Args: object[];
+            Error: { readonly Message: string };
+            Message: string;
+        }
+        /**
+         * 関数の実行
+         */
+         let Function: any;
     }
  
     namespace Edit {
