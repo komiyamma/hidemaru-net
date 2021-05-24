@@ -132,7 +132,7 @@ namespace HmNetPInvoke
             HmMacroCOMVar.marcroVar = null;
         }
 
-        internal static int CallMethod(String scopename, String dllfullpath, String typefullname, String methodname)
+        internal static int BornMacroScopeMethod(String scopename, String dllfullpath, String typefullname, String methodname)
         {
 
             string myDllFullPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
@@ -253,6 +253,38 @@ namespace HmNetPInvoke
                 }
             }
 
+        }
+
+        public static partial class Macro
+        {
+            public static IResult Method(string parameter, Delegate delegate_method)
+            {
+                if (delegate_method.Method.IsStatic && delegate_method.Method.IsPublic)
+                {
+                    var ret = HmMacroCOMVar.BornMacroScopeMethod(parameter, delegate_method.Method.DeclaringType.Assembly.Location, delegate_method.Method.DeclaringType.FullName, delegate_method.Method.Name);
+                    var result = new TResult(1, "", null);
+                    return result;
+                }
+                else if (!delegate_method.Method.IsStatic)
+                {
+
+                    string message_no_static = delegate_method.Method.DeclaringType.FullName + "." + delegate_method.Method.Name + " is not 'STATIC' in " + delegate_method.Method.DeclaringType.Assembly.Location;
+                    var result_no_static = new TResult(0, "", new MissingMethodException(message_no_static));
+                    System.Diagnostics.Trace.WriteLine(message_no_static);
+                    return result_no_static;
+                }
+                else if (!delegate_method.Method.IsPublic)
+                {
+                    string message_no_public = delegate_method.Method.DeclaringType.FullName + "." + delegate_method.Method.Name + " is not 'PUBLIC' in " + delegate_method.Method.DeclaringType.Assembly.Location;
+                    var result_no_public = new TResult(0, "", new MissingMethodException(message_no_public));
+                    System.Diagnostics.Trace.WriteLine(message_no_public);
+                    return result_no_public;
+                }
+                string message_missing = delegate_method.Method.DeclaringType.FullName + "." + delegate_method.Method.Name + "is 'MISSING' access in " + delegate_method.Method.DeclaringType.Assembly.Location;
+                var result_missing = new TResult(0, "", new MissingMethodException(delegate_method.Method.Name + " is missing access"));
+                System.Diagnostics.Trace.WriteLine(result_missing);
+                return result_missing;
+            }
         }
 
 
