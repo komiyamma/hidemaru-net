@@ -25,12 +25,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="HmNetPInvoke.cs" />
-    <Compile Remove="HmNetPInvokeCom.cs" />
-    <Compile Remove="HmNetPInvokePane.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Update="HmNetInvokeDLL.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>HmNetInvokeDLL.cs</LastGenOutput>

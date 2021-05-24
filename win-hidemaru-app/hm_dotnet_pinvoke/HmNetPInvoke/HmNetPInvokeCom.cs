@@ -34,6 +34,11 @@ namespace HmNetPInvoke
             marcroVar = variable;
             return 1;
         }
+        public int MethodToDll(String message_param)
+        {
+            marcroVar = message_param;
+            return 1;
+        }
 
         public bool X64MACRO() {
             return true;
@@ -125,6 +130,26 @@ namespace HmNetPInvoke
         internal static void ClearVar()
         {
             HmMacroCOMVar.marcroVar = null;
+        }
+
+        internal static int CallMethod(String scopename, String dllfullpath, String typefullname, String methodname)
+        {
+
+            string myDllFullPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
+            string myTargetDllFullPath = GetMyTargetDllFullPath(myDllFullPath);
+            string myTargetClass = GetMyTargetClass(myDllFullPath);
+            ClearVar();
+            var result = Hm.Macro.Eval($@"
+                #_COM_NET_PINVOKE_METHOD_CALL = createobject(@""{myTargetDllFullPath}"", @""{myTargetClass}"" );
+                #_COM_NET_PINVOKE_METHOD_CALL_RESULT = member(#_COM_NET_PINVOKE_MACRO_VAR, ""MethodToDll"", @""{dllfullpath}"", @""{typefullname}"", @""{methodname}"",  R""MACRO_OF_SCOPENAME({scopename})MACRO_OF_SCOPENAME"");
+                releaseobject(#_COM_NET_PINVOKE_METHOD_CALL);
+                #_COM_NET_PINVOKE_METHOD_CALL_RESULT = 0;
+            ");
+            if (result.Error != null)
+            {
+                throw result.Error;
+            }
+            return result.Result;
         }
     }
 
