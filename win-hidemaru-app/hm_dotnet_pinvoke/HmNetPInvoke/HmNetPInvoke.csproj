@@ -49,6 +49,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>HmNetInvokeDLL.tt</DependentUpon>
     </Compile>
+    <Compile Update="HmNetPInvokeForCreateObject.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>HmNetPInvokeForCreateObject.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
 
 </Project>

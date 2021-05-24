@@ -9,6 +9,7 @@ using System.IO;
 using System.Text;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Reflection;
 
 namespace HmNetPInvoke
 {
@@ -34,12 +35,119 @@ namespace HmNetPInvoke
             marcroVar = variable;
             return 1;
         }
-        public int MethodToDll(String message_param)
+        public int MethodToDll(String dllfullpath, String typefullname, String methodname, String message_param)
         {
             marcroVar = message_param;
-            return 1;
+
+            try
+            {
+                MethodToDllHelper(dllfullpath, typefullname, methodname, message_param);
+                return 1;
+            }
+            catch(Exception e)
+            {
+            }
+            return 0;
         }
 
+        private void TraceMethodInfo(String assm_path, String class_name, String method_name)
+        {
+            System.Diagnostics.Trace.WriteLine("アセンブリパス   :" + assm_path);
+            System.Diagnostics.Trace.WriteLine("名前空間.クラス名:" + class_name);
+            System.Diagnostics.Trace.WriteLine("メソッド名       :" + method_name);
+        }
+        public static void TraceExceptionInfo(Exception e)
+        {
+            System.Diagnostics.Trace.WriteLine(e.GetType());
+            System.Diagnostics.Trace.WriteLine(e.Message);
+            System.Diagnostics.Trace.WriteLine(e.StackTrace);
+        }
+        private Object MethodToDllHelper(String assm_path, String class_name, String method_name, String message_param)
+        {
+            Exception method_ex = null;
+            try
+            {
+                Assembly assm = null;
+                Type t = null;
+
+                if (assm_path.Length > 0)
+                {
+                    assm = Assembly.LoadFile(assm_path);
+                    if (assm == null)
+                    {
+                        System.Diagnostics.Trace.WriteLine("ロード出来ない");
+                    }
+                    else
+                    {
+                        // System::Diagnostics::Trace::WriteLine(assm->FullName);
+                    }
+
+                    foreach (Type t2 in assm.GetExportedTypes())
+                    {
+                        if (t2.ToString() == class_name)
+                        {
+                            t = assm.GetType(class_name);
+                        }
+                    }
+                }
+                else
+                {
+                    t = Type.GetType(class_name);
+                }
+                if (t == null)
+                {
+                    System.Diagnostics.Trace.WriteLine("MissingMethodException(クラスもしくはメソッドを見つけることが出来ない):");
+                    TraceMethodInfo(assm_path, class_name, method_name);
+                    return null;
+                }
+
+                // メソッドの定義タイプを探る。
+                MethodInfo m;
+                try
+                {
+                    m = t.GetMethod(method_name);
+                }
+                catch (Exception ex)
+                {
+                    // 基本コースだと一致してない系の可能性やオーバーロードなど未解決エラーを控えておく
+                    // t->GetMethod(...)は論理的には不要だが、「エラー情報のときにわかりやすい情報を.NETに自動で出力してもらう」ためにダミーで呼び出しておく
+                    method_ex = ex;
+
+                    // オーバーロードなら1つに解決できるように型情報も含めてmは上書き
+                    List<Type> args_types = new List<Type>();
+                    args_types.Add(Type.GetType(message_param));
+                    m = t.GetMethod(method_name, args_types.ToArray());
+                }
+
+                Object o = null;
+                try
+                {
+                    // オーバーロードなら1つに解決できるように型情報も含めてmは上書き
+                    List<Object> args_values = new List<Object>();
+                    args_values.Add(message_param);
+                    o = m.Invoke(null, args_values.ToArray());
+                }
+                catch (Exception)
+                {
+                    System.Diagnostics.Trace.WriteLine("指定のメソッドの実行時、例外が発生しました。");
+                    throw;
+                }
+                return o;
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Trace.WriteLine("指定のアセンブリやメソッドを特定する前に、例外が発生しました。");
+                TraceMethodInfo(assm_path, class_name, method_name);
+                if (method_ex != null)
+                {
+                    TraceExceptionInfo(method_ex);
+                }
+                TraceExceptionInfo(e);
+            }
+
+            return null;
+
+        }
         public bool X64MACRO() {
             return true;
         }
@@ -259,7 +367,14 @@ namespace HmNetPInvoke
         {
             public static IResult Method(string parameter, Delegate delegate_method)
             {
-                if (delegate_method.Method.IsStatic && delegate_method.Method.IsPublic)
+                // 渡されたメソッドが自分自身のdllと異なるのはダメ
+                if (delegate_method.Method.DeclaringType.Assembly.Location != System.Reflection.Assembly.GetExecutingAssembly().Location) {
+                    string message_no_dll_myself = "The Delegate method must in " + System.Reflection.Assembly.GetExecutingAssembly().Location;
+                    var result_no_dll_myself = new TResult(0, "", new MissingMethodException(message_no_dll_myself));
+                    System.Diagnostics.Trace.WriteLine(result_no_dll_myself);
+                    return result_no_dll_myself;
+                }
+                else if (delegate_method.Method.IsStatic && delegate_method.Method.IsPublic)
                 {
                     var ret = HmMacroCOMVar.BornMacroScopeMethod(parameter, delegate_method.Method.DeclaringType.Assembly.Location, delegate_method.Method.DeclaringType.FullName, delegate_method.Method.Name);
                     var result = new TResult(1, "", null);
