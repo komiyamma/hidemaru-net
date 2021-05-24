@@ -66716,7 +66716,7 @@ namespace HmNetPInvoke
 namespace HmNetPInvoke
 {
     public partial class HmMacroCOMVar {
-        private const string HmMacroCOMVarInterface = "776436cf-696b-43d3-be30-c6569e3d7091";
+        private const string HmMacroCOMVarInterface = "59012f30-229f-4bed-8dc3-9caec25456bf";
     }
 }
 
@@ -67076,7 +67076,7 @@ namespace HmNetPInvoke
                         System.Diagnostics.Trace.WriteLine(result_no_dll_myself);
                         return result_no_dll_myself;
                     }
-                    else if (delegate_method.Method.IsStatic && delegate_method.Method.IsPublic)
+                    else if (delegate_method.Method.IsStatic && (delegate_method.Method.IsPublic || delegate_method.Method.IsAssembly))
                     {
                         var ret = HmMacroCOMVar.BornMacroScopeMethod(parameter, delegate_method.Method.DeclaringType.Assembly.Location, delegate_method.Method.DeclaringType.FullName, delegate_method.Method.Name);
                         var result = new TResult(ret.Result, ret.Message, ret.Error);
@@ -67090,9 +67090,9 @@ namespace HmNetPInvoke
                         System.Diagnostics.Trace.WriteLine(message_no_static);
                         return result_no_static;
                     }
-                    else if (!delegate_method.Method.IsPublic)
+                    else if (!delegate_method.Method.IsPublic && !delegate_method.Method.IsAssembly)
                     {
-                        string message_no_public = delegate_method.Method.DeclaringType.FullName + "." + delegate_method.Method.Name + " is not 'PUBLIC' in " + delegate_method.Method.DeclaringType.Assembly.Location;
+                        string message_no_public = delegate_method.Method.DeclaringType.FullName + "." + delegate_method.Method.Name + " is not 'PUBLIC' or 'INTERNAL' in " + delegate_method.Method.DeclaringType.Assembly.Location;
                         var result_no_public = new TResult(0, "", new MissingMethodException(message_no_public));
                         System.Diagnostics.Trace.WriteLine(message_no_public);
                         return result_no_public;
