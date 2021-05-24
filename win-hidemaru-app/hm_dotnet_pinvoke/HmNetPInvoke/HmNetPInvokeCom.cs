@@ -249,7 +249,7 @@ namespace HmNetPInvoke
             ClearVar();
             var result = Hm.Macro.Eval($@"
                 #_COM_NET_PINVOKE_METHOD_CALL = createobject(@""{myTargetDllFullPath}"", @""{myTargetClass}"" );
-                #_COM_NET_PINVOKE_METHOD_CALL_RESULT = member(#_COM_NET_PINVOKE_MACRO_VAR, ""MethodToDll"", @""{dllfullpath}"", @""{typefullname}"", @""{methodname}"",  R""MACRO_OF_SCOPENAME({scopename})MACRO_OF_SCOPENAME"");
+                #_COM_NET_PINVOKE_METHOD_CALL_RESULT = member(#_COM_NET_PINVOKE_METHOD_CALL, ""MethodToDll"", @""{dllfullpath}"", @""{typefullname}"", @""{methodname}"",  R""MACRO_OF_SCOPENAME({scopename})MACRO_OF_SCOPENAME"");
                 releaseobject(#_COM_NET_PINVOKE_METHOD_CALL);
                 #_COM_NET_PINVOKE_METHOD_CALL_RESULT = 0;
             ");
