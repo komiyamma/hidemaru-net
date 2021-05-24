@@ -240,7 +240,7 @@ namespace HmNetPInvoke
             HmMacroCOMVar.marcroVar = null;
         }
 
-        internal static int BornMacroScopeMethod(String scopename, String dllfullpath, String typefullname, String methodname)
+        internal static Hm.Macro.IResult BornMacroScopeMethod(String scopename, String dllfullpath, String typefullname, String methodname)
         {
 
             string myDllFullPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
@@ -253,11 +253,7 @@ namespace HmNetPInvoke
                 releaseobject(#_COM_NET_PINVOKE_METHOD_CALL);
                 #_COM_NET_PINVOKE_METHOD_CALL_RESULT = 0;
             ");
-            if (result.Error != null)
-            {
-                throw result.Error;
-            }
-            return result.Result;
+            return result;
         }
     }
 
@@ -377,7 +373,7 @@ namespace HmNetPInvoke
                 else if (delegate_method.Method.IsStatic && delegate_method.Method.IsPublic)
                 {
                     var ret = HmMacroCOMVar.BornMacroScopeMethod(parameter, delegate_method.Method.DeclaringType.Assembly.Location, delegate_method.Method.DeclaringType.FullName, delegate_method.Method.Name);
-                    var result = new TResult(1, "", null);
+                    var result = new TResult(ret.Result, ret.Message, ret.Error);
                     return result;
                 }
                 else if (!delegate_method.Method.IsStatic)
