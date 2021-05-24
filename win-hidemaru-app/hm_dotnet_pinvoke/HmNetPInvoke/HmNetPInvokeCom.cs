@@ -46,6 +46,7 @@ namespace HmNetPInvoke
             }
             catch(Exception e)
             {
+                System.Diagnostics.Trace.WriteLine(e);
             }
             return 0;
         }
@@ -364,8 +365,15 @@ namespace HmNetPInvoke
 
             public static partial class Exec
             {
-                public static IResult Method(string parameter, Delegate delegate_method)
+	            /// <summary>
+	            /// 指定のC#のstaticメソッドを「新たなマクロ実行空間」として呼び出す
+	            /// </summary>
+	            /// <param name = "message_parameter">文字列パラメータ</param>
+	            /// <param name = "delegate_method">呼び出したいC#メソッド「public(or internal) methodname(string message_parameter)の型に従うメソッドであること</param>
+	            /// <returns>(Result, Message, Error)</returns>
+                public static IResult Method(string message_parameter, Delegate delegate_method)
                 {
+					string parameter = message_parameter
                     // 渡されたメソッドが自分自身のdllと異なるのはダメ
                     if (delegate_method.Method.DeclaringType.Assembly.Location != System.Reflection.Assembly.GetExecutingAssembly().Location)
                     {
@@ -433,8 +441,15 @@ namespace HmNetPInvoke
             }
 
             private static int statement_base_random = 0;
-            internal static IStatementResult Statement(string funcname, params object[] args)
+            /// <summary>
+            /// 秀丸マクロの関数のような「命令文」を実行
+            /// </summary>
+            /// <param name = "statementname">（関数のような）命令文名</param>
+            /// <param name = "args">命令文の引数</param>
+            /// <returns>(Result, Args, Message, Error)</returns>
+            internal static IStatementResult Statement(string statementname, params object[] args)
             {
+				string funcname = statement_name;
                 if (statement_base_random == 0)
                 {
                     statement_base_random = new System.Random().Next(Int16.MaxValue) + 1;
@@ -548,6 +563,12 @@ namespace HmNetPInvoke
             }
 
             private static int funciton_base_random = 0;
+            /// <summary>
+            /// 秀丸マクロの「関数」を実行
+            /// </summary>
+            /// <param name = "funcname">関数名</param>
+            /// <param name = "args">関数の引数</param>
+            /// <returns>(Result, Args, Message, Error)</returns>
             public static IFunctionResult Function(string funcname, params object[] args)
             {
                 if (funciton_base_random == 0)
