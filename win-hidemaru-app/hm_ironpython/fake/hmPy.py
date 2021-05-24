@@ -1,7 +1,7 @@
 # coding: utf-8
 
 #--------------------------------------------------------------
-# hmPy 1.8.1.1用 フェイクライブラリ
+# hmPy 1.9.0.1用 フェイクライブラリ
 # Copyright (c) 2016-2020 Akitsugu Komiyama
 # under the Apache License Version 2.0
 #--------------------------------------------------------------
@@ -118,6 +118,50 @@ class _TMacro:
     秀丸マクロ関連のクラス
     """
     #--------------------------------------------------
+    #--------------------------------------------------
+    class _TStatementResult:
+        """
+        秀丸マクロ関連のうち、マクロ実行結果情報を扱うクラス
+        """
+
+        def __init__(self, Result: int, Message: str, ErrorMsg: str, Args):
+            self.Result = Result
+            self.Message = Message
+            self.Args = tuple(Args)
+            if Result >= 1:
+                self.Error = None
+            else:
+                self.Error = RuntimeError(ErrorMsg)
+    #--------------------------------------------------
+    class _TFunctionResult:
+        """
+        秀丸マクロ関連のうち、マクロ実行結果情報を扱うクラス
+        """
+
+        def __init__(self, Result, Message: str, ErrorMsg: str, Args):
+            self.Result = Result
+            self.Message = Message
+            self.Args = tuple(Args)
+            if Result != None:
+                self.Error = None
+            else:
+                self.Error = RuntimeError(ErrorMsg)
+
+
+    def Statement(self, statement_name, *args):
+        hm.debuginfo("Do Statement: " + statement_name);
+        (res, msg, errmsg, args) = (1, "", None, args)
+        ret = _TMacro._TStatementResult(res, msg, errmsg, args)
+        return ret
+
+
+    def Function(self, function_name, *args):
+        hm.debuginfo("Do Function: " + function_name);
+        (res, msg, errmsg, args) = (1, "", None, args)
+        ret = _TMacro._TFunctionResult(res, msg, errmsg, args)
+        return ret
+
+
     class _TVar:
         __map = {}
         """
@@ -133,6 +177,7 @@ class _TMacro:
                 hm.debuginfo("cant set attribute: フェイクデータ構築とみなします。本来のhmPyではこの代入は認められません。")
 
             self.__map[varname] = value
+            
     #--------------------------------------------------
 
     #--------------------------------------------------
@@ -190,6 +235,43 @@ class _TOutputPane:
         return hidemaru.outputpane.setbasedir(dirpath)
 
 
+class _TExplorerPane:
+    """
+    秀丸ファイルマネージャペイン関連のクラス
+    """
+    # ファイルマネージャ枠のモードの設定
+    def SetMode(self, mode):
+        return 1
+
+    # ファイルマネージャ枠のモードの取得
+    def GetMode(self):
+        return 1
+
+    # ファイルマネージャ枠に指定のファイルのプロジェクトを読み込む
+    def LoadProject(self, filepath):
+        return 1
+
+    # ファイルマネージャ枠のプロジェクトを指定ファイルに保存
+    def SaveProject(self, filepath):
+        return 1
+
+    # ファイルマネージャ枠が「プロジェクト」表示のとき、更新された状態であるかどうかを返します
+    def GetUpdated(self):
+        return 0
+
+    # ファイルマネージャ枠にメッセージを送る
+    def SendMessage(self, command_id):
+        return 0
+
+    # ファイルマネージャ枠にプロジェクトを読み込んでいるならば、そのファイルパスを取得する(読み込んでいなければNoneが返る)
+    def GetProject(self):
+        return None
+
+    # ファイルマネージャ枠のカレントディレクトリを返す
+    def GetCurrentDir(self):
+        return os.getcwd()
+
+
 class _THidemaru:
     """
     特定のカテゴリに所属しないようなもの
@@ -200,6 +282,7 @@ class _THidemaru:
         self.Edit: _TEdit = _TEdit()
         self.Macro: _TMacro = _TMacro()
         self.OutputPane = _TOutputPane()
+        self.ExplorerPane = _TExplorerPane()
     #--------------------------------------------------
 
     #--------------------------------------------------

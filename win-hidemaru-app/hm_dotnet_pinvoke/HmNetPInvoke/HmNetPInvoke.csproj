@@ -35,10 +35,6 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>HmNetInvokeDLL.cs</LastGenOutput>
     </None>
-    <None Update="HmNetInvokeForLoadDLL.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>HmNetInvokeForLoadDLL.cs</LastGenOutput>
-    </None>
     <None Update="HmNetPInvokeCOM.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>HmNetPInvokeCOM.cs</LastGenOutput>
@@ -58,11 +54,6 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>HmNetInvokeDLL.tt</DependentUpon>
-    </Compile>
-    <Compile Update="HmNetInvokeForLoadDLL.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>HmNetInvokeForLoadDLL.tt</DependentUpon>
     </Compile>
   </ItemGroup>
 
