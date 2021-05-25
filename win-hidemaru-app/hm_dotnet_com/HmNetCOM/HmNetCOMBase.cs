@@ -1,5 +1,5 @@
 ﻿/*
- * HmNetPInvoke ver 1.901
+ * HmNetPInvoke ver 2.001
  * Copyright (C) 2021 Akitsugu Komiyama
  * under the MIT License
  **/
