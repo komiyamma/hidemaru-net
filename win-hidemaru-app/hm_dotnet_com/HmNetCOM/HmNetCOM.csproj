@@ -38,15 +38,6 @@
 
 
   <ItemGroup>
-    <Compile Update="HmNetCOM.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>HmNetCOM.tt</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-
-  <ItemGroup>
     <None Update="HmNetCOM.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>HmNetCOM.cs</LastGenOutput>
