@@ -1,5 +1,5 @@
 ﻿/*
- * HmNetPInvoke ver 2.001
+ * HmNetCOM ver 2.001
  * Copyright (C) 2021 Akitsugu Komiyama
  * under the MIT License
  **/
@@ -11,7 +11,7 @@ using System.Reflection;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
-namespace HmNetPInvoke
+namespace HmNetCOM
 {
     internal partial class Hm
     {
@@ -507,7 +507,7 @@ namespace HmNetPInvoke
     }
 }
 
-namespace HmNetPInvoke
+namespace HmNetCOM
 {
 
     internal partial class Hm
@@ -574,7 +574,7 @@ namespace HmNetPInvoke
     }
 }
 
-namespace HmNetPInvoke
+namespace HmNetCOM
 {
     internal partial class Hm
     {
@@ -615,7 +615,7 @@ namespace HmNetPInvoke
     }
 }
 
-namespace HmNetPInvoke
+namespace HmNetCOM
 {
 
     internal static class HmExtentensions
@@ -636,7 +636,7 @@ namespace HmNetPInvoke
     }
 }
 
-namespace HmNetPInvoke
+namespace HmNetCOM
 {
 
     internal partial class Hm

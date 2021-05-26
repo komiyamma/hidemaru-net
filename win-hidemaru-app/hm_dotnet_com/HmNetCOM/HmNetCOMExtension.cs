@@ -1,5 +1,5 @@
 ﻿/*
- * HmNetPInvoke ver 2.001
+ * HmNetCOM ver 2.001
  * Copyright (C) 2021 Akitsugu Komiyama
  * under the MIT License
  **/
@@ -11,14 +11,14 @@ using System.Reflection;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
-namespace HmNetPInvoke
+namespace HmNetCOM
 {
     public partial class HmMacroCOMVar {
         private const string HmMacroCOMVarInterface = "HmMacroCOMVarGUID";
     }
 }
 
-namespace HmNetPInvoke
+namespace HmNetCOM
 {
     // 秀丸のCOMから呼び出して、マクロ⇔COMといったように、マクロとプログラムで変数値を互いに伝搬する
     [ComVisible(true)]

@@ -1,5 +1,5 @@
 /*
- * HmNetPInvoke ver 2.001
+ * HmNetCOM ver 2.001
  * Copyright (C) 2021 Akitsugu Komiyama
  * under the MIT License
  **/
@@ -24,18 +24,30 @@
 
 <#= source1 #>
 
-
 <#
- var HmMacroCOMVarGUID = System.Guid.NewGuid().ToString();
- var lines2 = File.ReadAllLines(this.Host.ResolvePath("HmNetCOMExtension.cs"));
+ var lines2 = File.ReadAllLines(this.Host.ResolvePath("HmNetCOMFile.cs"));
  string source2 = "";
  foreach(var line in lines2) {
      if (line.StartsWith ("using ")) {
      } else {
-        string line3 = line.Replace("HmMacroCOMVarGUID", HmMacroCOMVarGUID);
-        source2 += line3 + "\r\n";
+        source2 += line + "\r\n";
      }
  }
 #>
 
 <#= source2 #>
+
+<#
+ var HmMacroCOMVarGUID = System.Guid.NewGuid().ToString();
+ var lines3 = File.ReadAllLines(this.Host.ResolvePath("HmNetCOMExtension.cs"));
+ string source3 = "";
+ foreach(var line in lines3) {
+     if (line.StartsWith ("using ")) {
+     } else {
+        string line3 = line.Replace("HmMacroCOMVarGUID", HmMacroCOMVarGUID);
+        source3 += line3 + "\r\n";
+     }
+ }
+#>
+
+<#= source3 #>
