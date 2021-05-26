@@ -187,7 +187,7 @@
     "version": "2.0.0.1",
     "restore": {
       "projectUniqueName": "G:\\repogitory\\hidemaru-net\\win-hidemaru-app\\hm_dotnet_com\\HmNetCOM\\HmNetCOM.csproj",
-      "projectName": "HmNetPInvoke",
+      "projectName": "HmNetCOM",
       "projectPath": "G:\\repogitory\\hidemaru-net\\win-hidemaru-app\\hm_dotnet_com\\HmNetCOM\\HmNetCOM.csproj",
       "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
       "outputPath": "G:\\repogitory\\hidemaru-net\\win-hidemaru-app\\hm_dotnet_com\\HmNetCOM\\obj\\",

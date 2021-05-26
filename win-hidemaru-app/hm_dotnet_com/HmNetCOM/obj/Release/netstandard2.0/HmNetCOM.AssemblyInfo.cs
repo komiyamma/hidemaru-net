@@ -11,13 +11,13 @@
 using System;
 using System.Reflection;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("HmNetPInvoke")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("Komiyamma")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyCopyrightAttribute("Copyright © 2021 Akitsugu Komiyama")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("2.0.0.1")]
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("2.0.0.1")]
-[assembly: System.Reflection.AssemblyProductAttribute("HmNetPInvoke")]
-[assembly: System.Reflection.AssemblyTitleAttribute("HmNetPInvoke")]
+[assembly: System.Reflection.AssemblyProductAttribute("HmNetCOM")]
+[assembly: System.Reflection.AssemblyTitleAttribute("HmNetCOM")]
 [assembly: System.Reflection.AssemblyVersionAttribute("2.0.0.1")]
 [assembly: System.Resources.NeutralResourcesLanguageAttribute("ja-JP")]
 
