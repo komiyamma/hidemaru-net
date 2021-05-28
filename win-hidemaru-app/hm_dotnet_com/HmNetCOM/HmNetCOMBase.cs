@@ -75,6 +75,10 @@ namespace HmNetCOM
 
         public static partial class Edit
         {
+            /// <summary>
+            /// キー入力があるなどの理由で処理を中断するべきかを返す。
+            /// </summary>
+            /// <returns>中断するべきならtrue、そうでなければfalse</returns>
             public static bool QueueStatus
             {
                 get { return pCheckQueueStatus() != 0; }
