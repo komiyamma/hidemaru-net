@@ -75,6 +75,11 @@ namespace HmNetCOM
 
         public static partial class Edit
         {
+            public static bool QueueStatus
+            {
+                get { return pCheckQueueStatus() != 0; }
+            }
+
             /// <summary>
             /// 現在アクティブな編集領域のテキスト全体を返す。
             /// </summary>
