@@ -32,7 +32,7 @@ public sealed partial class HmCustomLivePreviewDynamicLib
                         isClearScriptItem = true;
                     }
                 }
-                catch (Exception e)
+                catch (Exception )
                 {
 
                 }
