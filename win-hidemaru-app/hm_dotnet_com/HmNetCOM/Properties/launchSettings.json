@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "HmNetCOM": {
-      "commandName": "Executable",
-      "executablePath": "C:\\usr\\hidemaru\\Hidemaru.exe"
-    }
-  }
-}
