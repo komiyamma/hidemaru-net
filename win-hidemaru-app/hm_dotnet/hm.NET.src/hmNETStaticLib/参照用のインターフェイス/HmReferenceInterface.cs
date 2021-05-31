@@ -127,8 +127,6 @@ namespace Hidemaru
             // 実行系の実態
             private class TExec : IExec
             {
-                private const string V = " is not 'PUBLIC'";
-
                 public IResult Eval(string expression)
                 {
                     var ret = hmNETDynamicLib.Hidemaru.Macro.ExecEval(expression);
@@ -143,18 +141,18 @@ namespace Hidemaru
                     return result;
                 }
 
-                public IResult Method(string parameter, string dllfullpath, string typefullname, string methodname)
+                public IResult Method(string message_parameter, string dllfullpath, string typefullname, string methodname)
                 {
-                    var ret = hmNETDynamicLib.Hidemaru.Macro.BornMacroScopeMethod(parameter, dllfullpath, typefullname, methodname);
+                    var ret = hmNETDynamicLib.Hidemaru.Macro.BornMacroScopeMethod(message_parameter, dllfullpath, typefullname, methodname);
                     var result = new TResult(ret.Result, ret.Message, ret.Error);
                     return result;
                 }
 
-                public IResult Method(string parameter, Delegate delegate_method)
+                public IResult Method(string message_parameter, Delegate delegate_method)
                 {
                     if (delegate_method.Method.IsStatic && delegate_method.Method.IsPublic)
                     {
-                        var ret = hmNETDynamicLib.Hidemaru.Macro.BornMacroScopeMethod(parameter, delegate_method.Method.DeclaringType.Assembly.Location, delegate_method.Method.DeclaringType.FullName, delegate_method.Method.Name);
+                        var ret = hmNETDynamicLib.Hidemaru.Macro.BornMacroScopeMethod(message_parameter, delegate_method.Method.DeclaringType.Assembly.Location, delegate_method.Method.DeclaringType.FullName, delegate_method.Method.Name);
                         var result = new TResult(ret.Result, ret.Message, ret.Error);
                         return result;
                     }
