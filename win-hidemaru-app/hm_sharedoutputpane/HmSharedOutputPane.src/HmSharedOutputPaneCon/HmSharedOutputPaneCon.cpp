@@ -6,8 +6,7 @@
 
 using namespace std;
 
-// 秀丸のディレクトリの指定。この場合は、「C:\usr\hidemaru\hidemaru.exe」という位置関係にある。
-const wstring strDLLFullPath = LR"(C:\usr\hidemaru\HmSharedOutputPane.dll)";
+const wstring strDLLFullPath = L"HmSharedOutputPane.dll";
 
 using PFNSETSHAREDMESSAGEW = void(_stdcall*)(const wchar_t* wszmsg);
 
