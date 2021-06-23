@@ -8,8 +8,6 @@ using System.Runtime.InteropServices;
 using System.Collections.Generic;
 
 
-
-
 // ★秀丸クラス
 internal sealed partial class hmNETDynamicLib
 {
@@ -37,6 +35,18 @@ internal sealed partial class hmNETDynamicLib
             public const String MethodNeedExplorerNotFound = "HmExplorerPaneの対象関数を発見できません。";
             public const String MethodNeedExplorerOperation = "HmExplorerPaneへの操作中にエラーが発生しました。";
             public static readonly String NoDllBindHandle866 = strDllFullPath + "をloaddllした際の束縛変数の値を特定できません";
+        }
+
+        private static T HmClamp<T>(T val, T min, T max) where T : IComparable<T>
+        {
+            if (val.CompareTo(min) < 0) return min;
+            else if (val.CompareTo(max) > 0) return max;
+            else return val;
+        }
+
+        private static bool IsObjectNumeric(object value)
+        {
+            return value is Int32 || value is Int64 || value is double || value is decimal;
         }
 
         private static IntPtr _hWndHidemaru = IntPtr.Zero;
