@@ -44,9 +44,9 @@ internal sealed partial class hmNETDynamicLib
             else return val;
         }
 
-        private static bool IsObjectNumeric(object value)
+        private static bool IsDoubleNumeric(object value)
         {
-            return value is Int32 || value is Int64 || value is double || value is decimal;
+            return value is double || value is float;
         }
 
         private static IntPtr _hWndHidemaru = IntPtr.Zero;
