@@ -300,14 +300,15 @@ internal sealed partial class hmNETDynamicLib
                             else
                             {
                                 // 次に少数でトライ
-                                Double dtmp = 0;
+                                double dtmp = 0;
                                 if (IsDoubleNumeric(value))
                                 {
+                                    dtmp = (double)value;
                                     success = true;
                                 }
                                 else
                                 {
-                                    success = Double.TryParse(value.ToString(), out dtmp);
+                                    success = double.TryParse(value.ToString(), out dtmp);
                                 }
                                 if (success)
                                 {
@@ -338,14 +339,15 @@ internal sealed partial class hmNETDynamicLib
                             else
                             {
                                 // 次に少数でトライ
-                                Double dtmp = 0;
+                                double dtmp = 0;
                                 if (IsDoubleNumeric(value))
                                 {
+                                    dtmp = (double)value;
                                     success = true;
                                 }
                                 else
                                 {
-                                    success = Double.TryParse(value.ToString(), out dtmp);
+                                    success = double.TryParse(value.ToString(), out dtmp);
                                 }
 
                                 if (success)
@@ -789,14 +791,15 @@ internal sealed partial class hmNETDynamicLib
                                 else
                                 {
                                     // 次に少数でトライ
-                                    Double dtmp = 0;
+                                    double dtmp = 0;
                                     if (IsDoubleNumeric(value))
                                     {
+                                        dtmp = (double)value;
                                         success = true;
                                     }
                                     else
                                     {
-                                        success = Double.TryParse(value.ToString(), out dtmp);
+                                        success = double.TryParse(value.ToString(), out dtmp);
                                     }
                                     if (success)
                                     {
@@ -828,14 +831,15 @@ internal sealed partial class hmNETDynamicLib
                                 else
                                 {
                                     // 次に少数でトライ
-                                    Double dtmp = 0;
+                                    double dtmp = 0;
                                     if (IsDoubleNumeric(value))
                                     {
+                                        dtmp = (double)value;
                                         success = true;
                                     }
                                     else
                                     {
-                                        success = Double.TryParse(value.ToString(), out dtmp);
+                                        success = double.TryParse(value.ToString(), out dtmp);
                                     }
                                     if (success)
                                     {
