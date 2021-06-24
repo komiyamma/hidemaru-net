@@ -286,10 +286,19 @@ public sealed partial class hmLmDynamicLib
                             else
                             {
                                 // 次に少数でトライ
-                                Double dtmp = 0;
-                                success = Double.TryParse(value.ToString(), out dtmp);
+                                double dtmp = 0;
+                                if (IsDoubleNumeric(value))
+                                {
+                                    dtmp = (double)value;
+                                    success = true;
+                                }
+                                else
+                                {
+                                    success = double.TryParse(value.ToString(), out dtmp);
+                                }
                                 if (success)
                                 {
+                                    dtmp = HmClamp<double>(dtmp, Int32.MinValue, Int32.MaxValue);
                                     normalized_arg = (Int32)(dtmp);
                                 }
 
@@ -315,10 +324,20 @@ public sealed partial class hmLmDynamicLib
                             else
                             {
                                 // 次に少数でトライ
-                                Double dtmp = 0;
-                                success = Double.TryParse(value.ToString(), out dtmp);
+                                double dtmp = 0;
+                                if (IsDoubleNumeric(value))
+                                {
+                                    dtmp = (double)value;
+                                    success = true;
+                                }
+                                else
+                                {
+                                    success = double.TryParse(value.ToString(), out dtmp);
+                                }
+
                                 if (success)
                                 {
+                                    dtmp = HmClamp<double>(dtmp, Int64.MinValue, Int64.MaxValue);
                                     normalized_arg = (Int64)(dtmp);
                                 }
                                 else
@@ -814,13 +833,21 @@ public sealed partial class hmLmDynamicLib
                                 else
                                 {
                                     // 次に少数でトライ
-                                    Double dtmp = 0;
-                                    success = Double.TryParse(value.ToString(), out dtmp);
+                                    double dtmp = 0;
+                                    if (IsDoubleNumeric(value))
+                                    {
+                                        dtmp = (double)value;
+                                        success = true;
+                                    }
+                                    else
+                                    {
+                                        success = double.TryParse(value.ToString(), out dtmp);
+                                    }
                                     if (success)
                                     {
+                                        dtmp = HmClamp<double>(dtmp, Int32.MinValue, Int32.MaxValue);
                                         result = (Int32)(dtmp);
                                     }
-
                                     else
                                     {
                                         result = 0;
@@ -843,10 +870,19 @@ public sealed partial class hmLmDynamicLib
                                 else
                                 {
                                     // 次に少数でトライ
-                                    Double dtmp = 0;
-                                    success = Double.TryParse(value.ToString(), out dtmp);
+                                    double dtmp = 0;
+                                    if (IsDoubleNumeric(value))
+                                    {
+                                        dtmp = (double)value;
+                                        success = true;
+                                    }
+                                    else
+                                    {
+                                        success = double.TryParse(value.ToString(), out dtmp);
+                                    }
                                     if (success)
                                     {
+                                        dtmp = HmClamp<double>(dtmp, Int64.MinValue, Int64.MaxValue);
                                         result = (Int64)(dtmp);
                                     }
                                     else
