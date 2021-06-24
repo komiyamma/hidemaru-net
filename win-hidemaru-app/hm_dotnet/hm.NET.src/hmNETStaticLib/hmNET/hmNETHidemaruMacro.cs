@@ -293,7 +293,6 @@ internal sealed partial class hmNETDynamicLib
 
                             if (success == true)
                             {
-                                itmp = HmClamp<Int32>(itmp, Int32.MinValue, Int32.MaxValue);
                                 normalized_arg = itmp;
                             }
 
@@ -332,7 +331,6 @@ internal sealed partial class hmNETDynamicLib
 
                             if (success == true)
                             {
-                                itmp = HmClamp<Int64>(itmp, Int64.MinValue, Int64.MaxValue);
                                 normalized_arg = itmp;
                             }
 
@@ -783,7 +781,6 @@ internal sealed partial class hmNETDynamicLib
                                 bool success = Int32.TryParse(value.ToString(), out itmp);
                                 if (success == true)
                                 {
-                                    itmp = HmClamp<Int32>(itmp, Int32.MinValue, Int32.MaxValue);
                                     result = itmp;
                                 }
 
@@ -822,7 +819,6 @@ internal sealed partial class hmNETDynamicLib
 
                                 if (success == true)
                                 {
-                                    itmp = HmClamp<Int64>(itmp, Int64.MinValue, Int64.MaxValue);
                                     result = itmp;
                                 }
 
