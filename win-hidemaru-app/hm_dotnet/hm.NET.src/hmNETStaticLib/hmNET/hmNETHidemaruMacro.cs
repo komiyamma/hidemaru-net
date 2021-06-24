@@ -780,8 +780,7 @@ internal sealed partial class hmNETDynamicLib
                             {
                                 // まずは整数でトライ
                                 Int32 itmp = 0;
-                                bool success = false;
-                                success = Int32.TryParse(value.ToString(), out itmp);
+                                bool success = Int32.TryParse(value.ToString(), out itmp);
                                 if (success == true)
                                 {
                                     itmp = HmClamp<Int32>(itmp, Int32.MinValue, Int32.MaxValue);
@@ -819,8 +818,7 @@ internal sealed partial class hmNETDynamicLib
                             {
                                 // まずは整数でトライ
                                 Int64 itmp = 0;
-                                bool success = false;
-                                success = Int64.TryParse(value.ToString(), out itmp);
+                                bool success = Int64.TryParse(value.ToString(), out itmp);
 
                                 if (success == true)
                                 {
