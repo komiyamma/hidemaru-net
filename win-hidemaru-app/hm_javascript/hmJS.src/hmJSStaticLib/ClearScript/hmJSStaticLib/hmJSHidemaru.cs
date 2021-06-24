@@ -37,6 +37,18 @@ public sealed partial class hmJSDynamicLib
 
         }
 
+        private static T HmClamp<T>(T val, T min, T max) where T : IComparable<T>
+        {
+            if (val.CompareTo(min) < 0) return min;
+            else if (val.CompareTo(max) > 0) return max;
+            else return val;
+        }
+
+        private static bool IsDoubleNumeric(object value)
+        {
+            return value is double || value is float;
+        }
+
         private static IntPtr _hWndHidemaru = IntPtr.Zero;
         public static IntPtr WindowHandle
         {
