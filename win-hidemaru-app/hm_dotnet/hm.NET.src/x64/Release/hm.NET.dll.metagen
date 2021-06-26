@@ -34,6 +34,7 @@ Class Hidemaru.Hm+Macro: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, S
     get_IsExecuting(): PrivateScope, Public, Static, HideBySig, SpecialName
     Statement(String, Object[]): PrivateScope, Public, Static, HideBySig
     Function(String, Object[]): PrivateScope, Public, Static, HideBySig
+    Function(String, Object[]): PrivateScope, Public, Static, HideBySig
     Eval(String): PrivateScope, Public, Static, HideBySig
 Class Hidemaru.Hm+Edit: AutoLayout, AnsiClass, Class, NestedPublic, Abstract, Sealed, BeforeFieldInit
   Properties:

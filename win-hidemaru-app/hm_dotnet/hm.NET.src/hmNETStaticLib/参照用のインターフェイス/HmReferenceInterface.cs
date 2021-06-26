@@ -191,7 +191,14 @@ namespace Hidemaru
 
             public static IFunctionResult Function(string funcname, params object[] args)
             {
-                var ret = hmNETDynamicLib.Hidemaru.Macro.AsFunctionTryInvokeMember(funcname, args);
+                var ret = hmNETDynamicLib.Hidemaru.Macro.AsFunctionTryInvokeMember<Object>(funcname, args);
+                IFunctionResult result = new TFunctionResult(ret.Result, ret.Message, ret.Error, ret.Args);
+                return result;
+            }
+
+            public static IFunctionResult Function<T>(string funcname, params object[] args)
+            {
+                var ret = hmNETDynamicLib.Hidemaru.Macro.AsFunctionTryInvokeMember<T>(funcname, args);
                 IFunctionResult result = new TFunctionResult(ret.Result, ret.Message, ret.Error, ret.Args);
                 return result;
             }

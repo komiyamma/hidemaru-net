@@ -536,7 +536,7 @@ internal sealed partial class hmNETDynamicLib
                 public Exception Error;
                 public List<Object> Args;
             }
-            public static ExecFuncResult AsFunctionTryInvokeMember(string funcname, params object[] args)
+            public static ExecFuncResult AsFunctionTryInvokeMember<T>(string funcname, params object[] args)
             {
                 if (funciton_base_random == 0)
                 {
@@ -579,12 +579,42 @@ internal sealed partial class hmNETDynamicLib
                     throw new NullReferenceException(ErrorMsg.NoDllBindHandle866);
                 }
 
-                String invocate = ModifyFuncCallByDllType("{0}");
-                String cmd = "" +
-                    "##_tmp_dll_id_ret = dllfuncw( " + invocate + " \"SetTmpVar\", " + expression + ");\n" +
-                    "##_tmp_dll_id_ret = 0;\n";
+                ExecResult eval_ret;
+                if (typeof(T)==typeof(int) || typeof(T)==typeof(long) || typeof(T)==typeof(IntPtr) || typeof(T) == typeof(double))
+                {
+                    String invocate = ModifyFuncCallByDllType("{0}");
 
-                ExecResult eval_ret = Eval(cmd);
+                    String cmd = "" +
+                        "##_tmp_dll_expression_ret = " + expression + ";\n" +
+                        "##_tmp_dll_id_ret = dllfuncw( " + invocate + " \"SetTmpVar\", ##_tmp_dll_expression_ret);\n" +
+                        "##_tmp_dll_id_ret = 0;\n" +
+                        "##_tmp_dll_expression_ret = 0;\n";
+
+                    eval_ret = Eval(cmd);
+                }
+                else if (typeof(T)==typeof(String))
+                {
+                    String invocate = ModifyFuncCallByDllType("{0}");
+
+                    String cmd = "" +
+                        "$$_tmp_dll_expression_ret = " + expression + ";\n" +
+                        "##_tmp_dll_id_ret = dllfuncw( " + invocate + " \"SetTmpVar\", $$_tmp_dll_expression_ret);\n" +
+                        "##_tmp_dll_id_ret = 0;\n" +
+                        "$$_tmp_dll_expression_ret = \"\";\n";
+
+                    eval_ret = Eval(cmd);
+                }
+                else
+                {
+                    String invocate = ModifyFuncCallByDllType("{0}");
+
+                    String cmd = "" +
+                        "##_tmp_dll_id_ret = dllfuncw( " + invocate + " \"SetTmpVar\", " + expression + ");\n" +
+                        "##_tmp_dll_id_ret = 0;\n";
+
+                    eval_ret = Eval(cmd);
+                }
+
 
                 bool is_exception = false;
                 if (tmpVar == null)
