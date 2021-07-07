@@ -49,8 +49,8 @@ public:
 	static PFNGetLineTextUnicode Hidemaru_GetLineTextUnicode;
 
 	// 秀丸のウィンドウハンドル
-	using PFNNGetCurrentWindowHandle = HWND(WINAPI *)();
-	static PFNNGetCurrentWindowHandle Hidemaru_GetCurrentWindowHandle;
+	using PFNGetCurrentWindowHandle = HWND(WINAPI *)();
+	static PFNGetCurrentWindowHandle Hidemaru_GetCurrentWindowHandle;
 
 
 	//-------------------------------------------------------------------------

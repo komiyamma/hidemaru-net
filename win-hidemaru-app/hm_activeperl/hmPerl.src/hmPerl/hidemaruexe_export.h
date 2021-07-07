@@ -47,8 +47,8 @@ public:
 	static PFNGetLineTextUnicode Hidemaru_GetLineTextUnicode;
 
 	// 秀丸のウィンドウハンドル
-	using PFNNGetCurrentWindowHandle = HWND(WINAPI *)();
-	static PFNNGetCurrentWindowHandle Hidemaru_GetCurrentWindowHandle;
+	using PFNGetCurrentWindowHandle = HWND(WINAPI *)();
+	static PFNGetCurrentWindowHandle Hidemaru_GetCurrentWindowHandle;
 
 	//-------------------------------------------------------------------------
 	// 指定対象のファイルの秀丸encodeを得る。秀丸自体の「動作環境」-「ファイル」ー「エンコード1」の設定に従うので注意。
