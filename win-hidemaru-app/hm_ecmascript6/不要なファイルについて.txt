@@ -1,0 +1,4 @@
+ClearScript.Windows.dll と
+ClearScript.Windows.Core.dll の
+２つのファイルは動作に無関係。
+前者がVBScriptのためのもので、後者はJScriptのためのもの。
