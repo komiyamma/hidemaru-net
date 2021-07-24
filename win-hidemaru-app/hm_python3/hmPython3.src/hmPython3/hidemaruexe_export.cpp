@@ -47,7 +47,6 @@ CHidemaruExeExport::PFNHmExplorerPane_GetCurrentDir CHidemaruExeExport::HmExplor
 double CHidemaruExeExport::hm_version = 0;
 double CHidemaruExeExport::QueryFileVersion(wchar_t* path){
 	VS_FIXEDFILEINFO* v;
-	DWORD dwZero = 0;
 	UINT len;
 	DWORD sz = GetFileVersionInfoSize(path, NULL);
 	if (sz){

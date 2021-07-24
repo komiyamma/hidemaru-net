@@ -31,12 +31,12 @@ CHidemaruExeExport::PFNEvalMacro CHidemaruExeExport::Hidemaru_EvalMacro = NULL;
 double CHidemaruExeExport::hm_version = 0;
 double CHidemaruExeExport::QueryFileVersion(TCHAR* path){
 	VS_FIXEDFILEINFO* v;
-	DWORD dwZero = 0;
 	UINT len;
-	DWORD sz = GetFileVersionInfoSize(path, &dwZero);
+	DWORD sz = GetFileVersionInfoSize(path, NULL);
 	if (sz){
-		void* buf = new char[sz];
-		GetFileVersionInfo(path, dwZero, sz, buf);
+		unique_ptr<BYTE[]> mngBuf = make_unique<BYTE[]>(sz);
+		LPVOID buf = (LPVOID)mngBuf.get();
+		GetFileVersionInfo(path, NULL, sz, buf);
 
 		if (VerQueryValue(buf, L"\\", (LPVOID*)&v, &len)){
 			double ret = 0;
@@ -44,11 +44,7 @@ double CHidemaruExeExport::QueryFileVersion(TCHAR* path){
 				double(LOWORD(v->dwFileVersionMS)) * 10 +
 				double(HIWORD(v->dwFileVersionLS)) +
 				double(LOWORD(v->dwFileVersionLS)) * 0.01;
-			delete[] buf;
 			return ret;
-		}
-		else{
-			delete[] buf;
 		}
 	}
 

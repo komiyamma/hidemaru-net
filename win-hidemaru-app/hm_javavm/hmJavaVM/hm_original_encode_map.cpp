@@ -1,4 +1,4 @@
-extern unsigned int encode_map[];
+// 0xFFFFŒÂ
 
 unsigned int encode_map[] = {
 0,

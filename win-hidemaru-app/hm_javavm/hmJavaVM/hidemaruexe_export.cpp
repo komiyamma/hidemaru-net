@@ -39,24 +39,20 @@ CHidemaruExeExport::PFNHmOutputPane_SetBaseDir CHidemaruExeExport::HmOutputPane_
 double CHidemaruExeExport::hm_version = 0;
 double CHidemaruExeExport::QueryFileVersion(TCHAR* path){
 	VS_FIXEDFILEINFO* v;
-	DWORD dwZero = 0;
 	UINT len;
-	DWORD sz = GetFileVersionInfoSize(path, &dwZero);
-	if (sz){
-		void* buf = new char[sz];
-		GetFileVersionInfo(path, dwZero, sz, buf);
+	DWORD sz = GetFileVersionInfoSize(path, NULL);
+	if (sz) {
+		unique_ptr<BYTE[]> mngBuf = make_unique<BYTE[]>(sz);
+		LPVOID buf = (LPVOID)mngBuf.get();
+		GetFileVersionInfo(path, NULL, sz, buf);
 
-		if (VerQueryValue(buf, L"\\", (LPVOID*)&v, &len)){
+		if (VerQueryValue(buf, L"\\", (LPVOID*)&v, &len)) {
 			double ret = 0;
 			ret = double(HIWORD(v->dwFileVersionMS)) * 100 +
 				double(LOWORD(v->dwFileVersionMS)) * 10 +
 				double(HIWORD(v->dwFileVersionLS)) +
 				double(LOWORD(v->dwFileVersionLS)) * 0.01;
-			delete[] buf;
 			return ret;
-		}
-		else{
-			delete[] buf;
 		}
 	}
 
