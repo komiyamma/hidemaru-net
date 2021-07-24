@@ -474,8 +474,8 @@ namespace Hidemaru {
 			HWND hHidemaruWindow = CHidemaruExeExport::Hidemaru_GetCurrentWindowHandle();
 			const int WM_REMOTE_EXECMACRO_MEMORY = WM_USER + 272;
 
-			WCHAR wszReturn[65535];
-			*(WORD*)wszReturn = sizeof(wszReturn) / sizeof(wszReturn[0]); // 最初のバイトにバッファーのサイズを格納することで秀丸本体がバッファーサイズの上限を知る。
+			WCHAR wszReturn[0xFFFF];
+			*(WORD*)wszReturn = _countof(wszReturn); // 最初のバイトにバッファーのサイズを格納することで秀丸本体がバッファーサイズの上限を知る。
 			LRESULT lRet = SendMessage(hHidemaruWindow, WM_REMOTE_EXECMACRO_MEMORY, (WPARAM)wszReturn, (LPARAM)utf16_expression.c_str());
 			if (lRet) {
 				string utf8_message = utf16_to_utf8(wszReturn);
