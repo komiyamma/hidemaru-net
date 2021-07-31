@@ -52,12 +52,14 @@ public partial class HmCustomLivePreviewDynamicLib
 
         // OutputPaneから出ている関数群
         delegate int TOutputPane_Output(IntPtr hHidemaruWindow, byte[] encode_data);
+        delegate int TOutputPane_OutputW(IntPtr hHidemaruWindow, [MarshalAs(UnmanagedType.LPWStr)] String pwszmsg);
         delegate int TOutputPane_Push(IntPtr hHidemaruWindow);
         delegate int TOutputPane_Pop(IntPtr hHidemaruWindow);
         delegate IntPtr TOutputPane_GetWindowHandle(IntPtr hHidemaruWindow);
         delegate int TOutputPane_SetBaseDir(IntPtr hHidemaruWindow, byte[] encode_data);
 
         static TOutputPane_Output pOutputPane_Output;
+        static TOutputPane_OutputW pOutputPane_OutputW;
         static TOutputPane_Push pOutputPane_Push;
         static TOutputPane_Pop pOutputPane_Pop;
         static TOutputPane_GetWindowHandle pOutputPane_GetWindowHandle;
@@ -140,6 +142,10 @@ public partial class HmCustomLivePreviewDynamicLib
                         if (version >= 877)
                         {
                             pOutputPane_SetBaseDir = hmOutputPaneHandle.GetProcDelegate<TOutputPane_SetBaseDir>("SetBaseDir");
+                        }
+                        if (version >= 898)
+                        {
+                            pOutputPane_OutputW = hmOutputPaneHandle.GetProcDelegate<TOutputPane_OutputW>("OutputW");
                         }
                     }
                     catch (Exception e)
