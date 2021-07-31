@@ -370,7 +370,10 @@ JNIEXPORT jint JNICALL Java_hidemaru_Hm_OutputPaneOutput(JNIEnv *env, jobject ob
 
 	// ‚¿‚á‚ñ‚ÆŠÖ”‚ª‚ ‚é‚¾‚¯
 	HWND hHidemaruWindow = CHidemaruExeExport::GetCurWndHidemaru();
-	if (CHidemaruExeExport::HmOutputPane_Output) {
+	if (CHidemaruExeExport::HmOutputPane_OutputW) {
+		int result = CHidemaruExeExport::HmOutputPane_OutputW(hHidemaruWindow, (wchar_t*)(utf16_message.data()));
+		return (jint)result;
+	} else if (CHidemaruExeExport::HmOutputPane_Output) {
 		auto encode_byte_data = EncodeWStringToOriginalEncodeVector(utf16_message);
 		int result = CHidemaruExeExport::HmOutputPane_Output(hHidemaruWindow, encode_byte_data.data());
 		return (jint)result;

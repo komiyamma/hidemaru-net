@@ -259,6 +259,8 @@ public:
 	//-------------------------------------------------------------------------
 	using PFNHmOutputPane_Output = int(_cdecl*)(HWND hwnd, BYTE *);
 	static PFNHmOutputPane_Output HmOutputPane_Output;
+	using PFNHmOutputPane_OutputW = int(_cdecl*)(HWND hwnd, wchar_t *);
+	static PFNHmOutputPane_OutputW HmOutputPane_OutputW;
 	using PFNHmOutputPane_Push = int(_cdecl*)(HWND hwnd);
 	static PFNHmOutputPane_Push HmOutputPane_Push;
 	using PFNHmOutputPane_Pop = int(_cdecl*)(HWND hwnd);
