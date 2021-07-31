@@ -78,9 +78,17 @@ public sealed partial class hmJSDynamicLib
 
                 try
                 {
-                    byte[] encode_data = HmOriginalEncodeFunc.EncodeWStringToOriginalEncodeVector(str_message);
-                    int result = pOutputPane_Output(Hidemaru.WindowHandle, encode_data);
-                    return result;
+                    if (pOutputPane_OutputW != null)
+                    {
+                        int result = pOutputPane_OutputW(Hidemaru.WindowHandle, str_message);
+                        return result;
+                    }
+                    else
+                    {
+                        byte[] encode_data = HmOriginalEncodeFunc.EncodeWStringToOriginalEncodeVector(str_message);
+                        int result = pOutputPane_Output(Hidemaru.WindowHandle, encode_data);
+                        return result;
+                    }
                 }
                 catch (Exception e)
                 {

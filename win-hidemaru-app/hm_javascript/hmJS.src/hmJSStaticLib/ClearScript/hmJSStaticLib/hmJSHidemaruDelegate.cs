@@ -53,12 +53,14 @@ public sealed partial class hmJSDynamicLib
 
         // OutputPaneから出ている関数群
         delegate int TOutputPane_Output(IntPtr hHidemaruWindow, byte[] encode_data);
+        delegate int TOutputPane_OutputW(IntPtr hHidemaruWindow, [MarshalAs(UnmanagedType.LPWStr)] String pwszmsg);
         delegate int TOutputPane_Push(IntPtr hHidemaruWindow);
         delegate int TOutputPane_Pop(IntPtr hHidemaruWindow);
         delegate IntPtr TOutputPane_GetWindowHandle(IntPtr hHidemaruWindow);
         delegate int TOutputPane_SetBaseDir(IntPtr hHidemaruWindow, byte[] encode_data);
 
         static TOutputPane_Output pOutputPane_Output;
+        static TOutputPane_OutputW pOutputPane_OutputW;
         static TOutputPane_Push pOutputPane_Push;
         static TOutputPane_Pop pOutputPane_Pop;
         static TOutputPane_GetWindowHandle pOutputPane_GetWindowHandle;
@@ -118,13 +120,13 @@ public sealed partial class hmJSDynamicLib
                     pEvalMacro = hmExeHandle.GetProcDelegate<TEvalMacro>("Hidemaru_EvalMacro");
                     pCheckQueueStatus = hmExeHandle.GetProcDelegate<TCheckQueueStatus>("Hidemaru_CheckQueueStatus");
 
-                    if (_ver >= 873)
+                    if (version >= 873)
                     {
                         pGetCursorPosUnicodeFromMousePos = hmExeHandle.GetProcDelegate<TGetCursorPosUnicodeFromMousePos>("Hidemaru_GetCursorPosUnicodeFromMousePos");
                         pGetCurrentWindowHandle = hmExeHandle.GetProcDelegate<TGetCurrentWindowHandle>("Hidemaru_GetCurrentWindowHandle");
                     }
 
-                    if (_ver >= 890)
+                    if (version >= 890)
                     {
                         pAnalyzeEncoding = hmExeHandle.GetProcDelegate<TAnalyzeEncoding>("Hidemaru_AnalyzeEncoding");
                         pLoadFileUnicode = hmExeHandle.GetProcDelegate<TLoadFileUnicode>("Hidemaru_LoadFileUnicode");
@@ -142,6 +144,10 @@ public sealed partial class hmJSDynamicLib
                         if (version >= 877)
                         {
                             pOutputPane_SetBaseDir = hmOutputPaneHandle.GetProcDelegate<TOutputPane_SetBaseDir>("SetBaseDir");
+                        }
+                        if (version >= 898)
+                        {
+                            pOutputPane_OutputW = hmOutputPaneHandle.GetProcDelegate<TOutputPane_OutputW>("OutputW");
                         }
                     }
                     catch (Exception e)
