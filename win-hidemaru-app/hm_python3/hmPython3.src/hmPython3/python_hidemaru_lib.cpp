@@ -684,7 +684,11 @@ namespace Hidemaru {
 		// ‚¿‚á‚ñ‚ÆŠÖ”‚ª‚ ‚é‚¾‚¯
 		if (CHidemaruExeExport::Hidemaru_GetCurrentWindowHandle) {
 			HWND hHidemaruWindow = CHidemaruExeExport::Hidemaru_GetCurrentWindowHandle();
-			if (CHidemaruExeExport::HmOutputPane_Output) {
+			if (CHidemaruExeExport::HmOutputPane_OutputW) {
+				BOOL result = CHidemaruExeExport::HmOutputPane_OutputW(hHidemaruWindow, (wchar_t*)utf16_value.data());
+				return result;
+			}
+			else if (CHidemaruExeExport::HmOutputPane_Output) {
 				auto encode_byte_data = EncodeWStringToOriginalEncodeVector(utf16_value);
 				BOOL result = CHidemaruExeExport::HmOutputPane_Output(hHidemaruWindow, encode_byte_data.data());
 				return result;
