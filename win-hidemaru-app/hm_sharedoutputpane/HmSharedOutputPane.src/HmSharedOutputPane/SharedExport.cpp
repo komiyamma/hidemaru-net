@@ -7,6 +7,7 @@
 
 HMODULE hProcess = NULL;
 PFNOUTPUT pOutputFunc = NULL;
+PFNOUTPUTW pOutputWFunc = NULL;
 PFNGETWINDOWHANDLE pOutputGetWindowFunc = NULL;
 HMODULE hHmOutputPaneDLL = NULL;
 

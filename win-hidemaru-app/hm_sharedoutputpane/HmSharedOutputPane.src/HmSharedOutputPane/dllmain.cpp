@@ -37,6 +37,7 @@ BOOL APIENTRY DllMain(HANDLE hModule, DWORD  ul_reason_for_call, LPVOID lpReserv
 			// アウトプットペイン自体のウィンドウハンドルの取得。
 			pOutputFunc = (PFNOUTPUT)GetProcAddress(hHmOutputPaneDLL, "Output");
 			pOutputGetWindowFunc = (PFNGETWINDOWHANDLE)GetProcAddress(hHmOutputPaneDLL, "GetWindowHandle");
+			pOutputWFunc = (PFNOUTPUTW)GetProcAddress(hHmOutputPaneDLL, "OutputW");
 
 			// スレッドのスタート
 			thHandle = (HANDLE)_beginthreadex(NULL, 0, OutputSharedMessage, 0, 0, NULL);

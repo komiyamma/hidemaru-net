@@ -208,9 +208,15 @@ unsigned __stdcall OutputSharedMessage(void *) {
 
 			if (pOutputFunc) {
 				line += L"\n";
-				vector<BYTE> bite_data = EncodeWStringToOriginalEncodeVector(line);
-				// --------------------- １行の文字列にパッチを当てていく ここまで----------------------------
-				BOOL success = pOutputFunc((HWND)hLocalHidemaruWndHandle, bite_data.data());
+
+				BOOL success = FALSE;
+				if (pOutputWFunc) {
+					success = pOutputWFunc((HWND)hLocalHidemaruWndHandle, (wchar_t*)(line.data()));
+				} else {
+					vector<BYTE> bite_data = EncodeWStringToOriginalEncodeVector(line);
+					// --------------------- １行の文字列にパッチを当てていく ここまで----------------------------
+					success = pOutputFunc((HWND)hLocalHidemaruWndHandle, bite_data.data());
+				}
 
 				// アウトプットパネルへの出力は、詰まってると失敗することがある
 				if (success) {

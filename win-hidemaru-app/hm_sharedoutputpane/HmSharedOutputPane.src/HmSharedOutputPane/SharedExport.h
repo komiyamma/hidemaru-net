@@ -17,6 +17,7 @@
 
 
 using PFNOUTPUT = int(_cdecl *)(HWND hwnd, BYTE *);
+using PFNOUTPUTW = int(_cdecl *)(HWND hwnd, wchar_t *);
 using PFNGETWINDOWHANDLE = HWND(_cdecl *)(HWND hHidemaru);
 extern HWND hCurHidemaruWndHandle;
 extern "C" void _stdcall SetSharedMessage(const char *szmsg);
@@ -30,4 +31,5 @@ extern wchar_t szBufList[BUF_LINE][BUF_CHRS];
 extern HMODULE hHmOutputPaneDLL;
 
 extern PFNOUTPUT pOutputFunc;
+extern PFNOUTPUTW pOutputWFunc;
 extern PFNGETWINDOWHANDLE pOutputGetWindowFunc;
