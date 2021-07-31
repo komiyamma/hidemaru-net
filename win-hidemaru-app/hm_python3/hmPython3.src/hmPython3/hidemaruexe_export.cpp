@@ -120,6 +120,9 @@ BOOL CHidemaruExeExport::init() {
 					if (hm_version > 877) {
 						HmOutputPane_SetBaseDir = (PFNHmOutputPane_SetBaseDir)GetProcAddress(hHmOutputPaneDLL, "SetBaseDir");
 					}
+					if (hm_version > 898) {
+						HmOutputPane_OutputW = (PFNHmOutputPane_OutputW)GetProcAddress(hHmOutputPaneDLL, "OutputW");
+					}
 				}
 
 				// HmExplorerPane.dll‚ª‚ ‚é‚©‚Ç‚¤‚©B

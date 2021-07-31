@@ -22,16 +22,22 @@ using System.Collections.Generic;
                 SetUnManagedDll();
             }
 
-
             // Output枠へと出力する
             public int Output(object message)
             {
                 try
                 {
                     string str_message = message.ToString();
-                    byte[] encode_data = HmOriginalEncodeFunc.EncodeWStringToOriginalEncodeVector(str_message);
-                    int result = pOutputPane_Output(Hidemaru.WindowHandle, encode_data);
-                    return result;
+                    if (pOutputPane_OutputW != null)
+                    {
+                        int result = pOutputPane_OutputW(Hidemaru.WindowHandle, str_message);
+                        return result;
+                    }
+                    else { 
+                        byte[] encode_data = HmOriginalEncodeFunc.EncodeWStringToOriginalEncodeVector(str_message);
+                        int result = pOutputPane_Output(Hidemaru.WindowHandle, encode_data);
+                        return result;
+                    }
                 }
                 catch (Exception e)
                 {
