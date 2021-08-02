@@ -1,0 +1,68 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29418.71
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5488F9BE-286E-459B-8384-E9EDA331BD5B}"
+	ProjectSection(SolutionItems) = preProject
+		ClearScript\doc\Build.docx = ClearScript\doc\Build.docx
+		ClearScript\doc\Examples.docx = ClearScript\doc\Examples.docx
+		ClearScript\doc\FAQtorial.docx = ClearScript\doc\FAQtorial.docx
+		License.txt = License.txt
+		ReadMe.md = ReadMe.md
+		ClearScript\doc\Reference.chm = ClearScript\doc\Reference.chm
+		Version.tt = Version.tt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".NET Framework", ".NET Framework", "{526BA3EF-4E1D-48C1-9923-2485B63993EE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ClearScriptV8", "ClearScriptV8", "{46C568CE-BA46-498F-9D8F-6293DED1BB94}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ClearScriptV8.win-x86", "ClearScriptV8\win-x86\ClearScriptV8.win-x86.vcxproj", "{2D63EA35-BA9C-4E77-B5A4-4938DBBFEFA6}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ClearScriptV8.win-x64", "ClearScriptV8\win-x64\ClearScriptV8.win-x64.vcxproj", "{CDCF4EEA-1CA4-412E-8C77-78893A67A577}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClearScript.Core", "NetFramework\ClearScript.Core\ClearScript.Core.csproj", "{F1022C3F-AFBC-4F23-B4DE-C6C0742AEFF2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClearScript.V8", "NetFramework\ClearScript.V8\ClearScript.V8.csproj", "{59CC81A3-3D97-469A-9C8B-533F920085F1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2D63EA35-BA9C-4E77-B5A4-4938DBBFEFA6} = {2D63EA35-BA9C-4E77-B5A4-4938DBBFEFA6}
+		{CDCF4EEA-1CA4-412E-8C77-78893A67A577} = {CDCF4EEA-1CA4-412E-8C77-78893A67A577}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2D63EA35-BA9C-4E77-B5A4-4938DBBFEFA6}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{2D63EA35-BA9C-4E77-B5A4-4938DBBFEFA6}.Debug|Any CPU.Build.0 = Debug|Win32
+		{2D63EA35-BA9C-4E77-B5A4-4938DBBFEFA6}.Release|Any CPU.ActiveCfg = Release|Win32
+		{2D63EA35-BA9C-4E77-B5A4-4938DBBFEFA6}.Release|Any CPU.Build.0 = Release|Win32
+		{CDCF4EEA-1CA4-412E-8C77-78893A67A577}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{CDCF4EEA-1CA4-412E-8C77-78893A67A577}.Debug|Any CPU.Build.0 = Debug|x64
+		{CDCF4EEA-1CA4-412E-8C77-78893A67A577}.Release|Any CPU.ActiveCfg = Release|x64
+		{CDCF4EEA-1CA4-412E-8C77-78893A67A577}.Release|Any CPU.Build.0 = Release|x64
+		{F1022C3F-AFBC-4F23-B4DE-C6C0742AEFF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1022C3F-AFBC-4F23-B4DE-C6C0742AEFF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1022C3F-AFBC-4F23-B4DE-C6C0742AEFF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1022C3F-AFBC-4F23-B4DE-C6C0742AEFF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59CC81A3-3D97-469A-9C8B-533F920085F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59CC81A3-3D97-469A-9C8B-533F920085F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59CC81A3-3D97-469A-9C8B-533F920085F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59CC81A3-3D97-469A-9C8B-533F920085F1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2D63EA35-BA9C-4E77-B5A4-4938DBBFEFA6} = {46C568CE-BA46-498F-9D8F-6293DED1BB94}
+		{CDCF4EEA-1CA4-412E-8C77-78893A67A577} = {46C568CE-BA46-498F-9D8F-6293DED1BB94}
+		{F1022C3F-AFBC-4F23-B4DE-C6C0742AEFF2} = {526BA3EF-4E1D-48C1-9923-2485B63993EE}
+		{59CC81A3-3D97-469A-9C8B-533F920085F1} = {526BA3EF-4E1D-48C1-9923-2485B63993EE}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3BAF1393-35E4-45F1-AC56-4A22646B56E5}
+	EndGlobalSection
+EndGlobal
