@@ -747,8 +747,7 @@ namespace Hidemaru {
 		HWND OutputWindowHandle = OutputPane_GetWindowHanndle();
 		if (OutputWindowHandle) {
 			// (#h,0x111/*WM_COMMAND*/,1009,0);//1009=クリア
-			// 0x111 = WM_COMMAND
-			LRESULT r = SendMessageW(OutputWindowHandle, 0x111, command_id, 0);
+			LRESULT r = SendMessageW(OutputWindowHandle, WM_COMMAND, command_id, 0);
 			return r;
 
 		}
@@ -858,8 +857,7 @@ namespace Hidemaru {
 		HWND ExplorerWindowHandle = ExplorerPane_GetWindowHanndle();
 		if (ExplorerWindowHandle) {
 			//251=１つ上のフォルダ
-			// 0x111 = WM_COMMAND
-			LRESULT r = SendMessageW(ExplorerWindowHandle, 0x111, command_id, 0);
+			LRESULT r = SendMessageW(ExplorerWindowHandle, WM_COMMAND, command_id, 0);
 			return r;
 
 		}

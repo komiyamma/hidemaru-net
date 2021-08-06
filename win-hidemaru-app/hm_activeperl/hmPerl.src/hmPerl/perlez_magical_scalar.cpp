@@ -401,12 +401,11 @@ BOOL CPerlEzMagicalScalar::Hm::OutputPane::Set::SendMessage(wstring utf16_comman
 	HWND OutputWindowHandle = CHidemaruExeExport::OutputPane_GetWindowHanndle();
 	if (OutputWindowHandle) {
 		// (#h,0x111/*WM_COMMAND*/,1009,0);//1009=ÉNÉäÉA
-		// 0x111 = WM_COMMAND
 		int command_id = 0;
 		LRESULT r = 0;
 		try {
 			command_id = std::stoi(utf16_command_id);
-			r = ::SendMessageW(OutputWindowHandle, 0x111, command_id, 0);
+			r = ::SendMessageW(OutputWindowHandle, WM_COMMAND, command_id, 0);
 		}
 		catch (exception e) {
 			wstring error = cp932_to_utf16(e.what());

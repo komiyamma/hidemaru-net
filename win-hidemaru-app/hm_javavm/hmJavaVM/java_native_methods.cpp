@@ -446,8 +446,7 @@ JNIEXPORT jlong JNICALL Java_hidemaru_Hm_OutputPaneSendMessage(JNIEnv *env, jobj
 
 		if (OutputWindowHandle) {
 			// (#h,0x111/*WM_COMMAND*/,1009,0);//1009=クリア
-			// 0x111 = WM_COMMAND
-			LRESULT r = SendMessageW(OutputWindowHandle, 0x111, command_id, 0);
+			LRESULT r = SendMessageW(OutputWindowHandle, WM_COMMAND, command_id, 0);
 			return r;
 		}
 	}
@@ -465,8 +464,7 @@ JNIEXPORT jint JNICALL Java_hidemaru_Hm_OutputPaneClear(JNIEnv *env, jobject obj
 
 		if (OutputWindowHandle) {
 			// (#h,0x111/*WM_COMMAND*/,1009,0);//1009=クリア
-			// 0x111 = WM_COMMAND
-			LRESULT r = SendMessageW(OutputWindowHandle, 0x111, 1009, 0);
+			LRESULT r = SendMessageW(OutputWindowHandle, WM_COMMAND, 1009, 0);
 			return (jint)r;
 		}
 	}

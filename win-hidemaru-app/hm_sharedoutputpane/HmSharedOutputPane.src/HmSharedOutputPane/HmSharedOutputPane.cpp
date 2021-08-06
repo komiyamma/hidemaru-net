@@ -184,7 +184,7 @@ unsigned __stdcall OutputSharedMessage(void *) {
 		// 最後に出力した時間から、○秒以上経過している。=アウトプット領域は一度クリアすべきだ。
 		if (ClearTime > 0) {
 			if ((int)curTimeGetTime - lstOtputTimeGetTime > ClearTime) {
-				SendMessage((HWND)hWndOutputPane, 0x111, 1009, 0);  // 前回の結果は残さない
+				SendMessage((HWND)hWndOutputPane, WM_COMMAND, 1009, 0);  // 前回の結果は残さない
 			}
 		}
 
