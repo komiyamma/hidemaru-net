@@ -14,10 +14,19 @@ public sealed partial class hmV8DynamicLib
     public sealed partial class Hidemaru
     {
         // 秀丸本体から出ている関数群
+        [UnmanagedFunctionPointer(CallingConvention.Winapi)]
         delegate IntPtr TGetCurrentWindowHandle();
+
+        [UnmanagedFunctionPointer(CallingConvention.Winapi)]
         delegate IntPtr TGetTotalTextUnicode();
+
+        [UnmanagedFunctionPointer(CallingConvention.Winapi)]
         delegate IntPtr TGetLineTextUnicode(int nLineNo);
+
+        [UnmanagedFunctionPointer(CallingConvention.Winapi)]
         delegate IntPtr TGetSelectedTextUnicode();
+
+        [UnmanagedFunctionPointer(CallingConvention.Winapi)]
         delegate int TGetCursorPosUnicode(ref int pnLineNo, ref int pnColumn);
 
         /*
@@ -29,12 +38,19 @@ public sealed partial class hmV8DynamicLib
         }
         delegate int TGetCursorPosUnicodeFromMousePos(out POINT lpPoint, ref int pnLineNo, ref int pnColumn);
         */
+        [UnmanagedFunctionPointer(CallingConvention.Winapi)]
         delegate int TGetCursorPosUnicodeFromMousePos(IntPtr lpPoint, ref int pnLineNo, ref int pnColumn);
 
+        [UnmanagedFunctionPointer(CallingConvention.Winapi)]
         delegate int TEvalMacro([MarshalAs(UnmanagedType.LPWStr)] String pwsz);
+
+        [UnmanagedFunctionPointer(CallingConvention.Winapi)]
         delegate int TCheckQueueStatus();
 
+        [UnmanagedFunctionPointer(CallingConvention.Winapi)]
         delegate int TAnalyzeEncoding([MarshalAs(UnmanagedType.LPWStr)] String pwszFileName, IntPtr lParam1, IntPtr lParam2);
+
+        [UnmanagedFunctionPointer(CallingConvention.Winapi)]
         delegate IntPtr TLoadFileUnicode([MarshalAs(UnmanagedType.LPWStr)] String pwszFileName, int nEncode, ref int pcwchOut, IntPtr lParam1, IntPtr lParam2);
 
         // 秀丸本体から出ている関数群
@@ -50,11 +66,22 @@ public sealed partial class hmV8DynamicLib
         static TLoadFileUnicode pLoadFileUnicode;
 
         // OutputPaneから出ている関数群
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate int TOutputPane_Output(IntPtr hHidemaruWindow, byte[] encode_data);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate int TOutputPane_OutputW(IntPtr hHidemaruWindow, [MarshalAs(UnmanagedType.LPWStr)] String pwszmsg);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate int TOutputPane_Push(IntPtr hHidemaruWindow);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate int TOutputPane_Pop(IntPtr hHidemaruWindow);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate IntPtr TOutputPane_GetWindowHandle(IntPtr hHidemaruWindow);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate int TOutputPane_SetBaseDir(IntPtr hHidemaruWindow, byte[] encode_data);
 
         static TOutputPane_Output pOutputPane_Output;
@@ -65,13 +92,28 @@ public sealed partial class hmV8DynamicLib
         static TOutputPane_SetBaseDir pOutputPane_SetBaseDir;
 
         // ExplorerPaneから出ている関数群
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate int TExplorerPane_SetMode(IntPtr hHidemaruWindow, IntPtr mode);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate int TExplorerPane_GetMode(IntPtr hHidemaruWindow);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate int TExplorerPane_LoadProject(IntPtr hHidemaruWindow, byte[] encode_project_file_path);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate int TExplorerPane_SaveProject(IntPtr hHidemaruWindow, byte[] encode_project_file_path);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate IntPtr TExplorerPane_GetProject(IntPtr hHidemaruWindow);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate IntPtr TExplorerPane_GetWindowHandle(IntPtr hHidemaruWindow);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate int TExplorerPane_GetUpdated(IntPtr hHidemaruWindow);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate IntPtr TExplorerPane_GetCurrentDir(IntPtr hHidemaruWindow);
 
         static TExplorerPane_SetMode pExplorerPane_SetMode;
