@@ -31,3 +31,4 @@ G:\repository\hidemaru-net\win-hidemaru-app\hm_powershell\hmPS.src\hmPSStaticLib
 G:\repository\hidemaru-net\win-hidemaru-app\hm_powershell\hmPS.src\hmPSStaticLib\obj\Release\hmPSStaticLib.csproj.CoreCompileInputs.cache
 G:\repository\hidemaru-net\win-hidemaru-app\hm_powershell\hmPS.src\hmPSStaticLib\obj\Release\hmPSStaticLib.csproj.CopyComplete
 G:\repository\hidemaru-net\win-hidemaru-app\hm_powershell\hmPS.src\hmPSStaticLib\obj\Release\hmPSStaticLib.netmodule
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_powershell\hmPS.src\hmPSStaticLib\obj\Release\hmPSStaticLib.csprojAssemblyReference.cache
