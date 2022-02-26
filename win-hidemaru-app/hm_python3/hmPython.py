@@ -1,6 +1,6 @@
 #-------------------- coding: utf-8 ---------------------------
 # hmPython3 1.9.0.1用 ライブラリ
-# Copyright (c) 2017-2021 Akitsugu Komiyama
+# Copyright (c) 2017-2022 Akitsugu Komiyama
 # under the Apache License Version 2.0
 #--------------------------------------------------------------
 
