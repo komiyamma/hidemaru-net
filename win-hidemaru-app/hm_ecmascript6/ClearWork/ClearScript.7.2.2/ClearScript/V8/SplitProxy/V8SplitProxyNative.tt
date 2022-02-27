@@ -1,0 +1,24 @@
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT license.
+
+<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ output extension=".Generated.cs" #>
+
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+
+<#
+(string, string, string)[] platforms = new[]
+{
+    ("Windows", "X86", "win-x86.dll"),
+    ("Windows", "X64", "win-x64.dll"),
+    ("Windows", "Arm64", "win-arm64.dll"),
+    ("Linux", "X64", "linux-x64.so"),
+    ("Linux", "Arm64", "linux-arm64.so"),
+    ("Linux", "Arm", "linux-arm.so"),
+    ("OSX", "X64", "osx-x64.dylib"),
+    ("OSX", "Arm64", "osx-arm64.dylib")
+};
+#>
+
+<#@ include file="V8SplitProxyNative.Common.tt" #>

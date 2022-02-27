@@ -1,0 +1,52 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+    <PropertyGroup>
+        <TargetFrameworks>netcoreapp3.1;net5.0-windows</TargetFrameworks>
+        <UseWPF>true</UseWPF>
+        <RootNamespace>Microsoft.ClearScript.Windows</RootNamespace>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+        <DefineConstants>TRACE;DEBUG</DefineConstants>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <NoWarn>CS0618;CA1416</NoWarn>
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+        <OutputPath>..\..\bin\Debug</OutputPath>
+        <DocumentationFile>..\..\bin\Debug\$(TargetFramework)\ClearScript.Windows.xml</DocumentationFile>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+        <DefineConstants>TRACE</DefineConstants>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <NoWarn>CS0618;CA1416</NoWarn>
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+        <OutputPath>..\..\bin\Release</OutputPath>
+        <DocumentationFile>..\..\bin\Release\$(TargetFramework)\ClearScript.Windows.xml</DocumentationFile>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="Exists('$(SolutionDir)ClearScript.snk')">
+        <SignAssembly>true</SignAssembly>
+        <AssemblyOriginatorKeyFile>$(SolutionDir)ClearScript.snk</AssemblyOriginatorKeyFile>
+    </PropertyGroup>
+    <PropertyGroup Condition="!Exists('$(SolutionDir)ClearScript.snk') And Exists('$(SolutionDir)ClearScript.DelaySign.snk')">
+        <SignAssembly>true</SignAssembly>
+        <AssemblyOriginatorKeyFile>$(SolutionDir)ClearScript.DelaySign.snk</AssemblyOriginatorKeyFile>
+        <DelaySign>true</DelaySign>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Compile Include="..\..\ClearScript\Properties\AssemblyInfo.Windows.cs" Link="Properties\AssemblyInfo.Windows.cs" />
+        <Compile Include="..\..\ClearScript\Windows\DispatcherSyncInvoker.cs" Link="Windows\DispatcherSyncInvoker.cs" />
+        <Compile Include="..\..\ClearScript\Windows\WindowsScriptEngine.cs" Link="Windows\WindowsScriptEngine.cs" />
+        <Compile Include="..\..\ClearScript\Windows\JScriptEngine.cs" Link="Windows\JScriptEngine.cs" />
+        <Compile Include="..\..\ClearScript\Windows\JScriptEngine.NetStandard.cs" Link="Windows\JScriptEngine.NetStandard.cs" />
+        <Compile Include="..\..\ClearScript\Windows\VBScriptEngine.cs" Link="Windows\VBScriptEngine.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\ClearScript.Core\ClearScript.Core.csproj" />
+        <ProjectReference Include="..\ClearScript.Windows.Core\ClearScript.Windows.Core.csproj" />
+    </ItemGroup>
+
+</Project>
