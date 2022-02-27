@@ -173,7 +173,7 @@ declare namespace hm {
         /**
          * ファイルマネージャ枠のモードの設定
          */
-         function SetMode(message: number): number;
+         function SetMode(mode: number): number;
  
         /**
          * ファイルマネージャ枠のモードの取得
