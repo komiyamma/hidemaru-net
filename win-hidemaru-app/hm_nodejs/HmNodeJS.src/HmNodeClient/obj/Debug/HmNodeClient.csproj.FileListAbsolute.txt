@@ -1,8 +1,0 @@
-C:\Users\0300002167\OneDrive\node\MultiIPCConnect\HmNodeController\bin\Debug\HmNodeClient.dll.config
-C:\Users\0300002167\OneDrive\node\MultiIPCConnect\HmNodeController\bin\Debug\HmNodeClient.dll
-C:\Users\0300002167\OneDrive\node\MultiIPCConnect\HmNodeController\bin\Debug\HmNodeClient.pdb
-C:\Users\0300002167\OneDrive\node\MultiIPCConnect\HmNodeController\bin\Debug\HmNodeProxy.exe
-C:\Users\0300002167\OneDrive\node\MultiIPCConnect\HmNodeController\bin\Debug\HmNodeProxy.pdb
-C:\Users\0300002167\OneDrive\node\MultiIPCConnect\HmNodeController\obj\Debug\HmNodeClient.csprojResolveAssemblyReference.cache
-C:\Users\0300002167\OneDrive\node\MultiIPCConnect\HmNodeController\obj\Debug\HmNodeClient.dll
-C:\Users\0300002167\OneDrive\node\MultiIPCConnect\HmNodeController\obj\Debug\HmNodeClient.pdb
