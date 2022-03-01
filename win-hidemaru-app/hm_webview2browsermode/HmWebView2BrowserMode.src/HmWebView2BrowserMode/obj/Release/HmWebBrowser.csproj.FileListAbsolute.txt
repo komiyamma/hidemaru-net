@@ -1,3 +1,0 @@
-c:\users\admin\documents\visual studio 2017\Projects\HmWebBrowser\HmWebBrowser\bin\Release\HmWebBrowser.dll
-c:\users\admin\documents\visual studio 2017\Projects\HmWebBrowser\HmWebBrowser\bin\Release\hm.NET.dll
-c:\users\admin\documents\visual studio 2017\Projects\HmWebBrowser\HmWebBrowser\obj\Release\HmWebBrowser.dll
