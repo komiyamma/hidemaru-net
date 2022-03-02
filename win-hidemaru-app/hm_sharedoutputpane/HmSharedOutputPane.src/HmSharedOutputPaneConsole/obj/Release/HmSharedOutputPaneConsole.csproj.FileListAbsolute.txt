@@ -1,4 +1,0 @@
-G:\repogitory\hidemaru-net\win-hidemaru-app\hm_sharedoutputpane\HmSharedOutputPane.src\HmSharedOutputPaneConsole\obj\Release\HmSharedOutputPaneConsole.csproj.CoreCompileInputs.cache
-G:\repogitory\hidemaru-net\win-hidemaru-app\hm_sharedoutputpane\HmSharedOutputPane.src\HmSharedOutputPaneConsole\bin\Release\HmSharedOutputPane.exe.config
-G:\repogitory\hidemaru-net\win-hidemaru-app\hm_sharedoutputpane\HmSharedOutputPane.src\HmSharedOutputPaneConsole\bin\Release\HmSharedOutputPane.exe
-G:\repogitory\hidemaru-net\win-hidemaru-app\hm_sharedoutputpane\HmSharedOutputPane.src\HmSharedOutputPaneConsole\obj\Release\HmSharedOutputPane.exe
