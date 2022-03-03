@@ -1,9 +1,0 @@
-LIBRARY
-EXPORTS
-	SetHidemaruHandle
-	BindAutoCompleter
-	Hook_CreateWindowExA
-	Hook_CreateWindowExW
-	Hook_DestroyWindow
-	Hook_SendMessageA
-	Hook_SendMessageW
