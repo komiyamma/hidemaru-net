@@ -1,5 +1,0 @@
-C:\usr\web\hidemaru-net\win-hidemaru-app\hm_selectedtextautohighlighter\HmSelectedTextAutoHighlighter.src\HmSelectedTextAutoHighlighter\bin\Debug\HmSelectedTextAutoHighlighter.dll
-C:\usr\web\hidemaru-net\win-hidemaru-app\hm_selectedtextautohighlighter\HmSelectedTextAutoHighlighter.src\HmSelectedTextAutoHighlighter\bin\Debug\HmSelectedTextAutoHighlighter.pdb
-C:\usr\web\hidemaru-net\win-hidemaru-app\hm_selectedtextautohighlighter\HmSelectedTextAutoHighlighter.src\HmSelectedTextAutoHighlighter\bin\Debug\hm.NET.dll
-C:\usr\web\hidemaru-net\win-hidemaru-app\hm_selectedtextautohighlighter\HmSelectedTextAutoHighlighter.src\HmSelectedTextAutoHighlighter\obj\Debug\HmSelectedTextAutoHighlighter.dll
-C:\usr\web\hidemaru-net\win-hidemaru-app\hm_selectedtextautohighlighter\HmSelectedTextAutoHighlighter.src\HmSelectedTextAutoHighlighter\obj\Debug\HmSelectedTextAutoHighlighter.pdb

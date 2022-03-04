@@ -1,0 +1,17 @@
+﻿/*
+ * Copyright (C) 2017-2019 Akitsugu Komiyama
+ * under the MIT License
+ */ 
+
+#HMNET = loaddll( hidemarudir + @"\hm.NET.dll" );
+// hm.NET.dllは自己管理型 freedllしないこと。
+
+if (#HMNET) {
+	#_ = dllfuncw(#HMNET, "SetDetachMethod", currentmacrodirectory + @"\HmSelectedTextAutoHighlighter.dll", "HmSelectedTextAutoHighlighter", "OnDetachMethod");
+
+	#r = dllfuncw(#HMNET, "CallMethod", currentmacrodirectory + @"\HmSelectedTextAutoHighlighter.dll", "HmSelectedTextAutoHighlighter", "Start");
+} else {
+    message("Hm.NET.dllを読み込むことが出来ません");
+}
+
+

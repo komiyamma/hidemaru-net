@@ -1,6 +1,0 @@
-C:\usr\web\hidemaru-net\win-hidemaru-app\hm_selectedtextautohighlighter\HmSelectedTextAutoHighlighter.src\HmSelectedTextAutoHighlighter\bin\Release\HmSelectedTextAutoHighlighter.dll
-C:\usr\web\hidemaru-net\win-hidemaru-app\hm_selectedtextautohighlighter\HmSelectedTextAutoHighlighter.src\HmSelectedTextAutoHighlighter\bin\Release\hm.NET.dll
-C:\usr\web\hidemaru-net\win-hidemaru-app\hm_selectedtextautohighlighter\HmSelectedTextAutoHighlighter.src\HmSelectedTextAutoHighlighter\obj\Release\HmSelectedTextAutoHighlighter.dll
-C:\usr\web\hidemaru-net\win-hidemaru-app\hm_selectedtextautohighlighter\HmSelectedTextAutoHighlighter.src\HmSelectedTextAutoHighlighter\obj\Release\HmSelectedTextAutoHighlighter.csproj.CoreCompileInputs.cache
-C:\usr\web\hidemaru-net\win-hidemaru-app\hm_selectedtextautohighlighter\HmSelectedTextAutoHighlighter.src\HmSelectedTextAutoHighlighter\obj\Release\HmSelectedTextAutoHighlighter.csprojAssemblyReference.cache
-C:\usr\web\hidemaru-net\win-hidemaru-app\hm_selectedtextautohighlighter\HmSelectedTextAutoHighlighter.src\HmSelectedTextAutoHighlighter\obj\Release\HmSelectedTextAutoHighlighter.csproj.CopyComplete
