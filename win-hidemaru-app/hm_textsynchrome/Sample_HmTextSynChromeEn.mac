@@ -1,1 +1,0 @@
-﻿execmacro currentmacrodirectory + @"\HmTextSynChrome.mac", "--lang=en"; 
