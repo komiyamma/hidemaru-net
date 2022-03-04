@@ -12,7 +12,7 @@ namespace HmCopyPathName
     class Program
     {
         [DllImport(@"C:\usr\hidemaru\HmSharedOutputPane.dll")]
-        private extern static void SetSharedMessage(String msg);
+        private extern static void SetSharedMessageW(String msg);
 
         [STAThread]
         static void Main(string[] args)
@@ -27,7 +27,7 @@ namespace HmCopyPathName
 
             try
             {
-                SetSharedMessage(path);
+                SetSharedMessageW(path);
             }
             catch (Exception)
             {
