@@ -1,4 +1,0 @@
-C:\usr\web\hidemaru-net\win-hidemaru-app\hm_allkill\HmAllKill.src\HmAllKill\bin\Release\HmAllKill.exe.config
-C:\usr\web\hidemaru-net\win-hidemaru-app\hm_allkill\HmAllKill.src\HmAllKill\bin\Release\HmAllKill.exe
-C:\usr\web\hidemaru-net\win-hidemaru-app\hm_allkill\HmAllKill.src\HmAllKill\obj\Release\HmAllKill.csprojResolveAssemblyReference.cache
-C:\usr\web\hidemaru-net\win-hidemaru-app\hm_allkill\HmAllKill.src\HmAllKill\obj\Release\HmAllKill.exe
