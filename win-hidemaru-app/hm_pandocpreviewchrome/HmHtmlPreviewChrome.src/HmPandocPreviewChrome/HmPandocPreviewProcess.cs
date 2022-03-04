@@ -57,12 +57,10 @@ internal partial class HmPandocPreviewChromeForm : System.Windows.Forms.Form
         if (mode == HmGFMPreviewMode.Github)
         {
             psi.Arguments = filter_option + "-f gfm " + "\"" + inputFileName + "\"" + " -s -t html5 -c " + "\"" + self_dir + "\\" + self_basename + ".css" + "\"" + " -o " + "\"" + outputFileName + "\" -s";
-
         }
         else if (mode == HmGFMPreviewMode.MathJax)
         {
             psi.Arguments = filter_option + "\"" + inputFileName + "\"" + " -s --mathjax -t html5 -c " + "\"" + self_dir + "\\" + self_basename + ".css" + "\"" + " -o " + "\"" + outputFileName + "\" -s";
-            MessageBox.Show(psi.Arguments);
         }
         else if (mode == HmGFMPreviewMode.Katex)
         {

@@ -15,3 +15,8 @@ C:\usr\web\hidemaru-net\win-hidemaru-app\hm_pandocpreviewchrome\HmHtmlPreviewChr
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_pandocpreviewchrome\HmHtmlPreviewChrome.src\HmPandocPreviewChrome\obj\Release\HmPandocPreviewChrome.csproj.CoreCompileInputs.cache
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_pandocpreviewchrome\HmHtmlPreviewChrome.src\HmPandocPreviewChrome\obj\Release\HmPandocPreviewChrome.csproj.CopyComplete
 C:\usr\web\hidemaru-net\win-hidemaru-app\hm_pandocpreviewchrome\HmHtmlPreviewChrome.src\HmPandocPreviewChrome\obj\Release\HmPandocPreviewChrome.dll
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_pandocpreviewchrome\HmHtmlPreviewChrome.src\HmPandocPreviewChrome\bin\Release\HmPandocPreviewChrome.dll
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_pandocpreviewchrome\HmHtmlPreviewChrome.src\HmPandocPreviewChrome\obj\Release\HmPandocPreviewChrome.csprojAssemblyReference.cache
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_pandocpreviewchrome\HmHtmlPreviewChrome.src\HmPandocPreviewChrome\obj\Release\HmPandocPreviewChrome.csproj.CoreCompileInputs.cache
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_pandocpreviewchrome\HmHtmlPreviewChrome.src\HmPandocPreviewChrome\obj\Release\HmPandocPreviewChrome.csproj.CopyComplete
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_pandocpreviewchrome\HmHtmlPreviewChrome.src\HmPandocPreviewChrome\obj\Release\HmPandocPreviewChrome.dll

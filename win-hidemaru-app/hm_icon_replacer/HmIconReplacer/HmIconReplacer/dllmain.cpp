@@ -42,9 +42,6 @@ BOOL APIENTRY DllMain(HMODULE hModule,
 		HICON hIcon = LoadIcon(hModule, MAKEINTRESOURCE(IDI_ICON1));
 
 		HWND hwnd = FindWindow(L"Hidemaru32Class", NULL);
-		if (!hwnd) {
-			hwnd = FindWindow(L"Hidemaru32Class_Appx", NULL); 
-		}
 		if (hwnd) {
 			//Change both icons to the same icon handle.
 			SendMessage(hwnd, WM_SETICON, ICON_SMALL, (LPARAM)hIcon);
