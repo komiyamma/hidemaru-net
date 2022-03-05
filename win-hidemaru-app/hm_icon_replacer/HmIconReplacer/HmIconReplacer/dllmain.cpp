@@ -1,8 +1,8 @@
 ﻿// dllmain.cpp : DLL アプリケーションのエントリ ポイントを定義します。
-#include "pch.h"
+#include <windows.h>
 #include "resource.h"
-#include "windows.h"
 #include <memory>
+#include <string>
 #include "dllmain.h"
 
 // 秀丸のウィンドウハンドル
@@ -64,17 +64,25 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReser
 }
 
 
-extern "C" __declspec(dllexport) BOOL ChangeNewCoolIcon()
+extern "C" __declspec(dllexport) BOOL ChangeIcon(wchar_t *icon_filepath)
 {
 	if (dllHandle) {
-		HICON hIcon = LoadIcon(dllHandle, MAKEINTRESOURCE(IDI_ICON1));
-		ChangeHidemaruIcon(hIcon);
+
+		HICON hIcon = (HICON)LoadImage(NULL, icon_filepath, IMAGE_ICON, 0, 0, LR_LOADFROMFILE);
+		/*
+		if (!hIcon) {
+			hIcon = LoadIcon(dllHandle, MAKEINTRESOURCE(IDI_ICON1));
+		}
+		*/
+		if (hIcon) {
+			ChangeHidemaruIcon(hIcon);
+		}
 	}
 
 	return TRUE;
 }
 
-extern "C" __declspec(dllexport) BOOL ChangeDefaultIcon()
+extern "C" __declspec(dllexport) BOOL ResetIcon()
 {
 	HMODULE hideHandle = GetModuleHandle(NULL);
 	HICON hIcon = LoadIcon(hideHandle, MAKEINTRESOURCE(IDI_ICON1));
