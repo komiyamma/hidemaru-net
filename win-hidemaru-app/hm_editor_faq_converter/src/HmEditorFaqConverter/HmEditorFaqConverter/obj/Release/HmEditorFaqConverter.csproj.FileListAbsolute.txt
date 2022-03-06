@@ -1,9 +1,0 @@
-C:\Users\master\source\repos\HmEditorFaqConverter\HmEditorFaqConverter\bin\Release\HmEditorFaqConverter.exe.config
-C:\Users\master\source\repos\HmEditorFaqConverter\HmEditorFaqConverter\bin\Release\HmEditorFaqConverter.exe
-C:\Users\master\source\repos\HmEditorFaqConverter\HmEditorFaqConverter\bin\Release\HmEditorFaqConverter.pdb
-C:\Users\master\source\repos\HmEditorFaqConverter\HmEditorFaqConverter\bin\Release\HtmlAgilityPack.dll
-C:\Users\master\source\repos\HmEditorFaqConverter\HmEditorFaqConverter\bin\Release\HtmlAgilityPack.pdb
-C:\Users\master\source\repos\HmEditorFaqConverter\HmEditorFaqConverter\bin\Release\HtmlAgilityPack.xml
-C:\Users\master\source\repos\HmEditorFaqConverter\HmEditorFaqConverter\obj\Release\HmEditorFaqConverter.csproj.CopyComplete
-C:\Users\master\source\repos\HmEditorFaqConverter\HmEditorFaqConverter\obj\Release\HmEditorFaqConverter.exe
-C:\Users\master\source\repos\HmEditorFaqConverter\HmEditorFaqConverter\obj\Release\HmEditorFaqConverter.pdb
