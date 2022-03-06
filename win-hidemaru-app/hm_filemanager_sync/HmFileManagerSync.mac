@@ -1,9 +1,0 @@
-﻿/*
- * This codes is licensed under CC0 1.0 Universal
- */
-
-#HEXP = loaddll( "HmExplorerPane.dll" );
-#HWND = dllfunc( #HEXP, "GetWindowHandle", hidemaruhandle(0) );
-#ret = sendmessage( #HWND, 0x111/*WM_COMMAND*/, 206, 0 ); //206 フォルダ+ファイル一覧モード
-#ret = sendmessage( #HWND, 0x111, 252, 0 ); // 今開いているファイルとフォルダ+ファイルの開いている状態を今この瞬間同期
-freedll(#HEXP);
