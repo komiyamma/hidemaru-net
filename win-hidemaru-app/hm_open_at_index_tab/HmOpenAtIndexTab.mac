@@ -2,15 +2,17 @@
  * This codes is licensed under CC0 1.0 Universal
  */
 
+#zero_code = '0';
+
 #n = 1;
 while (#n < 10) {
-    if( iskeydown(0x30+#n) ) {
+    if( iskeydown(#zero_code+#n) ) {
         break;
     }
-    #n = #n + 1;
+    #n = #n+1;
 }
 if (#n == 10) {
-    if( !iskeydown(0x30) ) {
+    if( !iskeydown(#zero_code) ) {
         #n = 0;
     }
 }
