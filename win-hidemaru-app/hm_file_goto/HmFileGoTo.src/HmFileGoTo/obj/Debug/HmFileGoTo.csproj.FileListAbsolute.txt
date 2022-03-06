@@ -1,0 +1,7 @@
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_file_goto\HmFileGoTo.src\HmFileGoTo\bin\Debug\HmFileGoTo.exe.config
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_file_goto\HmFileGoTo.src\HmFileGoTo\bin\Debug\HmFileGoTo.exe
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_file_goto\HmFileGoTo.src\HmFileGoTo\bin\Debug\HmFileGoTo.pdb
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_file_goto\HmFileGoTo.src\HmFileGoTo\obj\Debug\HmFileGoTo.csproj.AssemblyReference.cache
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_file_goto\HmFileGoTo.src\HmFileGoTo\obj\Debug\HmFileGoTo.csproj.CoreCompileInputs.cache
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_file_goto\HmFileGoTo.src\HmFileGoTo\obj\Debug\HmFileGoTo.exe
+G:\repogitory\hidemaru-net\win-hidemaru-app\hm_file_goto\HmFileGoTo.src\HmFileGoTo\obj\Debug\HmFileGoTo.pdb

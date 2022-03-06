@@ -47,8 +47,22 @@ namespace HmFileGoTo
             }
 
             string hm_fullpath = GetHideamruProgramFullPath();
-            string arguments = $"/n /en /j{lineno},{column} /m3 \"{filename}\"";
-            System.Diagnostics.Process.Start(hm_fullpath, arguments);
+
+            System.Diagnostics.FileVersionInfo vi = System.Diagnostics.FileVersionInfo.GetVersionInfo(hm_fullpath);
+
+            if (vi != null)
+            { 
+                if (vi.ProductMajorPart >= 9 && vi.ProductMinorPart >= 1 && vi.ProductBuildPart >= 2 && vi.ProductPrivatePart >= 2)
+                {
+                    string arguments = $"/n /en /jw{lineno},{column} /m3 \"{filename}\"";
+                    System.Diagnostics.Process.Start(hm_fullpath, arguments);
+                }
+                else
+                {
+                    string arguments = $"/n /en /j{lineno},{column} /m3 \"{filename}\"";
+                    System.Diagnostics.Process.Start(hm_fullpath, arguments);
+                }
+            }
         }
 
         // 秀丸のパスを得る。常駐秀丸があれば、みつかる。
@@ -72,6 +86,7 @@ namespace HmFileGoTo
 
                 // hidemaru のプロセスを取得
                 System.Diagnostics.Process[] ps = System.Diagnostics.Process.GetProcessesByName("hidemaru");
+
 
                 foreach (System.Diagnostics.Process p in ps)
                 {
