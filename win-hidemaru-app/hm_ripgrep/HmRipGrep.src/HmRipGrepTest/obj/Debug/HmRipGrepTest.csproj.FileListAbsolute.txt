@@ -1,4 +1,0 @@
-C:\usr\web\hidemaru-net\win-hidemaru-app\hm_ripgrep\HmRipGrep\HmRipGrepTest\bin\Debug\HmRipGrepTest.exe
-C:\usr\web\hidemaru-net\win-hidemaru-app\hm_ripgrep\HmRipGrep\HmRipGrepTest\bin\Debug\HmRipGrepTest.pdb
-C:\usr\web\hidemaru-net\win-hidemaru-app\hm_ripgrep\HmRipGrep\HmRipGrepTest\obj\Debug\HmRipGrepTest.exe
-C:\usr\web\hidemaru-net\win-hidemaru-app\hm_ripgrep\HmRipGrep\HmRipGrepTest\obj\Debug\HmRipGrepTest.pdb

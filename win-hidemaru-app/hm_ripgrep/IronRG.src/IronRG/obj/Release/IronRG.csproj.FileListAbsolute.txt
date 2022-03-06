@@ -1,9 +1,0 @@
-c:\users\admin\documents\visual studio 2015\Projects\IronRG\IronRG\bin\Release\IronRG.exe
-c:\users\admin\documents\visual studio 2015\Projects\IronRG\IronRG\bin\Release\IronRG.pdb
-c:\users\admin\documents\visual studio 2015\Projects\IronRG\IronRG\obj\Release\IronRG.exe
-c:\users\admin\documents\visual studio 2015\Projects\IronRG\IronRG\obj\Release\IronRG.pdb
-C:\usr\web\hidemaru-net\win-hidemaru-app\hm_ripgrep\IronRG.src\IronRG\obj\Release\IronRG.exe
-C:\usr\web\hidemaru-net\win-hidemaru-app\hm_ripgrep\IronRG.src\IronRG\obj\Release\IronRG.pdb
-C:\usr\web\hidemaru-net\win-hidemaru-app\hm_ripgrep\IronRG.src\IronRG\bin\Release\IronRG.exe
-C:\usr\web\hidemaru-net\win-hidemaru-app\hm_ripgrep\IronRG.src\IronRG\bin\Release\IronRG.pdb
-C:\usr\web\hidemaru-net\win-hidemaru-app\hm_ripgrep\IronRG.src\IronRG\obj\Release\IronRG.csprojResolveAssemblyReference.cache

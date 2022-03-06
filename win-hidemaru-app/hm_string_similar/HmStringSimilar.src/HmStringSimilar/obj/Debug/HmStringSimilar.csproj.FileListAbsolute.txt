@@ -1,5 +1,0 @@
-c:\users\admin\documents\visual studio 2017\Projects\HmStringSimilar\HmStringSimilar\bin\Debug\HmStringSimilar.pdb
-c:\users\admin\documents\visual studio 2017\Projects\HmStringSimilar\HmStringSimilar\obj\Debug\HmStringSimilar.pdb
-c:\users\admin\documents\visual studio 2017\Projects\HmStringSimilar\HmStringSimilar\bin\Debug\HmStringSimilar.exe
-c:\users\admin\documents\visual studio 2017\Projects\HmStringSimilar\HmStringSimilar\obj\Debug\HmStringSimilar.exe
-C:\Users\admin\Documents\Visual Studio 2017\Projects\HmStringSimilar\HmStringSimilar\obj\Debug\HmStringSimilar.csprojResolveAssemblyReference.cache

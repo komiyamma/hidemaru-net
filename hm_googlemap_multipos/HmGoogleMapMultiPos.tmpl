@@ -1,0 +1,521 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Googleマップで複数住所を一括表示 powered by 緑里庵</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script type="text/javascript">
+/*******************************************************************************
+名前：しるしーず
+      Copyright (C) 緑里庵 <http://www.ryokurian.jp/atelier/google/maps.html>
+説明：Googleマップで複数住所を一括表示するライブラリ
+      windowオブジェクトのプロパティにsirusiizuオブジェクトが追加される。
+版  ：1.01
+更新履歴：
+2014/06/06  markingメソッドでaddressオブジェクトの配列が渡された場合の処理を修正。
+*******************************************************************************/
+(function () {
+var sirusiizu = function () {
+    this.map = null;
+    this.callback = {};
+    this.address = [];
+}
+
+sirusiizu.prototype = {
+clear: function () {
+    for (var i = 0; i < this.address.length; i++) {
+        this.address[i].marker.setMap(null);
+        this.address[i].marker = null;
+        this.address[i].location = null;
+    }
+    this.address = [];
+},
+
+initialize: function (id) {
+    var myOptions = {
+        zoom: 5,
+        center: new google.maps.LatLng(35.6891848, 139.6916481),
+        scaleControl: true,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    this.map = new google.maps.Map(document.getElementById(id), myOptions);
+},
+
+setCenter: function (index) {
+    var map = this.map;
+    map.setCenter(this.address[index].location);
+    this.address[index].infowindow.open(map, this.address[index].marker);
+    if (map.zoom < 9) {
+        map.setZoom(9);
+    }
+},
+
+marking: function (addressList, cb) {
+    var map = this.map;
+    var maxValue = 0;
+    this.callback = cb ? cb : {};
+    this.clear();
+    if ($.isArray(addressList)) {
+        if (addressList.length > 0 && $.isPlainObject(addressList[0])) {
+            $.extend(this.address, addressList);
+            if (this.address.length === 0) return;
+            for (var i = 0; i < this.address.length; i++) {
+                //latlngオブジェクトを取得し直さないと何故かエラーになる
+                if (this.address[i].location) {
+                    this.address[i].location = new google.maps.LatLng(
+                        this.address[i].location.lat(), 
+                        this.address[i].location.lng()
+                    );
+                }
+                putMarker(map, this.address[i]);
+            }
+            fitBounds(map, this.address);
+            return;
+        }
+        addr = addressList;
+    } else {
+        addr = addressList.split("\n");
+    }
+    for (var i = 0; i < addr.length; i++) {
+        if (addr[i] != "") {
+            this.address.push({
+                index: i,
+                address: addr[i], 
+                iconURL: null, 
+                infoHTML: null,
+                title: null
+            });
+        }
+    }
+    if (this.address.length === 0) 
+        return;
+    codeAddress(map, this.address, 0, this.callback)
+    return;
+
+function putMarker(map, addr) {
+    var marker = new google.maps.Marker({
+        icon: addr.icon,
+        title: (
+            addr.title ?
+                addr.title 
+            :
+                (addr.index + 1) + ". " + addr.address
+        ),
+        map: map, 
+        position: addr.location
+    });
+    addr.marker = marker;
+    if (addr.infoHTML) {
+        var infowindow = new google.maps.InfoWindow({
+            content: addr.infoHTML
+        });
+        addr.infowindow = infowindow;
+        google.maps.event.addListener(marker, 'click', function() {
+            infowindow.open(map, marker);
+        });
+    }
+}
+function codeAddress(map, address, index, callback) {
+var geocoder;
+    if (!geocoder) {
+        geocoder = new google.maps.Geocoder();
+    }
+    if (geocoder) {
+        geocoder.geocode( { 'address': address[index].address}, function(results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                address[index].location = results[0].geometry.location;
+
+                if ("onGeocoded" in callback) {
+                    callback["onGeocoded"](index, address[index]);
+                }
+
+                if (address[index].iconURL) {
+                    address[index].icon = new google.maps.MarkerImage(address[index].iconURL);
+                } else {
+                    address[index].icon = null;
+                }
+
+                putMarker(map, address[index]);
+                index++;
+                if (index < address.length) {
+                    tryCount = 3;
+                    codeAddress(map, address, index, callback);
+                } else {
+                    if ("onGeocodeCompleted" in callback) {
+                        callback["onGeocodeCompleted"](address);
+                    }
+                    fitBounds(map, address);
+                }
+            } else {
+                if (status == "OVER_QUERY_LIMIT") {
+                    //    ３回トライして、ダメだったら次の住所に移る
+                    if (tryCount <= 0) {
+                        address[index].error = status;
+                        index++;
+                        tryCount = 3;
+                        codeAddress(map, address, index, callback);
+                    } else {
+                        setTimeout(function(){
+                            codeAddress(map, address, index, callback);
+                        }, 350);
+                        tryCount--;
+                    }
+                } else {
+                    address[index].error = status;
+                    index++;
+                    tryCount = 3;
+                    codeAddress(map, address, index, callback);
+                }
+            }
+        });
+    }
+}
+
+function fitBounds(map, address) {
+    north = 0;
+    east  = 0;
+    south = 999;
+    west  = 999;
+    for(var i = 0; i < address.length; i++) {
+        if (address[i].location) {
+            west  = Math.min(west , address[i].location.lng());
+            north = Math.max(north, address[i].location.lat());
+            east  = Math.max(east , address[i].location.lng());
+            south = Math.min(south, address[i].location.lat());
+        }
+    }
+    var northeast = new google.maps.LatLng(north, east);
+    var southwest = new google.maps.LatLng(south, west);
+    map.fitBounds(new google.maps.LatLngBounds(southwest, northeast));
+}
+}
+
+}    //end prototype
+
+window.sirusiizu = new sirusiizu();
+})();
+
+</script>
+<script type="text/javascript">
+function doMarking() {
+        changeTab("mapCanvasArea");
+        sirusiizu.marking($("#addressList").val(), {
+            onGeocoded: function(i, addr) {
+                $("#progress").css("width", Math.round((i + 1) * 100 / sirusiizu.address.length) + "%");
+                switch ($("input[name='marker']:checked").val()) {
+                    case "select":
+                        addr.iconURL = "https://raw.githubusercontent.com/googlemaps/js-v2-samples/gh-pages/markers/"
+                                     + $("input[name='markerColor']:checked").val()
+                                     + (($("input[name='markerNumber']:checked").val() === "have") && (i < 100) 
+                                         ? "/marker" + (i + 1) : "/blank") + ".png";
+                        break;
+                    case "custom":
+                        addr.iconURL = $("#markerURL").val();
+                        break;
+                    default:
+                        addr.iconURL = null;
+                }
+                addr.title = (i + 1) + ". " + addr.address;
+                addr.infoHTML = "No." + (i + 1) + "<br />" + addr.address 
+                              + "<br /><br />緯度：" + addr.location.lat().toFixed(7) 
+                              + "　経度：" + addr.location.lng().toFixed(7) + "<br /><br />";
+            },
+            onGeocodeCompleted: function(address){
+                var s="";
+                var addrArr = [];
+                $.each(address, function (i, addr) {
+                    if (addr.location) {
+                        s += addr.location.lat().toFixed(7)
+                            + "\t" + addr.location.lng().toFixed(7)
+                            + "\t<a href='javascript:changeTab(\"mapCanvasArea\");sirusiizu.setCenter(" + i + ");void(0);'>" 
+                            + addr.address + "</a><br />\n";
+
+                        addrArr.push(addr.address + "|" + addr.location.lat().toFixed(7) + "," + addr.location.lng().toFixed(7));
+                    } else {
+                        addrArr.push(addr.address);
+                    }
+                });
+                $("#locationList").html(s);
+                $("#progress").css("width", "0%");
+                //
+                if (window.Base64) {
+                    var prm = "?addr=" + Base64.encodeURI(addrArr.join(";"));
+                } else {
+                    var prm = "?addr=" + addrArr.join(";");
+                }
+                switch ($("input[name='marker']:checked").val()) {
+                    case "select":
+                        prm += "&marker=" + $("input[name='markerColor']:checked").val()
+                                          + ($("input[name='markerNumber']:checked").val() === "have" ? "1" : "");
+                        break;
+                    case "custom":
+                        prm += "&marker=" + encodeURIComponent($("#markerURL").val());
+                        break;
+                    default:
+                        prm += "&marker=standard"
+                }
+                $("#link4paste").val(location.href.match(/^[^?]+/)[0] + prm);
+                $("#getURL").show();
+            }
+        });
+    }
+
+
+$(function () {
+    window.sirusiizu.initialize("mapCanvas");
+    $("#mapArea li:first").css("backgroundColor", "white");
+
+    $("#execButton").click(doMarking);
+    $("#showDesc").click(function () {
+        if ($("#descriptionOfParam").toggle().is(":visible")) {
+            $("#showDesc").html("詳細非表示");
+        } else {
+            $("#showDesc").html("詳細表示");
+        }
+        return false;
+    });
+    $("#newWindow").click(function () {
+        var w = window.open("maps_zoom.html");
+        (function newWindowInit() {
+            if (w.sirusiizu) {
+                w.sirusiizu.initialize("mapCanvas");
+                w.sirusiizu.marking(sirusiizu.address, sirusiizu.callback);
+            } else {
+                setTimeout(newWindowInit, 100);
+            }
+        })();
+    });
+    $("#markerOptionVisible").click(function () {
+        if ($("#markerOption").toggle().is(":visible")) {
+            $("#markerOptionVisible").html("非表示");
+        } else {
+            $("#markerOptionVisible").html("表示");
+        }
+        $("#addressList").height($("#addressListOuter").offset().top + 600 - $("#addressList").offset().top);
+        return false;
+    });
+    $("input[name='markerColor']").change(function () {
+        $("#markerSelect").attr("src", "https://raw.githubusercontent.com/googlemaps/js-v2-samples/gh-pages/markers/" 
+            + $(this).val() + ($("input[name='markerNumber']:checked").val() === "have" ? "/marker1.png" : "/blank.png"));
+    });
+    $("input[name='markerNumber']").change(function () {
+        $("#markerSelect").attr("src", "https://raw.githubusercontent.com/googlemaps/js-v2-samples/gh-pages/markers/" 
+            + $("input[name='markerColor']:checked").val() + ($(this).val() === "have" ? "/marker1.png" : "/blank.png"));
+    });
+    $("#markerURL").focus(function () {
+        $("input[name='marker']").val(["custom"]);
+    }).keyup(function () {
+        $("#markerCustom").attr("src", $("#markerURL").val());
+    });
+    $("#execShorter").click(function () {
+        $.ajax({
+            type: "POST",
+            url: "https://www.googleapis.com/urlshortener/v1/url", 
+            data: '{longUrl:"' + $("#link4paste").val() + '"}', 
+            contentType: "application/json",
+            dataType: "json",
+            success: function(data, status, xhr) {
+                $("#shortURL").val(data.id);
+            },
+            error: function(xhr, status, error) {
+                alert("エラーが発生しました。\n"+error);
+            }
+        });
+    });
+
+    //パラメータあり
+    if (location.href.match(/\?([^#]+)#?/)) {
+        var addr = "";
+        var marker = "";
+        $.each(RegExp.$1.split("&"), function (i, param) {
+            if (param.substr(0,5) === "addr=") {
+                if (param.substr(5,1) === "%") {
+                    addr = decodeURIComponent(param.substr(5));
+                } else {
+                    addr = Base64.decode(param.substr(5));
+                }
+            } else if (param.substr(0,7) === "marker=") {
+                marker = decodeURIComponent(param.substr(7));
+            }
+        });
+        if (!marker) marker = "orange1";
+        if (marker.match(/^https?\:\/\//)) {
+            $("input[name='marker']").val(["custom"]);
+            $("#markerURL").val(marker);
+            $("#markerCustom").attr("src", $("#markerURL").val());
+        } else if (colorIcon = marker.match(/^(red|pink|orange|blue|green)(1)?$/)) {
+            $("input[name='marker']").val(["select"]);
+            $("input[name='markerColor']").val([colorIcon[1]]);
+            $("input[name='markerNumber']").val([colorIcon[2] ? "have" : "none"]);
+            marker = "https://raw.githubusercontent.com/googlemaps/js-v2-samples/gh-pages/markers/" 
+                   + colorIcon[1] + (colorIcon[2] ? "/" : "/blank.png");
+        } else {
+            $("input[name='marker']").val(["standard"]);
+            marker = null;
+        }
+        var addrList = [];
+        var latlng = [];
+        var s = "";
+        if (addr.indexOf("|") >= 0) {
+            $.each(addr.split(";"), function (i, value) {
+                var item = value.split("|");
+                addrList[i] = {
+                    address: item[0],
+                    index: i
+                }
+                s += item[0] + "\n";
+                if (item.length > 1) {
+                    li = item[1].split(",");
+                    if ((li.length == 2) && (!isNaN(parseFloat(li[0]))) && !isNaN(parseFloat(li[1]))) {
+                        addrList[i].location = new google.maps.LatLng(
+                            parseFloat(li[0]), 
+                            parseFloat(li[1])
+                        );
+                        addrList[i].infoHTML
+                            = "No." + (i + 1) + "<br />" + addrList[i].address 
+                            + "<br /><br />緯度：" + addrList[i].location.lat().toFixed(7) 
+                            + "　経度：" + addrList[i].location.lat().toFixed(7) + "<br /><br />";
+                    }
+                }
+                if (marker.slice(-1) === "/") {
+                    if (i < 99) {
+                        addrList[i].iconURL = marker + "marker" + (i + 1) + ".png";
+                    } else {
+                        addrList[i].iconURL = marker + "/blank.png";
+                    }
+                } else {
+                    addrList[i].iconURL = marker;
+                }
+                if (addrList[i]) {
+                    addrList[i].icon = new google.maps.MarkerImage(addrList[i].iconURL);
+                } else {
+                    addrList[i].icon = null;
+                }
+            });
+            $("#addressList").val(s);
+            sirusiizu.marking(addrList,null);
+        } else {
+            $("#addressList").val(addr.replace(/,/g, "\n"));
+            $("#execButton").trigger("click");
+        }
+    }
+
+});
+
+function changeTab(pageName) {
+    $("#mapArea > div").css("display", "none");
+    $("#progressBack").css("display", "block");
+    $("#mapArea > ul > li").css("backgroundColor", "#dddddd");
+    $("#" + pageName).css("display", "block");
+    $("#mapArea li:eq(" + ({mapCanvasArea:"0", addressListOuter:"1", locationList:"2"})[pageName]+")").css("backgroundColor", "white");
+}
+
+</script>
+
+<style>
+pre {
+    padding: 0px;
+}
+#mapArea ul{
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+#mapArea li{
+    float: left;
+    width: 80px;
+    margin: 0px;
+    padding: 10px;
+    background-color: #dddddd;
+    border: solid 1px gray;
+    cursor: pointer;
+}
+#markerOptionVisible {
+    color: blue;
+    text-decoration: underline;
+}
+#markerOptionVisible:hover {
+    color: blue;
+    background-color: transparent;
+}
+label > img {
+    margin: 5px 0px;
+    vertical-align: middle;
+}
+div.readyfor {
+    border: solid 1px black;
+    display: inline-block;//none;
+    float: right;
+    color: white;
+    background-color: green;
+    padding: 4px 0px 4px 10px;
+    line-height: 16px;
+}
+
+a.readyfor {
+    font-size: 14px;
+    font-weight: normal;
+    color: white;
+}
+</style>
+</head>
+<body>
+<div id="container" style="margin-left: auto; margin-right:auto; margin-top: 0em; width: 800px;">
+<div id="mapArea">
+    <ul><li onclick="changeTab('mapCanvasArea');">地図</li>
+        <li onclick="changeTab('addressListOuter');">住所入力</li>
+        <!--li onclick="changeTab('locationList');">緯度・経度</li-->
+    </ul>
+    <!--button id="newWindow" style="float:right;padding:10px;">地図を新しいWindowで開く</button-->
+    <br clear=all />
+    <div id="progressBack" style="width:100%;height:2px;">
+        <div id="progress" style="background-color:#88cc33;width:0%;height:100%;">
+        </div>
+    </div>
+    <div id="mapCanvasArea">
+        <div id="mapCanvas" style="width:100%; height:600px;"></div>
+        <div id="getURL" style="margin-top:5px;display:none;">
+        <!--div style="float:left;vertical-align:top;">貼り付け用リンク <textarea id="link4paste" style="width:400px;height:80px;" readonly></textarea></div><div style="float:right;"><button id="execShorter">短縮URLを作成</button><input type="text" id="shortURL" readonly /></div><div style="clear:both;"></div-->
+        </div>
+    </div>
+    <div id="addressListOuter" style="width:100%; height:600px; display:none; ">
+        <div style=" padding-top: 10px;">
+            <span>住所　<button id="execButton">表示</button>　　※住所を入力して表示ボタンを押す。</span>
+            <div id="markerArea" style="font-sizez:14px; margin: 5px 0px;">
+                <div style="margin: 0px 0px 3px 50px;">マーカー設定　<a id="markerOptionVisible" href="#">表示</a></div>
+                <div id="markerOption" style="margin-left: 50px; padding: 10px; border: solid 1px gray; display:none;">
+                    <label><input type="radio" name="marker" value="standard" />標準　<img src="http://www.google.com/mapfiles/marker.png" /></label><br />
+                    <label><input type="radio" name="marker" value="select" checked />選択　<img id="markerSelect" src="https://raw.githubusercontent.com/googlemaps/js-v2-samples/gh-pages/markers/orange/marker1.png" />
+                        <fieldset style="margin-left:20px; display:inline-block;"><legend>色</legend>
+                            <label><input type="radio" name="markerColor" value="red" />赤</label>　
+                            <label><input type="radio" name="markerColor" value="pink" />桃</label>　
+                            <label><input type="radio" name="markerColor" value="orange" checked />橙</label>　
+                            <label><input type="radio" name="markerColor" value="blue" />青</label>　
+                            <label><input type="radio" name="markerColor" value="green" />緑</label>　
+                        </fieldset>
+                        <fieldset style="margin-left:10px; display:inline-block;"><legend>数字</legend>
+                            <label><input type="radio" name="markerNumber" value="have" checked />有(1-99)</label>　
+                            <label><input type="radio" name="markerNumber" value="none" />無</label>　
+                        </fieldset>
+                    </label><br />
+                    <!--label><input type="radio" name="marker" value="custom" />指定　<img src="" id="markerCustom" />
+                    　　画像のURL <input type="text" id="markerURL" value="" style="width: 400px" /></label><br /-->
+                </div>
+            </div>
+        </div>
+        <textarea id="addressList" style="padding:5px; width:100%; height:550px;">
+%location_list%
+</textarea>
+    </div>
+</div>
+</div>
+
+<script type="text/javascript">
+// 追加。全ての読み込みデータ完了時に表示
+$(window).load(doMarking);
+</script>
+
+</body>
+</html>
