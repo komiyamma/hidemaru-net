@@ -1,6 +1,0 @@
-C:\Users\0300002167\Documents\Visual Studio 2017\Projects\HmSelctedTextAutoHighlighter\HmSelctedTextAutoHighlighter\obj\Debug\HmSelctedTextAutoHighlighter.csproj.CoreCompileInputs.cache
-C:\Users\0300002167\Documents\Visual Studio 2017\Projects\HmSelctedTextAutoHighlighter\HmSelctedTextAutoHighlighter\bin\Debug\HmSelctedTextAutoHighlighter.dll
-C:\Users\0300002167\Documents\Visual Studio 2017\Projects\HmSelctedTextAutoHighlighter\HmSelctedTextAutoHighlighter\bin\Debug\HmSelctedTextAutoHighlighter.pdb
-C:\Users\0300002167\Documents\Visual Studio 2017\Projects\HmSelctedTextAutoHighlighter\HmSelctedTextAutoHighlighter\bin\Debug\hm.NET.dll
-C:\Users\0300002167\Documents\Visual Studio 2017\Projects\HmSelctedTextAutoHighlighter\HmSelctedTextAutoHighlighter\obj\Debug\HmSelctedTextAutoHighlighter.dll
-C:\Users\0300002167\Documents\Visual Studio 2017\Projects\HmSelctedTextAutoHighlighter\HmSelctedTextAutoHighlighter\obj\Debug\HmSelctedTextAutoHighlighter.pdb
