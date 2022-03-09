@@ -45,6 +45,7 @@ public class HmSelectedTextAutoHighlighterForm : Form
             // テキストを選択していない、もしくは、テキストが長すぎる
             if (text.Length == 0 || text.Length > 100)
             {
+                // 「HmSelectedTextTmpColorMarker」としてラベル付けしているマーカーを削除
                 var ret = Hm.Macro.Exec.Eval(
                 @"
                     deletecolormarker ""HmSelectedTextTmpColorMarker"", 33001;
@@ -59,7 +60,8 @@ public class HmSelectedTextAutoHighlighterForm : Form
             }
             else
             {
-
+                // 選択中のテキストを蛍光させる。
+                // 「HmSelectedTextTmpColorMarker」としてラベル付け
                 var ret = Hm.Macro.Exec.Eval(
                 @"
                     setcompatiblemode 0x20000;
@@ -79,7 +81,7 @@ public class HmSelectedTextAutoHighlighterForm : Form
         return false;
     }
 
-    // 選択しているテキストが「安定した」という条件
+    // 選択しているテキスト内容が一定時間同じ状態(=ユーザーのカーソル操作は安定した)
     private bool IsConditionMonitoringPass(String text)
     {
 
@@ -120,14 +122,20 @@ public class HmSelectedTextAutoHighlighterForm : Form
         {
             var text = Hm.Edit.SelectedText;
 
+            // チックの度に監視バッファーへとデータを追加
             AddQueueBufferSelectedText(text);
 
+            // 選択しているテキストと、現在蛍光状態にあるテキストの内容が異なる
             if (text != strLastHighlightSelectedText)
             {
+                // 選択しているテキスト内容が一定時間同じ状態(=ユーザーのカーソル操作は安定した)
+                // (変更する度に瞬時に切り替えるのではなく、ある程度安定したら切り替えるため
                 if (IsConditionMonitoringPass(text))
                 {
+                    //秀丸のマーカー状態を更新する
                     if (TryUpdateHidemaruMarker(text))
                     {
+                        // 最後の蛍光状態の内容として記憶する
                         strLastHighlightSelectedText = text;
                     }
                 }
