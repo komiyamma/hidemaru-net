@@ -179,6 +179,8 @@ OnPrev_FileClose:
 HmExcelFileLoader:
 
     if(filetype == ".xls" || filetype == ".xlsx" ) {
+        if (filetype == ".xls") { setencode 26, 0; } // .xlsはバイナリ、.xlsxはテキスト
+
         // 閉じるので先にExcelファイルの名前をとっておく
         $$dummyXlsFileName = filename2;
         // 閉じる
@@ -274,7 +276,7 @@ HmTSIntelliSense:
 
 HmWebBrowserMode:
     if (filetype==".jpg" || filetype==".jpeg" || filetype==".bmp" || filetype==".png" || filetype==".gif" || filetype==".ico") {
-        // setencode 26, 0;
+        setencode 26, 0;
         execmacro hidemarudir + @"\HmWebBrowserMode\HmWebBrowserMode.mac";
     }
     return;
@@ -282,7 +284,7 @@ HmWebBrowserMode:
 HmChromeBrowserMode:
 
     if (filetype==".pdf") {
-        // setencode 26, 0;
+        setencode 26, 0;
         execmacro hidemarudir + @"\HmChromeBrowserMode\\HmChromeBrowserMode.mac";
     }
     return;
